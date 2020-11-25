@@ -13,6 +13,8 @@
 		964B6633256E6022006AB20E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 964B6632256E6022006AB20E /* Preview Assets.xcassets */; };
 		964B663F256E6022006AB20E /* LJMTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B663E256E6022006AB20E /* LJMTests.swift */; };
 		964B664A256E6022006AB20E /* LJMUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B6649256E6022006AB20E /* LJMUITests.swift */; };
+		964B665E256E64FD006AB20E /* StudentPictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B665D256E64FD006AB20E /* StudentPictureView.swift */; };
+		967EE8CB256E722F008065C9 /* AddImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967EE8CA256E722F008065C9 /* AddImageButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +48,8 @@
 		964B6645256E6022006AB20E /* LJMUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LJMUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		964B6649256E6022006AB20E /* LJMUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LJMUITests.swift; sourceTree = "<group>"; };
 		964B664B256E6022006AB20E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		964B665D256E64FD006AB20E /* StudentPictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentPictureView.swift; sourceTree = "<group>"; };
+		967EE8CA256E722F008065C9 /* AddImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddImageButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +100,9 @@
 		964B662A256E6020006AB20E /* LJM */ = {
 			isa = PBXGroup;
 			children = (
+				964B665C256E6270006AB20E /* BackendStuff */,
+				964B665B256E6260006AB20E /* Screens */,
+				964B665A256E6253006AB20E /* Components */,
 				964B662B256E6020006AB20E /* LJMApp.swift */,
 				964B662D256E6020006AB20E /* ContentView.swift */,
 				964B662F256E6022006AB20E /* Assets.xcassets */,
@@ -130,6 +137,37 @@
 				964B664B256E6022006AB20E /* Info.plist */,
 			);
 			path = LJMUITests;
+			sourceTree = "<group>";
+		};
+		964B665A256E6253006AB20E /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				967EE8CF256E784C008065C9 /* Sidebar */,
+				964B665D256E64FD006AB20E /* StudentPictureView.swift */,
+				967EE8CA256E722F008065C9 /* AddImageButton.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		964B665B256E6260006AB20E /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		964B665C256E6270006AB20E /* BackendStuff */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = BackendStuff;
+			sourceTree = "<group>";
+		};
+		967EE8CF256E784C008065C9 /* Sidebar */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Sidebar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,7 +300,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				964B662E256E6020006AB20E /* ContentView.swift in Sources */,
+				964B665E256E64FD006AB20E /* StudentPictureView.swift in Sources */,
 				964B662C256E6020006AB20E /* LJMApp.swift in Sources */,
+				967EE8CB256E722F008065C9 /* AddImageButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,7 +462,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"LJM/Preview Content\"";
-				DEVELOPMENT_TEAM = 98GZP44QG5;
+				DEVELOPMENT_TEAM = TJFPF3FB8U;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = LJM/Info.plist;
@@ -446,7 +486,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"LJM/Preview Content\"";
-				DEVELOPMENT_TEAM = 98GZP44QG5;
+				DEVELOPMENT_TEAM = TJFPF3FB8U;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = LJM/Info.plist;
