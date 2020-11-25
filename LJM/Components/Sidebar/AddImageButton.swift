@@ -15,10 +15,16 @@ struct AddImageButton: View {
         Button{
             print()
         }label: {
-            Image(systemName: "plus.circle.fill")
-                .resizable()
-        }.frame(width: buttonSize, height: buttonSize, alignment: .center)
-         .buttonStyle(PlainButtonStyle())
+            ZStack{
+                Circle()
+                    .foregroundColor(.white)
+                Image(systemName: "plus.circle.fill")
+                    .resizable()
+                    .foregroundColor(.gray)
+            }
+        }
+        .frame(width: buttonSize, height: buttonSize, alignment: .center)
+        .buttonStyle(PlainButtonStyle())
         
         
     }

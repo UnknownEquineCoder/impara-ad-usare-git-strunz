@@ -20,11 +20,14 @@ struct StudentPictureView: View {
                     .strokeBorder(Color.yellow, lineWidth: 10)
                     .frame(width: 500, height: 500, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                 AddImageButton(buttonSize: 100)
-                .padding([.top, .leading], 345)
+                    .padding([.top, .leading], 345)
+                
             }
-
-        }
-        .padding()
+            
+            ProfileNameLabel()
+                .padding(100)
+        }.frame(width: 1200, height: 700)
+        .padding(.trailing)
     }
 }
 

@@ -14,6 +14,8 @@
 		964B663F256E6022006AB20E /* LJMTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B663E256E6022006AB20E /* LJMTests.swift */; };
 		964B664A256E6022006AB20E /* LJMUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B6649256E6022006AB20E /* LJMUITests.swift */; };
 		964B665E256E64FD006AB20E /* StudentPictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B665D256E64FD006AB20E /* StudentPictureView.swift */; };
+		9670A966256E9FBA0043F227 /* ProfileNameLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9670A965256E9FBA0043F227 /* ProfileNameLabel.swift */; };
+		9670A96E256EAA330043F227 /* SidebarElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9670A96D256EAA330043F227 /* SidebarElements.swift */; };
 		967EE8CB256E722F008065C9 /* AddImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967EE8CA256E722F008065C9 /* AddImageButton.swift */; };
 /* End PBXBuildFile section */
 
@@ -49,6 +51,8 @@
 		964B6649256E6022006AB20E /* LJMUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LJMUITests.swift; sourceTree = "<group>"; };
 		964B664B256E6022006AB20E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		964B665D256E64FD006AB20E /* StudentPictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentPictureView.swift; sourceTree = "<group>"; };
+		9670A965256E9FBA0043F227 /* ProfileNameLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNameLabel.swift; sourceTree = "<group>"; };
+		9670A96D256EAA330043F227 /* SidebarElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarElements.swift; sourceTree = "<group>"; };
 		967EE8CA256E722F008065C9 /* AddImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddImageButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -143,8 +147,6 @@
 			isa = PBXGroup;
 			children = (
 				967EE8CF256E784C008065C9 /* Sidebar */,
-				964B665D256E64FD006AB20E /* StudentPictureView.swift */,
-				967EE8CA256E722F008065C9 /* AddImageButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -166,6 +168,10 @@
 		967EE8CF256E784C008065C9 /* Sidebar */ = {
 			isa = PBXGroup;
 			children = (
+				964B665D256E64FD006AB20E /* StudentPictureView.swift */,
+				967EE8CA256E722F008065C9 /* AddImageButton.swift */,
+				9670A965256E9FBA0043F227 /* ProfileNameLabel.swift */,
+				9670A96D256EAA330043F227 /* SidebarElements.swift */,
 			);
 			path = Sidebar;
 			sourceTree = "<group>";
@@ -300,6 +306,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				964B662E256E6020006AB20E /* ContentView.swift in Sources */,
+				9670A96E256EAA330043F227 /* SidebarElements.swift in Sources */,
+				9670A966256E9FBA0043F227 /* ProfileNameLabel.swift in Sources */,
 				964B665E256E64FD006AB20E /* StudentPictureView.swift in Sources */,
 				964B662C256E6020006AB20E /* LJMApp.swift in Sources */,
 				967EE8CB256E722F008065C9 /* AddImageButton.swift in Sources */,
