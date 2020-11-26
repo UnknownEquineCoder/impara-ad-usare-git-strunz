@@ -71,12 +71,10 @@ struct SearchBarExpandableJourney: View {
                         .frame(width: 20, height: 20, alignment: .center)
                 }).buttonStyle(PlainButtonStyle())
                 .background(Color.clear)
-                
             }
         }
         .padding(self.show ? 6 : 0)
-        .border(self.show ? Color("customCyan") : Color.clear, width: 1)
-        .cornerRadius(20)
+        .overlay(RoundedRectangle(cornerRadius: 20).stroke(lineWidth: 1).foregroundColor(Color("customCyan")))
     }
 }
 
