@@ -22,7 +22,7 @@ struct JourneyMainView: View {
             }
             
             if self.selected == "My Journey" {
-                MyJourneyView().frame(width: 1000, height: 600).border(Color.black)
+                MyJourneyView().frame(width: 1000, height: 600)
                     .background(Color.white)
             } else if self.selected == "Paths" {
                 PathsView()
