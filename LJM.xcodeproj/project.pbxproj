@@ -19,6 +19,7 @@
 		9670A976257105290043F227 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9670A975257105290043F227 /* Sidebar.swift */; };
 		9670A9812571134E0043F227 /* undefined.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9670A9802571134E0043F227 /* undefined.swift */; };
 		967EE8CB256E722F008065C9 /* AddImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967EE8CA256E722F008065C9 /* AddImageButton.swift */; };
+		96A4101E2571578500ACA0DE /* LJMProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A4101D2571578500ACA0DE /* LJMProtocol.swift */; };
 		EA686EF9256EE4F300C121DC /* TopBarJourney.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA686EF8256EE4F300C121DC /* TopBarJourney.swift */; };
 		EA686F07256EF1F100C121DC /* JourneyMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA686F06256EF1F100C121DC /* JourneyMainView.swift */; };
 		EA686F10256EF67B00C121DC /* MyJourneyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA686F0F256EF67B00C121DC /* MyJourneyView.swift */; };
@@ -66,6 +67,7 @@
 		9670A975257105290043F227 /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
 		9670A9802571134E0043F227 /* undefined.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = undefined.swift; sourceTree = "<group>"; };
 		967EE8CA256E722F008065C9 /* AddImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddImageButton.swift; sourceTree = "<group>"; };
+		96A4101D2571578500ACA0DE /* LJMProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LJMProtocol.swift; sourceTree = "<group>"; };
 		EA686EF8256EE4F300C121DC /* TopBarJourney.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarJourney.swift; sourceTree = "<group>"; };
 		EA686F06256EF1F100C121DC /* JourneyMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyMainView.swift; sourceTree = "<group>"; };
 		EA686F0F256EF67B00C121DC /* MyJourneyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyJourneyView.swift; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 				9670A965256E9FBA0043F227 /* ProfileNameLabel.swift */,
 				9670A96D256EAA330043F227 /* SidebarElements.swift */,
 				9670A975257105290043F227 /* Sidebar.swift */,
+				96A4101D2571578500ACA0DE /* LJMProtocol.swift */,
 			);
 			path = Sidebar;
 			sourceTree = "<group>";
@@ -381,6 +384,7 @@
 				964B662C256E6020006AB20E /* LJMApp.swift in Sources */,
 				9670A9812571134E0043F227 /* undefined.swift in Sources */,
 				EAD2C81A257085CA008CDDA1 /* LearningObjectiveMyJourneyView.swift in Sources */,
+				96A4101E2571578500ACA0DE /* LJMProtocol.swift in Sources */,
 				967EE8CB256E722F008065C9 /* AddImageButton.swift in Sources */,
 				EA686F18256EF69100C121DC /* PathsView.swift in Sources */,
 			);
