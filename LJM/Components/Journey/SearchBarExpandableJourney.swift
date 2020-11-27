@@ -63,17 +63,19 @@ struct SearchBarExpandableJourney: View {
                         self.show.toggle()
                     }
                 }, label: {
-                    Image(systemName: "magnifyingglass.circle")
+                    Image(systemName: "magnifyingglass")
                         .resizable()
                         .scaledToFit()
                         .foregroundColor(Color.black)
                         .background(Color.clear)
-                        .frame(width: 20, height: 20, alignment: .center)
+                        .frame(width: 15, height: 15, alignment: .center)
+                        .padding(5)
                 }).buttonStyle(PlainButtonStyle())
                 .background(Color.clear)
             }
         }
         .padding(self.show ? 6 : 0)
+        .frame(width: self.show ? 300 : 25)
         .overlay(RoundedRectangle(cornerRadius: 20).stroke(lineWidth: 1).foregroundColor(Color("customCyan")))
     }
 }

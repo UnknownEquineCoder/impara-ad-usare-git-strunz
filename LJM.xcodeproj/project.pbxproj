@@ -24,6 +24,7 @@
 		EA686F1D256EF69C00C121DC /* ChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA686F1C256EF69C00C121DC /* ChallengeView.swift */; };
 		EA686F25256EFBFA00C121DC /* SearchBarExpandableJourney.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA686F24256EFBFA00C121DC /* SearchBarExpandableJourney.swift */; };
 		EA686F2E256F25CF00C121DC /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA686F2D256F25CF00C121DC /* Extensions.swift */; };
+		EAD2C81A257085CA008CDDA1 /* LearningObjectiveMyJourneyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD2C819257085CA008CDDA1 /* LearningObjectiveMyJourneyView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,7 @@
 		EA686F1C256EF69C00C121DC /* ChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeView.swift; sourceTree = "<group>"; };
 		EA686F24256EFBFA00C121DC /* SearchBarExpandableJourney.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarExpandableJourney.swift; sourceTree = "<group>"; };
 		EA686F2D256F25CF00C121DC /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		EAD2C819257085CA008CDDA1 /* LearningObjectiveMyJourneyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningObjectiveMyJourneyView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,6 +200,7 @@
 			children = (
 				EA686EF8256EE4F300C121DC /* TopBarJourney.swift */,
 				EA686F24256EFBFA00C121DC /* SearchBarExpandableJourney.swift */,
+				EAD2C819257085CA008CDDA1 /* LearningObjectiveMyJourneyView.swift */,
 			);
 			path = Journey;
 			sourceTree = "<group>";
@@ -205,8 +208,8 @@
 		EA686F0E256EF63900C121DC /* JourneyViews */ = {
 			isa = PBXGroup;
 			children = (
+				EAD2C80F25703515008CDDA1 /* MyJourney */,
 				EA686F06256EF1F100C121DC /* JourneyMainView.swift */,
-				EA686F0F256EF67B00C121DC /* MyJourneyView.swift */,
 				EA686F17256EF69100C121DC /* PathsView.swift */,
 				EA686F1C256EF69C00C121DC /* ChallengeView.swift */,
 			);
@@ -219,6 +222,14 @@
 				EA686F2D256F25CF00C121DC /* Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		EAD2C80F25703515008CDDA1 /* MyJourney */ = {
+			isa = PBXGroup;
+			children = (
+				EA686F0F256EF67B00C121DC /* MyJourneyView.swift */,
+			);
+			path = MyJourney;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -361,6 +372,7 @@
 				EA686F2E256F25CF00C121DC /* Extensions.swift in Sources */,
 				EA686F25256EFBFA00C121DC /* SearchBarExpandableJourney.swift in Sources */,
 				964B662C256E6020006AB20E /* LJMApp.swift in Sources */,
+				EAD2C81A257085CA008CDDA1 /* LearningObjectiveMyJourneyView.swift in Sources */,
 				967EE8CB256E722F008065C9 /* AddImageButton.swift in Sources */,
 				EA686F18256EF69100C121DC /* PathsView.swift in Sources */,
 			);
