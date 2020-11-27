@@ -140,7 +140,8 @@ struct ScrollViewFilters: View {
                         }.padding(.leading, 50)
                         .padding(.trailing, 50)
                         
-                    }.onChange(of: scrollTarget) { target in
+                    }.padding(.top, 5).padding(.bottom, 5)
+                    .onChange(of: scrollTarget) { target in
                         if let target = target {
                             scrollTarget = nil
                             
@@ -150,17 +151,18 @@ struct ScrollViewFilters: View {
                         }
                     }
                 }
-                
-                Button(action: {
-                    withAnimation {
-                        scrollTarget = 10
-                    }
-                }) {
-                    Text(">")
-                        .font(.system(size: 15, weight: .semibold, design: .rounded))
-                        .foregroundColor(.black)
-                }.buttonStyle(PlainButtonStyle())
+
             }
+
+            Button(action: {
+                withAnimation {
+                    scrollTarget = 10
+                }
+            }) {
+                Text(">")
+                    .font(.system(size: 15, weight: .semibold, design: .rounded))
+                    .foregroundColor(.black)
+            }.buttonStyle(PlainButtonStyle())
         }
     }
 }
