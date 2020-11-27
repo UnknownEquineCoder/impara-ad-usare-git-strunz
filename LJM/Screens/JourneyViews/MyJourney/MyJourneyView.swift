@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MyJourneyView: View {
+struct MyJourneyView: View, LJMView {
     @State var selectedPath = "Select your path"
     @State var selectedFilter = "All"
 

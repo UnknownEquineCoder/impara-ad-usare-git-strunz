@@ -18,9 +18,10 @@ struct AddImageButton: View {
             ZStack{
                 Circle()
                     .foregroundColor(.white)
+//                    .frame(width: 50, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                 Image(systemName: "plus.circle.fill")
                     .resizable()
-                    .foregroundColor(.gray)
+                    .foregroundColor(Color(red: 89/255, green: 91/255, blue: 93/255, opacity: 1.0))
             }
         }
         .frame(width: buttonSize, height: buttonSize, alignment: .center)

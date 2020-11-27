@@ -15,23 +15,25 @@ struct Sidebar: View {
         NavigationView {
                     List {
                         
-                        StudentPictureView(size: 60)
+                        StudentPictureView(size: 130)
                             .padding(.trailing)
-                        Navigation(buttonName: "Dashboard", buttonIcon: "square")
+//                        Navigation(buttonName: "Dashboard", buttonIcon: "square")
                         
-                        Section(header: Text("Personal")) {
-                            Navigation(buttonName: "Journey", buttonIcon: "square")
-                            Navigation(buttonName: "Compass", buttonIcon: "square")
-                            Navigation(buttonName: "Notebook", buttonIcon: "square")
+                        Section(header: Text("Personal").font(.system(size: 28))
+                                    .fontWeight(.regular)) {
+                            Navigation<MyJourneyView>(buttonName: "Journey", buttonIcon: "square")
+                            Navigation<MyJourneyView>(buttonName: "Compass", buttonIcon: "square")
+                            Navigation<MyJourneyView>(buttonName: "Notebook", buttonIcon: "square")
                                    }
-                        Section(header: Text("Resume")) {
-                            Navigation(buttonName: "Portfolio", buttonIcon: "square")
-                            Navigation(buttonName: "Backpack", buttonIcon: "square")
+                        Section(header: Text("Resume").font(.system(size: 28))
+                                    .fontWeight(.regular)) {
+                            Navigation<MyJourneyView>(buttonName: "Portfolio", buttonIcon: "square")
+                            Navigation<MyJourneyView>(buttonName: "Backpack", buttonIcon: "square")
                                    }
 
                     }
                     .listStyle(SidebarListStyle())
-                    .frame(minWidth: 180, idealWidth: 200, maxWidth: .infinity)
+                    .frame(minWidth: 366)
                 }
         }
     }
