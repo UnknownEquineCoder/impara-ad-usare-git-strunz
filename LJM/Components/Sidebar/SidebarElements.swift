@@ -22,22 +22,29 @@ struct SidebarElements: View {
                     .padding(.trailing, 115)
                 
                 Text(buttonName)
-                        .font(.system(size: 15))
-                        .fontWeight(.light)
-                        .multilineTextAlignment(.leading)
-                }
+                    .font(.system(size: 15))
+                    .fontWeight(.light)
+                    .multilineTextAlignment(.leading)
+            }
             
         }
     }
     
-    struct Navigation: View{
-        var body: some View{
-            NavigationLink(destination: Text("Destination"),
-                label: {
-                    SidebarElements(buttonName: "Placeholder", buttonIcon: "square")
-                })
-        }
+    
+}
+
+struct Navigation: View{
+    var buttonName: String
+    var buttonIcon: String
+    var body: some View{
+        NavigationLink(destination: Text("Destination"),
+                       label: {
+                        SidebarElements(buttonName: buttonName, buttonIcon: buttonIcon)
+                       })
     }
+    
+    
+    
     struct SidebarElements_Previews: PreviewProvider {
         static var previews: some View {
             SidebarElements(buttonName: "Placeholder", buttonIcon: "square")

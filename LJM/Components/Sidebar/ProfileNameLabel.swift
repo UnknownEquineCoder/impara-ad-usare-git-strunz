@@ -9,15 +9,15 @@ import Foundation
 import SwiftUI
 
 struct ProfileNameLabel: View {
-    
+    var qualifiedName: String
     var body: some View {
         VStack{
-            Text("Student Name bbbbbbbbbbb")
+            Text(qualifiedName)
                 .fontWeight(.regular)
                 .foregroundColor(.white)
                 .multilineTextAlignment(.leading)
 //                .frame(width: 400, height: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                .font(.system(size: 60))
+//                .font(.system(size: 60))
 
                 .fixedSize(horizontal: false, vertical: true)
                 .lineLimit(3)
@@ -28,6 +28,6 @@ struct ProfileNameLabel: View {
 
 struct ProfileNameLabel_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileNameLabel()
+        ProfileNameLabel(qualifiedName: "Student Name")
     }
 }
