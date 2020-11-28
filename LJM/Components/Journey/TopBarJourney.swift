@@ -28,7 +28,8 @@ struct TopBarJourney: View {
                 }
             }
         }
-        .frame(width: 400, height: 50)
+        .frame(width: 400, height: 50, alignment: .leading)
+        .padding(.leading, 20)
         .background(Color.white)
     }
 }
