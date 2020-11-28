@@ -25,7 +25,7 @@ struct JourneyMainView: View, LJMView {
                 MyJourneyView().padding(20)
                     .background(Color.white)
             } else if self.selected == "Paths" {
-                PathsView()
+                PathsView().padding(20)
             } else {
                 ChallengeView()
             }
