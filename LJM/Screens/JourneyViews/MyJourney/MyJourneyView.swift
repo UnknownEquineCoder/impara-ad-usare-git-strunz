@@ -56,7 +56,7 @@ struct MyJourneyView: View, LJMView {
                         
                     }.buttonStyle(PlainButtonStyle())
                     .padding(.trailing, 20)
-                }.padding(.top, 40)
+                }.padding(.top, 20)
                 
                 ListViewLearningObjectiveMyJourney()
                 
@@ -114,14 +114,25 @@ struct DropDownSelectPathView: View {
 struct ScrollViewFilters: View {
     @State var filterTabs = ["All", "Core", "Elective", "Evaluated","All1", "Core1", "Elective1", "Evaluated1","All2", "Core2", "Elective2", "Evaluated2","All3", "Core3", "Elective3", "Evaluated3"]
     @Binding var selectedFilter : String
-    @State private var scrollTarget: Int?
+    
+    @StateObject var vm = ScrollToModel()
     
     var body: some View {
         HStack {
+            Button(action: {
+                withAnimation {
+                    vm.direction = .left
+                }
+            }) {
+                Image(systemName: "arrow.left")
+                    .font(.system(size: 15, weight: .semibold, design: .rounded))
+                    .foregroundColor(Color("customCyan"))
+            }.buttonStyle(PlainButtonStyle())            
+            
             ScrollView(.horizontal, showsIndicators: false) {
                 
                 ScrollViewReader { (proxy: ScrollViewProxy) in
-                    HStack {
+                    LazyHStack {
                         HStack(spacing: 10) {
                             ForEach(filterTabs, id: \.self) { i in
                                 
@@ -135,33 +146,34 @@ struct ScrollViewFilters: View {
                                 .frame(width: 150, height: 40)
                                 .background(self.selectedFilter == i ? Color("customCyan") : .white)
                                 .cornerRadius(12)
-                                .overlay(RoundedRectangle(cornerRadius: 16).stroke(lineWidth: 2).foregroundColor(self.selectedFilter == i ? .clear : .gray))
+                                .overlay(RoundedRectangle(cornerRadius: 12).stroke(lineWidth: 2).foregroundColor(self.selectedFilter == i ? .clear : .gray))
                             }
-                        }.padding(.leading, 50)
-                        .padding(.trailing, 50)
-                        
-                    }.padding(.top, 5).padding(.bottom, 5)
-                    .onChange(of: scrollTarget) { target in
-                        if let target = target {
-                            scrollTarget = nil
-                            
-                            withAnimation {
-                                proxy.scrollTo(target, anchor: .center)
+                        }.padding([.leading, .trailing], 10)
+                    }.onReceive(vm.$direction) { action in
+                        guard !filterTabs.isEmpty else { return }
+                        withAnimation {
+                            switch action {
+                            case .left:
+                                proxy.scrollTo(filterTabs.first!, anchor: .leading)
+                            case .right:
+                                proxy.scrollTo(filterTabs.last!, anchor: .trailing)
+                            default:
+                                return
                             }
                         }
-                    }
+                    }.frame(height: 60)
+                    .padding(.top, 5).padding(.bottom, 5)
                 }
-
             }
-
+            
             Button(action: {
                 withAnimation {
-                    scrollTarget = 10
+                    vm.direction = .right
                 }
             }) {
-                Text(">")
+                Image(systemName: "arrow.right")
                     .font(.system(size: 15, weight: .semibold, design: .rounded))
-                    .foregroundColor(.black)
+                    .foregroundColor(Color("customCyan"))
             }.buttonStyle(PlainButtonStyle())
         }
     }
@@ -170,13 +182,24 @@ struct ScrollViewFilters: View {
 struct ListViewLearningObjectiveMyJourney: View {
     
     var body: some View {
-        List {
-            LearningObjectiveMyJourneyView()
-            LearningObjectiveMyJourneyView()
-            LearningObjectiveMyJourneyView()
-            LearningObjectiveMyJourneyView()
-        }
+        
+        ScrollView(showsIndicators: false) {
+             LazyVStack {
+                ForEach (0..<5) { status in
+                    LearningObjectiveMyJourneyView()
+                        .background(Color.white)
+                 }
+             }
+         }
     }
+}
+
+class ScrollToModel: ObservableObject {
+    enum Action {
+        case left
+        case right
+    }
+    @Published var direction: Action? = nil
 }
 
 struct MyJourneyView_Previews: PreviewProvider {

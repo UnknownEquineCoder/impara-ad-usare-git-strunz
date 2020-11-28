@@ -8,28 +8,28 @@
 import Foundation
 import SwiftUI
 
-struct JourneyMainView: View {
+struct JourneyMainView: View, LJMView {
     @State var selected = "My Journey"
     
     var body: some View {
-        VStack(spacing: 22) {
+        VStack(spacing: 10) {
             HStack {
-                TopBarJourney(selected: self.$selected)
+                TopBarJourney(selected: self.$selected).padding(.top, 20)
                 
                 Spacer()
                 
-                SearchBarExpandableJourney().background(Color.white)
+                SearchBarExpandableJourney().background(Color.white).padding(.trailing, 20)
             }
             
             if self.selected == "My Journey" {
-                MyJourneyView().frame(width: 1000, height: 600)
+                MyJourneyView().padding(20)
                     .background(Color.white)
             } else if self.selected == "Paths" {
                 PathsView()
             } else {
                 ChallengeView()
             }
-        }
+        }.background(Color.white)
     }
 }
 

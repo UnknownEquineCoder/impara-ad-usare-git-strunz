@@ -9,12 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        JourneyMainView()
-            .frame(width: 1000, height: 600)
-            .padding(50)
-            .background(Color.white)
-        
-        Spacer()
+        Sidebar()
     }
 }
 

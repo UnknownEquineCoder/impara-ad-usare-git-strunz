@@ -21,14 +21,14 @@ struct Sidebar: View {
                         
                         Section(header: Text("Personal").font(.system(size: 28))
                                     .fontWeight(.regular)) {
-                            Navigation<MyJourneyView>(buttonName: "Journey", buttonIcon: "square")
-                            Navigation<MyJourneyView>(buttonName: "Compass", buttonIcon: "square")
-                            Navigation<MyJourneyView>(buttonName: "Notebook", buttonIcon: "square")
+                            Navigation<JourneyMainView>(buttonName: "Journey", buttonIcon: "square")
+                            Navigation<JourneyMainView>(buttonName: "Compass", buttonIcon: "square")
+                            Navigation<JourneyMainView>(buttonName: "Notebook", buttonIcon: "square")
                                    }
                         Section(header: Text("Resume").font(.system(size: 28))
                                     .fontWeight(.regular)) {
-                            Navigation<MyJourneyView>(buttonName: "Portfolio", buttonIcon: "square")
-                            Navigation<MyJourneyView>(buttonName: "Backpack", buttonIcon: "square")
+                            Navigation<JourneyMainView>(buttonName: "Portfolio", buttonIcon: "square")
+                            Navigation<JourneyMainView>(buttonName: "Backpack", buttonIcon: "square")
                                    }
 
                     }

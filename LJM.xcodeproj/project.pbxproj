@@ -217,8 +217,8 @@
 		EA686F0E256EF63900C121DC /* JourneyViews */ = {
 			isa = PBXGroup;
 			children = (
-				EAD2C80F25703515008CDDA1 /* MyJourney */,
 				EA686F06256EF1F100C121DC /* JourneyMainView.swift */,
+				EAD2C80F25703515008CDDA1 /* MyJourney */,
 				EA686F17256EF69100C121DC /* PathsView.swift */,
 				EA686F1C256EF69C00C121DC /* ChallengeView.swift */,
 			);
