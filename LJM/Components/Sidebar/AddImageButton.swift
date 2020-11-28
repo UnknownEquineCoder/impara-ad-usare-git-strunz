@@ -22,7 +22,9 @@ struct AddImageButton: View {
                 Image(systemName: "plus.circle.fill")
                     .resizable()
                     .foregroundColor(Color(red: 89/255, green: 91/255, blue: 93/255, opacity: 1.0))
+                
             }
+            .shadow(color: Color.black.opacity(0.36), radius: 5, x: 0, y: 5)
         }
         .frame(width: buttonSize, height: buttonSize, alignment: .center)
         .buttonStyle(PlainButtonStyle())

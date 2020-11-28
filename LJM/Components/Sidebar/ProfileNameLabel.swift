@@ -14,6 +14,7 @@ struct ProfileNameLabel: View {
         VStack{
             Text(qualifiedName)
                 .fontWeight(.regular)
+                .font(.system(size: 28))
                 .foregroundColor(.white)
                 .multilineTextAlignment(.leading)
 //                .frame(width: 400, height: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
