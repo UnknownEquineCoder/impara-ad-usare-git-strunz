@@ -24,7 +24,8 @@ struct Sidebar: View {
                     Section(header: Text("Personal").font(.system(size: 28))
                                 .fontWeight(.regular)) {
                         
-//                        Navigation<JourneyMainView>(buttonName: "Journey", buttonIcon: "square").onTapGesture {
+                        Navigation<JourneyMainView>(buttonName: "Journey", buttonIcon: "square")
+//                            .onTapGesture {
 //                            self.selectedSection = section
 //                        }.listRowBackground(self.selectedSection == section ? Color.red : Color(UIColor.systemGroupedBackground))
                         Navigation<JourneyMainView>(buttonName: "Compass", buttonIcon: "square")
