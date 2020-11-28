@@ -39,6 +39,7 @@ struct PathsView: View, LJMView {
                         .padding(.top, 18)
                 ScrollViewFiltersMap(selectedFilter: $selectedFilter).padding(.top, 20)
                     .font(.system(size: 15, weight: .medium, design: .rounded))
+                    .padding(.leading, 10)
                 }
                 
                 HStack{
@@ -83,7 +84,7 @@ struct PathsView: View, LJMView {
 }
 
 struct ScrollViewFiltersPaths: View {
-    @State var filterTabs = ["Front-end", "Back-end","Business", "UI/UX", "Game"]
+    @State var filterTabs = ["FRONT-END", "BACK-END","BUSINESS", "UI/UX", "GAME"]
     @Binding var selectedFilter : String
     
     @StateObject var vm = ScrollToModel()
@@ -101,8 +102,8 @@ struct ScrollViewFiltersPaths: View {
                                 Button(action: {
                                     self.selectedFilter = i
                                 }) {
-                                    Text(i.capitalized)
-                                        .font(.system(size: 15, weight: .semibold, design: .rounded))
+                                    Text(i)
+                                        .font(.system(size: 13, weight: .semibold, design: .rounded))
                                         .foregroundColor(self.selectedFilter == i ? .white : .gray)
                                 }.buttonStyle(PlainButtonStyle())
                                 .frame(width: 150, height: 40)
@@ -133,7 +134,7 @@ struct ScrollViewFiltersPaths: View {
 }
 
 struct ScrollViewFiltersMap: View {
-    @State var filterTabs = ["Full Map", "Communal"]
+    @State var filterTabs = ["FULL MAP", "COMMUNAL"]
     @Binding var selectedFilter : String
     
     @StateObject var vm = ScrollToModel()
@@ -151,8 +152,8 @@ struct ScrollViewFiltersMap: View {
                                 Button(action: {
                                     self.selectedFilter = i
                                 }) {
-                                    Text(i.capitalized)
-                                        .font(.system(size: 15, weight: .semibold, design: .rounded))
+                                    Text(i)
+                                        .font(.system(size: 13, weight: .semibold, design: .rounded))
                                         .foregroundColor(self.selectedFilter == i ? .white : .gray)
                                 }.buttonStyle(PlainButtonStyle())
                                 .frame(width: 150, height: 40)
