@@ -13,28 +13,32 @@ struct MyJourneyView: View, LJMView {
     
     var body: some View {
         VStack {
-            VStack {
-                HStack {
+            VStack( spacing: 0) {
+                ZStack(alignment: .top) {
                     Text("My Journey")
                         .font(.largeTitle)
                         .fontWeight(.medium)
                         .foregroundColor(Color.black)
-                        .frame(alignment: .topLeading)
-                        .overlay(DropDownSelectPathView(selectedPath: $selectedPath).padding(.top, 5).padding(.leading, 350))
-                    Spacer()
-                }
-                
-                VStack(alignment: .leading) {
-                    Text("EXEMPLE EXEMPLEEXEMPLE EXEMPLEEXEMPLE EXEMPLEEXEMPLE EXEMPLEEXEMPLE EXEMPLEEXEMPLE EXEMPLEEXEMPLE EXEMPLEEXEMPLE EXEMPLEEXEMPLE EXEMPLEEXEMPLE EXEMPLE")
-                        .foregroundColor(Color.gray)
-                        .padding(.top, 20)
-                        .padding(.trailing, 90)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                    DropDownSelectPathView(selectedPath: $selectedPath)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.leading, 150)
+                        .zIndex(1)
                     
-                    Rectangle().frame(height: 1).foregroundColor(Color.gray)
-                }
-                
-                ScrollViewFilters(selectedFilter: $selectedFilter).padding(.top, 20)
-                
+                    VStack(alignment: .leading) {
+                        Text("EXEMPLE EXEMPLEEXEMPLE EXEMPLEEXEMPLE EXEMPLEEXEMPLE EXEMPLEEXEMPLE EXEMPLEEXEMPLE EXEMPLEEXEMPLE EXEMPLEEXEMPLE EXEMPLEEXEMPLE EXEMPLEEXEMPLE EXEMPLE")
+                            .foregroundColor(Color.gray)
+                            .padding(.top, 20)
+                            .padding(.trailing, 90)
+                        
+                        Rectangle().frame(height: 1).foregroundColor(Color.gray)
+                    }.padding(.top, 50)
+                                        
+                    ScrollViewFilters(selectedFilter: $selectedFilter).padding(.top, 20).padding(.top, 130)
+                    
+                }.frame(maxWidth: .infinity)
+                                
                 HStack {
                     
                     Text("Number of objectives :")
@@ -52,15 +56,18 @@ struct MyJourneyView: View, LJMView {
                             .font(.system(size: 15, weight: .medium, design: .rounded))
                             .foregroundColor(Color("customCyan"))
                             .frame(width: 130, height: 30, alignment: .center)
+                            .background(Color.white)
                             .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color("customCyan")))
                         
                     }.buttonStyle(PlainButtonStyle())
                     .padding(.trailing, 20)
                 }.padding(.top, 20)
                 
-                ListViewLearningObjectiveMyJourney()
                 
                 Spacer()
+                
+                ListViewLearningObjectiveMyJourney()
+                
             }
         }
     }
@@ -72,12 +79,14 @@ struct DropDownSelectPathView: View {
     @Binding var selectedPath : String
     
     var body: some View {
-        VStack(spacing: 15) {
+        VStack {
             HStack {
                 Text(self.selectedPath)
+                    .frame(width: 150, height: 30, alignment: .center)
                     .foregroundColor(Color.gray)
                     .font(.system(size: 15, weight: .semibold, design: .rounded))
                     .padding(.leading, 10)
+                    .background(Color.white)
                 Image(systemName: expand ? "chevron.up.circle" : "chevron.down.circle")
                     .resizable()
                     .frame(width: 18, height: 18)
@@ -98,16 +107,21 @@ struct DropDownSelectPathView: View {
                             Text(i)
                                 .font(.system(size: 15, weight: .semibold, design: .rounded))
                                 .foregroundColor(self.selectedPath == i ? .black : .gray)
+                                .frame(width: 150, height: 30)
+                                .background(Color.white)
+                            
                         }.buttonStyle(PlainButtonStyle())
                     }
                 }
             }
         }
-        .frame(width: 200, height: expand ? 175 : 40, alignment: .leading)
+        .frame(height: expand ? 175 : 30, alignment: .top)
         .padding(5)
         .cornerRadius(20)
         .animation(.spring())
         .background(Color.white)
+        .border(expand ? Color.black : Color.white)
+        
     }
 }
 
@@ -142,6 +156,8 @@ struct ScrollViewFilters: View {
                                     Text(i.capitalized)
                                         .font(.system(size: 15, weight: .semibold, design: .rounded))
                                         .foregroundColor(self.selectedFilter == i ? .white : .gray)
+                                        .frame(width: 150, height: 40)
+                                        .background(self.selectedFilter == i ? Color("customCyan") : .white)
                                 }.buttonStyle(PlainButtonStyle())
                                 .frame(width: 150, height: 40)
                                 .background(self.selectedFilter == i ? Color("customCyan") : .white)
@@ -184,13 +200,13 @@ struct ListViewLearningObjectiveMyJourney: View {
     var body: some View {
         
         ScrollView(showsIndicators: false) {
-             LazyVStack {
+            LazyVStack {
                 ForEach (0..<5) { status in
                     LearningObjectiveMyJourneyView()
                         .background(Color.white)
-                 }
-             }
-         }
+                }
+            }
+        }
     }
 }
 
