@@ -10,8 +10,8 @@ import SwiftUI
 
 
 struct Sidebar: View {
-//    @State private var sections = ["Dashboard", "Journey", "Notebook", "Portfolio", "Backpack"]
-//    @State private var selectedSection: String?
+    @State private var sections = ["Dashboard", "Journey", "Notebook", "Portfolio", "Backpack"]
+    @State private var selectedSection: String?
     
     var body: some View {
         NavigationView {
