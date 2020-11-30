@@ -13,20 +13,31 @@ struct RatingView: View {
     var maximumRating = 5
     
     var body: some View {
-        HStack {
-            
-            ForEach(1..<maximumRating + 1) { number in
+        VStack {
+            HStack {
+                ForEach(1..<maximumRating + 1) { number in
                     Button {
                         self.rating = number
                     } label: {
                         Circle()
                             .strokeBorder(Color("customCyan"), lineWidth: 2)
-                                        .background(Circle().foregroundColor(number > rating ? Color("customGrey") : Color("customCyan")))
+                            .background(Circle().foregroundColor(number > rating ? Color("customGrey") : Color("customCyan")))
                     }
                     .frame(width: 35, height: 35, alignment: .center)
                     .buttonStyle(PlainButtonStyle())
-            }
-        }.padding(.trailing, 50)
+                }
+            }.padding(.trailing, 50)
+            
+            Image(systemName: "arrowtriangle.up")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 15, height: 15, alignment: .center)
+                .foregroundColor(Color("customCyan"))
+                .padding(.trailing, 50)
+                
+            
+            // TODO: change to  draw triangle instead of image
+        }.padding(.top, 20)
     }
 }
 

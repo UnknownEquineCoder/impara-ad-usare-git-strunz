@@ -11,6 +11,11 @@ struct MyJourneyView: View, LJMView {
     @State var selectedPath = "Select your path"
     @State var selectedFilter = "All"
     
+    @State private var showTest = true
+    
+    
+    var paths = ["Design" : Color("customCyan"), "Frontend": Color.orange, "Backend": Color.yellow, "Business": Color.purple]
+    
     var body: some View {
         VStack {
             VStack( spacing: 0) {
@@ -20,31 +25,46 @@ struct MyJourneyView: View, LJMView {
                         .fontWeight(.medium)
                         .foregroundColor(Color.black)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        
-                    DropDownSelectPathView(selectedPath: $selectedPath)
+                    
+                    DropDownSelectPathView(dictPaths: self.paths, selectedPath: $selectedPath)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.leading, 150)
                         .zIndex(1)
                     
                     VStack(alignment: .leading) {
-                        Text("EXEMPLE EXEMPLEEXEMPLE EXEMPLEEXEMPLE EXEMPLEEXEMPLE EXEMPLEEXEMPLE EXEMPLEEXEMPLE EXEMPLEEXEMPLE EXEMPLEEXEMPLE EXEMPLEEXEMPLE EXEMPLEEXEMPLE EXEMPLE")
+                        Text("Here you will find your Learning Objectives you choose to work on, that will help you build your own path. Based on the path you choose, the arrows will indicate the recommanded level to reach.")
                             .foregroundColor(Color.gray)
                             .padding(.top, 20)
                             .padding(.trailing, 90)
                         
                         Rectangle().frame(height: 1).foregroundColor(Color.gray)
                     }.padding(.top, 50)
-                                        
+                    
                     ScrollViewFilters(selectedFilter: $selectedFilter).padding(.top, 20).padding(.top, 130)
                     
                 }.frame(maxWidth: .infinity)
-                                
+                
                 HStack {
                     
                     Text("Number of objectives :")
                         .foregroundColor(Color.gray)
                         .font(.system(size: 15, weight: .medium, design: .rounded))
                         .padding(.leading, 20)
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        self.showTest.toggle()
+                    }) {
+                        Text("Clean objectives")
+                            .padding()
+                            .font(.system(size: 15, weight: .medium, design: .rounded))         // TEST BUTTON EMPTY OBJECTIVES
+                            .foregroundColor(Color("customCyan"))
+                            .frame(width: 200, height: 30, alignment: .center)
+                            .background(Color.white)
+                            .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color("customCyan")))
+                        
+                    }.buttonStyle(PlainButtonStyle())
                     
                     Spacer()
                     
@@ -63,10 +83,9 @@ struct MyJourneyView: View, LJMView {
                     .padding(.trailing, 20)
                 }.padding(.top, 20)
                 
-                
                 Spacer()
                 
-                ListViewLearningObjectiveMyJourney()
+                ListViewLearningObjectiveMyJourney(show: self.$showTest)
                 
             }
         }
@@ -75,15 +94,20 @@ struct MyJourneyView: View, LJMView {
 
 struct DropDownSelectPathView: View {
     @State var expand = false
-    @State var paths = ["Design", "Frontend", "Backend", "Business"]
+    @State var dictPaths = [String: Color]()
     @Binding var selectedPath : String
+    @State var colorSelectedPath = Color.gray
     
     var body: some View {
+        
+        let keys = dictPaths.map{$0.key}
+        let values = dictPaths.map{$0.value}
+        
         VStack {
             HStack {
                 Text(self.selectedPath)
                     .frame(width: 150, height: 30, alignment: .center)
-                    .foregroundColor(Color.gray)
+                    .foregroundColor(colorSelectedPath)
                     .font(.system(size: 15, weight: .semibold, design: .rounded))
                     .padding(.leading, 10)
                     .background(Color.white)
@@ -94,22 +118,23 @@ struct DropDownSelectPathView: View {
                 
             }.onTapGesture {
                 self.selectedPath = "Select your path"
+                self.colorSelectedPath = Color.gray
                 self.expand.toggle()
             }
             
             if expand {
-                ForEach(paths, id: \.self) { i in
+                ForEach(keys.indices, id: \.self) { i in
                     VStack {
                         Button(action: {
-                            self.selectedPath = i
+                            self.selectedPath = keys[i]
+                            self.colorSelectedPath = values[i]
                             self.expand.toggle()
                         }) {
-                            Text(i)
+                            Text(keys[i])
                                 .font(.system(size: 15, weight: .semibold, design: .rounded))
-                                .foregroundColor(self.selectedPath == i ? .black : .gray)
+                                .foregroundColor(self.selectedPath == keys[i] ? .black : .gray)
                                 .frame(width: 150, height: 30)
                                 .background(Color.white)
-                            
                         }.buttonStyle(PlainButtonStyle())
                     }
                 }
@@ -121,12 +146,11 @@ struct DropDownSelectPathView: View {
         .animation(.spring())
         .background(Color.white)
         .border(expand ? Color.black : Color.white)
-        
     }
 }
 
 struct ScrollViewFilters: View {
-    @State var filterTabs = ["All", "Core", "Elective", "Evaluated","All1", "Core1", "Elective1", "Evaluated1","All2", "Core2", "Elective2", "Evaluated2","All3", "Core3", "Elective3", "Evaluated3"]
+    @State var filterTabs = ["All", "Core", "Elective", "Evaluated"]
     @Binding var selectedFilter : String
     
     @StateObject var vm = ScrollToModel()
@@ -141,7 +165,8 @@ struct ScrollViewFilters: View {
                 Image(systemName: "arrow.left")
                     .font(.system(size: 15, weight: .semibold, design: .rounded))
                     .foregroundColor(Color("customCyan"))
-            }.buttonStyle(PlainButtonStyle())            
+            }.buttonStyle(PlainButtonStyle())
+            .opacity(filterTabs.count > 8 ? 1 : 0)
             
             ScrollView(.horizontal, showsIndicators: false) {
                 
@@ -180,7 +205,7 @@ struct ScrollViewFilters: View {
                     }.frame(height: 60)
                     .padding(.top, 5).padding(.bottom, 5)
                 }
-            }
+            }.offset(x: filterTabs.count < 8 ? -35 : 0)
             
             Button(action: {
                 withAnimation {
@@ -191,19 +216,57 @@ struct ScrollViewFilters: View {
                     .font(.system(size: 15, weight: .semibold, design: .rounded))
                     .foregroundColor(Color("customCyan"))
             }.buttonStyle(PlainButtonStyle())
+            .opacity(filterTabs.count > 8 ? 1 : 0)
         }
     }
 }
 
 struct ListViewLearningObjectiveMyJourney: View {
     
+    @Binding var show: Bool
+    let addObjText = "Add a learning objective"
+    
     var body: some View {
         
-        ScrollView(showsIndicators: false) {
-            LazyVStack {
-                ForEach (0..<5) { status in
-                    LearningObjectiveMyJourneyView()
-                        .background(Color.white)
+        if show {
+            ScrollView(showsIndicators: false) {
+                LazyVStack {
+                    ForEach (0..<5) { status in
+                        LearningObjectiveMyJourneyView()
+                            .background(Color.white)
+                    }
+                }
+            }
+        } else {
+            ZStack {
+                Image("placeholder")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .trailing)
+                
+                VStack {
+                    Text("The Learning Objective is half the journey !")
+                        .font(.system(size: 45, weight: .semibold, design: .rounded))
+                        .foregroundColor(Color.black)
+                    
+                    Text("Tap the button to add the first one.")
+                        .font(.system(size: 25, weight: .semibold, design: .rounded))
+                        .foregroundColor(Color.gray)
+                        .padding(.top, 20)
+                    
+                    Button(action: {
+                        
+                    }) {
+                        Text(addObjText.uppercased())
+                            .padding()
+                            .font(.system(size: 13, weight: .medium, design: .rounded))
+                            .foregroundColor(Color("customCyan"))
+                            .frame(width: 250, height: 50, alignment: .center)
+                            .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color("customCyan")))
+                            .background(Color.white)
+
+                    }.buttonStyle(PlainButtonStyle())
+                    .padding(.top, 20)
                 }
             }
         }
