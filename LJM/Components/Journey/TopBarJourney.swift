@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct TopBarJourney: View {
-    @State var tabs = ["My Journey", "Paths", "Challenge"]
+    @State var tabs = ["My Journey", "Map", "Challenge"]
     @Binding var selected : String
     
     var body: some View {

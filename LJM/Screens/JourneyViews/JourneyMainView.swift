@@ -19,7 +19,7 @@ struct JourneyMainView: View, LJMView {
             if self.selected == "My Journey" {
                 MyJourneyView().padding(.top, 80).padding(20).padding(.trailing, showSearchBarSideBar ? 0 : 320)
                     .background(Color.white)
-            } else if self.selected == "Paths" {
+            } else if self.selected == "Map" {
                 PathsView().padding(.top, 80).padding(20).padding(.trailing, showSearchBarSideBar ? 0 : 320)
             } else {
                 ChallengeView().padding(.top, 80).padding(.trailing, showSearchBarSideBar ? 0 : 320)
