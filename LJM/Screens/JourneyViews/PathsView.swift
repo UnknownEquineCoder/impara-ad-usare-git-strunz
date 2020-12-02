@@ -70,14 +70,14 @@ struct PathsView: View, LJMView {
                                 .resizable()
                                 .foregroundColor(Color("customCyan"))
                                 .frame(width: 10, height: 5, alignment: .center)
-                                .padding(10)
+//                                .padding()
                             Text("Filters")
                                 .padding()
                                 .font(.system(size: 15, weight: .medium, design: .rounded))
                                 .foregroundColor(Color("customCyan"))
-                                .frame(width: 130, height: 30, alignment: .center)
-                                .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color("customCyan")))
-                        }
+                                
+                        }.frame(width: 130, height: 30, alignment: .center)
+                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color("customCyan")))
                     }.buttonStyle(PlainButtonStyle())
                     .padding(.trailing, 20)
                 }.padding(.top, 20)
@@ -87,8 +87,8 @@ struct PathsView: View, LJMView {
                 Spacer()
             }
         }
-    }
     
+    }
 }
 
 struct ScrollViewFiltersPaths: View {

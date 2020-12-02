@@ -16,7 +16,7 @@ struct Sidebar: View {
     var body: some View {
         NavigationView {
             List {
-//                ForEach(sections, id: \.self) { section in{
+
                     StudentPictureView(size: 130)
                         .padding(.trailing)
                     //                        Navigation(buttonName: "Dashboard", buttonIcon: "square")
@@ -25,9 +25,7 @@ struct Sidebar: View {
                                 .fontWeight(.regular)) {
                         
                         Navigation<JourneyMainView>(buttonName: "Journey", buttonIcon: "square")
-//                            .onTapGesture {
-//                            self.selectedSection = section
-//                        }.listRowBackground(self.selectedSection == section ? Color.red : Color(UIColor.systemGroupedBackground))
+
                         Navigation<JourneyMainView>(buttonName: "Compass", buttonIcon: "square")
                         Navigation<JourneyMainView>(buttonName: "Notebook", buttonIcon: "square")
                     }
@@ -38,13 +36,12 @@ struct Sidebar: View {
                         Navigation<JourneyMainView>(buttonName: "Backpack", buttonIcon: "square")
                     }
                     
-//                }
+
                 }
                 .background(Color("Sidebar Color"))
                 .listStyle(SidebarListStyle())
-                .frame(minWidth: 366)
-                
-                
+                .frame(width: 366.toScreenSize())
+ 
             }
         }
         
@@ -55,16 +52,4 @@ struct Sidebar: View {
             Sidebar()
         }
     }
-
-//struct MyButtonStyle: ButtonStyle {
-//
-//    func makeBody(configuration: Self.Configuration) -> some View {
-//        configuration.label
-//            .padding()
-//            .foregroundColor(.white)
-//            .background(configuration.isPressed ? Color.red : Color.blue)
-//            .cornerRadius(8.0)
-//    }
-//
-//}
 
