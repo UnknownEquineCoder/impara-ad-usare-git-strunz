@@ -13,7 +13,6 @@ struct MyJourneyView: View, LJMView {
     
     @State private var showTest = true
     
-    
     var paths = ["Design" : Color("customCyan"), "Frontend": Color.orange, "Backend": Color.yellow, "Business": Color.purple]
     
     var body: some View {

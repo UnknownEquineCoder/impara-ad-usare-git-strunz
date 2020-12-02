@@ -10,6 +10,7 @@ import SwiftUI
 struct SearchBarExpandableJourney: View {
     
     @State var show = false
+    @Binding var showSearchBarSideBar: Bool
     @State var txt = ""
     
     var body: some View {
@@ -19,9 +20,9 @@ struct SearchBarExpandableJourney: View {
                 Image(systemName: "magnifyingglass")
                     .resizable()
                     .scaledToFit()
+                    .frame(width: 17, height: 17, alignment: .center)
                     .foregroundColor(Color.black)
                     .background(Color.clear)
-                    .frame(width: 17, height: 17, alignment: .center)
                 
                 VStack {
                     ZStack {
@@ -49,6 +50,7 @@ struct SearchBarExpandableJourney: View {
                 Button(action: {
                     withAnimation {
                         self.show.toggle()
+                        self.showSearchBarSideBar.toggle()
                     }
                 }, label: {
                     Image(systemName: "xmark.circle.fill")
@@ -61,14 +63,15 @@ struct SearchBarExpandableJourney: View {
                 Button(action: {
                     withAnimation {
                         self.show.toggle()
+                        self.showSearchBarSideBar.toggle()
                     }
                 }, label: {
                     Image(systemName: "magnifyingglass")
                         .resizable()
                         .scaledToFit()
+                        .frame(width: 15, height: 15, alignment: .center)
                         .foregroundColor(Color.black)
                         .background(Color.clear)
-                        .frame(width: 15, height: 15, alignment: .center)
                         .padding(5)
                 }).buttonStyle(PlainButtonStyle())
                 .background(Color.clear)
@@ -83,6 +86,6 @@ struct SearchBarExpandableJourney: View {
 
 struct SearchBarExpandableJourney_Previews: PreviewProvider {
     static var previews: some View {
-        SearchBarExpandableJourney()
+        SearchBarExpandableJourney(showSearchBarSideBar: .constant(true))
     }
 }

@@ -30,6 +30,7 @@
 		EA686F25256EFBFA00C121DC /* SearchBarExpandableJourney.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA686F24256EFBFA00C121DC /* SearchBarExpandableJourney.swift */; };
 		EA686F2E256F25CF00C121DC /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA686F2D256F25CF00C121DC /* Extensions.swift */; };
 		EA7028902572FDD300E1B6EB /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA70288F2572FDD300E1B6EB /* RatingView.swift */; };
+		EA70289A25771D9300E1B6EB /* SearchBarSideBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA70289925771D9300E1B6EB /* SearchBarSideBar.swift */; };
 		EAD2C81A257085CA008CDDA1 /* LearningObjectiveMyJourneyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD2C819257085CA008CDDA1 /* LearningObjectiveMyJourneyView.swift */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +82,7 @@
 		EA686F24256EFBFA00C121DC /* SearchBarExpandableJourney.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarExpandableJourney.swift; sourceTree = "<group>"; };
 		EA686F2D256F25CF00C121DC /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		EA70288F2572FDD300E1B6EB /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
+		EA70289925771D9300E1B6EB /* SearchBarSideBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarSideBar.swift; sourceTree = "<group>"; };
 		EAD2C819257085CA008CDDA1 /* LearningObjectiveMyJourneyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningObjectiveMyJourneyView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -227,6 +229,7 @@
 				EA686F24256EFBFA00C121DC /* SearchBarExpandableJourney.swift */,
 				EAD2C819257085CA008CDDA1 /* LearningObjectiveMyJourneyView.swift */,
 				EA70288F2572FDD300E1B6EB /* RatingView.swift */,
+				EA70289925771D9300E1B6EB /* SearchBarSideBar.swift */,
 			);
 			path = Journey;
 			sourceTree = "<group>";
@@ -389,6 +392,7 @@
 			files = (
 				EA686F10256EF67B00C121DC /* MyJourneyView.swift in Sources */,
 				964B662E256E6020006AB20E /* ContentView.swift in Sources */,
+				EA70289A25771D9300E1B6EB /* SearchBarSideBar.swift in Sources */,
 				9670A96E256EAA330043F227 /* SidebarElements.swift in Sources */,
 				EA7028902572FDD300E1B6EB /* RatingView.swift in Sources */,
 				96A4105125726DD600ACA0DE /* AddButton.swift in Sources */,
