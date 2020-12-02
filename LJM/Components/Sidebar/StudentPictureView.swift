@@ -15,15 +15,15 @@ struct StudentPictureView: View {
             ZStack{
                 Image("student")
                     .resizable()
-                    .frame(width: size, height: size, alignment: .leading)
+                    .frame(width: size.toScreenSize(), height: size.toScreenSize(), alignment: .leading)
                     .cornerRadius(250)
                     .padding()
                     .shadow(color: Color.black.opacity(0.36), radius: 5, x: 0, y: 5)
                 Circle()
                     .strokeBorder(LinearGradient(gradient: Gradient(colors: [Color("Light green"), Color("Dark green")]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 5)
-                    .frame(width: size, height: size, alignment: .leading)
-                AddImageButton(buttonSize: size/4)
-                    .padding([.top, .leading], 0.66*size)
+                    .frame(width: size.toScreenSize(), height: size.toScreenSize(), alignment: .leading)
+                AddImageButton(buttonSize: (size/4).toScreenSize())
+                    .padding([.top, .leading], 0.66*size.toScreenSize())
                 
             }
             

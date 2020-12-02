@@ -11,10 +11,11 @@ struct PathsView: View, LJMView {
     @State var selectedFilter = "All"
     
     var body: some View {
+        
         VStack {
             VStack {
                 HStack {
-               Text("Map")
+                    Text("Map")
                         .font(.largeTitle)
                         .fontWeight(.medium)
                         .foregroundColor(Color.black)
@@ -37,9 +38,9 @@ struct PathsView: View, LJMView {
                         .foregroundColor(Color.gray)
                         .font(.system(size: 20))
                         .padding(.top, 18)
-                ScrollViewFiltersMap(selectedFilter: $selectedFilter).padding(.top, 20)
-                    .font(.system(size: 15, weight: .medium, design: .rounded))
-                    .padding(.leading, 10)
+                    ScrollViewFiltersMap(selectedFilter: $selectedFilter).padding(.top, 20)
+                        .font(.system(size: 15, weight: .medium, design: .rounded))
+                        .padding(.leading, 10)
                 }
                 
                 HStack{
@@ -49,8 +50,8 @@ struct PathsView: View, LJMView {
                         .foregroundColor(Color.gray)
                         .font(.system(size: 20))
                         .padding(.top, 18)
-                ScrollViewFiltersPaths(selectedFilter: $selectedFilter).padding(.top, 20)
-                    .font(.system(size: 15, weight: .medium, design: .rounded))
+                    ScrollViewFiltersPaths(selectedFilter: $selectedFilter).padding(.top, 20)
+                        .font(.system(size: 15, weight: .medium, design: .rounded))
                 }
                 HStack {
                     
@@ -64,13 +65,19 @@ struct PathsView: View, LJMView {
                     Button(action: {
                         
                     }) {
-                        Text("Filters")
-                            .padding()
-                            .font(.system(size: 15, weight: .medium, design: .rounded))
-                            .foregroundColor(Color("customCyan"))
-                            .frame(width: 130, height: 30, alignment: .center)
-                            .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color("customCyan")))
-                        
+                        HStack{
+                            Image(systemName: "chevron.down")
+                                .resizable()
+                                .foregroundColor(Color("customCyan"))
+                                .frame(width: 10, height: 5, alignment: .center)
+//                                .padding()
+                            Text("Filters")
+                                .padding()
+                                .font(.system(size: 15, weight: .medium, design: .rounded))
+                                .foregroundColor(Color("customCyan"))
+                                
+                        }.frame(width: 130, height: 30, alignment: .center)
+                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color("customCyan")))
                     }.buttonStyle(PlainButtonStyle())
                     .padding(.trailing, 20)
                 }.padding(.top, 20)
@@ -80,6 +87,7 @@ struct PathsView: View, LJMView {
                 Spacer()
             }
         }
+    
     }
 }
 
@@ -92,7 +100,7 @@ struct ScrollViewFiltersPaths: View {
     var body: some View {
         HStack {
             
-                ScrollView(.horizontal, showsIndicators: false) {
+            ScrollView(.horizontal, showsIndicators: false) {
                 
                 ScrollViewReader { (proxy: ScrollViewProxy) in
                     LazyHStack {
@@ -186,9 +194,9 @@ struct ListViewLearningObjectivePathView: View {
     
     var body: some View {
         
-        ScrollView(showsIndicators: false) {
+        ScrollView() {
             LazyVStack {
-                ForEach (0..<5) { status in
+                ForEach (0..<8) { status in
                     LearningObjectivePaths(title: "DESIGN", subtitle: "Prototyping", core: "Core", description: "I can create low fidelity paper prototypes and sketches.")
                         .background(Color.white)
                 }

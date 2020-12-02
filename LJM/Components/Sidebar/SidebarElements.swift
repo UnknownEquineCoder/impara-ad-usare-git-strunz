@@ -16,12 +16,12 @@ struct SidebarElements: View {
         HStack{
             Image(buttonIcon)
                 .resizable()
-                .frame(width: 37, height: 37, alignment: .center)
+                .frame(width: 37.toScreenSize(), height: 37.toScreenSize(), alignment: .center)
                 .foregroundColor(.green)
                 .padding(.trailing, 8)
             
             Text(buttonName)
-                .font(.system(size: 28))
+                .font(.system(size: 28.toFontSize()))
                 .fontWeight(.light)
                 .multilineTextAlignment(.leading)
             

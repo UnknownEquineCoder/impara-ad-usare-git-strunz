@@ -31,7 +31,7 @@ struct LearningObjectivePaths: View {
             
             Spacer()
             
-            AddButton(buttonSize: 20)
+            AddButton(buttonSize: 27)
             Spacer()
         }.frame(height: 100)
         .background(Color("customGrey"))
