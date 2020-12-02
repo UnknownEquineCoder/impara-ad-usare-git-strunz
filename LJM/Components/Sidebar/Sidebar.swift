@@ -11,17 +11,17 @@ import SwiftUI
 
 struct Sidebar: View {
     @State private var sections = ["Dashboard", "Journey", "Notebook", "Portfolio", "Backpack"]
-    @State private var selectedSection: String?
+    @State private var selectedSection: String? = "Journey"
     
     var body: some View {
         NavigationView {
             List {
 
-                    StudentPictureView(size: 130)
+                StudentPictureView(size: 130.toScreenSize())
                         .padding(.trailing)
-                    //                        Navigation(buttonName: "Dashboard", buttonIcon: "square")
+//                Navigation<JourneyMainView>(buttonName: "Dashboard", buttonIcon: "square")
                     
-                    Section(header: Text("Personal").font(.system(size: 28))
+                Section(header: Text("Personal").font(.system(size: 28.toFontSize()))
                                 .fontWeight(.regular)) {
                         
                         Navigation<JourneyMainView>(buttonName: "Journey", buttonIcon: "square")
@@ -30,7 +30,7 @@ struct Sidebar: View {
                         Navigation<JourneyMainView>(buttonName: "Notebook", buttonIcon: "square")
                     }
                     
-                    Section(header: Text("Resume").font(.system(size: 28))
+                Section(header: Text("Resume").font(.system(size: 28.toFontSize()))
                                 .fontWeight(.regular)) {
                         Navigation<JourneyMainView>(buttonName: "Portfolio", buttonIcon: "square")
                         Navigation<JourneyMainView>(buttonName: "Backpack", buttonIcon: "square")

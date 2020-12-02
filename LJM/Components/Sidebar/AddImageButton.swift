@@ -26,7 +26,7 @@ struct AddImageButton: View {
             }
             .shadow(color: Color.black.opacity(0.36), radius: 5, x: 0, y: 5)
         }
-        .frame(width: buttonSize, height: buttonSize, alignment: .center)
+        .frame(width: buttonSize.toScreenSize(), height: buttonSize.toScreenSize(), alignment: .center)
         .buttonStyle(PlainButtonStyle())
         
         

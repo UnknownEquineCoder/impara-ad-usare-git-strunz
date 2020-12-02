@@ -48,7 +48,7 @@ struct AddButton: View {
             }
 
         }
-        .frame(width: buttonSize, height: buttonSize, alignment: .center)
+        .frame(width: buttonSize.toScreenSize(), height: buttonSize.toScreenSize(), alignment: .center)
         .buttonStyle(PlainButtonStyle())
         
             if didTap {

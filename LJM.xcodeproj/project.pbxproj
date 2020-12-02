@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9641C4A525778F1D0088A0B6 /* SizesExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9641C4A425778F1D0088A0B6 /* SizesExtension.swift */; };
+		9641C4B72577AD700088A0B6 /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9641C4B62577AD700088A0B6 /* MainScreen.swift */; };
 		964B662C256E6020006AB20E /* LJMApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B662B256E6020006AB20E /* LJMApp.swift */; };
 		964B662E256E6020006AB20E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B662D256E6020006AB20E /* ContentView.swift */; };
 		964B6630256E6022006AB20E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 964B662F256E6022006AB20E /* Assets.xcassets */; };
@@ -55,6 +56,7 @@
 
 /* Begin PBXFileReference section */
 		9641C4A425778F1D0088A0B6 /* SizesExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizesExtension.swift; sourceTree = "<group>"; };
+		9641C4B62577AD700088A0B6 /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
 		964B6628256E6020006AB20E /* LJM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LJM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		964B662B256E6020006AB20E /* LJMApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LJMApp.swift; sourceTree = "<group>"; };
 		964B662D256E6020006AB20E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				EA686F0E256EF63900C121DC /* JourneyViews */,
+				9641C4B62577AD700088A0B6 /* MainScreen.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -396,6 +399,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9641C4B72577AD700088A0B6 /* MainScreen.swift in Sources */,
 				EA686F10256EF67B00C121DC /* MyJourneyView.swift in Sources */,
 				964B662E256E6020006AB20E /* ContentView.swift in Sources */,
 				EA70289A25771D9300E1B6EB /* SearchBarSideBar.swift in Sources */,
