@@ -21,14 +21,15 @@ struct MyJourneyView: View, LJMView {
             VStack( spacing: 0) {
                 ZStack(alignment: .top) {
                     Text("My Journey")
-                        .font(.largeTitle)
+                        .font(.system(size: 40, weight: .medium))
                         .fontWeight(.medium)
                         .foregroundColor(Color.customBlack)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
                     DropDownSelectPathView(dictPaths: self.paths, selectedPath: $selectedPath)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.leading, 150)
+                        .padding(.leading, 230)
+                        .padding(.top, 10)
                         .zIndex(1)
                     
                     VStack(alignment: .leading) {
@@ -84,7 +85,9 @@ struct DropDownSelectPathView: View {
     @State var expand = false
     @State var dictPaths = [String: Color]()
     @Binding var selectedPath : String
+    @State var selectedPath2 : String?
     @State var colorSelectedPath = Color.gray
+    @State var colorSelectedPath2 : Color?
     
     var body: some View {
         
@@ -96,7 +99,7 @@ struct DropDownSelectPathView: View {
                 Text(self.selectedPath)
                     .frame(width: 150, height: 30, alignment: .center)
                     .foregroundColor(colorSelectedPath)
-                    .font(.system(size: 15, weight: .semibold, design: .rounded))
+                    .font(.system(size: 20, weight: .semibold, design: .rounded))
                     .padding(.leading, 10)
                     .background(Color.white)
                 Image(systemName: expand ? "chevron.up.circle" : "chevron.down.circle")
@@ -115,14 +118,29 @@ struct DropDownSelectPathView: View {
                     VStack {
                         Button(action: {
                             self.selectedPath = keys[i]
+                            self.selectedPath2 = keys[i]
                             self.colorSelectedPath = values[i]
+                            self.colorSelectedPath2 = values[i]
                             self.expand.toggle()
                         }) {
-                            Text(keys[i])
-                                .font(.system(size: 15, weight: .semibold, design: .rounded))
-                                .foregroundColor(self.selectedPath == keys[i] ? .customLightBlack : .customDarkGrey)
-                                .frame(width: 150, height: 30)
-                                .background(Color.white)
+                            HStack {
+                                Text(keys[i])
+                                    .font(.system(size: 15, weight: .semibold, design: .rounded))
+                                    .foregroundColor(keys[i] == self.selectedPath2 ? colorSelectedPath2 : Color.gray)
+                                    .frame(width: 150, height: 30)
+                                    .offset(x: selectedPath2 == nil ? 12 : 0)
+                                
+                                Button(action: {
+                                    self.selectedPath = "Select your path"
+                                    self.selectedPath2 = nil
+                                    self.colorSelectedPath2 = nil
+                                    self.expand.toggle()
+                                }) {
+                                    Image(systemName: "xmark.circle.fill")
+                                }.buttonStyle(PlainButtonStyle())
+                                .isHidden(keys[i] == self.selectedPath2 ? false : true)
+                                .foregroundColor(Color.black)
+                            }
                         }.buttonStyle(PlainButtonStyle())
                     }
                 }
@@ -160,50 +178,13 @@ struct ScrollViewFiltersJourney: View {
 struct ListViewLearningObjectiveMyJourney: View {
     
     @Binding var show: Bool
-    let addObjText = "Add a learning objective"
     
     var body: some View {
         
         if show {
-            ScrollView(showsIndicators: false) {
-                LazyVStack {
-                    ForEach (0..<5) { status in
-                        LearningObjectiveJourneyCell(isPath: false, title: "Design", subtitle: "Prototyping", core: "Core", description: "I can create low fidelity paper prototypes and sketches")
-                            .background(Color.white)
-                    }
-                }
-            }
-        } else {
-            ZStack {
-                BackgroundImageReadingStudent()
-                
-                VStack {
-                    Text("The Learning Objective is half the journey !")
-                        .font(.system(size: 45, weight: .semibold, design: .rounded))
-                        .multilineTextAlignment(.center)
-                        .foregroundColor(Color.customBlack)
-                    
-                    Text("Tap the button to add the first one.")
-                        .font(.system(size: 25, weight: .semibold, design: .rounded))
-                        .multilineTextAlignment(.center)
-                        .foregroundColor(Color.customDarkGrey)
-                        .padding(.top, 20)
-                    
-                    Button(action: {
-                        
-                    }) {
-                        Text(addObjText.uppercased())
-                            .padding()
-                            .font(.system(size: 13, weight: .medium, design: .rounded))
-                            .foregroundColor(Color.customCyan)
-                            .frame(width: 250, height: 50, alignment: .center)
-                            .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color.customCyan))
-                            .background(Color.white)
 
-                    }.buttonStyle(PlainButtonStyle())
-                    .padding(.top, 20)
-                }
-            }
+        } else {
+            EmptyLearningObjectiveViewJourney()
         }
     }
 }
