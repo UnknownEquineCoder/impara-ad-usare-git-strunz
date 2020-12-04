@@ -26,14 +26,14 @@ struct ScrollViewFilters : View {
                             }) {
                                 Text(i.capitalized)
                                     .font(.system(size: 15, weight: .semibold, design: .rounded))
-                                    .foregroundColor(selectedFilter == i ? .white : .customGrey)
+                                    .foregroundColor(selectedFilter == i ? .white : .customDarkGrey)
                                     .frame(width: 150, height: 40)
                                     .background(selectedFilter == i ? Color.customCyan : .white)
                             }.buttonStyle(PlainButtonStyle())
                             .frame(width: 150, height: 40)
                             .background(selectedFilter == i ? Color.customCyan : .white)
                             .cornerRadius(12)
-                            .overlay(RoundedRectangle(cornerRadius: 12).stroke(lineWidth: 2).foregroundColor(selectedFilter == i ? .clear : .customGrey))
+                            .overlay(RoundedRectangle(cornerRadius: 12).stroke(lineWidth: 2).foregroundColor(selectedFilter == i ? .clear : .customDarkGrey))
                         }
                     }.padding([.leading, .trailing], 10)
                 }.onReceive(vm.$direction) { action in

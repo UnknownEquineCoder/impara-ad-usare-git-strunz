@@ -9,8 +9,8 @@ import SwiftUI
 
 extension Color {
     public static let customCyan = Color("customCyan")
-    public static let customLightGray = Color("customLightGrey")
+    public static let customLightGrey = Color("customLightGrey")
     public static let customBlack = Color("customBlack")
-    public static let customGrey = Color("customGrey")
+    public static let customDarkGrey = Color("customDarkGrey")
     public static let customLightBlack = Color("customLightBlack")
 }

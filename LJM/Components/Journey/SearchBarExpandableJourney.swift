@@ -28,7 +28,7 @@ struct SearchBarExpandableJourney: View {
                     ZStack {
                         if txt.isEmpty {
                             Text("Search")
-                                .foregroundColor(.customGrey)
+                                .foregroundColor(.customDarkGrey)
                                 .padding(.trailing, 60)
                                 .opacity(0.5)
                         }
@@ -39,7 +39,7 @@ struct SearchBarExpandableJourney: View {
                         
                         Rectangle()
                             .frame(height: 1)
-                            .foregroundColor(.customGrey)
+                            .foregroundColor(.customDarkGrey)
                             .opacity(0.5)
                             .padding(.leading, 10)
                             .padding(.trailing, 10)

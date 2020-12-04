@@ -20,8 +20,8 @@ struct RatingView: View {
                         self.rating = number
                     } label: {
                         Circle()
-                            .strokeBorder(Color.customCyan, lineWidth: 2)
-                            .background(Circle().foregroundColor(number > rating ? Color.customGrey : Color.customCyan))
+                            .strokeBorder(number > rating ? Color.customDarkGrey : Color.clear, lineWidth: 2)
+                            .background(Circle().foregroundColor(number > rating ? Color.customLightGrey : Color.customCyan))
                     }
                     .frame(width: 35, height: 35, alignment: .center)
                     .buttonStyle(PlainButtonStyle())

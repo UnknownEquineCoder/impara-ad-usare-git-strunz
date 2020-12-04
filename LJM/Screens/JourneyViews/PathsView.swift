@@ -189,7 +189,7 @@ struct ListViewLearningObjectivePathView: View {
         ScrollView() {
             LazyVStack {
                 ForEach (0..<8) { status in
-                    LearningObjectivePaths(title: "DESIGN", subtitle: "Prototyping", core: "Core", description: "I can create low fidelity paper prototypes and sketches.")
+                    LearningObjectiveJourneyCell(isPath: true, title: "Design", subtitle: "Prototyping", core: "Core", description: "I can create low fidelity paper prototypes and sketches")
                         .background(Color.white)
                 }
             }

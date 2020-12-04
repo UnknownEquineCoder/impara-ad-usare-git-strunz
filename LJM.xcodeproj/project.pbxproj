@@ -39,7 +39,7 @@
 		EA7028BA2579C75000E1B6EB /* ScrollViewFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7028B92579C75000E1B6EB /* ScrollViewFilters.swift */; };
 		EA7028C62579DCDB00E1B6EB /* FilterButtonJourney.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7028C52579DCDB00E1B6EB /* FilterButtonJourney.swift */; };
 		EA7028D12579E32500E1B6EB /* ColorsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7028D02579E32500E1B6EB /* ColorsExtension.swift */; };
-		EAD2C81A257085CA008CDDA1 /* LearningObjectiveMyJourneyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD2C819257085CA008CDDA1 /* LearningObjectiveMyJourneyView.swift */; };
+		EAD2C81A257085CA008CDDA1 /* LearningObjectiveJourneyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD2C819257085CA008CDDA1 /* LearningObjectiveJourneyCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,7 +99,7 @@
 		EA7028B92579C75000E1B6EB /* ScrollViewFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewFilters.swift; sourceTree = "<group>"; };
 		EA7028C52579DCDB00E1B6EB /* FilterButtonJourney.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButtonJourney.swift; sourceTree = "<group>"; };
 		EA7028D02579E32500E1B6EB /* ColorsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsExtension.swift; sourceTree = "<group>"; };
-		EAD2C819257085CA008CDDA1 /* LearningObjectiveMyJourneyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningObjectiveMyJourneyView.swift; sourceTree = "<group>"; };
+		EAD2C819257085CA008CDDA1 /* LearningObjectiveJourneyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningObjectiveJourneyCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -247,7 +247,7 @@
 				EA7028C42579DCC100E1B6EB /* Buttons */,
 				EA686EF8256EE4F300C121DC /* TopBarJourney.swift */,
 				EA686F24256EFBFA00C121DC /* SearchBarExpandableJourney.swift */,
-				EAD2C819257085CA008CDDA1 /* LearningObjectiveMyJourneyView.swift */,
+				EAD2C819257085CA008CDDA1 /* LearningObjectiveJourneyCell.swift */,
 				EA70288F2572FDD300E1B6EB /* RatingView.swift */,
 				EA70289925771D9300E1B6EB /* SearchBarSideBar.swift */,
 				EA7028AF2579B29600E1B6EB /* ArrowButtonScrollView.swift */,
@@ -445,7 +445,7 @@
 				9641C4A525778F1D0088A0B6 /* SizesExtension.swift in Sources */,
 				964B662C256E6020006AB20E /* LJMApp.swift in Sources */,
 				9670A9812571134E0043F227 /* undefined.swift in Sources */,
-				EAD2C81A257085CA008CDDA1 /* LearningObjectiveMyJourneyView.swift in Sources */,
+				EAD2C81A257085CA008CDDA1 /* LearningObjectiveJourneyCell.swift in Sources */,
 				96BE89D0257553BF00BE9E8F /* CountDownWrapper.swift in Sources */,
 				96A4101E2571578500ACA0DE /* LJMProtocol.swift in Sources */,
 				967EE8CB256E722F008065C9 /* AddImageButton.swift in Sources */,

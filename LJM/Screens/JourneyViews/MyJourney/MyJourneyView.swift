@@ -33,11 +33,11 @@ struct MyJourneyView: View, LJMView {
                     
                     VStack(alignment: .leading) {
                         Text("Here you will find your Learning Objectives you choose to work on, that will help you build your own path. Based on the path you choose, the arrows will indicate the recommanded level to reach.")
-                            .foregroundColor(Color.customLightGray)
+                            .foregroundColor(Color.customDarkGrey)
                             .padding(.top, 20)
                             .padding(.trailing, 90)
                         
-                        Rectangle().frame(height: 1).foregroundColor(Color.customLightGray)
+                        Rectangle().frame(height: 1).foregroundColor(Color.customDarkGrey)
                     }.padding(.top, 50)
                     
                     ScrollViewFiltersJourney(filterTabs: arrayFilters, selectedFilter: $selectedFilter).padding(.top, 20).padding(.top, 130)
@@ -46,7 +46,7 @@ struct MyJourneyView: View, LJMView {
                 
                 HStack {
                     Text("Number of objectives :")
-                        .foregroundColor(Color.customGrey)
+                        .foregroundColor(Color.customDarkGrey)
                         .font(.system(size: 15, weight: .medium, design: .rounded))
                         .padding(.leading, 20)
                     
@@ -120,7 +120,7 @@ struct DropDownSelectPathView: View {
                         }) {
                             Text(keys[i])
                                 .font(.system(size: 15, weight: .semibold, design: .rounded))
-                                .foregroundColor(self.selectedPath == keys[i] ? .customLightBlack : .customLightGray)
+                                .foregroundColor(self.selectedPath == keys[i] ? .customLightBlack : .customDarkGrey)
                                 .frame(width: 150, height: 30)
                                 .background(Color.white)
                         }.buttonStyle(PlainButtonStyle())
@@ -168,7 +168,7 @@ struct ListViewLearningObjectiveMyJourney: View {
             ScrollView(showsIndicators: false) {
                 LazyVStack {
                     ForEach (0..<5) { status in
-                        LearningObjectiveMyJourneyView()
+                        LearningObjectiveJourneyCell(isPath: false, title: "Design", subtitle: "Prototyping", core: "Core", description: "I can create low fidelity paper prototypes and sketches")
                             .background(Color.white)
                     }
                 }
@@ -186,7 +186,7 @@ struct ListViewLearningObjectiveMyJourney: View {
                     Text("Tap the button to add the first one.")
                         .font(.system(size: 25, weight: .semibold, design: .rounded))
                         .multilineTextAlignment(.center)
-                        .foregroundColor(Color.customGrey)
+                        .foregroundColor(Color.customDarkGrey)
                         .padding(.top, 20)
                     
                     Button(action: {
