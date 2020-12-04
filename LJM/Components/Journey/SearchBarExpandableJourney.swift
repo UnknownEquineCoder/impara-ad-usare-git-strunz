@@ -21,25 +21,25 @@ struct SearchBarExpandableJourney: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 17, height: 17, alignment: .center)
-                    .foregroundColor(Color.black)
+                    .foregroundColor(Color.customBlack)
                     .background(Color.clear)
                 
                 VStack {
                     ZStack {
                         if txt.isEmpty {
                             Text("Search")
-                                .foregroundColor(.gray)
+                                .foregroundColor(.customGrey)
                                 .padding(.trailing, 60)
                                 .opacity(0.5)
                         }
                         
                         TextField("Search", text: self.$txt)
-                            .foregroundColor(Color.black)
+                            .foregroundColor(Color.customBlack)
                             .textFieldStyle(RoundedBorderTextFieldStyle.init())
                         
                         Rectangle()
                             .frame(height: 1)
-                            .foregroundColor(.gray)
+                            .foregroundColor(.customGrey)
                             .opacity(0.5)
                             .padding(.leading, 10)
                             .padding(.trailing, 10)
@@ -54,7 +54,7 @@ struct SearchBarExpandableJourney: View {
                     }
                 }, label: {
                     Image(systemName: "xmark.circle.fill")
-                        .foregroundColor(.black)
+                        .foregroundColor(.customBlack)
                         .background(Color.clear)
                 }).buttonStyle(PlainButtonStyle())
                 .background(Color.clear)
@@ -70,7 +70,7 @@ struct SearchBarExpandableJourney: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 15, height: 15, alignment: .center)
-                        .foregroundColor(Color.black)
+                        .foregroundColor(Color.customBlack)
                         .background(Color.clear)
                         .padding(5)
                 }).buttonStyle(PlainButtonStyle())
@@ -79,7 +79,7 @@ struct SearchBarExpandableJourney: View {
         }
         .padding(self.show ? 6 : 0)
         .frame(width: self.show ? 300 : 25)
-        .overlay(RoundedRectangle(cornerRadius: 20).stroke(lineWidth: 1).foregroundColor(Color("customCyan")))
+        .overlay(RoundedRectangle(cornerRadius: 20).stroke(lineWidth: 1).foregroundColor(Color.customCyan))
     }
 }
 

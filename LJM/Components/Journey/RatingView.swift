@@ -20,8 +20,8 @@ struct RatingView: View {
                         self.rating = number
                     } label: {
                         Circle()
-                            .strokeBorder(Color("customCyan"), lineWidth: 2)
-                            .background(Circle().foregroundColor(number > rating ? Color("customGrey") : Color("customCyan")))
+                            .strokeBorder(Color.customCyan, lineWidth: 2)
+                            .background(Circle().foregroundColor(number > rating ? Color.customGrey : Color.customCyan))
                     }
                     .frame(width: 35, height: 35, alignment: .center)
                     .buttonStyle(PlainButtonStyle())
@@ -32,9 +32,8 @@ struct RatingView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 15, height: 15, alignment: .center)
-                .foregroundColor(Color("customCyan"))
+                .foregroundColor(Color.customCyan)
                 .padding(.trailing, 50)
-                
             
             // TODO: change to  draw triangle instead of image
         }.padding(.top, 20)

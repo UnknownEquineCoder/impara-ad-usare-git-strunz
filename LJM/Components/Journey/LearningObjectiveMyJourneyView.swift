@@ -17,21 +17,21 @@ struct LearningObjectiveMyJourneyView: View {
                     .background(Color("customCyan"))
                 
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("DESIGN").foregroundColor(Color("customCyan")).font(.system(size: 15, weight: .semibold, design: .rounded))
-                    Text("PROTOTYPING").foregroundColor(Color.black)
-                    Text("CORE").foregroundColor(Color.black)
+                    Text("DESIGN").foregroundColor(Color.customCyan).font(.system(size: 15, weight: .semibold, design: .rounded))
+                    Text("PROTOTYPING").foregroundColor(Color.customBlack)
+                    Text("CORE").foregroundColor(Color.customBlack)
                 }.padding(.leading, 20)
                 
                 Spacer()
                 
-                Text("I can create low fidelity paper prototypes and sketches").foregroundColor(Color.black)
+                Text("I can create low fidelity paper prototypes and sketches").foregroundColor(Color.customBlack)
                 
                 Spacer()
                 
                 RatingView(rating: $rating)
                 
             }.frame(height: 100)
-            .background(Color("customGrey"))
+            .background(Color.customGrey)
             .cornerRadius(14)
         
     }
