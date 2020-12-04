@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct TopBarJourney: View {
-    @State var tabs = ["My Journey", "Paths", "Challenge"]
+    @State var tabs = ["My Journey", "Map", "Challenge"]
     @Binding var selected : String
     
     var body: some View {
@@ -22,9 +22,9 @@ struct TopBarJourney: View {
                     }, label: {
                         Text(i)
                             .font(.system(size: 15, weight: .semibold, design: .rounded))
-                            .foregroundColor(self.selected == i ? .black : .gray)
+                            .foregroundColor(self.selected == i ? .customBlack : .customDarkGrey)
                     }).buttonStyle(PlainButtonStyle())
-                    TopBarJourneySelectedBottomView(color: self.selected == i ? Color("customCyan") : .clear)
+                    TopBarJourneySelectedBottomView(color: self.selected == i ? Color.customCyan : .clear)
                 }
             }
         }

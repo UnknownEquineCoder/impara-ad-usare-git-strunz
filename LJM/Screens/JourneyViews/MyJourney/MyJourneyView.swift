@@ -10,10 +10,11 @@ import SwiftUI
 struct MyJourneyView: View, LJMView {
     @State var selectedPath = "Select your path"
     @State var selectedFilter = "All"
+    let arrayFilters = ["All", "Core", "Elective", "Evaluated"]
     
     @State private var showTest = true
     
-    var paths = ["Design" : Color("customCyan"), "Frontend": Color.orange, "Backend": Color.yellow, "Business": Color.purple]
+    var paths = ["Design" : Color.customCyan, "Frontend": Color.orange, "Backend": Color.yellow, "Business": Color.purple]
     
     var body: some View {
         VStack {
@@ -22,7 +23,7 @@ struct MyJourneyView: View, LJMView {
                     Text("My Journey")
                         .font(.largeTitle)
                         .fontWeight(.medium)
-                        .foregroundColor(Color.black)
+                        .foregroundColor(Color.customBlack)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
                     DropDownSelectPathView(dictPaths: self.paths, selectedPath: $selectedPath)
@@ -32,21 +33,20 @@ struct MyJourneyView: View, LJMView {
                     
                     VStack(alignment: .leading) {
                         Text("Here you will find your Learning Objectives you choose to work on, that will help you build your own path. Based on the path you choose, the arrows will indicate the recommanded level to reach.")
-                            .foregroundColor(Color.gray)
+                            .foregroundColor(Color.customDarkGrey)
                             .padding(.top, 20)
                             .padding(.trailing, 90)
                         
-                        Rectangle().frame(height: 1).foregroundColor(Color.gray)
+                        Rectangle().frame(height: 1).foregroundColor(Color.customDarkGrey)
                     }.padding(.top, 50)
                     
-                    ScrollViewFilters(selectedFilter: $selectedFilter).padding(.top, 20).padding(.top, 130)
+                    ScrollViewFiltersJourney(filterTabs: arrayFilters, selectedFilter: $selectedFilter).padding(.top, 20).padding(.top, 130)
                     
                 }.frame(maxWidth: .infinity)
                 
                 HStack {
-                    
                     Text("Number of objectives :")
-                        .foregroundColor(Color.gray)
+                        .foregroundColor(Color.customDarkGrey)
                         .font(.system(size: 15, weight: .medium, design: .rounded))
                         .padding(.leading, 20)
                     
@@ -55,31 +55,20 @@ struct MyJourneyView: View, LJMView {
                     Button(action: {
                         self.showTest.toggle()
                     }) {
-                        Text("Clean objectives")
+                        Text("Clean objectives test button")
                             .padding()
                             .font(.system(size: 15, weight: .medium, design: .rounded))         // TEST BUTTON EMPTY OBJECTIVES
-                            .foregroundColor(Color("customCyan"))
+                            .foregroundColor(Color.customCyan)
                             .frame(width: 200, height: 30, alignment: .center)
                             .background(Color.white)
-                            .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color("customCyan")))
-                        
+                            .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color.customCyan))
                     }.buttonStyle(PlainButtonStyle())
                     
                     Spacer()
                     
-                    Button(action: {
-                        
-                    }) {
-                        Text("Filters")
-                            .padding()
-                            .font(.system(size: 15, weight: .medium, design: .rounded))
-                            .foregroundColor(Color("customCyan"))
-                            .frame(width: 130, height: 30, alignment: .center)
-                            .background(Color.white)
-                            .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color("customCyan")))
-                        
-                    }.buttonStyle(PlainButtonStyle())
-                    .padding(.trailing, 20)
+                    FilterButtonJourney()
+                        .buttonStyle(PlainButtonStyle())
+                        .padding(.trailing, 20)
                 }.padding(.top, 20)
                 
                 Spacer()
@@ -113,7 +102,7 @@ struct DropDownSelectPathView: View {
                 Image(systemName: expand ? "chevron.up.circle" : "chevron.down.circle")
                     .resizable()
                     .frame(width: 18, height: 18)
-                    .foregroundColor(Color("customCyan"))
+                    .foregroundColor(Color.customCyan)
                 
             }.onTapGesture {
                 self.selectedPath = "Select your path"
@@ -131,7 +120,7 @@ struct DropDownSelectPathView: View {
                         }) {
                             Text(keys[i])
                                 .font(.system(size: 15, weight: .semibold, design: .rounded))
-                                .foregroundColor(self.selectedPath == keys[i] ? .black : .gray)
+                                .foregroundColor(self.selectedPath == keys[i] ? .customLightBlack : .customDarkGrey)
                                 .frame(width: 150, height: 30)
                                 .background(Color.white)
                         }.buttonStyle(PlainButtonStyle())
@@ -144,78 +133,26 @@ struct DropDownSelectPathView: View {
         .cornerRadius(20)
         .animation(.spring())
         .background(Color.white)
-        .border(expand ? Color.black : Color.white)
+        .border(expand ? Color.customBlack : Color.white)
     }
 }
 
-struct ScrollViewFilters: View {
-    @State var filterTabs = ["All", "Core", "Elective", "Evaluated"]
+struct ScrollViewFiltersJourney: View {
+    var filterTabs : [String]
     @Binding var selectedFilter : String
-    
     @StateObject var vm = ScrollToModel()
     
     var body: some View {
         HStack {
-            Button(action: {
-                withAnimation {
-                    vm.direction = .left
-                }
-            }) {
-                Image(systemName: "arrow.left")
-                    .font(.system(size: 15, weight: .semibold, design: .rounded))
-                    .foregroundColor(Color("customCyan"))
-            }.buttonStyle(PlainButtonStyle())
-            .opacity(filterTabs.count > 8 ? 1 : 0)
+            ArrowButtonScrollView(vm: vm, direction: .left)
+                .buttonStyle(PlainButtonStyle())
+                .opacity(filterTabs.count > 8 ? 1 : 0)
             
-            ScrollView(.horizontal, showsIndicators: false) {
-                
-                ScrollViewReader { (proxy: ScrollViewProxy) in
-                    LazyHStack {
-                        HStack(spacing: 10) {
-                            ForEach(filterTabs, id: \.self) { i in
-                                
-                                Button(action: {
-                                    self.selectedFilter = i
-                                }) {
-                                    Text(i.capitalized)
-                                        .font(.system(size: 15, weight: .semibold, design: .rounded))
-                                        .foregroundColor(self.selectedFilter == i ? .white : .gray)
-                                        .frame(width: 150, height: 40)
-                                        .background(self.selectedFilter == i ? Color("customCyan") : .white)
-                                }.buttonStyle(PlainButtonStyle())
-                                .frame(width: 150, height: 40)
-                                .background(self.selectedFilter == i ? Color("customCyan") : .white)
-                                .cornerRadius(12)
-                                .overlay(RoundedRectangle(cornerRadius: 12).stroke(lineWidth: 2).foregroundColor(self.selectedFilter == i ? .clear : .gray))
-                            }
-                        }.padding([.leading, .trailing], 10)
-                    }.onReceive(vm.$direction) { action in
-                        guard !filterTabs.isEmpty else { return }
-                        withAnimation {
-                            switch action {
-                            case .left:
-                                proxy.scrollTo(filterTabs.first!, anchor: .leading)
-                            case .right:
-                                proxy.scrollTo(filterTabs.last!, anchor: .trailing)
-                            default:
-                                return
-                            }
-                        }
-                    }.frame(height: 60)
-                    .padding(.top, 5).padding(.bottom, 5)
-                }
-            }.offset(x: filterTabs.count < 8 ? -35 : 0)
+            ScrollViewFilters(filterTabs: filterTabs, selectedFilter: $selectedFilter, vm: vm).offset(x: filterTabs.count < 8 ? -35 : 0)
             
-            Button(action: {
-                withAnimation {
-                    vm.direction = .right
-                }
-            }) {
-                Image(systemName: "arrow.right")
-                    .font(.system(size: 15, weight: .semibold, design: .rounded))
-                    .foregroundColor(Color("customCyan"))
-            }.buttonStyle(PlainButtonStyle())
-            .opacity(filterTabs.count > 8 ? 1 : 0)
+            ArrowButtonScrollView(vm: vm, direction: .right)
+                .buttonStyle(PlainButtonStyle())
+                .opacity(filterTabs.count > 8 ? 1 : 0)
         }
     }
 }
@@ -231,26 +168,25 @@ struct ListViewLearningObjectiveMyJourney: View {
             ScrollView(showsIndicators: false) {
                 LazyVStack {
                     ForEach (0..<5) { status in
-                        LearningObjectiveMyJourneyView()
+                        LearningObjectiveJourneyCell(isPath: false, title: "Design", subtitle: "Prototyping", core: "Core", description: "I can create low fidelity paper prototypes and sketches")
                             .background(Color.white)
                     }
                 }
             }
         } else {
             ZStack {
-                Image("placeholder")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .trailing)
+                BackgroundImageReadingStudent()
                 
                 VStack {
                     Text("The Learning Objective is half the journey !")
                         .font(.system(size: 45, weight: .semibold, design: .rounded))
-                        .foregroundColor(Color.black)
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(Color.customBlack)
                     
                     Text("Tap the button to add the first one.")
                         .font(.system(size: 25, weight: .semibold, design: .rounded))
-                        .foregroundColor(Color.gray)
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(Color.customDarkGrey)
                         .padding(.top, 20)
                     
                     Button(action: {
@@ -259,9 +195,9 @@ struct ListViewLearningObjectiveMyJourney: View {
                         Text(addObjText.uppercased())
                             .padding()
                             .font(.system(size: 13, weight: .medium, design: .rounded))
-                            .foregroundColor(Color("customCyan"))
+                            .foregroundColor(Color.customCyan)
                             .frame(width: 250, height: 50, alignment: .center)
-                            .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color("customCyan")))
+                            .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color.customCyan))
                             .background(Color.white)
 
                     }.buttonStyle(PlainButtonStyle())
