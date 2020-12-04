@@ -22,7 +22,7 @@ struct JourneyMainView: View, LJMView {
             } else if self.selected == "Map" {
                 PathsView().padding(.top, 80).padding(20).padding(.trailing, showSearchBarSideBar ? 0 : 320)
             } else {
-                ChallengeView().padding(.top, 80).padding(.trailing, showSearchBarSideBar ? 0 : 320)
+                ChallengeView().padding(.top, 80).padding(20).padding(.trailing, showSearchBarSideBar ? 0 : 320)
             }
             
             HStack {
