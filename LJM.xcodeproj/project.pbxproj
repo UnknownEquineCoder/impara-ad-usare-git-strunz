@@ -25,6 +25,8 @@
 		96A4105125726DD600ACA0DE /* AddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A4105025726DD600ACA0DE /* AddButton.swift */; };
 		96A4105625729E4D00ACA0DE /* LearningObjectivesPaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A4105525729E4D00ACA0DE /* LearningObjectivesPaths.swift */; };
 		96BE89D0257553BF00BE9E8F /* CountDownWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE89CF257553BF00BE9E8F /* CountDownWrapper.swift */; };
+		96CC60F72578F0A800CE7ABD /* DropDownMenuFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC60F62578F0A800CE7ABD /* DropDownMenuFilters.swift */; };
+		96CC6123257937D600CE7ABD /* DropDownFilterMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC6122257937D600CE7ABD /* DropDownFilterMenu.swift */; };
 		EA686EF9256EE4F300C121DC /* TopBarJourney.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA686EF8256EE4F300C121DC /* TopBarJourney.swift */; };
 		EA686F07256EF1F100C121DC /* JourneyMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA686F06256EF1F100C121DC /* JourneyMainView.swift */; };
 		EA686F10256EF67B00C121DC /* MyJourneyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA686F0F256EF67B00C121DC /* MyJourneyView.swift */; };
@@ -80,6 +82,8 @@
 		96A4105025726DD600ACA0DE /* AddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButton.swift; sourceTree = "<group>"; };
 		96A4105525729E4D00ACA0DE /* LearningObjectivesPaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningObjectivesPaths.swift; sourceTree = "<group>"; };
 		96BE89CF257553BF00BE9E8F /* CountDownWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownWrapper.swift; sourceTree = "<group>"; };
+		96CC60F62578F0A800CE7ABD /* DropDownMenuFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownMenuFilters.swift; sourceTree = "<group>"; };
+		96CC6122257937D600CE7ABD /* DropDownFilterMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownFilterMenu.swift; sourceTree = "<group>"; };
 		EA686EF8256EE4F300C121DC /* TopBarJourney.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarJourney.swift; sourceTree = "<group>"; };
 		EA686F06256EF1F100C121DC /* JourneyMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyMainView.swift; sourceTree = "<group>"; };
 		EA686F0F256EF67B00C121DC /* MyJourneyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyJourneyView.swift; sourceTree = "<group>"; };
@@ -226,6 +230,8 @@
 				96A4105025726DD600ACA0DE /* AddButton.swift */,
 				96A4105525729E4D00ACA0DE /* LearningObjectivesPaths.swift */,
 				96BE89CF257553BF00BE9E8F /* CountDownWrapper.swift */,
+				96CC60F62578F0A800CE7ABD /* DropDownMenuFilters.swift */,
+				96CC6122257937D600CE7ABD /* DropDownFilterMenu.swift */,
 			);
 			path = Paths;
 			sourceTree = "<group>";
@@ -409,6 +415,7 @@
 				EA686F1D256EF69C00C121DC /* ChallengeView.swift in Sources */,
 				9670A966256E9FBA0043F227 /* ProfileNameLabel.swift in Sources */,
 				964B665E256E64FD006AB20E /* StudentPictureView.swift in Sources */,
+				96CC60F72578F0A800CE7ABD /* DropDownMenuFilters.swift in Sources */,
 				EA686F07256EF1F100C121DC /* JourneyMainView.swift in Sources */,
 				EA686EF9256EE4F300C121DC /* TopBarJourney.swift in Sources */,
 				96A4105625729E4D00ACA0DE /* LearningObjectivesPaths.swift in Sources */,
@@ -423,6 +430,7 @@
 				96A4101E2571578500ACA0DE /* LJMProtocol.swift in Sources */,
 				967EE8CB256E722F008065C9 /* AddImageButton.swift in Sources */,
 				EA686F18256EF69100C121DC /* PathsView.swift in Sources */,
+				96CC6123257937D600CE7ABD /* DropDownFilterMenu.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,7 +9,8 @@ import SwiftUI
 
 struct PathsView: View, LJMView {
     @State var selectedFilter = "All"
-    
+    @State var expand: Bool = false
+
     var body: some View {
         
         VStack {
@@ -62,29 +63,32 @@ struct PathsView: View, LJMView {
                     
                     Spacer()
                     
-                    Button(action: {
-                        
-                    }) {
-                        HStack{
-                            Image(systemName: "chevron.down")
-                                .resizable()
-                                .foregroundColor(Color("customCyan"))
-                                .frame(width: 10, height: 5, alignment: .center)
+                    DropDownMenuFilters().padding(20)
+                    
+//                    Button(action: {
+//                        self.expand.toggle()
+//                    }) {
+//                        HStack{
+//                            Image(systemName: "chevron.down")
+//                                .resizable()
+//                                .foregroundColor(Color("customCyan"))
+//                                .frame(width: 10, height: 5, alignment: .center)
+////                                .padding()
+//                            Text("Filters")
 //                                .padding()
-                            Text("Filters")
-                                .padding()
-                                .font(.system(size: 15, weight: .medium, design: .rounded))
-                                .foregroundColor(Color("customCyan"))
-                                
-                        }.frame(width: 130, height: 30, alignment: .center)
-                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color("customCyan")))
-                    }.buttonStyle(PlainButtonStyle())
-                    .padding(.trailing, 20)
-                }.padding(.top, 20)
-                
+//                                .font(.system(size: 15, weight: .medium, design: .rounded))
+//                                .foregroundColor(Color("customCyan"))
+//
+//                        }.frame(width: 130, height: 30, alignment: .center)
+//                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color("customCyan")))
+//                    }.buttonStyle(PlainButtonStyle())
+//                    .padding(.trailing, 20)
+//                }.padding(.top, 20)
+                }
                 ListViewLearningObjectivePathView()
                 
                 Spacer()
+                
             }
         }
     
