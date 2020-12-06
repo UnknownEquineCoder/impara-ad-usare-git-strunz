@@ -182,7 +182,7 @@ struct ListViewLearningObjectiveMyJourney: View {
     var body: some View {
         
         if show {
-            ScrollViewLearningObjectives()
+            ScrollViewLearningObjectives(isAddable: false)
         } else {
             EmptyLearningObjectiveViewJourney()
         }

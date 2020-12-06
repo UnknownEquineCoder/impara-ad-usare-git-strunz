@@ -29,18 +29,17 @@ struct ChallengeView: View {
             
             ScrollViewFilters(filterTabs: challengeTabs, selectedFilter: $selectedFilter, vm: ScrollToModel())
             
-            HStack {
+            ZStack(alignment: .topLeading) {
                 Text("Learning Objectives")
                     .foregroundColor(Color.customDarkGrey)
                     .font(.system(size: 15, weight: .medium, design: .rounded))
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 
-                Spacer()
+                DropDownMenuFilters()
+                    .padding(.trailing, 20).padding(.leading, 1000)
                 
-                FilterButtonJourney(selectedFilter: $selectedFilterInsideButton)
-                    .buttonStyle(PlainButtonStyle())
-                    .padding(.trailing, 20)
+                ScrollViewLearningObjectives(isAddable: true).padding(.top, 50)
             }
-            
         }
     }
 }

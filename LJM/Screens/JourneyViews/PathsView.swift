@@ -91,127 +91,13 @@ struct PathsView: View, LJMView {
                     //                    }.buttonStyle(PlainButtonStyle())
                     //                    .padding(.trailing, 20)
                     //                }.padding(.top, 20)
-                    ListViewLearningObjectivePathView().padding(.top, 70)
+                    ScrollViewLearningObjectives(isAddable: true).padding(.top, 70)
                 }
                 
                 Spacer()
             }
         }
         
-    }
-}
-
-//struct ScrollViewFiltersPaths: View {
-//    @State var filterTabs = ["FRONT-END", "BACK-END","BUSINESS", "UI/UX", "GAME"]
-//    @Binding var selectedFilter : String
-//
-//    @StateObject var vm = ScrollToModel()
-//
-//    var body: some View {
-//        HStack {
-//
-//            ScrollView(.horizontal, showsIndicators: false) {
-//
-//                ScrollViewReader { (proxy: ScrollViewProxy) in
-//                    LazyHStack {
-//                        HStack(spacing: 10) {
-//                            ForEach(filterTabs, id: \.self) { i in
-//
-//                                Button(action: {
-//                                    self.selectedFilter = i
-//                                }) {
-//                                    Text(i)
-//                                        .font(.system(size: 13, weight: .semibold, design: .rounded))
-//                                        .foregroundColor(self.selectedFilter == i ? .white : .gray)
-//                                }.buttonStyle(PlainButtonStyle())
-//                                .frame(width: 150, height: 40)
-//                                .background(self.selectedFilter == i ? Color("customCyan") : .white)
-//                                .cornerRadius(12)
-//                                .overlay(RoundedRectangle(cornerRadius: 12).stroke(lineWidth: 2).foregroundColor(self.selectedFilter == i ? .clear : .gray))
-//                            }
-//                        }.padding([.leading, .trailing], 10)
-//                    }.onReceive(vm.$direction) { action in
-//                        guard !filterTabs.isEmpty else { return }
-//                        withAnimation {
-//                            switch action {
-//                            case .left:
-//                                proxy.scrollTo(filterTabs.first!, anchor: .leading)
-//                            case .right:
-//                                proxy.scrollTo(filterTabs.last!, anchor: .trailing)
-//                            default:
-//                                return
-//                            }
-//                        }
-//                    }.frame(height: 60)
-//                    .padding(.top, 5).padding(.bottom, 5)
-//                }
-//            }
-//
-//        }
-//    }
-//}
-//
-//struct ScrollViewFiltersMap: View {
-//    @State var filterTabs = ["FULL MAP", "COMMUNAL"]
-//    @Binding var selectedFilter : String
-//
-//    @StateObject var vm = ScrollToModel()
-//
-//    var body: some View {
-//        HStack {
-//
-//            ScrollView(.horizontal, showsIndicators: false) {
-//
-//                ScrollViewReader { (proxy: ScrollViewProxy) in
-//                    LazyHStack {
-//                        HStack(spacing: 10) {
-//                            ForEach(filterTabs, id: \.self) { i in
-//
-//                                Button(action: {
-//                                    self.selectedFilter = i
-//                                }) {
-//                                    Text(i)
-//                                        .font(.system(size: 13, weight: .semibold, design: .rounded))
-//                                        .foregroundColor(self.selectedFilter == i ? .white : .gray)
-//                                }.buttonStyle(PlainButtonStyle())
-//                                .frame(width: 150, height: 40)
-//                                .background(self.selectedFilter == i ? Color("customCyan") : .white)
-//                                .cornerRadius(12)
-//                                .overlay(RoundedRectangle(cornerRadius: 12).stroke(lineWidth: 2).foregroundColor(self.selectedFilter == i ? .clear : .gray))
-//                            }
-//                        }.padding([.leading, .trailing], 10)
-//                    }.onReceive(vm.$direction) { action in
-//                        guard !filterTabs.isEmpty else { return }
-//                        withAnimation {
-//                            switch action {
-//                            case .left:
-//                                proxy.scrollTo(filterTabs.first!, anchor: .leading)
-//                            case .right:
-//                                proxy.scrollTo(filterTabs.last!, anchor: .trailing)
-//                            default:
-//                                return
-//                            }
-//                        }
-//                    }.frame(height: 60)
-//                    .padding(.top, 5).padding(.bottom, 5)
-//                }
-//            }
-//        }
-//    }
-//}
-
-struct ListViewLearningObjectivePathView: View {
-    
-    var body: some View {
-        
-        ScrollView() {
-            LazyVStack {
-                ForEach (0..<8) { status in
-                    LearningObjectiveJourneyCell(isPath: true, title: "Design", subtitle: "Prototyping", core: "Core", description: "I can create low fidelity paper prototypes and sketches")
-                        .background(Color.white)
-                }
-            }
-        }
     }
 }
 

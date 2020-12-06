@@ -10,7 +10,7 @@ import SwiftUI
 struct LearningObjectiveJourneyCell: View {
     @State private var rating = 3
     
-    var isPath = false
+    var isAddable = false
     var title: String
     var subtitle: String
     var core: String
@@ -34,7 +34,7 @@ struct LearningObjectiveJourneyCell: View {
                 
                 Spacer()
                 
-                if !isPath {
+                if !isAddable {
                     RatingView(rating: $rating)
                 } else {
                     AddButton(buttonSize: 27).padding(.trailing, 50)
