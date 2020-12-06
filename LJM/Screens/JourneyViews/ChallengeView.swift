@@ -36,10 +36,11 @@ struct ChallengeView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 DropDownMenuFilters()
-                    .padding(.trailing, 20).padding(.leading, 1000)
+                    .padding(.trailing, 20).padding(.leading, 400)
                 
                 ScrollViewLearningObjectives(isAddable: true).padding(.top, 50)
-            }
+            }.frame(minWidth: 0, idealWidth: 1000, maxWidth: .infinity,
+                    maxHeight: .infinity, alignment: .leading)
         }
     }
 }

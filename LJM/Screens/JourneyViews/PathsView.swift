@@ -70,7 +70,7 @@ struct PathsView: View, LJMView {
                         .font(.system(size: 15, weight: .medium, design: .rounded))
                         .padding(.leading, 20)
                     
-                    DropDownMenuFilters().padding(.leading, 500).zIndex(1)
+                    DropDownMenuFilters().padding(.leading, 400).zIndex(1)
                     
                     //                    Button(action: {
                     //                        self.expand.toggle()
@@ -92,7 +92,8 @@ struct PathsView: View, LJMView {
                     //                    .padding(.trailing, 20)
                     //                }.padding(.top, 20)
                     ScrollViewLearningObjectives(isAddable: true).padding(.top, 70)
-                }
+                }.frame(minWidth: 0, idealWidth: 1000, maxWidth: .infinity,
+                        maxHeight: .infinity, alignment: .leading)
                 
                 Spacer()
             }

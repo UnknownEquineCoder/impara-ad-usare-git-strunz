@@ -18,9 +18,8 @@ struct MyJourneyView: View, LJMView {
     var paths = ["Design" : Color.customCyan, "Frontend": Color.orange, "Backend": Color.yellow, "Business": Color.purple]
     
     var body: some View {
-        VStack {
-            VStack( spacing: 0) {
-                ZStack(alignment: .top) {
+        VStack(alignment: .leading) {
+                ZStack(alignment: .topLeading) {
                     Text("My Journey")
                         .font(.system(size: 40, weight: .medium))
                         .fontWeight(.medium)
@@ -40,13 +39,13 @@ struct MyJourneyView: View, LJMView {
                             .padding(.trailing, 90)
                         
                         Rectangle().frame(height: 1).foregroundColor(Color.customDarkGrey)
-                    }.padding(.top, 50)
+                    }.frame(maxWidth: .infinity, alignment: .leading).padding(.top, 50)
                     
                     ScrollViewFiltersJourney(filterTabs: arrayFilters, selectedFilter: $selectedFilter).padding(.top, 20).padding(.top, 130)
                     
-                }.frame(maxWidth: .infinity)
+                }.frame(maxWidth: .infinity, alignment: .leading)
                 
-                ZStack(alignment: .top) {
+                ZStack(alignment: .topLeading) {
                     Text("Number of objectives :")
                         .foregroundColor(Color.customDarkGrey)
                         .font(.system(size: 15, weight: .medium, design: .rounded))
@@ -64,19 +63,18 @@ struct MyJourneyView: View, LJMView {
                             .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color.customCyan))
                     }.buttonStyle(PlainButtonStyle())
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 230)
+                    .padding(.leading, 150)
                     
                     DropDownMenuFilters()
                         .buttonStyle(PlainButtonStyle())
                         .padding(.trailing, 20)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.leading, 1000)
+                        .padding(.leading, 400)
                         .zIndex(1)
                     
                     ListViewLearningObjectiveMyJourney(show: self.$showTest)
                         .padding(.top, 50)
                 }.frame(maxWidth: .infinity).padding(.top, 30)
-            }
         }
     }
 }
