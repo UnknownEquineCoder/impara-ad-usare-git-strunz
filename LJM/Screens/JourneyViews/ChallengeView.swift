@@ -11,6 +11,7 @@ struct ChallengeView: View {
     
     var challengeTabs = ["MC3", "NI2", "V4", "AA2"]
     @State var selectedFilter = "MC3"
+    @State var selectedFilterInsideButton = "All"
     
     var body: some View {
         VStack {
@@ -35,7 +36,7 @@ struct ChallengeView: View {
                 
                 Spacer()
                 
-                FilterButtonJourney()
+                FilterButtonJourney(selectedFilter: $selectedFilterInsideButton)
                     .buttonStyle(PlainButtonStyle())
                     .padding(.trailing, 20)
             }

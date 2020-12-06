@@ -10,6 +10,7 @@ import SwiftUI
 struct MyJourneyView: View, LJMView {
     @State var selectedPath = "Select your path"
     @State var selectedFilter = "All"
+    @State var selectedFilterInsideButton = "All"
     let arrayFilters = ["All", "Core", "Elective", "Evaluated"]
     
     @State private var showTest = true
@@ -45,13 +46,11 @@ struct MyJourneyView: View, LJMView {
                     
                 }.frame(maxWidth: .infinity)
                 
-                HStack {
+                ZStack(alignment: .top) {
                     Text("Number of objectives :")
                         .foregroundColor(Color.customDarkGrey)
                         .font(.system(size: 15, weight: .medium, design: .rounded))
-                        .padding(.leading, 20)
-                    
-                    Spacer()
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     
                     Button(action: {
                         self.showTest.toggle()
@@ -64,18 +63,19 @@ struct MyJourneyView: View, LJMView {
                             .background(Color.white)
                             .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color.customCyan))
                     }.buttonStyle(PlainButtonStyle())
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading, 230)
                     
-                    Spacer()
-                    
-                    FilterButtonJourney()
+                    DropDownMenuFilters()
                         .buttonStyle(PlainButtonStyle())
                         .padding(.trailing, 20)
-                }.padding(.top, 20)
-                
-                Spacer()
-                
-                ListViewLearningObjectiveMyJourney(show: self.$showTest)
-                
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.leading, 600)
+                        .zIndex(1)
+                    
+                    ListViewLearningObjectiveMyJourney(show: self.$showTest)
+                        .padding(.top, 50)
+                }.frame(maxWidth: .infinity).padding(.top, 30)
             }
         }
     }
@@ -182,7 +182,7 @@ struct ListViewLearningObjectiveMyJourney: View {
     var body: some View {
         
         if show {
-
+            
         } else {
             EmptyLearningObjectiveViewJourney()
         }

@@ -10,7 +10,7 @@ import SwiftUI
 struct PathsView: View, LJMView {
     @State var selectedFilter = "All"
     @State var expand: Bool = false
-
+    
     var filterTabsPath = ["FRONT-END", "BACK-END","BUSINESS", "UI/UX", "GAME"]
     var filterTabsMap = ["FULL MAP", "COMMUNAL"]
     
@@ -43,9 +43,9 @@ struct PathsView: View, LJMView {
                         .font(.system(size: 20))
                         .padding(.top, 18)
                     ScrollViewFilters(filterTabs: self.filterTabsMap, selectedFilter: $selectedFilter, vm: ScrollToModel())
-                            .padding(.top, 20)
-                            .font(.system(size: 15, weight: .medium, design: .rounded))
-                            .padding(.leading, 10)
+                        .padding(.top, 20)
+                        .font(.system(size: 15, weight: .medium, design: .rounded))
+                        .padding(.leading, 10)
                 }
                 
                 HStack{
@@ -55,50 +55,49 @@ struct PathsView: View, LJMView {
                         .foregroundColor(Color.gray)
                         .font(.system(size: 20))
                         .padding(.top, 18)
-               //     ScrollViewFiltersPaths(selectedFilter: $selectedFilter).padding(.top, 20)
-               //         .font(.system(size: 15, weight: .medium, design: .rounded))
-
+                    //     ScrollViewFiltersPaths(selectedFilter: $selectedFilter).padding(.top, 20)
+                    //         .font(.system(size: 15, weight: .medium, design: .rounded))
+                    
                     ScrollViewFilters(filterTabs: self.filterTabsPath, selectedFilter: $selectedFilter, vm: ScrollToModel())
-                            .padding(.top, 20)
-                            .font(.system(size: 15, weight: .medium, design: .rounded))
+                        .padding(.top, 20)
+                        .font(.system(size: 15, weight: .medium, design: .rounded))
                 }
-                HStack {
+                
+                ZStack(alignment: .topLeading) {
                     
                     Text("Learning Objectives:")
                         .foregroundColor(Color.gray)
                         .font(.system(size: 15, weight: .medium, design: .rounded))
                         .padding(.leading, 20)
                     
-                    Spacer()
+                    DropDownMenuFilters().padding(.leading, 500).zIndex(1)
                     
-                    DropDownMenuFilters().padding(20)
-                    
-//                    Button(action: {
-//                        self.expand.toggle()
-//                    }) {
-//                        HStack{
-//                            Image(systemName: "chevron.down")
-//                                .resizable()
-//                                .foregroundColor(Color("customCyan"))
-//                                .frame(width: 10, height: 5, alignment: .center)
-////                                .padding()
-//                            Text("Filters")
-//                                .padding()
-//                                .font(.system(size: 15, weight: .medium, design: .rounded))
-//                                .foregroundColor(Color("customCyan"))
-//
-//                        }.frame(width: 130, height: 30, alignment: .center)
-//                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color("customCyan")))
-//                    }.buttonStyle(PlainButtonStyle())
-//                    .padding(.trailing, 20)
-//                }.padding(.top, 20)
+                    //                    Button(action: {
+                    //                        self.expand.toggle()
+                    //                    }) {
+                    //                        HStack{
+                    //                            Image(systemName: "chevron.down")
+                    //                                .resizable()
+                    //                                .foregroundColor(Color("customCyan"))
+                    //                                .frame(width: 10, height: 5, alignment: .center)
+                    ////                                .padding()
+                    //                            Text("Filters")
+                    //                                .padding()
+                    //                                .font(.system(size: 15, weight: .medium, design: .rounded))
+                    //                                .foregroundColor(Color("customCyan"))
+                    //
+                    //                        }.frame(width: 130, height: 30, alignment: .center)
+                    //                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color("customCyan")))
+                    //                    }.buttonStyle(PlainButtonStyle())
+                    //                    .padding(.trailing, 20)
+                    //                }.padding(.top, 20)
+                    ListViewLearningObjectivePathView().padding(.top, 70)
                 }
-                ListViewLearningObjectivePathView()
                 
                 Spacer()
             }
         }
-    
+        
     }
 }
 
