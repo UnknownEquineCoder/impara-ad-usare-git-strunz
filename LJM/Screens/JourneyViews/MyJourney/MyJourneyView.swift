@@ -70,7 +70,7 @@ struct MyJourneyView: View, LJMView {
                         .buttonStyle(PlainButtonStyle())
                         .padding(.trailing, 20)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.leading, 600)
+                        .padding(.leading, 1000)
                         .zIndex(1)
                     
                     ListViewLearningObjectiveMyJourney(show: self.$showTest)
@@ -182,7 +182,7 @@ struct ListViewLearningObjectiveMyJourney: View {
     var body: some View {
         
         if show {
-            
+            ScrollViewLearningObjectives()
         } else {
             EmptyLearningObjectiveViewJourney()
         }

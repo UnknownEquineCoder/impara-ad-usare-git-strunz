@@ -16,7 +16,7 @@ struct MainScreen: View{
             Color.blue
             HStack{
                 Sidebar()
-                JourneyMainView()
+                JourneyMainView().frame(width: 1300, height: .infinity, alignment: .leading)
             }
         }.frame(width: 1920.toScreenSize(), height: 1080.toScreenSize())
 }
