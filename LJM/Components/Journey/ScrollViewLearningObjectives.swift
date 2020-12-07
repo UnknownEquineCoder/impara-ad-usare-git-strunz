@@ -13,8 +13,8 @@ struct ScrollViewLearningObjectives: View {
     
     var body: some View {
         ScrollView(showsIndicators: true) {
-            LazyVStack {
-                ForEach (0..<learningObjectivesSample.count) { status in
+            VStack {
+                ForEach (learningObjectivesSample, id: \.self) { status in
                     LearningObjectiveJourneyCell(isAddable: self.isAddable, title: "Design", subtitle: "Prototyping", core: "Core", description: "I can create low fidelity paper prototypes and sketches")
                         .background(Color.white)
                 }
