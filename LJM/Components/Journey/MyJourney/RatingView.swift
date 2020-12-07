@@ -59,13 +59,17 @@ struct CircleView: View {
                     self.hovered = true
                 } else {
                     self.hovered = false
+                    self.showingPopup = false
                 }
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     if hovered {
-                        self.showingPopup = true
+                        if hover {
+                            self.showingPopup = true
+                        } else {
+                            self.showingPopup = false
+                        }
                     } else {
-                        self.hovered = false
                         self.showingPopup = false
                     }
                 }

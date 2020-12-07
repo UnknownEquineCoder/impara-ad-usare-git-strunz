@@ -20,7 +20,7 @@ struct LearningObjectiveJourneyCell: View {
             HStack {
                 Rectangle()
                     .frame(width: 20, alignment: .leading)
-                    .background(Color("customCyan"))
+                    .foregroundColor(Color("customCyan"))
                 
                 VStack(alignment: .leading, spacing: 8) {
                     Text(title.uppercased()).foregroundColor(Color.customCyan).font(.system(size: 15, weight: .semibold, design: .rounded))
