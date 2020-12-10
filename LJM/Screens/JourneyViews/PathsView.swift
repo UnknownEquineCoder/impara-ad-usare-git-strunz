@@ -49,6 +49,7 @@ struct PathsView: View, LJMView {
                 }
                 
                 HStack{
+    
                     Text("Paths")
                         .fontWeight(.light)
                         .padding(.leading, 20)
@@ -62,40 +63,25 @@ struct PathsView: View, LJMView {
                             .padding(.top, 20)
                             .font(.system(size: 15, weight: .medium, design: .rounded))
                 }
+                
                 HStack {
-                    
+                    ZStack{
                     Text("Learning Objectives:")
                         .foregroundColor(Color.gray)
                         .font(.system(size: 15, weight: .medium, design: .rounded))
                         .padding(.leading, 20)
                     
                     Spacer()
-                    
-                    DropDownMenuFilters().padding(20)
-                    
-//                    Button(action: {
-//                        self.expand.toggle()
-//                    }) {
-//                        HStack{
-//                            Image(systemName: "chevron.down")
-//                                .resizable()
-//                                .foregroundColor(Color("customCyan"))
-//                                .frame(width: 10, height: 5, alignment: .center)
-////                                .padding()
-//                            Text("Filters")
-//                                .padding()
-//                                .font(.system(size: 15, weight: .medium, design: .rounded))
-//                                .foregroundColor(Color("customCyan"))
-//
-//                        }.frame(width: 130, height: 30, alignment: .center)
-//                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color("customCyan")))
-//                    }.buttonStyle(PlainButtonStyle())
-//                    .padding(.trailing, 20)
-//                }.padding(.top, 20)
-                }
-                ListViewLearningObjectivePathView()
+                        VStack{
+                            DropDownMenuFilters().padding(20)
+
+                        }.zIndex(1)
                 
+                
+                ListViewLearningObjectivePathView()
+                    }
                 Spacer()
+                }
             }
         }
     

@@ -11,7 +11,7 @@ import SwiftUI
 
 struct Sidebar: View {
     @State private var sections = ["Dashboard", "Journey", "Notebook", "Portfolio", "Backpack"]
-    @State private var selectedSection: String? = "Journey"
+    @State private var selection: Int? = 1
     
     var body: some View {
         NavigationView {
@@ -19,28 +19,28 @@ struct Sidebar: View {
 
                 StudentPictureView(size: 130.toScreenSize())
                         .padding(.trailing)
-//                Navigation<JourneyMainView>(buttonName: "Dashboard", buttonIcon: "square")
+//                Navigation<JourneyMainView>(buttonName: "Dashboard", buttonIcon: "square", tag: 0, selection: selection)
                     
                 Section(header: Text("Personal").font(.system(size: 28.toFontSize()))
                                 .fontWeight(.regular)) {
                         
-                        Navigation<JourneyMainView>(buttonName: "Journey", buttonIcon: "square")
+                        Navigation<JourneyMainView>(buttonName: "Journey", buttonIcon: "square", tag: 1, selection: selection)
 
-                        Navigation<JourneyMainView>(buttonName: "Compass", buttonIcon: "square")
-                        Navigation<JourneyMainView>(buttonName: "Notebook", buttonIcon: "square")
+                    Navigation<JourneyMainView>(buttonName: "Compass", buttonIcon: "square", tag: 2, selection: selection)
+                        Navigation<JourneyMainView>(buttonName: "Notebook", buttonIcon: "square", tag: 3, selection: selection)
                     }
                     
                 Section(header: Text("Resume").font(.system(size: 28.toFontSize()))
                                 .fontWeight(.regular)) {
-                        Navigation<JourneyMainView>(buttonName: "Portfolio", buttonIcon: "square")
-                        Navigation<JourneyMainView>(buttonName: "Backpack", buttonIcon: "square")
+                        Navigation<JourneyMainView>(buttonName: "Portfolio", buttonIcon: "square", tag: 4, selection: selection)
+                        Navigation<JourneyMainView>(buttonName: "Backpack", buttonIcon: "square", tag: 5, selection: selection)
                     }
                     
 
                 }
                 .background(Color("Sidebar Color"))
                 .listStyle(SidebarListStyle())
-                .frame(width: 366.toScreenSize())
+                .frame(minWidth: 366.toScreenSize(), maxWidth: .infinity)
  
             }
         }

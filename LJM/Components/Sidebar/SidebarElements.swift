@@ -38,13 +38,15 @@ struct SidebarElements: View {
 struct Navigation<V: LJMView>: View{
     var buttonName: String
     var buttonIcon: String
+    var tag: Int
+    @State var selection: Int?
     
     
     var body: some View{
-        NavigationLink(destination: V(),
-                       label: {
+        NavigationLink(destination: V(), tag: tag, selection: $selection)
+                        {
                         SidebarElements(buttonName: buttonName, buttonIcon: buttonIcon)
-                       })
+                       }
     }
     
 }
