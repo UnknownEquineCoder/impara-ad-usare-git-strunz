@@ -11,12 +11,12 @@ struct RatingView: View {
     
     @Binding var rating: Int
     @State private var hover = false
-    var maximumRating = 5    
+    var maximumRating = 5
     
     var body: some View {
         VStack {
             HStack {
-                ForEach(1..<maximumRating + 1) { number in
+                ForEach(1..<maximumRating + 1, id: \.self) { number in
                     Button {
                         self.rating = number
                         self.hover = false
@@ -35,7 +35,6 @@ struct RatingView: View {
                 .foregroundColor(Color.customCyan)
                 .padding(.trailing, 50)
             
-            // TODO: change to  draw triangle instead of image
         }.padding(.top, 20)
     }
 }
@@ -62,7 +61,7 @@ struct CircleView: View {
                     self.showingPopup = false
                 }
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     if hovered {
                         if hover {
                             self.showingPopup = true
