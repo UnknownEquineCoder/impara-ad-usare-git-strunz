@@ -7,13 +7,37 @@
 
 import Foundation
 import SwiftUI
-
+import AppKit
 
 struct AddImageButton: View {
     var buttonSize: CGFloat
+    
     var body: some View {
         Button{
-            print()
+            let dialog = NSOpenPanel();
+
+            dialog.title                   = "Choose an image"
+            dialog.showsResizeIndicator    = true
+            dialog.showsHiddenFiles        = false
+            dialog.allowsMultipleSelection = false
+            dialog.canChooseFiles = true
+            dialog.canChooseDirectories = true
+            dialog.allowedFileTypes        = ["png", "jpg", "jpeg", "gif"]
+
+            if (dialog.runModal() ==  NSApplication.ModalResponse.OK) {
+                let result = dialog.url // Pathname of the file
+
+                if let result = result {
+                    let path: String = result.path
+                    print(path)
+                    // path contains the file path e.g
+                    // /Users/ourcodeworld/Desktop/tiger.jpeg
+                }
+                
+            } else {
+                // User clicked on "Cancel"
+                return
+            }
         }label: {
             ZStack{
                 Circle()
