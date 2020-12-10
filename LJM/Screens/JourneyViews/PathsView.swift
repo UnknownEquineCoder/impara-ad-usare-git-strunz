@@ -102,7 +102,7 @@ struct PathsView: View, LJMView {
         }
     
     }
-}
+
 
 //struct ScrollViewFiltersPaths: View {
 //    @State var filterTabs = ["FRONT-END", "BACK-END","BUSINESS", "UI/UX", "GAME"]
@@ -203,20 +203,7 @@ struct PathsView: View, LJMView {
 //    }
 //}
 
-struct ListViewLearningObjectivePathView: View {
-    
-    var body: some View {
-        
-        ScrollView() {
-            LazyVStack {
-                ForEach (0..<8) { status in
-                    LearningObjectiveJourneyCell(isPath: true, title: "Design", subtitle: "Prototyping", core: "Core", description: "I can create low fidelity paper prototypes and sketches")
-                        .background(Color.white)
-                }
-            }
-        }
-    }
-}
+
 
 class ScrollToModel2: ObservableObject {
     enum Action {
