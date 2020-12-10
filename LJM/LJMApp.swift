@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import CoreData
 
 @main
 struct LJMApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+            
         }
     }
 }

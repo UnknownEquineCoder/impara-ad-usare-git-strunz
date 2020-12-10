@@ -18,6 +18,8 @@
 		964B665E256E64FD006AB20E /* StudentPictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B665D256E64FD006AB20E /* StudentPictureView.swift */; };
 		965F00AE25810E39004D9111 /* MenuFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965F00AD25810E39004D9111 /* MenuFilters.swift */; };
 		965F00CA258246CC004D9111 /* DropDownFilterMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965F00C9258246CC004D9111 /* DropDownFilterMenu.swift */; };
+		965F00F7258268F4004D9111 /* ProPicData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 965F00F5258268F4004D9111 /* ProPicData.xcdatamodeld */; };
+		965F00FC25826987004D9111 /* ProfilePictureProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965F00FB25826987004D9111 /* ProfilePictureProvider.swift */; };
 		9670A966256E9FBA0043F227 /* ProfileNameLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9670A965256E9FBA0043F227 /* ProfileNameLabel.swift */; };
 		9670A96E256EAA330043F227 /* SidebarElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9670A96D256EAA330043F227 /* SidebarElements.swift */; };
 		9670A976257105290043F227 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9670A975257105290043F227 /* Sidebar.swift */; };
@@ -81,6 +83,8 @@
 		964B665D256E64FD006AB20E /* StudentPictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentPictureView.swift; sourceTree = "<group>"; };
 		965F00AD25810E39004D9111 /* MenuFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuFilters.swift; sourceTree = "<group>"; };
 		965F00C9258246CC004D9111 /* DropDownFilterMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownFilterMenu.swift; sourceTree = "<group>"; };
+		965F00F6258268F4004D9111 /* ProPicData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ProPicData.xcdatamodel; sourceTree = "<group>"; };
+		965F00FB25826987004D9111 /* ProfilePictureProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePictureProvider.swift; sourceTree = "<group>"; };
 		9670A965256E9FBA0043F227 /* ProfileNameLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNameLabel.swift; sourceTree = "<group>"; };
 		9670A96D256EAA330043F227 /* SidebarElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarElements.swift; sourceTree = "<group>"; };
 		9670A975257105290043F227 /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
@@ -218,6 +222,8 @@
 			isa = PBXGroup;
 			children = (
 				9670A9802571134E0043F227 /* undefined.swift */,
+				965F00F5258268F4004D9111 /* ProPicData.xcdatamodeld */,
+				965F00FB25826987004D9111 /* ProfilePictureProvider.swift */,
 			);
 			path = BackendStuff;
 			sourceTree = "<group>";
@@ -436,9 +442,11 @@
 				9641C4B72577AD700088A0B6 /* MainScreen.swift in Sources */,
 				EA686F10256EF67B00C121DC /* MyJourneyView.swift in Sources */,
 				964B662E256E6020006AB20E /* ContentView.swift in Sources */,
+				965F00FC25826987004D9111 /* ProfilePictureProvider.swift in Sources */,
 				EA70289A25771D9300E1B6EB /* SearchBarSideBar.swift in Sources */,
 				9670A96E256EAA330043F227 /* SidebarElements.swift in Sources */,
 				EA7028902572FDD300E1B6EB /* RatingView.swift in Sources */,
+				965F00F7258268F4004D9111 /* ProPicData.xcdatamodeld in Sources */,
 				96A4105125726DD600ACA0DE /* AddButton.swift in Sources */,
 				EA686F1D256EF69C00C121DC /* ChallengeView.swift in Sources */,
 				9670A966256E9FBA0043F227 /* ProfileNameLabel.swift in Sources */,
@@ -787,6 +795,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		965F00F5258268F4004D9111 /* ProPicData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				965F00F6258268F4004D9111 /* ProPicData.xcdatamodel */,
+			);
+			currentVersion = 965F00F6258268F4004D9111 /* ProPicData.xcdatamodel */;
+			path = ProPicData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 964B6620256E6020006AB20E /* Project object */;
 }
