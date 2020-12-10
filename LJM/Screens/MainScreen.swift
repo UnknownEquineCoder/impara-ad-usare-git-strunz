@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct MainScreen: View{
-   
+    
     
     var body: some View {
         ZStack{
@@ -19,7 +19,7 @@ struct MainScreen: View{
                 JourneyMainView()
             }
         }.frame(width: 1920.toScreenSize(), height: 1080.toScreenSize())
-}
+    }
 }
 
 struct MainScreen_Previews: PreviewProvider {

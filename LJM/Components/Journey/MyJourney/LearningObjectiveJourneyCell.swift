@@ -10,7 +10,7 @@ import SwiftUI
 struct LearningObjectiveJourneyCell: View {
     @State private var rating = 3
     
-    var isPath = false
+    var isAddable = false
     var title: String
     var subtitle: String
     var core: String
@@ -20,7 +20,7 @@ struct LearningObjectiveJourneyCell: View {
             HStack {
                 Rectangle()
                     .frame(width: 20, alignment: .leading)
-                    .background(Color("customCyan"))
+                    .foregroundColor(Color("customCyan"))
                 
                 VStack(alignment: .leading, spacing: 8) {
                     Text(title.uppercased()).foregroundColor(Color.customCyan).font(.system(size: 15, weight: .semibold, design: .rounded))
@@ -34,7 +34,7 @@ struct LearningObjectiveJourneyCell: View {
                 
                 Spacer()
                 
-                if !isPath {
+                if !isAddable {
                     RatingView(rating: $rating)
                 } else {
                     AddButton(buttonSize: 27).padding(.trailing, 50)

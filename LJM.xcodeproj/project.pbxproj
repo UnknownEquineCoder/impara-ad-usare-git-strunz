@@ -24,7 +24,6 @@
 		967EE8CB256E722F008065C9 /* AddImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967EE8CA256E722F008065C9 /* AddImageButton.swift */; };
 		96A4101E2571578500ACA0DE /* LJMProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A4101D2571578500ACA0DE /* LJMProtocol.swift */; };
 		96A4105125726DD600ACA0DE /* AddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A4105025726DD600ACA0DE /* AddButton.swift */; };
-		96A4105625729E4D00ACA0DE /* LearningObjectivesPaths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A4105525729E4D00ACA0DE /* LearningObjectivesPaths.swift */; };
 		96BE89D0257553BF00BE9E8F /* CountDownWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE89CF257553BF00BE9E8F /* CountDownWrapper.swift */; };
 		96CC613F257A38FC00CE7ABD /* DropDownMenuFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC613D257A38FC00CE7ABD /* DropDownMenuFilters.swift */; };
 		EA686EF9256EE4F300C121DC /* TopBarJourney.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA686EF8256EE4F300C121DC /* TopBarJourney.swift */; };
@@ -39,7 +38,6 @@
 		EA7028B02579B29600E1B6EB /* ArrowButtonScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7028AF2579B29600E1B6EB /* ArrowButtonScrollView.swift */; };
 		EA7028B52579B2CF00E1B6EB /* BackgroundImageReadingStudent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7028B42579B2CF00E1B6EB /* BackgroundImageReadingStudent.swift */; };
 		EA7028BA2579C75000E1B6EB /* ScrollViewFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7028B92579C75000E1B6EB /* ScrollViewFilters.swift */; };
-		EA7028C62579DCDB00E1B6EB /* FilterButtonJourney.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7028C52579DCDB00E1B6EB /* FilterButtonJourney.swift */; };
 		EA7028D12579E32500E1B6EB /* ColorsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7028D02579E32500E1B6EB /* ColorsExtension.swift */; };
 		EAD2C81A257085CA008CDDA1 /* LearningObjectiveJourneyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD2C819257085CA008CDDA1 /* LearningObjectiveJourneyCell.swift */; };
 		EAF37039257A2A4900C72707 /* EmptyLearningObjectiveViewJourney.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF37038257A2A4900C72707 /* EmptyLearningObjectiveViewJourney.swift */; };
@@ -88,7 +86,6 @@
 		967EE8CA256E722F008065C9 /* AddImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddImageButton.swift; sourceTree = "<group>"; };
 		96A4101D2571578500ACA0DE /* LJMProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LJMProtocol.swift; sourceTree = "<group>"; };
 		96A4105025726DD600ACA0DE /* AddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButton.swift; sourceTree = "<group>"; };
-		96A4105525729E4D00ACA0DE /* LearningObjectivesPaths.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningObjectivesPaths.swift; sourceTree = "<group>"; };
 		96BE89CF257553BF00BE9E8F /* CountDownWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownWrapper.swift; sourceTree = "<group>"; };
 		96CC613D257A38FC00CE7ABD /* DropDownMenuFilters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownMenuFilters.swift; sourceTree = "<group>"; };
 		EA686EF8256EE4F300C121DC /* TopBarJourney.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarJourney.swift; sourceTree = "<group>"; };
@@ -103,7 +100,6 @@
 		EA7028AF2579B29600E1B6EB /* ArrowButtonScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowButtonScrollView.swift; sourceTree = "<group>"; };
 		EA7028B42579B2CF00E1B6EB /* BackgroundImageReadingStudent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundImageReadingStudent.swift; sourceTree = "<group>"; };
 		EA7028B92579C75000E1B6EB /* ScrollViewFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewFilters.swift; sourceTree = "<group>"; };
-		EA7028C52579DCDB00E1B6EB /* FilterButtonJourney.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButtonJourney.swift; sourceTree = "<group>"; };
 		EA7028D02579E32500E1B6EB /* ColorsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsExtension.swift; sourceTree = "<group>"; };
 		EAD2C819257085CA008CDDA1 /* LearningObjectiveJourneyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningObjectiveJourneyCell.swift; sourceTree = "<group>"; };
 		EAF37038257A2A4900C72707 /* EmptyLearningObjectiveViewJourney.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyLearningObjectiveViewJourney.swift; sourceTree = "<group>"; };
@@ -241,7 +237,6 @@
 			isa = PBXGroup;
 			children = (
 				96A4105025726DD600ACA0DE /* AddButton.swift */,
-				96A4105525729E4D00ACA0DE /* LearningObjectivesPaths.swift */,
 				96BE89CF257553BF00BE9E8F /* CountDownWrapper.swift */,
 				96CC613D257A38FC00CE7ABD /* DropDownMenuFilters.swift */,
 				965F00AD25810E39004D9111 /* MenuFilters.swift */,
@@ -253,10 +248,10 @@
 			isa = PBXGroup;
 			children = (
 				EA7028B92579C75000E1B6EB /* ScrollViewFilters.swift */,
+				EAF3703D257A2AC400C72707 /* ScrollViewLearningObjectives.swift */,
 				EA7028D82579F7D000E1B6EB /* MyJourney */,
 				96A410402572673800ACA0DE /* Paths */,
 				EA7028C42579DCC100E1B6EB /* Buttons */,
-				EAF3703D257A2AC400C72707 /* ScrollViewLearningObjectives.swift */,
 			);
 			path = Journey;
 			sourceTree = "<group>";
@@ -285,7 +280,6 @@
 		EA7028C42579DCC100E1B6EB /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
-				EA7028C52579DCDB00E1B6EB /* FilterButtonJourney.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -458,10 +452,8 @@
 				EA7028D12579E32500E1B6EB /* ColorsExtension.swift in Sources */,
 				EA686EF9256EE4F300C121DC /* TopBarJourney.swift in Sources */,
 				96CC613F257A38FC00CE7ABD /* DropDownMenuFilters.swift in Sources */,
-				96A4105625729E4D00ACA0DE /* LearningObjectivesPaths.swift in Sources */,
 				EA686F2E256F25CF00C121DC /* Extensions.swift in Sources */,
 				EA686F25256EFBFA00C121DC /* SearchBarExpandableJourney.swift in Sources */,
-				EA7028C62579DCDB00E1B6EB /* FilterButtonJourney.swift in Sources */,
 				9670A976257105290043F227 /* Sidebar.swift in Sources */,
 				9641C4A525778F1D0088A0B6 /* SizesExtension.swift in Sources */,
 				964B662C256E6020006AB20E /* LJMApp.swift in Sources */,
@@ -636,7 +628,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"LJM/Preview Content\"";
-				DEVELOPMENT_TEAM = TJFPF3FB8U;
+				DEVELOPMENT_TEAM = KXZF72639J;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = LJM/Info.plist;
@@ -660,7 +652,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"LJM/Preview Content\"";
-				DEVELOPMENT_TEAM = TJFPF3FB8U;
+				DEVELOPMENT_TEAM = KXZF72639J;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = LJM/Info.plist;

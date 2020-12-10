@@ -11,6 +11,7 @@ struct ChallengeView: View {
     
     var challengeTabs = ["MC3", "NI2", "V4", "AA2"]
     @State var selectedFilter = "MC3"
+    @State var selectedFilterInsideButton = "All"
     
     var body: some View {
         VStack {
@@ -28,18 +29,18 @@ struct ChallengeView: View {
             
             ScrollViewFilters(filterTabs: challengeTabs, selectedFilter: $selectedFilter, vm: ScrollToModel())
             
-            HStack {
+            ZStack(alignment: .topLeading) {
                 Text("Learning Objectives")
                     .foregroundColor(Color.customDarkGrey)
                     .font(.system(size: 15, weight: .medium, design: .rounded))
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 
-                Spacer()
+                DropDownMenuFilters()
+                    .padding(.trailing, 20).padding(.leading, 400)
                 
-                FilterButtonJourney()
-                    .buttonStyle(PlainButtonStyle())
-                    .padding(.trailing, 20)
-            }
-            
+                ScrollViewLearningObjectives(isAddable: true).padding(.top, 50)
+            }.frame(minWidth: 0, idealWidth: 1000, maxWidth: .infinity,
+                    maxHeight: .infinity, alignment: .leading)
         }
     }
 }

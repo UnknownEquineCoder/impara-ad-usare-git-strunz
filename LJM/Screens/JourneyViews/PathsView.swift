@@ -64,22 +64,38 @@ struct PathsView: View, LJMView {
                             .font(.system(size: 15, weight: .medium, design: .rounded))
                 }
                 
-                HStack {
-                    ZStack{
+                ZStack(alignment: .topLeading) {
+                    
                     Text("Learning Objectives:")
                         .foregroundColor(Color.gray)
                         .font(.system(size: 15, weight: .medium, design: .rounded))
                         .padding(.leading, 20)
                     
-                    Spacer()
-                        VStack{
-                            DropDownMenuFilters().padding(20)
-
-                        }.zIndex(1)
+                    DropDownMenuFilters().padding(.leading, 400).zIndex(1)
+                    
+                    //                    Button(action: {
+                    //                        self.expand.toggle()
+                    //                    }) {
+                    //                        HStack{
+                    //                            Image(systemName: "chevron.down")
+                    //                                .resizable()
+                    //                                .foregroundColor(Color("customCyan"))
+                    //                                .frame(width: 10, height: 5, alignment: .center)
+                    ////                                .padding()
+                    //                            Text("Filters")
+                    //                                .padding()
+                    //                                .font(.system(size: 15, weight: .medium, design: .rounded))
+                    //                                .foregroundColor(Color("customCyan"))
+                    //
+                    //                        }.frame(width: 130, height: 30, alignment: .center)
+                    //                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color("customCyan")))
+                    //                    }.buttonStyle(PlainButtonStyle())
+                    //                    .padding(.trailing, 20)
+                    //                }.padding(.top, 20)
+                    ScrollViewLearningObjectives(isAddable: true).padding(.top, 70)
+                }.frame(minWidth: 0, idealWidth: 1000, maxWidth: .infinity,
+                        maxHeight: .infinity, alignment: .leading)
                 
-                
-                ListViewLearningObjectivePathView()
-                    }
                 Spacer()
                 }
             }
