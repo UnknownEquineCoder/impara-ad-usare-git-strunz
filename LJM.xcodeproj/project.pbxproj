@@ -16,6 +16,8 @@
 		964B663F256E6022006AB20E /* LJMTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B663E256E6022006AB20E /* LJMTests.swift */; };
 		964B664A256E6022006AB20E /* LJMUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B6649256E6022006AB20E /* LJMUITests.swift */; };
 		964B665E256E64FD006AB20E /* StudentPictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B665D256E64FD006AB20E /* StudentPictureView.swift */; };
+		965F00AE25810E39004D9111 /* MenuFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965F00AD25810E39004D9111 /* MenuFilters.swift */; };
+		965F00CA258246CC004D9111 /* DropDownFilterMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965F00C9258246CC004D9111 /* DropDownFilterMenu.swift */; };
 		9670A966256E9FBA0043F227 /* ProfileNameLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9670A965256E9FBA0043F227 /* ProfileNameLabel.swift */; };
 		9670A96E256EAA330043F227 /* SidebarElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9670A96D256EAA330043F227 /* SidebarElements.swift */; };
 		9670A976257105290043F227 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9670A975257105290043F227 /* Sidebar.swift */; };
@@ -77,6 +79,8 @@
 		964B6649256E6022006AB20E /* LJMUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LJMUITests.swift; sourceTree = "<group>"; };
 		964B664B256E6022006AB20E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		964B665D256E64FD006AB20E /* StudentPictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentPictureView.swift; sourceTree = "<group>"; };
+		965F00AD25810E39004D9111 /* MenuFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuFilters.swift; sourceTree = "<group>"; };
+		965F00C9258246CC004D9111 /* DropDownFilterMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownFilterMenu.swift; sourceTree = "<group>"; };
 		9670A965256E9FBA0043F227 /* ProfileNameLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNameLabel.swift; sourceTree = "<group>"; };
 		9670A96D256EAA330043F227 /* SidebarElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarElements.swift; sourceTree = "<group>"; };
 		9670A975257105290043F227 /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
@@ -224,6 +228,7 @@
 				964B665D256E64FD006AB20E /* StudentPictureView.swift */,
 				967EE8CA256E722F008065C9 /* AddImageButton.swift */,
 				9670A965256E9FBA0043F227 /* ProfileNameLabel.swift */,
+				965F00C9258246CC004D9111 /* DropDownFilterMenu.swift */,
 				9670A96D256EAA330043F227 /* SidebarElements.swift */,
 				9670A975257105290043F227 /* Sidebar.swift */,
 				96A4101D2571578500ACA0DE /* LJMProtocol.swift */,
@@ -237,6 +242,7 @@
 				96A4105025726DD600ACA0DE /* AddButton.swift */,
 				96BE89CF257553BF00BE9E8F /* CountDownWrapper.swift */,
 				96CC613D257A38FC00CE7ABD /* DropDownMenuFilters.swift */,
+				965F00AD25810E39004D9111 /* MenuFilters.swift */,
 			);
 			path = Paths;
 			sourceTree = "<group>";
@@ -248,7 +254,6 @@
 				EAF3703D257A2AC400C72707 /* ScrollViewLearningObjectives.swift */,
 				EA7028D82579F7D000E1B6EB /* MyJourney */,
 				96A410402572673800ACA0DE /* Paths */,
-				EA7028C42579DCC100E1B6EB /* Buttons */,
 			);
 			path = Journey;
 			sourceTree = "<group>";
@@ -272,13 +277,6 @@
 				EA7028D02579E32500E1B6EB /* ColorsExtension.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		EA7028C42579DCC100E1B6EB /* Buttons */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Buttons;
 			sourceTree = "<group>";
 		};
 		EA7028D82579F7D000E1B6EB /* MyJourney */ = {
@@ -454,11 +452,13 @@
 				9670A976257105290043F227 /* Sidebar.swift in Sources */,
 				9641C4A525778F1D0088A0B6 /* SizesExtension.swift in Sources */,
 				964B662C256E6020006AB20E /* LJMApp.swift in Sources */,
+				965F00AE25810E39004D9111 /* MenuFilters.swift in Sources */,
 				EAF3703E257A2AC400C72707 /* ScrollViewLearningObjectives.swift in Sources */,
 				9670A9812571134E0043F227 /* undefined.swift in Sources */,
 				EAD2C81A257085CA008CDDA1 /* LearningObjectiveJourneyCell.swift in Sources */,
 				96BE89D0257553BF00BE9E8F /* CountDownWrapper.swift in Sources */,
 				96A4101E2571578500ACA0DE /* LJMProtocol.swift in Sources */,
+				965F00CA258246CC004D9111 /* DropDownFilterMenu.swift in Sources */,
 				967EE8CB256E722F008065C9 /* AddImageButton.swift in Sources */,
 				EAF37039257A2A4900C72707 /* EmptyLearningObjectiveViewJourney.swift in Sources */,
 				EA686F18256EF69100C121DC /* PathsView.swift in Sources */,
@@ -624,7 +624,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"LJM/Preview Content\"";
-				DEVELOPMENT_TEAM = KXZF72639J;
+				DEVELOPMENT_TEAM = TJFPF3FB8U;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = LJM/Info.plist;
@@ -648,7 +648,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"LJM/Preview Content\"";
-				DEVELOPMENT_TEAM = KXZF72639J;
+				DEVELOPMENT_TEAM = TJFPF3FB8U;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = LJM/Info.plist;

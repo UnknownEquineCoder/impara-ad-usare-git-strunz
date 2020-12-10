@@ -63,26 +63,26 @@ struct DropdownSection: View {
     }
 }
 
-struct DropdownItem: View {
-    var name: String
-    @State var isSelected: Bool = false
-    
-    var body: some View {
-        HStack {
-            Text(name)
-            Spacer(minLength: 20)
-            Button{
-                self.isSelected.toggle()
-            }label:{
-                Image(systemName: isSelected ? "checkmark.square" : "square")
-                    .resizable()
-                    .frame(width: 22, height: 22)
-            }.buttonStyle(PlainButtonStyle())
-            
-        }
-        .frame(width: 150)
-    }
-}
+//struct DropdownItem: View {
+//    var name: String
+//    @State var isSelected: Bool = false
+//    
+//    var body: some View {
+//        HStack {
+//            Text(name)
+//            Spacer(minLength: 20)
+//            Button{
+//                self.isSelected.toggle()
+//            }label:{
+//                Image(systemName: isSelected ? "checkmark.square" : "square")
+//                    .resizable()
+//                    .frame(width: 22, height: 22)
+//            }.buttonStyle(PlainButtonStyle())
+//            
+//        }
+//        .frame(width: 150)
+//    }
+//}
 
 
 struct DropDownMenuFilters_Previews: PreviewProvider {
