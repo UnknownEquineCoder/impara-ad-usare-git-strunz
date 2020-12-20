@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ChallengeView: View {
     
-    var challengeTabs = ["MC3", "NI2", "V4", "AA2"]
+    var challengeTabs = ["MC3", "E5", "WF3"]
     @State var selectedFilter = "MC3"
     @State var selectedFilterInsideButton = "All"
     
@@ -21,7 +21,7 @@ struct ChallengeView: View {
                     .fontWeight(.medium)
                     .foregroundColor(Color.customBlack)
                     
-                Text("Here you will find the Learning Objectives involved in each Challenge you will face during the Academy  year.")
+                Text("Here you will find the Learning Objectives involved in each Challenge you will face during the Academy year.")
                     .foregroundColor(Color.customDarkGrey)
                 
                 Rectangle().frame(height: 1).foregroundColor(Color.customDarkGrey)
@@ -38,7 +38,7 @@ struct ChallengeView: View {
                 DropDownMenuFilters()
                     .padding(.trailing, 20).padding(.leading, 400)
                 
-                ScrollViewLearningObjectives(isAddable: true).padding(.top, 50)
+                ScrollViewLearningObjectives(filterChallenge: selectedFilter, isAddable: true).padding(.top, 50)
             }.frame(minWidth: 0, idealWidth: 1000, maxWidth: .infinity,
                     maxHeight: .infinity, alignment: .leading)
         }

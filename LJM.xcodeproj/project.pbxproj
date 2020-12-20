@@ -45,6 +45,7 @@
 		EAD2C81A257085CA008CDDA1 /* LearningObjectiveJourneyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD2C819257085CA008CDDA1 /* LearningObjectiveJourneyCell.swift */; };
 		EAF37039257A2A4900C72707 /* EmptyLearningObjectiveViewJourney.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF37038257A2A4900C72707 /* EmptyLearningObjectiveViewJourney.swift */; };
 		EAF3703E257A2AC400C72707 /* ScrollViewLearningObjectives.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF3703D257A2AC400C72707 /* ScrollViewLearningObjectives.swift */; };
+		EAF3707925834D7100C72707 /* models.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF3707825834D7100C72707 /* models.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,6 +111,7 @@
 		EAD2C819257085CA008CDDA1 /* LearningObjectiveJourneyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningObjectiveJourneyCell.swift; sourceTree = "<group>"; };
 		EAF37038257A2A4900C72707 /* EmptyLearningObjectiveViewJourney.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyLearningObjectiveViewJourney.swift; sourceTree = "<group>"; };
 		EAF3703D257A2AC400C72707 /* ScrollViewLearningObjectives.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewLearningObjectives.swift; sourceTree = "<group>"; };
+		EAF3707825834D7100C72707 /* models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = models.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,6 +223,7 @@
 		964B665C256E6270006AB20E /* BackendStuff */ = {
 			isa = PBXGroup;
 			children = (
+				EAF3707725834D6100C72707 /* Models */,
 				9670A9802571134E0043F227 /* undefined.swift */,
 				965F00F5258268F4004D9111 /* ProPicData.xcdatamodeld */,
 				965F00FB25826987004D9111 /* ProfilePictureProvider.swift */,
@@ -306,6 +309,14 @@
 				EA686F0F256EF67B00C121DC /* MyJourneyView.swift */,
 			);
 			path = MyJourney;
+			sourceTree = "<group>";
+		};
+		EAF3707725834D6100C72707 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				EAF3707825834D7100C72707 /* models.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -437,6 +448,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAF3707925834D7100C72707 /* models.swift in Sources */,
 				EA7028B52579B2CF00E1B6EB /* BackgroundImageReadingStudent.swift in Sources */,
 				EA7028BA2579C75000E1B6EB /* ScrollViewFilters.swift in Sources */,
 				9641C4B72577AD700088A0B6 /* MainScreen.swift in Sources */,
@@ -632,7 +644,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"LJM/Preview Content\"";
-				DEVELOPMENT_TEAM = TJFPF3FB8U;
+				DEVELOPMENT_TEAM = KXZF72639J;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = LJM/Info.plist;
@@ -656,7 +668,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"LJM/Preview Content\"";
-				DEVELOPMENT_TEAM = TJFPF3FB8U;
+				DEVELOPMENT_TEAM = KXZF72639J;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = LJM/Info.plist;
