@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ScrollViewLearningObjectives: View {
     
-    var learningObjectivesSample = [LearningObj(title: "Design", subtitle: "Prototyping", core: .core, desc: "You can understand and apply concepts with assistance.", color: Color.customCyan, challenge: [.MC1, .WF3]), LearningObj(title: "Business", subtitle: "Subtitle", core: .elective, desc: "You can understand and apply concepts with assistance.", color: Color.yellow, challenge: [.MC1, .WF3]), LearningObj(title: "Frontend", subtitle: "Subtitle", core: .core, desc: "You can understand and apply concepts with assistance.", color: Color.blue, challenge: [.MC1]), LearningObj(title: "Backend", subtitle: "Whatever", core: .evaluated, desc: "You can understand and apply concepts with assistance.", color: Color.red, challenge: [.MC1]), LearningObj(title: "Yoyo", subtitle: "Subtitle", core: .evaluated, desc: "You can understand and apply concepts with assistance.", color: Color.purple, challenge: [.MC1, .E5])]
+    var learningObjectivesSample = [LearningObj(title: "Design", subtitle: "Prototyping", core: .core, desc: "You can understand and apply concepts with assistance.", color: Color.customCyan, challenge: [.MC1, .WF3], rating: 4), LearningObj(title: "Business", subtitle: "Subtitle", core: .elective, desc: "You can understand and apply concepts with assistance.", color: Color.yellow, challenge: [.MC1, .WF3], rating: 2), LearningObj(title: "Frontend", subtitle: "Subtitle", core: .core, desc: "You can understand and apply concepts with assistance.", color: Color.blue, challenge: [.MC1], rating: 3), LearningObj(title: "Backend", subtitle: "Whatever", core: .evaluated, desc: "You can understand and apply concepts with assistance.", color: Color.red, challenge: [.MC1], rating: 4), LearningObj(title: "Yoyo", subtitle: "Subtitle", core: .evaluated, desc: "You can understand and apply concepts with assistance.", color: Color.purple, challenge: [.MC1, .E5], rating: nil)]
     
     var filterCore: CoreEnum.RawValue?
     var filterChallenge: ChallengeEnum.RawValue?
@@ -47,7 +47,7 @@ struct ScrollViewLearningObjectives: View {
             ScrollView(showsIndicators: true) {
                 LazyVStack {
                     ForEach(filteredLO) { item in
-                        LearningObjectiveJourneyCell(isAddable: self.isAddable, title: item.title, subtitle: item.subtitle, core: item.core.rawValue, description: item.desc, color: item.color)
+                        LearningObjectiveJourneyCell(rating: item.rating ?? 0, isAddable: self.isAddable, title: item.title, subtitle: item.subtitle, core: item.core.rawValue, description: item.desc, color: item.color)
                             .background(Color.white)
                     }
                 }.frame(width: gp.size.width)
