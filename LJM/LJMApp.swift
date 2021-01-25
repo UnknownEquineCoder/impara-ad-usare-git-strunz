@@ -10,10 +10,13 @@ import CoreData
 
 @main
 struct LJMApp: App {
+    
+//    let context = PersistentContainerWrapper()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
-            
+//                .environment(\.managedObjectContext, context.container.viewContext)
         }
     }
 }

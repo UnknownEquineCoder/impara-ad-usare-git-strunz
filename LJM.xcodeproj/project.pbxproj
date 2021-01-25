@@ -18,7 +18,6 @@
 		964B665E256E64FD006AB20E /* StudentPictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B665D256E64FD006AB20E /* StudentPictureView.swift */; };
 		965F00AE25810E39004D9111 /* MenuFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965F00AD25810E39004D9111 /* MenuFilters.swift */; };
 		965F00CA258246CC004D9111 /* DropDownFilterMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965F00C9258246CC004D9111 /* DropDownFilterMenu.swift */; };
-		965F00F7258268F4004D9111 /* ProPicData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 965F00F5258268F4004D9111 /* ProPicData.xcdatamodeld */; };
 		965F00FC25826987004D9111 /* ProfilePictureProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965F00FB25826987004D9111 /* ProfilePictureProvider.swift */; };
 		9670A966256E9FBA0043F227 /* ProfileNameLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9670A965256E9FBA0043F227 /* ProfileNameLabel.swift */; };
 		9670A96E256EAA330043F227 /* SidebarElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9670A96D256EAA330043F227 /* SidebarElements.swift */; };
@@ -84,7 +83,6 @@
 		964B665D256E64FD006AB20E /* StudentPictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentPictureView.swift; sourceTree = "<group>"; };
 		965F00AD25810E39004D9111 /* MenuFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuFilters.swift; sourceTree = "<group>"; };
 		965F00C9258246CC004D9111 /* DropDownFilterMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownFilterMenu.swift; sourceTree = "<group>"; };
-		965F00F6258268F4004D9111 /* ProPicData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ProPicData.xcdatamodel; sourceTree = "<group>"; };
 		965F00FB25826987004D9111 /* ProfilePictureProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePictureProvider.swift; sourceTree = "<group>"; };
 		9670A965256E9FBA0043F227 /* ProfileNameLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNameLabel.swift; sourceTree = "<group>"; };
 		9670A96D256EAA330043F227 /* SidebarElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarElements.swift; sourceTree = "<group>"; };
@@ -93,6 +91,7 @@
 		967EE8CA256E722F008065C9 /* AddImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddImageButton.swift; sourceTree = "<group>"; };
 		96A4101D2571578500ACA0DE /* LJMProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LJMProtocol.swift; sourceTree = "<group>"; };
 		96A4105025726DD600ACA0DE /* AddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButton.swift; sourceTree = "<group>"; };
+		96B1A08A258397ED006DE527 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		96BE89CF257553BF00BE9E8F /* CountDownWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownWrapper.swift; sourceTree = "<group>"; };
 		96CC613D257A38FC00CE7ABD /* DropDownMenuFilters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownMenuFilters.swift; sourceTree = "<group>"; };
 		EA686EF8256EE4F300C121DC /* TopBarJourney.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarJourney.swift; sourceTree = "<group>"; };
@@ -146,6 +145,7 @@
 				964B663D256E6022006AB20E /* LJMTests */,
 				964B6648256E6022006AB20E /* LJMUITests */,
 				964B6629256E6020006AB20E /* Products */,
+				96B1A089258397ED006DE527 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -225,7 +225,6 @@
 			children = (
 				EAF3707725834D6100C72707 /* Models */,
 				9670A9802571134E0043F227 /* undefined.swift */,
-				965F00F5258268F4004D9111 /* ProPicData.xcdatamodeld */,
 				965F00FB25826987004D9111 /* ProfilePictureProvider.swift */,
 			);
 			path = BackendStuff;
@@ -254,6 +253,14 @@
 				965F00AD25810E39004D9111 /* MenuFilters.swift */,
 			);
 			path = Paths;
+			sourceTree = "<group>";
+		};
+		96B1A089258397ED006DE527 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				96B1A08A258397ED006DE527 /* CoreData.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		EA686EF7256EE48900C121DC /* Journey */ = {
@@ -458,7 +465,6 @@
 				EA70289A25771D9300E1B6EB /* SearchBarSideBar.swift in Sources */,
 				9670A96E256EAA330043F227 /* SidebarElements.swift in Sources */,
 				EA7028902572FDD300E1B6EB /* RatingView.swift in Sources */,
-				965F00F7258268F4004D9111 /* ProPicData.xcdatamodeld in Sources */,
 				96A4105125726DD600ACA0DE /* AddButton.swift in Sources */,
 				EA686F1D256EF69C00C121DC /* ChallengeView.swift in Sources */,
 				9670A966256E9FBA0043F227 /* ProfileNameLabel.swift in Sources */,
@@ -645,7 +651,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"LJM/Preview Content\"";
-				DEVELOPMENT_TEAM = KXZF72639J;
+				DEVELOPMENT_TEAM = 98GZP44QG5;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = LJM/Info.plist;
@@ -670,7 +676,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"LJM/Preview Content\"";
-				DEVELOPMENT_TEAM = KXZF72639J;
+				DEVELOPMENT_TEAM = 98GZP44QG5;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = LJM/Info.plist;
@@ -809,19 +815,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		965F00F5258268F4004D9111 /* ProPicData.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				965F00F6258268F4004D9111 /* ProPicData.xcdatamodel */,
-			);
-			currentVersion = 965F00F6258268F4004D9111 /* ProPicData.xcdatamodel */;
-			path = ProPicData.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 964B6620256E6020006AB20E /* Project object */;
 }

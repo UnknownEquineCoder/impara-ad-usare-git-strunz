@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct StudentPictureView: View {
-    var size: CGFloat = 130
+    var size: CGFloat = 140
     var body: some View {
         HStack{
             ZStack{
