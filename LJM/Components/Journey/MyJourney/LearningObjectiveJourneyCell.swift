@@ -40,6 +40,8 @@ struct LearningObjectiveJourneyCell: View {
                     
                     Spacer()
                     
+                    Divider().background(Color.customBlack).padding(.top, 20).padding(.bottom, 20).padding(.trailing, 20)
+                    
                     if !isAddable {
                         RatingView(rating: $rating).padding(.top, 15)
                     } else {
@@ -48,13 +50,35 @@ struct LearningObjectiveJourneyCell: View {
                 }.padding(.leading, 20)
                 
                 VStack {
-                    Text("")
+                    VStack(alignment: .leading, spacing: 20) {
+                        Divider().background(Color.customDarkGrey)
+                        
+                        HStack {
+                            Text("KEYWORDS").foregroundColor(Color.customBlack)
+                            Spacer()
+                            Text("#CBL #project management #milestones #project monitoring").foregroundColor(Color.customBlack)
+                            Spacer()
+                        }
+                        
+                        Divider().background(Color.customDarkGrey)
+                        
+                        HStack {
+                            Text("HISTORY").foregroundColor(Color.customBlack)
+                            Spacer()
+                            Text("HISTORY VIEWS").foregroundColor(Color.customBlack)
+                            Spacer()
+                        }
+                    }.padding(.leading, 40).padding(.trailing, 280)
                 }
-                .frame(maxWidth: .infinity, maxHeight: self.expand ? 185 : 0, alignment: .center)
+                .frame(maxWidth: .infinity, maxHeight: self.expand ? 185 : 0, alignment: .topLeading)
                 .padding(.trailing, 20)
                 .isHidden(self.expand ? false : true)
-                .background(Color.red)
                 .offset(y: 100)
+                
+                Image(systemName: self.expand ? "arrow.down.to.line" : "arrow.up.to.line")
+                    .foregroundColor(Color.customCyan)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
+                    .padding(.bottom, 10)
             }
             
         }.modifier(AnimatingCellHeight(height: expand ? 300 : 100))

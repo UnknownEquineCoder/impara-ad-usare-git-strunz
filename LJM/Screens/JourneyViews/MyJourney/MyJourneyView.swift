@@ -43,7 +43,7 @@ struct MyJourneyView: View, LJMView {
                     
                     ScrollViewFiltersJourney(filterTabs: arrayFilters, selectedFilter: $selectedFilter).padding(.top, 20).padding(.top, 130)
                     
-                }.frame(maxWidth: .infinity, alignment: .leading)
+                }.frame(maxWidth: .infinity)
                 
                 ZStack(alignment: .topLeading) {
                     Text("Number of objectives :")
@@ -54,7 +54,7 @@ struct MyJourneyView: View, LJMView {
                     Button(action: {
                         self.showView.toggle()
                     }) {
-                        Text("Clean objectives test button")
+                        Text("Test button")
                             .padding()
                             .font(.system(size: 15, weight: .medium, design: .rounded))         // TEST BUTTON EMPTY OBJECTIVES
                             .foregroundColor(Color.customCyan)
@@ -68,8 +68,7 @@ struct MyJourneyView: View, LJMView {
                     DropDownMenuFilters()
                         .buttonStyle(PlainButtonStyle())
                         .padding(.trailing, 20)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.leading, 400)
+                        .frame(maxWidth: .infinity, alignment: .trailing)
                         .zIndex(1)
                     
                     ListViewLearningObjectiveMyJourney(showView: self.$showView, selectedFilter: $selectedFilter)
