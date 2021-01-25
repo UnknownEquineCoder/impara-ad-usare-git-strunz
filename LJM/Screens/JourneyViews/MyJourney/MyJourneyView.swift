@@ -13,7 +13,7 @@ struct MyJourneyView: View, LJMView {
     @State var selectedFilterInsideButton = "All"
     let arrayFilters = ["All", "Core", "Elective", "Evaluated"]
     
-    @State private var showTest = true
+    @State private var showView = true
     
     var paths = ["Design" : Color.customCyan, "Frontend": Color.orange, "Backend": Color.yellow, "Business": Color.purple]
     
@@ -52,7 +52,7 @@ struct MyJourneyView: View, LJMView {
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
                     Button(action: {
-                        self.showTest.toggle()
+                        self.showView.toggle()
                     }) {
                         Text("Clean objectives test button")
                             .padding()
@@ -72,7 +72,7 @@ struct MyJourneyView: View, LJMView {
                         .padding(.leading, 400)
                         .zIndex(1)
                     
-                    ListViewLearningObjectiveMyJourney(show: self.$showTest)
+                    ListViewLearningObjectiveMyJourney(showView: self.$showView, selectedFilter: $selectedFilter)
                         .padding(.top, 50)
                 }.frame(maxWidth: .infinity).padding(.top, 30)
         }
@@ -175,12 +175,13 @@ struct ScrollViewFiltersJourney: View {
 
 struct ListViewLearningObjectiveMyJourney: View {
     
-    @Binding var show: Bool
+    @Binding var showView: Bool
+    @Binding var selectedFilter: CoreEnum.RawValue
     
     var body: some View {
         
-        if show {
-            ScrollViewLearningObjectives(isAddable: false)
+        if showView {
+            ScrollViewLearningObjectives(filterCore: selectedFilter, isAddable: false)
         } else {
             EmptyLearningObjectiveViewJourney()
         }

@@ -16,14 +16,17 @@ struct TopBarJourney: View {
         HStack {
             
             ForEach(tabs, id: \.self) { i in
-                VStack {
+                VStack(spacing: 0) {
                     Button(action: {
                         self.selected = i
                     }, label: {
                         Text(i)
+                            .frame(width: 100, height: 40, alignment: .center)
                             .font(.system(size: 15, weight: .semibold, design: .rounded))
                             .foregroundColor(self.selected == i ? .customBlack : .customDarkGrey)
+                            .background(Color.white)
                     }).buttonStyle(PlainButtonStyle())
+                    
                     TopBarJourneySelectedBottomView(color: self.selected == i ? Color.customCyan : .clear)
                 }
             }

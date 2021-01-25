@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LearningObjectiveJourneyCell: View {
-    @State private var rating = 3
+    @State var rating = 0
     @State var expand: Bool = false
     
     var isAddable = false
