@@ -17,9 +17,9 @@ struct Sidebar: View {
         NavigationView {
             List {
 
-                StudentPictureView(size: 130.toScreenSize())
+                StudentPictureView(size: 160)
                         .padding(.trailing)
-//                Navigation<JourneyMainView>(buttonName: "Dashboard", buttonIcon: "square", tag: 0, selection: selection)
+                Navigation<JourneyMainView>(buttonName: "Dashboard", buttonIcon: "square", tag: 0, selection: selection)
                     
                 Section(header: Text("Personal").font(.system(size: 28.toFontSize()))
                                 .fontWeight(.regular)) {
