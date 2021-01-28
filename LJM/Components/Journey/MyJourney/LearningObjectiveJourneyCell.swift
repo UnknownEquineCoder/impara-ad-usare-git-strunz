@@ -29,14 +29,14 @@ struct LearningObjectiveJourneyCell: View {
                 HStack(alignment: .top) {
 
                     VStack(alignment: .leading, spacing: 8) {
-                        Text(title.uppercased()).foregroundColor(color).font(.system(size: 15, weight: .semibold, design: .rounded))
-                        Text(subtitle.uppercased()).foregroundColor(Color.customBlack)
-                        Text(core.uppercased()).foregroundColor(Color.customBlack)
+                        Text(title.uppercased()).foregroundColor(color).font(.system(size: 20, weight: .semibold, design: .rounded))
+                        Text(subtitle.uppercased()).foregroundColor(Color.customDarkGrey).font(.system(size: 17, weight: .light))
+                        Text(core.uppercased()).foregroundColor(Color.customDarkGrey).font(.system(size: 17, weight: .light))
                     }.padding(.leading, 20).padding(.top, 15)
                     
                     Spacer()
                     
-                    Text(description).foregroundColor(Color.customBlack).padding(.top, 45)
+                    Text(description).foregroundColor(Color.customLightBlack).font(.system(size: 16, weight: .medium)).padding(.top, 45)
                     
                     Spacer()
                     
@@ -54,16 +54,16 @@ struct LearningObjectiveJourneyCell: View {
                         Divider().background(Color.customDarkGrey)
                         
                         HStack {
-                            Text("KEYWORDS").foregroundColor(Color.customBlack)
+                            Text("KEYWORDS").foregroundColor(Color.customDarkGrey).font(.system(size: 17, weight: .light))
                             Spacer()
-                            Text("#CBL #project management #milestones #project monitoring").foregroundColor(Color.customBlack)
+                            Text("#CBL #project management #milestones #project monitoring").foregroundColor(Color.customLightBlack).font(.system(size: 16, weight: .medium))
                             Spacer()
                         }
                         
                         Divider().background(Color.customDarkGrey)
                         
                         HStack {
-                            Text("HISTORY").foregroundColor(Color.customBlack)
+                            Text("HISTORY").foregroundColor(Color.customDarkGrey).font(.system(size: 17, weight: .light))
                             Spacer()
                             Text("HISTORY VIEWS").foregroundColor(Color.customBlack)
                             Spacer()
@@ -75,13 +75,13 @@ struct LearningObjectiveJourneyCell: View {
                 .isHidden(self.expand ? false : true)
                 .offset(y: 100)
                 
-                Image(systemName: self.expand ? "arrow.down.to.line" : "arrow.up.to.line")
+                Image(systemName: self.expand ? "chevron.up" : "chevron.down")
                     .foregroundColor(Color.customCyan)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
                     .padding(.bottom, 10)
             }
             
-        }.modifier(AnimatingCellHeight(height: expand ? 300 : 100))
+        }.modifier(AnimatingCellHeight(height: expand ? 260 : 120))
         .background(Color.customLightGrey)
         .cornerRadius(14)
         .onTapGesture {

@@ -15,7 +15,7 @@ struct MainScreen: View{
         ZStack{
             Color.blue
             HStack{
-                Sidebar()
+              //  Sidebar()
                 JourneyMainView()
             }
         }.frame(width: 1920.toScreenSize(), height: 1080.toScreenSize())
