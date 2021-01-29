@@ -44,6 +44,7 @@ struct DropDownMenuFilters: View {
             .popover(
                 isPresented: self.$showPopover,
                 arrowEdge: .bottom
+                
             ) {
                 List(filterOptions, id: \.self){
                     element in

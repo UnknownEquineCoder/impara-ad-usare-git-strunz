@@ -20,30 +20,31 @@ struct PathsView: View, LJMView {
             VStack {
                 HStack {
                     Text("Map")
-                        .font(.largeTitle)
+                        .font(.system(size: 40, weight: .medium))
                         .fontWeight(.medium)
-                        .foregroundColor(Color.black)
-                        .frame(alignment: .topLeading)
+                        .foregroundColor(Color.customBlack)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+
                     Spacer()
                 }
                 
                 VStack(alignment: .leading) {
                     Text("Here’s the heart of the Academy: a library of Learning Objectives you can explore and make yours.")
+                        .font(.system(size: 20, weight: .medium))
+                        .foregroundColor(Color.customDarkGrey)
                         .padding(.top, 20)
-                        .foregroundColor(Color.gray)
-                        .padding(.trailing, 90)
+ 
                     
                     Rectangle().frame(height: 1).foregroundColor(Color.gray)
                 }
                 HStack {
                     Text("Map")
                         .fontWeight(.light)
-                        .padding(.leading, 20)
                         .foregroundColor(Color.gray)
                         .font(.system(size: 20))
-                        .padding(.top, 18)
+//                        .padding(.top, 10)
                     ScrollViewFilters(filterTabs: self.filterTabsMap, selectedFilter: $selectedFilter, vm: ScrollToModel())
-                            .padding(.top, 20)
+//                            .padding(.top, 20)
                             .font(.system(size: 15, weight: .medium, design: .rounded))
                             .padding(.leading, 10)
                 }
@@ -52,24 +53,23 @@ struct PathsView: View, LJMView {
     
                     Text("Paths")
                         .fontWeight(.light)
-                        .padding(.leading, 20)
                         .foregroundColor(Color.gray)
                         .font(.system(size: 20))
-                        .padding(.top, 18)
+//                        .padding(.top, 10)
                //     ScrollViewFiltersPaths(selectedFilter: $selectedFilter).padding(.top, 20)
                //         .font(.system(size: 15, weight: .medium, design: .rounded))
 
                     ScrollViewFilters(filterTabs: self.filterTabsPath, selectedFilter: $selectedFilter, vm: ScrollToModel())
-                            .padding(.top, 20)
+//                            .padding(.top, 20)
                             .font(.system(size: 15, weight: .medium, design: .rounded))
                 }
                 
                 ZStack(alignment: .topLeading) {
                     
                     Text("Learning Objectives:")
-                        .foregroundColor(Color.gray)
+                        .foregroundColor(Color.customDarkGrey)
                         .font(.system(size: 15, weight: .medium, design: .rounded))
-                        .padding(.leading, 20)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     
                     DropDownMenuFilters().padding(.leading, 1253.toScreenSize()).zIndex(1)
                     
@@ -97,7 +97,7 @@ struct PathsView: View, LJMView {
                         maxHeight: .infinity, alignment: .leading)
                 
                 Spacer()
-                }
+                }.padding(.leading, 50)
             }
         }
     
