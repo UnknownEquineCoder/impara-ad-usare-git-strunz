@@ -71,7 +71,7 @@ struct PathsView: View, LJMView {
                         .font(.system(size: 15, weight: .medium, design: .rounded))
                         .padding(.leading, 20)
                     
-                    DropDownMenuFilters().padding(.leading, 400).zIndex(1)
+                    DropDownMenuFilters().padding(.leading, 1253.toScreenSize()).zIndex(1)
                     
                     //                    Button(action: {
                     //                        self.expand.toggle()
