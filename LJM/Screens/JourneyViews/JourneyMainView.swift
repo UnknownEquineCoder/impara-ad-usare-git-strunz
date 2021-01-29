@@ -26,7 +26,7 @@ struct JourneyMainView: View, LJMView {
             }
             
             HStack {
-                TopBarJourney(selected: self.$selected).padding(.top, 20)
+                TopBarJourney(selected: self.$selected).padding(.top, 20).padding(.leading, 50)
                 
                 Spacer()
                 
