@@ -9,7 +9,19 @@ import SwiftUI
 
 struct HistoryProgressView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack(spacing: 8) {
+            HStack {
+                Text("0 0 0 0 0")
+            }
+            
+            Text("- 01/01/20")
+            
+            Button(action: {
+                // DELETE FUNC
+            }) {
+                Image(systemName: "xmark.circle.fill").foregroundColor(Color.customBlack)
+            }
+        }.background(Color.customDarkGrey)
     }
 }
 

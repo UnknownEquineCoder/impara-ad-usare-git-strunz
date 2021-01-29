@@ -27,7 +27,7 @@ struct LearningObjectiveJourneyCell: View {
                     .foregroundColor(color)
                 
                 HStack(alignment: .top) {
-
+                    
                     VStack(alignment: .leading, spacing: 8) {
                         Text(title.uppercased()).foregroundColor(color).font(.system(size: 20, weight: .semibold, design: .rounded))
                         Text(subtitle.uppercased()).foregroundColor(Color.customDarkGrey).font(.system(size: 17, weight: .light))
@@ -49,28 +49,47 @@ struct LearningObjectiveJourneyCell: View {
                     }
                 }.padding(.leading, 20)
                 
-                VStack {
-                    VStack(alignment: .leading, spacing: 20) {
-                        Divider().background(Color.customDarkGrey)
-                        
-                        HStack {
-                            Text("KEYWORDS").foregroundColor(Color.customDarkGrey).font(.system(size: 17, weight: .light))
-                            Spacer()
-                            Text("#CBL #project management #milestones #project monitoring").foregroundColor(Color.customLightBlack).font(.system(size: 16, weight: .medium))
-                            Spacer()
-                        }
-                        
-                        Divider().background(Color.customDarkGrey)
-                        
-                        HStack {
-                            Text("HISTORY").foregroundColor(Color.customDarkGrey).font(.system(size: 17, weight: .light))
-                            Spacer()
-                            Text("HISTORY VIEWS").foregroundColor(Color.customBlack)
-                            Spacer()
-                        }
-                    }.padding(.leading, 40).padding(.trailing, 280)
-                }
-                .frame(maxWidth: .infinity, maxHeight: self.expand ? 185 : 0, alignment: .topLeading)
+                HStack {
+                    VStack {
+                        VStack(alignment: .leading, spacing: 20) {
+                            Divider().background(Color.customDarkGrey).padding(.trailing, 100)
+                            
+                            HStack {
+                                Text("KEYWORDS").foregroundColor(Color.customDarkGrey).font(.system(size: 17, weight: .light))
+                                Spacer()
+                                Text("#CBL #project management #milestones #project monitoring").foregroundColor(Color.customLightBlack).font(.system(size: 16, weight: .medium))
+                                Spacer()
+                            }
+                            
+                            Divider().background(Color.customDarkGrey).padding(.trailing, 100)
+                            
+                            HStack {
+                                Text("HISTORY").foregroundColor(Color.customDarkGrey).font(.system(size: 17, weight: .light))
+                                Spacer()
+                                ScrollView(.horizontal, showsIndicators: true) {
+                                    HStack {
+                                        ForEach(0..<2) { item in
+                                            HistoryProgressView()
+                                        }
+                                    }
+                                }.frame(width: 430)
+                                Spacer()
+                            }
+                        }.padding(.leading, 40)
+                    }
+                    
+                    VStack(alignment: .center, spacing: 5) {
+                        Text("PROGRESSING")
+                            .font(.system(size: 15, weight: .medium))
+                            .foregroundColor(Color.customCyan)
+                        Text("You can understand and apply concepts with assistance.")
+                            .font(.system(size: 10, weight: .medium))
+                            .foregroundColor(Color.customDarkGrey)
+                            .multilineTextAlignment(.center)
+                    }.frame(width: 150, height: 50, alignment: .center)
+                    .padding(.trailing, 60)
+                    
+                }.frame(maxWidth: .infinity, maxHeight: self.expand ? 185 : 0, alignment: .topLeading)
                 .padding(.trailing, 20)
                 .isHidden(self.expand ? false : true)
                 .offset(y: 100)
