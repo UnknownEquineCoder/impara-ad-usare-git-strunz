@@ -10,6 +10,7 @@ import SwiftUI
 struct LearningObjectiveJourneyCell: View {
     @State var rating = 0
     @State var expand: Bool = false
+    @State var isRatingView: Bool = false
     
     var isAddable = false
     var title: String
@@ -40,10 +41,12 @@ struct LearningObjectiveJourneyCell: View {
                     
                     Spacer()
                     
-                    Divider().background(Color.customBlack).padding(.top, 20).padding(.bottom, 20).padding(.trailing, 20)
+                    Divider().background(Color.customBlack).padding(.top, 20).padding(.bottom, 20).padding(.trailing, 20).isHidden(self.isRatingView ? false : true)
                     
                     if !isAddable {
-                        RatingView(rating: $rating).padding(.top, 15)
+                        RatingView(rating: $rating).padding(.top, 15).padding(.trailing, 30).onAppear(perform: {
+                            self.isRatingView.toggle()
+                        })
                     } else {
                         AddButton(buttonSize: 27).padding(.trailing, 50).padding(.top, 40)
                     }
@@ -87,7 +90,8 @@ struct LearningObjectiveJourneyCell: View {
                             .foregroundColor(Color.customDarkGrey)
                             .multilineTextAlignment(.center)
                     }.frame(width: 150, height: 50, alignment: .center)
-                    .padding(.trailing, 60)
+                    .padding(.trailing, 38)
+                    .isHidden(self.isRatingView ? false : true)
                     
                 }.frame(maxWidth: .infinity, maxHeight: self.expand ? 185 : 0, alignment: .topLeading)
                 .padding(.trailing, 20)

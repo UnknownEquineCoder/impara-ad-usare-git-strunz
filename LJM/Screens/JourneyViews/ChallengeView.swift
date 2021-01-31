@@ -20,9 +20,13 @@ struct ChallengeView: View {
                     .font(.system(size: 40, weight: .medium))
                     .fontWeight(.medium)
                     .foregroundColor(Color.customBlack)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     
                 Text("Here you will find the Learning Objectives involved in each Challenge you will face during the Academy year.")
+                    .font(.system(size: 20, weight: .medium))
                     .foregroundColor(Color.customDarkGrey)
+                    .padding(.top, 20)
+                    .padding(.trailing, 90)
                 
                 Rectangle().frame(height: 1).foregroundColor(Color.customDarkGrey)
             }).frame(maxWidth: .infinity)
@@ -36,12 +40,14 @@ struct ChallengeView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 DropDownMenuFilters()
-                    .padding(.trailing, 20).padding(.leading, 400)
+                    .buttonStyle(PlainButtonStyle())
+                    .padding(.trailing, 20)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                    .zIndex(1)
                 
                 ScrollViewLearningObjectives(filterChallenge: selectedFilter, isAddable: true).padding(.top, 50)
-            }.frame(minWidth: 0, idealWidth: 1000, maxWidth: .infinity,
-                    maxHeight: .infinity, alignment: .leading)
-        }
+            }.frame(maxWidth: .infinity).padding(.top, 10)
+        }.padding(.leading, 50)
     }
 }
 

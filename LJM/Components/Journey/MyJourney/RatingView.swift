@@ -15,6 +15,13 @@ struct RatingView: View {
     
     var body: some View {
         VStack {
+            Image(systemName: "arrowtriangle.down.fill")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 15, height: 15, alignment: .center)
+                .foregroundColor(Color.customCyan)
+                .offset(x: 43)
+            
             HStack {
                 ForEach(1..<maximumRating + 1, id: \.self) { number in
                     Button {
@@ -26,14 +33,13 @@ struct RatingView: View {
                     .frame(width: 35, height: 35, alignment: .center)
                     .buttonStyle(PlainButtonStyle())
                 }
-            }.padding(.trailing, 50)
+            }
             
             Image(systemName: "arrowtriangle.up")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 15, height: 15, alignment: .center)
                 .foregroundColor(Color.customCyan)
-                .padding(.trailing, 50)
             
         }.padding(.top, 20)
     }
