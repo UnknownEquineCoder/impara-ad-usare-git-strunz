@@ -25,6 +25,7 @@ struct LearningObj: Identifiable {
     let color: Color
     let challenge: [ChallengeEnum?]
     let rating: Int?
+    let ratingGoal: Int?
 //    var learningPath: LearningPath
 //    var strand: Strand
 }

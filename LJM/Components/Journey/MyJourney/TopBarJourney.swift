@@ -22,7 +22,7 @@ struct TopBarJourney: View {
                     }, label: {
                         Text(i)
                             .frame(width: 100, height: 40, alignment: .center)
-                            .font(.system(size: 15, weight: .semibold, design: .rounded))
+                            .font(.system(size: 18, weight: .semibold, design: .rounded))
                             .foregroundColor(self.selected == i ? .customBlack : .customDarkGrey)
                             .background(Color.white)
                     }).buttonStyle(PlainButtonStyle())
