@@ -71,7 +71,7 @@ struct PathsView: View, LJMView {
                         .font(.system(size: 15, weight: .medium, design: .rounded))
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
-                    DropDownMenuFilters().padding(.leading, 1253.toScreenSize()).zIndex(1)
+                    DropDownMenuFilters().padding(.trailing, 20).frame(maxWidth: .infinity, alignment: .trailing).zIndex(1)
                     
                     //                    Button(action: {
                     //                        self.expand.toggle()
@@ -97,8 +97,8 @@ struct PathsView: View, LJMView {
                         maxHeight: .infinity, alignment: .leading)
                 
                 Spacer()
-                }.padding(.leading, 50)
-            }
+                }
+            }.padding(.leading, 50).padding(.trailing, 50)
         }
     
     }
