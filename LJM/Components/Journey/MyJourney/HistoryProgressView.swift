@@ -8,10 +8,15 @@
 import SwiftUI
 
 struct HistoryProgressView: View {
+    var maximumRating = 5
+    var rating = 3
+    
     var body: some View {
         HStack(spacing: 8) {
-            HStack {
-                Text("0 0 0 0 0")
+            HStack(spacing: 3) {
+                ForEach(1..<maximumRating + 1, id: \.self) { number in
+                    Image(systemName: "circle.fill")
+                }
             }
             
             Text("- 01/01/20")
@@ -20,8 +25,11 @@ struct HistoryProgressView: View {
                 // DELETE FUNC
             }) {
                 Image(systemName: "xmark.circle.fill").foregroundColor(Color.customBlack)
-            }
-        }.background(Color.customDarkGrey)
+            }.buttonStyle(PlainButtonStyle())
+        }.frame(height: 30, alignment: .center)
+        .padding(.leading, 10).padding(.trailing, 10)
+        .background(Color.customDarkGrey)
+        .cornerRadius(30 / 2)
     }
 }
 

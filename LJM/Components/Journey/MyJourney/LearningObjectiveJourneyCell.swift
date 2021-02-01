@@ -70,7 +70,7 @@ struct LearningObjectiveJourneyCell: View {
                                 Text("HISTORY").foregroundColor(Color.customDarkGrey).font(.system(size: 17, weight: .light))
                                 Spacer()
                                 ScrollView(.horizontal, showsIndicators: true) {
-                                    HStack {
+                                    HStack(spacing: 10) {
                                         ForEach(0..<2) { item in
                                             HistoryProgressView()
                                         }

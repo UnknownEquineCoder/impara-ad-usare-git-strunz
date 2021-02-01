@@ -41,7 +41,7 @@ struct RatingView: View {
                 .frame(width: 15, height: 15, alignment: .center)
                 .foregroundColor(Color.customCyan)
             
-        }.padding(.top, 20)
+        }
     }
 }
 
