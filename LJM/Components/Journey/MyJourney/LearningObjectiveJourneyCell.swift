@@ -48,7 +48,7 @@ struct LearningObjectiveJourneyCell: View {
                             self.isRatingView.toggle()
                         })
                     } else {
-                        AddButton(buttonSize: 27).padding(.trailing, 50).padding(.top, 40)
+                        AddButton(buttonSize: 27).padding(.trailing, 32).padding(.top, 24)
                     }
                 }.padding(.leading, 20)
                 

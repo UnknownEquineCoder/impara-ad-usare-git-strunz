@@ -27,9 +27,10 @@ struct AddButton: View {
     var body: some View {
         VStack{
             
-            if didTap {
+            
                 CountDownWrapper<AddLabelView>()
-            }
+                    .opacity(didTap ? 1 : 0)
+            
             
         Button(action: {
             self.didTap = true
@@ -51,12 +52,12 @@ struct AddButton: View {
         .frame(width: buttonSize.toScreenSize(), height: buttonSize.toScreenSize(), alignment: .center)
         .buttonStyle(PlainButtonStyle())
         
-            if didTap {
+           
                 CountDownWrapper<UndoView>()
-            }
+                    .opacity(didTap ? 1 : 0)
+            
         }
-        
-        
+  
     }
 }
 
