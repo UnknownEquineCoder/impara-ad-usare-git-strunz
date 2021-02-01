@@ -75,7 +75,7 @@ struct MyJourneyView: View, LJMView {
                 ListViewLearningObjectiveMyJourney(showView: self.$showView, selectedFilter: $selectedFilter)
                     .padding(.top, 50)
             }.frame(maxWidth: .infinity).padding(.top, 10)
-        }.padding(.leading, 50)
+        }.padding(.leading, 50).padding(.trailing, 50)
     }
 }
 

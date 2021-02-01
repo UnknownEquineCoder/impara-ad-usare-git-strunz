@@ -47,7 +47,7 @@ struct ChallengeView: View {
                 
                 ScrollViewLearningObjectives(filterChallenge: selectedFilter, isAddable: true).padding(.top, 50)
             }.frame(maxWidth: .infinity).padding(.top, 10)
-        }.padding(.leading, 50)
+        }.padding(.leading, 50).padding(.trailing, 50)
     }
 }
 
