@@ -11,18 +11,16 @@ import SwiftUI
 struct JourneyMainView: View, LJMView {
     @State var selected = "My Journey"
     
-    @State private var showSearchBarSideBar = true
-    
     var body: some View {
         ZStack(alignment: .top) {
             
             if self.selected == "My Journey" {
-                MyJourneyView().padding(.top, 80).padding([.top, .leading, .trailing], 20).padding(.trailing, showSearchBarSideBar ? 0 : 280)
+                MyJourneyView().padding(.top, 80).padding([.top, .leading, .trailing], 20)
                     .background(Color.white)
             } else if self.selected == "Map" {
-                PathsView().padding(.top, 80).padding([.top, .leading, .trailing], 20).padding(.trailing, showSearchBarSideBar ? 0 : 280)
+                PathsView().padding(.top, 80).padding([.top, .leading, .trailing], 20)
             } else {
-                ChallengeView().padding(.top, 80).padding([.top, .leading, .trailing], 20).padding(.trailing, showSearchBarSideBar ? 0 : 280)
+                ChallengeView().padding(.top, 80).padding([.top, .leading, .trailing], 20)
             }
             
             HStack {
@@ -30,7 +28,6 @@ struct JourneyMainView: View, LJMView {
                 
                 Spacer()
                 
-                SearchBarExpandableJourney(showSearchBarSideBar: self.$showSearchBarSideBar).background(Color.white).padding(.trailing, 20).overlay(SearchBarSideBar(showSearchBarSideBar: self.$showSearchBarSideBar).padding(.top, 1050))
             }
             
         }.background(Color.white)
