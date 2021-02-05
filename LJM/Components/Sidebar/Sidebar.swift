@@ -38,7 +38,7 @@ struct Sidebar: View {
                     
 
                 }
-                .background(Color("Sidebar Color"))
+//                .background(Color("Sidebar Color"))
                 .listStyle(SidebarListStyle())
                 .frame(minWidth: 366.toScreenSize(), maxWidth: .infinity)
  

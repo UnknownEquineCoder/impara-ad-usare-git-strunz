@@ -28,17 +28,17 @@ struct DropDownMenuFilters: View {
                 self.showPopover =  true
             }) {
                 HStack{
-                    Image(systemName: "chevron.down")
-                        .resizable()
-                        .foregroundColor(Color("customCyan"))
-                        .frame(width: 10, height: 5, alignment: .center)
+//                    Image(systemName: "chevron.down")
+//                        .resizable()
+//                        .foregroundColor(Color("customCyan"))
+//                        .frame(width: 10, height: 5, alignment: .center)
                     //                                .padding()
                     Text("Filters")
                         .padding()
-                        .font(.system(size: 15, weight: .medium, design: .rounded))
+                        .font(.system(size: 20, weight: .medium, design: .rounded))
                         .foregroundColor(Color("customCyan"))
                     
-                }.frame(width: 130, height: 30, alignment: .center)
+                }.frame(width: 132.toScreenSize(), height: 35.toScreenSize(), alignment: .center)
                 .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color("customCyan")))
             }
             .popover(

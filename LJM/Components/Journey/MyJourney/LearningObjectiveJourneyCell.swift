@@ -11,6 +11,7 @@ struct LearningObjectiveJourneyCell: View {
     @State var rating = 0
     @State var expand: Bool = false
     @State var isRatingView: Bool = false
+    @Environment(\.colorScheme) var colorScheme
     
     var isAddable = false
     var title: String
@@ -41,7 +42,7 @@ struct LearningObjectiveJourneyCell: View {
                     
                     Spacer()
                     
-                    Divider().background(Color.customBlack).padding(.top, 20).padding(.bottom, 20).padding(.trailing, 20).isHidden(self.isRatingView ? false : true)
+                    Divider().background(Color(red: 70/255, green: 70/255, blue: 70/255)).padding(.top, 20).padding(.bottom, 20).padding(.trailing, 20).isHidden(self.isRatingView ? false : true)
                     
                     if !isAddable {
                         RatingView(rating: $rating).padding(.top, 15).padding(.trailing, 30).onAppear(perform: {
@@ -55,7 +56,7 @@ struct LearningObjectiveJourneyCell: View {
                 HStack {
                     VStack {
                         VStack(alignment: .leading, spacing: 20) {
-                            Divider().background(Color.customDarkGrey).padding(.trailing, 100)
+                            Divider().background(Color(red: 70/255, green: 70/255, blue: 70/255)).padding(.trailing, 100)
                             
                             HStack {
                                 Text("KEYWORDS").foregroundColor(Color.customDarkGrey).font(.system(size: 17, weight: .light))

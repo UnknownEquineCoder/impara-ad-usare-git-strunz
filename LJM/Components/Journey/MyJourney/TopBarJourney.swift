@@ -11,6 +11,7 @@ import SwiftUI
 struct TopBarJourney: View {
     @State var tabs = ["My Journey", "Map", "Challenge"]
     @Binding var selected : String
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         HStack {
@@ -24,7 +25,7 @@ struct TopBarJourney: View {
                             .frame(width: 100, height: 40, alignment: .center)
                             .font(.system(size: 18, weight: .semibold, design: .rounded))
                             .foregroundColor(self.selected == i ? .customBlack : .customDarkGrey)
-                            .background(Color.white)
+                            .background(colorScheme == .dark ? Color(red: 49/255, green: 44/255, blue: 45/255): .white)
                     }).buttonStyle(PlainButtonStyle())
                     
                     TopBarJourneySelectedBottomView(color: self.selected == i ? Color.customCyan : .clear)
@@ -33,7 +34,7 @@ struct TopBarJourney: View {
         }
         .frame(width: 400, height: 50, alignment: .leading)
         .padding(.leading, 20)
-        .background(Color.white)
+        .background(colorScheme == .dark ? Color(red: 49/255, green: 44/255, blue: 45/255): .white)
     }
 }
 

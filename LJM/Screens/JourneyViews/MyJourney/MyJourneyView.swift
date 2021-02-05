@@ -14,6 +14,7 @@ struct MyJourneyView: View, LJMView {
     let arrayFilters = ["All", "Core", "Elective", "Evaluated"]
     
     @State private var showView = true
+    @Environment(\.colorScheme) var colorScheme
     
     var paths = ["Design" : Color.customCyan, "Frontend": Color.orange, "Backend": Color.yellow, "Business": Color.purple]
     
@@ -60,7 +61,7 @@ struct MyJourneyView: View, LJMView {
                         .font(.system(size: 15, weight: .medium, design: .rounded))         // TEST BUTTON EMPTY OBJECTIVES
                         .foregroundColor(Color.customCyan)
                         .frame(width: 200, height: 30, alignment: .center)
-                        .background(Color.white)
+                        .background(colorScheme == .dark ? Color(red: 49/255, green: 44/255, blue: 45/255) : .white)
                         .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color.customCyan))
                 }.buttonStyle(PlainButtonStyle())
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -86,6 +87,7 @@ struct DropDownSelectPathView: View {
     @State var selectedPath2 : String?
     @State var colorSelectedPath = Color.gray
     @State var colorSelectedPath2 : Color?
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         
@@ -99,7 +101,7 @@ struct DropDownSelectPathView: View {
                     .foregroundColor(colorSelectedPath)
                     .font(.system(size: 20, weight: .semibold, design: .rounded))
                     .padding(.leading, 10)
-                    .background(Color.white)
+                    .background(colorScheme == .dark ? Color(red: 49/255, green: 44/255, blue: 45/255) : .white)
                 Image(systemName: expand ? "chevron.up.circle" : "chevron.down.circle")
                     .resizable()
                     .frame(width: 18, height: 18)
@@ -148,8 +150,8 @@ struct DropDownSelectPathView: View {
         .padding(5)
         .cornerRadius(20)
         .animation(.spring())
-        .background(Color.white)
-        .border(expand ? Color.customBlack : Color.white)
+        .background(colorScheme == .dark ? Color(red: 49/255, green: 44/255, blue: 45/255) : .white)
+//        .border(expand ? Color.customBlack : Color.white)
     }
 }
 

@@ -20,6 +20,7 @@ protocol IdentifiableWithDescriptor: Identifiable {
 }
 
 struct MultiSelectRow<Model: IdentifiableWithDescriptor>: View {
+    @Environment(\.colorScheme) var colorScheme
     
     var model: Model
     @Binding var selectedItems: Set<UUID>
@@ -35,7 +36,7 @@ struct MultiSelectRow<Model: IdentifiableWithDescriptor>: View {
             Spacer()
             if self.isSelected {
                 Image(systemName: "checkmark")
-                    .foregroundColor(Color.white)
+                    .foregroundColor(colorScheme == .dark ? .white : Color(red: 70/255, green: 70/255, blue: 70/255))
             }
         }
         .onTapGesture {
