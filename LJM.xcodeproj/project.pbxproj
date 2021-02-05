@@ -38,7 +38,6 @@
 		EA686F25256EFBFA00C121DC /* SearchBarExpandableJourney.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA686F24256EFBFA00C121DC /* SearchBarExpandableJourney.swift */; };
 		EA686F2E256F25CF00C121DC /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA686F2D256F25CF00C121DC /* Extensions.swift */; };
 		EA7028902572FDD300E1B6EB /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA70288F2572FDD300E1B6EB /* RatingView.swift */; };
-		EA70289A25771D9300E1B6EB /* SearchBarSideBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA70289925771D9300E1B6EB /* SearchBarSideBar.swift */; };
 		EA7028B02579B29600E1B6EB /* ArrowButtonScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7028AF2579B29600E1B6EB /* ArrowButtonScrollView.swift */; };
 		EA7028B52579B2CF00E1B6EB /* BackgroundImageReadingStudent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7028B42579B2CF00E1B6EB /* BackgroundImageReadingStudent.swift */; };
 		EA7028BA2579C75000E1B6EB /* ScrollViewFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7028B92579C75000E1B6EB /* ScrollViewFilters.swift */; };
@@ -107,7 +106,6 @@
 		EA686F24256EFBFA00C121DC /* SearchBarExpandableJourney.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarExpandableJourney.swift; sourceTree = "<group>"; };
 		EA686F2D256F25CF00C121DC /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		EA70288F2572FDD300E1B6EB /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
-		EA70289925771D9300E1B6EB /* SearchBarSideBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarSideBar.swift; sourceTree = "<group>"; };
 		EA7028AF2579B29600E1B6EB /* ArrowButtonScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowButtonScrollView.swift; sourceTree = "<group>"; };
 		EA7028B42579B2CF00E1B6EB /* BackgroundImageReadingStudent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundImageReadingStudent.swift; sourceTree = "<group>"; };
 		EA7028B92579C75000E1B6EB /* ScrollViewFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewFilters.swift; sourceTree = "<group>"; };
@@ -310,7 +308,6 @@
 				EA686F24256EFBFA00C121DC /* SearchBarExpandableJourney.swift */,
 				EAD2C819257085CA008CDDA1 /* LearningObjectiveJourneyCell.swift */,
 				EA70288F2572FDD300E1B6EB /* RatingView.swift */,
-				EA70289925771D9300E1B6EB /* SearchBarSideBar.swift */,
 				EA7028AF2579B29600E1B6EB /* ArrowButtonScrollView.swift */,
 				EA7028B42579B2CF00E1B6EB /* BackgroundImageReadingStudent.swift */,
 				EAF37038257A2A4900C72707 /* EmptyLearningObjectiveViewJourney.swift */,
@@ -472,7 +469,6 @@
 				EA686F10256EF67B00C121DC /* MyJourneyView.swift in Sources */,
 				964B662E256E6020006AB20E /* ContentView.swift in Sources */,
 				965F00FC25826987004D9111 /* ProfilePictureProvider.swift in Sources */,
-				EA70289A25771D9300E1B6EB /* SearchBarSideBar.swift in Sources */,
 				9670A96E256EAA330043F227 /* SidebarElements.swift in Sources */,
 				EA7028902572FDD300E1B6EB /* RatingView.swift in Sources */,
 				96A4105125726DD600ACA0DE /* AddButton.swift in Sources */,
@@ -663,7 +659,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"LJM/Preview Content\"";
-				DEVELOPMENT_TEAM = 98GZP44QG5;
+				DEVELOPMENT_TEAM = KXZF72639J;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = LJM/Info.plist;
@@ -688,7 +684,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"LJM/Preview Content\"";
-				DEVELOPMENT_TEAM = 98GZP44QG5;
+				DEVELOPMENT_TEAM = KXZF72639J;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = LJM/Info.plist;

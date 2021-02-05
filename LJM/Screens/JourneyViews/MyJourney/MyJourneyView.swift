@@ -67,6 +67,10 @@ struct MyJourneyView: View, LJMView {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.leading, 150)
                 
+                SearchBarExpandableJourney().background(Color.white)
+                    .padding(.trailing, 200)
+                    .frame(maxWidth: .infinity,  alignment: .trailing)
+
                 DropDownMenuFilters()
                     .buttonStyle(PlainButtonStyle())
                     .padding(.trailing, 20)

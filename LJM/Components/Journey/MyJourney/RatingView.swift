@@ -9,6 +9,7 @@ import SwiftUI
 
 struct RatingView: View {
     
+    var goalRating: Int?
     @Binding var rating: Int
     @State private var hover = false
     var maximumRating = 5
@@ -19,8 +20,8 @@ struct RatingView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 15, height: 15, alignment: .center)
-                .foregroundColor(Color.customCyan)
-                .offset(x: 43)
+                .foregroundColor(goalRating != nil ? Color.customCyan : Color.clear)
+                .offset(x: setupGoalRating())
             
             HStack {
                 ForEach(1..<maximumRating + 1, id: \.self) { number in
@@ -41,6 +42,23 @@ struct RatingView: View {
                 .frame(width: 15, height: 15, alignment: .center)
                 .foregroundColor(Color.customCyan)
             
+        }
+    }
+    
+    func setupGoalRating() -> CGFloat {
+        switch goalRating {
+        case 1:
+            return -85
+        case 2:
+            return -44
+        case 3:
+            return 0
+        case 4:
+            return 44
+        case 5:
+            return 85
+        default:
+            return 0
         }
     }
 }

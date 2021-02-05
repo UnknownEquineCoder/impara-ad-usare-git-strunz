@@ -10,8 +10,7 @@ import SwiftUI
 struct SearchBarExpandableJourney: View {
     
     @State var show = false
-    @Binding var showSearchBarSideBar: Bool
-    @State var txt = ""
+    @State var txtSearchBar = ""
     
     var body: some View {
         
@@ -20,20 +19,20 @@ struct SearchBarExpandableJourney: View {
                 Image(systemName: "magnifyingglass")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 17, height: 17, alignment: .center)
+                    .frame(width: 18, height: 18, alignment: .center)
                     .foregroundColor(Color.customBlack)
                     .background(Color.clear)
                 
                 VStack {
                     ZStack {
-                        if txt.isEmpty {
+                        if txtSearchBar.isEmpty {
                             Text("Search")
                                 .foregroundColor(.customDarkGrey)
                                 .padding(.trailing, 60)
                                 .opacity(0.5)
                         }
                         
-                        TextField("Search", text: self.$txt)
+                        TextField("Search", text: $txtSearchBar)
                             .foregroundColor(Color.customBlack)
                             .textFieldStyle(RoundedBorderTextFieldStyle.init())
                         
@@ -50,7 +49,6 @@ struct SearchBarExpandableJourney: View {
                 Button(action: {
                     withAnimation {
                         self.show.toggle()
-                        self.showSearchBarSideBar.toggle()
                     }
                 }, label: {
                     Image(systemName: "xmark.circle.fill")
@@ -63,13 +61,12 @@ struct SearchBarExpandableJourney: View {
                 Button(action: {
                     withAnimation {
                         self.show.toggle()
-                        self.showSearchBarSideBar.toggle()
                     }
                 }, label: {
                     Image(systemName: "magnifyingglass")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 15, height: 15, alignment: .center)
+                        .frame(width: 18, height: 18, alignment: .center)
                         .foregroundColor(Color.customBlack)
                         .background(Color.clear)
                         .padding(5)
@@ -77,15 +74,16 @@ struct SearchBarExpandableJourney: View {
                 .background(Color.clear)
             }
         }
-        .padding(self.show ? 6 : 0)
-        .frame(width: self.show ? 300 : 25)
-        .overlay(RoundedRectangle(cornerRadius: 20).stroke(lineWidth: 1).foregroundColor(Color.customCyan))
+        .padding([.trailing, .leading], self.show ? 6 : 0)
+        .frame(width: self.show ? 300 : 34)
+        .overlay(RoundedRectangle(cornerRadius: 17).stroke(lineWidth: 1).padding(5).foregroundColor(Color.customCyan).frame(width: self.show ? 310 : 40, height: 40))
+
     }
 }
 
 
 struct SearchBarExpandableJourney_Previews: PreviewProvider {
     static var previews: some View {
-        SearchBarExpandableJourney(showSearchBarSideBar: .constant(true))
+        SearchBarExpandableJourney()
     }
 }

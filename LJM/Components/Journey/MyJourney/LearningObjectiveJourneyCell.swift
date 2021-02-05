@@ -19,6 +19,7 @@ struct LearningObjectiveJourneyCell: View {
     var core: String
     var description: String
     var color: Color
+    var goalRating : Int?
     
     var body: some View {
         VStack(spacing: 20) {
@@ -45,7 +46,7 @@ struct LearningObjectiveJourneyCell: View {
                     Divider().background(Color(red: 70/255, green: 70/255, blue: 70/255)).padding(.top, 20).padding(.bottom, 20).padding(.trailing, 20).isHidden(self.isRatingView ? false : true)
                     
                     if !isAddable {
-                        RatingView(rating: $rating).padding(.top, 15).padding(.trailing, 30).onAppear(perform: {
+                        RatingView(goalRating: goalRating, rating: $rating).padding(.top, 15).padding(.trailing, 30).onAppear(perform: {
                             self.isRatingView.toggle()
                         })
                     } else {
