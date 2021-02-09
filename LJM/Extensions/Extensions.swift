@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AppKit
 
 // Remove ugly focus ring on textfields borders.
 

@@ -10,8 +10,8 @@ import SwiftUI
 struct SearchBarExpandableJourney: View {
     
     @State var show = false
-    @State var txtSearchBar = ""
-    
+    @Binding var txtSearchBar : String
+        
     var body: some View {
         
         HStack {
@@ -25,12 +25,6 @@ struct SearchBarExpandableJourney: View {
                 
                 VStack {
                     ZStack {
-                        if txtSearchBar.isEmpty {
-                            Text("Search")
-                                .foregroundColor(.customDarkGrey)
-                                .padding(.trailing, 60)
-                                .opacity(0.5)
-                        }
                         
                         TextField("Search", text: $txtSearchBar)
                             .foregroundColor(Color.customBlack)
@@ -49,6 +43,7 @@ struct SearchBarExpandableJourney: View {
                 Button(action: {
                     withAnimation {
                         self.show.toggle()
+                        self.txtSearchBar = ""
                     }
                 }, label: {
                     Image(systemName: "xmark.circle.fill")
@@ -77,13 +72,12 @@ struct SearchBarExpandableJourney: View {
         .padding([.trailing, .leading], self.show ? 6 : 0)
         .frame(width: self.show ? 300 : 34)
         .overlay(RoundedRectangle(cornerRadius: 17).stroke(lineWidth: 1).padding(5).foregroundColor(Color.customCyan).frame(width: self.show ? 310 : 40, height: 40))
-
+        
     }
 }
 
-
 struct SearchBarExpandableJourney_Previews: PreviewProvider {
     static var previews: some View {
-        SearchBarExpandableJourney()
+        SearchBarExpandableJourney(txtSearchBar: .constant("rrr"))
     }
 }
