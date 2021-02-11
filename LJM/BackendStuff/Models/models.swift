@@ -90,11 +90,3 @@ enum Strand {
     case technical
     case process
 }
-
-struct LearningPathAnswer : Decodable {
-    
-}
-
-struct ErrorAnswer : Decodable {
-    
-}

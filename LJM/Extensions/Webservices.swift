@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Alamofire
 
 class Webservices {
     private init() {
@@ -30,9 +31,9 @@ class Webservices {
    
     }
     
-    static func getLearningPath(completion : @escaping(LearningPathAnswer?, ErrorAnswer?) -> Void) {
+    static func getLearningPath(completion : @escaping(Result<[LearningPath], Error>) -> Void) {
         
-        let params = ""
+        
         
     }
 }
