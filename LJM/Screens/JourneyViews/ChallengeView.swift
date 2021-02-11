@@ -45,7 +45,7 @@ struct ChallengeView: View {
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .zIndex(1)
                 
-                ScrollViewLearningObjectives(filterChallenge: selectedFilter, isAddable: true).padding(.top, 50)
+                ScrollViewLearningObjectives(filterChallenge: selectedFilter, isAddable: true, textFromSearchBar: "").padding(.top, 50)
             }.frame(maxWidth: .infinity).padding(.top, 10)
         }.padding(.leading, 50).padding(.trailing, 50)
     }

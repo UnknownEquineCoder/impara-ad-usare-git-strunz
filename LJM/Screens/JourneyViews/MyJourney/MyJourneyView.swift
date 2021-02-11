@@ -13,6 +13,8 @@ struct MyJourneyView: View, LJMView {
     @State var selectedFilterInsideButton = "All"
     let arrayFilters = ["All", "Core", "Elective", "Evaluated"]
     
+    @State private var searchText = ""
+    
     @State private var showView = true
     @Environment(\.colorScheme) var colorScheme
     
@@ -67,7 +69,7 @@ struct MyJourneyView: View, LJMView {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.leading, 150)
                 
-                SearchBarExpandableJourney().background(Color.white)
+                SearchBarExpandableJourney(txtSearchBar: $searchText).background(colorScheme == .dark ? Color(red: 49/255, green: 44/255, blue: 45/255) : .white)
                     .padding(.trailing, 200)
                     .frame(maxWidth: .infinity,  alignment: .trailing)
 
@@ -77,7 +79,7 @@ struct MyJourneyView: View, LJMView {
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .zIndex(1)
                 
-                ListViewLearningObjectiveMyJourney(showView: self.$showView, selectedFilter: $selectedFilter)
+                ListViewLearningObjectiveMyJourney(showView: self.$showView, selectedFilter: $selectedFilter, txtSearchBar: $searchText)
                     .padding(.top, 50)
             }.frame(maxWidth: .infinity).padding(.top, 10)
         }.padding(.leading, 50).padding(.trailing, 50)
@@ -183,11 +185,12 @@ struct ListViewLearningObjectiveMyJourney: View {
     
     @Binding var showView: Bool
     @Binding var selectedFilter: CoreEnum.RawValue
+    @Binding var txtSearchBar : String
     
     var body: some View {
         
         if showView {
-            ScrollViewLearningObjectives(filterCore: selectedFilter, isAddable: false)
+            ScrollViewLearningObjectives(filterCore: selectedFilter, isAddable: false, textFromSearchBar: txtSearchBar)
         } else {
             EmptyLearningObjectiveViewJourney()
         }

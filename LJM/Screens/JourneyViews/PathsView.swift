@@ -92,7 +92,7 @@ struct PathsView: View, LJMView {
                     //                    }.buttonStyle(PlainButtonStyle())
                     //                    .padding(.trailing, 20)
                     //                }.padding(.top, 20)
-                    ScrollViewLearningObjectives(isAddable: true).padding(.top, 70)
+                    ScrollViewLearningObjectives(isAddable: true, textFromSearchBar: "").padding(.top, 70)
                 }.frame(minWidth: 0, idealWidth: 1000, maxWidth: .infinity,
                         maxHeight: .infinity, alignment: .leading)
                 

@@ -10,7 +10,7 @@ import SwiftUI
 struct ScrollViewLearningObjectives: View {
     @Environment(\.colorScheme) var colorScheme
     
-    var learningObjectivesSample = [LearningObj(title: "Design", subtitle: "Prototyping", core: .core, desc: "You can understand and apply concepts with assistance.", color: Color.customCyan, challenge: [.MC1, .WF3], rating: 4, ratingGoal: 1), LearningObj(title: "Business", subtitle: "Subtitle", core: .elective, desc: "You can understand and apply concepts with assistance.", color: Color.yellow, challenge: [.MC1, .WF3], rating: 2, ratingGoal: nil), LearningObj(title: "Frontend", subtitle: "Subtitle", core: .core, desc: "You can understand and apply concepts with assistance.", color: Color.blue, challenge: [.MC1], rating: 3, ratingGoal: 3), LearningObj(title: "Backend", subtitle: "Whatever", core: .evaluated, desc: "You can understand and apply concepts with assistance.", color: Color.red, challenge: [.MC1], rating: 4, ratingGoal: 4), LearningObj(title: "Yoyo", subtitle: "Subtitle", core: .evaluated, desc: "You can understand and apply concepts with assistance.", color: Color.purple, challenge: [.MC1, .E5], rating: nil, ratingGoal:5)]
+    var learningObjectivesSample = [LearningObj(title: "Design", subtitle: "Prototyping", core: .core, desc: "You can understand and apply concepts with assistance.You can understand and apply concepts with assistance.You can understand and apply concepts with assistance.You can understand and apply concepts with assistance.You can understand and apply concepts with assistance.You can understand and apply concepts with assistance.You can understand and apply concepts with assistance.You can understand and apply concepts with assistance.You can understand and apply concepts with assistance.self.expand ? false : trueself.expand ? false : trueself.expand ? false : trueself.expand ? false : trueself.expand ? false : trueself.expand ? false : trueself.expand ? false : trueself.expand ? false : trueself.expand ? false : trueself.expand ? false : trueself.expand ? false : trueself.expand ? false : trueself.expand ? false : trueself.expand ? false : trueself.expand ? false : true", color: Color.customCyan, challenge: [.MC1, .WF3], rating: 4, ratingGoal: 1), LearningObj(title: "Business", subtitle: "Subtitle", core: .elective, desc: "You can understand and apply concepts with assistance.", color: Color.yellow, challenge: [.MC1, .WF3], rating: 2, ratingGoal: nil), LearningObj(title: "Frontend", subtitle: "Subtitle", core: .core, desc: "You can understand and apply concepts with assistance.", color: Color.blue, challenge: [.MC1], rating: 3, ratingGoal: 3), LearningObj(title: "Backend", subtitle: "Whatever", core: .evaluated, desc: "You can understand and apply concepts with assistance.", color: Color.red, challenge: [.MC1], rating: 4, ratingGoal: 4), LearningObj(title: "Yoyo", subtitle: "Subtitle", core: .evaluated, desc: "You can understand and apply concepts with assistance.", color: Color.purple, challenge: [.MC1, .E5], rating: nil, ratingGoal:5)]
     
     var filterCore: CoreEnum.RawValue?
     var filterChallenge: ChallengeEnum.RawValue?
@@ -43,15 +43,17 @@ struct ScrollViewLearningObjectives: View {
     
     var isAddable = false
     
-    @State var txtSearchBar: String = ""
+    var textFromSearchBar : String
     
     var body: some View {
         GeometryReader { gp in
             ScrollView(showsIndicators: true) {
                 LazyVStack {
                     ForEach(filteredLO) { item in
-                        LearningObjectiveJourneyCell(rating: item.rating ?? 0, isAddable: self.isAddable, title: item.title, subtitle: item.subtitle, core: item.core.rawValue, description: item.desc, color: item.color)
-                            .background(colorScheme == .dark ? Color(red: 49/255, green: 44/255, blue: 45/255) : .white)
+                        if textFromSearchBar.isEmpty || item.title.lowercased().contains(textFromSearchBar.lowercased()) || item.desc.lowercased().contains(textFromSearchBar.lowercased()) {
+                            LearningObjectiveJourneyCell(rating: item.rating ?? 0, isAddable: self.isAddable, title: item.title, subtitle: item.subtitle, core: item.core.rawValue, description: item.desc, color: item.color, goalRating: item.ratingGoal)
+                                .background(colorScheme == .dark ? Color(red: 49/255, green: 44/255, blue: 45/255) : .white)
+                        }
                     }
                 }
             }.frame(width: gp.size.width)
@@ -62,6 +64,6 @@ struct ScrollViewLearningObjectives: View {
 
 struct ScrollViewLearningObjectives_Previews: PreviewProvider {
     static var previews: some View {
-        ScrollViewLearningObjectives(filterCore: "Core")
+        ScrollViewLearningObjectives(filterCore: "Core", textFromSearchBar: "D")
     }
 }
