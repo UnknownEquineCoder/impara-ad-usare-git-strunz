@@ -17,19 +17,18 @@ struct JourneyMainView: View, LJMView {
         ZStack(alignment: .top) {
             
             if self.selected == "My Journey" {
-                MyJourneyView().padding(.top, 80).padding([.top, .leading, .trailing], 20)
+                MyJourneyView().modifier(PaddingMainSubViews())
                     .background(colorScheme == .dark ? Color(red: 49/255, green: 44/255, blue: 45/255): .white)
             } else if self.selected == "Map" {
-                PathsView().padding(.top, 80).padding([.top, .leading, .trailing], 20)
+                PathsView().modifier(PaddingMainSubViews())
             } else {
-                ChallengeView().padding(.top, 80).padding([.top, .leading, .trailing], 20)
+                ChallengeView().modifier(PaddingMainSubViews())
             }
             
             HStack {
                 TopBarJourney(selected: self.$selected).padding(.top, 20).padding(.leading, 50)
                 
                 Spacer()
-                
             }
             
         }.background(colorScheme == .dark ? Color(red: 49/255, green: 44/255, blue: 45/255) : .white)

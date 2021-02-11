@@ -91,3 +91,10 @@ enum Strand {
     case process
 }
 
+struct LearningPathAnswer : Decodable {
+    
+}
+
+struct ErrorAnswer : Decodable {
+    
+}

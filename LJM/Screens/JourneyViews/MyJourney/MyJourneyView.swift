@@ -23,11 +23,8 @@ struct MyJourneyView: View, LJMView {
     var body: some View {
         VStack(alignment: .leading) {
             ZStack(alignment: .topLeading) {
-                Text("My Journey")
-                    .font(.system(size: 40, weight: .medium))
-                    .fontWeight(.medium)
-                    .foregroundColor(Color.customBlack)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                TitleScreenView(title: "My Journey")
                 
                 DropDownSelectPathView(dictPaths: self.paths, selectedPath: $selectedPath)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -36,13 +33,7 @@ struct MyJourneyView: View, LJMView {
                     .zIndex(1)
                 
                 VStack(alignment: .leading) {
-                    Text("Here you will find your Learning Objectives you choose to work on, that will help you build your own path. Based on the path you choose, the arrows will indicate the recommanded level to reach.")
-                        .font(.system(size: 20, weight: .medium))
-                        .foregroundColor(Color.customDarkGrey)
-                        .padding(.top, 20)
-                        .padding(.trailing, 90)
-                    
-                    Rectangle().frame(height: 1).foregroundColor(Color.customDarkGrey)
+                    DescriptionTitleScreenView(desc: "Here you will find your Learning Objectives you choose to work on, that will help you build your own path. Based on the path you choose, the arrows will indicate the recommanded level to reach.")
                 }.frame(maxWidth: .infinity, alignment: .leading).padding(.top, 50)
                 
                 ScrollViewFiltersJourney(filterTabs: arrayFilters, selectedFilter: $selectedFilter).padding(.top, 20).padding(.top, 120)
@@ -50,10 +41,8 @@ struct MyJourneyView: View, LJMView {
             }.frame(maxWidth: .infinity)
             
             ZStack(alignment: .topLeading) {
-                Text("Number of objectives :")
-                    .foregroundColor(Color.customDarkGrey)
-                    .font(.system(size: 15, weight: .medium, design: .rounded))
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                NumberTotalLearningOjbectivesView(totalLOs: 50)
                 
                 Button(action: {
                     self.showView.toggle()
@@ -67,7 +56,7 @@ struct MyJourneyView: View, LJMView {
                         .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color.customCyan))
                 }.buttonStyle(PlainButtonStyle())
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.leading, 150)
+                .padding(.leading, 300)
                 
                 SearchBarExpandableJourney(txtSearchBar: $searchText).background(colorScheme == .dark ? Color(red: 49/255, green: 44/255, blue: 45/255) : .white)
                     .padding(.trailing, 200)

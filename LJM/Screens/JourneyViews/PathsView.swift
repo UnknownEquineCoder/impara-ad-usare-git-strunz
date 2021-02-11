@@ -19,24 +19,15 @@ struct PathsView: View, LJMView {
         VStack {
             VStack {
                 HStack {
-                    Text("Map")
-                        .font(.system(size: 40, weight: .medium))
-                        .fontWeight(.medium)
-                        .foregroundColor(Color.customBlack)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                    TitleScreenView(title: "Map")
 
                     Spacer()
                 }
                 
                 VStack(alignment: .leading) {
-                    Text("Here’s the heart of the Academy: a library of Learning Objectives you can explore and make yours.")
-                        .font(.system(size: 20, weight: .medium))
-                        .foregroundColor(Color.customDarkGrey)
-                        .padding(.top, 20)
- 
-                    
-                    Rectangle().frame(height: 1).foregroundColor(Color.gray)
+                    DescriptionTitleScreenView(desc: "Here’s the heart of the Academy: a library of Learning Objectives you can explore and make yours.")
                 }
+                
                 HStack {
                     Text("Map")
                         .fontWeight(.light)
@@ -66,10 +57,7 @@ struct PathsView: View, LJMView {
                 
                 ZStack(alignment: .topLeading) {
                     
-                    Text("Learning Objectives:")
-                        .foregroundColor(Color.customDarkGrey)
-                        .font(.system(size: 15, weight: .medium, design: .rounded))
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                    NumberTotalLearningOjbectivesView(totalLOs: 70)
                     
                     DropDownMenuFilters().padding(.trailing, 20).frame(maxWidth: .infinity, alignment: .trailing).zIndex(1)
                     
