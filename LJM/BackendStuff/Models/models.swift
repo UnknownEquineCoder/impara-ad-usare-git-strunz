@@ -30,10 +30,23 @@ struct LearningObj: Identifiable {
 //    var strand: Strand
 }
 
-struct LearningPath: Identifiable {
-    let id = UUID()
-    var category: PathCategory
+struct LearningPath: Decodable {
+    var _id: String?
+    var title: String?
+    var description: String?
+    var createdByStudent: String?
+    var learningObjectives: [LearningObjective?]
+    
+    enum CodingKeys: String, CodingKey {
+      case _id
+      case title
+      case description
+      case createdByStudent
+      case learningObjectives = "learningObjectives"
+    }
 }
+
+
 
 struct Challenge: Identifiable {
     let id = UUID()
@@ -89,4 +102,30 @@ enum Strand {
     case business
     case technical
     case process
+}
+
+struct Tag: Codable {
+    var tags: String?
+}
+
+struct LearningObjective: Codable {
+    var _id: String?
+    var tags : [Tag?]
+    var title: String?
+    var isCore: Bool?
+    var isElective: Bool?
+    var description: String?
+    var createdByLearner: String?
+    var __v: Int?
+    
+    enum CodingKeys: String, CodingKey {
+      case _id
+      case tags
+      case title
+      case isCore
+      case isElective
+      case description
+      case createdByLearner
+      case __v
+    }
 }

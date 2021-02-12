@@ -46,6 +46,15 @@ struct MyJourneyView: View, LJMView {
                 
                 Button(action: {
                     self.showView.toggle()
+                    Webservices.getLearningPath { learningPathResult in
+                        print("JNIHUGYV \(learningPathResult)")
+                        switch learningPathResult {
+                        case .failure:
+                          print("Error getting data")
+                        case .success(let learningPath):
+                            print("Success getting data \(learningPath)")
+                        }
+                    }
                 }) {
                     Text("Test button remove objs")
                         .padding()
