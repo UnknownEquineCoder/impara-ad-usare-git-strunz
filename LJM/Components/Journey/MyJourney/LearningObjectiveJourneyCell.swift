@@ -35,13 +35,13 @@ struct LearningObjectiveJourneyCell: View {
                         
                         VStack(alignment: .leading, spacing: 8) {
                             Text(title.uppercased()).foregroundColor(color).font(.system(size: 20, weight: .semibold, design: .rounded))
-                            Text(subtitle.uppercased()).foregroundColor(Color.customDarkGrey).font(.system(size: 17, weight: .light))
-                            Text(core.uppercased()).foregroundColor(Color.customDarkGrey).font(.system(size: 17, weight: .light))
+                            Text(subtitle.uppercased()).foregroundColor(colorScheme == .dark ? Color(red: 255/255, green: 255/255, blue: 255/255) : Color.customDarkGrey).font(.system(size: 22.toFontSize(), weight: .light))
+                            Text(core.uppercased()).foregroundColor(colorScheme == .dark ? Color(red: 255/255, green: 255/255, blue: 255/255) : Color.customDarkGrey).font(.system(size: 22.toFontSize(), weight: .light))
                         }.frame(width: 150, alignment: .leading).padding(.leading, 20).padding(.top, 15)
                         
                         Spacer()
                         
-                        Text(description).foregroundColor(Color.customLightBlack).font(.system(size: 16, weight: .medium)).frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center).lineLimit(self.expand ? nil : 4).padding()
+                        Text(description).foregroundColor(colorScheme == .dark ? Color(red: 224/255, green: 224/255, blue: 224/255) : Color.customLightBlack).font(.system(size: 24.toFontSize(), weight: .regular)).frame(maxWidth: 639.toScreenSize(), maxHeight: .infinity, alignment: .center).lineLimit(self.expand ? nil : 4).padding()
                         
                         Spacer()
                         
@@ -85,7 +85,7 @@ struct LearningObjectiveJourneyCell: View {
                             }
                         }.padding(.leading, 40).padding(.bottom, 50)
                         
-                    }.frame(maxWidth: .infinity, maxHeight: self.expand ? 185 : 0, alignment: .topLeading)
+                    }.frame(maxWidth: 1402.toScreenSize(), maxHeight: self.expand ? 185 : 0, alignment: .topLeading)
                     .padding(.trailing, 250)
                     .isHidden(self.expand ? false : true)
                 }
@@ -118,7 +118,7 @@ struct LearningObjectiveJourneyCell: View {
             }
         }
         .modifier(AnimatingCellHeight(height: expand ? 400 : 120))
-        .background(Color.customLightGrey)
+        .background(colorScheme == .dark ? Color(red: 50/255, green: 50/255, blue: 50/255) : Color.customLightGrey)
         .cornerRadius(14)
         .onTapGesture {
             withAnimation {

@@ -20,14 +20,14 @@ struct StudentPictureView: View {
                     .padding()
                     .shadow(color: Color.black.opacity(0.36), radius: 5, x: 0, y: 5)
                 Circle()
-                    .strokeBorder(LinearGradient(gradient: Gradient(colors: [Color("Light green"), Color("Dark green")]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 5)
+                    .strokeBorder(LinearGradient(gradient: Gradient(colors: [Color("Light green"), Color("Dark green")]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 3)
                     .frame(width: size.toScreenSize(), height: size.toScreenSize(), alignment: .leading)
                 AddImageButton(buttonSize: (size/4).toScreenSize())
                     .padding([.top, .leading], 0.66*size.toScreenSize())
                 
             }
             
-            ProfileNameLabel(qualifiedName: "Student Name")
+            ProfileNameLabel(qualifiedName: "Student Name so so so long").frame(width: 150)
                 
         }
         .padding(.trailing)

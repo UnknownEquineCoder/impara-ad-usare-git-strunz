@@ -52,7 +52,7 @@ struct ScrollViewLearningObjectives: View {
                     ForEach(filteredLO) { item in
                         if textFromSearchBar.isEmpty || item.title.lowercased().contains(textFromSearchBar.lowercased()) || item.desc.lowercased().contains(textFromSearchBar.lowercased()) {
                             LearningObjectiveJourneyCell(rating: item.rating ?? 0, isAddable: self.isAddable, title: item.title, subtitle: item.subtitle, core: item.core.rawValue, description: item.desc, color: item.color, goalRating: item.ratingGoal)
-                                .background(colorScheme == .dark ? Color(red: 49/255, green: 44/255, blue: 45/255) : .white)
+                                .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
                         }
                     }
                 }

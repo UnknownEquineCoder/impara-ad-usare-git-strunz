@@ -52,13 +52,13 @@ struct MyJourneyView: View, LJMView {
                         .font(.system(size: 15, weight: .medium, design: .rounded))         // TEST BUTTON EMPTY OBJECTIVES
                         .foregroundColor(Color.customCyan)
                         .frame(width: 200, height: 30, alignment: .center)
-                        .background(colorScheme == .dark ? Color(red: 49/255, green: 44/255, blue: 45/255) : .white)
+                        .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
                         .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color.customCyan))
                 }.buttonStyle(PlainButtonStyle())
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.leading, 300)
                 
-                SearchBarExpandableJourney(txtSearchBar: $searchText).background(colorScheme == .dark ? Color(red: 49/255, green: 44/255, blue: 45/255) : .white)
+                SearchBarExpandableJourney(txtSearchBar: $searchText).background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
                     .padding(.trailing, 200)
                     .frame(maxWidth: .infinity,  alignment: .trailing)
 
