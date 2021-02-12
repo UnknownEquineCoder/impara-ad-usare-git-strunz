@@ -53,6 +53,7 @@ struct DropDownMenuFilters: View {
             }
             .buttonStyle(PlainButtonStyle())
             .padding(.trailing, 20)
+            
         }
         
     }

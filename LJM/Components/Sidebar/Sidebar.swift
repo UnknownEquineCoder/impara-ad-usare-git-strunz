@@ -17,7 +17,7 @@ struct Sidebar: View {
         NavigationView {
             List {
 
-                StudentPictureView(size: 160)
+                StudentPictureView(size: 85)
                         .padding(.trailing)
                 Navigation<JourneyMainView>(buttonName: "Dashboard", buttonIcon: "square", tag: 0, selection: selection)
                     

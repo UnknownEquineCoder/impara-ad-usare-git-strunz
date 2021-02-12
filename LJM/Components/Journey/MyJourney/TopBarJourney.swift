@@ -22,10 +22,10 @@ struct TopBarJourney: View {
                         self.selected = i
                     }, label: {
                         Text(i)
-                            .frame(width: 100, height: 40, alignment: .center)
-                            .font(.system(size: 18, weight: .semibold, design: .rounded))
+                            .frame(width: 120, height: 40, alignment: .center)
+                            .font(.system(size: 24.toFontSize(), weight: .semibold))
                             .foregroundColor(self.selected == i ? .customBlack : .customDarkGrey)
-                            .background(colorScheme == .dark ? Color(red: 49/255, green: 44/255, blue: 45/255): .white)
+                            .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255): .white)
                     }).buttonStyle(PlainButtonStyle())
                     
                     TopBarJourneySelectedBottomView(color: self.selected == i ? Color.customCyan : .clear)
@@ -34,7 +34,7 @@ struct TopBarJourney: View {
         }
         .frame(width: 400, height: 50, alignment: .leading)
         .padding(.leading, 20)
-        .background(colorScheme == .dark ? Color(red: 49/255, green: 44/255, blue: 45/255): .white)
+        .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255): .white)
     }
 }
 
@@ -43,7 +43,7 @@ struct TopBarJourneySelectedBottomView: View {
     var body: some View {
         Capsule()
             .fill(color)
-            .frame(width: 100, height: 3)
+            .frame(width: 120, height: 3)
     }
 }
 

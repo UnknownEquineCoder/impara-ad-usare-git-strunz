@@ -18,7 +18,7 @@ struct JourneyMainView: View, LJMView {
             
             if self.selected == "My Journey" {
                 MyJourneyView().modifier(PaddingMainSubViews())
-                    .background(colorScheme == .dark ? Color(red: 49/255, green: 44/255, blue: 45/255): .white)
+                    .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255): .white)
             } else if self.selected == "Map" {
                 PathsView().modifier(PaddingMainSubViews())
             } else {
@@ -31,7 +31,7 @@ struct JourneyMainView: View, LJMView {
                 Spacer()
             }
             
-        }.background(colorScheme == .dark ? Color(red: 49/255, green: 44/255, blue: 45/255) : .white)
+        }.background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
     }
 }
 
