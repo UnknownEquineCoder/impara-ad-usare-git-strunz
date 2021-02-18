@@ -44,33 +44,12 @@ struct MyJourneyView: View, LJMView {
                 
                 NumberTotalLearningOjbectivesView(totalLOs: 50)
                 
-                Button(action: {
-                    self.showView.toggle()
-                    Webservices.getLearningPath { learningPathResult in
-                        print("JNIHUGYV \(learningPathResult)")
-                        switch learningPathResult {
-                        case .failure:
-                          print("Error getting data")
-                        case .success(let learningPath):
-                            print("Success getting data \(learningPath)")
-                        }
-                    }
-                }) {
-                    Text("Test button remove objs")
-                        .padding()
-                        .font(.system(size: 15, weight: .medium, design: .rounded))         // TEST BUTTON EMPTY OBJECTIVES
-                        .foregroundColor(Color.customCyan)
-                        .frame(width: 200, height: 30, alignment: .center)
-                        .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
-                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color.customCyan))
-                }.buttonStyle(PlainButtonStyle())
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.leading, 300)
+                TestButtons().padding(.leading, 200)
                 
                 SearchBarExpandableJourney(txtSearchBar: $searchText).background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
                     .padding(.trailing, 200)
                     .frame(maxWidth: .infinity,  alignment: .trailing)
-
+                
                 DropDownMenuFilters()
                     .buttonStyle(PlainButtonStyle())
                     .padding(.trailing, 20)
@@ -81,6 +60,151 @@ struct MyJourneyView: View, LJMView {
                     .padding(.top, 50)
             }.frame(maxWidth: .infinity).padding(.top, 10)
         }.padding(.leading, 50).padding(.trailing, 50)
+    }
+}
+
+struct TestButtons: View {
+    @State private var showView = true
+    
+    let testLPObject =  LearningPath(title: "Learning Objective Test 3", description: "Learning Objective Test 3 Description", createdByStudent: "Carl", learningObjectives: [LearningObjective(_id: "60250f52c96e69001dbe46d0", tags: ["TEST TAG"], title: "HUBJNHUGY", isCore: true, isElective: true, description: "IJK?JNHUB", createdByLearner: "Guy")])
+    
+    let testLOObject = LearningObjective(_id: "60250f52c96e69001dbe46d0", tags: ["YEYE", "BOBO"], title: "Learning Objective Test 1", isCore: false, isElective: true, description: "Learning Objective Test Desc 1", createdByLearner: "Bobby")
+    
+    var body: some View {
+        HStack {
+            Button(action: {
+                self.showView.toggle()
+                Webservices.getAllLearningPaths { learningPathResult, err  in
+                    print("IJHUGY \(learningPathResult)")
+                }
+            }) {
+                Text("Get")
+                    .padding()
+                    .font(.system(size: 15, weight: .medium, design: .rounded))
+                    .foregroundColor(Color.customCyan)
+                    .frame(height: 30, alignment: .center)
+                    .background(Color.white)
+                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color.customCyan))
+            }.buttonStyle(PlainButtonStyle())
+            
+            Button(action: {
+                
+                Webservices.addLearningPath(title: testLPObject.title!, description: testLPObject.description!, learningObjectives: ["60250f52c96e69001dbe46d0", "6028d22accda6a001e119d9c"], createdByLearner: testLPObject.createdByStudent!, completion: { (result, error) in
+                    print("yutfguhij \(result)")
+                })
+                
+            }) {
+                Text("Add")
+                    .padding()
+                    .font(.system(size: 15, weight: .medium, design: .rounded))
+                    .foregroundColor(Color.customCyan)
+                    .frame(height: 30, alignment: .center)
+                    .background(Color.white)
+                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color.customCyan))
+            }.buttonStyle(PlainButtonStyle())
+            
+            Button(action: {
+                let testLPObject =  LearningPath(_id: "602b4da884f2460029a55f5f", title: "Learning Objective Test 4", description: "Learning Objective Test 4 Description", createdByStudent: "Carl", learningObjectives: [LearningObjective(_id: "60250f52c96e69001dbe46d0", tags: ["TEST TAG 2"], title: "HUBJNHUGY", isCore: true, isElective: true, description: "IJK?JNHUB", createdByLearner: "Guy")])
+                
+                Webservices.updateLearningPath(id: testLPObject._id!, title: testLPObject.title, description: testLPObject.description, learningObjectives: ["60250f52c96e69001dbe46d0", "6028d22accda6a001e119d9c"], createdByLearner: testLPObject.createdByStudent) { (result, error) in
+                    print("JNBHGVBH \(result)")
+                }
+            }) {
+                Text("Update")
+                    .padding()
+                    .font(.system(size: 15, weight: .medium, design: .rounded))
+                    .foregroundColor(Color.customCyan)
+                    .frame(height: 30, alignment: .center)
+                    .background(Color.white)
+                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color.customCyan))
+            }.buttonStyle(PlainButtonStyle())
+            
+            Button(action: {
+                let testLPObject =  LearningPath(_id: "6029df6750c6800028c1de04", title: "Learning Objective Test 4", description: "Learning Objective Test 4 Description", createdByStudent: "Carl", learningObjectives: [LearningObjective(_id: "60250f52c96e69001dbe46d0", tags: ["TEST TAG 2"], title: "HUBJNHUGY", isCore: true, isElective: true, description: "IJK?JNHUB", createdByLearner: "Guy")])
+                
+                Webservices.deleteLearningPath(id: testLPObject._id!) { (result, error) in
+                    print("YUGH \(result)")
+                }
+            }) {
+                Text("Delete")
+                    .padding()
+                    .font(.system(size: 15, weight: .medium, design: .rounded))
+                    .foregroundColor(Color.customCyan)
+                    .frame(height: 30, alignment: .center)
+                    .background(Color.white)
+                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color.customCyan))
+            }.buttonStyle(PlainButtonStyle())
+            
+            Button(action: {
+                Webservices.getAllLearningObjectives { (learningObjectives, err) in
+                    print("YUIY \(learningObjectives)")
+                }
+            }) {
+                Text("Get LOs")
+                    .padding()
+                    .font(.system(size: 15, weight: .medium, design: .rounded))
+                    .foregroundColor(Color.customCyan)
+                    .frame(height: 30, alignment: .center)
+                    .background(Color.white)
+                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color.customCyan))
+            }.buttonStyle(PlainButtonStyle())
+            
+            Button(action: {
+                Webservices.getLearningObjective(id: "60250f52c96e69001dbe46d0") { (learningObjective, err) in
+                    print("UHIYGTU \(learningObjective)")
+                }
+            }) {
+                Text("Get LOs id")
+                    .padding()
+                    .font(.system(size: 15, weight: .medium, design: .rounded))
+                    .foregroundColor(Color.customCyan)
+                    .frame(height: 30, alignment: .center)
+                    .background(Color.white)
+                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color.customCyan))
+            }.buttonStyle(PlainButtonStyle())
+            
+            Button(action: {
+                Webservices.addLearningObjective(learningObjective: self.testLOObject) { (learningObjective, err) in
+                    print("JIHUYGT \(learningObjective)")
+                }
+            }) {
+                Text("Add LOs")
+                    .padding()
+                    .font(.system(size: 15, weight: .medium, design: .rounded))
+                    .foregroundColor(Color.customCyan)
+                    .frame(height: 30, alignment: .center)
+                    .background(Color.white)
+                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color.customCyan))
+            }.buttonStyle(PlainButtonStyle())
+            
+            Button(action: {
+                Webservices.updateLearningObjective(learningObjective: self.testLOObject) { (learningObjective, err) in
+                    print("iuhyiqjeof \(learningObjective)")
+                }
+            }) {
+                Text("Update LO")
+                    .padding()
+                    .font(.system(size: 15, weight: .medium, design: .rounded))
+                    .foregroundColor(Color.customCyan)
+                    .frame(height: 30, alignment: .center)
+                    .background(Color.white)
+                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color.customCyan))
+            }.buttonStyle(PlainButtonStyle())
+            
+            Button(action: {
+                Webservices.deleteLearningObjective(learningObjective: self.testLOObject) { (learningObjective, err) in
+                    print("fqefqef \(learningObjective)")
+                }
+            }) {
+                Text("delete LO")
+                    .padding()
+                    .font(.system(size: 15, weight: .medium, design: .rounded))
+                    .foregroundColor(Color.customCyan)
+                    .frame(height: 30, alignment: .center)
+                    .background(Color.white)
+                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color.customCyan))
+            }.buttonStyle(PlainButtonStyle())
+        }
     }
 }
 
@@ -155,7 +279,7 @@ struct DropDownSelectPathView: View {
         .cornerRadius(20)
         .animation(.spring())
         .background(colorScheme == .dark ? Color(red: 49/255, green: 44/255, blue: 45/255) : .white)
-//        .border(expand ? Color.customBlack : Color.white)
+        //        .border(expand ? Color.customBlack : Color.white)
     }
 }
 

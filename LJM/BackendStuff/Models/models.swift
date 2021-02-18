@@ -16,7 +16,7 @@ struct Student: Codable {
     var mentor: Mentor?
 }
 
-struct LearningObj: Identifiable {
+struct LearningObjOldVersion: Identifiable {
     let id = UUID()
     var title: String
     let subtitle: String
@@ -30,24 +30,6 @@ struct LearningObj: Identifiable {
 //    var strand: Strand
 }
 
-struct LearningPath: Decodable {
-    var _id: String?
-    var title: String?
-    var description: String?
-    var createdByStudent: String?
-    var learningObjectives: [LearningObjective?]
-    
-    enum CodingKeys: String, CodingKey {
-      case _id
-      case title
-      case description
-      case createdByStudent
-      case learningObjectives = "learningObjectives"
-    }
-}
-
-
-
 struct Challenge: Identifiable {
     let id = UUID()
     var title: String
@@ -57,7 +39,7 @@ struct Challenge: Identifiable {
 struct Assessment {
     var value: Value?
     var student: Student
-    var learningObj: LearningObj
+    var learningObj: LearningObjective
     var metadata: Metadata
 }
 
@@ -104,28 +86,53 @@ enum Strand {
     case process
 }
 
-struct Tag: Codable {
-    var tags: String?
+struct LearningPath: Codable {
+    var _id: String?
+    var title: String?
+    var description: String?
+    var createdByStudent: String?
+    var learningObjectives: [LearningObjective?]
+}
+
+struct LearningPathIdAnswer: Codable {
+    var title: String?
+    var description: String?
+    var createdByLearner: String?
+    var learningObjectives: [String?]
 }
 
 struct LearningObjective: Codable {
     var _id: String?
-    var tags : [Tag?]
+    var tags : [String?]
     var title: String?
     var isCore: Bool?
     var isElective: Bool?
     var description: String?
     var createdByLearner: String?
     var __v: Int?
-    
-    enum CodingKeys: String, CodingKey {
-      case _id
-      case tags
-      case title
-      case isCore
-      case isElective
-      case description
-      case createdByLearner
-      case __v
-    }
+}
+
+enum APIError: Error {
+    case responseProblem
+    case decodingProblem
+    case encodingProblem
+}
+
+struct ConnectAnswer: Decodable {
+    var id_token: String?
+    var access_token: String?
+    var refresh_token: String?
+    var token_type: String?
+    var userinfo: UserInfo?
+}
+
+struct UserInfos: Decodable {
+    var sub: String?
+    var email: String?
+    var preferred_username: String?
+    var name: String?
+}
+
+struct DefaultAnswer: Decodable {
+    var detail: String?
 }
