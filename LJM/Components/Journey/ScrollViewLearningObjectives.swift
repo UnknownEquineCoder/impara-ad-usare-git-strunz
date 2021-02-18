@@ -10,12 +10,12 @@ import SwiftUI
 struct ScrollViewLearningObjectives: View {
     @Environment(\.colorScheme) var colorScheme
     
-    var learningObjectivesSample = [LearningObj(title: "Design", subtitle: "Prototyping", core: .core, desc: "You can understand and apply concepts with assistance.You can understand and apply concepts with assistance.You can understand and apply concepts with assistance.You can understand and apply concepts with assistance.You can understand and apply concepts with assistance.You can understand and apply concepts with assistance.You can understand and apply concepts with assistance.You can understand and apply concepts with assistance.You can understand and apply concepts with assistance.self.expand ? false : trueself.expand ? false : trueself.expand ? false : trueself.expand ? false : trueself.expand ? false : trueself.expand ? false : trueself.expand ? false : trueself.expand ? false : trueself.expand ? false : trueself.expand ? false : trueself.expand ? false : trueself.expand ? false : trueself.expand ? false : trueself.expand ? false : trueself.expand ? false : true", color: Color.customCyan, challenge: [.MC1, .WF3], rating: 4, ratingGoal: 1), LearningObj(title: "Business", subtitle: "Subtitle", core: .elective, desc: "You can understand and apply concepts with assistance.", color: Color.yellow, challenge: [.MC1, .WF3], rating: 2, ratingGoal: nil), LearningObj(title: "Frontend", subtitle: "Subtitle", core: .core, desc: "You can understand and apply concepts with assistance.", color: Color.blue, challenge: [.MC1], rating: 3, ratingGoal: 3), LearningObj(title: "Backend", subtitle: "Whatever", core: .evaluated, desc: "You can understand and apply concepts with assistance.", color: Color.red, challenge: [.MC1], rating: 4, ratingGoal: 4), LearningObj(title: "Yoyo", subtitle: "Subtitle", core: .evaluated, desc: "You can understand and apply concepts with assistance.", color: Color.purple, challenge: [.MC1, .E5], rating: nil, ratingGoal:5)]
+    var learningObjectivesSample = [LearningObjOldVersion(title: "Design", subtitle: "Prototyping", core: .core, desc: "You can understand and apply concepts with assistance.You can understand and apply concepts with assistance.You can understand and apply concepts with assistance.You can understand and apply concepts with assistance.You can understand and apply concepts with assistance.You can understand and apply concepts with assistance.You can understand and apply concepts with assistance.You can understand and apply concepts with assistance.You can understand and apply concepts with assistance.self.expand ? false : trueself.expand ? false : trueself.expand ? false : trueself.expand ? false : trueself.expand ? false : trueself.expand ? false : trueself.expand ? false : trueself.expand ? false : trueself.expand ? false : trueself.expand ? false : trueself.expand ? false : trueself.expand ? false : trueself.expand ? false : trueself.expand ? false : trueself.expand ? false : true", color: Color.customCyan, challenge: [.MC1, .WF3], rating: 4, ratingGoal: 1), LearningObjOldVersion(title: "Business", subtitle: "Subtitle", core: .elective, desc: "You can understand and apply concepts with assistance.", color: Color.yellow, challenge: [.MC1, .WF3], rating: 2, ratingGoal: nil), LearningObjOldVersion(title: "Frontend", subtitle: "Subtitle", core: .core, desc: "You can understand and apply concepts with assistance.", color: Color.blue, challenge: [.MC1], rating: 3, ratingGoal: 3), LearningObjOldVersion(title: "Backend", subtitle: "Whatever", core: .evaluated, desc: "You can understand and apply concepts with assistance.", color: Color.red, challenge: [.MC1], rating: 4, ratingGoal: 4), LearningObjOldVersion(title: "Yoyo", subtitle: "Subtitle", core: .evaluated, desc: "You can understand and apply concepts with assistance.", color: Color.purple, challenge: [.MC1, .E5], rating: nil, ratingGoal:5)]
     
     var filterCore: CoreEnum.RawValue?
     var filterChallenge: ChallengeEnum.RawValue?
     
-    var filteredLO: [LearningObj] {
+    var filteredLO: [LearningObjOldVersion] {
         switch filterCore {
         case "Core":
             return learningObjectivesSample.filter { $0.core == .core }
@@ -28,7 +28,7 @@ struct ScrollViewLearningObjectives: View {
         }
     }
     
-    var filteredChallenges: [LearningObj] {
+    var filteredChallenges: [LearningObjOldVersion] {
         switch filterChallenge {
         case "MC1":
             return learningObjectivesSample.filter { $0.challenge.contains(.MC1) }
