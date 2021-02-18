@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		9605C71825C95498007E808E /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9605C71725C95498007E808E /* LoginPage.swift */; };
 		9605C72C25C96C39007E808E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9605C72B25C96C39007E808E /* User.swift */; };
+		9622DCE525DE80DA009ECCB4 /* CompassPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9622DCE425DE80DA009ECCB4 /* CompassPopover.swift */; };
 		9641C4A525778F1D0088A0B6 /* SizesExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9641C4A425778F1D0088A0B6 /* SizesExtension.swift */; };
 		9641C4B72577AD700088A0B6 /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9641C4B62577AD700088A0B6 /* MainScreen.swift */; };
 		964B662C256E6020006AB20E /* LJMApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B662B256E6020006AB20E /* LJMApp.swift */; };
@@ -75,6 +76,7 @@
 /* Begin PBXFileReference section */
 		9605C71725C95498007E808E /* LoginPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPage.swift; sourceTree = "<group>"; };
 		9605C72B25C96C39007E808E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		9622DCE425DE80DA009ECCB4 /* CompassPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompassPopover.swift; sourceTree = "<group>"; };
 		9641C4A425778F1D0088A0B6 /* SizesExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizesExtension.swift; sourceTree = "<group>"; };
 		9641C4B62577AD700088A0B6 /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
 		964B6628256E6020006AB20E /* LJM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LJM.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -154,6 +156,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9622DCE325DE80B5009ECCB4 /* Compass */ = {
+			isa = PBXGroup;
+			children = (
+				9622DCE425DE80DA009ECCB4 /* CompassPopover.swift */,
+			);
+			path = Compass;
+			sourceTree = "<group>";
+		};
 		964B661F256E6020006AB20E = {
 			isa = PBXGroup;
 			children = (
@@ -231,6 +241,7 @@
 		964B665B256E6260006AB20E /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				9622DCE325DE80B5009ECCB4 /* Compass */,
 				EA686F0E256EF63900C121DC /* JourneyViews */,
 				9641C4B62577AD700088A0B6 /* MainScreen.swift */,
 				9605C71725C95498007E808E /* LoginPage.swift */,
@@ -526,6 +537,7 @@
 				EACD023925D382AD008D12FE /* NumberTotalLearningOjbectivesView.swift in Sources */,
 				96BE89D0257553BF00BE9E8F /* CountDownWrapper.swift in Sources */,
 				9605C71825C95498007E808E /* LoginPage.swift in Sources */,
+				9622DCE525DE80DA009ECCB4 /* CompassPopover.swift in Sources */,
 				96A4101E2571578500ACA0DE /* LJMProtocol.swift in Sources */,
 				965F00CA258246CC004D9111 /* DropDownFilterMenu.swift in Sources */,
 				967EE8CB256E722F008065C9 /* AddImageButton.swift in Sources */,
@@ -620,7 +632,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -676,7 +688,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
