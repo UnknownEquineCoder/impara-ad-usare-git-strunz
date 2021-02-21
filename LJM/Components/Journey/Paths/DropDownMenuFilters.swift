@@ -46,9 +46,11 @@ struct DropDownMenuFilters: View {
                 arrowEdge: .bottom
                 
             ) {
+                VStack{
                 List(filterOptions, id: \.self){
                     element in
                     MultiSelectRow(model: element, selectedItems: $selectedRows)
+                }
                 }
             }
             .buttonStyle(PlainButtonStyle())
@@ -59,6 +61,7 @@ struct DropDownMenuFilters: View {
     }
     
 }
+
 
 
 struct DropDownMenuFilters_Previews: PreviewProvider {

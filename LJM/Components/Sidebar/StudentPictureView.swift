@@ -8,13 +8,50 @@
 import Foundation
 import SwiftUI
 
+
+struct ProfileImage: View {
+    @AppStorage("propic") var data: Data = Data()
+    
+    var body: some View {
+        if let nsImage = NSImage(data: data) {
+            Image(nsImage: nsImage)
+        } else {
+            Image("Student")
+        }
+    }
+    
+    var imageBody: Image {
+        if let nsImage = NSImage(data: data) {
+            return Image(nsImage: nsImage)
+        } else {
+            return Image("Student")
+        }
+    }
+}
+
 struct StudentPictureView: View {
     var size: CGFloat = 140
+    @State var imageName: String = "student"
+    
+    
+    var profileImage: Image {
+        get {
+            if let data = UserDefaults.standard.data(forKey: "propic"), let image = NSImage(data: data) {
+                return Image(nsImage: image)
+            } else {
+                return Image("student")
+            }
+        }
+    }
+    
+    
     var body: some View {
         HStack{
             ZStack{
-                Image("student")
+                ProfileImage().imageBody
+                //Image(imageName)
                     .resizable()
+                    .aspectRatio(contentMode: .fill)
                     .frame(width: size.toScreenSize(), height: size.toScreenSize(), alignment: .leading)
                     .cornerRadius(250)
                     .padding()
@@ -22,7 +59,7 @@ struct StudentPictureView: View {
                 Circle()
                     .strokeBorder(LinearGradient(gradient: Gradient(colors: [Color("Light green"), Color("Dark green")]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 3)
                     .frame(width: size.toScreenSize(), height: size.toScreenSize(), alignment: .leading)
-                AddImageButton(buttonSize: (size/4).toScreenSize())
+                AddImageButton(buttonSize: (size/4).toScreenSize(), imageName: $imageName)
                     .padding([.top, .leading], 0.66*size.toScreenSize())
                 
             }

@@ -12,6 +12,7 @@ import AppKit
 
 struct AddImageButton: View {
     var buttonSize: CGFloat
+    @Binding var imageName: String
     
     var body: some View {
         Button{
@@ -31,6 +32,18 @@ struct AddImageButton: View {
                 if let result = result {
                     let path: String = result.path
                     print(path)
+                    self.imageName = path
+                    
+                    let image = NSImage(byReferencingFile: path)!
+                    let data = image.tiffRepresentation
+                    
+                    UserDefaults.standard.set(data, forKey: "propic")
+                    
+                    
+                    
+                    
+                    
+                    
                     // path contains the file path e.g
                     // /Users/ourcodeworld/Desktop/tiger.jpeg
                 }
@@ -60,6 +73,7 @@ struct AddImageButton: View {
 
 struct AddImageButton_Previews: PreviewProvider {
     static var previews: some View {
-        AddImageButton(buttonSize: 100)
+        //AddImageButton(buttonSize: 100, imageName: "")
+        Text("")
     }
 }
