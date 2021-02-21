@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import Combine
 
 struct Mentor: Codable {
     var _id: String
@@ -86,12 +87,20 @@ enum Strand {
     case process
 }
 
-struct LearningPath: Codable {
-    var _id: String?
+struct LearningPath: Codable, Identifiable {
+    var id: String?
     var title: String?
     var description: String?
     var createdByStudent: String?
     var learningObjectives: [LearningObjective?]
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "_id"
+        case title
+        case description
+        case createdByStudent
+        case learningObjectives
+    }
 }
 
 struct LearningPathIdAnswer: Codable {
@@ -101,8 +110,8 @@ struct LearningPathIdAnswer: Codable {
     var learningObjectives: [String?]
 }
 
-struct LearningObjective: Codable {
-    var _id: String?
+struct LearningObjective: Codable, Identifiable, Hashable {
+    var id: String?
     var tags : [String?]
     var title: String?
     var isCore: Bool?
@@ -110,6 +119,21 @@ struct LearningObjective: Codable {
     var description: String?
     var createdByLearner: String?
     var __v: Int?
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "_id"
+        case tags
+        case title
+        case isCore
+        case isElective
+        case description
+        case createdByLearner
+        case __v
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
 }
 
 enum APIError: Error {
@@ -135,4 +159,12 @@ struct UserInfos: Decodable {
 
 struct DefaultAnswer: Decodable {
     var detail: String?
+}
+
+class LearningPathStore: ObservableObject {
+    @Published var learningPaths = [LearningPath]()
+    
+    func addItem(_ item: LearningPath) {
+        learningPaths.append(item)
+    }
 }

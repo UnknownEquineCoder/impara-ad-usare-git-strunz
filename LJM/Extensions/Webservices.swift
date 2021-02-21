@@ -21,7 +21,7 @@ class Webservices {
 
     
     struct URLs {
-        static let loginKey = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkpSY080bnhzNWpnYzhZZE43STJoTE80Vl9xbDFiZG9pTVhtY1lnSG00SHMifQ.eyJqdGkiOiJMWVRXNFRzSUNZSERnQ0w3Uzd4dUciLCJzdWIiOiIxMjMxODM4MDIiLCJpc3MiOiJodHRwczovL3dvbmRlcmluZy1wYXJyb3RzLWRldi5vbmVsb2dpbi5jb20vb2lkYy8yIiwiaWF0IjoxNjEzNjI1NTEyLCJleHAiOjE2MTM2MjkxMTIsInNjb3BlIjoib3BlbmlkIiwiYXVkIjoiOGY5MjAwNDAtNDY5Yi0wMTM5LTI3MTgtMGE3YzAyMjQ3NzA5MTg0MTA2In0.VJ36kS2rXAnCZRkMeeAlyHu7RjYczXk7i-iUfdBEDQI-CAY0SaF0QhvYMXxTlv9IAwfcwV396eajOWSv3-XlQxpkvu2_1-UF53hW3rSvgaTFBSmH8bb1JDQT2jlLnkj_bwPN8s-CUtn0MKwxe8ujjt4RjQwnYAUE9qjKoL0m3cZqcalvx2JUqijE8O4wh8vnNAFm3NokbqTqop62vbzk4-IpPHFsUdZcG7pdx6DM9Rhow6ExqruyAYsuOtIyDqn6bmEeupn5nYK5PK-N4UDWxJ8UCTCRttiKOevBkRXZYqQOIgRfwID0fFiurA3WEe7wFT3J5q5-zQ5hSaxz1VZb9Q"
+        static let loginKey = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkpSY080bnhzNWpnYzhZZE43STJoTE80Vl9xbDFiZG9pTVhtY1lnSG00SHMifQ.eyJqdGkiOiJ3VEVTcFdWSUdqTjlMZX54dUEwYnciLCJzdWIiOiIxMjMxODM4MDIiLCJpc3MiOiJodHRwczovL3dvbmRlcmluZy1wYXJyb3RzLWRldi5vbmVsb2dpbi5jb20vb2lkYy8yIiwiaWF0IjoxNjEzODM5MjgyLCJleHAiOjE2MTM4NTM2ODIsInNjb3BlIjoib3BlbmlkIiwiYXVkIjoiOGY5MjAwNDAtNDY5Yi0wMTM5LTI3MTgtMGE3YzAyMjQ3NzA5MTg0MTA2In0.fxYf8YHl819A2wSHABVLOjhLhuUaIN5QhsC4Op5UPBIh19cqUbu205KA9ZM4DdzVWaWexu_TVhpy4vrpVIHCt0ALnntGzjGIw9CwfV50EEAHfYp3as1sD704Rb_Xpmva7CnfQE2EDmPdpVqmZ2I5UF8JXxetIECtPLd4s78xBjuPBULaGB0BABpesqZRvGyxUAAtUDyNia4kx9IPap9sIB7mwU4X1AZbNwmeF_KHSoJm9rYVKFyHcswo7c6T6oOSuWaIGCAM5hbB5TS_ypoL0ADPyoT-IHtuMd82VTENRdum2EHYjpzWSaeYX3QwnVc741VtiUqUYgiCWoqy1uXTag"
         static let baseURL = URL(string: "http://localhost")!
         // AUTH URLs
         static let loginURL = baseURL.appendingPathComponent("/api/auth/oidc/login")
@@ -49,6 +49,8 @@ class Webservices {
         ]
         
         AF.request(URLs.getLearningPathsURL, headers: headers).responseDecodable(of: [LearningPath].self) { response in
+            
+            print("IJNUHYG \(response)")
                         
             guard let learningPaths = response.value else {
                 return
@@ -236,7 +238,7 @@ class Webservices {
         ]
         
         let params : Parameters = [
-            "id" : learningObjective._id,
+            "id" : learningObjective.id,
             "title": learningObjective.title,
             "tags": learningObjective.tags,
             "isCore": learningObjective.isCore,
@@ -245,7 +247,7 @@ class Webservices {
             "createdByLearner": learningObjective.createdByLearner
         ]
         
-        AF.request(URLs.getLearningObjectiveURL.appendingPathComponent(learningObjective._id!), method: .put, parameters: params, encoding: JSONEncoding.default, headers: headers).validate().responseJSON { (response) in
+        AF.request(URLs.getLearningObjectiveURL.appendingPathComponent(learningObjective.id!), method: .put, parameters: params, encoding: JSONEncoding.default, headers: headers).validate().responseJSON { (response) in
             let decoder = JSONDecoder()
             
             do {
@@ -273,10 +275,10 @@ class Webservices {
         ]
         
         let params : Parameters = [
-            "id" : learningObjective._id
+            "id" : learningObjective.id
         ]
         
-        AF.request(URLs.getLearningObjectiveURL.appendingPathComponent(learningObjective._id!), method: .delete, parameters: params, encoding: JSONEncoding.default, headers: headers).validate().responseJSON { (response) in
+        AF.request(URLs.getLearningObjectiveURL.appendingPathComponent(learningObjective.id!), method: .delete, parameters: params, encoding: JSONEncoding.default, headers: headers).validate().responseJSON { (response) in
             let decoder = JSONDecoder()
             
             do {
