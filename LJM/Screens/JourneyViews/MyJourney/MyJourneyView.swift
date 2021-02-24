@@ -8,28 +8,27 @@
 import SwiftUI
 
 struct MyJourneyView: View, LJMView {
-    @State var selectedPath = "Select your path"
+    
     @State var selectedFilter = "All"
     @State var selectedFilterInsideButton = "All"
     let arrayFilters = ["All", "Core", "Elective", "Evaluated"]
     
     @State private var searchText = ""
+    @State private var selectedPath = ""
     
-    @State private var showView = true
     @Environment(\.colorScheme) var colorScheme
     
     @EnvironmentObject var learningPathsStore: LearningPathStore
+    
+    @ObservedObject var totalLOs = TotalNumberLearningObjectives()
     
     var body: some View {
         VStack(alignment: .leading) {
             ZStack(alignment: .topLeading) {
                 
                 TitleScreenView(title: "My Journey")
-                    .onTapGesture {
-                        print("JNHBUGY \(learningPathsStore.learningPaths)")
-                    }
                 
-                DropDownMenuSelectPath()
+                DropDownMenuSelectPath(selectedPath: $selectedPath)
                     .padding(.leading, 250)
                     .padding(.top, 23)
                 
@@ -48,9 +47,9 @@ struct MyJourneyView: View, LJMView {
             ZStack(alignment: .topLeading) {
                 
                // NumberTotalLearningOjbectivesView(totalLOs: calculateAllLearningObjectives(learningPath: learningPaths))
-                NumberTotalLearningOjbectivesView(totalLOs: 10)
+                NumberTotalLearningOjbectivesView(totalLOs: self.totalLOs.total)
                 
-                TestButtons().padding(.leading, 200).environmentObject(LearningPathStore())
+                TestButtons().padding(.leading, 200)
                 
                 SearchBarExpandableJourney(txtSearchBar: $searchText).background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
                     .padding(.trailing, 200)
@@ -62,7 +61,7 @@ struct MyJourneyView: View, LJMView {
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .zIndex(1)
                 
-                ListViewLearningObjectiveMyJourney(showView: self.$showView, selectedFilter: $selectedFilter, txtSearchBar: $searchText)
+                ListViewLearningObjectiveMyJourney(selectedFilter: $selectedFilter, txtSearchBar: $searchText, selectedPath: $selectedPath, totalLOs: totalLOs)
                     .padding(.top, 50)
             }.frame(maxWidth: .infinity).padding(.top, 10)
         }.padding(.leading, 50).padding(.trailing, 50)
@@ -76,12 +75,17 @@ struct MyJourneyView: View, LJMView {
 struct TestButtons: View {
    // @Binding var learningPaths : [LearningPath]
     
-    @EnvironmentObject private var learningPathStore: LearningPathStore
+    @EnvironmentObject private var learningPathsStore: LearningPathStore
 
     var body: some View {
         HStack {
             Button(action: {
-
+                Webservices.getAllLearningPaths { learningPathResult, err  in
+                    print("IJHUGY \(learningPathResult)")
+                    for learningPath in learningPathResult {
+                        learningPathsStore.addItem(learningPath)
+                    }
+                }
             }) {
                 Text("Get")
                     .padding()
@@ -132,14 +136,18 @@ struct ScrollViewFiltersJourney: View {
 
 struct ListViewLearningObjectiveMyJourney: View {
     
-    @Binding var showView: Bool
     @Binding var selectedFilter: CoreEnum.RawValue
     @Binding var txtSearchBar : String
+    @Binding var selectedPath : String
     
+    @EnvironmentObject var learningPathsStore: LearningPathStore
+    
+    @ObservedObject var totalLOs : TotalNumberLearningObjectives
+        
     var body: some View {
         
-        if showView {
-            ScrollViewLearningObjectives(filterCore: selectedFilter, isAddable: false, textFromSearchBar: txtSearchBar)
+        if learningPathsStore.learningPaths.count > 0 {
+            ScrollViewLearningObjectives(totalLOs: self.totalLOs, learningPathSelected: selectedPath, filterCore: selectedFilter, isAddable: false, textFromSearchBar: txtSearchBar)
         } else {
             EmptyLearningObjectiveViewJourney()
         }

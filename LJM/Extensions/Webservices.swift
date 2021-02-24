@@ -15,13 +15,12 @@ class Webservices {
     
     typealias ArrayLearningPathWebserviceResponse = ([LearningPath], APIError?) -> Void
     typealias LearningPathWebserviceResponse = (LearningPath, APIError?) -> Void
-    typealias LearningPathIdWebserviceResponse = (LearningPathIdAnswer, APIError?) -> Void
+  //  typealias LearningPathIdWebserviceResponse = (LearningPathIdAnswer, APIError?) -> Void
     typealias ArrayLearningObjectiveWebserviceResponse = ([LearningObjective], APIError?) -> Void
     typealias LearningObjectiveWebserviceResponse = (LearningObjective, APIError?) -> Void
-
     
     struct URLs {
-        static let loginKey = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkpSY080bnhzNWpnYzhZZE43STJoTE80Vl9xbDFiZG9pTVhtY1lnSG00SHMifQ.eyJqdGkiOiJ3VEVTcFdWSUdqTjlMZX54dUEwYnciLCJzdWIiOiIxMjMxODM4MDIiLCJpc3MiOiJodHRwczovL3dvbmRlcmluZy1wYXJyb3RzLWRldi5vbmVsb2dpbi5jb20vb2lkYy8yIiwiaWF0IjoxNjEzODM5MjgyLCJleHAiOjE2MTM4NTM2ODIsInNjb3BlIjoib3BlbmlkIiwiYXVkIjoiOGY5MjAwNDAtNDY5Yi0wMTM5LTI3MTgtMGE3YzAyMjQ3NzA5MTg0MTA2In0.fxYf8YHl819A2wSHABVLOjhLhuUaIN5QhsC4Op5UPBIh19cqUbu205KA9ZM4DdzVWaWexu_TVhpy4vrpVIHCt0ALnntGzjGIw9CwfV50EEAHfYp3as1sD704Rb_Xpmva7CnfQE2EDmPdpVqmZ2I5UF8JXxetIECtPLd4s78xBjuPBULaGB0BABpesqZRvGyxUAAtUDyNia4kx9IPap9sIB7mwU4X1AZbNwmeF_KHSoJm9rYVKFyHcswo7c6T6oOSuWaIGCAM5hbB5TS_ypoL0ADPyoT-IHtuMd82VTENRdum2EHYjpzWSaeYX3QwnVc741VtiUqUYgiCWoqy1uXTag"
+        static let loginKey = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkpSY080bnhzNWpnYzhZZE43STJoTE80Vl9xbDFiZG9pTVhtY1lnSG00SHMifQ.eyJqdGkiOiJVSWxkcWRIS3FfUWhOTlMyZjZEM18iLCJzdWIiOiIxMjMxODM4MDIiLCJpc3MiOiJodHRwczovL3dvbmRlcmluZy1wYXJyb3RzLWRldi5vbmVsb2dpbi5jb20vb2lkYy8yIiwiaWF0IjoxNjE0MTU2NzkwLCJleHAiOjE2MTQxNzExOTAsInNjb3BlIjoib3BlbmlkIiwiYXVkIjoiOGY5MjAwNDAtNDY5Yi0wMTM5LTI3MTgtMGE3YzAyMjQ3NzA5MTg0MTA2In0.jbFUbLXnIN2GZBkaWuuA5WZ8zzRvUzZL3_JO7wltuNfvjbcMcfHnFdvpB9XKtazH-uxTHlnH_u2J0vtr7np9_V0OzJf3UbQFA8gDZYp9Bxd8vkJlcp2JXqmzz9AjB3Kaglz8sWjNkSnxXsHzGtAsKgE8XrqJ9yyPdlcyg-1Titb7Tu7dg-oHRUvZ9UTN1kDmnia9b8AaBuSwg3a_in3rqrV6J6Gu7UK9HvGFTC5NaDvaszU4Io10_1JZPKQy3wjKni6uWcmOxu_qD1IdAE1Bk5hS21aOlrNFDzTfMhdMjunNQyeWmVHQltNWOCbs80D5-_j7_ni6_qYaM-iZhk4XOg"
         static let baseURL = URL(string: "http://localhost")!
         // AUTH URLs
         static let loginURL = baseURL.appendingPathComponent("/api/auth/oidc/login")
@@ -76,96 +75,96 @@ class Webservices {
         }
     }
     
-    static func addLearningPath(title: String, description: String, learningObjectives: [String?], createdByLearner: String, completion : @escaping LearningPathIdWebserviceResponse) {
-        
-        let headers : HTTPHeaders = [
-            "Authorization": "Bearer "+URLs.loginKey,
-            "Content-Type" : "application/json",
-            "accept" : "application/json"
-        ]
-        
-        let params : Parameters = ["title": title, "description": description, "learningObjectives": learningObjectives, "createdByLearner": createdByLearner]
-        
-        AF.request(URLs.updateLearningPathURL, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers).validate().responseJSON { (response) in
-            let decoder = JSONDecoder()
-            
-            do {
-                switch response.result {
-                case .success:
-                    print("success",response)
-                    let json = try decoder.decode(LearningPathIdAnswer.self, from: response.data!)
-                    completion(json, nil)
-                case .failure(let error):
-                    print("failure",error)
-                }
-            } catch {
-                print(error)
-            }
-        }
-    }
+//    static func addLearningPath(title: String, description: String, learningObjectives: [String?], createdByLearner: String, completion : @escaping LearningPathIdWebserviceResponse) {
+//
+//        let headers : HTTPHeaders = [
+//            "Authorization": "Bearer "+URLs.loginKey,
+//            "Content-Type" : "application/json",
+//            "accept" : "application/json"
+//        ]
+//
+//        let params : Parameters = ["title": title, "description": description, "learningObjectives": learningObjectives, "createdByLearner": createdByLearner]
+//
+//        AF.request(URLs.updateLearningPathURL, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers).validate().responseJSON { (response) in
+//            let decoder = JSONDecoder()
+//
+//            do {
+//                switch response.result {
+//                case .success:
+//                    print("success",response)
+//                    let json = try decoder.decode(LearningPathIdAnswer.self, from: response.data!)
+//                    completion(json, nil)
+//                case .failure(let error):
+//                    print("failure",error)
+//                }
+//            } catch {
+//                print(error)
+//            }
+//        }
+//    }
     
-    static func updateLearningPath(id: String, title: String?, description: String?, learningObjectives: [String?], createdByLearner: String?, completion : @escaping LearningPathIdWebserviceResponse) {
-        
-        let headers : HTTPHeaders = [
-            "Authorization": "Bearer "+URLs.loginKey,
-            "Content-Type" : "application/json",
-            "accept" : "application/json"
-        ]
-        
-        let params : Parameters = [
-            "id" : id,
-            "title": title,
-            "description": description,
-            "learningObjectives": learningObjectives,
-            "createdByLearner": createdByLearner]
-        
-        AF.request(URLs.updateLearningPathURL.appendingPathComponent(id), method: .put, parameters: params, encoding: JSONEncoding.default, headers: headers).validate().responseJSON { (response) in
-            let decoder = JSONDecoder()
-            
-            do {
-                switch response.result {
-                case .success:
-                    print("success",response)
-                    let json = try decoder.decode(LearningPathIdAnswer.self, from: response.data!)
-                    completion(json, nil)
-                case .failure(let error):
-                    print("failure",error)
-                }
-            } catch {
-                print(error)
-            }
-        }
-    }
+//    static func updateLearningPath(id: String, title: String?, description: String?, learningObjectives: [String?], createdByLearner: String?, completion : @escaping LearningPathIdWebserviceResponse) {
+//
+//        let headers : HTTPHeaders = [
+//            "Authorization": "Bearer "+URLs.loginKey,
+//            "Content-Type" : "application/json",
+//            "accept" : "application/json"
+//        ]
+//
+//        let params : Parameters = [
+//            "id" : id,
+//            "title": title,
+//            "description": description,
+//            "learningObjectives": learningObjectives,
+//            "createdByLearner": createdByLearner]
+//
+//        AF.request(URLs.updateLearningPathURL.appendingPathComponent(id), method: .put, parameters: params, encoding: JSONEncoding.default, headers: headers).validate().responseJSON { (response) in
+//            let decoder = JSONDecoder()
+//
+//            do {
+//                switch response.result {
+//                case .success:
+//                    print("success",response)
+//                    let json = try decoder.decode(LearningPathIdAnswer.self, from: response.data!)
+//                    completion(json, nil)
+//                case .failure(let error):
+//                    print("failure",error)
+//                }
+//            } catch {
+//                print(error)
+//            }
+//        }
+//    }
     
-    static func deleteLearningPath(id: String, completion : @escaping LearningPathIdWebserviceResponse) {
-        
-        let headers : HTTPHeaders = [
-            "Authorization": "Bearer "+URLs.loginKey,
-            "Content-Type" : "application/json",
-            "accept" : "application/json"
-        ]
-        
-        let params : Parameters = [
-            "id" : id
-        ]
-        
-        AF.request(URLs.updateLearningPathURL.appendingPathComponent(id), method: .delete, parameters: params, encoding: JSONEncoding.default, headers: headers).validate().responseJSON { (response) in
-            let decoder = JSONDecoder()
-            
-            do {
-                switch response.result {
-                case .success:
-                    print("success",response)
-                    let json = try decoder.decode(LearningPathIdAnswer.self, from: response.data!)
-                    completion(json, nil)
-                case .failure(let error):
-                    print("failure",error)
-                }
-            } catch {
-                print(error)
-            }
-        }
-    }
+//    static func deleteLearningPath(id: String, completion : @escaping LearningPathIdWebserviceResponse) {
+//
+//        let headers : HTTPHeaders = [
+//            "Authorization": "Bearer "+URLs.loginKey,
+//            "Content-Type" : "application/json",
+//            "accept" : "application/json"
+//        ]
+//
+//        let params : Parameters = [
+//            "id" : id
+//        ]
+//
+//        AF.request(URLs.updateLearningPathURL.appendingPathComponent(id), method: .delete, parameters: params, encoding: JSONEncoding.default, headers: headers).validate().responseJSON { (response) in
+//            let decoder = JSONDecoder()
+//
+//            do {
+//                switch response.result {
+//                case .success:
+//                    print("success",response)
+//                    let json = try decoder.decode(LearningPathIdAnswer.self, from: response.data!)
+//                    completion(json, nil)
+//                case .failure(let error):
+//                    print("failure",error)
+//                }
+//            } catch {
+//                print(error)
+//            }
+//        }
+//    }
     
     static func getAllLearningObjectives(completion : @escaping ArrayLearningObjectiveWebserviceResponse) {
                         

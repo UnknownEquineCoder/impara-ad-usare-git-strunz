@@ -103,13 +103,6 @@ struct LearningPath: Codable, Identifiable {
     }
 }
 
-struct LearningPathIdAnswer: Codable {
-    var title: String?
-    var description: String?
-    var createdByLearner: String?
-    var learningObjectives: [String?]
-}
-
 struct LearningObjective: Codable, Identifiable, Hashable {
     var id: String?
     var tags : [String?]
@@ -150,13 +143,6 @@ struct ConnectAnswer: Decodable {
     var userinfo: UserInfo?
 }
 
-struct UserInfos: Decodable {
-    var sub: String?
-    var email: String?
-    var preferred_username: String?
-    var name: String?
-}
-
 struct DefaultAnswer: Decodable {
     var detail: String?
 }
@@ -167,4 +153,8 @@ class LearningPathStore: ObservableObject {
     func addItem(_ item: LearningPath) {
         learningPaths.append(item)
     }
+}
+
+class TotalNumberLearningObjectives: ObservableObject {
+    @Published var total: Int = 0
 }

@@ -8,28 +8,22 @@
 import SwiftUI
 
 struct DropDownMenuSelectPath: View {
+    
+    @EnvironmentObject var learningPathsStore: LearningPathStore
+    
+    @Binding var selectedPath : String
+    
     var body: some View {
         Menu {
-            Button {
-                // LOGIC TO  FILTER  ARRAY LOs
-
-            } label: {
-                Text("Design")
-            }
-            Button {
-                // LOGIC TO  FILTER  ARRAY LOs
-
-            } label: {
-                Text("Business")
+            ForEach(learningPathsStore.learningPaths) { learningPath in
+                Button {
+                    selectedPath = learningPath.title ?? ""
+                } label: {
+                    Text(learningPath.title ?? "No title")
+                }
             }
         } label: {
-            Text("Select your path")
+            Text(selectedPath == "" ? "Select your path" : selectedPath)
         }.frame(width: 250)
-    }
-}
-
-struct DropDownMenuSelectPath_Previews: PreviewProvider {
-    static var previews: some View {
-        DropDownMenuSelectPath()
     }
 }

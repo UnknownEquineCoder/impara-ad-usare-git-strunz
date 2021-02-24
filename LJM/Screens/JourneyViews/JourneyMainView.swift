@@ -32,14 +32,7 @@ struct JourneyMainView: View, LJMView {
             }
         }.background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
         .environmentObject(learningPathsStore)
-        .onAppear {
-            Webservices.getAllLearningPaths { learningPathResult, err  in
-                print("IJHUGY \(learningPathResult)")
-                for learningPath in learningPathResult {
-                    learningPathsStore.addItem(learningPath)
-                }
-            }
-        }
+
     }
 }
 
