@@ -13,9 +13,10 @@ struct JourneyMainView: View, LJMView {
     @Environment(\.colorScheme) var colorScheme
     @State private var showSearchBarSideBar = true
     
+    @StateObject var learningPathsStore = LearningPathStore()
+    
     var body: some View {
         ZStack(alignment: .top) {
-            
             if self.selected == "My Journey" {
                 MyJourneyView().modifier(PaddingMainSubViews())
                     .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255): .white)
@@ -27,11 +28,11 @@ struct JourneyMainView: View, LJMView {
             
             HStack {
                 TopBarJourney(selected: self.$selected).padding(.top, 20).padding(.leading, 50)
-                
                 Spacer()
             }
-            
         }.background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
+        .environmentObject(learningPathsStore)
+
     }
 }
 

@@ -14,6 +14,8 @@ struct PathsView: View, LJMView {
     var filterTabsPath = ["FRONT-END", "BACK-END","BUSINESS", "UI/UX", "GAME"]
     var filterTabsMap = ["FULL MAP", "COMMUNAL"]
     
+    @ObservedObject var totalLOs = TotalNumberLearningObjectives()
+    
     var body: some View {
         
         VStack {
@@ -80,7 +82,7 @@ struct PathsView: View, LJMView {
                     //                    }.buttonStyle(PlainButtonStyle())
                     //                    .padding(.trailing, 20)
                     //                }.padding(.top, 20)
-                    ScrollViewLearningObjectives(isAddable: true, textFromSearchBar: "").padding(.top, 70)
+                    ScrollViewLearningObjectives(totalLOs: totalLOs, isAddable: true, textFromSearchBar: "").padding(.top, 70)
                 }.frame(minWidth: 0, idealWidth: 1000, maxWidth: .infinity,
                         maxHeight: .infinity, alignment: .leading)
                 
