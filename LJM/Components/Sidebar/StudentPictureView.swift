@@ -11,19 +11,18 @@ import SwiftUI
 
 struct ProfileImage: View {
     @AppStorage("propic") var data: Data = Data()
+    @State var toToggle: Bool = false
     
-    var body: some View {
-        if let nsImage = NSImage(data: data) {
-            Image(nsImage: nsImage)
-        } else {
-            Image("Student")
-        }
+    var body: Image {
+        imageBody
     }
     
     var imageBody: Image {
         if let nsImage = NSImage(data: data) {
+            defer { self.toToggle.toggle() }
             return Image(nsImage: nsImage)
         } else {
+            defer { self.toToggle.toggle() }
             return Image("Student")
         }
     }
@@ -48,7 +47,7 @@ struct StudentPictureView: View {
     var body: some View {
         HStack{
             ZStack{
-                ProfileImage().imageBody
+                ProfileImage().body
                 //Image(imageName)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
