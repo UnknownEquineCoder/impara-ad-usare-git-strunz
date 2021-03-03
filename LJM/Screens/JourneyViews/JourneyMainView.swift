@@ -15,24 +15,25 @@ struct JourneyMainView: View, LJMView {
     
     @StateObject var learningPathsStore = LearningPathStore()
     
+    @ObservedObject var selectedView = SelectedSegmentView()
+        
     var body: some View {
         ZStack(alignment: .top) {
-            if self.selected == "My Journey" {
-                MyJourneyView().modifier(PaddingMainSubViews())
+            if self.selectedView.selectedView == "My Journey" {
+                MyJourneyView(selectedView: self.selectedView).modifier(PaddingMainSubViews())
                     .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255): .white)
-            } else if self.selected == "Map" {
+            } else if self.selectedView.selectedView == "Map" {
                 PathsView().modifier(PaddingMainSubViews())
             } else {
                 ChallengeView().modifier(PaddingMainSubViews())
             }
             
             HStack {
-                TopBarJourney(selected: self.$selected).padding(.top, 20).padding(.leading, 50)
+                TopBarJourney(selectedView: self.selectedView).padding(.top, 20).padding(.leading, 50)
                 Spacer()
             }
         }.background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
         .environmentObject(learningPathsStore)
-
     }
 }
 

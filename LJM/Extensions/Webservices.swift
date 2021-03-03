@@ -20,7 +20,7 @@ class Webservices {
     typealias LearningObjectiveWebserviceResponse = (LearningObjective, APIError?) -> Void
     
     struct URLs {
-        static let loginKey = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkpSY080bnhzNWpnYzhZZE43STJoTE80Vl9xbDFiZG9pTVhtY1lnSG00SHMifQ.eyJqdGkiOiJVSWxkcWRIS3FfUWhOTlMyZjZEM18iLCJzdWIiOiIxMjMxODM4MDIiLCJpc3MiOiJodHRwczovL3dvbmRlcmluZy1wYXJyb3RzLWRldi5vbmVsb2dpbi5jb20vb2lkYy8yIiwiaWF0IjoxNjE0MTU2NzkwLCJleHAiOjE2MTQxNzExOTAsInNjb3BlIjoib3BlbmlkIiwiYXVkIjoiOGY5MjAwNDAtNDY5Yi0wMTM5LTI3MTgtMGE3YzAyMjQ3NzA5MTg0MTA2In0.jbFUbLXnIN2GZBkaWuuA5WZ8zzRvUzZL3_JO7wltuNfvjbcMcfHnFdvpB9XKtazH-uxTHlnH_u2J0vtr7np9_V0OzJf3UbQFA8gDZYp9Bxd8vkJlcp2JXqmzz9AjB3Kaglz8sWjNkSnxXsHzGtAsKgE8XrqJ9yyPdlcyg-1Titb7Tu7dg-oHRUvZ9UTN1kDmnia9b8AaBuSwg3a_in3rqrV6J6Gu7UK9HvGFTC5NaDvaszU4Io10_1JZPKQy3wjKni6uWcmOxu_qD1IdAE1Bk5hS21aOlrNFDzTfMhdMjunNQyeWmVHQltNWOCbs80D5-_j7_ni6_qYaM-iZhk4XOg"
+        static let loginKey = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkpSY080bnhzNWpnYzhZZE43STJoTE80Vl9xbDFiZG9pTVhtY1lnSG00SHMifQ.eyJqdGkiOiJBSWh2SVJhTDBSNHlUMmVrTWlvTmkiLCJzdWIiOiIxMjMxODM4MDIiLCJpc3MiOiJodHRwczovL3dvbmRlcmluZy1wYXJyb3RzLWRldi5vbmVsb2dpbi5jb20vb2lkYy8yIiwiaWF0IjoxNjE0NzMyNDY5LCJleHAiOjE2MTQ3NDY4NjksInNjb3BlIjoib3BlbmlkIiwiYXVkIjoiOGY5MjAwNDAtNDY5Yi0wMTM5LTI3MTgtMGE3YzAyMjQ3NzA5MTg0MTA2In0.d9XdVlUTsOLI89VAMnzoWo04lqSayx_E0AOo-LFKXwN8mBYKNDhxtIruv6TK25RWSPsp1RjCI1C1d_ZCStiQiJRpSljSrgx6wF915_a6vcMYJiLQvmB1E93xl21zN-SK78lIcu5udx8fCnQ_gLyy2QbU21lPwKqFlZwrXtEBEEUPvMEvm7r7bItkeRUeVbFS_HLhe_YL8Fr00w674UgupJ4huE-5Rua9X_jILQQd3hsfOD99MU32e-WOh9HR5f9PeFn1fedv6HsGMTzkIJb9Q0TGW4pFg39pxV0cvD2ELIlfRmO7OEs5TM4UgMKcgSzL8Z9vxU4VAW_0gmfCLoxy2Q"
         static let baseURL = URL(string: "http://localhost")!
         // AUTH URLs
         static let loginURL = baseURL.appendingPathComponent("/api/auth/oidc/login")
@@ -33,6 +33,8 @@ class Webservices {
         // LEARNING OBJECTIVES URLs
         
         static let getLearningObjectiveURL = baseURL.appendingPathComponent("api/learning-objective")
+        static let getStudentJourneyLearningObjectiveURL = baseURL.appendingPathComponent("api/learning-objective/journey")
+        
         
         // ASSESSMENT URLs
         
@@ -47,7 +49,7 @@ class Webservices {
             "Authorization": "Bearer "+URLs.loginKey
         ]
         
-        AF.request(URLs.getLearningPathsURL, headers: headers).responseDecodable(of: [LearningPath].self) { response in
+        AF.request(URLs.getLearningPathsURL, headers: headers).responseDecodable(of: [LearningPath].self){ response in
             
             print("IJNUHYG \(response)")
                         
@@ -74,6 +76,24 @@ class Webservices {
             completion(learningPath, nil)
         }
     }
+    
+    static func getStudentJourneyLearningObjectives(completion : @escaping ArrayLearningObjectiveWebserviceResponse) {
+
+        let headers : HTTPHeaders = [
+            "Authorization": "Bearer "+URLs.loginKey
+        ]
+
+        AF.request(URLs.getStudentJourneyLearningObjectiveURL, headers: headers).responseDecodable(of: [LearningObjective].self) { response in
+            print("IUHYTU \(response)")
+            guard let learningObjectives = response.value else {
+                return
+            }
+
+            completion(learningObjectives, nil)
+        }
+    }
+    
+    
     
 //    static func addLearningPath(title: String, description: String, learningObjectives: [String?], createdByLearner: String, completion : @escaping LearningPathIdWebserviceResponse) {
 //
@@ -206,7 +226,7 @@ class Webservices {
             "accept" : "application/json"
         ]
         
-        let params : Parameters = ["title": learningObjective.title, "isCore": learningObjective.isCore, "isElective": learningObjective.isElective, "description": learningObjective.description, "tags": learningObjective.tags, "createdByLearner": learningObjective.createdByLearner]
+        let params : Parameters = ["title": learningObjective.title, "isCore": learningObjective.isCore, "description": learningObjective.description, "tags": learningObjective.tags, "createdByLearner": learningObjective.createdByLearner]
         
         AF.request(URLs.getLearningObjectiveURL, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers).validate().responseJSON { (response) in
             let decoder = JSONDecoder()
@@ -241,7 +261,6 @@ class Webservices {
             "title": learningObjective.title,
             "tags": learningObjective.tags,
             "isCore": learningObjective.isCore,
-            "isElective": learningObjective.isElective,
             "description": learningObjective.description,
             "createdByLearner": learningObjective.createdByLearner
         ]

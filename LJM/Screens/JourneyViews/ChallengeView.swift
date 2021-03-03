@@ -31,7 +31,7 @@ struct ChallengeView: View {
             ScrollViewFilters(filterTabs: challengeTabs, selectedFilter: $selectedFilter, vm: ScrollToModel())
             
             ZStack(alignment: .topLeading) {
-                NumberTotalLearningOjbectivesView(totalLOs: 40)
+                NumberTotalLearningOjbectivesView(totalLOs: self.totalLOs.total)
                 
                 DropDownMenuFilters()
                     .buttonStyle(PlainButtonStyle())

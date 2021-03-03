@@ -8,13 +8,16 @@
 import SwiftUI
 
 struct PathsView: View, LJMView {
-    @State var selectedFilter = "All"
+    @State var selectedFilter = "FULL MAP"
     @State var expand: Bool = false
-
-    var filterTabsPath = ["FRONT-END", "BACK-END","BUSINESS", "UI/UX", "GAME"]
+    
     var filterTabsMap = ["FULL MAP", "COMMUNAL"]
     
     @ObservedObject var totalLOs = TotalNumberLearningObjectives()
+    
+    @StateObject var mapLearningObjectivesStore = MapLearningObjectivesStore()
+    
+    @EnvironmentObject var learningPathsStore: LearningPathStore
     
     var body: some View {
         
@@ -22,7 +25,7 @@ struct PathsView: View, LJMView {
             VStack {
                 HStack {
                     TitleScreenView(title: "Map")
-
+                    
                     Spacer()
                 }
                 
@@ -35,31 +38,47 @@ struct PathsView: View, LJMView {
                         .fontWeight(.light)
                         .foregroundColor(Color.gray)
                         .font(.system(size: 20))
-//                        .padding(.top, 10)
+                    //                        .padding(.top, 10)
                     ScrollViewFilters(filterTabs: self.filterTabsMap, selectedFilter: $selectedFilter, vm: ScrollToModel())
-//                            .padding(.top, 20)
-                            .font(.system(size: 15, weight: .medium, design: .rounded))
-                            .padding(.leading, 10)
+                        //                            .padding(.top, 20)
+                        .font(.system(size: 15, weight: .medium, design: .rounded))
+                        .padding(.leading, 10)
                 }
                 
                 HStack{
-    
+                    
                     Text("Paths")
                         .fontWeight(.light)
                         .foregroundColor(Color.gray)
                         .font(.system(size: 20))
-//                        .padding(.top, 10)
-               //     ScrollViewFiltersPaths(selectedFilter: $selectedFilter).padding(.top, 20)
-               //         .font(.system(size: 15, weight: .medium, design: .rounded))
-
-                    ScrollViewFilters(filterTabs: self.filterTabsPath, selectedFilter: $selectedFilter, vm: ScrollToModel())
-//                            .padding(.top, 20)
-                            .font(.system(size: 15, weight: .medium, design: .rounded))
+                    //                        .padding(.top, 10)
+                    //     ScrollViewFiltersPaths(selectedFilter: $selectedFilter).padding(.top, 20)
+                    //         .font(.system(size: 15, weight: .medium, design: .rounded))
+                    
+                    ScrollViewFilters(filterTabs: getLearningPath(learningPaths: learningPathsStore.learningPaths), selectedFilter: $selectedFilter, vm: ScrollToModel())
+                        //                            .padding(.top, 20)
+                        .font(.system(size: 15, weight: .medium, design: .rounded))
                 }
+                
+                Button(action: {
+                    Webservices.getAllLearningObjectives { (learningObjectives, err) in
+                        for learningObjective in learningObjectives {
+                            mapLearningObjectivesStore.addItem(learningObjective)
+                        }
+                    }
+                }) {
+                    Text("Get All LOs")
+                        .padding()
+                        .font(.system(size: 15, weight: .medium, design: .rounded))
+                        .foregroundColor(Color.customCyan)
+                        .frame(height: 30, alignment: .center)
+                        .background(Color.white)
+                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color.customCyan))
+                }.buttonStyle(PlainButtonStyle())
                 
                 ZStack(alignment: .topLeading) {
                     
-                    NumberTotalLearningOjbectivesView(totalLOs: 70)
+                    NumberTotalLearningOjbectivesView(totalLOs: self.totalLOs.total)
                     
                     DropDownMenuFilters().padding(.trailing, 20).frame(maxWidth: .infinity, alignment: .trailing).zIndex(1)
                     
@@ -82,16 +101,28 @@ struct PathsView: View, LJMView {
                     //                    }.buttonStyle(PlainButtonStyle())
                     //                    .padding(.trailing, 20)
                     //                }.padding(.top, 20)
-                    ScrollViewLearningObjectives(totalLOs: totalLOs, isAddable: true, textFromSearchBar: "").padding(.top, 70)
+                    ScrollViewLearningObjectives(totalLOs: totalLOs, filteredMap: selectedFilter, isAddable: true, textFromSearchBar: "").padding(.top, 70)
                 }.frame(minWidth: 0, idealWidth: 1000, maxWidth: .infinity,
                         maxHeight: .infinity, alignment: .leading)
                 
                 Spacer()
-                }
-            }.padding(.leading, 50).padding(.trailing, 50)
-        }
-    
+            }
+        }.padding(.leading, 50).padding(.trailing, 50)
+        .environmentObject(mapLearningObjectivesStore)
+
+        
     }
+    
+    func getLearningPath(learningPaths: [LearningPath]) -> [String] {
+        var arrayTitleLearningPath : [String] = [String]()
+        
+        for learningPath in learningPaths {
+            arrayTitleLearningPath.append(learningPath.title!)
+        }
+        
+        return arrayTitleLearningPath
+    }
+}
 
 
 //struct ScrollViewFiltersPaths: View {

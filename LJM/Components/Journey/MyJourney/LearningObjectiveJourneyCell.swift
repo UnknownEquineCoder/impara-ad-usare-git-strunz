@@ -14,12 +14,10 @@ struct LearningObjectiveJourneyCell: View {
     @Environment(\.colorScheme) var colorScheme
     
     var isAddable = false
-    var title: String
-    var subtitle: String
-    var core: String
-    var description: String
-    var color: Color
-    var goalRating : Int?
+    var learningObjective: LearningObjective
+    
+    @EnvironmentObject var learningPathsStore: LearningPathStore
+    
     
     var body: some View {
         VStack(spacing: 20) {
@@ -27,26 +25,26 @@ struct LearningObjectiveJourneyCell: View {
                 
                 Rectangle()
                     .frame(width: 20, alignment: .leading)
-                    .foregroundColor(color)
+                    .foregroundColor(setupColor())
                 
                 VStack {
                     
                     HStack(alignment: .top) {
                         
                         VStack(alignment: .leading, spacing: 8) {
-                            Text(title.uppercased()).foregroundColor(color).font(.system(size: 20, weight: .semibold, design: .rounded))
-                            Text(subtitle.uppercased()).foregroundColor(colorScheme == .dark ? Color(red: 255/255, green: 255/255, blue: 255/255) : Color.customDarkGrey).font(.system(size: 22.toFontSize(), weight: .light))
-                            Text(core.uppercased()).foregroundColor(colorScheme == .dark ? Color(red: 255/255, green: 255/255, blue: 255/255) : Color.customDarkGrey).font(.system(size: 22.toFontSize(), weight: .light))
+                            Text(learningObjective.strand?.uppercased() ?? "No strand").foregroundColor(setupColor()).font(.system(size: 20, weight: .semibold, design: .rounded))
+                            Text(learningObjective.title?.uppercased() ?? "No title").foregroundColor(colorScheme == .dark ? Color(red: 255/255, green: 255/255, blue: 255/255) : Color.customDarkGrey).font(.system(size: 22.toFontSize(), weight: .light))
+                            Text(learningObjective.isCore ?? true ? "Core" : "Elective").foregroundColor(colorScheme == .dark ? Color(red: 255/255, green: 255/255, blue: 255/255) : Color.customDarkGrey).font(.system(size: 22.toFontSize(), weight: .light))
                         }.frame(width: 150, alignment: .leading).padding(.leading, 20).padding(.top, 15)
                         
                         Spacer()
                         
-                        Text(description).foregroundColor(colorScheme == .dark ? Color(red: 224/255, green: 224/255, blue: 224/255) : Color.customLightBlack).font(.system(size: 24.toFontSize(), weight: .regular)).frame(maxWidth: 639.toScreenSize(), maxHeight: .infinity, alignment: .center).lineLimit(self.expand ? nil : 4).padding()
+                        Text(learningObjective.description ?? "No description").foregroundColor(colorScheme == .dark ? Color(red: 224/255, green: 224/255, blue: 224/255) : Color.customLightBlack).font(.system(size: 24.toFontSize(), weight: .regular)).frame(maxWidth: 639.toScreenSize(), maxHeight: .infinity, alignment: .center).lineLimit(self.expand ? nil : 4).padding()
                         
                         Spacer()
                         
                         if !isAddable {
-                            RatingView(goalRating: goalRating, rating: $rating).padding(.top, 15).padding(.trailing, 30).onAppear(perform: {
+                            RatingView(goalRating: learningObjective.coreRubricLevel, rating: $rating).padding(.top, 15).padding(.trailing, 30).onAppear(perform: {
                                 self.isRatingView.toggle()
                             })
                         } else {
@@ -64,7 +62,11 @@ struct LearningObjectiveJourneyCell: View {
                                 Text("KEYWORDS").foregroundColor(Color.customDarkGrey).font(.system(size: 17, weight: .light)).frame(width: 150, alignment: .leading)
                                 Spacer()
                                 
-                                Text("#CBL #project management #milestones #project monitoring #CBL #project management #milestones #project monitoring #CBL #project management #milestones #project monitoring #CBL #project management #milestones #project monitoring #CBL #project management #milestones #project monitoring #CBL #project management #milestones #project monitoring #CBL #project management #milestones #project monitoring #CBL #project management #milestones #project monitoring #CBL #project management #milestones #project monitoring #CBL #project management #milestones #project monitoring #CBL #project management #milestones #project monitoring #CBL #project management #milestones #project monitoring #CBL #project management #milestones #project monitoring #CBL #project management #milestones #project monitoring #CBL #project management #milestones #project monitoring #CBL #project management #milestones #project monitoring #CBL #project management #milestones #project monitoring v").foregroundColor(Color.customLightBlack).font(.system(size: 16, weight: .medium)).frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center).padding()
+                                Text("#\(learningObjective.tags?.joined(separator: " #") ?? "")")
+                                    .foregroundColor(Color.customLightBlack)
+                                    .font(.system(size: 16, weight: .medium))
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                                    .padding()
                                 
                                 Spacer()
                             }
@@ -126,6 +128,23 @@ struct LearningObjectiveJourneyCell: View {
             }
         }
     }
+    
+    func setupColor() -> Color {
+        var colorPath : Color = Color.red
+        
+        for learningPath in learningPathsStore.learningPaths {
+            if learningPath.learningObjectives != nil {
+                for learningObjectiveFromPath in learningPath.learningObjectives! {
+                    if learningObjectiveFromPath.id == self.learningObjective.id {
+                        colorPath = Color.init(red: learningPath.pathColor.red, green: learningPath.pathColor.green, blue: learningPath.pathColor.blue)
+                    }
+                }
+            }
+        }
+        
+        return colorPath
+    
+    }
 }
 
 struct AnimatingCellHeight: AnimatableModifier {
@@ -138,11 +157,5 @@ struct AnimatingCellHeight: AnimatableModifier {
     
     func body(content: Content) -> some View {
         content.frame(height: height)
-    }
-}
-
-struct LearningObjectiveMyJourneyView_Previews: PreviewProvider {
-    static var previews: some View {
-        LearningObjectiveJourneyCell(title: "Design", subtitle: "", core: "", description: "", color: Color.red)
     }
 }
