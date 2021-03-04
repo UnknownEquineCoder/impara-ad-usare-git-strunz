@@ -15,6 +15,8 @@ struct DropDownMenuFilters: View {
     @State var firstButtonSelected: Bool = false
     @State var selectedRows = Set<UUID>()
     
+    @Binding var selectedStrands : [String]
+    
     var filterOptions = [FilterChoice(descriptor: "Design"),
                          FilterChoice(descriptor: "Business/Marketing"),
                          FilterChoice(descriptor: "Professional Skills"),
@@ -28,10 +30,10 @@ struct DropDownMenuFilters: View {
                 self.showPopover =  true
             }) {
                 HStack{
-//                    Image(systemName: "chevron.down")
-//                        .resizable()
-//                        .foregroundColor(Color("customCyan"))
-//                        .frame(width: 10, height: 5, alignment: .center)
+                    //                    Image(systemName: "chevron.down")
+                    //                        .resizable()
+                    //                        .foregroundColor(Color("customCyan"))
+                    //                        .frame(width: 10, height: 5, alignment: .center)
                     //                                .padding()
                     Text("Filters")
                         .padding()
@@ -47,10 +49,10 @@ struct DropDownMenuFilters: View {
                 
             ) {
                 VStack{
-                List(filterOptions, id: \.self){
-                    element in
-                    MultiSelectRow(model: element, selectedItems: $selectedRows)
-                }
+                    List(filterOptions, id: \.self){
+                        element in
+                        MultiSelectRow(model: element, selectedItems: $selectedRows, selectedStrands: $selectedStrands)
+                    }
                 }
             }
             .buttonStyle(PlainButtonStyle())
@@ -61,13 +63,4 @@ struct DropDownMenuFilters: View {
     }
     
 }
-
-
-
-struct DropDownMenuFilters_Previews: PreviewProvider {
-    static var previews: some View {
-      DropDownMenuFilters()
-    }
-}
-
 

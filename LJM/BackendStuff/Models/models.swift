@@ -286,3 +286,7 @@ class TotalNumberLearningObjectives: ObservableObject {
 class SelectedSegmentView: ObservableObject {
     @Published var selectedView: String = "My Journey"
 }
+
+class StrandsFilter: ObservableObject {
+    @Published var strands: [String] = [String]()
+}

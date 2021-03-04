@@ -9,15 +9,22 @@ import SwiftUI
 
 struct PathsView: View, LJMView {
     @State var selectedFilter = "FULL MAP"
+    @State var selectedStrands = [String]()
     @State var expand: Bool = false
+    @State private var searchText = ""
     
     var filterTabsMap = ["FULL MAP", "COMMUNAL"]
+    
+    @Environment(\.colorScheme) var colorScheme
     
     @ObservedObject var totalLOs = TotalNumberLearningObjectives()
     
     @StateObject var mapLearningObjectivesStore = MapLearningObjectivesStore()
     
     @EnvironmentObject var learningPathsStore: LearningPathStore
+    
+    @ObservedObject var strandsFilter = StrandsFilter()
+
     
     var body: some View {
         
@@ -60,27 +67,43 @@ struct PathsView: View, LJMView {
                         .font(.system(size: 15, weight: .medium, design: .rounded))
                 }
                 
-                Button(action: {
-                    Webservices.getAllLearningObjectives { (learningObjectives, err) in
-                        for learningObjective in learningObjectives {
-                            mapLearningObjectivesStore.addItem(learningObjective)
-                        }
-                    }
-                }) {
-                    Text("Get All LOs")
-                        .padding()
-                        .font(.system(size: 15, weight: .medium, design: .rounded))
-                        .foregroundColor(Color.customCyan)
-                        .frame(height: 30, alignment: .center)
-                        .background(Color.white)
-                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color.customCyan))
-                }.buttonStyle(PlainButtonStyle())
-                
                 ZStack(alignment: .topLeading) {
                     
                     NumberTotalLearningOjbectivesView(totalLOs: self.totalLOs.total)
                     
-                    DropDownMenuFilters().padding(.trailing, 20).frame(maxWidth: .infinity, alignment: .trailing).zIndex(1)
+                    Button(action: {
+                        Webservices.getAllLearningObjectives { (learningObjectives, err) in
+                            for learningObjective in learningObjectives {
+                                mapLearningObjectivesStore.addItem(learningObjective)
+                                
+                                if learningObjective.strand != nil {
+                                    if !self.strandsFilter.strands.contains(learningObjective.strand!) {
+                                        self.strandsFilter.strands.append(learningObjective.strand!)
+                                        print("IOUNBYVTBUHJ \(self.strandsFilter.strands)")
+                                    }
+                                }
+                            }
+                        }
+                    }) {
+                        Text("Get All LOs")
+                            .padding()
+                            .font(.system(size: 15, weight: .medium, design: .rounded))
+                            .foregroundColor(Color.customCyan)
+                            .frame(height: 30, alignment: .center)
+                            .background(Color.white)
+                            .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color.customCyan))
+                    }.buttonStyle(PlainButtonStyle())
+                    .padding(.leading, 200)
+                    
+                    SearchBarExpandableJourney(txtSearchBar: $searchText).background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
+                        .padding(.trailing, 200)
+                        .frame(maxWidth: .infinity,  alignment: .trailing)
+                    
+                    DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: setupStrandsOnFilter(strands: self.strandsFilter.strands))
+                        .padding(.trailing, 20)
+                        .frame(maxWidth: .infinity, alignment: .trailing)
+                        .zIndex(1)
+                        
                     
                     //                    Button(action: {
                     //                        self.expand.toggle()
@@ -101,7 +124,7 @@ struct PathsView: View, LJMView {
                     //                    }.buttonStyle(PlainButtonStyle())
                     //                    .padding(.trailing, 20)
                     //                }.padding(.top, 20)
-                    ScrollViewLearningObjectives(totalLOs: totalLOs, filteredMap: selectedFilter, isAddable: true, textFromSearchBar: "").padding(.top, 70)
+                    ScrollViewLearningObjectives(totalLOs: totalLOs, filteredMap: selectedFilter, isAddable: true, textFromSearchBar: searchText, selectedStrands: selectedStrands).padding(.top, 70)
                 }.frame(minWidth: 0, idealWidth: 1000, maxWidth: .infinity,
                         maxHeight: .infinity, alignment: .leading)
                 
@@ -109,8 +132,17 @@ struct PathsView: View, LJMView {
             }
         }.padding(.leading, 50).padding(.trailing, 50)
         .environmentObject(mapLearningObjectivesStore)
-
+    }
+    
+    func setupStrandsOnFilter(strands: [String]) -> [FilterChoice] {
         
+        var arrayStrandsFilter = [FilterChoice]()
+        
+        for strand in strands {
+            arrayStrandsFilter.append(FilterChoice(descriptor: strand))
+        }
+        
+        return arrayStrandsFilter
     }
     
     func getLearningPath(learningPaths: [LearningPath]) -> [String] {

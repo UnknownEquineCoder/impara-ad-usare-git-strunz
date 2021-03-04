@@ -42,7 +42,7 @@ struct ScrollViewLearningObjectives: View {
     var filteredLearningObjectivesMap: [LearningObjective] {
         switch filteredMap {
         case "FULL MAP":
-//            return displayFullMapLearningObjectives(learningPaths: learningPathsStore.learningPaths, selectedFilter: nil)
+            //            return displayFullMapLearningObjectives(learningPaths: learningPathsStore.learningPaths, selectedFilter: nil)
             return self.mapLearningObjectivesStore.learningObjectives
         case "COMMUNAL":
             return self.mapLearningObjectivesStore.learningObjectives
@@ -66,7 +66,8 @@ struct ScrollViewLearningObjectives: View {
     
     var isAddable = false
     
-    var textFromSearchBar : String
+    var textFromSearchBar: String
+    var selectedStrands: [String]
     
     var body: some View {
         GeometryReader { gp in
@@ -74,8 +75,12 @@ struct ScrollViewLearningObjectives: View {
                 LazyVStack {
                     ForEach(filteredLearningObjectives) { item in
                         if textFromSearchBar.isEmpty || (item.title!.lowercased().contains(textFromSearchBar.lowercased())) || ((item.description!.lowercased().contains(textFromSearchBar.lowercased()))) {
-                            LearningObjectiveJourneyCell(isAddable: isAddable, learningObjective: item)
-                                .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
+                            if item.strand != nil {
+                                if self.selectedStrands.contains(item.strand!) || self.selectedStrands.count == 0 {
+                                    LearningObjectiveJourneyCell(isAddable: isAddable, learningObjective: item)
+                                        .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
+                                }
+                            }
                         }
                     }
                 }
@@ -91,9 +96,9 @@ struct ScrollViewLearningObjectives: View {
         
         for learningPath in learningPaths {
             if selectedFilter != nil || selectedFilter != "" {
-              //  if learningPath.title?.lowercased() == selectedFilter?.lowercased() {
-                    arrayFullMapLearningObjectives.append(contentsOf: learningPath.learningObjectives!)
-              //  }
+                //  if learningPath.title?.lowercased() == selectedFilter?.lowercased() {
+                arrayFullMapLearningObjectives.append(contentsOf: learningPath.learningObjectives!)
+                //  }
             } else {
                 arrayFullMapLearningObjectives.append(contentsOf: learningPath.learningObjectives!)
             }

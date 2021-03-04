@@ -11,6 +11,8 @@ struct MyJourneyView: View {
     
     @State var selectedFilter = "All"
     @State var selectedFilterInsideButton = "All"
+    @State var selectedStrands = [String]()
+
     let arrayFilters = ["All", "Core", "Elective", "Evaluated"]
     
     @State private var searchText = ""
@@ -59,13 +61,13 @@ struct MyJourneyView: View {
                     .padding(.trailing, 200)
                     .frame(maxWidth: .infinity,  alignment: .trailing)
                 
-                DropDownMenuFilters()
+                DropDownMenuFilters(selectedStrands: $selectedStrands)
                     .buttonStyle(PlainButtonStyle())
                     .padding(.trailing, 20)
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .zIndex(1)
                 
-                ListViewLearningObjectiveMyJourney(selectedFilter: $selectedFilter, txtSearchBar: $searchText, selectedPath: $selectedPath, totalLOs: totalLOs, selectedSegmentView: self.selectedView)
+                ListViewLearningObjectiveMyJourney(selectedFilter: $selectedFilter, txtSearchBar: $searchText, selectedPath: $selectedPath, selectedStrands: $selectedStrands, totalLOs: totalLOs, selectedSegmentView: self.selectedView)
                     .padding(.top, 50)
                     
             }.frame(maxWidth: .infinity).padding(.top, 10)
@@ -146,6 +148,7 @@ struct ListViewLearningObjectiveMyJourney: View {
     @Binding var selectedFilter: CoreEnum.RawValue
     @Binding var txtSearchBar : String
     @Binding var selectedPath : String
+    @Binding var selectedStrands : [String]
     
     @EnvironmentObject var learningPathsStore: LearningPathStore
     @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
@@ -156,7 +159,7 @@ struct ListViewLearningObjectiveMyJourney: View {
     var body: some View {
         
         if learningPathsStore.learningPaths.count > 0 {
-            ScrollViewLearningObjectives(totalLOs: self.totalLOs, learningPathSelected: selectedPath, filterCore: selectedFilter, isAddable: false, textFromSearchBar: txtSearchBar)
+            ScrollViewLearningObjectives(totalLOs: self.totalLOs, learningPathSelected: selectedPath, filterCore: selectedFilter, isAddable: false, textFromSearchBar: txtSearchBar, selectedStrands: selectedStrands)
         } else {
             EmptyLearningObjectiveViewJourney(selectedView: self.selectedSegmentView)
         }
