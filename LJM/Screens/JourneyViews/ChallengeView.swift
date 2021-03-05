@@ -12,6 +12,10 @@ struct ChallengeView: View {
     var challengeTabs = ["MC3", "E5", "WF3"]
     @State var selectedFilter = "MC3"
     @State var selectedFilterInsideButton = "All"
+    @State private var searchText = ""
+    @State var selectedStrands = [String]()
+    
+    @Environment(\.colorScheme) var colorScheme
     
     @EnvironmentObject var learningPathsStore: LearningPathStore
     
@@ -31,15 +35,19 @@ struct ChallengeView: View {
             ScrollViewFilters(filterTabs: challengeTabs, selectedFilter: $selectedFilter, vm: ScrollToModel())
             
             ZStack(alignment: .topLeading) {
-                NumberTotalLearningOjbectivesView(totalLOs: 40)
+                NumberTotalLearningOjbectivesView(totalLOs: self.totalLOs.total)
                 
-                DropDownMenuFilters()
+                SearchBarExpandableJourney(txtSearchBar: $searchText).background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
+                    .padding(.trailing, 200)
+                    .frame(maxWidth: .infinity,  alignment: .trailing)
+                
+                DropDownMenuFilters(selectedStrands: $selectedStrands)
                     .buttonStyle(PlainButtonStyle())
                     .padding(.trailing, 20)
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .zIndex(1)
                 
-                ScrollViewLearningObjectives(totalLOs: totalLOs, filterChallenge: selectedFilter, isAddable: true, textFromSearchBar: "").padding(.top, 50)
+                ScrollViewLearningObjectives(totalLOs: totalLOs, filterChallenge: selectedFilter, isAddable: true, textFromSearchBar: searchText, selectedStrands: selectedStrands).padding(.top, 50)
             }.frame(maxWidth: .infinity).padding(.top, 10)
         }.padding(.leading, 50).padding(.trailing, 50)
     }

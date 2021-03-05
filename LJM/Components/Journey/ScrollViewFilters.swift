@@ -23,7 +23,10 @@ struct ScrollViewFilters : View {
                         ForEach(filterTabs, id: \.self) { i in
                             
                             Button(action: {
+                                print("UYBHJI \(filterTabs) ---- \(selectedFilter)")
                                 selectedFilter = i
+                                print("UYBffffHJI \(selectedFilter)")
+
                             }) {
                                 Text(i.uppercased())
                                     .font(.system(size: 15, weight: .semibold, design: .rounded))

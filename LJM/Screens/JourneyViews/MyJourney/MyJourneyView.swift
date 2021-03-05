@@ -7,10 +7,12 @@
 
 import SwiftUI
 
-struct MyJourneyView: View, LJMView {
+struct MyJourneyView: View {
     
     @State var selectedFilter = "All"
     @State var selectedFilterInsideButton = "All"
+    @State var selectedStrands = [String]()
+
     let arrayFilters = ["All", "Core", "Elective", "Evaluated"]
     
     @State private var searchText = ""
@@ -19,9 +21,13 @@ struct MyJourneyView: View, LJMView {
     @Environment(\.colorScheme) var colorScheme
     
     @EnvironmentObject var learningPathsStore: LearningPathStore
+
+    @StateObject var studentLearningObjectivesStore = StudentLearningObjectivesStore()
     
     @ObservedObject var totalLOs = TotalNumberLearningObjectives()
     
+    @ObservedObject var selectedView : SelectedSegmentView
+        
     var body: some View {
         VStack(alignment: .leading) {
             ZStack(alignment: .topLeading) {
@@ -55,17 +61,20 @@ struct MyJourneyView: View, LJMView {
                     .padding(.trailing, 200)
                     .frame(maxWidth: .infinity,  alignment: .trailing)
                 
-                DropDownMenuFilters()
+                DropDownMenuFilters(selectedStrands: $selectedStrands)
                     .buttonStyle(PlainButtonStyle())
                     .padding(.trailing, 20)
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .zIndex(1)
                 
-                ListViewLearningObjectiveMyJourney(selectedFilter: $selectedFilter, txtSearchBar: $searchText, selectedPath: $selectedPath, totalLOs: totalLOs)
+                ListViewLearningObjectiveMyJourney(selectedFilter: $selectedFilter, txtSearchBar: $searchText, selectedPath: $selectedPath, selectedStrands: $selectedStrands, totalLOs: totalLOs, selectedSegmentView: self.selectedView)
                     .padding(.top, 50)
+                    
             }.frame(maxWidth: .infinity).padding(.top, 10)
         }.padding(.leading, 50).padding(.trailing, 50)
+        .environmentObject(studentLearningObjectivesStore)
     }
+    
     
     func calculateAllLearningObjectives(learningPath: [LearningPath]) -> Int {
         return 10
@@ -73,15 +82,14 @@ struct MyJourneyView: View, LJMView {
 }
 
 struct TestButtons: View {
-   // @Binding var learningPaths : [LearningPath]
     
-    @EnvironmentObject private var learningPathsStore: LearningPathStore
+    @EnvironmentObject var learningPathsStore: LearningPathStore
+    @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
 
     var body: some View {
         HStack {
             Button(action: {
                 Webservices.getAllLearningPaths { learningPathResult, err  in
-                    print("IJHUGY \(learningPathResult)")
                     for learningPath in learningPathResult {
                         learningPathsStore.addItem(learningPath)
                     }
@@ -97,9 +105,11 @@ struct TestButtons: View {
             }.buttonStyle(PlainButtonStyle())
             
             Button(action: {
-                Webservices.getAllLearningObjectives { (learningObjectives, err) in
-                    print("YUIY \(learningObjectives)")
-                }
+                    Webservices.getStudentJourneyLearningObjectives { (learningObjectives, err) in
+                        for learningObjective in learningObjectives {
+                            studentLearningObjectivesStore.addItem(learningObjective)
+                        }
+                    }
             }) {
                 Text("Get LOs")
                     .padding()
@@ -109,7 +119,6 @@ struct TestButtons: View {
                     .background(Color.white)
                     .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color.customCyan))
             }.buttonStyle(PlainButtonStyle())
-
         }
     }
 }
@@ -139,17 +148,20 @@ struct ListViewLearningObjectiveMyJourney: View {
     @Binding var selectedFilter: CoreEnum.RawValue
     @Binding var txtSearchBar : String
     @Binding var selectedPath : String
+    @Binding var selectedStrands : [String]
     
     @EnvironmentObject var learningPathsStore: LearningPathStore
+    @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
     
     @ObservedObject var totalLOs : TotalNumberLearningObjectives
-        
+    @ObservedObject var selectedSegmentView : SelectedSegmentView
+    
     var body: some View {
         
         if learningPathsStore.learningPaths.count > 0 {
-            ScrollViewLearningObjectives(totalLOs: self.totalLOs, learningPathSelected: selectedPath, filterCore: selectedFilter, isAddable: false, textFromSearchBar: txtSearchBar)
+            ScrollViewLearningObjectives(totalLOs: self.totalLOs, learningPathSelected: selectedPath, filterCore: selectedFilter, isAddable: false, textFromSearchBar: txtSearchBar, selectedStrands: selectedStrands)
         } else {
-            EmptyLearningObjectiveViewJourney()
+            EmptyLearningObjectiveViewJourney(selectedView: self.selectedSegmentView)
         }
     }
 }
@@ -160,10 +172,4 @@ class ScrollToModel: ObservableObject {
         case right
     }
     @Published var direction: Action? = nil
-}
-
-struct MyJourneyView_Previews: PreviewProvider {
-    static var previews: some View {
-        MyJourneyView()
-    }
 }

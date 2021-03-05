@@ -24,8 +24,9 @@ struct MultiSelectRow<Model: IdentifiableWithDescriptor>: View {
     
     var model: Model
     @Binding var selectedItems: Set<UUID>
+    @Binding var selectedStrands : [String]
     var isSelected: Bool {
-        selectedItems.contains(model.id)
+        selectedItems.contains(model.id) || selectedStrands.contains(model.descriptor)
     }
     
     var body: some View {
@@ -42,8 +43,10 @@ struct MultiSelectRow<Model: IdentifiableWithDescriptor>: View {
         .onTapGesture {
             if self.isSelected {
                 self.selectedItems.remove(self.model.id)
+                self.selectedStrands.remove(object: self.model.descriptor)
             } else {
                 self.selectedItems.insert(self.model.id)
+                self.selectedStrands.append(self.model.descriptor)
             }
         }
     }

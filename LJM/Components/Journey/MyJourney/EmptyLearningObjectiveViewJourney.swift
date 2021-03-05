@@ -10,6 +10,7 @@ import SwiftUI
 struct EmptyLearningObjectiveViewJourney: View {
     
     let addObjText = "Add a learning objective"
+    @ObservedObject var selectedView : SelectedSegmentView
     
     var body: some View {
         ZStack {
@@ -28,7 +29,7 @@ struct EmptyLearningObjectiveViewJourney: View {
                     .padding(.top, 20)
                 
                 Button(action: {
-                    
+                    self.selectedView.selectedView = "Map"
                 }) {
                     Text(addObjText.uppercased())
                         .padding()
@@ -42,11 +43,5 @@ struct EmptyLearningObjectiveViewJourney: View {
                 .padding(.top, 20)
             }
         }
-    }
-}
-
-struct EmptyLearningObjectiveViewJourney_Previews: PreviewProvider {
-    static var previews: some View {
-        EmptyLearningObjectiveViewJourney()
     }
 }

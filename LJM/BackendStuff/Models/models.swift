@@ -27,8 +27,8 @@ struct LearningObjOldVersion: Identifiable {
     let challenge: [ChallengeEnum?]
     let rating: Int?
     let ratingGoal: Int?
-//    var learningPath: LearningPath
-//    var strand: Strand
+    //    var learningPath: LearningPath
+    //    var strand: Strand
 }
 
 struct Challenge: Identifiable {
@@ -37,14 +37,14 @@ struct Challenge: Identifiable {
     var tag: String
 }
 
-struct Assessment {
+struct AssessmentOld {
     var value: Value?
     var student: Student
     var learningObj: LearningObjective
     var metadata: Metadata
 }
 
-extension Assessment {
+extension AssessmentOld {
     struct Metadata {
         var date: Date
         var timeStamp: String
@@ -55,6 +55,12 @@ enum CoreEnum: String {
     case core = "Core"
     case elective = "Elective"
     case evaluated = "Evaluated"
+    case all = "All"
+}
+
+enum MapEnum: String {
+    case full = "FULL MAP"
+    case communal = "COMMUNAL"
 }
 
 enum ChallengeEnum: String {
@@ -92,7 +98,8 @@ struct LearningPath: Codable, Identifiable {
     var title: String?
     var description: String?
     var createdByStudent: String?
-    var learningObjectives: [LearningObjective?]
+    var learningObjectives: [LearningObjective]?
+    var pathColor: ColorPath
     
     enum CodingKeys: String, CodingKey {
         case id = "_id"
@@ -100,33 +107,134 @@ struct LearningPath: Codable, Identifiable {
         case description
         case createdByStudent
         case learningObjectives
+        case pathColor
     }
 }
 
 struct LearningObjective: Codable, Identifiable, Hashable {
+    
     var id: String?
-    var tags : [String?]
+    var tags : [String]?
+    var code: String?
+    var strand: String?
     var title: String?
     var isCore: Bool?
-    var isElective: Bool?
+    var objective: String?
+    var coreRubricLevel: Int?
     var description: String?
     var createdByLearner: String?
+    var documentation: String?
     var __v: Int?
+    var assessments: [Assessment]?
     
     enum CodingKeys: String, CodingKey {
         case id = "_id"
         case tags
+        case code
+        case strand
+        case objective
         case title
         case isCore
-        case isElective
+        case documentation
         case description
         case createdByLearner
+        case coreRubricLevel
+        case __v
+        case assessments
+    }
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        id = try values.decodeIfPresent(String.self, forKey: .id)
+        tags = try values.decodeIfPresent([String].self, forKey: .tags)!
+        code = try values.decodeIfPresent(String.self, forKey: .code)
+        strand = try values.decodeIfPresent(String.self, forKey: .strand)
+        objective = try values.decodeIfPresent(String.self, forKey: .objective)
+        documentation = try values.decodeIfPresent(String.self, forKey: .documentation)
+        coreRubricLevel = try values.decodeIfPresent(Int.self, forKey: .coreRubricLevel)
+        title = try values.decodeIfPresent(String.self, forKey: .title)
+        isCore = try values.decodeIfPresent(Bool.self, forKey: .isCore)
+        description = try values.decodeIfPresent(String.self, forKey: .description)
+        createdByLearner = try values.decodeIfPresent(String.self, forKey: .createdByLearner)
+        __v = try values.decodeIfPresent(Int.self, forKey: .__v)
+        assessments = try values.decodeIfPresent([Assessment].self, forKey: .assessments)
+        
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}
+
+//struct StudentJourneyLearningObjective: Codable, Identifiable, Hashable {
+//
+//    var id: String?
+//    var tags : [String?]
+//    var title: String?
+//    var isCore: Bool?
+//    var isElective: Bool?
+//    var description: String?
+//    var createdByLearner: String?
+//    var __v: Int?
+//    var assessments: [Assessment?]
+//
+//    enum CodingKeys: String, CodingKey {
+//        case id = "_id"
+//        case tags
+//        case title
+//        case isCore
+//        case isElective
+//        case description
+//        case createdByLearner
+//        case __v
+//        case assessments
+//    }
+//
+//    func hash(into hasher: inout Hasher) {
+//        hasher.combine(id)
+//    }
+//}
+
+struct Assessment: Codable, Identifiable, Hashable {
+    var id: String?
+    var value: Int?
+    var date: String?
+    var learningObjectiveId: String?
+    var learnerId: String?
+    var __v: Int?
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "_id"
+        case value
+        case date
+        case learningObjectiveId = "learningObjective"
+        case learnerId
         case __v
     }
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        id = try values.decodeIfPresent(String.self, forKey: .id)
+        value = try values.decodeIfPresent(Int.self, forKey: .value)
+        date = try values.decodeIfPresent(String.self, forKey: .date)
+        learningObjectiveId = try values.decodeIfPresent(String.self, forKey: .learningObjectiveId)
+        learnerId = try values.decodeIfPresent(String.self, forKey: .learnerId)
+        __v = try values.decodeIfPresent(Int.self, forKey: .__v)
+    }
+}
+
+struct ColorPath: Codable {
+    var red: Double
+    var green: Double
+    var blue: Double
+}
+
+struct StudentJourneyLearningObjectives: Codable {
+    var learningObjectives: [LearningObjective?]
 }
 
 enum APIError: Error {
@@ -155,6 +263,30 @@ class LearningPathStore: ObservableObject {
     }
 }
 
+class StudentLearningObjectivesStore: ObservableObject {
+    @Published var learningObjectives = [LearningObjective]()
+    
+    func addItem(_ item: LearningObjective) {
+        learningObjectives.append(item)
+    }
+}
+
+class MapLearningObjectivesStore: ObservableObject {
+    @Published var learningObjectives = [LearningObjective]()
+    
+    func addItem(_ item: LearningObjective) {
+        learningObjectives.append(item)
+    }
+}
+
 class TotalNumberLearningObjectives: ObservableObject {
     @Published var total: Int = 0
+}
+
+class SelectedSegmentView: ObservableObject {
+    @Published var selectedView: String = "My Journey"
+}
+
+class StrandsFilter: ObservableObject {
+    @Published var strands: [String] = [String]()
 }

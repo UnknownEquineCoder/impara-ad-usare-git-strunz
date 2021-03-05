@@ -10,25 +10,25 @@ import SwiftUI
 
 struct TopBarJourney: View {
     @State var tabs = ["My Journey", "Map", "Challenge"]
-    @Binding var selected : String
     @Environment(\.colorScheme) var colorScheme
+    
+    @ObservedObject var selectedView : SelectedSegmentView
     
     var body: some View {
         HStack {
-            
             ForEach(tabs, id: \.self) { i in
                 VStack(spacing: 0) {
                     Button(action: {
-                        self.selected = i
+                        self.selectedView.selectedView = i
                     }, label: {
                         Text(i)
                             .frame(width: 120, height: 40, alignment: .center)
                             .font(.system(size: 24.toFontSize(), weight: .semibold))
-                            .foregroundColor(self.selected == i ? .customBlack : .customDarkGrey)
+                            .foregroundColor(self.selectedView.selectedView == i ? .customBlack : .customDarkGrey)
                             .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255): .white)
                     }).buttonStyle(PlainButtonStyle())
                     
-                    TopBarJourneySelectedBottomView(color: self.selected == i ? Color.customCyan : .clear)
+                    TopBarJourneySelectedBottomView(color: self.selectedView.selectedView == i ? Color.customCyan : .clear)
                 }
             }
         }
@@ -44,11 +44,5 @@ struct TopBarJourneySelectedBottomView: View {
         Capsule()
             .fill(color)
             .frame(width: 120, height: 3)
-    }
-}
-
-struct TopBarJourney_Previews: PreviewProvider {
-    static var previews: some View {
-        TopBarJourney(selected: .constant("My Journey"))
     }
 }
