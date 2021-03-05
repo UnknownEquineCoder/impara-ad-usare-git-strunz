@@ -9,10 +9,12 @@ import SwiftUI
 
 struct RatingView: View {
     
-    var goalRating: Int?
+    var learningObjectiveSelected: LearningObjective
     @Binding var rating: Int
     @State private var hover = false
     var maximumRating = 5
+    
+    @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
     
     var body: some View {
         VStack {
@@ -20,7 +22,7 @@ struct RatingView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 15, height: 15, alignment: .center)
-                .foregroundColor(goalRating != nil ? Color.customCyan : Color.clear)
+                .foregroundColor(learningObjectiveSelected.coreRubricLevel != nil ? Color.customCyan : Color.clear)
                 .offset(x: setupGoalRating())
             
             HStack {
@@ -28,6 +30,8 @@ struct RatingView: View {
                     Button {
                         self.rating = number
                         self.hover = false
+                        print("JUHYGUHI \(learningObjectiveSelected.assessments)")
+                        
                     } label: {
                         CircleView(number: number, rating: rating)
                     }
@@ -46,7 +50,7 @@ struct RatingView: View {
     }
     
     func setupGoalRating() -> CGFloat {
-        switch goalRating {
+        switch learningObjectiveSelected.coreRubricLevel {
         case 1:
             return -85
         case 2:
@@ -115,11 +119,5 @@ struct PopOverViewRating: View {
                 .foregroundColor(Color.customDarkGrey)
                 .multilineTextAlignment(.center)
         }.frame(width: 150, height: 50, alignment: .center).padding()
-    }
-}
-
-struct RatingView_Previews: PreviewProvider {
-    static var previews: some View {
-        RatingView(rating: .constant(4))
     }
 }

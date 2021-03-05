@@ -77,7 +77,7 @@ struct ScrollViewLearningObjectives: View {
                         if textFromSearchBar.isEmpty || (item.title!.lowercased().contains(textFromSearchBar.lowercased())) || ((item.description!.lowercased().contains(textFromSearchBar.lowercased()))) {
                             if item.strand != nil {
                                 if self.selectedStrands.contains(item.strand!) || self.selectedStrands.count == 0 {
-                                    LearningObjectiveJourneyCell(isAddable: isAddable, learningObjective: item)
+                                    LearningObjectiveJourneyCell(rating: item.assessments?.first?.value ?? 0, isAddable: isAddable, learningObjective: item)
                                         .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
                                 }
                             }
@@ -109,9 +109,7 @@ struct ScrollViewLearningObjectives: View {
     func sortLearningObjectives(learningPaths: [LearningPath], selectedPath: String) -> [LearningObjective] {
         
         var arrayOfLearningObjectives : [LearningObjective] = [LearningObjective]()
-        
-        print("IUYGHU \(learningPaths.count) ---- \(selectedPath)")
-        
+                
         if learningPaths != nil && learningPaths.count > 0 {
             for learningPath in learningPaths {
                 if selectedPath != "" {
@@ -133,7 +131,6 @@ struct ScrollViewLearningObjectives: View {
         } else {
             return arrayOfLearningObjectives
         }
-        
     }
     
     func getAssessmentRelatedToLearningObjective(learningObjectiveId: String, assessments: [Assessment]?) -> Int? {

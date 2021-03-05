@@ -18,14 +18,10 @@ struct PathsView: View, LJMView {
     @Environment(\.colorScheme) var colorScheme
     
     @ObservedObject var totalLOs = TotalNumberLearningObjectives()
-    
-    @StateObject var mapLearningObjectivesStore = MapLearningObjectivesStore()
-    
+        
     @EnvironmentObject var learningPathsStore: LearningPathStore
-    
-    @ObservedObject var strandsFilter = StrandsFilter()
-
-    
+    @EnvironmentObject var strandsStore: StrandsStore
+        
     var body: some View {
         
         VStack {
@@ -71,35 +67,11 @@ struct PathsView: View, LJMView {
                     
                     NumberTotalLearningOjbectivesView(totalLOs: self.totalLOs.total)
                     
-                    Button(action: {
-                        Webservices.getAllLearningObjectives { (learningObjectives, err) in
-                            for learningObjective in learningObjectives {
-                                mapLearningObjectivesStore.addItem(learningObjective)
-                                
-                                if learningObjective.strand != nil {
-                                    if !self.strandsFilter.strands.contains(learningObjective.strand!) {
-                                        self.strandsFilter.strands.append(learningObjective.strand!)
-                                        print("IOUNBYVTBUHJ \(self.strandsFilter.strands)")
-                                    }
-                                }
-                            }
-                        }
-                    }) {
-                        Text("Get All LOs")
-                            .padding()
-                            .font(.system(size: 15, weight: .medium, design: .rounded))
-                            .foregroundColor(Color.customCyan)
-                            .frame(height: 30, alignment: .center)
-                            .background(Color.white)
-                            .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color.customCyan))
-                    }.buttonStyle(PlainButtonStyle())
-                    .padding(.leading, 200)
-                    
                     SearchBarExpandableJourney(txtSearchBar: $searchText).background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
                         .padding(.trailing, 200)
                         .frame(maxWidth: .infinity,  alignment: .trailing)
                     
-                    DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: setupStrandsOnFilter(strands: self.strandsFilter.strands))
+                    DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: setupStrandsOnFilter(strands: self.strandsStore.strands))
                         .padding(.trailing, 20)
                         .frame(maxWidth: .infinity, alignment: .trailing)
                         .zIndex(1)
@@ -131,7 +103,6 @@ struct PathsView: View, LJMView {
                 Spacer()
             }
         }.padding(.leading, 50).padding(.trailing, 50)
-        .environmentObject(mapLearningObjectivesStore)
     }
     
     func setupStrandsOnFilter(strands: [String]) -> [FilterChoice] {

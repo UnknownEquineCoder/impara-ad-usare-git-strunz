@@ -20,7 +20,7 @@ class Webservices {
     typealias LearningObjectiveWebserviceResponse = (LearningObjective, APIError?) -> Void
     
     struct URLs {
-        static let loginKey = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkpSY080bnhzNWpnYzhZZE43STJoTE80Vl9xbDFiZG9pTVhtY1lnSG00SHMifQ.eyJqdGkiOiJFSHhrb1NTZjZINH5hTFUxN0FHdjUiLCJzdWIiOiIxMjMxODM4MDIiLCJpc3MiOiJodHRwczovL3dvbmRlcmluZy1wYXJyb3RzLWRldi5vbmVsb2dpbi5jb20vb2lkYy8yIiwiaWF0IjoxNjE0ODA5OTg3LCJleHAiOjE2MTQ4MjQzODcsInNjb3BlIjoib3BlbmlkIiwiYXVkIjoiOGY5MjAwNDAtNDY5Yi0wMTM5LTI3MTgtMGE3YzAyMjQ3NzA5MTg0MTA2In0.kJQz0A1w2gtsqGx3Smo9PhAnUoNPg8V3ujPcEX_M8xIImdlJBD56P8dqEUmKZjhSaAfDCaTvIPfEQ1-_y6dCjp7mTE45znlYZ8MfSmG5lIkdp396xl8S_pxTvSFL3Qkp0ARb4Cew2Vylo4OeKqbmlz3VP145UtT5Gfm1kcgg7rFPUmbGl5nsJwDntvV4T4eiBrM0GJ6VXLKZZp_bWwFtCk2Zuw9voX03kH6SGdGcP6XQv5RNsDa8hcvyqW7Rxt0LB7ntmNPAfPFD9N64cc236ae9IwtYk2R9nqajjGUBrIvmOe2OrJZoYGXBtWFdnW-LIXhgKrELaCetK2VkUq9GVw"
+        static let loginKey = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkpSY080bnhzNWpnYzhZZE43STJoTE80Vl9xbDFiZG9pTVhtY1lnSG00SHMifQ.eyJqdGkiOiI5RGdxYmhrVn55T0ZIRWMwT2ZjTjQiLCJzdWIiOiIxMjMxODM4MDIiLCJpc3MiOiJodHRwczovL3dvbmRlcmluZy1wYXJyb3RzLWRldi5vbmVsb2dpbi5jb20vb2lkYy8yIiwiaWF0IjoxNjE0OTU1MjQ2LCJleHAiOjE2MTQ5Njk2NDYsInNjb3BlIjoib3BlbmlkIiwiYXVkIjoiOGY5MjAwNDAtNDY5Yi0wMTM5LTI3MTgtMGE3YzAyMjQ3NzA5MTg0MTA2In0.FYzLofLl8ghsKs310lbNz44oU3aqeSeS3ui1LG84jefRYO8lxpVL6vd1c4C0fNuyC-tDG193gBZoZQmSRV4zIK5RkOvMxZvBcgpzyu28wx2-A3Fwcx8dz5cE3wr9XMgEOHfqO-ocjXYH2GFqRm5IWV5WKHEIM5hVAEGoux6V0yj4aTH71CqZUPp5IzP97oRuZcuQaKauoWhd66ifMJH7UDWiTU7Shg7Bm136CAGQsKuVJdZd6eEcZiSgXqfQ3d5yC9FhJ8ocboynUhRDVbelCYzIO7oVDjwLk77t-NRb8if8VIj691Bw445wlxfIEzIRO8fTuEBwxJwzaV4aqU0jlQ"
         static let baseURL = URL(string: "http://localhost")!
         // AUTH URLs
         static let loginURL = baseURL.appendingPathComponent("/api/auth/oidc/login")
@@ -84,7 +84,6 @@ class Webservices {
         ]
 
         AF.request(URLs.getStudentJourneyLearningObjectiveURL, headers: headers).responseDecodable(of: [LearningObjective].self) { response in
-            print("IUHYTU \(response)")
             guard let learningObjectives = response.value else {
                 return
             }
@@ -226,13 +225,17 @@ class Webservices {
             "accept" : "application/json"
         ]
         
-        let params : Parameters = ["title": learningObjective.title, "isCore": learningObjective.isCore, "description": learningObjective.description, "tags": learningObjective.tags, "createdByLearner": learningObjective.createdByLearner]
+        let params : Parameters = [
+            "title": learningObjective.title,
+            "isCore": learningObjective.isCore,
+            "description": learningObjective.description,
+            "tags": learningObjective.tags,
+            "createdByLearner": learningObjective.createdByLearner
+        ]
         
         AF.request(URLs.getLearningObjectiveURL, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers).validate().responseJSON { (response) in
             let decoder = JSONDecoder()
-            
-            print("OJINHUBGY \(response)")
-            
+                        
             do {
                 switch response.result {
                 case .success:
@@ -258,11 +261,7 @@ class Webservices {
         
         let params : Parameters = [
             "id" : learningObjective.id,
-            "title": learningObjective.title,
-            "tags": learningObjective.tags,
-            "isCore": learningObjective.isCore,
-            "description": learningObjective.description,
-            "createdByLearner": learningObjective.createdByLearner
+            "assessments" : learningObjective.assessments
         ]
         
         AF.request(URLs.getLearningObjectiveURL.appendingPathComponent(learningObjective.id!), method: .put, parameters: params, encoding: JSONEncoding.default, headers: headers).validate().responseJSON { (response) in

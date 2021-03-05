@@ -13,10 +13,10 @@ struct JourneyMainView: View, LJMView {
     @Environment(\.colorScheme) var colorScheme
     @State private var showSearchBarSideBar = true
     
-    @StateObject var learningPathsStore = LearningPathStore()
-    
     @ObservedObject var selectedView = SelectedSegmentView()
-        
+    @ObservedObject var totalLOs = TotalNumberLearningObjectives()
+    
+    
     var body: some View {
         ZStack(alignment: .top) {
             if self.selectedView.selectedView == "My Journey" {
@@ -33,7 +33,7 @@ struct JourneyMainView: View, LJMView {
                 Spacer()
             }
         }.background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
-        .environmentObject(learningPathsStore)
+        
     }
 }
 

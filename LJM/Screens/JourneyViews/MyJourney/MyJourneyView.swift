@@ -21,8 +21,8 @@ struct MyJourneyView: View {
     @Environment(\.colorScheme) var colorScheme
     
     @EnvironmentObject var learningPathsStore: LearningPathStore
-
-    @StateObject var studentLearningObjectivesStore = StudentLearningObjectivesStore()
+    @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
+    @EnvironmentObject var strandsStore: StrandsStore
     
     @ObservedObject var totalLOs = TotalNumberLearningObjectives()
     
@@ -54,14 +54,12 @@ struct MyJourneyView: View {
                 
                // NumberTotalLearningOjbectivesView(totalLOs: calculateAllLearningObjectives(learningPath: learningPaths))
                 NumberTotalLearningOjbectivesView(totalLOs: self.totalLOs.total)
-                
-                TestButtons().padding(.leading, 200)
-                
+                                
                 SearchBarExpandableJourney(txtSearchBar: $searchText).background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
                     .padding(.trailing, 200)
                     .frame(maxWidth: .infinity,  alignment: .trailing)
                 
-                DropDownMenuFilters(selectedStrands: $selectedStrands)
+                DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: setupStrandsOnFilter(strands: self.strandsStore.strands))
                     .buttonStyle(PlainButtonStyle())
                     .padding(.trailing, 20)
                     .frame(maxWidth: .infinity, alignment: .trailing)
@@ -72,54 +70,22 @@ struct MyJourneyView: View {
                     
             }.frame(maxWidth: .infinity).padding(.top, 10)
         }.padding(.leading, 50).padding(.trailing, 50)
-        .environmentObject(studentLearningObjectivesStore)
     }
     
     
     func calculateAllLearningObjectives(learningPath: [LearningPath]) -> Int {
         return 10
     }
-}
-
-struct TestButtons: View {
     
-    @EnvironmentObject var learningPathsStore: LearningPathStore
-    @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
-
-    var body: some View {
-        HStack {
-            Button(action: {
-                Webservices.getAllLearningPaths { learningPathResult, err  in
-                    for learningPath in learningPathResult {
-                        learningPathsStore.addItem(learningPath)
-                    }
-                }
-            }) {
-                Text("Get")
-                    .padding()
-                    .font(.system(size: 15, weight: .medium, design: .rounded))
-                    .foregroundColor(Color.customCyan)
-                    .frame(height: 30, alignment: .center)
-                    .background(Color.white)
-                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color.customCyan))
-            }.buttonStyle(PlainButtonStyle())
-            
-            Button(action: {
-                    Webservices.getStudentJourneyLearningObjectives { (learningObjectives, err) in
-                        for learningObjective in learningObjectives {
-                            studentLearningObjectivesStore.addItem(learningObjective)
-                        }
-                    }
-            }) {
-                Text("Get LOs")
-                    .padding()
-                    .font(.system(size: 15, weight: .medium, design: .rounded))
-                    .foregroundColor(Color.customCyan)
-                    .frame(height: 30, alignment: .center)
-                    .background(Color.white)
-                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color.customCyan))
-            }.buttonStyle(PlainButtonStyle())
+    func setupStrandsOnFilter(strands: [String]) -> [FilterChoice] {
+        
+        var arrayStrandsFilter = [FilterChoice]()
+        
+        for strand in strands {
+            arrayStrandsFilter.append(FilterChoice(descriptor: strand))
         }
+        
+        return arrayStrandsFilter
     }
 }
 

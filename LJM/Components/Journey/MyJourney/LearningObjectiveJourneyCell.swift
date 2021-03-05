@@ -12,7 +12,7 @@ struct LearningObjectiveJourneyCell: View {
     @State var expand: Bool = false
     @State var isRatingView: Bool = false
     @Environment(\.colorScheme) var colorScheme
-    
+        
     var isAddable = false
     var learningObjective: LearningObjective
     
@@ -44,7 +44,7 @@ struct LearningObjectiveJourneyCell: View {
                         Spacer()
                         
                         if !isAddable {
-                            RatingView(goalRating: learningObjective.coreRubricLevel, rating: $rating).padding(.top, 15).padding(.trailing, 30).onAppear(perform: {
+                            RatingView(learningObjectiveSelected: learningObjective, rating: $rating).padding(.top, 15).padding(.trailing, 30).onAppear(perform: {
                                 self.isRatingView.toggle()
                             })
                         } else {

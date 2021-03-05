@@ -77,22 +77,6 @@ enum Value {
     case exemplary
 }
 
-enum PathCategory {
-    case design
-    case frontend
-    case backend
-    case business
-    case game
-}
-
-enum Strand {
-    case professional
-    case design
-    case business
-    case technical
-    case process
-}
-
 struct LearningPath: Codable, Identifiable {
     var id: String?
     var title: String?
@@ -112,7 +96,7 @@ struct LearningPath: Codable, Identifiable {
 }
 
 struct LearningObjective: Codable, Identifiable, Hashable {
-    
+        
     var id: String?
     var tags : [String]?
     var code: String?
@@ -276,6 +260,14 @@ class MapLearningObjectivesStore: ObservableObject {
     
     func addItem(_ item: LearningObjective) {
         learningObjectives.append(item)
+    }
+}
+
+class StrandsStore: ObservableObject {
+    @Published var strands = [String]()
+    
+    func addItem(_ item: String) {
+        strands.append(item)
     }
 }
 

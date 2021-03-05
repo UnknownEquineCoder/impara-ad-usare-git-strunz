@@ -18,6 +18,7 @@ struct ChallengeView: View {
     @Environment(\.colorScheme) var colorScheme
     
     @EnvironmentObject var learningPathsStore: LearningPathStore
+    @EnvironmentObject var strandsStore: StrandsStore
     
     @ObservedObject var totalLOs = TotalNumberLearningObjectives()
     
@@ -41,7 +42,7 @@ struct ChallengeView: View {
                     .padding(.trailing, 200)
                     .frame(maxWidth: .infinity,  alignment: .trailing)
                 
-                DropDownMenuFilters(selectedStrands: $selectedStrands)
+                DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: setupStrandsOnFilter(strands: self.strandsStore.strands))
                     .buttonStyle(PlainButtonStyle())
                     .padding(.trailing, 20)
                     .frame(maxWidth: .infinity, alignment: .trailing)
@@ -50,6 +51,17 @@ struct ChallengeView: View {
                 ScrollViewLearningObjectives(totalLOs: totalLOs, filterChallenge: selectedFilter, isAddable: true, textFromSearchBar: searchText, selectedStrands: selectedStrands).padding(.top, 50)
             }.frame(maxWidth: .infinity).padding(.top, 10)
         }.padding(.leading, 50).padding(.trailing, 50)
+    }
+    
+    func setupStrandsOnFilter(strands: [String]) -> [FilterChoice] {
+        
+        var arrayStrandsFilter = [FilterChoice]()
+        
+        for strand in strands {
+            arrayStrandsFilter.append(FilterChoice(descriptor: strand))
+        }
+        
+        return arrayStrandsFilter
     }
 }
 

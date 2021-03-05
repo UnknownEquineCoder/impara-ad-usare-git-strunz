@@ -23,7 +23,7 @@ struct DropDownMenuFilters: View {
                          FilterChoice(descriptor: "Technical"),
                          FilterChoice(descriptor: "Process")
     ]
-    
+        
     var body: some View {
         VStack {
             Button(action: {
