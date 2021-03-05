@@ -26,35 +26,35 @@ struct RadarChart: View {
         ZStack {
             GeometryReader { geo in
                 RegularPolygon(sides: 5)
-//                    .fill(Color.red)
+                    //                    .fill(Color.red)
                     .fill(colorScheme == .dark ? Color(red: 50/255, green: 50/255, blue: 50/255, opacity: 0.8) : Color(red: 248/255, green: 248/255, blue: 248/255))
                     .frame(width: geo.size.width, height: geo.size.height)
                     .scaleEffect(0.8)
                 
-                    
-                    
                 
-            
+                
+                
+                
                 RadarChartGrid(categories: data.count, divisions: 5, size: geo.size.width)
-                .stroke(gridColor, lineWidth: 1.toScreenSize())
-            
-            
+                    .stroke(gridColor, lineWidth: 1.toScreenSize())
+                
+                
                 RadarChartPath(data: [20, 15, 10, 5, 7], size: geo.size.width)
-                .fill(RadialGradient.backGraph(size: geo.size.width))
-            
+                    .fill(RadialGradient.backGraph(size: geo.size.width))
+                
                 RadarChartPath(data: [20, 15, 10, 5, 7], size: geo.size.width)
-                .stroke(Color(red: 120/255, green: 224/255, blue: 144/255), lineWidth: 1.toScreenSize())
-            
+                    .stroke(Color(red: 120/255, green: 224/255, blue: 144/255), lineWidth: 1.toScreenSize())
+                
                 RadarChartPath(data: data, size: geo.size.width)
                     .fill(RadialGradient.frontGraph(size: geo.size.width))
-            
-            
-            
-            
+                
+                
+                
+                
                 RadarChartPath(data: data, size: geo.size.width)
-                .stroke(Color(red: 104/255, green: 194/255, blue: 189/255), lineWidth: 1.toScreenSize())
-            
-            
+                    .stroke(Color(red: 104/255, green: 194/255, blue: 189/255), lineWidth: 1.toScreenSize())
+                
+                
             }
         }
         
@@ -85,22 +85,43 @@ struct GraphWithOverlay: View {
                         .font(.system(size: 22.toFontSize()))
                 }.buttonStyle(LinkButtonStyle())
                 
-                /*
-                 
-                 c = centre
-                 
-                 linea (C, Fine_grafico)
-                 
-                 rect(lato_sinistro: linea)
-                 
-                 dividi(rect, 50)
-                 
-                 */
                 
-                
-                
-                
-                
+                VStack(alignment: .leading, spacing: 20.0){
+                    
+                    Text("EXEMPLARY")
+                        .fontWeight(.light)
+                        .font(.system(size: 10))
+                        .foregroundColor(colorScheme == .dark ? Color(red: 224/255, green: 224/255, blue: 224/255) : Color(red: 46/255, green: 50/255, blue: 53/255, opacity: 0.5))
+                        .multilineTextAlignment(.leading)
+                        .padding(.leading, 80)
+                    
+                    Text("PROFICIENT")
+                        .fontWeight(.light)
+                        .font(.system(size: 10))
+                        .foregroundColor(colorScheme == .dark ? Color(red: 224/255, green: 224/255, blue: 224/255) : Color(red: 46/255, green: 50/255, blue: 53/255, opacity: 0.5))
+                        .multilineTextAlignment(.leading)
+                        .padding(.leading, 80)
+                    
+                    Text("PROGRESSING")
+                        .fontWeight(.light)
+                        .font(.system(size: 10))
+                        .foregroundColor(colorScheme == .dark ? Color(red: 224/255, green: 224/255, blue: 224/255) : Color(red: 46/255, green: 50/255, blue: 53/255, opacity: 0.5))
+                        .multilineTextAlignment(.leading)
+                        .padding(.leading, 80)
+                    
+                    
+                    Text("BEGINNING")
+                        .fontWeight(.light)
+                        .font(.system(size: 10))
+                        .foregroundColor(colorScheme == .dark ? Color(red: 224/255, green: 224/255, blue: 224/255) : Color(red: 46/255, green: 50/255, blue: 53/255, opacity: 0.5))
+                        .multilineTextAlignment(.leading)
+                        .padding(.leading, 80)
+                    
+                    
+                    
+                    
+                }
+                .padding(.bottom, geo.size.height/2.18)
                 
             }
             
@@ -184,8 +205,8 @@ struct RadarChartView_Previews: PreviewProvider {
     static var previews: some View {
         GraphWithOverlayAndBackground()
             .frame(width: 500, height: 500)
-            
-            
+        
+        
     }
 }
 
@@ -194,13 +215,13 @@ struct GraphWithOverlayAndBackground: View {
     @Environment(\.colorScheme) var colorScheme
     var body: some View {
         GeometryReader { geo in
-        ZStack {
-            (colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : Color.white)
-                .frame(width: geo.size.width, height: geo.size.height)
-            
-            GraphWithOverlay()
-                .frame(width: geo.size.width*0.7, height: geo.size.height*0.7)
-        }
+            ZStack {
+                (colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : Color.white)
+                    .frame(width: geo.size.width, height: geo.size.height)
+                
+                GraphWithOverlay()
+                    .frame(width: geo.size.width*0.7, height: geo.size.height*0.7)
+            }
             
         }
     }

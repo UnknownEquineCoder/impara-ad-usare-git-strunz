@@ -23,7 +23,7 @@ struct SliderView: View{
                         
                         Color.clear
                         .clipShape(Capsule())
-                        .frame(height: 7.toScreenSize())
+                        .frame(height: 9.toScreenSize())
                         .border(Color(red: 165/255, green: 165/255, blue: 165/255))
                                 //                        LinearGradient(
 //                        gradient: Gradient(colors: [.red, .orange, .yellow, .green, .blue, .purple, .pink]),
@@ -32,7 +32,8 @@ struct SliderView: View{
                     //)
                         
                     .cornerRadius(4),
-                    thumbSize: CGSize(width: 29.toScreenSize(), height: 7.toScreenSize())
+                    thumb: Circle().fill(Color(red: 62/255, green: 161/255, blue: 155/255)),
+                    thumbSize: CGSize(width: 27.toScreenSize(), height: 27.toScreenSize())
                 )
             )
         
@@ -47,7 +48,7 @@ struct SliderView: View{
 //                )
 //            )
         
-        .frame(width: 265.toScreenSize(), height: 7.toScreenSize())    }
+        .frame(width: 265.toScreenSize(), height: 30.toScreenSize())    }
 }
 
 struct SliderView_Previews: PreviewProvider {
