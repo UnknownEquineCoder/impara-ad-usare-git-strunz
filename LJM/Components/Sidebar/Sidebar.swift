@@ -26,7 +26,7 @@ struct Sidebar: View {
                         
                         Navigation<JourneyMainView>(buttonName: "Journey", buttonIcon: "square", tag: 1, selection: selection)
 
-                    Navigation<JourneyMainView>(buttonName: "Compass", buttonIcon: "square", tag: 2, selection: selection)
+                    Navigation<CompassView>(buttonName: "Compass", buttonIcon: "square", tag: 2, selection: selection)
                         Navigation<JourneyMainView>(buttonName: "Notebook", buttonIcon: "square", tag: 3, selection: selection)
                     }
                     
