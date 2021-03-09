@@ -28,15 +28,15 @@ struct ScrollViewLearningObjectives: View {
         switch filterCore {
         case "Core":
             print("ffqdeseefffrfef")
-
+            
             return sortLearningObjectives(learningPaths: learningPathsStore.learningPaths, selectedPath: learningPathSelected).filter { $0.isCore ?? false }
         case "Elective":
             print("ffeffefffrfef")
-
+            
             return sortLearningObjectives(learningPaths: learningPathsStore.learningPaths, selectedPath: learningPathSelected).filter { (!($0.isCore ?? false) ) }
         case "Evaluated":
             print("ffefffeefffrfef")
-
+            
             return sortLearningObjectives(learningPaths: learningPathsStore.learningPaths, selectedPath: learningPathSelected).filter { $0.assessments?.first?.value ?? 0 > 0 }
         case "All":
             print("ffffrfef")
@@ -77,32 +77,40 @@ struct ScrollViewLearningObjectives: View {
     
     var textFromSearchBar: String
     var selectedStrands: [String]
-    var totalLOChanged = 0
-        
+    
     var body: some View {
         
-            ScrollView(showsIndicators: true) {
-                
-                LazyVStack {
-                    ForEach(filteredLearningObjectives) { item in
-                        if textFromSearchBar.isEmpty || (item.title!.lowercased().contains(textFromSearchBar.lowercased())) || ((item.description!.lowercased().contains(textFromSearchBar.lowercased()))) {
-                            if item.strand != nil {
-                                if self.selectedStrands.contains(item.strand!) || self.selectedStrands.count == 0 {
-                                    LearningObjectiveJourneyCell(rating: item.assessments?.first?.value ?? 0, isRatingView: isAddable ? true : false, isAddable: isAddable, learningObjective: item)
-                                        .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
-                                }
+        ScrollView(showsIndicators: true) {
+            
+            LazyVStack {
+                ForEach(filteredLearningObjectives) { item in
+                    if textFromSearchBar.isEmpty || (item.title!.lowercased().contains(textFromSearchBar.lowercased())) || ((item.description!.lowercased().contains(textFromSearchBar.lowercased()))) {
+                        if item.strand != nil {
+                            if self.selectedStrands.contains(item.strand!) || self.selectedStrands.count == 0 {
+                                LearningObjectiveJourneyCell(rating: item.assessments?.first?.value ?? 0, isRatingView: isAddable ? true : false, isAddable: isAddable, learningObjective: item)
+                                    .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
                             }
                         }
                     }
                 }
             }
-            .onChange(of: self.filteredLearningObjectives) { result in
-                print("IUHBYVGBUHNJ \(result.count)")
-                self.totalLOs.total = result.count
-            }
-            .onReceive(totalLOs.$changeViewTotal) { (result) in
-                self.totalLOs.total = self.filteredLearningObjectives.count
-            }
+        }
+        .onChange(of: self.filteredLearningObjectives) { result in
+            self.totalLOs.total = result.count
+        }
+        .onChange(of: self.textFromSearchBar) { result in
+            self.totalLOs.total = self.filteredLearningObjectives.filter({ (LO) -> Bool in
+                LO.description?.lowercased().contains(result.lowercased()) ?? false || LO.title?.lowercased().contains(result.lowercased()) ?? false
+            }).count
+        }
+        .onChange(of: self.selectedStrands) { result in
+            self.totalLOs.total = self.filteredLearningObjectives.filter({ (LO) -> Bool in
+                result.contains(LO.strand)
+            }).count
+        }
+        .onReceive(totalLOs.$changeViewTotal) { (result) in
+            self.totalLOs.total = self.filteredLearningObjectives.count
+        }
     }
     
     func displayFullMapLearningObjectives(learningPaths: [LearningPath], selectedFilter: String?) -> [LearningObjective] {
@@ -121,7 +129,7 @@ struct ScrollViewLearningObjectives: View {
     func sortLearningObjectives(learningPaths: [LearningPath], selectedPath: String) -> [LearningObjective] {
         
         var arrayOfLearningObjectives : [LearningObjective] = [LearningObjective]()
-                
+        
         if learningPaths != nil && learningPaths.count > 0 {
             for learningPath in learningPaths {
                 if selectedPath != "" {
