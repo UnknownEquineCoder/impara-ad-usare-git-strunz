@@ -10,7 +10,7 @@ import SwiftUI
 struct LearningObjectiveJourneyCell: View {
     @State var rating = 0
     @State var expand: Bool = false
-    @State var isRatingView: Bool = false
+    @State var isRatingView: Bool
     @Environment(\.colorScheme) var colorScheme
         
     var isAddable = false
@@ -18,33 +18,41 @@ struct LearningObjectiveJourneyCell: View {
     
     @EnvironmentObject var learningPathsStore: LearningPathStore
     
-    
     var body: some View {
         VStack(spacing: 20) {
             ZStack(alignment: .topLeading) {
-                
                 Rectangle()
-                    .frame(width: 20, alignment: .leading)
+                    .frame(width: 20, alignment: .topLeading)
                     .foregroundColor(setupColor())
                 
                 VStack {
-                    
                     HStack(alignment: .top) {
-                        
                         VStack(alignment: .leading, spacing: 8) {
-                            Text(learningObjective.strand?.uppercased() ?? "No strand").foregroundColor(setupColor()).font(.system(size: 20, weight: .semibold, design: .rounded))
-                            Text(learningObjective.title?.uppercased() ?? "No title").foregroundColor(colorScheme == .dark ? Color(red: 255/255, green: 255/255, blue: 255/255) : Color.customDarkGrey).font(.system(size: 22.toFontSize(), weight: .light))
-                            Text(learningObjective.isCore ?? true ? "Core" : "Elective").foregroundColor(colorScheme == .dark ? Color(red: 255/255, green: 255/255, blue: 255/255) : Color.customDarkGrey).font(.system(size: 22.toFontSize(), weight: .light))
+                            Text(learningObjective.strand?.uppercased() ?? "No strand")
+                                .foregroundColor(setupColor())
+                                .font(.system(size: 20, weight: .semibold, design: .rounded))
+                            Text(learningObjective.title?.uppercased() ?? "No title")
+                                .foregroundColor(colorScheme == .dark ? Color(red: 255/255, green: 255/255, blue: 255/255) : Color.customDarkGrey)
+                                .font(.system(size: 22.toFontSize(), weight: .light))
+                            Text(learningObjective.isCore ?? true ? "CORE" : "ELECTIVE")
+                                .foregroundColor(colorScheme == .dark ? Color(red: 255/255, green: 255/255, blue: 255/255) : Color.customDarkGrey)
+                                .font(.system(size: 22.toFontSize(), weight: .light))
                         }.frame(width: 150, alignment: .leading).padding(.leading, 20).padding(.top, 15)
                         
                         Spacer()
                         
-                        Text(learningObjective.description ?? "No description").foregroundColor(colorScheme == .dark ? Color(red: 224/255, green: 224/255, blue: 224/255) : Color.customLightBlack).font(.system(size: 24.toFontSize(), weight: .regular)).frame(maxWidth: 639.toScreenSize(), maxHeight: .infinity, alignment: .center).lineLimit(self.expand ? nil : 4).padding()
+                        Text(learningObjective.description ?? "No description")
+                            .foregroundColor(colorScheme == .dark ? Color(red: 224/255, green: 224/255, blue: 224/255) : Color.customLightBlack)
+                            .font(.system(size: 24.toFontSize(), weight: .regular))
+                            .frame(maxWidth: 639.toScreenSize(), maxHeight: .infinity, alignment: .leading)
+                            .lineLimit(self.expand ? nil : 4).padding()
                         
                         Spacer()
                         
                         if !isAddable {
-                            RatingView(learningObjectiveSelected: learningObjective, rating: $rating).padding(.top, 15).padding(.trailing, 30).onAppear(perform: {
+                            RatingView(learningObjectiveSelected: learningObjective, rating: $rating)
+                                .padding(.top, 15).padding(.trailing, 30)
+                                .onAppear(perform: {
                                 self.isRatingView.toggle()
                             })
                         } else {
@@ -59,14 +67,19 @@ struct LearningObjectiveJourneyCell: View {
                             Divider().background(Color(red: 70/255, green: 70/255, blue: 70/255)).padding(.trailing, 60)
                             
                             HStack {
-                                Text("KEYWORDS").foregroundColor(Color.customDarkGrey).font(.system(size: 17, weight: .light)).frame(width: 150, alignment: .leading)
+                                Text("KEYWORDS").foregroundColor(Color.customDarkGrey)
+                                    .font(.system(size: 17, weight: .light))
+                                    .frame(width: 150, alignment: .leading)
+                                
                                 Spacer()
                                 
                                 Text("#\(learningObjective.tags?.joined(separator: " #") ?? "")")
                                     .foregroundColor(Color.customLightBlack)
                                     .font(.system(size: 16, weight: .medium))
-                                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                                    .padding()
+                                    .lineLimit(4)
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                                    .padding(.leading, 110).padding(.trailing, 50)
+                                    .frame(height: 50)
                                 
                                 Spacer()
                             }
@@ -87,7 +100,7 @@ struct LearningObjectiveJourneyCell: View {
                             }
                         }.padding(.leading, 40).padding(.bottom, 50)
                         
-                    }.frame(maxWidth: 1402.toScreenSize(), maxHeight: self.expand ? 185 : 0, alignment: .topLeading)
+                    }.frame(maxWidth: 1402.toScreenSize(), maxHeight: self.expand ? 250 : 0, alignment: .topLeading)
                     .padding(.trailing, 250)
                     .isHidden(self.expand ? false : true)
                 }
@@ -103,7 +116,7 @@ struct LearningObjectiveJourneyCell: View {
                         .multilineTextAlignment(.center)
                 }.frame(width: 150, height: 50, alignment: .center)
                 .padding(.trailing, 54)
-                .isHidden(self.isRatingView ? false : true)
+                .isHidden(self.isAddable ? true : false)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
                 .isHidden(self.expand ? false : true)
                 
@@ -119,7 +132,7 @@ struct LearningObjectiveJourneyCell: View {
                     .padding(.bottom, 10)
             }
         }
-        .modifier(AnimatingCellHeight(height: expand ? 400 : 120))
+        .modifier(AnimatingCellHeight(height: expand ? 350 : 120))
         .background(colorScheme == .dark ? Color(red: 50/255, green: 50/255, blue: 50/255) : Color.customLightGrey)
         .cornerRadius(14)
         .onTapGesture {

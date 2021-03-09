@@ -19,8 +19,14 @@ class Webservices {
     typealias ArrayLearningObjectiveWebserviceResponse = ([LearningObjective], APIError?) -> Void
     typealias LearningObjectiveWebserviceResponse = (LearningObjective, APIError?) -> Void
     
+    struct Headers {
+        static let headers : HTTPHeaders = [
+            "Authorization": "Bearer "+URLs.loginKey
+        ]
+    }
+    
     struct URLs {
-        static let loginKey = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkpSY080bnhzNWpnYzhZZE43STJoTE80Vl9xbDFiZG9pTVhtY1lnSG00SHMifQ.eyJqdGkiOiI5RGdxYmhrVn55T0ZIRWMwT2ZjTjQiLCJzdWIiOiIxMjMxODM4MDIiLCJpc3MiOiJodHRwczovL3dvbmRlcmluZy1wYXJyb3RzLWRldi5vbmVsb2dpbi5jb20vb2lkYy8yIiwiaWF0IjoxNjE0OTU1MjQ2LCJleHAiOjE2MTQ5Njk2NDYsInNjb3BlIjoib3BlbmlkIiwiYXVkIjoiOGY5MjAwNDAtNDY5Yi0wMTM5LTI3MTgtMGE3YzAyMjQ3NzA5MTg0MTA2In0.FYzLofLl8ghsKs310lbNz44oU3aqeSeS3ui1LG84jefRYO8lxpVL6vd1c4C0fNuyC-tDG193gBZoZQmSRV4zIK5RkOvMxZvBcgpzyu28wx2-A3Fwcx8dz5cE3wr9XMgEOHfqO-ocjXYH2GFqRm5IWV5WKHEIM5hVAEGoux6V0yj4aTH71CqZUPp5IzP97oRuZcuQaKauoWhd66ifMJH7UDWiTU7Shg7Bm136CAGQsKuVJdZd6eEcZiSgXqfQ3d5yC9FhJ8ocboynUhRDVbelCYzIO7oVDjwLk77t-NRb8if8VIj691Bw445wlxfIEzIRO8fTuEBwxJwzaV4aqU0jlQ"
+        static let loginKey = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IkpSY080bnhzNWpnYzhZZE43STJoTE80Vl9xbDFiZG9pTVhtY1lnSG00SHMifQ.eyJqdGkiOiJ-a0FlenFhTkJNbHk5V0V0VUJERUgiLCJzdWIiOiIxMjMxODM4MDIiLCJpc3MiOiJodHRwczovL3dvbmRlcmluZy1wYXJyb3RzLWRldi5vbmVsb2dpbi5jb20vb2lkYy8yIiwiaWF0IjoxNjE1MjQ5Mjg3LCJleHAiOjE2MTUyNjM2ODcsInNjb3BlIjoib3BlbmlkIiwiYXVkIjoiOGY5MjAwNDAtNDY5Yi0wMTM5LTI3MTgtMGE3YzAyMjQ3NzA5MTg0MTA2In0.bdJblgPW6UE46yKZ48DOBt1hOhpyivB3nr95IyH-tbvqzeAcu1Rh3IbzobXMhZAwT8yBHGCGR7QKX0B2WPwsWtmrPjhbjgNnLX7j7eECfjrOGm6RIPoW_vPygqddzr2FsydEHszuGoy-rP3bFP6aNcot8ZttWRFndr6t80CKH2WD-9QJDVu5jiuwBKCRbZm2FQxMOgX4_0XeW2apTykbMzmOFSudM9BpwH2AjbjGZB747VE9awj-WW13-FG64jUqaAXA-26RAoHWF_dZJoDGAjzLpHccc0Cr8KIVCWtze5HDwIQPWzLkYTBHHKkxjFoFV4I5-EPkm0A2c_VSBC8e4g"
         static let baseURL = URL(string: "http://localhost")!
         // AUTH URLs
         static let loginURL = baseURL.appendingPathComponent("/api/auth/oidc/login")
@@ -44,12 +50,8 @@ class Webservices {
     
     
     static func getAllLearningPaths(completion : @escaping ArrayLearningPathWebserviceResponse) {
-                        
-        let headers : HTTPHeaders = [
-            "Authorization": "Bearer "+URLs.loginKey
-        ]
         
-        AF.request(URLs.getLearningPathsURL, headers: headers).responseDecodable(of: [LearningPath].self){ response in
+        AF.request(URLs.getLearningPathsURL, headers: Headers.headers).responseDecodable(of: [LearningPath].self){ response in
             
             print("IJNUHYG \(response)")
                         
@@ -63,11 +65,7 @@ class Webservices {
     
     static func getLearningPath(id: String, completion : @escaping LearningPathWebserviceResponse) {
 
-        let headers : HTTPHeaders = [
-            "Authorization": "Bearer "+URLs.loginKey
-        ]
-
-        AF.request(URLs.getLearningPathURL.appendingPathComponent(id), headers: headers).responseDecodable(of: LearningPath.self) { response in
+        AF.request(URLs.getLearningPathURL.appendingPathComponent(id), headers: Headers.headers).responseDecodable(of: LearningPath.self) { response in
 
             guard let learningPath = response.value else {
                 return
@@ -79,11 +77,7 @@ class Webservices {
     
     static func getStudentJourneyLearningObjectives(completion : @escaping ArrayLearningObjectiveWebserviceResponse) {
 
-        let headers : HTTPHeaders = [
-            "Authorization": "Bearer "+URLs.loginKey
-        ]
-
-        AF.request(URLs.getStudentJourneyLearningObjectiveURL, headers: headers).responseDecodable(of: [LearningObjective].self) { response in
+        AF.request(URLs.getStudentJourneyLearningObjectiveURL, headers: Headers.headers).responseDecodable(of: [LearningObjective].self) { response in
             guard let learningObjectives = response.value else {
                 return
             }
@@ -186,12 +180,8 @@ class Webservices {
 //    }
     
     static func getAllLearningObjectives(completion : @escaping ArrayLearningObjectiveWebserviceResponse) {
-                        
-        let headers : HTTPHeaders = [
-            "Authorization": "Bearer "+URLs.loginKey
-        ]
         
-        AF.request(URLs.getLearningObjectiveURL, headers: headers).responseDecodable(of: [LearningObjective].self) { response in
+        AF.request(URLs.getLearningObjectiveURL, headers: Headers.headers).responseDecodable(of: [LearningObjective].self) { response in
                         
             guard let learningObjectives = response.value else {
                 return
@@ -202,12 +192,8 @@ class Webservices {
     }
     
     static func getLearningObjective(id: String, completion : @escaping LearningObjectiveWebserviceResponse) {
-                        
-        let headers : HTTPHeaders = [
-            "Authorization": "Bearer "+URLs.loginKey
-        ]
         
-        AF.request(URLs.getLearningObjectiveURL.appendingPathComponent(id), headers: headers).responseDecodable(of: LearningObjective.self) { response in
+        AF.request(URLs.getLearningObjectiveURL.appendingPathComponent(id), headers: Headers.headers).responseDecodable(of: LearningObjective.self) { response in
                         
             guard let learningObjective = response.value else {
                 return
@@ -219,11 +205,11 @@ class Webservices {
     
     static func addLearningObjective(learningObjective: LearningObjective, completion : @escaping LearningObjectiveWebserviceResponse) {
         
-        let headers : HTTPHeaders = [
-            "Authorization": "Bearer "+URLs.loginKey,
-            "Content-Type" : "application/json",
-            "accept" : "application/json"
-        ]
+//        let headers : HTTPHeaders = [
+//            "Authorization": "Bearer "+URLs.loginKey,
+//            "Content-Type" : "application/json",
+//            "accept" : "application/json"
+//        ]
         
         let params : Parameters = [
             "title": learningObjective.title,
@@ -233,7 +219,7 @@ class Webservices {
             "createdByLearner": learningObjective.createdByLearner
         ]
         
-        AF.request(URLs.getLearningObjectiveURL, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers).validate().responseJSON { (response) in
+        AF.request(URLs.getLearningObjectiveURL, method: .post, parameters: params, encoding: JSONEncoding.default, headers: Headers.headers).validate().responseJSON { (response) in
             let decoder = JSONDecoder()
                         
             do {
@@ -253,18 +239,18 @@ class Webservices {
     
     static func updateLearningObjective(learningObjective: LearningObjective, completion : @escaping LearningObjectiveWebserviceResponse) {
         
-        let headers : HTTPHeaders = [
-            "Authorization": "Bearer "+URLs.loginKey,
-            "Content-Type" : "application/json",
-            "accept" : "application/json"
-        ]
+//        let headers : HTTPHeaders = [
+//            "Authorization": "Bearer "+URLs.loginKey,
+//            "Content-Type" : "application/json",
+//            "accept" : "application/json"
+//        ]
         
         let params : Parameters = [
             "id" : learningObjective.id,
             "assessments" : learningObjective.assessments
         ]
         
-        AF.request(URLs.getLearningObjectiveURL.appendingPathComponent(learningObjective.id!), method: .put, parameters: params, encoding: JSONEncoding.default, headers: headers).validate().responseJSON { (response) in
+        AF.request(URLs.getLearningObjectiveURL.appendingPathComponent(learningObjective.id!), method: .put, parameters: params, encoding: JSONEncoding.default, headers: Headers.headers).validate().responseJSON { (response) in
             let decoder = JSONDecoder()
             
             do {
@@ -285,17 +271,17 @@ class Webservices {
     
     static func deleteLearningObjective(learningObjective: LearningObjective, completion : @escaping LearningObjectiveWebserviceResponse) {
         
-        let headers : HTTPHeaders = [
-            "Authorization": "Bearer "+URLs.loginKey,
-            "Content-Type" : "application/json",
-            "accept" : "application/json"
-        ]
+//        let headers : HTTPHeaders = [
+//            "Authorization": "Bearer "+URLs.loginKey,
+//            "Content-Type" : "application/json",
+//            "accept" : "application/json"
+//        ]
         
         let params : Parameters = [
             "id" : learningObjective.id
         ]
         
-        AF.request(URLs.getLearningObjectiveURL.appendingPathComponent(learningObjective.id!), method: .delete, parameters: params, encoding: JSONEncoding.default, headers: headers).validate().responseJSON { (response) in
+        AF.request(URLs.getLearningObjectiveURL.appendingPathComponent(learningObjective.id!), method: .delete, parameters: params, encoding: JSONEncoding.default, headers: Headers.headers).validate().responseJSON { (response) in
             let decoder = JSONDecoder()
             
             do {

@@ -273,6 +273,7 @@ class StrandsStore: ObservableObject {
 
 class TotalNumberLearningObjectives: ObservableObject {
     @Published var total: Int = 0
+    @Published var changeViewTotal: Int = 0
 }
 
 class SelectedSegmentView: ObservableObject {

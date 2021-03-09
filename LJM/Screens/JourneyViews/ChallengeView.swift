@@ -20,7 +20,8 @@ struct ChallengeView: View {
     @EnvironmentObject var learningPathsStore: LearningPathStore
     @EnvironmentObject var strandsStore: StrandsStore
     
-    @ObservedObject var totalLOs = TotalNumberLearningObjectives()
+    @ObservedObject var totalLOs : TotalNumberLearningObjectives
+    @ObservedObject var selectedSegmentView : SelectedSegmentView
     
     var body: some View {
         VStack {
@@ -48,7 +49,7 @@ struct ChallengeView: View {
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .zIndex(1)
                 
-                ScrollViewLearningObjectives(totalLOs: totalLOs, filterChallenge: selectedFilter, isAddable: true, textFromSearchBar: searchText, selectedStrands: selectedStrands).padding(.top, 50)
+                ScrollViewLearningObjectives(totalLOs: totalLOs, selectedSegmentView: self.selectedSegmentView, filterChallenge: selectedFilter, isAddable: true, textFromSearchBar: searchText, selectedStrands: selectedStrands).padding(.top, 50)
             }.frame(maxWidth: .infinity).padding(.top, 10)
         }.padding(.leading, 50).padding(.trailing, 50)
     }
@@ -65,8 +66,8 @@ struct ChallengeView: View {
     }
 }
 
-struct ChallengeView_Previews: PreviewProvider {
-    static var previews: some View {
-        ChallengeView()
-    }
-}
+//struct ChallengeView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ChallengeView()
+//    }
+//}

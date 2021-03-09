@@ -24,7 +24,7 @@ struct MyJourneyView: View {
     @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
     @EnvironmentObject var strandsStore: StrandsStore
     
-    @ObservedObject var totalLOs = TotalNumberLearningObjectives()
+    @ObservedObject var totalLOs : TotalNumberLearningObjectives
     
     @ObservedObject var selectedView : SelectedSegmentView
         
@@ -100,7 +100,8 @@ struct ScrollViewFiltersJourney: View {
                 .buttonStyle(PlainButtonStyle())
                 .opacity(filterTabs.count > 8 ? 1 : 0)
             
-            ScrollViewFilters(filterTabs: filterTabs, selectedFilter: $selectedFilter, vm: vm).offset(x: filterTabs.count < 8 ? -35 : 0)
+            ScrollViewFilters(filterTabs: filterTabs, selectedFilter: $selectedFilter, vm: vm)
+                .offset(x: filterTabs.count < 8 ? -35 : 0)
             
             ArrowButtonScrollView(vm: vm, direction: .right)
                 .buttonStyle(PlainButtonStyle())
@@ -125,7 +126,7 @@ struct ListViewLearningObjectiveMyJourney: View {
     var body: some View {
         
         if learningPathsStore.learningPaths.count > 0 {
-            ScrollViewLearningObjectives(totalLOs: self.totalLOs, learningPathSelected: selectedPath, filterCore: selectedFilter, isAddable: false, textFromSearchBar: txtSearchBar, selectedStrands: selectedStrands)
+            ScrollViewLearningObjectives(totalLOs: self.totalLOs, selectedSegmentView: selectedSegmentView, learningPathSelected: selectedPath, filterCore: selectedFilter, isAddable: false, textFromSearchBar: txtSearchBar, selectedStrands: selectedStrands)
         } else {
             EmptyLearningObjectiveViewJourney(selectedView: self.selectedSegmentView)
         }
