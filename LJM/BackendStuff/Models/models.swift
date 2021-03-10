@@ -150,35 +150,6 @@ struct LearningObjective: Codable, Identifiable, Hashable {
     }
 }
 
-//struct StudentJourneyLearningObjective: Codable, Identifiable, Hashable {
-//
-//    var id: String?
-//    var tags : [String?]
-//    var title: String?
-//    var isCore: Bool?
-//    var isElective: Bool?
-//    var description: String?
-//    var createdByLearner: String?
-//    var __v: Int?
-//    var assessments: [Assessment?]
-//
-//    enum CodingKeys: String, CodingKey {
-//        case id = "_id"
-//        case tags
-//        case title
-//        case isCore
-//        case isElective
-//        case description
-//        case createdByLearner
-//        case __v
-//        case assessments
-//    }
-//
-//    func hash(into hasher: inout Hasher) {
-//        hasher.combine(id)
-//    }
-//}
-
 struct Assessment: Codable, Identifiable, Hashable {
     var id: String?
     var value: Int?
@@ -198,16 +169,6 @@ struct Assessment: Codable, Identifiable, Hashable {
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
-    }
-    
-    init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decodeIfPresent(String.self, forKey: .id)
-        value = try values.decodeIfPresent(Int.self, forKey: .value)
-        date = try values.decodeIfPresent(String.self, forKey: .date)
-        learningObjectiveId = try values.decodeIfPresent(String.self, forKey: .learningObjectiveId)
-        learnerId = try values.decodeIfPresent(String.self, forKey: .learnerId)
-        __v = try values.decodeIfPresent(Int.self, forKey: .__v)
     }
 }
 
@@ -274,7 +235,6 @@ class StrandsStore: ObservableObject {
 class TotalNumberLearningObjectives: ObservableObject {
     @Published var total: Int = 0
     @Published var changeViewTotal: Int = 0
-    @Published var strandTotal: Int = 0
 }
 
 class SelectedSegmentView: ObservableObject {

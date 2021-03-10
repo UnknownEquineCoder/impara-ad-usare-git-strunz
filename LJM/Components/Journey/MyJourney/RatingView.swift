@@ -30,7 +30,17 @@ struct RatingView: View {
                     Button {
                         self.rating = number
                         self.hover = false
-                        print("JUHYGUHI \(learningObjectiveSelected.assessments)")
+                        
+                        // func post assess
+                        if learningObjectiveSelected.id != nil {
+                            Webservices.addAssessment(learningObjId: learningObjectiveSelected.id!, value: number) { (assessment, err) in
+                                if err == nil {
+                                    print("NHIUGVYBUHNJ \(Date())")
+                                    // logic add a history view last assessment 2021-03-10T03:31:51.869Z
+                                    
+                                }
+                            }
+                        }
                         
                     } label: {
                         CircleView(number: number, rating: rating)
@@ -78,7 +88,7 @@ struct CircleView: View {
             .strokeBorder(number > rating ? (hovered ? Color.customCyan : Color.customDarkGrey) : Color.clear, lineWidth: 2)
             .background(Circle().foregroundColor(number > rating ? Color.customLightGrey : Color.customCyan))
             .popover(isPresented: self.$showingPopup) {
-                PopOverViewRating(showingPopup: $showingPopup)
+                PopOverViewRating(showingPopup: $showingPopup, status: setupTitleProgressRubric(value: number), desc: setupDescProgressOnRubric(value: number))
                     .background(Color.white).border(Color.white)
             }
             .onHover { hover in
@@ -101,6 +111,48 @@ struct CircleView: View {
                     }
                 }
             }
+    }
+    
+    func setupTitleProgressRubric(value: Int) -> String {
+        switch value {
+        case 0:
+            return ""
+        case 1:
+            return "value 1"
+        case 2:
+            return "value 2"
+        case 3:
+            return "PROGRESSING"
+        case 4:
+            return "value 4"
+        case 5:
+            return "value 5"
+            
+        default:
+            return ""
+            
+        }
+    }
+    
+    func setupDescProgressOnRubric(value: Int) -> String {
+        switch value {
+        case 0:
+            return ""
+        case 1:
+            return "Description value 1"
+        case 2:
+            return "Description value 2"
+        case 3:
+            return "You can understand and apply concepts with assistance."
+        case 4:
+            return "Description value 4"
+        case 5:
+            return "Description value 5"
+            
+        default:
+            return ""
+            
+        }
     }
 }
 

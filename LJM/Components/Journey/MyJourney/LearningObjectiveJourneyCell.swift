@@ -39,7 +39,7 @@ struct LearningObjectiveJourneyCell: View {
                                 .font(.system(size: 22.toFontSize(), weight: .light))
                         }.frame(width: 150, alignment: .leading).padding(.leading, 20).padding(.top, 15)
                         
-                        Spacer()
+                        Spacer().frame(width: 100)
                         
                         Text(learningObjective.description ?? "No description")
                             .foregroundColor(colorScheme == .dark ? Color(red: 224/255, green: 224/255, blue: 224/255) : Color.customLightBlack)
@@ -56,7 +56,7 @@ struct LearningObjectiveJourneyCell: View {
                                 self.isRatingView.toggle()
                             })
                         } else {
-                            AddButton(buttonSize: 27).padding(.trailing, 32).padding(.top, 24)
+                            AddButton(learningObjectiveSelected: learningObjective, buttonSize: 27).padding(.trailing, 32).padding(.top, 24)
                         }
                         
                     }.padding(.leading, 20)
@@ -107,10 +107,10 @@ struct LearningObjectiveJourneyCell: View {
                 
                 VStack(alignment: .center, spacing: 5) {
                     Spacer().frame(height: 200)
-                    Text("PROGRESSING")
+                    Text(setupTitleProgressRubric(value: learningObjective.assessments?.first?.value ?? 0))
                         .font(.system(size: 15, weight: .medium))
                         .foregroundColor(Color.customCyan)
-                    Text("You can understand and apply concepts with assistance.")
+                    Text(setupDescProgressOnRubric(value: learningObjective.assessments?.first?.value ?? 0))
                         .font(.system(size: 10, weight: .medium))
                         .foregroundColor(Color.customDarkGrey)
                         .multilineTextAlignment(.center)
@@ -139,6 +139,48 @@ struct LearningObjectiveJourneyCell: View {
             withAnimation {
                 self.expand.toggle()
             }
+        }
+    }
+    
+    func setupTitleProgressRubric(value: Int) -> String {
+        switch value {
+        case 0:
+            return ""
+        case 1:
+            return "value 1"
+        case 2:
+            return "value 2"
+        case 3:
+            return "PROGRESSING"
+        case 4:
+            return "value 4"
+        case 5:
+            return "value 5"
+            
+        default:
+            return ""
+            
+        }
+    }
+    
+    func setupDescProgressOnRubric(value: Int) -> String {
+        switch value {
+        case 0:
+            return ""
+        case 1:
+            return "Description value 1"
+        case 2:
+            return "Description value 2"
+        case 3:
+            return "You can understand and apply concepts with assistance."
+        case 4:
+            return "Description value 4"
+        case 5:
+            return "Description value 5"
+            
+        default:
+            return ""
+            
         }
     }
     

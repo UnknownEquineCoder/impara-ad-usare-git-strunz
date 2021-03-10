@@ -99,14 +99,23 @@ struct ScrollViewLearningObjectives: View {
             self.totalLOs.total = result.count
         }
         .onChange(of: self.textFromSearchBar) { result in
-            self.totalLOs.total = self.filteredLearningObjectives.filter({ (LO) -> Bool in
-                LO.description?.lowercased().contains(result.lowercased()) ?? false || LO.title?.lowercased().contains(result.lowercased()) ?? false
-            }).count
+            if result != "" {
+                self.totalLOs.total = self.filteredLearningObjectives.filter({ (LO) -> Bool in
+                    LO.description?.lowercased().contains(result.lowercased()) ?? false || LO.title?.lowercased().contains(result.lowercased()) ?? false
+                    
+                }).count
+            } else {
+                self.totalLOs.total = self.filteredLearningObjectives.count
+            }
         }
         .onChange(of: self.selectedStrands) { result in
-            self.totalLOs.total = self.filteredLearningObjectives.filter({ (LO) -> Bool in
-                result.contains(LO.strand)
-            }).count
+            if !result.isEmpty {
+                self.totalLOs.total = self.filteredLearningObjectives.filter({ (LO) -> Bool in
+                    result.contains(LO.strand ?? "No Strand")
+                }).count
+            } else {
+                self.totalLOs.total = self.filteredLearningObjectives.count
+            }
         }
         .onReceive(totalLOs.$changeViewTotal) { (result) in
             self.totalLOs.total = self.filteredLearningObjectives.count
