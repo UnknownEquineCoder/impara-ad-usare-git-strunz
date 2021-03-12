@@ -13,6 +13,7 @@ struct ScrollViewLearningObjectives: View {
     @EnvironmentObject var learningPathsStore: LearningPathStore
     @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
     @EnvironmentObject var mapLearningObjectivesStore: MapLearningObjectivesStore
+    @EnvironmentObject var challengeStore: ChallengesStore
     
     @ObservedObject var totalLOs : TotalNumberLearningObjectives
     @ObservedObject var selectedSegmentView : SelectedSegmentView
@@ -27,22 +28,14 @@ struct ScrollViewLearningObjectives: View {
         
         switch filterCore {
         case "Core":
-            print("ffqdeseefffrfef")
-            
             return sortLearningObjectives(learningPaths: learningPathsStore.learningPaths, selectedPath: learningPathSelected).filter { $0.isCore ?? false }
         case "Elective":
-            print("ffeffefffrfef")
-            
             return sortLearningObjectives(learningPaths: learningPathsStore.learningPaths, selectedPath: learningPathSelected).filter { (!($0.isCore ?? false) ) }
         case "Evaluated":
-            print("ffefffeefffrfef")
-            
             return sortLearningObjectives(learningPaths: learningPathsStore.learningPaths, selectedPath: learningPathSelected).filter { $0.assessments?.first?.value ?? 0 > 0 }
         case "All":
-            print("ffffrfef")
             return sortLearningObjectives(learningPaths: learningPathsStore.learningPaths, selectedPath: learningPathSelected)
         default:
-            print("ffffsefeeftffrfef")
             return filteredLearningObjectivesMap
             
         }
@@ -56,22 +49,16 @@ struct ScrollViewLearningObjectives: View {
         case "COMMUNAL":
             return self.mapLearningObjectivesStore.learningObjectives
         default:
-            return [LearningObjective]()
+            return filteredChallenges
         }
     }
     
-    //    var filteredChallenges: [LearningObjective] {
-    //        switch filterChallenge {
-    //        case "MC1":
-    //            return learningObjectivesSample.filter { $0.challenge.contains(.MC1) }
-    //        case "E5":
-    //            return learningObjectivesSample.filter { $0.challenge.contains(.E5) }
-    //        case "WF3":
-    //            return learningObjectivesSample.filter { $0.challenge.contains(.WF3) }
-    //        default:
-    //            return learningObjectivesSample
-    //        }
-    //    }
+    var filteredChallenges: [LearningObjective] {
+        switch filterChallenge {
+        case let filterChallengeTab:
+            return sortLearningObjectivesByChallenge(challenges: self.challengeStore.challenges, selectedChallenge: filterChallengeTab!)
+        }
+    }
     
     var isAddable = false
     
@@ -153,6 +140,29 @@ struct ScrollViewLearningObjectives: View {
                     }
                 } else {
                     arrayOfLearningObjectives.append(contentsOf: self.studentLearningObjectivesStore.learningObjectives)
+                    break
+                }
+            }
+            return arrayOfLearningObjectives
+        } else {
+            return arrayOfLearningObjectives
+        }
+    }
+    
+    func sortLearningObjectivesByChallenge(challenges: [LearningPath], selectedChallenge: String) -> [LearningObjective] {
+        
+        var arrayOfLearningObjectives : [LearningObjective] = [LearningObjective]()
+        
+        if challenges != nil && challenges.count > 0 {
+            for challenge in challenges {
+                if selectedChallenge != "" {
+                    if challenge.title!.lowercased().replacingOccurrences(of: "challenge ", with: "") == selectedChallenge.lowercased() {
+                        arrayOfLearningObjectives.append(contentsOf: challenge.learningObjectives ?? [LearningObjective]())
+                    }
+                } else {
+                    for learningObjective in self.challengeStore.challenges {
+                        arrayOfLearningObjectives.append(contentsOf:learningObjective.learningObjectives ?? [LearningObjective]())
+                    }
                     break
                 }
             }

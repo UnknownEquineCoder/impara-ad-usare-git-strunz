@@ -208,6 +208,14 @@ class LearningPathStore: ObservableObject {
     }
 }
 
+class ChallengesStore: ObservableObject {
+    @Published var challenges = [LearningPath]()
+    
+    func addItem(_ item: LearningPath) {
+        challenges.append(item)
+    }
+}
+
 class StudentLearningObjectivesStore: ObservableObject {
     @Published var learningObjectives = [LearningObjective]()
     

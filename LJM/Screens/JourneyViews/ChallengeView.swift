@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct ChallengeView: View {
+        
+    var challengeTabs : [String] {
+        return self.challengeStore.challenges.map({ $0.title!.replacingOccurrences(of: "challenge ", with: "") })
+    }
     
-    var challengeTabs = ["MC3", "E5", "WF3"]
     @State var selectedFilter = "MC3"
     @State var selectedFilterInsideButton = "All"
     @State private var searchText = ""
@@ -17,7 +20,7 @@ struct ChallengeView: View {
     
     @Environment(\.colorScheme) var colorScheme
     
-    @EnvironmentObject var learningPathsStore: LearningPathStore
+    @EnvironmentObject var challengeStore: ChallengesStore
     @EnvironmentObject var strandsStore: StrandsStore
     
     @ObservedObject var totalLOs : TotalNumberLearningObjectives
@@ -27,9 +30,6 @@ struct ChallengeView: View {
         VStack {
             VStack(alignment: .leading, spacing: 10, content: {
                 TitleScreenView(title: "Challenge")
-                    .onTapGesture {
-                        print("IOJUHYGTFGUH \(learningPathsStore.learningPaths)")
-                    }
                     
                 DescriptionTitleScreenView(desc: "Here you will find the Learning Objectives involved in each Challenge you will face during the Academy year.")
             }).frame(maxWidth: .infinity)
@@ -49,7 +49,7 @@ struct ChallengeView: View {
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .zIndex(1)
                 
-                ScrollViewLearningObjectives(totalLOs: totalLOs, selectedSegmentView: self.selectedSegmentView, filterChallenge: selectedFilter, isAddable: true, textFromSearchBar: searchText, selectedStrands: selectedStrands).padding(.top, 50)
+                ScrollViewLearningObjectives(totalLOs: totalLOs, selectedSegmentView: self.selectedSegmentView, learningPathSelected: selectedFilter, filterChallenge: selectedFilter, isAddable: true, textFromSearchBar: searchText, selectedStrands: selectedStrands).padding(.top, 50)
             }.frame(maxWidth: .infinity).padding(.top, 10)
         }.padding(.leading, 50).padding(.trailing, 50)
     }

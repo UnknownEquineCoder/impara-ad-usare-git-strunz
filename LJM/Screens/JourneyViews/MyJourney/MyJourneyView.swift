@@ -12,7 +12,7 @@ struct MyJourneyView: View {
     @State var selectedFilter = "All"
     @State var selectedFilterInsideButton = "All"
     @State var selectedStrands = [String]()
-
+    
     let arrayFilters = ["All", "Core", "Elective", "Evaluated"]
     
     @State private var searchText = ""
@@ -27,7 +27,7 @@ struct MyJourneyView: View {
     @ObservedObject var totalLOs : TotalNumberLearningObjectives
     
     @ObservedObject var selectedView : SelectedSegmentView
-        
+    
     var body: some View {
         VStack(alignment: .leading) {
             ZStack(alignment: .topLeading) {
@@ -52,9 +52,9 @@ struct MyJourneyView: View {
             
             ZStack(alignment: .topLeading) {
                 
-               // NumberTotalLearningOjbectivesView(totalLOs: calculateAllLearningObjectives(learningPath: learningPaths))
+                // NumberTotalLearningOjbectivesView(totalLOs: calculateAllLearningObjectives(learningPath: learningPaths))
                 NumberTotalLearningOjbectivesView(totalLOs: self.totalLOs.total)
-                                
+                
                 SearchBarExpandableJourney(txtSearchBar: $searchText).background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
                     .padding(.trailing, 200)
                     .frame(maxWidth: .infinity,  alignment: .trailing)
@@ -67,7 +67,7 @@ struct MyJourneyView: View {
                 
                 ListViewLearningObjectiveMyJourney(selectedFilter: $selectedFilter, txtSearchBar: $searchText, selectedPath: $selectedPath, selectedStrands: $selectedStrands, totalLOs: totalLOs, selectedSegmentView: self.selectedView)
                     .padding(.top, 50)
-                    
+                
             }.frame(maxWidth: .infinity).padding(.top, 10)
         }.padding(.leading, 50).padding(.trailing, 50)
     }
@@ -125,8 +125,18 @@ struct ListViewLearningObjectiveMyJourney: View {
     
     var body: some View {
         
-        if learningPathsStore.learningPaths.count > 0 {
-            ScrollViewLearningObjectives(totalLOs: self.totalLOs, selectedSegmentView: selectedSegmentView, learningPathSelected: selectedPath, filterCore: selectedFilter, isAddable: false, textFromSearchBar: txtSearchBar, selectedStrands: selectedStrands)
+        if studentLearningObjectivesStore.learningObjectives.count > 0 {
+            ZStack(alignment: .top) {
+                
+                Text("No learning objectives found ...")
+                    .font(.system(size: 25, weight: .semibold, design: .rounded))
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(Color.customDarkGrey)
+                    .padding(.top, 20)
+                    .isHidden(totalLOs.total > 0 ? true : false)
+                                
+                ScrollViewLearningObjectives(totalLOs: self.totalLOs, selectedSegmentView: selectedSegmentView, learningPathSelected: selectedPath, filterCore: selectedFilter, isAddable: false, textFromSearchBar: txtSearchBar, selectedStrands: selectedStrands)
+            }
         } else {
             EmptyLearningObjectiveViewJourney(selectedView: self.selectedSegmentView)
         }
