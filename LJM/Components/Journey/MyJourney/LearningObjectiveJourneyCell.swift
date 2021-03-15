@@ -107,10 +107,10 @@ struct LearningObjectiveJourneyCell: View {
                 
                 VStack(alignment: .center, spacing: 5) {
                     Spacer().frame(height: 200)
-                    Text(setupTitleProgressRubric(value: learningObjective.assessments?.first?.value ?? 0))
+                    Text(setupTitleProgressRubric(value: learningObjective.assessments?.last?.value ?? 0))
                         .font(.system(size: 15, weight: .medium))
                         .foregroundColor(Color.customCyan)
-                    Text(setupDescProgressOnRubric(value: learningObjective.assessments?.first?.value ?? 0))
+                    Text(setupDescProgressOnRubric(value: learningObjective.assessments?.last?.value ?? 0))
                         .font(.system(size: 10, weight: .medium))
                         .foregroundColor(Color.customDarkGrey)
                         .multilineTextAlignment(.center)
@@ -147,15 +147,15 @@ struct LearningObjectiveJourneyCell: View {
         case 0:
             return ""
         case 1:
-            return "value 1"
+            return "NO EXPOSURE"
         case 2:
-            return "value 2"
+            return "BEGGINING"
         case 3:
             return "PROGRESSING"
         case 4:
-            return "value 4"
+            return "PROFICIENT"
         case 5:
-            return "value 5"
+            return "EXEMPLARY"
             
         default:
             return ""

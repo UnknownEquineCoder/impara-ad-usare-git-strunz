@@ -222,6 +222,10 @@ class StudentLearningObjectivesStore: ObservableObject {
     func addItem(_ item: LearningObjective) {
         learningObjectives.append(item)
     }
+    
+    func removeItem(_ item: LearningObjective) {
+        learningObjectives.remove(object: item)
+    }
 }
 
 class MapLearningObjectivesStore: ObservableObject {

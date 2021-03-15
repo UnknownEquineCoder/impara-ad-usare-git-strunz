@@ -31,11 +31,11 @@ struct RatingView: View {
                         self.rating = number
                         self.hover = false
                         
-                        // func post assess
                         if learningObjectiveSelected.id != nil {
                             Webservices.addAssessment(learningObjId: learningObjectiveSelected.id!, value: number) { (assessment, err) in
                                 if err == nil {
-                                    print("NHIUGVYBUHNJ \(Date())")
+                                    // update UI rating level
+                                    
                                     // logic add a history view last assessment 2021-03-10T03:31:51.869Z
                                     
                                 }

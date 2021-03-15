@@ -56,7 +56,11 @@ struct ScrollViewLearningObjectives: View {
     var filteredChallenges: [LearningObjective] {
         switch filterChallenge {
         case let filterChallengeTab:
-            return sortLearningObjectivesByChallenge(challenges: self.challengeStore.challenges, selectedChallenge: filterChallengeTab!)
+            if filterChallengeTab != nil {
+                return sortLearningObjectivesByChallenge(challenges: self.challengeStore.challenges, selectedChallenge: filterChallengeTab!)
+            } else {
+                return [LearningObjective]()
+            }
         }
     }
     
@@ -74,8 +78,17 @@ struct ScrollViewLearningObjectives: View {
                     if textFromSearchBar.isEmpty || (item.title!.lowercased().contains(textFromSearchBar.lowercased())) || ((item.description!.lowercased().contains(textFromSearchBar.lowercased()))) {
                         if item.strand != nil {
                             if self.selectedStrands.contains(item.strand!) || self.selectedStrands.count == 0 {
-                                LearningObjectiveJourneyCell(rating: item.assessments?.first?.value ?? 0, isRatingView: isAddable ? true : false, isAddable: isAddable, learningObjective: item)
+                                LearningObjectiveJourneyCell(rating: item.assessments?.last?.value ?? 0, isRatingView: isAddable ? true : false, isAddable: isAddable, learningObjective: item)
                                     .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
+                                    .contextMenu {
+                                        if !isAddable {
+                                            Button {
+                                                self.studentLearningObjectivesStore.removeItem(item)
+                                            } label: {
+                                                Text("Delete")
+                                            }
+                                        }
+                                    }
                             }
                         }
                     }

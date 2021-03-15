@@ -38,6 +38,14 @@ struct AddButton: View {
             
             Button(action: {
                 self.didTap = true
+                // Create assessment
+                if learningObjectiveSelected.id != nil {
+                    Webservices.addAssessment(learningObjId: learningObjectiveSelected.id!, value: 0) { (assessment, err) in
+                        if err == nil {
+                            self.studentLearningObjectivesStore.addItem(learningObjectiveSelected)
+                        }
+                    }
+                }
             }){
                 ZStack {
                     if !checkStudentContainsLearningObjective(learningObjectiveId: self.learningObjectiveSelected.id ?? "No id") {
