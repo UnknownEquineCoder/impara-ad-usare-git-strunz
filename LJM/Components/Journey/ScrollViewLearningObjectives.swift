@@ -28,16 +28,22 @@ struct ScrollViewLearningObjectives: View {
         
         switch filterCore {
         case "Core":
-            return sortLearningObjectives(learningPaths: learningPathsStore.learningPaths, selectedPath: learningPathSelected).filter { $0.isCore ?? false }
+            return sortLearningObjectives(learningPaths: learningPathsStore.learningPaths, selectedPath: learningPathSelected)
+                .filter { $0.isCore ?? false }
+                .sorted { $0.title?.lowercased() ?? "No Title" < $1.title?.lowercased() ?? "NoTitle"}
         case "Elective":
-            return sortLearningObjectives(learningPaths: learningPathsStore.learningPaths, selectedPath: learningPathSelected).filter { (!($0.isCore ?? false) ) }
+            return sortLearningObjectives(learningPaths: learningPathsStore.learningPaths, selectedPath: learningPathSelected)
+                .filter { (!($0.isCore ?? false) ) }
+                .sorted { $0.title?.lowercased() ?? "No Title" < $1.title?.lowercased() ?? "NoTitle"}
         case "Evaluated":
-            return sortLearningObjectives(learningPaths: learningPathsStore.learningPaths, selectedPath: learningPathSelected).filter { $0.assessments?.first?.value ?? 0 > 0 }
+            return sortLearningObjectives(learningPaths: learningPathsStore.learningPaths, selectedPath: learningPathSelected)
+                .filter { $0.assessments?.first?.value ?? 0 > 0 }
+                .sorted { $0.title?.lowercased() ?? "No Title" < $1.title?.lowercased() ?? "NoTitle"}
         case "All":
             return sortLearningObjectives(learningPaths: learningPathsStore.learningPaths, selectedPath: learningPathSelected)
+                .sorted { $0.title?.lowercased() ?? "No Title" < $1.title?.lowercased() ?? "NoTitle"}
         default:
             return filteredLearningObjectivesMap
-            
         }
     }
     
