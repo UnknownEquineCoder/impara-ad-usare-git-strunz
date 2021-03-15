@@ -12,7 +12,7 @@ struct LearningObjectiveJourneyCell: View {
     @State var expand: Bool = false
     @State var isRatingView: Bool
     @Environment(\.colorScheme) var colorScheme
-        
+    
     var isAddable = false
     var learningObjective: LearningObjective
     
@@ -53,8 +53,8 @@ struct LearningObjectiveJourneyCell: View {
                             RatingView(learningObjectiveSelected: learningObjective, rating: $rating)
                                 .padding(.top, 15).padding(.trailing, 30)
                                 .onAppear(perform: {
-                                self.isRatingView.toggle()
-                            })
+                                    self.isRatingView.toggle()
+                                })
                         } else {
                             AddButton(learningObjectiveSelected: learningObjective, buttonSize: 27).padding(.trailing, 32).padding(.top, 24)
                         }
@@ -84,19 +84,20 @@ struct LearningObjectiveJourneyCell: View {
                                 Spacer()
                             }
                             
-                            Divider().background(Color.customDarkGrey).padding(.trailing, 60)
+                            Divider().background(Color(red: 70/255, green: 70/255, blue: 70/255)).padding(.trailing, 60)
                             
                             HStack {
                                 Text("HISTORY").foregroundColor(Color.customDarkGrey).font(.system(size: 17, weight: .light)).frame(width: 150, alignment: .leading)
-                                Spacer()
-                                ScrollView(.horizontal, showsIndicators: true) {
-                                    HStack(spacing: 10) {
-                                        ForEach(0..<2) { item in
-                                            HistoryProgressView()
+                                Spacer().frame(width: 100)
+                                    ScrollView(.horizontal, showsIndicators: false) {
+                                        HStack(spacing: 10) {
+                                            ForEach(learningObjective.assessments ?? [Assessment]()) { item in
+                                                HistoryProgressView(assessment: item)
+                                            }
                                         }
                                     }
-                                }.frame(width: 430)
-                                Spacer()
+                                
+                                Spacer().frame(width: 50)
                             }
                         }.padding(.leading, 40).padding(.bottom, 50)
                         
@@ -114,8 +115,7 @@ struct LearningObjectiveJourneyCell: View {
                         .font(.system(size: 10, weight: .medium))
                         .foregroundColor(Color.customDarkGrey)
                         .multilineTextAlignment(.center)
-                }.frame(width: 150, height: 50, alignment: .center)
-                .padding(.trailing, 54)
+                }.frame(width: 260, height: 100, alignment: .center)
                 .isHidden(self.isAddable ? true : false)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
                 .isHidden(self.expand ? false : true)
@@ -198,7 +198,7 @@ struct LearningObjectiveJourneyCell: View {
         }
         
         return colorPath
-    
+        
     }
 }
 

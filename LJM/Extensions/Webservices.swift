@@ -299,7 +299,7 @@ class Webservices {
         }
     }
     
-    static func addAssessment(learningObjId: String, value: Int, completion : @escaping AssessmentWebserviceResponse) {
+    static func addAssessment(learningObjId: String, date: String, value: Int, completion : @escaping AssessmentWebserviceResponse) {
         
         let headers : HTTPHeaders = [
             "Authorization": "Bearer "+URLs.loginKey,
@@ -309,13 +309,43 @@ class Webservices {
         
         let params : Parameters = [
             "value" : value,
-            "date" : "2021-03-10T03:31:51.869Z",
+            "date" : date,
             "learningObjective" : learningObjId
         ]
         
         AF.request(URLs.getAssessmentURL, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers).validate().responseJSON { (response) in
             let decoder = JSONDecoder()
             
+            do {
+                switch response.result {
+                case .success:
+                    print("success",response)
+                    let json = try decoder.decode(Assessment.self, from: response.data!)
+                    completion(json, nil)
+                case .failure(let error):
+                    print("failure",error)
+                }
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
+    static func deleteAssessment(id: String, completion : @escaping AssessmentWebserviceResponse) {
+
+        let headers : HTTPHeaders = [
+            "Authorization": "Bearer "+URLs.loginKey,
+            "Content-Type" : "application/json",
+            "accept" : "application/json"
+        ]
+
+        let params : Parameters = [
+            "id" : id
+        ]
+
+        AF.request(URLs.getAssessmentURL.appendingPathComponent(id), method: .delete, parameters: params, encoding: JSONEncoding.default, headers: headers).validate().responseJSON { (response) in
+            let decoder = JSONDecoder()
+
             do {
                 switch response.result {
                 case .success:

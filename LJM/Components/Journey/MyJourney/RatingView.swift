@@ -32,11 +32,14 @@ struct RatingView: View {
                         self.hover = false
                         
                         if learningObjectiveSelected.id != nil {
-                            Webservices.addAssessment(learningObjId: learningObjectiveSelected.id!, value: number) { (assessment, err) in
+                            let today = Date()
+                            let formatter = DateFormatter()
+                            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+                            
+                            Webservices.addAssessment(learningObjId: learningObjectiveSelected.id!, date: formatter.string(from: today), value: number) { (assessment, err) in
                                 if err == nil {
                                     // update UI rating level
-                                    
-                                    // logic add a history view last assessment 2021-03-10T03:31:51.869Z
+                                    // logic add a history view last assessment
                                     
                                 }
                             }
@@ -118,15 +121,15 @@ struct CircleView: View {
         case 0:
             return ""
         case 1:
-            return "value 1"
+            return "NO EXPOSURE"
         case 2:
-            return "value 2"
+            return "BEGGINING"
         case 3:
             return "PROGRESSING"
         case 4:
-            return "value 4"
+            return "PROFICIENT"
         case 5:
-            return "value 5"
+            return "EXEMPLARY"
             
         default:
             return ""
