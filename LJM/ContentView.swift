@@ -37,14 +37,12 @@ struct ContentView: View {
                     for learningObjective in learningObjectives {
                         mapLearningObjectivesStore.addItem(learningObjective)
                         if learningObjective.strand != nil {
-                            if !strandsStore.strands.contains(learningObjective.strand!) {
-                                strandsStore.addItem(learningObjective.strand!)
+                            if !strandsStore.strands.contains(learningObjective.strand!.strand) {
+                                strandsStore.addItem(learningObjective.strand!.strand)
                             }
                         }
                     }
                 }
-                
-                
             }
         }
         .environmentObject(studentLearningObjectivesStore)

@@ -40,11 +40,8 @@ struct AddButton: View {
                 self.didTap = true
                 // Create assessment
                 if learningObjectiveSelected.id != nil {
-                    let today = Date()
-                    let formatter = DateFormatter()
-                    formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
                     
-                    Webservices.addAssessment(learningObjId: learningObjectiveSelected.id!, date: formatter.string(from: today), value: 0) { (assessment, err) in
+                    Webservices.addAssessment(learningObjId: learningObjectiveSelected.id!, value: 0) { (assessment, err) in
                         if err == nil {
                             self.studentLearningObjectivesStore.addItem(learningObjectiveSelected)
                         }

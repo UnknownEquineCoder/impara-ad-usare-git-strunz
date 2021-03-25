@@ -11,10 +11,14 @@ struct LearningObjectiveJourneyCell: View {
     @State var rating = 0
     @State var expand: Bool = false
     @State var isRatingView: Bool
+    @State var value : Int = 0
     @Environment(\.colorScheme) var colorScheme
     
     var isAddable = false
-    var learningObjective: LearningObjective
+    
+ //   var learningObjective: LearningObjective
+    @ObservedObject var learningObj: LearningObjective
+
     
     @EnvironmentObject var learningPathsStore: LearningPathStore
     
@@ -23,25 +27,25 @@ struct LearningObjectiveJourneyCell: View {
             ZStack(alignment: .topLeading) {
                 Rectangle()
                     .frame(width: 20, alignment: .topLeading)
-                    .foregroundColor(setupColor())
+                    .foregroundColor(setupColor(darkMode: colorScheme == .dark ? true : false, strand: learningObj.strand!))
                 
                 VStack {
                     HStack(alignment: .top) {
                         VStack(alignment: .leading, spacing: 8) {
-                            Text(learningObjective.strand?.uppercased() ?? "No strand")
-                                .foregroundColor(setupColor())
+                            Text(learningObj.strand?.strand.uppercased() ?? "No strand")
+                                .foregroundColor(setupColor(darkMode: colorScheme == .dark ? true : false, strand: learningObj.strand!))
                                 .font(.system(size: 20, weight: .semibold, design: .rounded))
-                            Text(learningObjective.title?.uppercased() ?? "No title")
+                            Text(learningObj.title?.uppercased() ?? "No title")
                                 .foregroundColor(colorScheme == .dark ? Color(red: 255/255, green: 255/255, blue: 255/255) : Color.customDarkGrey)
                                 .font(.system(size: 22.toFontSize(), weight: .light))
-                            Text(learningObjective.isCore ?? true ? "CORE" : "ELECTIVE")
+                            Text(learningObj.isCore ?? true ? "CORE" : "ELECTIVE")
                                 .foregroundColor(colorScheme == .dark ? Color(red: 255/255, green: 255/255, blue: 255/255) : Color.customDarkGrey)
                                 .font(.system(size: 22.toFontSize(), weight: .light))
                         }.frame(width: 150, alignment: .leading).padding(.leading, 20).padding(.top, 15)
                         
                         Spacer().frame(width: 100)
                         
-                        Text(learningObjective.description ?? "No description")
+                        Text(learningObj.description ?? "No description")
                             .foregroundColor(colorScheme == .dark ? Color(red: 224/255, green: 224/255, blue: 224/255) : Color.customLightBlack)
                             .font(.system(size: 24.toFontSize(), weight: .regular))
                             .frame(maxWidth: 639.toScreenSize(), maxHeight: .infinity, alignment: .leading)
@@ -50,13 +54,13 @@ struct LearningObjectiveJourneyCell: View {
                         Spacer()
                         
                         if !isAddable {
-                            RatingView(learningObjectiveSelected: learningObjective, rating: $rating)
+                            RatingView(learningObj: learningObj, rating: $rating)
                                 .padding(.top, 15).padding(.trailing, 30)
                                 .onAppear(perform: {
                                     self.isRatingView.toggle()
                                 })
                         } else {
-                            AddButton(learningObjectiveSelected: learningObjective, buttonSize: 27).padding(.trailing, 32).padding(.top, 24)
+                            AddButton(learningObjectiveSelected: learningObj, buttonSize: 27).padding(.trailing, 32).padding(.top, 24)
                         }
                         
                     }.padding(.leading, 20)
@@ -73,7 +77,7 @@ struct LearningObjectiveJourneyCell: View {
                                 
                                 Spacer()
                                 
-                                Text("#\(learningObjective.tags?.joined(separator: " #") ?? "")")
+                                Text("#\(learningObj.tags?.joined(separator: " #") ?? "")")
                                     .foregroundColor(Color.customLightBlack)
                                     .font(.system(size: 16, weight: .medium))
                                     .lineLimit(4)
@@ -91,9 +95,16 @@ struct LearningObjectiveJourneyCell: View {
                                 Spacer().frame(width: 100)
                                     ScrollView(.horizontal, showsIndicators: false) {
                                         HStack(spacing: 10) {
-                                            ForEach(learningObjective.assessments ?? [Assessment]()) { item in
-                                                HistoryProgressView(assessment: item)
+                                            ForEach(learningObj.assessments ?? [Assessment]()) { item in
+                                                if item == learningObj.assessments?.last || item == learningObj.assessments?.first {
+                                                    
+                                                } else {
+                                                    HistoryProgressView(assessment: item)
+                                                
+                                                }
                                             }
+                                        }.onAppear {
+                                            learningObj.getAssessments()
                                         }
                                     }
                                 
@@ -108,13 +119,16 @@ struct LearningObjectiveJourneyCell: View {
                 
                 VStack(alignment: .center, spacing: 5) {
                     Spacer().frame(height: 200)
-                    Text(setupTitleProgressRubric(value: learningObjective.assessments?.last?.value ?? 0))
+                    Text(setupTitleProgressRubric(value: learningObj.assessments?.first?.value ?? 0))
                         .font(.system(size: 15, weight: .medium))
                         .foregroundColor(Color.customCyan)
-                    Text(setupDescProgressOnRubric(value: learningObjective.assessments?.last?.value ?? 0))
+                    Text(setupDescProgressOnRubric(value: learningObj.assessments?.first?.value ?? 0))
                         .font(.system(size: 10, weight: .medium))
                         .foregroundColor(Color.customDarkGrey)
                         .multilineTextAlignment(.center)
+                        .lineLimit(nil)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .frame(width: 200)
                 }.frame(width: 260, height: 100, alignment: .center)
                 .isHidden(self.isAddable ? true : false)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
@@ -136,9 +150,9 @@ struct LearningObjectiveJourneyCell: View {
         .background(colorScheme == .dark ? Color(red: 50/255, green: 50/255, blue: 50/255) : Color.customLightGrey)
         .cornerRadius(14)
         .onTapGesture {
-            withAnimation {
+        //    withAnimation {       // TEMPORARY REMOVED BECAUSE OF UI SMALL LEFT RECTANGLE VIEW GLITCHED
                 self.expand.toggle()
-            }
+         //   }
         }
     }
     
@@ -168,15 +182,15 @@ struct LearningObjectiveJourneyCell: View {
         case 0:
             return ""
         case 1:
-            return "Description value 1"
+            return ""
         case 2:
-            return "Description value 2"
+            return "You have been exposed to the content within the learning objective."
         case 3:
             return "You can understand and apply concepts with assistance."
         case 4:
-            return "Description value 4"
+            return "You understand the concepts, can analyze and evaluate when to use them and can apply them independently."
         case 5:
-            return "Description value 5"
+            return "You are a confident and creative learner of the concept and can serve as a guiding resource to others."
             
         default:
             return ""
@@ -184,19 +198,13 @@ struct LearningObjectiveJourneyCell: View {
         }
     }
     
-    func setupColor() -> Color {
-        var colorPath : Color = Color.red
-        
-        for learningPath in learningPathsStore.learningPaths {
-            if learningPath.learningObjectives != nil {
-                for learningObjectiveFromPath in learningPath.learningObjectives! {
-                    if learningObjectiveFromPath.id == self.learningObjective.id {
-                        colorPath = Color.init(red: learningPath.pathColor.red, green: learningPath.pathColor.green, blue: learningPath.pathColor.blue)
-                    }
-                }
-            }
-        }
-        
+    func setupColor(darkMode: Bool, strand: Strand) -> Color {
+        let red = darkMode ? strand.color!.dark.red : strand.color!.light.red
+        let green = darkMode ? strand.color!.dark.green : strand.color!.light.green
+        let blue = darkMode ? strand.color!.dark.blue : strand.color!.light.blue
+         
+        let colorPath = Color(red: Double(red) / 255.0, green: Double(green) / 255.0, blue: Double(blue) / 255.0)
+                
         return colorPath
         
     }

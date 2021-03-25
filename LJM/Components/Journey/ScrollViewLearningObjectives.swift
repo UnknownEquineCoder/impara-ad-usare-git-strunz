@@ -83,13 +83,19 @@ struct ScrollViewLearningObjectives: View {
                 ForEach(filteredLearningObjectives) { item in
                     if textFromSearchBar.isEmpty || (item.title!.lowercased().contains(textFromSearchBar.lowercased())) || ((item.description!.lowercased().contains(textFromSearchBar.lowercased()))) {
                         if item.strand != nil {
-                            if self.selectedStrands.contains(item.strand!) || self.selectedStrands.count == 0 {
-                                LearningObjectiveJourneyCell(rating: item.assessments?.last?.value ?? 0, isRatingView: isAddable ? true : false, isAddable: isAddable, learningObjective: item)
+                            if self.selectedStrands.contains(item.strand!.strand) || self.selectedStrands.count == 0 {
+                                LearningObjectiveJourneyCell(rating: item.assessments?.first?.value ?? 0, isRatingView: isAddable ? true : false, isAddable: isAddable, learningObj: item)
                                     .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
                                     .contextMenu {
                                         if !isAddable {
                                             Button {
-                                                self.studentLearningObjectivesStore.removeItem(item)
+                                                if item.id != nil {
+                                                    Webservices.deleteLearningObjectiveFromStudentJourney(id: item.id!) { (deletedLearningObj, err) in
+                                                        print("OKIJUYBVTUBINO \(deletedLearningObj) ----- \(err)")
+                                                        self.studentLearningObjectivesStore.removeItem(item)
+                                                        
+                                                    }
+                                                }
                                             } label: {
                                                 Text("Delete")
                                             }
@@ -117,7 +123,7 @@ struct ScrollViewLearningObjectives: View {
         .onChange(of: self.selectedStrands) { result in
             if !result.isEmpty {
                 self.totalLOs.total = self.filteredLearningObjectives.filter({ (LO) -> Bool in
-                    result.contains(LO.strand ?? "No Strand")
+                    result.contains(LO.strand?.strand ?? "No Strand")
                 }).count
             } else {
                 self.totalLOs.total = self.filteredLearningObjectives.count
@@ -150,9 +156,11 @@ struct ScrollViewLearningObjectives: View {
                 if selectedPath != "" {
                     if learningPath.title?.lowercased() == selectedPath.lowercased() {
                         for learningObjective in self.studentLearningObjectivesStore.learningObjectives {
-                            for LO in learningPath.learningObjectives! {
-                                if LO.id == learningObjective.id {
-                                    arrayOfLearningObjectives.append(learningObjective)
+                            if learningObjective.learningPaths != nil {
+                                for lp in learningObjective.learningPaths! {
+                                    if lp._id == learningPath.id {
+                                        arrayOfLearningObjectives.append(learningObjective)
+                                    }
                                 }
                             }
                         }
@@ -201,19 +209,5 @@ struct ScrollViewLearningObjectives: View {
             }
         }
         return value
-    }
-    
-    func setupTitleLearningObjective(learningPaths: LearningPathStore, learningObjectiveId: String) -> String {
-        var title = ""
-        if learningPaths != nil && learningPaths.learningPaths.count > 0 {
-            for learningPath in learningPaths.learningPaths {
-                for learningObjective in learningPath.learningObjectives! {
-                    if learningObjective.id == learningObjectiveId {
-                        title = learningPath.title ?? ""
-                    }
-                }
-            }
-        }
-        return title
     }
 }

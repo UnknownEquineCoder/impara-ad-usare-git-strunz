@@ -9,7 +9,9 @@ import SwiftUI
 
 struct RatingView: View {
     
-    var learningObjectiveSelected: LearningObjective
+    @ObservedObject var learningObj: LearningObjective
+    
+//    var learningObjectiveSelected: LearningObjective
     @Binding var rating: Int
     @State private var hover = false
     var maximumRating = 5
@@ -22,7 +24,7 @@ struct RatingView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 15, height: 15, alignment: .center)
-                .foregroundColor(learningObjectiveSelected.coreRubricLevel != nil ? Color.customCyan : Color.clear)
+                .foregroundColor(learningObj.coreRubricLevel != nil ? Color.customCyan : Color.clear)
                 .offset(x: setupGoalRating())
             
             HStack {
@@ -31,15 +33,13 @@ struct RatingView: View {
                         self.rating = number
                         self.hover = false
                         
-                        if learningObjectiveSelected.id != nil {
-                            let today = Date()
-                            let formatter = DateFormatter()
-                            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+                        if learningObj.id != nil {
                             
-                            Webservices.addAssessment(learningObjId: learningObjectiveSelected.id!, date: formatter.string(from: today), value: number) { (assessment, err) in
+                            Webservices.addAssessment(learningObjId: learningObj.id!, value: number) { (assessment, err) in
                                 if err == nil {
                                     // update UI rating level
                                     // logic add a history view last assessment
+                                    self.learningObj.getAssessments()
                                     
                                 }
                             }
@@ -63,7 +63,7 @@ struct RatingView: View {
     }
     
     func setupGoalRating() -> CGFloat {
-        switch learningObjectiveSelected.coreRubricLevel {
+        switch learningObj.coreRubricLevel {
         case 1:
             return -85
         case 2:

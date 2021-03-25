@@ -13,7 +13,7 @@ struct ChallengeView: View {
         return self.challengeStore.challenges.map({ $0.title!.replacingOccurrences(of: "challenge ", with: "") })
     }
     
-    @State var selectedFilter = "MC3"
+    @State var selectedFilter = ""
     @State var selectedFilterInsideButton = "All"
     @State private var searchText = ""
     @State var selectedStrands = [String]()
