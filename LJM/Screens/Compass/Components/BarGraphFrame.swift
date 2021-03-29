@@ -13,6 +13,9 @@ struct BarGraphFrame: View {
     var skills: [String]
     var levels: [String] = ["No Exposure", "Beginning", "Progressing", "Proficient", "Exemplary"]
     
+    @Binding var targetLabel: String
+    @Binding var showView: Bool
+    
     var body: some View {
         GeometryReader { geo in
             ZStack{
@@ -50,19 +53,24 @@ struct BarGraphFrame: View {
                         
                     }
                     HStack {
-                        VStack(alignment: .leading, spacing: 49.toScreenSize()){
-                            ForEach(skills, id: \.self){
-                                skill in
-                                
-                                Text(skill)
-                                    .foregroundColor(color)
-                                    .font(.system(size: 20.toFontSize()))
-                                    .fontWeight(.light)
-                                    .underline()
-                                //Spacer(minLength: 50)
-                            }
+                        VStack(alignment: .leading, spacing: 49.toScreenSize()) {
+                        ForEach(skills, id: \.self) { skill in
+                            Text(skill)
+                                .foregroundColor(color)
+                                .font(.system(size: 20.toFontSize()))
+                                .fontWeight(.light)
+                                .underline()
+                                .onTapGesture {
+                                    self.targetLabel = skill
+                                    self.showView = true
+                                }
+                            
                         }
-                        .padding(.leading, 51.toScreenSize())
+                            
+                        }.padding(.leading, 51.toScreenSize())
+                        
+                        
+                        
                         Spacer()
                         VStack(spacing: 51.toScreenSize()){
                             ForEach(skills, id: \.self){
@@ -90,6 +98,7 @@ struct BarGraphFrame: View {
 
 struct BarGraphFrame_Previews: PreviewProvider {
     static var previews: some View {
-        BarGraphFrame(color: .red, title: "PROCESS", skills: ["Aldo","Giovanni","Giacomo"])
+        //BarGraphFrame(color: .red, title: "PROCESS", skills: ["Aldo","Giovanni","Giacomo"])
+        EmptyView()
     }
 }
