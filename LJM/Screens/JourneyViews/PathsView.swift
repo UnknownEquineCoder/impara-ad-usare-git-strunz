@@ -19,10 +19,10 @@ struct PathsView: View {
     
     @ObservedObject var totalLOs : TotalNumberLearningObjectives
     @ObservedObject var selectedSegmentView : SelectedSegmentView
-        
+    
     @EnvironmentObject var learningPathsStore: LearningPathStore
     @EnvironmentObject var strandsStore: StrandsStore
-        
+    
     var body: some View {
         
         VStack {
@@ -76,7 +76,7 @@ struct PathsView: View {
                         .padding(.trailing, 20)
                         .frame(maxWidth: .infinity, alignment: .trailing)
                         .zIndex(1)
-                        
+                    
                     
                     //                    Button(action: {
                     //                        self.expand.toggle()
@@ -97,7 +97,18 @@ struct PathsView: View {
                     //                    }.buttonStyle(PlainButtonStyle())
                     //                    .padding(.trailing, 20)
                     //                }.padding(.top, 20)
-                    ScrollViewLearningObjectives(totalLOs: totalLOs, selectedSegmentView: self.selectedSegmentView, filteredMap: selectedFilter, isAddable: true, textFromSearchBar: searchText, selectedStrands: selectedStrands).padding(.top, 70)
+                    
+                    ZStack(alignment: .top) {
+                        Text("No learning objectives found ...")
+                            .font(.system(size: 25, weight: .semibold, design: .rounded))
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(Color.customDarkGrey)
+                            .padding(.top, 75)
+                            .isHidden(totalLOs.total > 0 ? true : false)
+                        
+                        ScrollViewLearningObjectives(totalLOs: totalLOs, selectedSegmentView: self.selectedSegmentView, filteredMap: selectedFilter, isAddable: true, textFromSearchBar: searchText, selectedStrands: selectedStrands).padding(.top, 70)
+                        
+                    }
                 }.frame(minWidth: 0, idealWidth: 1000, maxWidth: .infinity,
                         maxHeight: .infinity, alignment: .leading)
                 

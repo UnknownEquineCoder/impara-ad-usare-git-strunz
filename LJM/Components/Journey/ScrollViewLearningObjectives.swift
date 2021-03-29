@@ -50,12 +50,17 @@ struct ScrollViewLearningObjectives: View {
     var filteredLearningObjectivesMap: [LearningObjective] {
         switch filteredMap {
         case "FULL MAP":
-            //            return displayFullMapLearningObjectives(learningPaths: learningPathsStore.learningPaths, selectedFilter: nil)
             return self.mapLearningObjectivesStore.learningObjectives
         case "COMMUNAL":
             return self.mapLearningObjectivesStore.learningObjectives
-        default:
-            return filteredChallenges
+                .filter { $0.isCore ?? false }
+        case let filterPathsTab:
+            if filterPathsTab != nil {
+                return sortLearningObjectivesMap(learningPaths: learningPathsStore.learningPaths, selectedPath: filterPathsTab!)
+            } else {
+                return filteredChallenges
+            }
+
         }
     }
     
@@ -91,7 +96,6 @@ struct ScrollViewLearningObjectives: View {
                                             Button {
                                                 if item.id != nil {
                                                     Webservices.deleteLearningObjectiveFromStudentJourney(id: item.id!) { (deletedLearningObj, err) in
-                                                        print("OKIJUYBVTUBINO \(deletedLearningObj) ----- \(err)")
                                                         self.studentLearningObjectivesStore.removeItem(item)
                                                         
                                                     }
@@ -190,6 +194,28 @@ struct ScrollViewLearningObjectives: View {
                     for learningObjective in self.challengeStore.challenges {
                         arrayOfLearningObjectives.append(contentsOf:learningObjective.learningObjectives ?? [LearningObjective]())
                     }
+                    break
+                }
+            }
+            return arrayOfLearningObjectives
+        } else {
+            return arrayOfLearningObjectives
+        }
+    }
+    
+    func sortLearningObjectivesMap(learningPaths: [LearningPath], selectedPath: String) -> [LearningObjective] {
+        
+        var arrayOfLearningObjectives : [LearningObjective] = [LearningObjective]()
+        
+        if learningPaths != nil && learningPaths.count > 0 {
+            for learningPath in learningPaths {
+                if selectedPath != "" {
+                    if learningPath.title!.lowercased() == selectedPath.lowercased() {
+                        arrayOfLearningObjectives.append(contentsOf: learningPath.learningObjectives ?? [LearningObjective]())
+                    }
+                } else {
+                    arrayOfLearningObjectives.append(contentsOf:  self.mapLearningObjectivesStore.learningObjectives)
+                    
                     break
                 }
             }
