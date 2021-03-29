@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PathsView: View, LJMView {
+struct PathsView: View {
     @State var selectedFilter = "FULL MAP"
     @State var selectedStrands = [String]()
     @State var expand: Bool = false
@@ -17,7 +17,8 @@ struct PathsView: View, LJMView {
     
     @Environment(\.colorScheme) var colorScheme
     
-    @ObservedObject var totalLOs = TotalNumberLearningObjectives()
+    @ObservedObject var totalLOs : TotalNumberLearningObjectives
+    @ObservedObject var selectedSegmentView : SelectedSegmentView
         
     @EnvironmentObject var learningPathsStore: LearningPathStore
     @EnvironmentObject var strandsStore: StrandsStore
@@ -96,7 +97,7 @@ struct PathsView: View, LJMView {
                     //                    }.buttonStyle(PlainButtonStyle())
                     //                    .padding(.trailing, 20)
                     //                }.padding(.top, 20)
-                    ScrollViewLearningObjectives(totalLOs: totalLOs, filteredMap: selectedFilter, isAddable: true, textFromSearchBar: searchText, selectedStrands: selectedStrands).padding(.top, 70)
+                    ScrollViewLearningObjectives(totalLOs: totalLOs, selectedSegmentView: self.selectedSegmentView, filteredMap: selectedFilter, isAddable: true, textFromSearchBar: searchText, selectedStrands: selectedStrands).padding(.top, 70)
                 }.frame(minWidth: 0, idealWidth: 1000, maxWidth: .infinity,
                         maxHeight: .infinity, alignment: .leading)
                 
@@ -237,9 +238,9 @@ class ScrollToModel2: ObservableObject {
     @Published var direction: Action? = nil
 }
 
-struct PathsView_Previews: PreviewProvider {
-    static var previews: some View {
-        PathsView()
-    }
-}
+//struct PathsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        PathsView()
+//    }
+//}
 

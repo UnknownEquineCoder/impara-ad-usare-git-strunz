@@ -63,7 +63,7 @@ struct StudentPictureView: View {
                 
             }
             
-            ProfileNameLabel(qualifiedName: "Student Name so so so long").frame(width: 150)
+            ProfileNameLabel(qualifiedName: "James Harden").frame(width: 150)
                 
         }
         .padding(.trailing)

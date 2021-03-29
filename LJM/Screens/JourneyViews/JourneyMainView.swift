@@ -15,17 +15,16 @@ struct JourneyMainView: View, LJMView {
     
     @ObservedObject var selectedView = SelectedSegmentView()
     @ObservedObject var totalLOs = TotalNumberLearningObjectives()
-    
-    
+
     var body: some View {
         ZStack(alignment: .top) {
             if self.selectedView.selectedView == "My Journey" {
-                MyJourneyView(selectedView: self.selectedView).modifier(PaddingMainSubViews())
+                MyJourneyView(totalLOs: self.totalLOs, selectedView: self.selectedView).modifier(PaddingMainSubViews())
                     .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255): .white)
             } else if self.selectedView.selectedView == "Map" {
-                PathsView().modifier(PaddingMainSubViews())
+                PathsView(totalLOs: self.totalLOs, selectedSegmentView: self.selectedView).modifier(PaddingMainSubViews())
             } else {
-                ChallengeView().modifier(PaddingMainSubViews())
+                ChallengeView(totalLOs: self.totalLOs, selectedSegmentView: self.selectedView).modifier(PaddingMainSubViews())
             }
             
             HStack {

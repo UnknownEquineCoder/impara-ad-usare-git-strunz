@@ -11,6 +11,10 @@ import Combine
 
 
 struct AddButton: View {
+    var learningObjectiveSelected: LearningObjective
+    @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
+    
+    
     var buttonSize: CGFloat
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State private var didTap: Bool = false
@@ -28,51 +32,78 @@ struct AddButton: View {
         VStack{
             
             
-                CountDownWrapper<AddLabelView>()
-                    .opacity(didTap ? 1 : 0)
+            CountDownWrapper<AddLabelView>()
+                .opacity(didTap ? 1 : 0)
             
             
-        Button(action: {
-            self.didTap = true
-        }){
-            ZStack{
-                if didTap == false{
-                Image(systemName: "plus.circle")
-                    .resizable()
-                    .foregroundColor(Color("customCyan"))
-                }else{
-                    Image(systemName: "checkmark.circle.fill")
-                        .resizable()
-                        .foregroundColor(Color("customCyan"))
+            Button(action: {
+                self.didTap = true
+                // Create assessment
+                if learningObjectiveSelected.id != nil {
                     
+                    Webservices.addAssessment(learningObjId: learningObjectiveSelected.id!, value: 0) { (assessment, err) in
+                        if err == nil {
+                            self.studentLearningObjectivesStore.addItem(learningObjectiveSelected)
+                        }
+                    }
                 }
+            }){
+                ZStack {
+                    if !checkStudentContainsLearningObjective(learningObjectiveId: self.learningObjectiveSelected.id ?? "No id") {
+                        if didTap == false{
+                            Image(systemName: "plus.circle")
+                                .resizable()
+                                .foregroundColor(Color("customCyan"))
+                        }else{
+                            Image(systemName: "checkmark.circle.fill")
+                                .resizable()
+                                .foregroundColor(Color("customCyan"))
+                                .allowsHitTesting(false)
+                        }
+                    } else {
+                        Image(systemName: "checkmark.circle.fill")
+                            .resizable()
+                            .foregroundColor(Color("customCyan"))
+                            .allowsHitTesting(false)
+                    }
+                }
+                
             }
-
-        }
-        .frame(width: buttonSize.toScreenSize(), height: buttonSize.toScreenSize(), alignment: .center)
-        .buttonStyle(PlainButtonStyle())
-        
-           
-                CountDownWrapper<UndoView>()
-                    .opacity(didTap ? 1 : 0)
+            .frame(width: buttonSize.toScreenSize(), height: buttonSize.toScreenSize(), alignment: .center)
+            .buttonStyle(PlainButtonStyle())
+            
+            
+            CountDownWrapper<UndoView>()
+                .opacity(didTap ? 1 : 0)
             
         }
-  
+        
+    }
+    
+    func checkStudentContainsLearningObjective(learningObjectiveId : String) -> Bool {
+        var isAdded = false
+        for studentLearningObjective in studentLearningObjectivesStore.learningObjectives {
+            if studentLearningObjective.id == learningObjectiveId {
+                isAdded = true
+                return true
+            }
+        }
+        return isAdded
     }
 }
 
-struct AddButton_Previews: PreviewProvider {
-    static var previews: some View {
-        AddButton(buttonSize: 100)
-    }
-}
+//struct AddButton_Previews: PreviewProvider {
+//    static var previews: some View {
+//        AddButton(buttonSize: 100)
+//    }
+//}
 
 struct AddLabelView: Vanishable {
     @ObservedObject var counter: Counter
     
     var body: some View{
         Text("Added to My Journey!")
-        .foregroundColor(Color("customCyan"))
+            .foregroundColor(Color("customCyan"))
         
     }
     

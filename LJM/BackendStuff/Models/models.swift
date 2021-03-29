@@ -17,40 +17,6 @@ struct Student: Codable {
     var mentor: Mentor?
 }
 
-struct LearningObjOldVersion: Identifiable {
-    let id = UUID()
-    var title: String
-    let subtitle: String
-    let core: CoreEnum
-    var desc: String
-    let color: Color
-    let challenge: [ChallengeEnum?]
-    let rating: Int?
-    let ratingGoal: Int?
-    //    var learningPath: LearningPath
-    //    var strand: Strand
-}
-
-struct Challenge: Identifiable {
-    let id = UUID()
-    var title: String
-    var tag: String
-}
-
-struct AssessmentOld {
-    var value: Value?
-    var student: Student
-    var learningObj: LearningObjective
-    var metadata: Metadata
-}
-
-extension AssessmentOld {
-    struct Metadata {
-        var date: Date
-        var timeStamp: String
-    }
-}
-
 enum CoreEnum: String {
     case core = "Core"
     case elective = "Elective"
@@ -65,8 +31,6 @@ enum MapEnum: String {
 
 enum ChallengeEnum: String {
     case MC1 = "MC1"
-    case E5 = "E5"
-    case WF3 = "WF3"
 }
 
 enum Value {
@@ -77,13 +41,12 @@ enum Value {
     case exemplary
 }
 
-struct LearningPath: Codable, Identifiable {
+struct LearningPath: Decodable, Identifiable, Equatable {
     var id: String?
     var title: String?
     var description: String?
     var createdByStudent: String?
     var learningObjectives: [LearningObjective]?
-    var pathColor: ColorPath
     
     enum CodingKeys: String, CodingKey {
         case id = "_id"
@@ -91,16 +54,23 @@ struct LearningPath: Codable, Identifiable {
         case description
         case createdByStudent
         case learningObjectives
-        case pathColor
+    }
+    
+    static func == (lhs: LearningPath, rhs: LearningPath) -> Bool {
+        if lhs.id == rhs.id {
+            return true
+        } else {
+            return false
+        }
     }
 }
 
-struct LearningObjective: Codable, Identifiable, Hashable {
-        
+class LearningObjective: Decodable, Identifiable, Hashable, ObservableObject {
+    
     var id: String?
     var tags : [String]?
     var code: String?
-    var strand: String?
+    var strand: Strand?
     var title: String?
     var isCore: Bool?
     var objective: String?
@@ -108,8 +78,8 @@ struct LearningObjective: Codable, Identifiable, Hashable {
     var description: String?
     var createdByLearner: String?
     var documentation: String?
-    var __v: Int?
-    var assessments: [Assessment]?
+    @Published var assessments: [Assessment]?
+    var learningPaths: [LearningPathReference]?
     
     enum CodingKeys: String, CodingKey {
         case id = "_id"
@@ -123,16 +93,33 @@ struct LearningObjective: Codable, Identifiable, Hashable {
         case description
         case createdByLearner
         case coreRubricLevel
-        case __v
         case assessments
+        case learningPaths
     }
     
-    init(from decoder: Decoder) throws {
+    init(id: String?, tags: [String]?, code: String?, strand: Strand?, title: String?, isCore: Bool?, objective: String?, coreRubricLevel: Int?, description: String?, createdByLearner: String?, documentation: String?, learningPaths: [LearningPathReference]?) {
+        self.id = id
+        self.tags = tags
+        self.code = code
+        self.strand = strand
+        self.title = title
+        self.isCore = isCore
+        self.objective = objective
+        self.coreRubricLevel = coreRubricLevel
+        self.description = description
+        self.createdByLearner = createdByLearner
+        self.documentation = documentation
+       // self.assessments = assessments
+        self.learningPaths = learningPaths
+        getAssessments()
+    }
+    
+    required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         id = try values.decodeIfPresent(String.self, forKey: .id)
         tags = try values.decodeIfPresent([String].self, forKey: .tags)!
         code = try values.decodeIfPresent(String.self, forKey: .code)
-        strand = try values.decodeIfPresent(String.self, forKey: .strand)
+        strand = try values.decodeIfPresent(Strand.self, forKey: .strand)
         objective = try values.decodeIfPresent(String.self, forKey: .objective)
         documentation = try values.decodeIfPresent(String.self, forKey: .documentation)
         coreRubricLevel = try values.decodeIfPresent(Int.self, forKey: .coreRubricLevel)
@@ -140,44 +127,48 @@ struct LearningObjective: Codable, Identifiable, Hashable {
         isCore = try values.decodeIfPresent(Bool.self, forKey: .isCore)
         description = try values.decodeIfPresent(String.self, forKey: .description)
         createdByLearner = try values.decodeIfPresent(String.self, forKey: .createdByLearner)
-        __v = try values.decodeIfPresent(Int.self, forKey: .__v)
         assessments = try values.decodeIfPresent([Assessment].self, forKey: .assessments)
-        
+        learningPaths = try values.decodeIfPresent([LearningPathReference].self, forKey: .learningPaths)
     }
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
+    
+    static func == (lhs: LearningObjective, rhs: LearningObjective) -> Bool {
+        if lhs.id == rhs.id {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func getAssessments() -> Void {
+        print("IJOHUYBIN \(id)")
+        if id != nil {
+            Webservices.getAssessmentHistoryOfLearningObjective(learningObjectiveId: id!) { (assessments : [Assessment]?, err) in
+                print("INBUVTBHIJO ------ \(assessments) ------- \(err)")
+                if let assessments = assessments {
+                    self.assessments = assessments
+                    print("OIHBUHIJNKO?N  \(assessments)")
+                }
+            }
+        }
+    }
 }
 
-//struct StudentJourneyLearningObjective: Codable, Identifiable, Hashable {
-//
-//    var id: String?
-//    var tags : [String?]
-//    var title: String?
-//    var isCore: Bool?
-//    var isElective: Bool?
-//    var description: String?
-//    var createdByLearner: String?
-//    var __v: Int?
-//    var assessments: [Assessment?]
-//
-//    enum CodingKeys: String, CodingKey {
-//        case id = "_id"
-//        case tags
-//        case title
-//        case isCore
-//        case isElective
-//        case description
-//        case createdByLearner
-//        case __v
-//        case assessments
-//    }
-//
-//    func hash(into hasher: inout Hasher) {
-//        hasher.combine(id)
-//    }
-//}
+struct LearningPathReference: Codable, Equatable {
+    var _id: String?
+    var title: String?
+    
+    static func == (lhs: LearningPathReference, rhs: LearningPathReference) -> Bool {
+        if lhs._id == rhs._id {
+            return true
+        } else {
+            return false
+        }
+    }
+}
 
 struct Assessment: Codable, Identifiable, Hashable {
     var id: String?
@@ -199,25 +190,48 @@ struct Assessment: Codable, Identifiable, Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
+}
+
+struct Strand: Codable, Identifiable, Equatable {
+    var id: String
+    var strand: String
+    var color: StrandColor?
+    var __v: Int?
     
-    init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decodeIfPresent(String.self, forKey: .id)
-        value = try values.decodeIfPresent(Int.self, forKey: .value)
-        date = try values.decodeIfPresent(String.self, forKey: .date)
-        learningObjectiveId = try values.decodeIfPresent(String.self, forKey: .learningObjectiveId)
-        learnerId = try values.decodeIfPresent(String.self, forKey: .learnerId)
-        __v = try values.decodeIfPresent(Int.self, forKey: .__v)
+    enum CodingKeys: String, CodingKey {
+        case id = "_id"
+        case strand
+        case color
+        case __v
+    }
+    
+    static func == (lhs: Strand, rhs: Strand) -> Bool {
+        if lhs.id == rhs.id {
+            return true
+        } else {
+            return false
+        }
     }
 }
 
-struct ColorPath: Codable {
-    var red: Double
-    var green: Double
-    var blue: Double
+struct StrandColor: Codable {
+    var light: LightStrandColor
+    var dark: DarkStrandColor
 }
 
-struct StudentJourneyLearningObjectives: Codable {
+struct LightStrandColor: Codable {
+    var red: Int
+    var green: Int
+    var blue: Int
+}
+
+struct DarkStrandColor: Codable {
+    var red: Int
+    var green: Int
+    var blue: Int
+}
+
+struct StudentJourneyLearningObjectives: Decodable {
     var learningObjectives: [LearningObjective?]
 }
 
@@ -227,16 +241,9 @@ enum APIError: Error {
     case encodingProblem
 }
 
-struct ConnectAnswer: Decodable {
-    var id_token: String?
-    var access_token: String?
-    var refresh_token: String?
-    var token_type: String?
-    var userinfo: UserInfo?
-}
-
-struct DefaultAnswer: Decodable {
-    var detail: String?
+struct DeleteLOFromJourneyResponse: Codable {
+    var deletedCount: Int
+    var ok: Int
 }
 
 class LearningPathStore: ObservableObject {
@@ -247,11 +254,23 @@ class LearningPathStore: ObservableObject {
     }
 }
 
+class ChallengesStore: ObservableObject {
+    @Published var challenges = [LearningPath]()
+    
+    func addItem(_ item: LearningPath) {
+        challenges.append(item)
+    }
+}
+
 class StudentLearningObjectivesStore: ObservableObject {
     @Published var learningObjectives = [LearningObjective]()
     
     func addItem(_ item: LearningObjective) {
         learningObjectives.append(item)
+    }
+    
+    func removeItem(_ item: LearningObjective) {
+        learningObjectives.remove(object: item)
     }
 }
 
@@ -273,6 +292,7 @@ class StrandsStore: ObservableObject {
 
 class TotalNumberLearningObjectives: ObservableObject {
     @Published var total: Int = 0
+    @Published var changeViewTotal: Int = 0
 }
 
 class SelectedSegmentView: ObservableObject {
@@ -281,4 +301,8 @@ class SelectedSegmentView: ObservableObject {
 
 class StrandsFilter: ObservableObject {
     @Published var strands: [String] = [String]()
+}
+
+class HistoryStore: ObservableObject {
+    @Published var history: [Assessment] = [Assessment]()
 }

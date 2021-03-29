@@ -9,20 +9,31 @@ import SwiftUI
 
 struct HistoryProgressView: View {
     var maximumRating = 5
-    var rating = 3
+    var assessment : Assessment
     
     var body: some View {
+        
         HStack(spacing: 8) {
             HStack(spacing: 3) {
                 ForEach(1..<maximumRating + 1, id: \.self) { number in
-                    Image(systemName: "circle.fill")
+                    if number > assessment.value ?? 0 {
+                        Circle().strokeBorder(Color.white).frame(width: 15)
+                    } else {
+                        Circle().fill(Color.white).frame(width: 15)
+                    }
                 }
             }
             
-            Text("- 01/01/20")
+            Text(self.assessment.date ?? "")
+           // Text("Date")
             
             Button(action: {
-                // DELETE FUNC
+                if assessment.id != nil {
+                    Webservices.deleteAssessment(id: self.assessment.id!) { (assessment, err) in
+                        // UPDATE UI DELETED HISTORY
+                        
+                    }
+                }
             }) {
                 Image(systemName: "xmark.circle.fill").foregroundColor(Color.customBlack)
             }.buttonStyle(PlainButtonStyle())
@@ -30,11 +41,5 @@ struct HistoryProgressView: View {
         .padding(.leading, 10).padding(.trailing, 10)
         .background(Color.customDarkGrey)
         .cornerRadius(30 / 2)
-    }
-}
-
-struct HistoryProgressView_Previews: PreviewProvider {
-    static var previews: some View {
-        HistoryProgressView()
     }
 }

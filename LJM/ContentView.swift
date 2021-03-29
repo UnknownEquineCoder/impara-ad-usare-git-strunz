@@ -13,13 +13,18 @@ struct ContentView: View {
     @StateObject var learningPathsStore = LearningPathStore()
     @StateObject var mapLearningObjectivesStore = MapLearningObjectivesStore()
     @StateObject var strandsStore = StrandsStore()
+    @StateObject var challengesStore = ChallengesStore()
 
     var body: some View {
         
         Sidebar().onAppear {
             Webservices.getAllLearningPaths { learningPathResult, err  in
                 for learningPath in learningPathResult {
-                    learningPathsStore.addItem(learningPath)
+                    if learningPath.title!.lowercased().contains("challenge") {
+                        challengesStore.addItem(learningPath)
+                    } else {
+                        learningPathsStore.addItem(learningPath)
+                    }
                 }
                 
                 Webservices.getStudentJourneyLearningObjectives { (learningObjectives, err) in
@@ -32,8 +37,8 @@ struct ContentView: View {
                     for learningObjective in learningObjectives {
                         mapLearningObjectivesStore.addItem(learningObjective)
                         if learningObjective.strand != nil {
-                            if !strandsStore.strands.contains(learningObjective.strand!) {
-                                strandsStore.addItem(learningObjective.strand!)
+                            if !strandsStore.strands.contains(learningObjective.strand!.strand) {
+                                strandsStore.addItem(learningObjective.strand!.strand)
                             }
                         }
                     }
@@ -44,6 +49,7 @@ struct ContentView: View {
         .environmentObject(learningPathsStore)
         .environmentObject(mapLearningObjectivesStore)
         .environmentObject(strandsStore)
+        .environmentObject(challengesStore)
 //        LoginView()
         
     }

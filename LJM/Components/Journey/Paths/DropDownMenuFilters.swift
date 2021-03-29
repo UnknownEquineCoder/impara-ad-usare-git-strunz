@@ -17,6 +17,8 @@ struct DropDownMenuFilters: View {
     
     @Binding var selectedStrands : [String]
     
+    @Environment(\.colorScheme) var colorScheme
+    
     var filterOptions = [FilterChoice(descriptor: "Design"),
                          FilterChoice(descriptor: "Business/Marketing"),
                          FilterChoice(descriptor: "Professional Skills"),
@@ -42,6 +44,7 @@ struct DropDownMenuFilters: View {
                     
                 }.frame(width: 132.toScreenSize(), height: 35.toScreenSize(), alignment: .center)
                 .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color("customCyan")))
+                .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
             }
             .popover(
                 isPresented: self.$showPopover,

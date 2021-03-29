@@ -13,8 +13,10 @@ struct ScrollViewLearningObjectives: View {
     @EnvironmentObject var learningPathsStore: LearningPathStore
     @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
     @EnvironmentObject var mapLearningObjectivesStore: MapLearningObjectivesStore
+    @EnvironmentObject var challengeStore: ChallengesStore
     
     @ObservedObject var totalLOs : TotalNumberLearningObjectives
+    @ObservedObject var selectedSegmentView : SelectedSegmentView
     
     var learningPathSelected = ""
     
@@ -26,16 +28,22 @@ struct ScrollViewLearningObjectives: View {
         
         switch filterCore {
         case "Core":
-            return sortLearningObjectives(learningPaths: learningPathsStore.learningPaths, selectedPath: learningPathSelected).filter { $0.isCore ?? false }
+            return sortLearningObjectives(learningPaths: learningPathsStore.learningPaths, selectedPath: learningPathSelected)
+                .filter { $0.isCore ?? false }
+                .sorted { $0.title?.lowercased() ?? "No Title" < $1.title?.lowercased() ?? "NoTitle"}
         case "Elective":
-            return sortLearningObjectives(learningPaths: learningPathsStore.learningPaths, selectedPath: learningPathSelected).filter { (!($0.isCore ?? false) ) }
+            return sortLearningObjectives(learningPaths: learningPathsStore.learningPaths, selectedPath: learningPathSelected)
+                .filter { (!($0.isCore ?? false) ) }
+                .sorted { $0.title?.lowercased() ?? "No Title" < $1.title?.lowercased() ?? "NoTitle"}
         case "Evaluated":
-            return sortLearningObjectives(learningPaths: learningPathsStore.learningPaths, selectedPath: learningPathSelected).filter { $0.assessments?.first?.value ?? 0 > 0 }
+            return sortLearningObjectives(learningPaths: learningPathsStore.learningPaths, selectedPath: learningPathSelected)
+                .filter { $0.assessments?.first?.value ?? 0 > 0 }
+                .sorted { $0.title?.lowercased() ?? "No Title" < $1.title?.lowercased() ?? "NoTitle"}
         case "All":
             return sortLearningObjectives(learningPaths: learningPathsStore.learningPaths, selectedPath: learningPathSelected)
+                .sorted { $0.title?.lowercased() ?? "No Title" < $1.title?.lowercased() ?? "NoTitle"}
         default:
             return filteredLearningObjectivesMap
-            
         }
     }
     
@@ -47,22 +55,20 @@ struct ScrollViewLearningObjectives: View {
         case "COMMUNAL":
             return self.mapLearningObjectivesStore.learningObjectives
         default:
-            return [LearningObjective]()
+            return filteredChallenges
         }
     }
     
-    //    var filteredChallenges: [LearningObjective] {
-    //        switch filterChallenge {
-    //        case "MC1":
-    //            return learningObjectivesSample.filter { $0.challenge.contains(.MC1) }
-    //        case "E5":
-    //            return learningObjectivesSample.filter { $0.challenge.contains(.E5) }
-    //        case "WF3":
-    //            return learningObjectivesSample.filter { $0.challenge.contains(.WF3) }
-    //        default:
-    //            return learningObjectivesSample
-    //        }
-    //    }
+    var filteredChallenges: [LearningObjective] {
+        switch filterChallenge {
+        case let filterChallengeTab:
+            if filterChallengeTab != nil {
+                return sortLearningObjectivesByChallenge(challenges: self.challengeStore.challenges, selectedChallenge: filterChallengeTab!)
+            } else {
+                return [LearningObjective]()
+            }
+        }
+    }
     
     var isAddable = false
     
@@ -70,24 +76,61 @@ struct ScrollViewLearningObjectives: View {
     var selectedStrands: [String]
     
     var body: some View {
-        GeometryReader { gp in
-            ScrollView(showsIndicators: true) {
-                LazyVStack {
-                    ForEach(filteredLearningObjectives) { item in
-                        if textFromSearchBar.isEmpty || (item.title!.lowercased().contains(textFromSearchBar.lowercased())) || ((item.description!.lowercased().contains(textFromSearchBar.lowercased()))) {
-                            if item.strand != nil {
-                                if self.selectedStrands.contains(item.strand!) || self.selectedStrands.count == 0 {
-                                    LearningObjectiveJourneyCell(rating: item.assessments?.first?.value ?? 0, isAddable: isAddable, learningObjective: item)
-                                        .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
-                                }
+        
+        ScrollView(showsIndicators: true) {
+            
+            LazyVStack {
+                ForEach(filteredLearningObjectives) { item in
+                    if textFromSearchBar.isEmpty || (item.title!.lowercased().contains(textFromSearchBar.lowercased())) || ((item.description!.lowercased().contains(textFromSearchBar.lowercased()))) {
+                        if item.strand != nil {
+                            if self.selectedStrands.contains(item.strand!.strand) || self.selectedStrands.count == 0 {
+                                LearningObjectiveJourneyCell(rating: item.assessments?.first?.value ?? 0, isRatingView: isAddable ? true : false, isAddable: isAddable, learningObj: item)
+                                    .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
+                                    .contextMenu {
+                                        if !isAddable {
+                                            Button {
+                                                if item.id != nil {
+                                                    Webservices.deleteLearningObjectiveFromStudentJourney(id: item.id!) { (deletedLearningObj, err) in
+                                                        print("OKIJUYBVTUBINO \(deletedLearningObj) ----- \(err)")
+                                                        self.studentLearningObjectivesStore.removeItem(item)
+                                                        
+                                                    }
+                                                }
+                                            } label: {
+                                                Text("Delete")
+                                            }
+                                        }
+                                    }
                             }
                         }
                     }
                 }
-            }.frame(width: gp.size.width)
-            .onChange(of: self.filteredLearningObjectives) { result in
-                self.totalLOs.total = result.count
             }
+        }
+        .onChange(of: self.filteredLearningObjectives) { result in
+            self.totalLOs.total = result.count
+        }
+        .onChange(of: self.textFromSearchBar) { result in
+            if result != "" {
+                self.totalLOs.total = self.filteredLearningObjectives.filter({ (LO) -> Bool in
+                    LO.description?.lowercased().contains(result.lowercased()) ?? false || LO.title?.lowercased().contains(result.lowercased()) ?? false
+                    
+                }).count
+            } else {
+                self.totalLOs.total = self.filteredLearningObjectives.count
+            }
+        }
+        .onChange(of: self.selectedStrands) { result in
+            if !result.isEmpty {
+                self.totalLOs.total = self.filteredLearningObjectives.filter({ (LO) -> Bool in
+                    result.contains(LO.strand?.strand ?? "No Strand")
+                }).count
+            } else {
+                self.totalLOs.total = self.filteredLearningObjectives.count
+            }
+        }
+        .onReceive(totalLOs.$changeViewTotal) { (result) in
+            self.totalLOs.total = self.filteredLearningObjectives.count
         }
     }
     
@@ -96,9 +139,7 @@ struct ScrollViewLearningObjectives: View {
         
         for learningPath in learningPaths {
             if selectedFilter != nil || selectedFilter != "" {
-                //  if learningPath.title?.lowercased() == selectedFilter?.lowercased() {
                 arrayFullMapLearningObjectives.append(contentsOf: learningPath.learningObjectives!)
-                //  }
             } else {
                 arrayFullMapLearningObjectives.append(contentsOf: learningPath.learningObjectives!)
             }
@@ -109,21 +150,46 @@ struct ScrollViewLearningObjectives: View {
     func sortLearningObjectives(learningPaths: [LearningPath], selectedPath: String) -> [LearningObjective] {
         
         var arrayOfLearningObjectives : [LearningObjective] = [LearningObjective]()
-                
+        
         if learningPaths != nil && learningPaths.count > 0 {
             for learningPath in learningPaths {
                 if selectedPath != "" {
                     if learningPath.title?.lowercased() == selectedPath.lowercased() {
                         for learningObjective in self.studentLearningObjectivesStore.learningObjectives {
-                            for LO in learningPath.learningObjectives! {
-                                if LO.id == learningObjective.id {
-                                    arrayOfLearningObjectives.append(learningObjective)
+                            if learningObjective.learningPaths != nil {
+                                for lp in learningObjective.learningPaths! {
+                                    if lp._id == learningPath.id {
+                                        arrayOfLearningObjectives.append(learningObjective)
+                                    }
                                 }
                             }
                         }
                     }
                 } else {
                     arrayOfLearningObjectives.append(contentsOf: self.studentLearningObjectivesStore.learningObjectives)
+                    break
+                }
+            }
+            return arrayOfLearningObjectives
+        } else {
+            return arrayOfLearningObjectives
+        }
+    }
+    
+    func sortLearningObjectivesByChallenge(challenges: [LearningPath], selectedChallenge: String) -> [LearningObjective] {
+        
+        var arrayOfLearningObjectives : [LearningObjective] = [LearningObjective]()
+        
+        if challenges != nil && challenges.count > 0 {
+            for challenge in challenges {
+                if selectedChallenge != "" {
+                    if challenge.title!.lowercased().replacingOccurrences(of: "challenge ", with: "") == selectedChallenge.lowercased() {
+                        arrayOfLearningObjectives.append(contentsOf: challenge.learningObjectives ?? [LearningObjective]())
+                    }
+                } else {
+                    for learningObjective in self.challengeStore.challenges {
+                        arrayOfLearningObjectives.append(contentsOf:learningObjective.learningObjectives ?? [LearningObjective]())
+                    }
                     break
                 }
             }
@@ -143,19 +209,5 @@ struct ScrollViewLearningObjectives: View {
             }
         }
         return value
-    }
-    
-    func setupTitleLearningObjective(learningPaths: LearningPathStore, learningObjectiveId: String) -> String {
-        var title = ""
-        if learningPaths != nil && learningPaths.learningPaths.count > 0 {
-            for learningPath in learningPaths.learningPaths {
-                for learningObjective in learningPath.learningObjectives! {
-                    if learningObjective.id == learningObjectiveId {
-                        title = learningPath.title ?? ""
-                    }
-                }
-            }
-        }
-        return title
     }
 }

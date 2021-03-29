@@ -9,7 +9,9 @@ import SwiftUI
 
 struct RatingView: View {
     
-    var learningObjectiveSelected: LearningObjective
+    @ObservedObject var learningObj: LearningObjective
+    
+//    var learningObjectiveSelected: LearningObjective
     @Binding var rating: Int
     @State private var hover = false
     var maximumRating = 5
@@ -22,7 +24,7 @@ struct RatingView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 15, height: 15, alignment: .center)
-                .foregroundColor(learningObjectiveSelected.coreRubricLevel != nil ? Color.customCyan : Color.clear)
+                .foregroundColor(learningObj.coreRubricLevel != nil ? Color.customCyan : Color.clear)
                 .offset(x: setupGoalRating())
             
             HStack {
@@ -30,7 +32,18 @@ struct RatingView: View {
                     Button {
                         self.rating = number
                         self.hover = false
-                        print("JUHYGUHI \(learningObjectiveSelected.assessments)")
+                        
+                        if learningObj.id != nil {
+                            
+                            Webservices.addAssessment(learningObjId: learningObj.id!, value: number) { (assessment, err) in
+                                if err == nil {
+                                    // update UI rating level
+                                    // logic add a history view last assessment
+                                    self.learningObj.getAssessments()
+                                    
+                                }
+                            }
+                        }
                         
                     } label: {
                         CircleView(number: number, rating: rating)
@@ -50,7 +63,7 @@ struct RatingView: View {
     }
     
     func setupGoalRating() -> CGFloat {
-        switch learningObjectiveSelected.coreRubricLevel {
+        switch learningObj.coreRubricLevel {
         case 1:
             return -85
         case 2:
@@ -78,7 +91,7 @@ struct CircleView: View {
             .strokeBorder(number > rating ? (hovered ? Color.customCyan : Color.customDarkGrey) : Color.clear, lineWidth: 2)
             .background(Circle().foregroundColor(number > rating ? Color.customLightGrey : Color.customCyan))
             .popover(isPresented: self.$showingPopup) {
-                PopOverViewRating(showingPopup: $showingPopup)
+                PopOverViewRating(showingPopup: $showingPopup, status: setupTitleProgressRubric(value: number), desc: setupDescProgressOnRubric(value: number))
                     .background(Color.white).border(Color.white)
             }
             .onHover { hover in
@@ -101,6 +114,48 @@ struct CircleView: View {
                     }
                 }
             }
+    }
+    
+    func setupTitleProgressRubric(value: Int) -> String {
+        switch value {
+        case 0:
+            return ""
+        case 1:
+            return "NO EXPOSURE"
+        case 2:
+            return "BEGGINING"
+        case 3:
+            return "PROGRESSING"
+        case 4:
+            return "PROFICIENT"
+        case 5:
+            return "EXEMPLARY"
+            
+        default:
+            return ""
+            
+        }
+    }
+    
+    func setupDescProgressOnRubric(value: Int) -> String {
+        switch value {
+        case 0:
+            return ""
+        case 1:
+            return "Description value 1"
+        case 2:
+            return "Description value 2"
+        case 3:
+            return "You can understand and apply concepts with assistance."
+        case 4:
+            return "Description value 4"
+        case 5:
+            return "Description value 5"
+            
+        default:
+            return ""
+            
+        }
     }
 }
 
