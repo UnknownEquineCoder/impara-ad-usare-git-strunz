@@ -28,8 +28,9 @@ class Webservices {
     }
     
     struct URLs {
-        static let loginKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3N1ZXIiOiJodHRwczovL2FwcC5vbmVsb2dpbi5jb20vc2FtbC9tZXRhZGF0YS9kNzNmMWYyYS1mNTE2LTRkYzYtODlkOS1hMWU0NWM1NmUxODkiLCJpblJlc3BvbnNlVG8iOiJfZWE3MDBiMDljNTgwZWY1ZjBjNzAiLCJzZXNzaW9uSW5kZXgiOiJfODM3YzdlZDQtYmQ2MS00MDk0LWE0N2YtNDAyZjZhNTNiMDRmIiwibmFtZUlEIjoiMTIzMTgzODAyIiwibmFtZUlERm9ybWF0IjoidXJuOm9hc2lzOm5hbWVzOnRjOlNBTUw6Mi4wOm5hbWVpZC1mb3JtYXQ6cGVyc2lzdGVudCIsIm5hbWUiOiJUb255IiwiZW1haWwiOiJ0b25pLnRyZXNnb3RzQGdtYWlsLmNvbSIsImlhdCI6MTYxNzAxMzU0NSwiZXhwIjoxNjE3NjE4MzQ1fQ.fE-kHIJMV3Y6fVaRnCfVyDnv1CZUZcAuxhMXpk2eDnY"
-        static let baseURL = URL(string: "http://localhost")!
+        static let loginKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3N1ZXIiOiJodHRwczovL2FwcC5vbmVsb2dpbi5jb20vc2FtbC9tZXRhZGF0YS9kNzNmMWYyYS1mNTE2LTRkYzYtODlkOS1hMWU0NWM1NmUxODkiLCJpblJlc3BvbnNlVG8iOiJfNTE1NGVkOTk5YmI2YWVjZTBiNWMiLCJzZXNzaW9uSW5kZXgiOiJfNzg5ZDQyNWYtZThjYy00ZDI5LWE2MmYtMTFjY2MyMjRlM2Y1IiwibmFtZUlEIjoiMTIzMTgzODAyIiwibmFtZUlERm9ybWF0IjoidXJuOm9hc2lzOm5hbWVzOnRjOlNBTUw6Mi4wOm5hbWVpZC1mb3JtYXQ6cGVyc2lzdGVudCIsIm5hbWUiOiJUb255IiwiZW1haWwiOiJ0b25pLnRyZXNnb3RzQGdtYWlsLmNvbSIsImlhdCI6MTYxNzEwNTg0NiwiZXhwIjoxNjE3NzEwNjQ2fQ.fuauOS_eWgXMU-UOg6kseAunGWBZfXSYkdnmb473qCg"
+        
+        static let baseURL = URL(string: "ljm-dev-01.fed.it.iosda.org")!
         // AUTH URLs
         static let loginURL = baseURL.appendingPathComponent("/api/auth/oidc/login")
         
