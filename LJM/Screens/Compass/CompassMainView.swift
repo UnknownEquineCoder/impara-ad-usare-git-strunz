@@ -12,9 +12,17 @@ struct CompassView: View, LJMView {
     @State var path = "UI/UX"
     @State var progressValue: Float = 10
     
+    @State private var currentSubviewLabel = ""
+    @State private var showingSubview = false
+    
     var body: some View {
-        
-        ZStack{
+        StackNavigationView(
+            currentSubviewLabel: self.$currentSubviewLabel,
+            showingSubview: self.$showingSubview,
+            subviewByLabel: { label in
+                self.subView(forLabel: label)
+            }
+        ){        ZStack{
             
             colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white
             
@@ -57,19 +65,19 @@ struct CompassView: View, LJMView {
                         
                         Spacer()
                         
-                        BarGraphFrame(color: Color(red: 252/255, green: 135/255, blue: 85/255), title: "Process", skills: ["Act", "Engage", "Investigate", "Ongoing Activities", "Project Management", "Scrum"])
+                        BarGraphFrame(color: Color(red: 252/255, green: 135/255, blue: 85/255), title: "Process", skills: ["Act", "Engage", "Investigate", "Ongoing Activities", "Project Management", "Scrum"], targetLabel: $currentSubviewLabel, showView: $showingSubview)
                             .padding(.top, 54)
                         
-                        BarGraphFrame(color: Color(red: 101/255, green: 201/255, blue: 167/255), title: "Design", skills: ["Accessibility", "Branding", "Design Fundamentals", "Game Design and Art Direction", "HIG Basics", "Prototyping", "User-Centered Design"])
+                        BarGraphFrame(color: Color(red: 101/255, green: 201/255, blue: 167/255), title: "Design", skills: ["Accessibility", "Branding", "Design Fundamentals", "Game Design and Art Direction", "HIG Basics", "Prototyping", "User-Centered Design"], targetLabel: $currentSubviewLabel, showView: $showingSubview)
                             .padding(.top, 50)
                         
-                        BarGraphFrame(color: Color(red: 252/255, green: 176/255, blue: 69/255), title: "Professional Skills", skills: ["Creative Workflow", "Collaboration", "Communication", "Employability", "Personal Growth", "Presentations", "Story Telling"])
+                        BarGraphFrame(color: Color(red: 252/255, green: 176/255, blue: 69/255), title: "Professional Skills", skills: ["Creative Workflow", "Collaboration", "Communication", "Employability", "Personal Growth", "Presentations", "Story Telling"], targetLabel: $currentSubviewLabel, showView: $showingSubview)
                             .padding(.top, 50)
                         
-                        BarGraphFrame(color: Color(red: 114/255, green: 87/255, blue: 255/255), title: "Technical", skills: ["Developer Tools", "Interface Development", "Logic and Programming", "Media, Animations and Games", "Networking and Backend", "Operating Systems", "Platform Functionalities", "Supporting Frameworks"])
+                        BarGraphFrame(color: Color(red: 114/255, green: 87/255, blue: 255/255), title: "Technical", skills: ["Developer Tools", "Interface Development", "Logic and Programming", "Media, Animations and Games", "Networking and Backend", "Operating Systems", "Platform Functionalities", "Supporting Frameworks"], targetLabel: $currentSubviewLabel, showView: $showingSubview)
                             .padding(.top, 50)
                         
-                        BarGraphFrame(color: Color(red: 172/255, green: 77/255, blue: 185/255), title: "Business", skills: ["App Business", "App Marketing", "Entrepreneurship", "Legal Guidelines", "Store Guidelines", "Store Presence", "User Engagement"])
+                        BarGraphFrame(color: Color(red: 172/255, green: 77/255, blue: 185/255), title: "Business", skills: ["App Business", "App Marketing", "Entrepreneurship", "Legal Guidelines", "Store Guidelines", "Store Presence", "User Engagement"], targetLabel: $currentSubviewLabel, showView: $showingSubview)
                             .padding(.top, 50)
                             .padding(.bottom, 100)
                     }
@@ -81,9 +89,19 @@ struct CompassView: View, LJMView {
             
             .frame(minHeight: 1080.toScreenSize())
             
-            
+        }
         }
     }
+    
+    private func subView(forLabel label: String) -> LearningGoalsView {
+        return LearningGoalsView(titleView: label)
+    }
+    
+    private func showSubview(withLabel label: String) {
+        currentSubviewLabel = label
+        showingSubview = true
+    }
+    
 }
 
 

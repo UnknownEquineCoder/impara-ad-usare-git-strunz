@@ -37,7 +37,7 @@ struct AddButton: View {
             
             
             Button(action: {
-                self.didTap = true
+                self.didTap.toggle()
                 // Create assessment
                 if learningObjectiveSelected.id != nil {
                     
@@ -46,6 +46,20 @@ struct AddButton: View {
                             self.studentLearningObjectivesStore.addItem(learningObjectiveSelected)
                         }
                     }
+                    
+                    Webservices.deleteAssessment(id: learningObjectiveSelected.id!){ (assessment, err) in
+                        if err == nil {
+                            //DO STUFF
+                        }
+                    }
+                    
+                    Webservices.deleteLearningObjectiveFromStudentJourney(id: learningObjectiveSelected.id!) { value, error in
+                        if error == nil {
+                            //DO STUFF
+                        }
+                    }
+                        
+                    
                 }
             }){
                 ZStack {
@@ -58,13 +72,13 @@ struct AddButton: View {
                             Image(systemName: "checkmark.circle.fill")
                                 .resizable()
                                 .foregroundColor(Color("customCyan"))
-                                .allowsHitTesting(false)
+//                                .allowsHitTesting(false)
                         }
                     } else {
                         Image(systemName: "checkmark.circle.fill")
                             .resizable()
                             .foregroundColor(Color("customCyan"))
-                            .allowsHitTesting(false)
+//                            .allowsHitTesting(false)
                     }
                 }
                 
@@ -73,8 +87,8 @@ struct AddButton: View {
             .buttonStyle(PlainButtonStyle())
             
             
-            CountDownWrapper<UndoView>()
-                .opacity(didTap ? 1 : 0)
+//            CountDownWrapper<UndoView>()
+//                .opacity(didTap ? 1 : 0)
             
         }
         

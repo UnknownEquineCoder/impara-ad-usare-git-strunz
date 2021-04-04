@@ -51,11 +51,11 @@ struct PopoverView: View {
     
     var body: some View {
         VStack {
-            Text("Some text here aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").multilineTextAlignment(.center).lineLimit(4).padding()
+            Text("Adding this LO will automatically add it to 'My Journey' and mark it as checked in 'Map'").multilineTextAlignment(.leading).lineLimit(6)
             HStack{
-            Button("Resume") {
+            Button("Cancel") {
             }
-                Button("Laura") {
+                Button("Got it!") {
                 }
             }.padding()
             HStack{
