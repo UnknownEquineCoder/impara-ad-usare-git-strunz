@@ -58,6 +58,7 @@ struct CompassView: View, LJMView {
                             GraphWithOverlay()
                                 .frame(width: 395, height: 395)
                                 .padding(.all, 45)
+                                .padding(.bottom, 28)
                             
                             Spacer()
                         }
