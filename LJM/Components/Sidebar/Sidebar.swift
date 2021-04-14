@@ -23,11 +23,14 @@ struct Sidebar: View {
                     
                 Section(header: Text("Personal").font(.system(size: 28.toFontSize()))
                                 .fontWeight(.regular)) {
+                    
+                        Navigation<CompassView>(buttonName: "Compass", buttonIcon: "square", tag: 1, selection: selection)
+                    
+                        Navigation<JourneyMainView>(buttonName: "Map", buttonIcon: "square", tag: 2, selection: selection)
                         
-                        Navigation<JourneyMainView>(buttonName: "Journey", buttonIcon: "square", tag: 1, selection: selection)
+                        Navigation<JourneyMainView>(buttonName: "Journey", buttonIcon: "square", tag: 3, selection: selection)
 
-                    Navigation<CompassView>(buttonName: "Compass", buttonIcon: "square", tag: 2, selection: selection)
-                        Navigation<JourneyMainView>(buttonName: "Notebook", buttonIcon: "square", tag: 3, selection: selection)
+                        Navigation<JourneyMainView>(buttonName: "Notebook", buttonIcon: "square", tag: 4, selection: selection)
                     }
                     
                 Section(header: Text("Resume").font(.system(size: 28.toFontSize()))
