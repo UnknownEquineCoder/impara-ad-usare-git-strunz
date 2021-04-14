@@ -11,6 +11,8 @@ struct HistoryProgressView: View {
     var maximumRating = 5
     var assessment : Assessment
     
+    @ObservedObject var learningObj: LearningObjective
+    
     var body: some View {
         
         HStack(spacing: 8) {
@@ -25,13 +27,12 @@ struct HistoryProgressView: View {
             }
             
             Text(self.assessment.date ?? "")
-           // Text("Date")
             
             Button(action: {
                 if assessment.id != nil {
                     Webservices.deleteAssessment(id: self.assessment.id!) { (assessment, err) in
                         // UPDATE UI DELETED HISTORY
-                        
+                        self.learningObj.getAssessments()
                     }
                 }
             }) {

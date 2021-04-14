@@ -38,29 +38,6 @@ struct AddButton: View {
             
             Button(action: {
                 self.didTap.toggle()
-                // Create assessment
-                if learningObjectiveSelected.id != nil {
-                    
-                    Webservices.addAssessment(learningObjId: learningObjectiveSelected.id!, value: 0) { (assessment, err) in
-                        if err == nil {
-                            self.studentLearningObjectivesStore.addItem(learningObjectiveSelected)
-                        }
-                    }
-                    
-                    Webservices.deleteAssessment(id: learningObjectiveSelected.id!){ (assessment, err) in
-                        if err == nil {
-                            //DO STUFF
-                        }
-                    }
-                    
-                    Webservices.deleteLearningObjectiveFromStudentJourney(id: learningObjectiveSelected.id!) { value, error in
-                        if error == nil {
-                            //DO STUFF
-                        }
-                    }
-                        
-                    
-                }
             }){
                 ZStack {
                     if !checkStudentContainsLearningObjective(learningObjectiveId: self.learningObjectiveSelected.id ?? "No id") {
@@ -68,17 +45,33 @@ struct AddButton: View {
                             Image(systemName: "plus.circle")
                                 .resizable()
                                 .foregroundColor(Color("customCyan"))
+                                .onTapGesture {
+                                    if learningObjectiveSelected.id != nil {
+                                        Webservices.addAssessment(learningObjId: learningObjectiveSelected.id!, value: 0) { (assessment, err) in
+                                            if err == nil {
+                                                self.studentLearningObjectivesStore.addItem(learningObjectiveSelected)
+                                            }
+                                        }
+                                    }
+                                }
                         }else{
                             Image(systemName: "checkmark.circle.fill")
                                 .resizable()
                                 .foregroundColor(Color("customCyan"))
-//                                .allowsHitTesting(false)
+                                .onTapGesture {
+                                    if learningObjectiveSelected.id != nil {
+                                        Webservices.deleteLearningObjectiveFromStudentJourney(id: learningObjectiveSelected.id!) { value, error in
+                                            if error == nil {
+                                                self.studentLearningObjectivesStore.removeItem(learningObjectiveSelected)
+                                            }
+                                        }
+                                    }
+                                }
                         }
                     } else {
                         Image(systemName: "checkmark.circle.fill")
                             .resizable()
                             .foregroundColor(Color("customCyan"))
-//                            .allowsHitTesting(false)
                     }
                 }
                 
@@ -87,8 +80,8 @@ struct AddButton: View {
             .buttonStyle(PlainButtonStyle())
             
             
-//            CountDownWrapper<UndoView>()
-//                .opacity(didTap ? 1 : 0)
+            //            CountDownWrapper<UndoView>()
+            //                .opacity(didTap ? 1 : 0)
             
         }
         

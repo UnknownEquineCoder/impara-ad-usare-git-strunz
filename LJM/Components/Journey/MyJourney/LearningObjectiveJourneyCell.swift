@@ -45,7 +45,7 @@ struct LearningObjectiveJourneyCell: View {
                         
                         Spacer().frame(width: 100)
                         
-                        Text(learningObj.description ?? "No description")
+                        Text(learningObj.objective ?? "No description")
                             .foregroundColor(colorScheme == .dark ? Color(red: 224/255, green: 224/255, blue: 224/255) : Color.customLightBlack)
                             .font(.system(size: 24.toFontSize(), weight: .regular))
                             .frame(maxWidth: 639.toScreenSize(), maxHeight: .infinity, alignment: .leading)
@@ -99,7 +99,7 @@ struct LearningObjectiveJourneyCell: View {
                                                 if item == learningObj.assessments?.last || item == learningObj.assessments?.first {
                                                     
                                                 } else {
-                                                    HistoryProgressView(assessment: item)
+                                                    HistoryProgressView(assessment: item, learningObj: self.learningObj)
                                                 
                                                 }
                                             }

@@ -28,9 +28,10 @@ class Webservices {
     }
     
     struct URLs {
-        static let loginKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3N1ZXIiOiJodHRwczovL2FwcC5vbmVsb2dpbi5jb20vc2FtbC9tZXRhZGF0YS9kNzNmMWYyYS1mNTE2LTRkYzYtODlkOS1hMWU0NWM1NmUxODkiLCJpblJlc3BvbnNlVG8iOiJfNTE1NGVkOTk5YmI2YWVjZTBiNWMiLCJzZXNzaW9uSW5kZXgiOiJfNzg5ZDQyNWYtZThjYy00ZDI5LWE2MmYtMTFjY2MyMjRlM2Y1IiwibmFtZUlEIjoiMTIzMTgzODAyIiwibmFtZUlERm9ybWF0IjoidXJuOm9hc2lzOm5hbWVzOnRjOlNBTUw6Mi4wOm5hbWVpZC1mb3JtYXQ6cGVyc2lzdGVudCIsIm5hbWUiOiJUb255IiwiZW1haWwiOiJ0b25pLnRyZXNnb3RzQGdtYWlsLmNvbSIsImlhdCI6MTYxNzEwNTg0NiwiZXhwIjoxNjE3NzEwNjQ2fQ.fuauOS_eWgXMU-UOg6kseAunGWBZfXSYkdnmb473qCg"
-        
-        static let baseURL = URL(string: "ljm-dev-01.fed.it.iosda.org")!
+        static let loginKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3N1ZXIiOiJodHRwczovL2FwcC5vbmVsb2dpbi5jb20vc2FtbC9tZXRhZGF0YS9kNzNmMWYyYS1mNTE2LTRkYzYtODlkOS1hMWU0NWM1NmUxODkiLCJpblJlc3BvbnNlVG8iOiJfZDYwMDQ2ZjcwMThmN2VjMGI3NGUiLCJzZXNzaW9uSW5kZXgiOiJfMzMwZGY1ODktYThhNS00NTFlLWI5ODItN2RmMThkZTZmODJjIiwibmFtZUlEIjoiMTIyNzIyMDk0IiwibmFtZUlERm9ybWF0IjoidXJuOm9hc2lzOm5hbWVzOnRjOlNBTUw6Mi4wOm5hbWVpZC1mb3JtYXQ6cGVyc2lzdGVudCIsIm5hbWUiOiJHaW92YW5uaSIsImVtYWlsIjoiZ2lvdmFubmlAcHJpc2NvLmRldiIsImlhdCI6MTYxNzg3NzkzMCwiZXhwIjoxNjE4NDgyNzMwfQ.Pk2kdjTXKS_8mWbXiizW-BCdyk7Wx4ix-cdvci70ecw"
+                
+        static let baseURL = URL(string: "https://ljm-dev-01.fed.it.iosda.org")!
+      //  static let baseURL = URL(string: "http://localhost")!
         // AUTH URLs
         static let loginURL = baseURL.appendingPathComponent("/api/auth/oidc/login")
         
@@ -235,9 +236,7 @@ class Webservices {
         
         AF.request(URLs.deleteAssessmentURL.appendingPathComponent(id), method: .delete, parameters: params, encoding: JSONEncoding.default, headers: headers).validate().responseJSON { (response) in
             let decoder = JSONDecoder()
-            
-            print("INBUYVTUBHINJ \(response.request) ---- \(response.result) ------ \(response.response)")
-            
+                        
             do {
                 switch response.result {
                 case .success:
@@ -281,6 +280,10 @@ class Webservices {
                 print(error)
             }
         }
+    }
+    
+    static func getTheThing() {
+        
     }
 }
 
