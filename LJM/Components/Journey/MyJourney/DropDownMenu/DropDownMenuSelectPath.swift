@@ -11,7 +11,7 @@ struct DropDownMenuSelectPath: View {
     
     @EnvironmentObject var learningPathsStore: LearningPathStore
     
-    @Binding var selectedPath : String
+    @Binding var selectedPath : String?
     
     var body: some View {
         Menu {
@@ -23,7 +23,7 @@ struct DropDownMenuSelectPath: View {
                 }
             }
         } label: {
-            Text(selectedPath == "" ? "Select your path" : selectedPath)
+            Text((selectedPath == "" ? "Select your path" : selectedPath) ?? "Select your path")
         }.frame(width: 250)
     }
 }

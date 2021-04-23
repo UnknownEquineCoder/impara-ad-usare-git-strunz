@@ -9,33 +9,30 @@ import Foundation
 import SwiftUI
 
 struct LoginView: View {
-
+    
+    @State private var isSavingToken = false
+    
     @State private var email = ""
     @State private var password = ""
     @Environment(\.openURL) var openURL
     
-
     var body: some View {
-        VStack() {
-            Text("LJM")
-                .font(.largeTitle).foregroundColor(Color.black)
-                .padding([.top, .bottom], 40)
-                .shadow(radius: 10.0, x: 20, y: 10)
+        NavigationView {
+        ZStack {
+            
+            NavigationLink(destination: ContentView(), isActive: $isSavingToken) { EmptyView() }
             
             Button(action: {
-                //openURL(URL(string: "http://localhost:4000/auth/oidc/login")!)
+                if let url = URL(string: "LJM://LoginPage") {
+                    openURL(url)
+                }
                 
-                login(completion: { result in
-                    switch result {
-                    case .failure:
-                        print("failed")
-                    case .success(let user):
-                        print(user)
-                    }
-                    
-                })
+                DispatchQueue.main.asyncAfter(deadline: .now() + 60.0) {
+                    self.isSavingToken = true
+                }
+                
             }) {
-                    Text("Sign In")
+                Text("Sign In")
                     .font(.headline)
                     .foregroundColor(.white)
                     .padding()
@@ -45,8 +42,38 @@ struct LoginView: View {
                     .shadow(radius: 10.0, x: 20, y: 10)
             }.padding(.top, 50)
             
+            
+            //            Text("LJM")
+            //                .font(.largeTitle).foregroundColor(Color.black)
+            //                .padding([.top, .bottom], 40)
+            //                .shadow(radius: 10.0, x: 20, y: 10)
+            //
+            //            Button(action: {
+            //                //openURL(URL(string: "http://localhost:4000/auth/oidc/login")!)
+            //
+            //                login(completion: { result in
+            //                    switch result {
+            //                    case .failure:
+            //                        print("failed")
+            //                    case .success(let user):
+            //                        print(user)
+            //
+            //                    }
+            //
+            //                })
+            //            }) {
+            //                    Text("Sign In")
+            //                    .font(.headline)
+            //                    .foregroundColor(.white)
+            //                    .padding()
+            //                    .frame(width: 300, height: 20)
+            //                    .background(Color.green)
+            //                    .cornerRadius(15.0)
+            //                    .shadow(radius: 10.0, x: 20, y: 10)
+            //            }.padding(.top, 50)
+            
         }.background(Color.white)
-        
+        }
     }
 }
 

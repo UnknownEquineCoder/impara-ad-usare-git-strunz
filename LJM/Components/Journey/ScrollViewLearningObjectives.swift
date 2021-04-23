@@ -16,33 +16,35 @@ struct ScrollViewLearningObjectives: View {
     @EnvironmentObject var challengeStore: ChallengesStore
     
     @ObservedObject var totalLOs : TotalNumberLearningObjectives
-    @ObservedObject var selectedSegmentView : SelectedSegmentView
     
-    var learningPathSelected = ""
+    @Binding var learningPathSelected : String?
     
     var filterCore: CoreEnum.RawValue?
     var filteredMap: MapEnum.RawValue?
     var filterChallenge: ChallengeEnum.RawValue?
     
     var filteredLearningObjectives: [LearningObjective] {
-        
         switch filterCore {
+        
         case "Core":
-            return sortLearningObjectives(learningPaths: learningPathsStore.learningPaths, selectedPath: learningPathSelected)
+            return sortLearningObjectives(learningObj: studentLearningObjectivesStore.learningObjectives)
                 .filter { $0.isCore ?? false }
-                .sorted { $0.title?.lowercased() ?? "No Title" < $1.title?.lowercased() ?? "NoTitle"}
+                .sorted { $0.learningGoal?.lowercased() ?? "No Title" < $1.learningGoal?.lowercased() ?? "NoTitle"}
         case "Elective":
-            return sortLearningObjectives(learningPaths: learningPathsStore.learningPaths, selectedPath: learningPathSelected)
+
+            return sortLearningObjectives(learningObj: studentLearningObjectivesStore.learningObjectives)
                 .filter { (!($0.isCore ?? false) ) }
-                .sorted { $0.title?.lowercased() ?? "No Title" < $1.title?.lowercased() ?? "NoTitle"}
+                .sorted { $0.learningGoal?.lowercased() ?? "No Title" < $1.learningGoal?.lowercased() ?? "NoTitle"}
         case "Evaluated":
-            return sortLearningObjectives(learningPaths: learningPathsStore.learningPaths, selectedPath: learningPathSelected)
+
+            return sortLearningObjectives(learningObj: studentLearningObjectivesStore.learningObjectives)
                 .filter { $0.assessments?.first?.value ?? 0 > 0 }
-                .sorted { $0.title?.lowercased() ?? "No Title" < $1.title?.lowercased() ?? "NoTitle"}
+                .sorted { $0.learningGoal?.lowercased() ?? "No Title" < $1.learningGoal?.lowercased() ?? "NoTitle"}
         case "All":
-            return sortLearningObjectives(learningPaths: learningPathsStore.learningPaths, selectedPath: learningPathSelected)
-                .sorted { $0.title?.lowercased() ?? "No Title" < $1.title?.lowercased() ?? "NoTitle"}
+            return sortLearningObjectives(learningObj: studentLearningObjectivesStore.learningObjectives)
+                .sorted { $0.learningGoal?.lowercased() ?? "No Title" < $1.learningGoal?.lowercased() ?? "NoTitle"}
         default:
+
             return filteredLearningObjectivesMap
         }
     }
@@ -86,10 +88,10 @@ struct ScrollViewLearningObjectives: View {
             
             LazyVStack {
                 ForEach(filteredLearningObjectives) { item in
-                    if textFromSearchBar.isEmpty || (item.title!.lowercased().contains(textFromSearchBar.lowercased())) || ((item.description!.lowercased().contains(textFromSearchBar.lowercased()))) {
+                    if textFromSearchBar.isEmpty || (item.learningGoal!.lowercased().contains(textFromSearchBar.lowercased())) || ((item.description!.lowercased().contains(textFromSearchBar.lowercased()))) {
                         if item.strand != nil {
                             if self.selectedStrands.contains(item.strand!.strand) || self.selectedStrands.count == 0 {
-                                LearningObjectiveJourneyCell(rating: item.assessments?.first?.value ?? 0, isRatingView: isAddable ? true : false, isAddable: isAddable, learningObj: item)
+                                LearningObjectiveJourneyCell(rating: item.assessments?.first?.value ?? 0, isRatingView: isAddable ? true : false, isAddable: isAddable, learningPathSelected: self.$learningPathSelected, learningObj: item)
                                     .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
                                     .contextMenu {
                                         if !isAddable {
@@ -117,7 +119,7 @@ struct ScrollViewLearningObjectives: View {
         .onChange(of: self.textFromSearchBar) { result in
             if result != "" {
                 self.totalLOs.total = self.filteredLearningObjectives.filter({ (LO) -> Bool in
-                    LO.description?.lowercased().contains(result.lowercased()) ?? false || LO.title?.lowercased().contains(result.lowercased()) ?? false
+                    LO.description?.lowercased().contains(result.lowercased()) ?? false || LO.learningGoal?.lowercased().contains(result.lowercased()) ?? false
                     
                 }).count
             } else {
@@ -140,8 +142,9 @@ struct ScrollViewLearningObjectives: View {
     
     func displayFullMapLearningObjectives(learningPaths: [LearningPath], selectedFilter: String?) -> [LearningObjective] {
         var arrayFullMapLearningObjectives : [LearningObjective] = [LearningObjective]()
-        
+    
         for learningPath in learningPaths {
+
             if selectedFilter != nil || selectedFilter != "" {
                 arrayFullMapLearningObjectives.append(contentsOf: learningPath.learningObjectives!)
             } else {
@@ -151,33 +154,37 @@ struct ScrollViewLearningObjectives: View {
         return arrayFullMapLearningObjectives
     }
     
-    func sortLearningObjectives(learningPaths: [LearningPath], selectedPath: String) -> [LearningObjective] {
+    func sortLearningObjectives(learningObj: [LearningObjective]) -> [LearningObjective] {
         
-        var arrayOfLearningObjectives : [LearningObjective] = [LearningObjective]()
+    //    var arrayOfLearningObjectives : [LearningObjective] = [LearningObjective]()
         
-        if learningPaths != nil && learningPaths.count > 0 {
-            for learningPath in learningPaths {
-                if selectedPath != "" {
-                    if learningPath.title?.lowercased() == selectedPath.lowercased() {
-                        for learningObjective in self.studentLearningObjectivesStore.learningObjectives {
-                            if learningObjective.learningPaths != nil {
-                                for lp in learningObjective.learningPaths! {
-                                    if lp._id == learningPath.id {
-                                        arrayOfLearningObjectives.append(learningObjective)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    arrayOfLearningObjectives.append(contentsOf: self.studentLearningObjectivesStore.learningObjectives)
-                    break
-                }
-            }
-            return arrayOfLearningObjectives
-        } else {
-            return arrayOfLearningObjectives
-        }
+        return learningObj
+        
+//        if learningPaths != nil && learningPaths.count > 0 {
+//            for learningPath in learningPaths {
+//                if selectedPath != "" {
+//                    if learningPath.title?.lowercased() == selectedPath.lowercased() {
+//                        for learningObjective in self.studentLearningObjectivesStore.learningObjectives {
+//                            if learningObjective.learningPaths != nil {
+//                                for lp in learningObjective.learningPaths! {
+//                                    if lp._id == learningPath.id {
+//                                        print("OIJUHYHIJ \(learningObjective)")
+//                                        arrayOfLearningObjectives.append(learningObjective)
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                } else {
+//                    print("IJOUHYBINJOK")
+//                    arrayOfLearningObjectives.append(contentsOf: self.studentLearningObjectivesStore.learningObjectives)
+//                    break
+//                }
+//            }
+//            return arrayOfLearningObjectives
+//        } else {
+//            return arrayOfLearningObjectives
+//        }
     }
     
     func sortLearningObjectivesByChallenge(challenges: [LearningPath], selectedChallenge: String) -> [LearningObjective] {
@@ -186,12 +193,14 @@ struct ScrollViewLearningObjectives: View {
         
         if challenges != nil && challenges.count > 0 {
             for challenge in challenges {
+
                 if selectedChallenge != "" {
                     if challenge.title!.lowercased().replacingOccurrences(of: "challenge ", with: "") == selectedChallenge.lowercased() {
                         arrayOfLearningObjectives.append(contentsOf: challenge.learningObjectives ?? [LearningObjective]())
                     }
                 } else {
                     for learningObjective in self.challengeStore.challenges {
+
                         arrayOfLearningObjectives.append(contentsOf:learningObjective.learningObjectives ?? [LearningObjective]())
                     }
                     break
@@ -209,12 +218,13 @@ struct ScrollViewLearningObjectives: View {
         
         if learningPaths != nil && learningPaths.count > 0 {
             for learningPath in learningPaths {
+
                 if selectedPath != "" {
                     if learningPath.title!.lowercased() == selectedPath.lowercased() {
                         arrayOfLearningObjectives.append(contentsOf: learningPath.learningObjectives ?? [LearningObjective]())
                     }
                 } else {
-                    arrayOfLearningObjectives.append(contentsOf:  self.mapLearningObjectivesStore.learningObjectives)
+                    arrayOfLearningObjectives.append(contentsOf: self.mapLearningObjectivesStore.learningObjectives)
                     
                     break
                 }
@@ -229,6 +239,7 @@ struct ScrollViewLearningObjectives: View {
         var value = 0
         if assessments != nil {
             for assessment in assessments! {
+
                 if assessment.learningObjectiveId == learningObjectiveId {
                     value = assessment.value ?? 0
                 }

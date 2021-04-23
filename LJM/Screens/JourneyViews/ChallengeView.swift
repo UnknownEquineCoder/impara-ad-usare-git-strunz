@@ -58,7 +58,7 @@ struct ChallengeView: View {
                         .padding(.top, 75)
                         .isHidden(totalLOs.total > 0 ? true : false)
                     
-                    ScrollViewLearningObjectives(totalLOs: totalLOs, selectedSegmentView: self.selectedSegmentView, learningPathSelected: selectedFilter, filterChallenge: selectedFilter, isAddable: true, textFromSearchBar: searchText, selectedStrands: selectedStrands).padding(.top, 50)
+                    ScrollViewLearningObjectives(totalLOs: totalLOs, learningPathSelected: Binding.constant(nil), filterChallenge: selectedFilter, isAddable: true, textFromSearchBar: searchText, selectedStrands: selectedStrands).padding(.top, 50)
                 }
             }.frame(maxWidth: .infinity).padding(.top, 10)
         }.padding(.leading, 50).padding(.trailing, 50)

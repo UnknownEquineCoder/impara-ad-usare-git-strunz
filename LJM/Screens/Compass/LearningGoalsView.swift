@@ -18,11 +18,11 @@ struct LearningGoalsView: View {
     @Environment(\.colorScheme) var colorScheme
     var titleView: String
     
-    @EnvironmentObject var learningPathsStore: LearningPathStore
-    @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
-    @EnvironmentObject var strandsStore: StrandsStore
-    
-    @ObservedObject var totalLOs = TotalNumberLearningObjectives()
+//    @EnvironmentObject var learningPathsStore: LearningPathStore
+//    @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
+//    @EnvironmentObject var strandsStore: StrandsStore
+//
+//    @ObservedObject var totalLOs = TotalNumberLearningObjectives()
     
     //@ObservedObject var selectedView : SelectedSegmentView
     

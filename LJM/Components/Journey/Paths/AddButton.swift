@@ -20,7 +20,6 @@ struct AddButton: View {
     @State private var didTap: Bool = false
     @State private var counter: Int = 5 {
         didSet {
-            print(counter)
             if counter <= 0 {
                 didTap = false
                 print("Tieni le corna")
@@ -72,6 +71,15 @@ struct AddButton: View {
                         Image(systemName: "checkmark.circle.fill")
                             .resizable()
                             .foregroundColor(Color("customCyan"))
+                            .onTapGesture {
+                                if learningObjectiveSelected.id != nil {
+                                    Webservices.deleteLearningObjectiveFromStudentJourney(id: learningObjectiveSelected.id!) { value, error in
+                                        if error == nil {
+                                            self.studentLearningObjectivesStore.removeItem(learningObjectiveSelected)
+                                        }
+                                    }
+                                }
+                            }
                     }
                 }
                 
@@ -126,7 +134,7 @@ struct UndoView: Vanishable {
                 .frame(width: 16, height: 16)
                 .overlay(Circle().stroke().foregroundColor(Color.gray))
             Button{
-                print()
+
             }label:{
                 Text("Undo")
                     .foregroundColor(.red)

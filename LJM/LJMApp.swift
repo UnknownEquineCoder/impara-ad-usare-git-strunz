@@ -10,13 +10,27 @@ import CoreData
 
 @main
 struct LJMApp: App {
-    
-//    let context = PersistentContainerWrapper()
+        
+    @StateObject var userAuth = UserAuth()
+
+    //    let context = PersistentContainerWrapper()
+  //  @EnvironmentObject var userAuth: UserAuth
     
     var body: some Scene {
+        
         WindowGroup {
-            ContentView()
-//                .environment(\.managedObjectContext, context.container.viewContext)
+            //   MainScreen().environmentObject(userAuth)
+                
+        //     ContentView()
+            
+            LoginView()
+            
+            //             ContentView()
+            //                .environment(\.managedObjectContext, context.container.viewContext)
         }
+
+        WindowGroup("LoginPage") {
+            WebviewLogin(url: "https://ljm-dev-01.fed.it.iosda.org/api/auth/saml/login").environmentObject(userAuth)
+        }.handlesExternalEvents(matching: Set(arrayLiteral: "*"))
     }
 }

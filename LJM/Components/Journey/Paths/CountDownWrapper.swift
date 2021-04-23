@@ -12,7 +12,7 @@ import Combine
 class Counter: ObservableObject {
     @Published var value: Int = 5 {
         didSet {
-            print(value)
+            
         }
     }
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()

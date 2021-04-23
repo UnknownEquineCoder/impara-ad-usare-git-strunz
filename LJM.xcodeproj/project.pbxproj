@@ -45,6 +45,9 @@
 		96BE89D0257553BF00BE9E8F /* CountDownWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE89CF257553BF00BE9E8F /* CountDownWrapper.swift */; };
 		96CC613F257A38FC00CE7ABD /* DropDownMenuFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC613D257A38FC00CE7ABD /* DropDownMenuFilters.swift */; };
 		96CE7BC625C4183A006C4CDA /* FilterChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CE7BC525C4183A006C4CDA /* FilterChoice.swift */; };
+		EA5B445D262E6F23002A97C7 /* MyJourneyMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5B445C262E6F23002A97C7 /* MyJourneyMainView.swift */; };
+		EA5B4463263027ED002A97C7 /* WebviewLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5B4462263027ED002A97C7 /* WebviewLogin.swift */; };
+		EA5B447826310DF7002A97C7 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = EA5B447726310DF7002A97C7 /* SwiftKeychainWrapper */; };
 		EA686EF9256EE4F300C121DC /* TopBarJourney.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA686EF8256EE4F300C121DC /* TopBarJourney.swift */; };
 		EA686F07256EF1F100C121DC /* JourneyMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA686F06256EF1F100C121DC /* JourneyMainView.swift */; };
 		EA686F10256EF67B00C121DC /* MyJourneyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA686F0F256EF67B00C121DC /* MyJourneyView.swift */; };
@@ -147,6 +150,8 @@
 		96BE89CF257553BF00BE9E8F /* CountDownWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownWrapper.swift; sourceTree = "<group>"; };
 		96CC613D257A38FC00CE7ABD /* DropDownMenuFilters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownMenuFilters.swift; sourceTree = "<group>"; };
 		96CE7BC525C4183A006C4CDA /* FilterChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterChoice.swift; sourceTree = "<group>"; };
+		EA5B445C262E6F23002A97C7 /* MyJourneyMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyJourneyMainView.swift; sourceTree = "<group>"; };
+		EA5B4462263027ED002A97C7 /* WebviewLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebviewLogin.swift; sourceTree = "<group>"; };
 		EA686EF8256EE4F300C121DC /* TopBarJourney.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarJourney.swift; sourceTree = "<group>"; };
 		EA686F06256EF1F100C121DC /* JourneyMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyMainView.swift; sourceTree = "<group>"; };
 		EA686F0F256EF67B00C121DC /* MyJourneyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyJourneyView.swift; sourceTree = "<group>"; };
@@ -180,6 +185,7 @@
 			files = (
 				961DB4E725E670AD0020E9F6 /* Sliders in Frameworks */,
 				EACD025325D53BC2008D12FE /* Alamofire in Frameworks */,
+				EA5B447826310DF7002A97C7 /* SwiftKeychainWrapper in Frameworks */,
 				964448BD25E500EA00F8359F /* Shapes in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -317,6 +323,7 @@
 		964B665C256E6270006AB20E /* BackendStuff */ = {
 			isa = PBXGroup;
 			children = (
+				EA5B446F26310AB9002A97C7 /* Auth */,
 				EAF3707725834D6100C72707 /* Models */,
 				9670A9802571134E0043F227 /* undefined.swift */,
 				965F00FB25826987004D9111 /* ProfilePictureProvider.swift */,
@@ -358,6 +365,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		EA5B446F26310AB9002A97C7 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				EA5B4462263027ED002A97C7 /* WebviewLogin.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
 		EA686EF7256EE48900C121DC /* Journey */ = {
 			isa = PBXGroup;
 			children = (
@@ -379,6 +394,7 @@
 				EAD2C80F25703515008CDDA1 /* MyJourney */,
 				EA686F17256EF69100C121DC /* PathsView.swift */,
 				EA686F1C256EF69C00C121DC /* ChallengeView.swift */,
+				EA5B445C262E6F23002A97C7 /* MyJourneyMainView.swift */,
 			);
 			path = JourneyViews;
 			sourceTree = "<group>";
@@ -464,6 +480,7 @@
 				EACD025225D53BC2008D12FE /* Alamofire */,
 				964448BC25E500EA00F8359F /* Shapes */,
 				961DB4E625E670AD0020E9F6 /* Sliders */,
+				EA5B447726310DF7002A97C7 /* SwiftKeychainWrapper */,
 			);
 			productName = LJM;
 			productReference = 964B6628256E6020006AB20E /* LJM.app */;
@@ -540,6 +557,7 @@
 				EACD025125D53BC2008D12FE /* XCRemoteSwiftPackageReference "Alamofire" */,
 				964448BB25E500EA00F8359F /* XCRemoteSwiftPackageReference "swiftui-shapes" */,
 				961DB4E525E670AD0020E9F6 /* XCRemoteSwiftPackageReference "swiftui-sliders" */,
+				EA5B447626310DF7002A97C7 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
 			);
 			productRefGroup = 964B6629256E6020006AB20E /* Products */;
 			projectDirPath = "";
@@ -606,9 +624,11 @@
 				964B665E256E64FD006AB20E /* StudentPictureView.swift in Sources */,
 				EACD027125DE88AA008D12FE /* DropDownMenuSelectPath.swift in Sources */,
 				EA686F07256EF1F100C121DC /* JourneyMainView.swift in Sources */,
+				EA5B4463263027ED002A97C7 /* WebviewLogin.swift in Sources */,
 				EA7028D12579E32500E1B6EB /* ColorsExtension.swift in Sources */,
 				964C75A925EE5983002D8634 /* LegendView.swift in Sources */,
 				9672C8F425E3F46B005CC753 /* RadarChartView.swift in Sources */,
+				EA5B445D262E6F23002A97C7 /* MyJourneyMainView.swift in Sources */,
 				EA686EF9256EE4F300C121DC /* TopBarJourney.swift in Sources */,
 				96CC613F257A38FC00CE7ABD /* DropDownMenuFilters.swift in Sources */,
 				EA686F2E256F25CF00C121DC /* Extensions.swift in Sources */,
@@ -801,7 +821,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"LJM/Preview Content\"";
-				DEVELOPMENT_TEAM = 98GZP44QG5;
+				DEVELOPMENT_TEAM = KXZF72639J;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = LJM/Info.plist;
@@ -826,7 +846,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"LJM/Preview Content\"";
-				DEVELOPMENT_TEAM = 98GZP44QG5;
+				DEVELOPMENT_TEAM = KXZF72639J;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = LJM/Info.plist;
@@ -983,6 +1003,14 @@
 				minimumVersion = 1.1.0;
 			};
 		};
+		EA5B447626310DF7002A97C7 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jrendel/SwiftKeychainWrapper";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.1;
+			};
+		};
 		EACD025125D53BC2008D12FE /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -1003,6 +1031,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 964448BB25E500EA00F8359F /* XCRemoteSwiftPackageReference "swiftui-shapes" */;
 			productName = Shapes;
+		};
+		EA5B447726310DF7002A97C7 /* SwiftKeychainWrapper */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EA5B447626310DF7002A97C7 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */;
+			productName = SwiftKeychainWrapper;
 		};
 		EACD025225D53BC2008D12FE /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;

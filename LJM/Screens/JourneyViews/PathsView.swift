@@ -106,7 +106,7 @@ struct PathsView: View {
                             .padding(.top, 75)
                             .isHidden(totalLOs.total > 0 ? true : false)
                         
-                        ScrollViewLearningObjectives(totalLOs: totalLOs, selectedSegmentView: self.selectedSegmentView, filteredMap: selectedFilter, isAddable: true, textFromSearchBar: searchText, selectedStrands: selectedStrands).padding(.top, 70)
+                        ScrollViewLearningObjectives(totalLOs: totalLOs, learningPathSelected: Binding.constant(nil), filteredMap: selectedFilter, isAddable: true, textFromSearchBar: searchText, selectedStrands: selectedStrands).padding(.top, 70)
                         
                     }
                 }.frame(minWidth: 0, idealWidth: 1000, maxWidth: .infinity,
