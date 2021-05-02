@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RatingView: View {
     
-    @ObservedObject var learningObj: LearningObjective
+    @State var learningObj: LearningObjective
     
     @Binding var rating: Int
     @State private var hover = false

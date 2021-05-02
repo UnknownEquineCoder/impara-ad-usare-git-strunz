@@ -11,7 +11,7 @@ struct HistoryProgressView: View {
     var maximumRating = 5
     var assessment : Assessment
     
-    @ObservedObject var learningObj: LearningObjective
+    @State var learningObj: LearningObjective
     
     var body: some View {
         

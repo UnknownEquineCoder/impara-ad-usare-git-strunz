@@ -1,10 +1,3 @@
-//
-//  Extensions.swift
-//  LJM
-//
-//  Created by Tony Tresgots on 26/11/2020.
-//
-
 import SwiftUI
 import AppKit
 

@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5579EB51263A02EF0086A4BE /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5579EB50263A02EF0086A4BE /* Cache.swift */; };
+		5579EB71263E04100086A4BE /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5579EB70263E04100086A4BE /* Storage.swift */; };
+		5579EB75263E06920086A4BE /* URLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5579EB74263E06920086A4BE /* URLExtensions.swift */; };
+		5579EB7A263E078F0086A4BE /* ObjectWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5579EB79263E078F0086A4BE /* ObjectWrapper.swift */; };
+		5579EB80263E081A0086A4BE /* KeyWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5579EB7F263E081A0086A4BE /* KeyWrapper.swift */; };
+		5579EB84263E08890086A4BE /* IndexableCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5579EB83263E08890086A4BE /* IndexableCache.swift */; };
+		5579EB8E263EBBDD0086A4BE /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5579EB8D263EBBDD0086A4BE /* TestView.swift */; };
+		5579EB94263EC1540086A4BE /* LJM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5579EB93263EC1540086A4BE /* LJM.swift */; };
+		5579EB9A263F00EE0086A4BE /* FrozenUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5579EB99263F00EE0086A4BE /* FrozenUser.swift */; };
+		55D774C526385A24003D4CCD /* AutoUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D774C426385A24003D4CCD /* AutoUpdate.swift */; };
+		55D774D126389A95003D4CCD /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D774D026389A95003D4CCD /* API.swift */; };
 		960451E725F0F46000F34D9A /* BarGraphFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960451E625F0F46000F34D9A /* BarGraphFrame.swift */; };
 		9605C71825C95498007E808E /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9605C71725C95498007E808E /* LoginPage.swift */; };
 		9605C72C25C96C39007E808E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9605C72B25C96C39007E808E /* User.swift */; };
@@ -106,6 +117,17 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5579EB50263A02EF0086A4BE /* Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
+		5579EB70263E04100086A4BE /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		5579EB74263E06920086A4BE /* URLExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtensions.swift; sourceTree = "<group>"; };
+		5579EB79263E078F0086A4BE /* ObjectWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectWrapper.swift; sourceTree = "<group>"; };
+		5579EB7F263E081A0086A4BE /* KeyWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyWrapper.swift; sourceTree = "<group>"; };
+		5579EB83263E08890086A4BE /* IndexableCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexableCache.swift; sourceTree = "<group>"; };
+		5579EB8D263EBBDD0086A4BE /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		5579EB93263EC1540086A4BE /* LJM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LJM.swift; sourceTree = "<group>"; };
+		5579EB99263F00EE0086A4BE /* FrozenUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrozenUser.swift; sourceTree = "<group>"; };
+		55D774C426385A24003D4CCD /* AutoUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoUpdate.swift; sourceTree = "<group>"; };
+		55D774D026389A95003D4CCD /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		960451E625F0F46000F34D9A /* BarGraphFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarGraphFrame.swift; sourceTree = "<group>"; };
 		9605C71725C95498007E808E /* LoginPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPage.swift; sourceTree = "<group>"; };
 		9605C72B25C96C39007E808E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -207,6 +229,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5579EB78263E077B0086A4BE /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				5579EB50263A02EF0086A4BE /* Cache.swift */,
+				5579EB79263E078F0086A4BE /* ObjectWrapper.swift */,
+				5579EB7F263E081A0086A4BE /* KeyWrapper.swift */,
+				5579EB83263E08890086A4BE /* IndexableCache.swift */,
+			);
+			path = Cache;
+			sourceTree = "<group>";
+		};
+		55D774C326385A07003D4CCD /* DirtyStuff */ = {
+			isa = PBXGroup;
+			children = (
+				5579EB78263E077B0086A4BE /* Cache */,
+				55D774C426385A24003D4CCD /* AutoUpdate.swift */,
+				55D774D026389A95003D4CCD /* API.swift */,
+				5579EB70263E04100086A4BE /* Storage.swift */,
+				5579EB8D263EBBDD0086A4BE /* TestView.swift */,
+				5579EB93263EC1540086A4BE /* LJM.swift */,
+				5579EB99263F00EE0086A4BE /* FrozenUser.swift */,
+			);
+			path = DirtyStuff;
+			sourceTree = "<group>";
+		};
 		96114BBF25EFA8F300FA119C /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -323,6 +370,7 @@
 		964B665C256E6270006AB20E /* BackendStuff */ = {
 			isa = PBXGroup;
 			children = (
+				55D774C326385A07003D4CCD /* DirtyStuff */,
 				EA5B446F26310AB9002A97C7 /* Auth */,
 				EAF3707725834D6100C72707 /* Models */,
 				9670A9802571134E0043F227 /* undefined.swift */,
@@ -406,6 +454,7 @@
 				9641C4A425778F1D0088A0B6 /* SizesExtension.swift */,
 				EA7028D02579E32500E1B6EB /* ColorsExtension.swift */,
 				EACD024925D532A9008D12FE /* Webservices.swift */,
+				5579EB74263E06920086A4BE /* URLExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -608,17 +657,22 @@
 				EA7028BA2579C75000E1B6EB /* ScrollViewFilters.swift in Sources */,
 				EACD024225D502AB008D12FE /* Modifiers.swift in Sources */,
 				960451E725F0F46000F34D9A /* BarGraphFrame.swift in Sources */,
+				5579EB94263EC1540086A4BE /* LJM.swift in Sources */,
 				EACD024A25D532A9008D12FE /* Webservices.swift in Sources */,
+				5579EB8E263EBBDD0086A4BE /* TestView.swift in Sources */,
 				9641C4B72577AD700088A0B6 /* MainScreen.swift in Sources */,
 				EA686F10256EF67B00C121DC /* MyJourneyView.swift in Sources */,
 				964B662E256E6020006AB20E /* ContentView.swift in Sources */,
 				965F00FC25826987004D9111 /* ProfilePictureProvider.swift in Sources */,
 				9670A96E256EAA330043F227 /* SidebarElements.swift in Sources */,
+				55D774C526385A24003D4CCD /* AutoUpdate.swift in Sources */,
 				969DEAE625DFDEBD00599D63 /* CompassMainView.swift in Sources */,
+				5579EB80263E081A0086A4BE /* KeyWrapper.swift in Sources */,
 				96114BC125EFA92900FA119C /* ProgressBarGraph.swift in Sources */,
 				EA7028902572FDD300E1B6EB /* RatingView.swift in Sources */,
 				96A4105125726DD600ACA0DE /* AddButton.swift in Sources */,
 				EA686F1D256EF69C00C121DC /* ChallengeView.swift in Sources */,
+				5579EB71263E04100086A4BE /* Storage.swift in Sources */,
 				9609087F2604A10900EB4242 /* LearningGoalsView.swift in Sources */,
 				9670A966256E9FBA0043F227 /* ProfileNameLabel.swift in Sources */,
 				964B665E256E64FD006AB20E /* StudentPictureView.swift in Sources */,
@@ -626,15 +680,18 @@
 				EA686F07256EF1F100C121DC /* JourneyMainView.swift in Sources */,
 				EA5B4463263027ED002A97C7 /* WebviewLogin.swift in Sources */,
 				EA7028D12579E32500E1B6EB /* ColorsExtension.swift in Sources */,
+				55D774D126389A95003D4CCD /* API.swift in Sources */,
 				964C75A925EE5983002D8634 /* LegendView.swift in Sources */,
 				9672C8F425E3F46B005CC753 /* RadarChartView.swift in Sources */,
 				EA5B445D262E6F23002A97C7 /* MyJourneyMainView.swift in Sources */,
+				5579EB51263A02EF0086A4BE /* Cache.swift in Sources */,
 				EA686EF9256EE4F300C121DC /* TopBarJourney.swift in Sources */,
 				96CC613F257A38FC00CE7ABD /* DropDownMenuFilters.swift in Sources */,
 				EA686F2E256F25CF00C121DC /* Extensions.swift in Sources */,
 				EA686F25256EFBFA00C121DC /* SearchBarExpandableJourney.swift in Sources */,
 				9670A976257105290043F227 /* Sidebar.swift in Sources */,
 				EACD022F25D37B15008D12FE /* TitleScreenView.swift in Sources */,
+				5579EB7A263E078F0086A4BE /* ObjectWrapper.swift in Sources */,
 				962F090E25E7C4F1001EAE85 /* ParticularCircle.swift in Sources */,
 				9641C4A525778F1D0088A0B6 /* SizesExtension.swift in Sources */,
 				9605C72C25C96C39007E808E /* User.swift in Sources */,
@@ -646,6 +703,8 @@
 				EAD2C81A257085CA008CDDA1 /* LearningObjectiveJourneyCell.swift in Sources */,
 				EACD023425D37CCB008D12FE /* DescriptionTitleScreenView.swift in Sources */,
 				EACD023925D382AD008D12FE /* NumberTotalLearningOjbectivesView.swift in Sources */,
+				5579EB84263E08890086A4BE /* IndexableCache.swift in Sources */,
+				5579EB75263E06920086A4BE /* URLExtensions.swift in Sources */,
 				96BE89D0257553BF00BE9E8F /* CountDownWrapper.swift in Sources */,
 				9605C71825C95498007E808E /* LoginPage.swift in Sources */,
 				9622DCE525DE80DA009ECCB4 /* CompassPopover.swift in Sources */,
@@ -659,6 +718,7 @@
 				96533794260C898400316B7C /* StackNavigationView.swift in Sources */,
 				EA7028B02579B29600E1B6EB /* ArrowButtonScrollView.swift in Sources */,
 				961DB4CE25E668410020E9F6 /* DatePicker.swift in Sources */,
+				5579EB9A263F00EE0086A4BE /* FrozenUser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -821,7 +881,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"LJM/Preview Content\"";
-				DEVELOPMENT_TEAM = KXZF72639J;
+				DEVELOPMENT_TEAM = 254K9Z2T45;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = LJM/Info.plist;
@@ -846,7 +906,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"LJM/Preview Content\"";
-				DEVELOPMENT_TEAM = KXZF72639J;
+				DEVELOPMENT_TEAM = 254K9Z2T45;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = LJM/Info.plist;

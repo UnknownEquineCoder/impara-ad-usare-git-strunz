@@ -17,7 +17,7 @@ struct LearningObjectiveJourneyCell: View {
     var isAddable = false
     @Binding var learningPathSelected : String?
     
-    @ObservedObject var learningObj: LearningObjective
+    @State var learningObj: LearningObjective
 
     @EnvironmentObject var learningPathsStore: LearningPathStore
     
@@ -94,7 +94,7 @@ struct LearningObjectiveJourneyCell: View {
                                 Spacer().frame(width: 100)
                                     ScrollView(.horizontal, showsIndicators: false) {
                                         HStack(spacing: 10) {
-                                            ForEach(learningObj.assessments ?? [Assessment]()) { item in
+                                            ForEach((learningObj.assessments ?? [Assessment]())!) { item in
                                                 if item == learningObj.assessments?.last || item == learningObj.assessments?.first {
 
                                                 } else {
