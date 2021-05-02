@@ -19,4 +19,3 @@ class FrozenUser {
         self.surname = surname
     }
 }
-

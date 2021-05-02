@@ -1,8 +1,7 @@
 import SwiftUI
 
 /**
- This one is for updating arrays inside cache/Database
- Still to finish implementation
+ Property Wrapper used to automatically update a datasource from both Cache and API
  */
 @propertyWrapper class AutoUpdate<T: LJMCodableData> {
 
@@ -38,13 +37,13 @@ import SwiftUI
     
     var projectedValue: AutoUpdate<T> { self }
     
-    /// Either returns the cached value or fetches the updated version from the API
+    /// Returns the cached value or fetches the updated version from the API
     /// and updates the cache.
     /// Returns an empty array if an error happened while trying to fetch from API.
     ///
     /// - Returns: Either the updated data or an empty array
     
-    private func update<T: LJMCodableData>() -> [T] {
+    private func update() -> [T] {
         var value: [T] = []
         if let cachedValue = LJM.Caches.cachedValue(T.self) {
             return cachedValue
