@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    @AppStorage("log_Status") var status = false
     
     @StateObject var strandsStore = StrandsStore()
     @StateObject var learningPathsStore = LearningPathStore()

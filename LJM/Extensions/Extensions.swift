@@ -32,3 +32,10 @@ extension Array where Element: Equatable {
  }
 }
 
+// Screen sizes
+extension NSScreen {
+    static let screenWidth = NSScreen.main?.frame.width
+    static let screenHeight = NSScreen.main?.frame.height
+    static let screenSize = NSScreen.main?.frame.size
+}
+

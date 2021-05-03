@@ -10,13 +10,14 @@ import SwiftUI
 import Combine
 
 struct MainScreen: View{
-    @EnvironmentObject var userAuth: UserAuth
+    
+    @AppStorage("log_Status") var status = false
     
     var body: some View {
-        if !userAuth.isLoggedin {
-            LoginView().environmentObject(userAuth)
+        if status {
+            ContentView().frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight, alignment: .center)
         } else {
-            ContentView().environmentObject(userAuth)
+            LoginView().frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight, alignment: .center)
         }
     }
 }
@@ -24,28 +25,5 @@ struct MainScreen: View{
 struct MainScreen_Previews: PreviewProvider {
     static var previews: some View {
         MainScreen()
-    }
-}
-
-class UserAuth: ObservableObject {
-    
-    let didChange = PassthroughSubject<UserAuth,Never>()
-    
-    // required to conform to protocol 'ObservableObject'
-    let willChange = PassthroughSubject<UserAuth,Never>()
-    
-    func login() {
-        // login request... on success:
-        self.isLoggedin = true
-    }
-    
-    var isLoggedin = false {
-        didSet {
-            didChange.send(self)
-        }
-        
-//         willSet {
-//            willChange.send(self)
-//         }
     }
 }

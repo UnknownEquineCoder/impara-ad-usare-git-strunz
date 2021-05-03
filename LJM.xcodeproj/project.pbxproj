@@ -63,6 +63,7 @@
 		96BE89D0257553BF00BE9E8F /* CountDownWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE89CF257553BF00BE9E8F /* CountDownWrapper.swift */; };
 		96CC613F257A38FC00CE7ABD /* DropDownMenuFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC613D257A38FC00CE7ABD /* DropDownMenuFilters.swift */; };
 		96CE7BC625C4183A006C4CDA /* FilterChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CE7BC525C4183A006C4CDA /* FilterChoice.swift */; };
+		EA139BD42640910900E15E28 /* JWTDecode in Frameworks */ = {isa = PBXBuildFile; productRef = EA139BD32640910900E15E28 /* JWTDecode */; };
 		EA5B445D262E6F23002A97C7 /* MyJourneyMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5B445C262E6F23002A97C7 /* MyJourneyMainView.swift */; };
 		EA5B4463263027ED002A97C7 /* WebviewLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5B4462263027ED002A97C7 /* WebviewLogin.swift */; };
 		EA5B447826310DF7002A97C7 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = EA5B447726310DF7002A97C7 /* SwiftKeychainWrapper */; };
@@ -222,6 +223,7 @@
 				961DB4E725E670AD0020E9F6 /* Sliders in Frameworks */,
 				EACD025325D53BC2008D12FE /* Alamofire in Frameworks */,
 				EA5B447826310DF7002A97C7 /* SwiftKeychainWrapper in Frameworks */,
+				EA139BD42640910900E15E28 /* JWTDecode in Frameworks */,
 				964448BD25E500EA00F8359F /* Shapes in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -583,6 +585,7 @@
 				964448BC25E500EA00F8359F /* Shapes */,
 				961DB4E625E670AD0020E9F6 /* Sliders */,
 				EA5B447726310DF7002A97C7 /* SwiftKeychainWrapper */,
+				EA139BD32640910900E15E28 /* JWTDecode */,
 			);
 			productName = LJM;
 			productReference = 964B6628256E6020006AB20E /* LJM.app */;
@@ -660,6 +663,7 @@
 				964448BB25E500EA00F8359F /* XCRemoteSwiftPackageReference "swiftui-shapes" */,
 				961DB4E525E670AD0020E9F6 /* XCRemoteSwiftPackageReference "swiftui-sliders" */,
 				EA5B447626310DF7002A97C7 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
+				EA139BD22640910900E15E28 /* XCRemoteSwiftPackageReference "JWTDecode.swift" */,
 			);
 			productRefGroup = 964B6629256E6020006AB20E /* Products */;
 			projectDirPath = "";
@@ -941,7 +945,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"LJM/Preview Content\"";
-				DEVELOPMENT_TEAM = 254K9Z2T45;
+				DEVELOPMENT_TEAM = KXZF72639J;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = LJM/Info.plist;
@@ -966,7 +970,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"LJM/Preview Content\"";
-				DEVELOPMENT_TEAM = 254K9Z2T45;
+				DEVELOPMENT_TEAM = KXZF72639J;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = LJM/Info.plist;
@@ -1123,6 +1127,14 @@
 				minimumVersion = 1.1.0;
 			};
 		};
+		EA139BD22640910900E15E28 /* XCRemoteSwiftPackageReference "JWTDecode.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/auth0/JWTDecode.swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.6.0;
+			};
+		};
 		EA5B447626310DF7002A97C7 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jrendel/SwiftKeychainWrapper";
@@ -1151,6 +1163,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 964448BB25E500EA00F8359F /* XCRemoteSwiftPackageReference "swiftui-shapes" */;
 			productName = Shapes;
+		};
+		EA139BD32640910900E15E28 /* JWTDecode */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EA139BD22640910900E15E28 /* XCRemoteSwiftPackageReference "JWTDecode.swift" */;
+			productName = JWTDecode;
 		};
 		EA5B447726310DF7002A97C7 /* SwiftKeychainWrapper */ = {
 			isa = XCSwiftPackageProductDependency;
