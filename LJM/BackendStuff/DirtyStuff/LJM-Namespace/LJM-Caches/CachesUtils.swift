@@ -8,7 +8,7 @@ extension LJM.Caches {
 }
 
 extension LJM.Caches {
-    static func cache<T: LJMData>(_ type: [T].Type) -> IndexableCache<[T]>? {
+    static func cache<T: LJMData>(_ type: T.Type) -> IndexableCache<[T]>? {
         switch type {
         case is LearningObjective.Type:
             return LJM.Caches.learningObjectives as? IndexableCache<[T]>
@@ -19,7 +19,7 @@ extension LJM.Caches {
         }
     }
     
-    static func cacheKey<T: LJMData>(_ type: [T].Type) -> CacheKeys.RawValue? {
+    static func cacheKey<T: LJMData>(_ type: T.Type) -> CacheKeys.RawValue? {
         switch type {
         case is LearningObjective.Type:
             return CacheKeys.learningObjectives.rawValue
@@ -30,7 +30,7 @@ extension LJM.Caches {
         }
     }
     
-    static func cachedValue<T: LJMData>(_ type: [T].Type) -> [T]? {
+    static func cachedValue<T: LJMData>(_ type: T.Type) -> [T]? {
         guard let cache = LJM.Caches.cache(T.self),
               let key = LJM.Caches.cacheKey(T.self),
               let cachedValue = cache.object(forKey: key)
@@ -39,7 +39,7 @@ extension LJM.Caches {
         return cachedValue
     }
     
-    static func updateCache<T: LJMData>(_ type: [T].Type, value: [T]) {
+    static func updateCache<T: LJMData>(_ type: T.Type, value: [T]) {
         LJM.Caches.cache(T.self)?
             .setObject(value, forKey: LJM.Caches.cacheKey(T.self) ?? "Wrong key")
     }

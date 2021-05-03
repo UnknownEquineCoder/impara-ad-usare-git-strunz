@@ -6,4 +6,3 @@ extension LJM {
         static public let learningPaths = { IndexableCache<[LearningPath]>() }()
     }
 }
-
