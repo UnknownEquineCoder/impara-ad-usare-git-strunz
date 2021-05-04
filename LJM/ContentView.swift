@@ -12,7 +12,7 @@ struct ContentView: View {
     
     @StateObject var strandsStore = StrandsStore()
     @StateObject var learningPathsStore = LearningPathStore()
-    
+
     var body: some View {
         Sidebar()
             .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight, alignment: .center)

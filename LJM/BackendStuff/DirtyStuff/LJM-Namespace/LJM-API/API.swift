@@ -22,6 +22,11 @@ extension LJM {
             undefined("TO DO: IMPLEMENT UPDATE")
         }
         
+        final func updateList<T: LJMCodableData>
+        (of type: [T].Type = [T].self, with value: [T]) {
+            
+        }
+        
         final func fetchList<T: LJMCodableData>
         (as type: [T].Type = [T].self, completion: @escaping (Result<[T], Error>)->()) {
             

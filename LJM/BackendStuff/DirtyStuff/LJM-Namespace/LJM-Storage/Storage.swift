@@ -1,8 +1,6 @@
 import Foundation
-import SwiftKeychainWrapper
 
 extension LJM {
-    
     /**
      Storage keeps track of all the data inside the App, making access straight-forward
      It is implemented using the Singleton Pattern
@@ -23,6 +21,14 @@ extension LJM {
                 objectWillChange.send()
             }
         }
+        
+        /**
+        @AutoUpdate var graphData: [UnrefinedGraphData] = [] {
+            willSet {
+                objectWillChange.send()
+            }
+        }
+         */
         
         private init() { /* Business logic */ }
         

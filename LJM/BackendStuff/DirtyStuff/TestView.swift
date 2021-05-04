@@ -8,15 +8,25 @@ struct TestView: View {
     
     var body: some View {
         VStack {
-            Text("\(storage.learningObjectives.count)").padding(50)
+            Text(storage.learningObjectives.count > 0 ? storage.learningObjectives[0].id ?? "undefined" : "still to update").padding(50)
             
             Text("\(counter)")
-            
+
             Button("+") {
-                dummyData.append(LearningObjective())
-                LJM.Caches.updateCache(LearningObjective.self, value: dummyData)
+//                storage.learningObjectives.append(LearningObjective())
+//                LJM.Caches.updateCache(LearningObjective.self, value: storage.learningObjectives)
+//                counter += 1
+                
+                storage.learningObjectives[0] = LearningObjective(id: "\(counter)")
+                counter += 1
+
+            }.padding(50)
+            
+            Button("-") {
                 counter += 1
             }.padding(50)
+        }.onAppear {
+            storage.learningObjectives.append(LearningObjective())
         }
     }
 }

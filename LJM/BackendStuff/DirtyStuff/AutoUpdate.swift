@@ -14,6 +14,7 @@ import SwiftUI
         }
         
         set {
+            LJM.Caches.updateCache(T.self, value: newValue)
             _wrapList = newValue
         }
     }
