@@ -67,12 +67,10 @@ class Webservices {
         
     }
     
-    
     static func decodeToken(secretToken: String, completion: @escaping UserWebserviceResponse) {
         // Decode token
         do {
             let jwt = try decode(jwt: secretToken)
-            print("JIUHJO  \(jwt.body) ----- \(jwt.expired) ----- \(jwt.header) ----- \(jwt.string) ----- \(jwt.audience) ---- \(jwt.expiresAt) ----- \(jwt.signature) ---- \(jwt.subject)")
             
             if !jwt.expired {
                 completion(FrozenUser(name: "test name", surname: "test surname"), nil)

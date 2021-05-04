@@ -15,6 +15,7 @@ struct ContentView: View {
     
     var body: some View {
         Sidebar()
+            .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight, alignment: .center)
             .environmentObject(strandsStore)
             .environmentObject(learningPathsStore)
     }
