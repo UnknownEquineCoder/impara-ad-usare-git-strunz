@@ -11,9 +11,7 @@ import WebKit
 import SwiftKeychainWrapper
 
 struct WebviewLogin: NSViewRepresentable {
-    
-    @EnvironmentObject var user: FrozenUser
-        
+            
     var url : String
     
     func makeNSView(context: Context) -> WKWebView {
@@ -51,9 +49,9 @@ class ContentController: NSObject, WKScriptMessageHandler {
             KeychainWrapper.standard.set(secretToken, forKey: "tokenAuth")
             
             Webservices.decodeToken(secretToken: secretToken) { user, err in
-//                // User object and fill it
-//                self.user.name = user.name
-//                self.user.surname = user.surname
+                // User object and fill it
+                LJM.Storage.shared.user.name = user.name
+                LJM.Storage.shared.user.surname = user.surname
                                 
                 // switch screen to main if there is a token
                 self.status = true
