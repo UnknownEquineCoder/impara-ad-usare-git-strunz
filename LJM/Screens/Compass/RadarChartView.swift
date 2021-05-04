@@ -1,81 +1,17 @@
-//
-//  RadarChartView.swift
-//  LJM
-//
-//  Created by Laura Benetti on 22/02/21.
-//
-
-import Foundation
 import SwiftUI
 import Shapes
 
-struct RadarChart: View {
-    var data: [Double]
-    let gridColor: Color
-    let dataColor: Color
-    @Environment(\.colorScheme) var colorScheme
-    
-    
-    init(data: [Double], gridColor: Color = Color(red: 219/255, green: 219/255, blue: 219/255), dataColor: Color = .blue) {
-        self.data = data
-        self.gridColor = gridColor
-        self.dataColor = dataColor
-    }
-    
-    var body: some View {
-        ZStack {
-            GeometryReader { geo in
-                RegularPolygon(sides: 5)
-                    //                    .fill(Color.red)
-                    .fill(colorScheme == .dark ? Color(red: 50/255, green: 50/255, blue: 50/255, opacity: 0.8) : Color(red: 248/255, green: 248/255, blue: 248/255))
-                    .frame(width: geo.size.width, height: geo.size.height)
-                    .scaleEffect(0.8)
-                
-                
-                
-                
-                
-                RadarChartGrid(categories: data.count, divisions: 5, size: geo.size.width)
-                    .stroke(gridColor, lineWidth: 1.toScreenSize())
-                
-                
-                RadarChartPath(data: [20, 15, 10, 5, 7], size: geo.size.width)
-                    .fill(RadialGradient.backGraph(size: geo.size.width))
-                
-                RadarChartPath(data: [20, 15, 10, 5, 7], size: geo.size.width)
-                    .stroke(Color(red: 120/255, green: 224/255, blue: 144/255), lineWidth: 1.toScreenSize())
-                
-                RadarChartPath(data: data, size: geo.size.width)
-                    .fill(RadialGradient.frontGraph(size: geo.size.width))
-                
-                
-                
-                
-                RadarChartPath(data: data, size: geo.size.width)
-                    .stroke(Color(red: 104/255, green: 194/255, blue: 189/255), lineWidth: 1.toScreenSize())
-                
-                
-            }
-        }
-        
-    }
-}
-
 struct GraphWithOverlay: View {
-    
-    
     @Environment(\.colorScheme) var colorScheme
-    
+
     var body: some View {
         GeometryReader { geo in
             ZStack {
-                
                 colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : Color.white
                 
-                RadarChart(data: [20.0, 10.0, 5.0, 12.0, 3.0])
+                RadarChart(provider: GraphDataProvider.placeholder(), gridColor: Color.gray)
                 
                 RadarGraphFrame()
-                
                 
                 NavigationLink(destination: Text("Testo forfettario")) {
                     Text("UI/UX")
@@ -85,59 +21,32 @@ struct GraphWithOverlay: View {
                         .font(.system(size: 22.toFontSize()))
                 }.buttonStyle(LinkButtonStyle())
                 
-                
                 VStack(alignment: .leading, spacing: 20.0){
-                    
-                    Text("EXEMPLARY")
-                        .fontWeight(.light)
-                        .font(.system(size: 10))
-                        .foregroundColor(colorScheme == .dark ? Color(red: 224/255, green: 224/255, blue: 224/255) : Color(red: 46/255, green: 50/255, blue: 53/255, opacity: 0.5))
-                        .multilineTextAlignment(.leading)
-                        .padding(.leading, 80)
-                    
-                    Text("PROFICIENT")
-                        .fontWeight(.light)
-                        .font(.system(size: 10))
-                        .foregroundColor(colorScheme == .dark ? Color(red: 224/255, green: 224/255, blue: 224/255) : Color(red: 46/255, green: 50/255, blue: 53/255, opacity: 0.5))
-                        .multilineTextAlignment(.leading)
-                        .padding(.leading, 80)
-                    
-                    Text("PROGRESSING")
-                        .fontWeight(.light)
-                        .font(.system(size: 10))
-                        .foregroundColor(colorScheme == .dark ? Color(red: 224/255, green: 224/255, blue: 224/255) : Color(red: 46/255, green: 50/255, blue: 53/255, opacity: 0.5))
-                        .multilineTextAlignment(.leading)
-                        .padding(.leading, 80)
-                    
-                    
-                    Text("BEGINNING")
-                        .fontWeight(.light)
-                        .font(.system(size: 10))
-                        .foregroundColor(colorScheme == .dark ? Color(red: 224/255, green: 224/255, blue: 224/255) : Color(red: 46/255, green: 50/255, blue: 53/255, opacity: 0.5))
-                        .multilineTextAlignment(.leading)
-                        .padding(.leading, 80)
-                    
-                    
-                    
-                    
+                    label("EXEMPLARY")
+                    label("PROFICIENT")
+                    label("PROGRESSING")
+                    label("BEGINNING")
                 }
                 .padding(.bottom, geo.size.height/2.18)
-                
             }
-            
         }
         //.frame(width: aSize * 1.2, height: aSize * 1.2)
-        
     }
     
+    func label(_ text: String) -> some View {
+        Text(text)
+            .fontWeight(.light)
+            .font(.system(size: 10))
+            .foregroundColor(colorScheme == .dark ? Color(red: 224/255, green: 224/255, blue: 224/255) : Color(red: 46/255, green: 50/255, blue: 53/255, opacity: 0.5))
+            .multilineTextAlignment(.leading)
+            .padding(.leading, 80)
+    }
 }
-
 
 struct RadarChartGrid: Shape {
     let categories: Int
     let divisions: Int
     let size: CGFloat
-    
     
     func path(in rect: CGRect) -> Path {
         let radius = min(rect.maxX - rect.midX, rect.maxY - rect.midY) - (size/10)
@@ -162,22 +71,16 @@ struct RadarChartGrid: Shape {
                                          y: rect.midY + sin(CGFloat(category) * 2 * .pi / CGFloat(categories) - .pi / 2) * rad))
             }
         }
-        
         return path
     }
 }
 
 struct RadarChartPath: Shape {
-    let data: [Double]
+    let data: [CGFloat]
     let size: CGFloat
+    let maximum: CGFloat
     
     func path(in rect: CGRect) -> Path {
-        guard
-            3 <= data.count,
-            let minimum = data.min(),
-            0 <= minimum,
-            let maximum = data.max()
-        else { return Path() }
         
         let radius = min(rect.maxX - rect.midX, rect.maxY - rect.midY) - (size/10)
         var path = Path()
@@ -185,28 +88,24 @@ struct RadarChartPath: Shape {
         for (index, entry) in data.enumerated() {
             switch index {
             case 0:
-                path.move(to: CGPoint(x: rect.midX + CGFloat(entry / maximum) * cos(CGFloat(index) * 2 * .pi / CGFloat(data.count) - .pi / 2) * radius,
-                                      y: rect.midY + CGFloat(entry / maximum) * sin(CGFloat(index) * 2 * .pi / CGFloat(data.count) - .pi / 2) * radius))
+                let _X = rect.midX + CGFloat(entry / maximum) * cos(CGFloat(index) * 2 * CGFloat.pi / CGFloat(data.count) - CGFloat.pi / 2) * radius
+                
+                let _Y = rect.midY + CGFloat(entry / maximum) * sin(CGFloat(index) * 2 * CGFloat.pi / CGFloat(data.count) - CGFloat.pi / 2) * radius
+                
+                path.move(to: CGPoint(x: _X,
+                                      y: _Y))
                 
             default:
-                path.addLine(to: CGPoint(x: rect.midX + CGFloat(entry / maximum) * cos(CGFloat(index) * 2 * .pi / CGFloat(data.count) - .pi / 2) * radius,
-                                         y: rect.midY + CGFloat(entry / maximum) * sin(CGFloat(index) * 2 * .pi / CGFloat(data.count) - .pi / 2) * radius))
+                let _X = rect.midX + CGFloat(entry / maximum) * cos(CGFloat(index) * 2 * CGFloat.pi / CGFloat(data.count) - CGFloat.pi / 2) * radius
+                
+                let _Y = rect.midY + CGFloat(entry / maximum) * sin(CGFloat(index) * 2 * CGFloat.pi / CGFloat(data.count) - CGFloat.pi / 2) * radius
+                
+                path.addLine(to: CGPoint(x: _X,
+                                         y: _Y))
             }
         }
         path.closeSubpath()
         return path
-    }
-}
-
-struct RadarChartView_Previews: PreviewProvider {
-    
-    
-    
-    static var previews: some View {
-        GraphWithOverlayAndBackground()
-            .frame(width: 500, height: 500)
-        
-        
     }
 }
 
@@ -222,25 +121,93 @@ struct GraphWithOverlayAndBackground: View {
                 GraphWithOverlay()
                     .frame(width: geo.size.width*0.7, height: geo.size.height*0.7)
             }
-            
         }
     }
 }
-
-
 
 extension RadialGradient {
     static func frontGraph(size: CGFloat) -> RadialGradient  {
         let colors = Gradient(colors: [Color(red: 57/255, green: 172/255, blue: 169/255, opacity: 0.5), Color(red: 6/255, green: 153/255, blue: 146/255, opacity: 1)])
         
         return RadialGradient(gradient: colors, center: .center, startRadius: 50, endRadius: size/2)
-        
     }
     
     static func backGraph(size: CGFloat) -> RadialGradient  {
         let colors = Gradient(colors: [Color(red: 183/255, green: 232/255, blue: 148/255, opacity: 0.5), Color(red: 120/255, green: 224/255, blue: 144/255, opacity: 1)])
         
         return RadialGradient(gradient: colors, center: .center, startRadius: 50, endRadius: size/2)
-        
+    }
+}
+
+extension Color {
+    static let back_graph: Color = Color(red: 120/255, green: 224/255, blue: 144/255)
+    static let front_graph: Color = Color(red: 104/255, green: 194/255, blue: 189/255)
+}
+
+struct GraphDataProvider {
+    
+    var front_data: [CGFloat]
+    var back_data: [CGFloat]
+    @State var all_LOs = [LearningObjective]()
+    
+    static func placeholder() -> GraphDataProvider {
+        return GraphDataProvider(front_data: [10, 20, 30, 40, 50], back_data: [60, 70, 80, 90, 100])
+    }
+    
+    static func from_API() -> GraphDataProvider {
+        return GraphDataProvider.placeholder()
+    }
+    
+    func max() -> CGFloat {
+        return [front_data.max()!, back_data.max()!].max()!
+    }
+}
+
+struct RadarCompositeGrid: View {
+    var size: CGFloat
+    var data: [CGFloat]
+    var b_color: Color
+    var f_color: RadialGradient
+    var max: CGFloat
+    
+    var body: some View {
+        ZStack {
+            RadarChartPath(data: data, size: size, maximum: max)
+                .fill(f_color)
+            
+            RadarChartPath(data: data, size: size, maximum: max)
+                .stroke(b_color, lineWidth: 1.toScreenSize())
+        }
+    }
+}
+
+struct RadarChart: View {
+    @State var provider: GraphDataProvider
+    let gridColor: Color
+    @Environment(\.colorScheme) var colorScheme
+    
+    var body: some View {
+        ZStack {
+            GeometryReader { geo in
+                RegularPolygon(sides: 5)
+                    .fill(colorScheme == .dark ? Color(red: 50/255, green: 50/255, blue: 50/255, opacity: 0.8) : Color(red: 248/255, green: 248/255, blue: 248/255))
+                    .frame(width: geo.size.width, height: geo.size.height)
+                    .scaleEffect(0.8)
+                
+                RadarChartGrid(categories: provider.back_data.count, divisions: 5, size: geo.size.width)
+                    .stroke(gridColor, lineWidth: 1.toScreenSize())
+                
+                RadarCompositeGrid(size: geo.size.width, data: provider.back_data, b_color: Color.back_graph, f_color: RadialGradient.backGraph(size: geo.size.width), max: CGFloat(provider.max()))
+                
+                RadarCompositeGrid(size: geo.size.width, data: provider.front_data, b_color: Color.front_graph, f_color: RadialGradient.frontGraph(size: geo.size.width), max: CGFloat(provider.max()))
+            }
+        }
+    }
+}
+
+struct RadarChartView_Previews: PreviewProvider {
+    static var previews: some View {
+        GraphWithOverlayAndBackground()
+            .frame(width: 500, height: 500)
     }
 }
