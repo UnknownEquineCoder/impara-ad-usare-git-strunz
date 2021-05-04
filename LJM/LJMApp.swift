@@ -1,29 +1,31 @@
 import SwiftUI
 import CoreData
+import SwiftKeychainWrapper
 
 @main
 struct LJMApp: App {
         
-    @StateObject var userAuth = UserAuth()
-
-    //    let context = PersistentContainerWrapper()
-  //  @EnvironmentObject var userAuth: UserAuth
+    @AppStorage("log_Status") var status = false
+    
+    @StateObject var user = FrozenUser(name: "", surname: "")
     
     var body: some Scene {
         
         WindowGroup {
-            //   MainScreen().environmentObject(userAuth)
-                
         //     ContentView()
             
-            LoginView()
+        //     LoginView()
             
-            //             ContentView()
-            //                .environment(\.managedObjectContext, context.container.viewContext)
+            // MainScreen used as a Splash screen -> redirect to Login view or Content view regarding the login status
+            MainScreen().onAppear {
+                status = false
+            }.environmentObject(user)
         }
 
         WindowGroup("LoginPage") {
-            WebviewLogin(url: "https://ljm-dev-01.fed.it.iosda.org/api/auth/saml/login").environmentObject(userAuth)
+            WebviewLogin(url: "https://ljm-dev-01.fed.it.iosda.org/api/auth/saml/login")
+                .environmentObject(user)
         }.handlesExternalEvents(matching: Set(arrayLiteral: "*"))
+        
     }
 }

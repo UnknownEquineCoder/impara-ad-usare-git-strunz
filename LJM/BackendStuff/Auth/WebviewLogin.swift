@@ -12,8 +12,8 @@ import SwiftKeychainWrapper
 
 struct WebviewLogin: NSViewRepresentable {
     
-    @EnvironmentObject var userAuth: UserAuth
-    
+    @EnvironmentObject var user: FrozenUser
+        
     var url : String
     
     func makeNSView(context: Context) -> WKWebView {
@@ -36,7 +36,9 @@ struct WebviewLogin: NSViewRepresentable {
 }
 
 class ContentController: NSObject, WKScriptMessageHandler {
-    @EnvironmentObject var userAuth: UserAuth
+
+    @AppStorage("log_Status") var status: Bool = false
+ //   @EnvironmentObject var user: FrozenUser
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         if message.name == "userLogin"{
@@ -44,8 +46,21 @@ class ContentController: NSObject, WKScriptMessageHandler {
             let dict = message.body as! [String:AnyObject]
             let secretToken = dict["secretToken"] as! String
             
-            let saveAccessToken: Bool = KeychainWrapper.standard.set(secretToken, forKey: "tokenAuth")
             // STORE KEYCHAIN TOKEN
+            
+            KeychainWrapper.standard.set(secretToken, forKey: "tokenAuth")
+            
+            Webservices.decodeToken(secretToken: secretToken) { user, err in
+//                // User object and fill it
+//                self.user.name = user.name
+//                self.user.surname = user.surname
+                                
+                // switch screen to main if there is a token
+                self.status = true
+
+                // close webview window
+                NSApplication.shared.keyWindow?.close()
+            }
         }
     }
 }

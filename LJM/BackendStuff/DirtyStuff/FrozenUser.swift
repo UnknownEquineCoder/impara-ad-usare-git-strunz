@@ -1,6 +1,7 @@
 import SwiftKeychainWrapper
+import SwiftUI
 
-class FrozenUser {
+class FrozenUser: ObservableObject {
     var loginKey: String? {
         get {
             KeychainWrapper.standard.string(forKey: "tokenAuth")

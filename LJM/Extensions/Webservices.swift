@@ -8,8 +8,7 @@
 import SwiftUI
 import Alamofire
 import SwiftKeychainWrapper
-
-
+import JWTDecode
 
 class Webservices {
     private init() {
@@ -23,6 +22,8 @@ class Webservices {
     typealias AssessmentWebserviceResponse = (Assessment, APIError?) -> Void
     typealias ArrayAssessmentWebserviceResponse = ([Assessment], APIError?) -> Void
     typealias DeleteLOFromStudWebserviceResponse = (DeleteLOFromJourneyResponse, APIError?) -> Void
+    typealias UserWebserviceResponse = (FrozenUser, APIError?) -> Void
+
     
     struct Headers {
         static let headers : HTTPHeaders = [
@@ -66,6 +67,19 @@ class Webservices {
         
     }
     
+    static func decodeToken(secretToken: String, completion: @escaping UserWebserviceResponse) {
+        // Decode token
+        do {
+            let jwt = try decode(jwt: secretToken)
+            
+            if !jwt.expired {
+                completion(FrozenUser(name: "test name", surname: "test surname"), nil)
+            }
+
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        }
+    }
     
     static func getAllLearningPaths(completion : @escaping ArrayLearningPathWebserviceResponse) {
         

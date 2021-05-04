@@ -8,44 +8,56 @@
 import Foundation
 import SwiftUI
 import Combine
+import JWTDecode
+import SwiftKeychainWrapper
 
 struct MainScreen: View{
-    @EnvironmentObject var userAuth: UserAuth
+    
+    @AppStorage("log_Status") var status = false
+    
+    @EnvironmentObject var user: FrozenUser
     
     var body: some View {
-        if !userAuth.isLoggedin {
-            LoginView().environmentObject(userAuth)
+
+        if user.loginKey == nil || user.loginKey == "" {
+            if status {
+                ContentView()
+            } else {
+                LoginView()
+            }
         } else {
-            ContentView().environmentObject(userAuth)
+            // decode token
+            if status {
+                ContentView()
+            } else {
+                decodeTokenAndNavigateToView(secretToken: user.loginKey!)
+            }
         }
+    }
+    
+    func decodeTokenAndNavigateToView(secretToken: String) -> AnyView {
+        
+        var viewToGo = AnyView(LoginView())
+        let semaphore = DispatchSemaphore(value: 0)
+                
+        Webservices.decodeToken(secretToken: secretToken) { user, err in
+            if err == nil {
+                self.user.name = user.name
+                self.user.surname = user.surname
+                viewToGo = AnyView(ContentView())
+                semaphore.signal()
+            } else {
+                viewToGo = AnyView(LoginView())
+                semaphore.signal()
+            }
+        }
+        semaphore.wait()
+        return viewToGo
     }
 }
 
 struct MainScreen_Previews: PreviewProvider {
     static var previews: some View {
         MainScreen()
-    }
-}
-
-class UserAuth: ObservableObject {
-    
-    let didChange = PassthroughSubject<UserAuth,Never>()
-    
-    // required to conform to protocol 'ObservableObject'
-    let willChange = PassthroughSubject<UserAuth,Never>()
-    
-    func login() {
-        // login request... on success:
-        self.isLoggedin = true
-    }
-    
-    var isLoggedin = false {
-        didSet {
-            didChange.send(self)
-        }
-        
-//         willSet {
-//            willChange.send(self)
-//         }
     }
 }
