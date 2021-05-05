@@ -1,10 +1,3 @@
-//
-//  WebviewLogin.swift
-//  LJM
-//
-//  Created by Tony Tresgots on 21/04/2021.
-//
-
 import Foundation
 import SwiftUI
 import WebKit

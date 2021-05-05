@@ -40,8 +40,8 @@ struct MainScreen: View{
                 
         Webservices.decodeToken(secretToken: secretToken) { user, err in
             if err == nil {
-                LJM.Storage.shared.user.name = user.name
-                LJM.Storage.shared.user.surname = user.surname
+                LJM.storage.user.name = user.name
+                LJM.storage.user.surname = user.surname
                 viewToGo = AnyView(ContentView())
                 semaphore.signal()
             } else {
