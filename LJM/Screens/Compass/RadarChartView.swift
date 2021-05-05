@@ -9,7 +9,7 @@ struct GraphWithOverlay: View {
             ZStack {
                 colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : Color.white
                 
-                RadarChart(provider: GraphDataProvider.placeholder(), gridColor: Color.gray)
+                RadarChart(provider: GraphDataProvider.from_API(type: .core), gridColor: Color.gray)
                 
                 RadarGraphFrame()
                 
@@ -145,21 +145,48 @@ extension Color {
 }
 
 struct GraphDataProvider {
-    
+    var type: GraphTypes
     var front_data: [CGFloat]
     var back_data: [CGFloat]
-    @State var all_LOs = [LearningObjective]()
     
-    static func placeholder() -> GraphDataProvider {
-        return GraphDataProvider(front_data: [10, 20, 30, 40, 50], back_data: [60, 70, 80, 90, 100])
+    
+    private init(_ front_data: [CGFloat], _ back_data: [CGFloat], type: GraphTypes) {
+        self.front_data = front_data
+        self.back_data = back_data
+        self.type = type
     }
     
-    static func from_API() -> GraphDataProvider {
-        return GraphDataProvider.placeholder()
+    static func placeholder(type: GraphTypes) -> GraphDataProvider {
+        return GraphDataProvider([10, 20, 30, 40, 50], [60, 70, 80, 90, 100], type: type)
+    }
+    
+    static func from_API(type: GraphTypes) -> GraphDataProvider {
+        
+        var data = [CGFloat]()
+        // we filter the data based on core vs elective
+        let unrefined_data = LJM.storage.learningObjectives.filter { $0.isCore == (type == .core) }
+        
+        for strand in Strands.allCases {
+            // we take 1 strand per iteration
+            let strand_data = unrefined_data.filter { $0.strand?.strand ?? "" == strand.rawValue }
+            // we remove nil scores and only take into account
+            // the most recent change
+            let last_scores = strand_data.compactMap { $0.assessments?.last?.value }
+            // we get the total of the scores
+            let strand_sum = CGFloat(last_scores.reduce(0, +))
+            // we append the total to the array
+            data.append(strand_sum)
+        }
+        return GraphDataProvider(data, [50, 50, 50, 50, 50], type: type)
     }
     
     func max() -> CGFloat {
-        return [front_data.max()!, back_data.max()!].max()!
+        return Swift.max(CGFloat(LJM.storage.learningObjectives.filter { $0.isCore == (type == .core) }.count) * 5, CGFloat(100))
+    }
+    
+    enum GraphTypes {
+        case core
+        case elective
     }
 }
 
@@ -209,5 +236,45 @@ struct RadarChartView_Previews: PreviewProvider {
     static var previews: some View {
         GraphWithOverlayAndBackground()
             .frame(width: 500, height: 500)
+    }
+}
+
+
+
+
+public enum Strands: String, CaseIterable {
+    case business = "App Business and Marketing"
+    case process = "Process"
+    case professional_skills = "Professional Skills"
+    case technical = "Technical"
+    case design = "Design"
+}
+
+
+extension Array where Element: Identifiable {
+    mutating func update(with value: Element) {
+        if let row = self.firstIndex(where: {$0.id == value.id}) {
+               self[row] = value
+            
+        }
+    }
+}
+
+extension Array where Element: LJMCodableData {
+    mutating func updateAndRefresh(with value: Element, code: ()->()) {
+        update(with: value)
+        code()
+    }
+}
+
+extension Array where Element == LearningObjective {
+    mutating func updateAssessments(with assessment: Assessment, on objective: LearningObjective) {
+        
+        var newObjective = objective
+        newObjective.assessments?.append(assessment)
+        
+        updateAndRefresh(with: objective) {
+            #warning("Implement update")
+        }
     }
 }

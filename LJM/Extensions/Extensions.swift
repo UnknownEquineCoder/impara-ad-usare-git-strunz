@@ -39,3 +39,16 @@ extension NSScreen {
     static let screenSize = NSScreen.main?.frame.size
 }
 
+extension Bool: Comparable {
+    public static func < (lhs: Bool, rhs: Bool) -> Bool {
+        
+        if lhs == rhs { return false }
+        
+        switch(lhs, rhs) {
+        case (false, _):
+            return true
+        case (true, _):
+            return false
+        }
+    }
+}

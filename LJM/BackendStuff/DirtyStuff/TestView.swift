@@ -5,6 +5,10 @@ struct TestView: View {
     @ObservedObject var storage = LJM.storage
     @State var error = "AAAAAAAAAAAAAAAAAAAAA"
     
+    var data: Set<String> {
+        return Set(storage.learningObjectives.map {$0.strand?.strand ?? "Undefined"})
+    }
+    
     var body: some View {
         VStack {
             
@@ -15,8 +19,8 @@ struct TestView: View {
             }.padding(50)
             
             List {
-                ForEach(storage.learningPaths, id: \.id) { obj in
-                    Text("\(obj.description ?? "Undefined")")
+                ForEach(Array(data), id: \.self) { obj in
+                    Text(obj)
                 }
             }
         }
