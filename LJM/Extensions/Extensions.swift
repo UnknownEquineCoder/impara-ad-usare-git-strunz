@@ -1,10 +1,3 @@
-//
-//  Extensions.swift
-//  LJM
-//
-//  Created by Tony Tresgots on 26/11/2020.
-//
-
 import SwiftUI
 import AppKit
 
@@ -37,5 +30,12 @@ extension Array where Element: Equatable {
      guard let index = firstIndex(of: object) else {return}
      remove(at: index)
  }
+}
+
+// Screen sizes
+extension NSScreen {
+    static let screenWidth = NSScreen.main?.frame.width
+    static let screenHeight = NSScreen.main?.frame.height
+    static let screenSize = NSScreen.main?.frame.size
 }
 

@@ -1,50 +1,16 @@
 import SwiftUI
 
 struct ContentView: View {
+    @AppStorage("log_Status") var status = false
     
-    @StateObject var studentLearningObjectivesStore = StudentLearningObjectivesStore()
-    @StateObject var learningPathsStore = LearningPathStore()
-    @StateObject var mapLearningObjectivesStore = MapLearningObjectivesStore()
     @StateObject var strandsStore = StrandsStore()
-    @StateObject var challengesStore = ChallengesStore()
+    @StateObject var learningPathsStore = LearningPathStore()
 
     var body: some View {
-        
-        Sidebar().onAppear {
-            Webservices.getAllLearningPaths { learningPathResult, err  in
-                for learningPath in learningPathResult {
-                    if learningPath.title!.lowercased().contains("challenge") {
-                        challengesStore.addItem(learningPath)
-                    } else {
-                        learningPathsStore.addItem(learningPath)
-                    }
-                }
-                
-                Webservices.getStudentJourneyLearningObjectives { (learningObjectives, err) in
-                    for learningObjective in learningObjectives {
-                        studentLearningObjectivesStore.addItem(learningObjective)
-                    }
-                }
-                
-                Webservices.getAllLearningObjectives { (learningObjectives, err) in
-                    for learningObjective in learningObjectives {
-                        mapLearningObjectivesStore.addItem(learningObjective)
-                        if learningObjective.strand != nil {
-                            if !strandsStore.strands.contains(learningObjective.strand!.strand) {
-                                strandsStore.addItem(learningObjective.strand!.strand)
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        .environmentObject(studentLearningObjectivesStore)
-        .environmentObject(learningPathsStore)
-        .environmentObject(mapLearningObjectivesStore)
-        .environmentObject(strandsStore)
-        .environmentObject(challengesStore)
-//        LoginView()
-        
+        Sidebar()
+            .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight, alignment: .center)
+            .environmentObject(strandsStore)
+            .environmentObject(learningPathsStore)
     }
 }
 

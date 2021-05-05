@@ -15,11 +15,10 @@ struct LearningObjectiveJourneyCell: View {
     @Environment(\.colorScheme) var colorScheme
     
     var isAddable = false
+    @Binding var learningPathSelected : String?
     
- //   var learningObjective: LearningObjective
-    @ObservedObject var learningObj: LearningObjective
+    @State var learningObj: LearningObjective
 
-    
     @EnvironmentObject var learningPathsStore: LearningPathStore
     
     var body: some View {
@@ -28,33 +27,33 @@ struct LearningObjectiveJourneyCell: View {
                 Rectangle()
                     .frame(width: 20, alignment: .topLeading)
                     .foregroundColor(setupColor(darkMode: colorScheme == .dark ? true : false, strand: learningObj.strand!))
-                
+
                 VStack {
                     HStack(alignment: .top) {
                         VStack(alignment: .leading, spacing: 8) {
                             Text(learningObj.strand?.strand.uppercased() ?? "No strand")
                                 .foregroundColor(setupColor(darkMode: colorScheme == .dark ? true : false, strand: learningObj.strand!))
                                 .font(.system(size: 20, weight: .semibold, design: .rounded))
-                            Text(learningObj.title?.uppercased() ?? "No title")
+                            Text(learningObj.learningGoal?.uppercased() ?? "No title")
                                 .foregroundColor(colorScheme == .dark ? Color(red: 255/255, green: 255/255, blue: 255/255) : Color.customDarkGrey)
                                 .font(.system(size: 22.toFontSize(), weight: .light))
                             Text(learningObj.isCore ?? true ? "CORE" : "ELECTIVE")
                                 .foregroundColor(colorScheme == .dark ? Color(red: 255/255, green: 255/255, blue: 255/255) : Color.customDarkGrey)
                                 .font(.system(size: 22.toFontSize(), weight: .light))
                         }.frame(width: 150, alignment: .leading).padding(.leading, 20).padding(.top, 15)
-                        
+
                         Spacer().frame(width: 100)
-                        
-                        Text(learningObj.description ?? "No description")
+
+                        Text(learningObj.objective ?? "No description")
                             .foregroundColor(colorScheme == .dark ? Color(red: 224/255, green: 224/255, blue: 224/255) : Color.customLightBlack)
                             .font(.system(size: 24.toFontSize(), weight: .regular))
                             .frame(maxWidth: 639.toScreenSize(), maxHeight: .infinity, alignment: .leading)
                             .lineLimit(self.expand ? nil : 4).padding()
-                        
+
                         Spacer()
-                        
+
                         if !isAddable {
-                            RatingView(learningObj: learningObj, rating: $rating)
+                            RatingView(learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
                                 .padding(.top, 15).padding(.trailing, 30)
                                 .onAppear(perform: {
                                     self.isRatingView.toggle()
@@ -62,21 +61,21 @@ struct LearningObjectiveJourneyCell: View {
                         } else {
                             AddButton(learningObjectiveSelected: learningObj, buttonSize: 27).padding(.trailing, 32).padding(.top, 24)
                         }
-                        
+
                     }.padding(.leading, 20)
                     .frame(maxHeight: .infinity, alignment: .center)
-                    
+
                     HStack {
                         VStack(alignment: .leading, spacing: 20) {
                             Divider().background(Color(red: 70/255, green: 70/255, blue: 70/255)).padding(.trailing, 60)
-                            
+
                             HStack {
                                 Text("KEYWORDS").foregroundColor(Color.customDarkGrey)
                                     .font(.system(size: 17, weight: .light))
                                     .frame(width: 150, alignment: .leading)
-                                
+
                                 Spacer()
-                                
+
                                 Text("#\(learningObj.tags?.joined(separator: " #") ?? "")")
                                     .foregroundColor(Color.customLightBlack)
                                     .font(.system(size: 16, weight: .medium))
@@ -84,39 +83,38 @@ struct LearningObjectiveJourneyCell: View {
                                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                                     .padding(.leading, 110).padding(.trailing, 50)
                                     .frame(height: 50)
-                                
+
                                 Spacer()
                             }
-                            
+
                             Divider().background(Color(red: 70/255, green: 70/255, blue: 70/255)).padding(.trailing, 60)
-                            
+
                             HStack {
                                 Text("HISTORY").foregroundColor(Color.customDarkGrey).font(.system(size: 17, weight: .light)).frame(width: 150, alignment: .leading)
                                 Spacer().frame(width: 100)
                                     ScrollView(.horizontal, showsIndicators: false) {
                                         HStack(spacing: 10) {
-                                            ForEach(learningObj.assessments ?? [Assessment]()) { item in
+                                            ForEach((learningObj.assessments ?? [Assessment]())!) { item in
                                                 if item == learningObj.assessments?.last || item == learningObj.assessments?.first {
-                                                    
+
                                                 } else {
-                                                    HistoryProgressView(assessment: item)
-                                                
+                                                    HistoryProgressView(assessment: item, learningObj: self.learningObj)
+
                                                 }
                                             }
-                                        }.onAppear {
-                                            learningObj.getAssessments()
                                         }
                                     }
-                                
+
                                 Spacer().frame(width: 50)
                             }
                         }.padding(.leading, 40).padding(.bottom, 50)
-                        
-                    }.frame(maxWidth: 1402.toScreenSize(), maxHeight: self.expand ? 250 : 0, alignment: .topLeading)
+
+                    }
+                    .frame(maxWidth: 1402.toScreenSize(), maxHeight: self.expand ? 250 : 0, alignment: .topLeading)
                     .padding(.trailing, 250)
                     .isHidden(self.expand ? false : true)
                 }
-                
+
                 VStack(alignment: .center, spacing: 5) {
                     Spacer().frame(height: 200)
                     Text(setupTitleProgressRubric(value: learningObj.assessments?.first?.value ?? 0))
@@ -133,12 +131,14 @@ struct LearningObjectiveJourneyCell: View {
                 .isHidden(self.isAddable ? true : false)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
                 .isHidden(self.expand ? false : true)
-                
+
                 HStack {
-                    Divider().background(Color(red: 70/255, green: 70/255, blue: 70/255)).padding(.top, 20).padding(.bottom, 20).padding(.trailing, 250).isHidden(self.isRatingView ? false : true)
-                }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .trailing)
+                    Divider()
+                         .background(Color(red: 70/255, green: 70/255, blue: 70/255)).padding(.top, 20).padding(.bottom, 20).padding(.trailing, 250).isHidden(self.isRatingView ? false : true)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .trailing)
                 .zIndex(1)
-                
+
                 Image(systemName: self.expand ? "chevron.up" : "chevron.down")
                     .font(.system(size: 20, weight: .bold))
                     .foregroundColor(Color.customCyan)

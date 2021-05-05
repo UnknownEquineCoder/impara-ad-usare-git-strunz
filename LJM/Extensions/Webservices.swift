@@ -7,6 +7,8 @@
 
 import SwiftUI
 import Alamofire
+import SwiftKeychainWrapper
+import JWTDecode
 
 class Webservices {
     private init() {
@@ -20,17 +22,28 @@ class Webservices {
     typealias AssessmentWebserviceResponse = (Assessment, APIError?) -> Void
     typealias ArrayAssessmentWebserviceResponse = ([Assessment], APIError?) -> Void
     typealias DeleteLOFromStudWebserviceResponse = (DeleteLOFromJourneyResponse, APIError?) -> Void
+    typealias UserWebserviceResponse = (FrozenUser, APIError?) -> Void
+
     
     struct Headers {
         static let headers : HTTPHeaders = [
-            "Authorization": "Bearer "+URLs.loginKey
+            "Authorization": "Bearer "+URLs.loginKey!
+        ]
+        
+        static let headersFull : HTTPHeaders = [
+            "Authorization": "Bearer "+URLs.loginKey!,
+            "Content-Type" : "application/json",
+            "accept" : "application/json"
         ]
     }
     
     struct URLs {
-        static let loginKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3N1ZXIiOiJodHRwczovL2FwcC5vbmVsb2dpbi5jb20vc2FtbC9tZXRhZGF0YS9kNzNmMWYyYS1mNTE2LTRkYzYtODlkOS1hMWU0NWM1NmUxODkiLCJpblJlc3BvbnNlVG8iOiJfZGYyNmNiNzEzM2E0NDg4YWRhODUiLCJzZXNzaW9uSW5kZXgiOiJfNjU3YWU1MzAtZGE5Yy00NGQ4LWE3ZjEtODRiMzA0ZDM3ZDZmIiwibmFtZUlEIjoiMTIzMTgzODAyIiwibmFtZUlERm9ybWF0IjoidXJuOm9hc2lzOm5hbWVzOnRjOlNBTUw6Mi4wOm5hbWVpZC1mb3JtYXQ6cGVyc2lzdGVudCIsImVtYWlsIjoidG9uaS50cmVzZ290c0BnbWFpbC5jb20iLCJuYW1lIjoiVG9ueSIsImlhdCI6MTYxODUxMTMzOSwiZXhwIjoxNjE5MTE2MTM5fQ.sbK-I-dqZhyKGGtExwCdMHkZFnu5XeZkpV0Dofs0YB0"
-        static let _baseURL = URL(string: "http://localhost")!
+    //   static let loginKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3N1ZXIiOiJodHRwczovL2FwcC5vbmVsb2dpbi5jb20vc2FtbC9tZXRhZGF0YS9kNzNmMWYyYS1mNTE2LTRkYzYtODlkOS1hMWU0NWM1NmUxODkiLCJpblJlc3BvbnNlVG8iOiJfZjk1YzdiNTdjY2ZkMTg3OTYwYzMiLCJzZXNzaW9uSW5kZXgiOiJfODc3NjI5MGYtN2E1MC00ZTAyLWFlM2YtYzA1MDI5NmE5YzUzIiwibmFtZUlEIjoiMTIzMTgzODAyIiwibmFtZUlERm9ybWF0IjoidXJuOm9hc2lzOm5hbWVzOnRjOlNBTUw6Mi4wOm5hbWVpZC1mb3JtYXQ6cGVyc2lzdGVudCIsImVtYWlsIjoidG9uaS50cmVzZ290c0BnbWFpbC5jb20iLCJuYW1lIjoiVG9ueSIsImlhdCI6MTYxOTEzMjcyNiwiZXhwIjoxNjE5NzM3NTI2fQ.ohHXZRSEkH3GVNNqsvvYAJP4Xb798dDT-ecAi6mLo6I"
+
+        static let loginKey = KeychainWrapper.standard.string(forKey: "tokenAuth")
+        
         static let baseURL = URL(string: "https://ljm-dev-01.fed.it.iosda.org")!
+      //  static let baseURL = URL(string: "http://localhost")!
         // AUTH URLs
         static let loginURL = baseURL.appendingPathComponent("/api/auth/oidc/login")
         
@@ -56,6 +69,19 @@ class Webservices {
         
     }
     
+    static func decodeToken(secretToken: String, completion: @escaping UserWebserviceResponse) {
+        // Decode token
+        do {
+            let jwt = try decode(jwt: secretToken)
+            
+            if !jwt.expired {
+                completion(FrozenUser(name: "test name", surname: "test surname"), nil)
+            }
+
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        }
+    }
     
     static func getAllLearningPaths(completion : @escaping ArrayLearningPathWebserviceResponse) {
         
@@ -72,7 +98,6 @@ class Webservices {
     static func getStudentJourneyLearningObjectives(completion : @escaping ArrayLearningObjectiveWebserviceResponse) {
         
         AF.request(URLs.getStudentJourneyLearningObjectiveURL, headers: Headers.headers).responseDecodable(of: [LearningObjective].self) { response in
-            print("OJIHUYVHIJ \(response)")
             guard let learningObjectives = response.value else {
                 return
             }
@@ -103,7 +128,7 @@ class Webservices {
         //        ]
         
         let params : Parameters = [
-            "title": learningObjective.title,
+            "title": learningObjective.learningGoal,
             "isCore": learningObjective.isCore,
             "description": learningObjective.description,
             "tags": learningObjective.tags,
@@ -161,20 +186,12 @@ class Webservices {
     
     static func getAssessmentHistoryOfLearningObjective(learningObjectiveId: String, completion: @escaping ArrayAssessmentWebserviceResponse) {
         
-        let headers : HTTPHeaders = [
-            "Authorization": "Bearer "+URLs.loginKey,
-            "Content-Type" : "application/json",
-            "accept" : "application/json"
-        ]
-        
         let params : Parameters = [
             "learningObjectiveId" : learningObjectiveId
         ]
         
-        AF.request(URLs.getHistoryAssessment.appendingPathComponent(learningObjectiveId), method: .get, parameters: params, encoding: URLEncoding.default, headers: headers).validate().responseJSON { (response) in
-            
-            print("IUBVBIJO \(response)")
-            
+        AF.request(URLs.getHistoryAssessment.appendingPathComponent(learningObjectiveId), method: .get, parameters: params, encoding: URLEncoding.default, headers: Headers.headersFull).validate().responseJSON { (response) in
+                        
             let decoder = JSONDecoder()
                         
             do {
@@ -194,18 +211,12 @@ class Webservices {
     
     static func addAssessment(learningObjId: String, value: Int, completion : @escaping AssessmentWebserviceResponse) {
         
-        let headers : HTTPHeaders = [
-            "Authorization": "Bearer "+URLs.loginKey,
-            "Content-Type" : "application/json",
-            "accept" : "application/json"
-        ]
-        
         let params : Parameters = [
             "value" : value,
             "learningObjective" : learningObjId
         ]
         
-        AF.request(URLs.getAssessmentURL, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers).validate().responseJSON { (response) in
+        AF.request(URLs.getAssessmentURL, method: .post, parameters: params, encoding: JSONEncoding.default, headers: Headers.headersFull).validate().responseJSON { (response) in
             let decoder = JSONDecoder()
             
             do {
@@ -225,21 +236,13 @@ class Webservices {
     
     static func deleteAssessment(id: String, completion : @escaping AssessmentWebserviceResponse) {
         
-        let headers : HTTPHeaders = [
-            "Authorization": "Bearer "+URLs.loginKey,
-            "Content-Type" : "application/json",
-            "accept" : "application/json"
-        ]
-        
         let params : Parameters = [
             "assessmentId" : id
         ]
         
-        AF.request(URLs.deleteAssessmentURL.appendingPathComponent(id), method: .delete, parameters: params, encoding: JSONEncoding.default, headers: headers).validate().responseJSON { (response) in
+        AF.request(URLs.deleteAssessmentURL.appendingPathComponent(id), method: .delete, parameters: params, encoding: JSONEncoding.default, headers: Headers.headersFull).validate().responseJSON { (response) in
             let decoder = JSONDecoder()
-            
-            print("INBUYVTUBHINJ \(response.request) ---- \(response.result) ------ \(response.response)")
-            
+                        
             do {
                 switch response.result {
                 case .success:
@@ -257,17 +260,11 @@ class Webservices {
     
     static func deleteLearningObjectiveFromStudentJourney(id: String, completion : @escaping DeleteLOFromStudWebserviceResponse) {
         
-        let headers : HTTPHeaders = [
-            "Authorization": "Bearer "+URLs.loginKey,
-            "Content-Type" : "application/json",
-            "accept" : "application/json"
-        ]
-        
         let params : Parameters = [
             "learningObjectiveId" : id
         ]
         
-        AF.request(URLs.deleteAssessedLearningObjective.appendingPathComponent(id), method: .delete, parameters: params, encoding: JSONEncoding.default, headers: headers).validate().responseJSON { (response) in
+        AF.request(URLs.deleteAssessedLearningObjective.appendingPathComponent(id), method: .delete, parameters: params, encoding: JSONEncoding.default, headers: Headers.headersFull).validate().responseJSON { (response) in
             let decoder = JSONDecoder()
             
             do {
@@ -344,17 +341,7 @@ class Webservices {
 //        }
 //    }
 
-//    static func getLearningObjective(id: String, completion : @escaping LearningObjectiveWebserviceResponse) {
-//
-//        AF.request(URLs.getLearningObjectiveURL.appendingPathComponent(id), headers: Headers.headers).responseDecodable(of: LearningObjective.self) { response in
-//
-//            guard let learningObjective = response.value else {
-//                return
-//            }
-//
-//            completion(learningObjective, nil)
-//        }
-//    }
+
 
 //    static func addLearningPath(title: String, description: String, learningObjectives: [String?], createdByLearner: String, completion : @escaping LearningPathIdWebserviceResponse) {
 //

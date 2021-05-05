@@ -9,12 +9,12 @@ import SwiftUI
 
 struct RatingView: View {
     
-    @ObservedObject var learningObj: LearningObjective
+    @State var learningObj: LearningObjective
     
-//    var learningObjectiveSelected: LearningObjective
     @Binding var rating: Int
     @State private var hover = false
     var maximumRating = 5
+    @Binding var learningPathSelected : String?
     
     @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
     
@@ -34,19 +34,16 @@ struct RatingView: View {
                         self.hover = false
                         
                         if learningObj.id != nil {
-                            
+                                                    
                             Webservices.addAssessment(learningObjId: learningObj.id!, value: number) { (assessment, err) in
+                                
                                 if err == nil {
-                                    // update UI rating level
-                                    // logic add a history view last assessment
                                     self.learningObj.getAssessments()
-                                    
                                 }
                             }
                         }
-                        
                     } label: {
-                        CircleView(number: number, rating: rating)
+                        CircleView(number: number, rating: self.learningObj.assessments?.first?.value ?? 0)
                     }
                     .frame(width: 35, height: 35, alignment: .center)
                     .buttonStyle(PlainButtonStyle())
@@ -57,26 +54,35 @@ struct RatingView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 15, height: 15, alignment: .center)
-                .foregroundColor(Color.customCyan)
+                .foregroundColor(learningObj.isCore ?? false ? Color.customLightGrey : Color.clear)
             
         }
     }
     
     func setupGoalRating() -> CGFloat {
-        switch learningObj.coreRubricLevel {
-        case 1:
-            return -85
-        case 2:
-            return -44
-        case 3:
-            return 0
-        case 4:
-            return 44
-        case 5:
-            return 85
-        default:
+        if learningObj.rubricLevels != nil {
+            for rubricLevel in self.learningObj.rubricLevels! {
+                if rubricLevel.path == self.learningPathSelected {
+                    switch rubricLevel.value {
+                    case 1:
+                        return -85
+                    case 2:
+                        return -44
+                    case 3:
+                        return 0
+                    case 4:
+                        return 44
+                    case 5:
+                        return 85
+                    default:
+                        return 0
+                    }
+                }
+            }
+        } else {
             return 0
         }
+        return 0
     }
 }
 
@@ -142,15 +148,15 @@ struct CircleView: View {
         case 0:
             return ""
         case 1:
-            return "Description value 1"
+            return ""
         case 2:
-            return "Description value 2"
+            return "You have been exposed to the content within the learning objective."
         case 3:
             return "You can understand and apply concepts with assistance."
         case 4:
-            return "Description value 4"
+            return "You understand the concepts, can analyze and evaluate when to use them and can apply them independently."
         case 5:
-            return "Description value 5"
+            return "You are a confident and creative learner of the concept and can serve as a guiding resource to others."
             
         default:
             return ""

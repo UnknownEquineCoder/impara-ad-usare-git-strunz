@@ -2,15 +2,20 @@ import Foundation
 import SwiftUI
 import Combine
 
-struct Mentor: Codable {
-    var _id: String
+protocol LJMData: Identifiable {}
+protocol LJMEncodableData: LJMData & Encodable {}
+protocol LJMDecodableData: LJMData & Decodable {}
+protocol LJMCodableData: LJMData & Codable {}
+
+struct Mentor: LJMCodableData {
+    var id: String
     var name: String
     var picture: String?
     var email: String
 }
 
-struct Student: Codable {
-    var _id: String
+struct Student: LJMCodableData {
+    var id: String
     var name: String
     var picture: String?
     var email: String
@@ -41,7 +46,7 @@ enum Value {
     case exemplary
 }
 
-struct LearningPath: Decodable, Identifiable, Equatable {
+struct LearningPath: LJMCodableData, Identifiable, Equatable {
     var id: String?
     var title: String?
     var description: String?
@@ -65,21 +70,22 @@ struct LearningPath: Decodable, Identifiable, Equatable {
     }
 }
 
-class LearningObjective: Decodable, Identifiable, Hashable, ObservableObject {
+struct LearningObjective: LJMCodableData, Hashable {
     
     var id: String?
     var tags : [String]?
     var code: String?
     var strand: Strand?
-    var title: String?
+    var learningGoal: String?
     var isCore: Bool?
     var objective: String?
     var coreRubricLevel: Int?
     var description: String?
     var createdByLearner: String?
     var documentation: String?
-    @Published var assessments: [Assessment]?
+    var assessments: [Assessment]?
     var learningPaths: [LearningPathReference]?
+    var rubricLevels: [RubricLevels]?
     
     enum CodingKeys: String, CodingKey {
         case id = "_id"
@@ -87,7 +93,7 @@ class LearningObjective: Decodable, Identifiable, Hashable, ObservableObject {
         case code
         case strand
         case objective
-        case title
+        case learningGoal
         case isCore
         case documentation
         case description
@@ -95,40 +101,7 @@ class LearningObjective: Decodable, Identifiable, Hashable, ObservableObject {
         case coreRubricLevel
         case assessments
         case learningPaths
-    }
-    
-    init(id: String?, tags: [String]?, code: String?, strand: Strand?, title: String?, isCore: Bool?, objective: String?, coreRubricLevel: Int?, description: String?, createdByLearner: String?, documentation: String?, learningPaths: [LearningPathReference]?) {
-        self.id = id
-        self.tags = tags
-        self.code = code
-        self.strand = strand
-        self.title = title
-        self.isCore = isCore
-        self.objective = objective
-        self.coreRubricLevel = coreRubricLevel
-        self.description = description
-        self.createdByLearner = createdByLearner
-        self.documentation = documentation
-       // self.assessments = assessments
-        self.learningPaths = learningPaths
-        getAssessments()
-    }
-    
-    required init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decodeIfPresent(String.self, forKey: .id)
-        tags = try values.decodeIfPresent([String].self, forKey: .tags)!
-        code = try values.decodeIfPresent(String.self, forKey: .code)
-        strand = try values.decodeIfPresent(Strand.self, forKey: .strand)
-        objective = try values.decodeIfPresent(String.self, forKey: .objective)
-        documentation = try values.decodeIfPresent(String.self, forKey: .documentation)
-        coreRubricLevel = try values.decodeIfPresent(Int.self, forKey: .coreRubricLevel)
-        title = try values.decodeIfPresent(String.self, forKey: .title)
-        isCore = try values.decodeIfPresent(Bool.self, forKey: .isCore)
-        description = try values.decodeIfPresent(String.self, forKey: .description)
-        createdByLearner = try values.decodeIfPresent(String.self, forKey: .createdByLearner)
-        assessments = try values.decodeIfPresent([Assessment].self, forKey: .assessments)
-        learningPaths = try values.decodeIfPresent([LearningPathReference].self, forKey: .learningPaths)
+        case rubricLevels
     }
     
     func hash(into hasher: inout Hasher) {
@@ -144,25 +117,22 @@ class LearningObjective: Decodable, Identifiable, Hashable, ObservableObject {
     }
     
     func getAssessments() -> Void {
-        print("IJOHUYBIN \(id)")
         if id != nil {
             Webservices.getAssessmentHistoryOfLearningObjective(learningObjectiveId: id!) { (assessments : [Assessment]?, err) in
-                print("INBUVTBHIJO ------ \(assessments) ------- \(err)")
                 if let assessments = assessments {
-                    self.assessments = assessments
-                    print("OIHBUHIJNKO?N  \(assessments)")
+//                    self.assessments = assessments
                 }
             }
         }
     }
 }
 
-struct LearningPathReference: Codable, Equatable {
-    var _id: String?
+struct LearningPathReference: LJMCodableData, Equatable {
+    var id: String?
     var title: String?
     
     static func == (lhs: LearningPathReference, rhs: LearningPathReference) -> Bool {
-        if lhs._id == rhs._id {
+        if lhs.id == rhs.id {
             return true
         } else {
             return false
@@ -170,7 +140,7 @@ struct LearningPathReference: Codable, Equatable {
     }
 }
 
-struct Assessment: Codable, Identifiable, Hashable {
+struct Assessment: LJMCodableData, Identifiable, Hashable {
     var id: String?
     var value: Int?
     var date: String?
@@ -192,7 +162,7 @@ struct Assessment: Codable, Identifiable, Hashable {
     }
 }
 
-struct Strand: Codable, Identifiable, Equatable {
+struct Strand: LJMCodableData, Identifiable, Equatable {
     var id: String
     var strand: String
     var color: StrandColor?
@@ -212,6 +182,11 @@ struct Strand: Codable, Identifiable, Equatable {
             return false
         }
     }
+}
+
+struct RubricLevels: Codable {
+    var path: String?
+    var value: Int?
 }
 
 struct StrandColor: Codable {
@@ -296,7 +271,7 @@ class TotalNumberLearningObjectives: ObservableObject {
 }
 
 class SelectedSegmentView: ObservableObject {
-    @Published var selectedView: String = "My Journey"
+    @Published var selectedView: String = "Map"
 }
 
 class StrandsFilter: ObservableObject {

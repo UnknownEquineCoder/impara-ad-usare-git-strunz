@@ -16,7 +16,7 @@ struct MyJourneyView: View {
     let arrayFilters = ["All", "Core", "Elective", "Evaluated"]
     
     @State private var searchText = ""
-    @State private var selectedPath = ""
+    @State private var selectedPath : String?
     
     @Environment(\.colorScheme) var colorScheme
     
@@ -25,9 +25,7 @@ struct MyJourneyView: View {
     @EnvironmentObject var strandsStore: StrandsStore
     
     @ObservedObject var totalLOs : TotalNumberLearningObjectives
-    
-    @ObservedObject var selectedView : SelectedSegmentView
-    
+        
     var body: some View {
         VStack(alignment: .leading) {
             ZStack(alignment: .topLeading) {
@@ -52,7 +50,6 @@ struct MyJourneyView: View {
             
             ZStack(alignment: .topLeading) {
                 
-                // NumberTotalLearningOjbectivesView(totalLOs: calculateAllLearningObjectives(learningPath: learningPaths))
                 NumberTotalLearningOjbectivesView(totalLOs: self.totalLOs.total)
                 
                 SearchBarExpandableJourney(txtSearchBar: $searchText).background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
@@ -65,7 +62,7 @@ struct MyJourneyView: View {
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .zIndex(1)
                 
-                ListViewLearningObjectiveMyJourney(selectedFilter: $selectedFilter, txtSearchBar: $searchText, selectedPath: $selectedPath, selectedStrands: $selectedStrands, totalLOs: totalLOs, selectedSegmentView: self.selectedView)
+                ListViewLearningObjectiveMyJourney(selectedFilter: $selectedFilter, txtSearchBar: $searchText, selectedPath: $selectedPath, selectedStrands: $selectedStrands, totalLOs: totalLOs)
                     .padding(.top, 50)
                 
             }.frame(maxWidth: .infinity).padding(.top, 10)
@@ -114,14 +111,13 @@ struct ListViewLearningObjectiveMyJourney: View {
     
     @Binding var selectedFilter: CoreEnum.RawValue
     @Binding var txtSearchBar : String
-    @Binding var selectedPath : String
+    @Binding var selectedPath : String?
     @Binding var selectedStrands : [String]
     
     @EnvironmentObject var learningPathsStore: LearningPathStore
     @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
     
     @ObservedObject var totalLOs : TotalNumberLearningObjectives
-    @ObservedObject var selectedSegmentView : SelectedSegmentView
     
     var body: some View {
         
@@ -135,10 +131,10 @@ struct ListViewLearningObjectiveMyJourney: View {
                     .padding(.top, 20)
                     .isHidden(totalLOs.total > 0 ? true : false)
                                 
-                ScrollViewLearningObjectives(totalLOs: self.totalLOs, selectedSegmentView: selectedSegmentView, learningPathSelected: selectedPath, filterCore: selectedFilter, isAddable: false, textFromSearchBar: txtSearchBar, selectedStrands: selectedStrands)
+                ScrollViewLearningObjectives(totalLOs: self.totalLOs, learningPathSelected: $selectedPath, filterCore: selectedFilter, isAddable: false, textFromSearchBar: txtSearchBar, selectedStrands: selectedStrands)
             }
         } else {
-            EmptyLearningObjectiveViewJourney(selectedView: self.selectedSegmentView)
+            EmptyLearningObjectiveViewJourney()
         }
     }
 }

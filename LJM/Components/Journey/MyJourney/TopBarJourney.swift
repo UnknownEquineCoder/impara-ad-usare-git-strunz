@@ -9,10 +9,12 @@ import Foundation
 import SwiftUI
 
 struct TopBarJourney: View {
-    @State var tabs = ["My Journey", "Map", "Challenge"]
+    @State var tabs = ["Map", "Challenge"]
     @Environment(\.colorScheme) var colorScheme
     
     @ObservedObject var selectedView : SelectedSegmentView
+    
+    @EnvironmentObject var challengeStore: ChallengesStore
     
     var body: some View {
         HStack {
@@ -27,6 +29,8 @@ struct TopBarJourney: View {
                             .foregroundColor(self.selectedView.selectedView == i ? .customBlack : .customDarkGrey)
                             .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255): .white)
                     }).buttonStyle(PlainButtonStyle())
+                    .allowsHitTesting(challengeStore.challenges.isEmpty ? false : true)
+
                     
                     TopBarJourneySelectedBottomView(color: self.selectedView.selectedView == i ? Color.customCyan : .clear)
                 }
