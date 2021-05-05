@@ -15,14 +15,14 @@ class Webservices {
         
     }
     
-    typealias ArrayLearningPathWebserviceResponse = ([LearningPath], APIError?) -> Void
+    typealias ArrayLearningPathWebserviceResponse = ([LearningPath]?, APIError?) -> Void
     typealias LearningPathWebserviceResponse = (LearningPath, APIError?) -> Void
     typealias ArrayLearningObjectiveWebserviceResponse = ([LearningObjective], APIError?) -> Void
     typealias LearningObjectiveWebserviceResponse = (LearningObjective, APIError?) -> Void
     typealias AssessmentWebserviceResponse = (Assessment, APIError?) -> Void
     typealias ArrayAssessmentWebserviceResponse = ([Assessment], APIError?) -> Void
     typealias DeleteLOFromStudWebserviceResponse = (DeleteLOFromJourneyResponse, APIError?) -> Void
-    typealias UserWebserviceResponse = (FrozenUser, APIError?) -> Void
+    typealias UserWebserviceResponse = (FrozenUser?, APIError?) -> Void
 
     
     struct Headers {
@@ -38,12 +38,11 @@ class Webservices {
     }
     
     struct URLs {
-    //   static let loginKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3N1ZXIiOiJodHRwczovL2FwcC5vbmVsb2dpbi5jb20vc2FtbC9tZXRhZGF0YS9kNzNmMWYyYS1mNTE2LTRkYzYtODlkOS1hMWU0NWM1NmUxODkiLCJpblJlc3BvbnNlVG8iOiJfZjk1YzdiNTdjY2ZkMTg3OTYwYzMiLCJzZXNzaW9uSW5kZXgiOiJfODc3NjI5MGYtN2E1MC00ZTAyLWFlM2YtYzA1MDI5NmE5YzUzIiwibmFtZUlEIjoiMTIzMTgzODAyIiwibmFtZUlERm9ybWF0IjoidXJuOm9hc2lzOm5hbWVzOnRjOlNBTUw6Mi4wOm5hbWVpZC1mb3JtYXQ6cGVyc2lzdGVudCIsImVtYWlsIjoidG9uaS50cmVzZ290c0BnbWFpbC5jb20iLCJuYW1lIjoiVG9ueSIsImlhdCI6MTYxOTEzMjcyNiwiZXhwIjoxNjE5NzM3NTI2fQ.ohHXZRSEkH3GVNNqsvvYAJP4Xb798dDT-ecAi6mLo6I"
 
         static let loginKey = KeychainWrapper.standard.string(forKey: "tokenAuth")
         
         static let baseURL = URL(string: "https://ljm-dev-01.fed.it.iosda.org")!
-      //  static let baseURL = URL(string: "http://localhost")!
+
         // AUTH URLs
         static let loginURL = baseURL.appendingPathComponent("/api/auth/oidc/login")
         
@@ -56,7 +55,6 @@ class Webservices {
         
         static let getLearningObjectiveURL = baseURL.appendingPathComponent("api/learning-objective")
         static let getStudentJourneyLearningObjectiveURL = baseURL.appendingPathComponent("api/learning-objective/journey")
-        
         
         // ASSESSMENT URLs
         
@@ -78,6 +76,7 @@ class Webservices {
                 completion(FrozenUser(name: jwt.body["name"] as! String, surname: ""), nil)
             } else {
                 // Should redirect to Login if token expired
+                completion(nil, APIError.decodingProblem)
             }
 
         } catch let error as NSError {
@@ -89,6 +88,7 @@ class Webservices {
         
         AF.request(URLs.getLearningPathsURL, headers: Headers.headers).responseDecodable(of: [LearningPath].self){ response in
             guard let learningPaths = response.value else {
+                completion(nil, APIError.decodingProblem)
                 return
             }
             
@@ -123,12 +123,6 @@ class Webservices {
     
     static func addLearningObjective(learningObjective: LearningObjective, completion : @escaping LearningObjectiveWebserviceResponse) {
         
-        //        let headers : HTTPHeaders = [
-        //            "Authorization": "Bearer "+URLs.loginKey,
-        //            "Content-Type" : "application/json",
-        //            "accept" : "application/json"
-        //        ]
-        
         let params : Parameters = [
             "title": learningObjective.learningGoal,
             "isCore": learningObjective.isCore,
@@ -156,12 +150,6 @@ class Webservices {
     }
     
     static func updateLearningObjective(learningObjective: LearningObjective, completion : @escaping LearningObjectiveWebserviceResponse) {
-        
-        //        let headers : HTTPHeaders = [
-        //            "Authorization": "Bearer "+URLs.loginKey,
-        //            "Content-Type" : "application/json",
-        //            "accept" : "application/json"
-        //        ]
         
         let params : Parameters = [
             "id" : learningObjective.id,

@@ -12,6 +12,7 @@ struct JourneyMainView: View, LJMView {
     @State var selected = "Map"
     @Environment(\.colorScheme) var colorScheme
     @State private var showSearchBarSideBar = true
+    @State private var alertIsShowing = false
     
     @ObservedObject var selectedView = SelectedSegmentView()
     @ObservedObject var totalLOs = TotalNumberLearningObjectives()
@@ -24,8 +25,10 @@ struct JourneyMainView: View, LJMView {
     
     var body: some View {
         ZStack(alignment: .top) {
+            
             if self.selectedView.selectedView == "Map" {
                 PathsView(totalLOs: self.totalLOs, selectedSegmentView: self.selectedView).modifier(PaddingMainSubViews())
+                
             } else {
                 ChallengeView(totalLOs: self.totalLOs, selectedSegmentView: self.selectedView).modifier(PaddingMainSubViews())
             }
@@ -34,10 +37,17 @@ struct JourneyMainView: View, LJMView {
                 Spacer()
             }
         }.background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
+        .alert(isPresented: $alertIsShowing) {
+            Alert(title: Text("Error"),
+                  message: Text("No VPN detected, connect to the VPN and log in again."),
+                  dismissButton: .default(Text("OK")) {
+                    
+                  })
+        }
         .onAppear {
             Webservices.getAllLearningPaths { learningPathResult, err  in
-                if err == nil {
-                    for learningPath in learningPathResult {
+                if err == nil && learningPathResult != nil {
+                    for learningPath in learningPathResult! {
                         if !self.learningPathsStore.learningPaths.contains(learningPath) {
                             if learningPath.title!.lowercased().contains("challenge") {
                                 challengesStore.addItem(learningPath)
@@ -46,6 +56,8 @@ struct JourneyMainView: View, LJMView {
                             }
                         }
                     }
+                } else {
+                    self.alertIsShowing = true
                 }
                 
                 Webservices.getStudentJourneyLearningObjectives { (learningObjectives, err) in

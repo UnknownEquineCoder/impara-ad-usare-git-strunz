@@ -39,9 +39,9 @@ struct MainScreen: View{
         let semaphore = DispatchSemaphore(value: 0)
                 
         Webservices.decodeToken(secretToken: secretToken) { user, err in
-            if err == nil {
-                LJM.storage.user.name = user.name
-                LJM.storage.user.surname = user.surname
+            if err == nil && user != nil {
+                LJM.storage.user.name = user!.name
+                LJM.storage.user.surname = user!.surname
                 viewToGo = AnyView(ContentView())
                 semaphore.signal()
             } else {
