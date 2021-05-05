@@ -287,7 +287,7 @@ class Webservices {
     static func getGraph(date_to: String, path: String) {
         
         let headers : HTTPHeaders = [
-            "Authorization": "Bearer "+URLs.loginKey,
+            "Authorization": "Bearer " + (URLs.loginKey ?? ""),
             "Content-Type" : "application/json",
             "accept" : "application/json"
         ]

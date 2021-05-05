@@ -17,7 +17,7 @@ struct MainScreen: View{
         
     var body: some View {
 
-        if LJM.Storage.shared.user.loginKey == nil || LJM.Storage.shared.user.loginKey == "" {
+        if LJM.storage.user.loginKey == nil || LJM.storage.user.loginKey == "" {
             if status {
                 ContentView()
             } else {
