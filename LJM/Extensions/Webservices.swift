@@ -110,7 +110,7 @@ class Webservices {
     
     static func getAllLearningObjectives(completion : @escaping ArrayLearningObjectiveWebserviceResponse) {
         
-        AF.request(URLs.getLearningObjectiveURL, headers: Headers.headers).responseDecodable(of: [LearningObjective].self) { response in
+        AF.request(URLs.getLearningObjectiveURL, headers: Headers.headersFull).responseDecodable(of: [LearningObjective].self) { response in
                         
             guard let learningObjectives = response.value else {
                 return

@@ -2,8 +2,8 @@ import Foundation
 
 extension LJM.API {
     @frozen enum URLs: URL {
-        case objectives = "1"
-        case assessments = "0"
-        case paths = "2"
+        case objectives = "https://ljm-dev-01.fed.it.iosda.org/api/learning-objective"
+        case assessments = "https://ljm-dev-01.fed.it.iosda.org/api//api/assessment/history"
+        case paths = "https://ljm-dev-01.fed.it.iosda.org/api/learning-path/"
     }
 }

@@ -4,8 +4,6 @@ import SwiftKeychainWrapper
 
 @main
 struct LJMApp: App {
-    
-    #warning("The commit and push worked correctly")
         
     @AppStorage("log_Status") var status = false
     

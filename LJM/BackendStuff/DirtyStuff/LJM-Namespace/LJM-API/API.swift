@@ -32,7 +32,7 @@ extension LJM {
             
             guard let url = API.Routing.route(T.self)?.url else { return }
             
-            AF.request(url, headers: Headers.headers)
+            AF.request(url, headers: Headers.headersFull)
                 .responseDecodable(of: type) { response in
                     switch response.result {
                     case .success(let data):
