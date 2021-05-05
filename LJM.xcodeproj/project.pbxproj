@@ -25,6 +25,7 @@
 		55E140AE263F391700999A28 /* CachesUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E140AD263F391700999A28 /* CachesUtils.swift */; };
 		55E140B6263F404100999A28 /* StorageFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E140B5263F404100999A28 /* StorageFilters.swift */; };
 		55E140BA263F407B00999A28 /* StorageAliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E140B9263F407B00999A28 /* StorageAliases.swift */; };
+		941445EA26429894005BA5CB /* WebviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941445E926429894005BA5CB /* WebviewCoordinator.swift */; };
 		960451E725F0F46000F34D9A /* BarGraphFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960451E625F0F46000F34D9A /* BarGraphFrame.swift */; };
 		9605C71825C95498007E808E /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9605C71725C95498007E808E /* LoginPage.swift */; };
 		9605C72C25C96C39007E808E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9605C72B25C96C39007E808E /* User.swift */; };
@@ -143,6 +144,7 @@
 		55E140AD263F391700999A28 /* CachesUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachesUtils.swift; sourceTree = "<group>"; };
 		55E140B5263F404100999A28 /* StorageFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageFilters.swift; sourceTree = "<group>"; };
 		55E140B9263F407B00999A28 /* StorageAliases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageAliases.swift; sourceTree = "<group>"; };
+		941445E926429894005BA5CB /* WebviewCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebviewCoordinator.swift; sourceTree = "<group>"; };
 		960451E625F0F46000F34D9A /* BarGraphFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarGraphFrame.swift; sourceTree = "<group>"; };
 		9605C71725C95498007E808E /* LoginPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPage.swift; sourceTree = "<group>"; };
 		9605C72B25C96C39007E808E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -472,6 +474,7 @@
 			isa = PBXGroup;
 			children = (
 				EA5B4462263027ED002A97C7 /* WebviewLogin.swift */,
+				941445E926429894005BA5CB /* WebviewCoordinator.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -745,6 +748,7 @@
 				9672C8F425E3F46B005CC753 /* RadarChartView.swift in Sources */,
 				EA5B445D262E6F23002A97C7 /* MyJourneyMainView.swift in Sources */,
 				5579EB51263A02EF0086A4BE /* Cache.swift in Sources */,
+				941445EA26429894005BA5CB /* WebviewCoordinator.swift in Sources */,
 				EA686EF9256EE4F300C121DC /* TopBarJourney.swift in Sources */,
 				96CC613F257A38FC00CE7ABD /* DropDownMenuFilters.swift in Sources */,
 				EA686F2E256F25CF00C121DC /* Extensions.swift in Sources */,
@@ -945,7 +949,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"LJM/Preview Content\"";
-				DEVELOPMENT_TEAM = 254K9Z2T45;
+				DEVELOPMENT_TEAM = 6GCHYY4YGP;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = LJM/Info.plist;
@@ -970,7 +974,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"LJM/Preview Content\"";
-				DEVELOPMENT_TEAM = 254K9Z2T45;
+				DEVELOPMENT_TEAM = 6GCHYY4YGP;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = LJM/Info.plist;

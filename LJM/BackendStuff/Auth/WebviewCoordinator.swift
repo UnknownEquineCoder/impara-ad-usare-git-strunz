@@ -10,31 +10,29 @@ import SwiftUI
 import WebKit
 import SwiftKeychainWrapper
 
-class Coordinator : NSObject, WKNavigationDelegate {
+class WebviewCoordinator: NSObject, WKNavigationDelegate {
     @AppStorage("log_Status") var status: Bool = false
+    @AppStorage("webview_error") var webViewError = ""
     
     var parent: WebviewLogin
-
-    init(_ uiWebView: WebviewLogin) {
+    var error: Binding<Bool>
+        
+    init(_ uiWebView: WebviewLogin, error: Binding<Bool>) {
         self.parent = uiWebView
-    }
-    
-    func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
-        if let response = navigationResponse.response as? HTTPURLResponse {
-            print(response.statusCode)
-        }
-    }
-    
-    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        print(error.localizedDescription)
+        self.error = error
     }
     
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
-        print(error)
+        self.error.wrappedValue.toggle()
+        
+        var message = error.localizedDescription
+        message += "\nThis is usually a problem with the VPN, check if you are connected, otherwise contact an admininstrator."
+        
+        self.webViewError = message
     }
 }
 
-extension Coordinator: WKScriptMessageHandler {
+extension WebviewCoordinator: WKScriptMessageHandler {
     //   @EnvironmentObject var user: FrozenUser
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
@@ -48,9 +46,9 @@ extension Coordinator: WKScriptMessageHandler {
             KeychainWrapper.standard.set(secretToken, forKey: "tokenAuth")
             
             Webservices.decodeToken(secretToken: secretToken) { user, err in
-                //                // User object and fill it
-                //                self.user.name = user.name
-                //                self.user.surname = user.surname
+                // User object and fill it
+                LJM.Storage.shared.user.name = user.name
+                LJM.Storage.shared.user.surname = user.surname
                 
                 // switch screen to main if there is a token
                 self.status = true
