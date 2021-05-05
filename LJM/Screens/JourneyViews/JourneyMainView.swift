@@ -29,7 +29,6 @@ struct JourneyMainView: View, LJMView {
             } else {
                 ChallengeView(totalLOs: self.totalLOs, selectedSegmentView: self.selectedView).modifier(PaddingMainSubViews())
             }
-            
             HStack {
                 TopBarJourney(selectedView: self.selectedView).padding(.top, 20).padding(.leading, 50)
                 Spacer()

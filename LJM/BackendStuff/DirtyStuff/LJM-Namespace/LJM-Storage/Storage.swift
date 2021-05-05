@@ -5,7 +5,11 @@ extension LJM {
      Storage keeps track of all the data inside the App, making access straight-forward
      It is implemented using the Singleton Pattern
      */
+    
     final class Storage: ObservableObject {
+        
+        @Published var user = FrozenUser(name: "", surname: "")
+        
         @AutoUpdate var learningObjectives: [LearningObjective] = [] {
             willSet {
                 objectWillChange.send()

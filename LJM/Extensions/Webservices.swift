@@ -75,7 +75,9 @@ class Webservices {
             let jwt = try decode(jwt: secretToken)
             
             if !jwt.expired {
-                completion(FrozenUser(name: "test name", surname: "test surname"), nil)
+                completion(FrozenUser(name: jwt.body["name"] as! String, surname: ""), nil)
+            } else {
+                // Should redirect to Login if token expired
             }
 
         } catch let error as NSError {

@@ -7,7 +7,7 @@
 
 import Foundation
 import SwiftUI
-
+import SwiftKeychainWrapper
 
 struct ProfileImage: View {
     @AppStorage("propic") var data: Data = Data()
@@ -63,7 +63,10 @@ struct StudentPictureView: View {
                 
             }
             
-            ProfileNameLabel(qualifiedName: "James Harden").frame(width: 150)
+            ProfileNameLabel(qualifiedName: "\(LJM.Storage.shared.user.name ?? "") \(LJM.Storage.shared.user.surname ?? "")").frame(width: 150)
+                .onTapGesture {
+                    KeychainWrapper.standard.removeObject(forKey: "tokenAuth")
+                }
                 
         }
         .padding(.trailing)
