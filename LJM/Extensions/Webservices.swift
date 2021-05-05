@@ -28,8 +28,9 @@ class Webservices {
     }
     
     struct URLs {
-        static let loginKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3N1ZXIiOiJodHRwczovL2FwcC5vbmVsb2dpbi5jb20vc2FtbC9tZXRhZGF0YS9kNzNmMWYyYS1mNTE2LTRkYzYtODlkOS1hMWU0NWM1NmUxODkiLCJpblJlc3BvbnNlVG8iOiJfMjZhM2QwNjA2ZDYxNjkxMGVjZDQiLCJzZXNzaW9uSW5kZXgiOiJfYmMwZGE5ZTMtNDRkZi00OGNkLWEwMDctZGJmNmQ4ZjFkMTQ3IiwibmFtZUlEIjoiMTIzMTY3MDQwIiwibmFtZUlERm9ybWF0IjoidXJuOm9hc2lzOm5hbWVzOnRjOlNBTUw6Mi4wOm5hbWVpZC1mb3JtYXQ6cGVyc2lzdGVudCIsIm5hbWUiOiJMYXVyYSIsImVtYWlsIjoibGF1cmEuYmVuZXR0aTIxQG91dGxvb2suaXQiLCJpYXQiOjE2MTcwMTM3MDksImV4cCI6MTYxNzYxODUwOX0.oOcNazM-ZAJZmtiH-oE9Jipti9XS4QGthsTZeb1Cbig"
-        static let baseURL = URL(string: "http://localhost")!
+        static let loginKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3N1ZXIiOiJodHRwczovL2FwcC5vbmVsb2dpbi5jb20vc2FtbC9tZXRhZGF0YS9kNzNmMWYyYS1mNTE2LTRkYzYtODlkOS1hMWU0NWM1NmUxODkiLCJpblJlc3BvbnNlVG8iOiJfZGYyNmNiNzEzM2E0NDg4YWRhODUiLCJzZXNzaW9uSW5kZXgiOiJfNjU3YWU1MzAtZGE5Yy00NGQ4LWE3ZjEtODRiMzA0ZDM3ZDZmIiwibmFtZUlEIjoiMTIzMTgzODAyIiwibmFtZUlERm9ybWF0IjoidXJuOm9hc2lzOm5hbWVzOnRjOlNBTUw6Mi4wOm5hbWVpZC1mb3JtYXQ6cGVyc2lzdGVudCIsImVtYWlsIjoidG9uaS50cmVzZ290c0BnbWFpbC5jb20iLCJuYW1lIjoiVG9ueSIsImlhdCI6MTYxODUxMTMzOSwiZXhwIjoxNjE5MTE2MTM5fQ.sbK-I-dqZhyKGGtExwCdMHkZFnu5XeZkpV0Dofs0YB0"
+        static let _baseURL = URL(string: "http://localhost")!
+        static let baseURL = URL(string: "https://ljm-dev-01.fed.it.iosda.org")!
         // AUTH URLs
         static let loginURL = baseURL.appendingPathComponent("/api/auth/oidc/login")
         
@@ -50,6 +51,8 @@ class Webservices {
         static let getHistoryAssessment = baseURL.appendingPathComponent("/api/assessment/history")
         static let deleteAssessmentURL = baseURL.appendingPathComponent("api/assessment/single")
         static let deleteAssessedLearningObjective = baseURL.appendingPathComponent("api/assessment/bulk")
+        
+        static let spiderChartURL = baseURL.appendingPathComponent("api/chart")
         
     }
     
@@ -281,6 +284,51 @@ class Webservices {
             }
         }
     }
+    
+    static func getGraph(date_to: String, path: String) {
+        
+        let headers : HTTPHeaders = [
+            "Authorization": "Bearer "+URLs.loginKey,
+            "Content-Type" : "application/json",
+            "accept" : "application/json"
+        ]
+        
+        let params: Parameters = [
+            "date_to" : date_to,
+            "path"  : path
+        ]
+        
+        AF.request(URLs.spiderChartURL, method: .get, parameters: params, encoding: URLEncoding.default, headers: headers).validate(statusCode: 200..<600).responseJSON { response in
+            
+            let decoder = JSONDecoder()
+            
+            do {
+                switch response.result {
+                case .success:
+                    print("Ha funzionato!", response)
+                    let json = try? decoder.decode(AGenericResponse.self, from: response.data!)
+                    print(json ?? "qualcosa non va")
+                case .failure(let error):
+                    throw error
+                }
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
+    class AGenericResponse: Codable {
+        var core: [Component]
+        var path: [Component]
+    }
+    
+    struct Component: Codable {
+        var light_color: ColorData
+        var dark_color: ColorData
+        var max: Int
+        var strand: String
+        var value: Int
+    }
 }
 
 //
@@ -454,3 +502,6 @@ class Webservices {
 //        let parameters = ["token": "refresh Token ici" ?? ""]
 //    }
 //}
+
+
+

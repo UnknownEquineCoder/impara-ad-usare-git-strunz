@@ -1,10 +1,3 @@
-//
-//  LJMApp.swift
-//  LJM
-//
-//  Created by Laura Benetti on 25/11/20.
-//
-
 import SwiftUI
 import CoreData
 
@@ -16,6 +9,10 @@ struct LJMApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .frame(width: 1920.toScreenSize(), height: 1080.toScreenSize())
+                .onAppear {
+                    Webservices.getGraph(date_to: "2020/01/01", path: "UI/UX")
+                }
 //                .environment(\.managedObjectContext, context.container.viewContext)
         }
     }

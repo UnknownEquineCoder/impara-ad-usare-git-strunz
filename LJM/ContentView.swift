@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  LJM
-//
-//  Created by Laura Benetti on 25/11/20.
-//
-
 import SwiftUI
 
 struct ContentView: View {
