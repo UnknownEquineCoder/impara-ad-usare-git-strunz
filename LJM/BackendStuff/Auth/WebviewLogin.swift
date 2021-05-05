@@ -1,18 +1,9 @@
-//
-//  WebviewLogin.swift
-//  LJM
-//
-//  Created by Tony Tresgots on 21/04/2021.
-//
-
 import Foundation
 import SwiftUI
 import WebKit
 
 struct WebviewLogin: NSViewRepresentable {
-    
-    @EnvironmentObject var user: FrozenUser
-    
+            
     var url : String
     
     // Make a coordinator to co-ordinate with WKWebView's default delegate functions

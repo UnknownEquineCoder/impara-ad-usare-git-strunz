@@ -14,12 +14,10 @@ import SwiftKeychainWrapper
 struct MainScreen: View{
     
     @AppStorage("log_Status") var status = false
-    
-    @EnvironmentObject var user: FrozenUser
-    
+        
     var body: some View {
 
-        if user.loginKey == nil || user.loginKey == "" {
+        if LJM.storage.user.loginKey == nil || LJM.storage.user.loginKey == "" {
             if status {
                 ContentView()
             } else {
@@ -30,7 +28,7 @@ struct MainScreen: View{
             if status {
                 ContentView()
             } else {
-                decodeTokenAndNavigateToView(secretToken: user.loginKey!)
+                decodeTokenAndNavigateToView(secretToken: (LJM.Storage.shared.user.loginKey)!)
             }
         }
     }
@@ -42,8 +40,8 @@ struct MainScreen: View{
                 
         Webservices.decodeToken(secretToken: secretToken) { user, err in
             if err == nil {
-                self.user.name = user.name
-                self.user.surname = user.surname
+                LJM.storage.user.name = user.name
+                LJM.storage.user.surname = user.surname
                 viewToGo = AnyView(ContentView())
                 semaphore.signal()
             } else {

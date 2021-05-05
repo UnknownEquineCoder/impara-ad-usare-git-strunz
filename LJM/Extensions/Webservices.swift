@@ -65,6 +65,8 @@ class Webservices {
         static let deleteAssessmentURL = baseURL.appendingPathComponent("api/assessment/single")
         static let deleteAssessedLearningObjective = baseURL.appendingPathComponent("api/assessment/bulk")
         
+        static let spiderChartURL = baseURL.appendingPathComponent("api/chart")
+        
     }
     
     static func decodeToken(secretToken: String, completion: @escaping UserWebserviceResponse) {
@@ -73,7 +75,9 @@ class Webservices {
             let jwt = try decode(jwt: secretToken)
             
             if !jwt.expired {
-                completion(FrozenUser(name: "test name", surname: "test surname"), nil)
+                completion(FrozenUser(name: jwt.body["name"] as! String, surname: ""), nil)
+            } else {
+                // Should redirect to Login if token expired
             }
 
         } catch let error as NSError {
@@ -279,6 +283,51 @@ class Webservices {
             }
         }
     }
+    
+    static func getGraph(date_to: String, path: String) {
+        
+        let headers : HTTPHeaders = [
+            "Authorization": "Bearer " + (URLs.loginKey ?? ""),
+            "Content-Type" : "application/json",
+            "accept" : "application/json"
+        ]
+        
+        let params: Parameters = [
+            "date_to" : date_to,
+            "path"  : path
+        ]
+        
+        AF.request(URLs.spiderChartURL, method: .get, parameters: params, encoding: URLEncoding.default, headers: headers).validate(statusCode: 200..<600).responseJSON { response in
+            
+            let decoder = JSONDecoder()
+            
+            do {
+                switch response.result {
+                case .success:
+                    print("Ha funzionato!", response)
+                    let json = try? decoder.decode(AGenericResponse.self, from: response.data!)
+                    print(json ?? "qualcosa non va")
+                case .failure(let error):
+                    throw error
+                }
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
+    class AGenericResponse: Codable {
+        var core: [Component]
+        var path: [Component]
+    }
+    
+    struct Component: Codable {
+        var light_color: ColorData
+        var dark_color: ColorData
+        var max: Int
+        var strand: String
+        var value: Int
+    }
 }
 
 //
@@ -442,3 +491,6 @@ class Webservices {
 //        let parameters = ["token": "refresh Token ici" ?? ""]
 //    }
 //}
+
+
+

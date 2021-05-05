@@ -15,6 +15,7 @@ struct RadarGraphFrame: View{
             ColorData(101, 201, 167),
             ColorData(185, 109, 195)
         ]
+    
     let strandLabels: [String] = ["PROCESS", "PROFESSIONAL SKILLS", "TECHNICAL", "DESIGN", "BUSINESS"]
     
     var body: some View{
@@ -86,7 +87,7 @@ struct RadarGraphFrame: View{
     }
 }
 
-struct ColorData: Hashable {
+struct ColorData: Hashable, Codable {
     typealias N = Double
     
     var R: N
