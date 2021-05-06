@@ -1,11 +1,16 @@
 import Foundation
 import SwiftUI
 import WebKit
-import SwiftKeychainWrapper
 
 struct WebviewLogin: NSViewRepresentable {
     
     var url : String
+    @Binding var error: Bool
+    
+    // Make a coordinator to co-ordinate with WKWebView's default delegate functions
+    func makeCoordinator() -> WebviewCoordinator {
+        WebviewCoordinator(self, error: $error)
+    }
     
     func makeNSView(context: Context) -> WKWebView {
         guard let url = URL(string: self.url) else {
@@ -14,9 +19,13 @@ struct WebviewLogin: NSViewRepresentable {
         
         let request = URLRequest(url: url)
         let wkWebView = WKWebView()
+        
+        wkWebView.navigationDelegate = context.coordinator as WKNavigationDelegate
+        wkWebView.allowsBackForwardNavigationGestures = true
+        
         wkWebView.load(request)
         
-        wkWebView.configuration.userContentController.add(ContentController(), name: "userLogin")
+        wkWebView.configuration.userContentController.add(context.coordinator as WKScriptMessageHandler, name: "userLogin")
         
         return wkWebView
     }
@@ -60,4 +69,6 @@ class ContentController: NSObject, WKScriptMessageHandler {
             }
         }
     }
+    
+    func updateNSView(_ wkWebView: WKWebView, context: Context) {}
 }
