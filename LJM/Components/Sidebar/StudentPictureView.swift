@@ -63,11 +63,10 @@ struct StudentPictureView: View {
                 
             }
             
-            ProfileNameLabel(qualifiedName: "\(LJM.Storage.shared.user.name ?? "") \(LJM.Storage.shared.user.surname ?? "")").frame(width: 150)
+            ProfileNameLabel(qualifiedName: "\(LJM.storage.user.name ?? "") \(LJM.Storage.shared.user.surname ?? "Surname")").frame(width: 150)
                 .onTapGesture {
                     KeychainWrapper.standard.removeObject(forKey: "tokenAuth")
                 }
-                
         }
         .padding(.trailing)
     }

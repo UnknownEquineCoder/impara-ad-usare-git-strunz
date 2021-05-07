@@ -13,7 +13,7 @@ struct MyJourneyMainView: View, LJMView {
     
     @ObservedObject var totalLOs = TotalNumberLearningObjectives()
     
-    @StateObject var studentLearningObjectivesStore = StudentLearningObjectivesStore()
+ //   @StateObject var studentLearningObjectivesStore = StudentLearningObjectivesStore()
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -21,16 +21,35 @@ struct MyJourneyMainView: View, LJMView {
             MyJourneyView(totalLOs: self.totalLOs).modifier(PaddingMainSubViews())
             
         }.background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
-        .onAppear {
-            Webservices.getStudentJourneyLearningObjectives { (learningObjectives, err) in
-                if err == nil {
-                    for learningObjective in learningObjectives {
-                        studentLearningObjectivesStore.addItem(learningObjective)
-                    }
-                }
-            }
-        }
-        .environmentObject(studentLearningObjectivesStore)
+//        .onAppear {
+//            Webservices.getStudentJourneyLearningObjectives { (learningObjectives, err) in
+//                if err == nil {
+//                    for learningObjective in learningObjectives {
+////                        studentLearningObjectivesStore.addItem(learningObjective)
+//                        LJM.storage.studentLearningObjectives.append(learningObjective)
+//                    }
+//                }
+//            }
+//            
+//            Webservices.getAllLearningPaths { learningPathResult, err  in
+//                if err == nil && learningPathResult != nil {
+//                    for learningPath in learningPathResult! {
+//                        if !LJM.storage.challenges.contains(learningPath) {
+//                            if learningPath.title!.lowercased().contains("challenge") {
+//                                // challengesStore.addItem(learningPath)
+//                                LJM.storage.challenges.append(learningPath)
+//                            } else {
+//                                //    learningPathsStore.addItem(learningPath)
+//                                LJM.storage.learningPaths.append(learningPath)
+//                            }
+//                        }
+//                    }
+//                } else {
+//
+//                }
+//            }
+//        }
+      //  .environmentObject(studentLearningObjectivesStore)
     }
 }
 

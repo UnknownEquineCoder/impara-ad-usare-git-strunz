@@ -20,9 +20,9 @@ struct MyJourneyView: View {
     
     @Environment(\.colorScheme) var colorScheme
     
-    @EnvironmentObject var learningPathsStore: LearningPathStore
-    @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
-    @EnvironmentObject var strandsStore: StrandsStore
+//    @EnvironmentObject var learningPathsStore: LearningPathStore
+//    @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
+//    @EnvironmentObject var strandsStore: StrandsStore
     
     @ObservedObject var totalLOs : TotalNumberLearningObjectives
         
@@ -56,7 +56,7 @@ struct MyJourneyView: View {
                     .padding(.trailing, 200)
                     .frame(maxWidth: .infinity,  alignment: .trailing)
                 
-                DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: setupStrandsOnFilter(strands: self.strandsStore.strands))
+                DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: setupStrandsOnFilter(strands: LJM.storage.strands))
                     .buttonStyle(PlainButtonStyle())
                     .padding(.trailing, 20)
                     .frame(maxWidth: .infinity, alignment: .trailing)
@@ -69,17 +69,16 @@ struct MyJourneyView: View {
         }.padding(.leading, 50).padding(.trailing, 50)
     }
     
-    
     func calculateAllLearningObjectives(learningPath: [LearningPath]) -> Int {
         return 10
     }
     
-    func setupStrandsOnFilter(strands: [String]) -> [FilterChoice] {
+    func setupStrandsOnFilter(strands: [Strand]) -> [FilterChoice] {
         
         var arrayStrandsFilter = [FilterChoice]()
         
         for strand in strands {
-            arrayStrandsFilter.append(FilterChoice(descriptor: strand))
+            arrayStrandsFilter.append(FilterChoice(descriptor: strand.strand))
         }
         
         return arrayStrandsFilter
@@ -114,14 +113,14 @@ struct ListViewLearningObjectiveMyJourney: View {
     @Binding var selectedPath : String?
     @Binding var selectedStrands : [String]
     
-    @EnvironmentObject var learningPathsStore: LearningPathStore
-    @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
+//    @EnvironmentObject var learningPathsStore: LearningPathStore
+//    @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
     
     @ObservedObject var totalLOs : TotalNumberLearningObjectives
     
     var body: some View {
         
-        if studentLearningObjectivesStore.learningObjectives.count > 0 {
+        if LJM.storage.studentLearningObjectives.count > 0 {
             ZStack(alignment: .top) {
                 
                 Text("No learning objectives found ...")

@@ -17,11 +17,11 @@ struct JourneyMainView: View, LJMView {
     @ObservedObject var selectedView = SelectedSegmentView()
     @ObservedObject var totalLOs = TotalNumberLearningObjectives()
     
-    @StateObject var mapLearningObjectivesStore = MapLearningObjectivesStore()
-    @StateObject var challengesStore = ChallengesStore()
-    @StateObject var studentLearningObjectivesStore = StudentLearningObjectivesStore()
-    @EnvironmentObject var strandsStore: StrandsStore
-    @EnvironmentObject var learningPathsStore: LearningPathStore
+//    @StateObject var mapLearningObjectivesStore = MapLearningObjectivesStore()
+//    @StateObject var challengesStore = ChallengesStore()
+//    @StateObject var studentLearningObjectivesStore = StudentLearningObjectivesStore()
+//    @EnvironmentObject var strandsStore: StrandsStore
+//    @EnvironmentObject var learningPathsStore: LearningPathStore
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -44,51 +44,58 @@ struct JourneyMainView: View, LJMView {
                     
                   })
         }
-        .onAppear {
-            Webservices.getAllLearningPaths { learningPathResult, err  in
-                if err == nil && learningPathResult != nil {
-                    for learningPath in learningPathResult! {
-                        if !self.learningPathsStore.learningPaths.contains(learningPath) {
-                            if learningPath.title!.lowercased().contains("challenge") {
-                                challengesStore.addItem(learningPath)
-                            } else {
-                                learningPathsStore.addItem(learningPath)
-                            }
-                        }
-                    }
-                } else {
-                    self.alertIsShowing = true
-                }
-                
-                Webservices.getStudentJourneyLearningObjectives { (learningObjectives, err) in
-                    if err == nil {
-                        for learningObjective in learningObjectives {
-                            if !self.studentLearningObjectivesStore.learningObjectives.contains(learningObjective) {
-                                studentLearningObjectivesStore.addItem(learningObjective)
-                            }
-                        }
-                    }
-                }
-                
-                Webservices.getAllLearningObjectives { (learningObjectives, err) in
-                    if err == nil {
-                        for learningObjective in learningObjectives {
-                            if !mapLearningObjectivesStore.learningObjectives.contains(learningObjective) {
-                                mapLearningObjectivesStore.addItem(learningObjective)
-                                if learningObjective.strand != nil {
-                                    if !strandsStore.strands.contains(learningObjective.strand!.strand) {
-                                        strandsStore.addItem(learningObjective.strand!.strand)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        .environmentObject(mapLearningObjectivesStore)
-        .environmentObject(challengesStore)
-        .environmentObject(studentLearningObjectivesStore)
+//        .onAppear {
+//            Webservices.getAllLearningPaths { learningPathResult, err  in
+//                if err == nil && learningPathResult != nil {
+//                    for learningPath in learningPathResult! {
+//                        if !LJM.storage.challenges.contains(learningPath) {
+//                            if learningPath.title!.lowercased().contains("challenge") {
+//                                // challengesStore.addItem(learningPath)
+//                                LJM.storage.challenges.append(learningPath)
+//                            } else {
+//                                //    learningPathsStore.addItem(learningPath)
+//                                LJM.storage.learningPaths.append(learningPath)
+//                            }
+//                        }
+//                    }
+//                } else {
+//                    self.alertIsShowing = true
+//                }
+//
+//                Webservices.getStudentJourneyLearningObjectives { (learningObjectives, err) in
+//                    if err == nil {
+//                        for learningObjective in learningObjectives {
+//                            if !LJM.storage.studentLearningObjectives.contains(learningObjective) {
+//                                LJM.storage.studentLearningObjectives.append(learningObjective)
+//                            }
+//                        }
+//                    }
+//                }
+//
+//                Webservices.getAllLearningObjectives { (learningObjectives, err) in
+//                    if err == nil {
+//                        for learningObjective in learningObjectives {
+//                            if !LJM.storage.mapLearningObjectives.contains(learningObjective) {
+//                                LJM.storage.mapLearningObjectives.append(learningObjective)
+//                                if learningObjective.strand != nil {
+////                                    if !strandsStore.strands.contains(learningObjective.strand!.strand) {
+////                                        strandsStore.addItem(learningObjective.strand!.strand)
+////                                    }
+//                                    if !LJM.storage.strands.contains(learningObjective.strand!) {
+//                                        LJM.storage.strands.append(learningObjective.strand!)
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    } else {
+//                        self.alertIsShowing = true
+//                    }
+//                }
+//            }
+//        }
+//        .environmentObject(mapLearningObjectivesStore)
+//        .environmentObject(challengesStore)
+//        .environmentObject(studentLearningObjectivesStore)
     }
 }
 

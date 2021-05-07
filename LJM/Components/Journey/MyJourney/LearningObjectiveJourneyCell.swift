@@ -19,7 +19,7 @@ struct LearningObjectiveJourneyCell: View {
     
     @State var learningObj: LearningObjective
 
-    @EnvironmentObject var learningPathsStore: LearningPathStore
+//    @EnvironmentObject var learningPathsStore: LearningPathStore
     
     var body: some View {
         VStack(spacing: 20) {

@@ -20,8 +20,8 @@ struct PathsView: View {
     @ObservedObject var totalLOs : TotalNumberLearningObjectives
     @ObservedObject var selectedSegmentView : SelectedSegmentView
     
-    @EnvironmentObject var learningPathsStore: LearningPathStore
-    @EnvironmentObject var strandsStore: StrandsStore
+//    @EnvironmentObject var learningPathsStore: LearningPathStore
+//    @EnvironmentObject var strandsStore: StrandsStore
     
     var body: some View {
         
@@ -59,7 +59,7 @@ struct PathsView: View {
                     //     ScrollViewFiltersPaths(selectedFilter: $selectedFilter).padding(.top, 20)
                     //         .font(.system(size: 15, weight: .medium, design: .rounded))
                     
-                    ScrollViewFilters(filterTabs: getLearningPath(learningPaths: learningPathsStore.learningPaths), selectedFilter: $selectedFilter, vm: ScrollToModel())
+                    ScrollViewFilters(filterTabs: getLearningPath(learningPaths: LJM.storage.learningPaths), selectedFilter: $selectedFilter, vm: ScrollToModel())
                         //                            .padding(.top, 20)
                         .font(.system(size: 15, weight: .medium, design: .rounded))
                 }
@@ -72,7 +72,7 @@ struct PathsView: View {
                         .padding(.trailing, 200)
                         .frame(maxWidth: .infinity,  alignment: .trailing)
                     
-                    DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: setupStrandsOnFilter(strands: self.strandsStore.strands))
+                    DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: setupStrandsOnFilter(strands: LJM.storage.strands))
                         .padding(.trailing, 20)
                         .frame(maxWidth: .infinity, alignment: .trailing)
                         .zIndex(1)
@@ -117,12 +117,12 @@ struct PathsView: View {
         }.padding(.leading, 50).padding(.trailing, 50)
     }
     
-    func setupStrandsOnFilter(strands: [String]) -> [FilterChoice] {
+    func setupStrandsOnFilter(strands: [Strand]) -> [FilterChoice] {
         
         var arrayStrandsFilter = [FilterChoice]()
         
         for strand in strands {
-            arrayStrandsFilter.append(FilterChoice(descriptor: strand))
+            arrayStrandsFilter.append(FilterChoice(descriptor: strand.strand))
         }
         
         return arrayStrandsFilter

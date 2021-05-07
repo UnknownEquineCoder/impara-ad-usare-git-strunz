@@ -16,7 +16,7 @@ class WebviewCoordinator: NSObject, WKNavigationDelegate {
     
     var parent: WebviewLogin
     var error: Binding<Bool>
-        
+    
     init(_ uiWebView: WebviewLogin, error: Binding<Bool>) {
         self.parent = uiWebView
         self.error = error
@@ -33,7 +33,6 @@ class WebviewCoordinator: NSObject, WKNavigationDelegate {
 }
 
 extension WebviewCoordinator: WKScriptMessageHandler {
-    //   @EnvironmentObject var user: FrozenUser
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         if message.name == "userLogin"{
@@ -47,14 +46,24 @@ extension WebviewCoordinator: WKScriptMessageHandler {
             
             Webservices.decodeToken(secretToken: secretToken) { user, err in
                 // User object and fill it
-                LJM.Storage.shared.user.name = user.name
-                LJM.Storage.shared.user.surname = user.surname
-                
-                // switch screen to main if there is a token
-                self.status = true
-                
-                // close webview window
-                NSApplication.shared.keyWindow?.close()
+                if err == nil && user != nil {
+                    
+                    print(secretToken)
+                    // User object and fill it
+                    LJM.storage.user.name = user!.name
+                    LJM.storage.user.surname = user!.surname
+                    
+                    // switch screen to main if there is a token
+                    self.status = true
+                    
+                    // close webview window
+                    NSApplication.shared.keyWindow?.close()
+                } else {
+                    self.status = false
+                    
+                    // close webview window
+                    NSApplication.shared.keyWindow?.close()
+                }
             }
         }
     }

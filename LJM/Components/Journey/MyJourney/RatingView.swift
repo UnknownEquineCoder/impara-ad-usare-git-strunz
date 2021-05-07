@@ -16,7 +16,7 @@ struct RatingView: View {
     var maximumRating = 5
     @Binding var learningPathSelected : String?
     
-    @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
+//    @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
     
     var body: some View {
         VStack {

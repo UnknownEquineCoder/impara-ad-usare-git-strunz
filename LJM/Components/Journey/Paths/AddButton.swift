@@ -12,7 +12,7 @@ import Combine
 
 struct AddButton: View {
     var learningObjectiveSelected: LearningObjective
-    @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
+//    @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
     
     
     var buttonSize: CGFloat
@@ -48,7 +48,8 @@ struct AddButton: View {
                                     if learningObjectiveSelected.id != nil {
                                         Webservices.addAssessment(learningObjId: learningObjectiveSelected.id!, value: 0) { (assessment, err) in
                                             if err == nil {
-                                                self.studentLearningObjectivesStore.addItem(learningObjectiveSelected)
+                                              //  self.studentLearningObjectivesStore.addItem(learningObjectiveSelected)
+                                                LJM.storage.studentLearningObjectives.append(learningObjectiveSelected)
                                             }
                                         }
                                     }
@@ -61,7 +62,8 @@ struct AddButton: View {
                                     if learningObjectiveSelected.id != nil {
                                         Webservices.deleteLearningObjectiveFromStudentJourney(id: learningObjectiveSelected.id!) { value, error in
                                             if error == nil {
-                                                self.studentLearningObjectivesStore.removeItem(learningObjectiveSelected)
+                                              //  self.studentLearningObjectivesStore.removeItem(learningObjectiveSelected)
+                                                LJM.storage.studentLearningObjectives.remove(object: learningObjectiveSelected)
                                             }
                                         }
                                     }
@@ -75,7 +77,8 @@ struct AddButton: View {
                                 if learningObjectiveSelected.id != nil {
                                     Webservices.deleteLearningObjectiveFromStudentJourney(id: learningObjectiveSelected.id!) { value, error in
                                         if error == nil {
-                                            self.studentLearningObjectivesStore.removeItem(learningObjectiveSelected)
+                                         //   self.studentLearningObjectivesStore.removeItem(learningObjectiveSelected)
+                                            LJM.storage.studentLearningObjectives.remove(object: learningObjectiveSelected)
                                         }
                                     }
                                 }
@@ -97,7 +100,7 @@ struct AddButton: View {
     
     func checkStudentContainsLearningObjective(learningObjectiveId : String) -> Bool {
         var isAdded = false
-        for studentLearningObjective in studentLearningObjectivesStore.learningObjectives {
+        for studentLearningObjective in LJM.storage.studentLearningObjectives {
             if studentLearningObjective.id == learningObjectiveId {
                 isAdded = true
                 return true

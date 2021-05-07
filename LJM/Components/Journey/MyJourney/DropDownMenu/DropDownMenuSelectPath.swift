@@ -9,13 +9,13 @@ import SwiftUI
 
 struct DropDownMenuSelectPath: View {
     
-    @EnvironmentObject var learningPathsStore: LearningPathStore
+//    @EnvironmentObject var learningPathsStore: LearningPathStore
     
     @Binding var selectedPath : String?
     
     var body: some View {
         Menu {
-            ForEach(learningPathsStore.learningPaths) { learningPath in
+            ForEach(LJM.storage.learningPaths) { learningPath in
                 Button {
                     selectedPath = learningPath.title ?? ""
                 } label: {

@@ -8,7 +8,6 @@
 import Foundation
 import SwiftUI
 
-
 struct Sidebar: View {
     
     @State private var sections = ["Dashboard", "Journey", "Notebook", "Portfolio", "Backpack"]
@@ -36,8 +35,8 @@ struct Sidebar: View {
                 
                 Section(header: Text("Resume").font(.system(size: 28.toFontSize()))
                             .fontWeight(.regular)) {
-                    Navigation<CompassView>(buttonName: "Portfolio", buttonIcon: "square", tag: 4, selection: selection)
-                    Navigation<CompassView>(buttonName: "Backpack", buttonIcon: "square", tag: 5, selection: selection)
+                    Navigation<CompassView>(buttonName: "Portfolio", buttonIcon: "square", tag: 5, selection: selection)
+                    Navigation<CompassView>(buttonName: "Backpack", buttonIcon: "square", tag: 6, selection: selection)
                 }
                 
                 

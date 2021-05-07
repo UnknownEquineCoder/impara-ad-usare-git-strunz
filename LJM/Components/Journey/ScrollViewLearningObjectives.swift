@@ -10,10 +10,10 @@ import SwiftUI
 struct ScrollViewLearningObjectives: View {
     @Environment(\.colorScheme) var colorScheme
     
-    @EnvironmentObject var learningPathsStore: LearningPathStore
-    @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
-    @EnvironmentObject var mapLearningObjectivesStore: MapLearningObjectivesStore
-    @EnvironmentObject var challengeStore: ChallengesStore
+//    @EnvironmentObject var learningPathsStore: LearningPathStore
+//    @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
+//    @EnvironmentObject var mapLearningObjectivesStore: MapLearningObjectivesStore
+//    @EnvironmentObject var challengeStore: ChallengesStore
     
     @ObservedObject var totalLOs : TotalNumberLearningObjectives
     
@@ -22,29 +22,29 @@ struct ScrollViewLearningObjectives: View {
     var filterCore: CoreEnum.RawValue?
     var filteredMap: MapEnum.RawValue?
     var filterChallenge: ChallengeEnum.RawValue?
+    let storage = LJM.storage
     
     var filteredLearningObjectives: [LearningObjective] {
         switch filterCore {
         
         case "Core":
-            return sortLearningObjectives(learningObj: studentLearningObjectivesStore.learningObjectives)
+            return sortLearningObjectives(learningObj: storage.studentLearningObjectives)
                 .filter { $0.isCore ?? false }
                 .sorted { $0.learningGoal?.lowercased() ?? "No Title" < $1.learningGoal?.lowercased() ?? "NoTitle"}
         case "Elective":
 
-            return sortLearningObjectives(learningObj: studentLearningObjectivesStore.learningObjectives)
+            return sortLearningObjectives(learningObj: storage.studentLearningObjectives)
                 .filter { (!($0.isCore ?? false) ) }
                 .sorted { $0.learningGoal?.lowercased() ?? "No Title" < $1.learningGoal?.lowercased() ?? "NoTitle"}
         case "Evaluated":
 
-            return sortLearningObjectives(learningObj: studentLearningObjectivesStore.learningObjectives)
+            return sortLearningObjectives(learningObj: storage.studentLearningObjectives)
                 .filter { $0.assessments?.first?.value ?? 0 > 0 }
                 .sorted { $0.learningGoal?.lowercased() ?? "No Title" < $1.learningGoal?.lowercased() ?? "NoTitle"}
         case "All":
-            return sortLearningObjectives(learningObj: studentLearningObjectivesStore.learningObjectives)
+            return sortLearningObjectives(learningObj: storage.studentLearningObjectives)
                 .sorted { $0.learningGoal?.lowercased() ?? "No Title" < $1.learningGoal?.lowercased() ?? "NoTitle"}
         default:
-
             return filteredLearningObjectivesMap
         }
     }
@@ -52,13 +52,13 @@ struct ScrollViewLearningObjectives: View {
     var filteredLearningObjectivesMap: [LearningObjective] {
         switch filteredMap {
         case "FULL MAP":
-            return self.mapLearningObjectivesStore.learningObjectives
+            return storage.mapLearningObjectives
         case "COMMUNAL":
-            return self.mapLearningObjectivesStore.learningObjectives
+            return storage.mapLearningObjectives
                 .filter { $0.isCore ?? false }
         case let filterPathsTab:
             if filterPathsTab != nil {
-                return sortLearningObjectivesMap(learningPaths: learningPathsStore.learningPaths, selectedPath: filterPathsTab!)
+                return sortLearningObjectivesMap(learningPaths: storage.learningPaths, selectedPath: filterPathsTab!)
             } else {
                 return filteredChallenges
             }
@@ -70,7 +70,7 @@ struct ScrollViewLearningObjectives: View {
         switch filterChallenge {
         case let filterChallengeTab:
             if filterChallengeTab != nil {
-                return sortLearningObjectivesByChallenge(challenges: self.challengeStore.challenges, selectedChallenge: filterChallengeTab!)
+                return sortLearningObjectivesByChallenge(challenges: storage.challenges, selectedChallenge: filterChallengeTab!)
             } else {
                 return [LearningObjective]()
             }
@@ -98,8 +98,8 @@ struct ScrollViewLearningObjectives: View {
                                             Button {
                                                 if item.id != nil {
                                                     Webservices.deleteLearningObjectiveFromStudentJourney(id: item.id!) { (deletedLearningObj, err) in
-                                                        self.studentLearningObjectivesStore.removeItem(item)
-                                                        
+                                                      //  self.studentLearningObjectivesStore.removeItem(item)
+                                                        storage.studentLearningObjectives.remove(object: item)
                                                     }
                                                 }
                                             } label: {
@@ -199,7 +199,7 @@ struct ScrollViewLearningObjectives: View {
                         arrayOfLearningObjectives.append(contentsOf: challenge.learningObjectives ?? [LearningObjective]())
                     }
                 } else {
-                    for learningObjective in self.challengeStore.challenges {
+                    for learningObjective in storage.challenges {
 
                         arrayOfLearningObjectives.append(contentsOf:learningObjective.learningObjectives ?? [LearningObjective]())
                     }
@@ -224,7 +224,7 @@ struct ScrollViewLearningObjectives: View {
                         arrayOfLearningObjectives.append(contentsOf: learningPath.learningObjectives ?? [LearningObjective]())
                     }
                 } else {
-                    arrayOfLearningObjectives.append(contentsOf: self.mapLearningObjectivesStore.learningObjectives)
+                    arrayOfLearningObjectives.append(contentsOf: storage.mapLearningObjectives)
                     
                     break
                 }

@@ -3,14 +3,14 @@ import SwiftUI
 struct ContentView: View {
     @AppStorage("log_Status") var status = false
     
-    @StateObject var strandsStore = StrandsStore()
-    @StateObject var learningPathsStore = LearningPathStore()
+//    @StateObject var strandsStore = StrandsStore()
+//    @StateObject var learningPathsStore = LearningPathStore()
 
     var body: some View {
         Sidebar()
             .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight, alignment: .center)
-            .environmentObject(strandsStore)
-            .environmentObject(learningPathsStore)
+//            .environmentObject(strandsStore)
+//            .environmentObject(learningPathsStore)
     }
 }
 

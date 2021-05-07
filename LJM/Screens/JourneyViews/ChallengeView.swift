@@ -10,7 +10,7 @@ import SwiftUI
 struct ChallengeView: View {
     
     var challengeTabs : [String] {
-        return self.challengeStore.challenges.map({ $0.title!.replacingOccurrences(of: "challenge ", with: "") })
+        return LJM.storage.challenges.map({ $0.title!.replacingOccurrences(of: "challenge ", with: "") })
     }
     
     @State var selectedFilter = ""
@@ -20,8 +20,8 @@ struct ChallengeView: View {
     
     @Environment(\.colorScheme) var colorScheme
     
-    @EnvironmentObject var challengeStore: ChallengesStore
-    @EnvironmentObject var strandsStore: StrandsStore
+//    @EnvironmentObject var challengeStore: ChallengesStore
+//    @EnvironmentObject var strandsStore: StrandsStore
     
     @ObservedObject var totalLOs : TotalNumberLearningObjectives
     @ObservedObject var selectedSegmentView : SelectedSegmentView
@@ -43,7 +43,7 @@ struct ChallengeView: View {
                     .padding(.trailing, 200)
                     .frame(maxWidth: .infinity,  alignment: .trailing)
                 
-                DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: setupStrandsOnFilter(strands: self.strandsStore.strands))
+                DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: setupStrandsOnFilter(strands: LJM.storage.strands))
                     .buttonStyle(PlainButtonStyle())
                     .padding(.trailing, 20)
                     .frame(maxWidth: .infinity, alignment: .trailing)
@@ -64,12 +64,12 @@ struct ChallengeView: View {
         }.padding(.leading, 50).padding(.trailing, 50)
     }
     
-    func setupStrandsOnFilter(strands: [String]) -> [FilterChoice] {
+    func setupStrandsOnFilter(strands: [Strand]) -> [FilterChoice] {
         
         var arrayStrandsFilter = [FilterChoice]()
         
         for strand in strands {
-            arrayStrandsFilter.append(FilterChoice(descriptor: strand))
+            arrayStrandsFilter.append(FilterChoice(descriptor: strand.strand))
         }
         
         return arrayStrandsFilter
