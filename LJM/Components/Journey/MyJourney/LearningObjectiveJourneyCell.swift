@@ -1,28 +1,21 @@
-//
-//  LearningObjectiveMyJourneyView.swift
-//  LJM
-//
-//  Created by Tony Tresgots on 27/11/2020.
-//
-
 import SwiftUI
 
 struct LearningObjectiveJourneyCell: View {
     @State var rating = 0
     @State var expand: Bool = false
     @State var isRatingView: Bool
-    @State var value : Int = 0
+    var value : Int = 0
     @Environment(\.colorScheme) var colorScheme
     
     var isAddable = false
     @Binding var learningPathSelected : String?
     
-    @State var learningObj: LearningObjective
+    var learningObj: LearningObjective
 
 //    @EnvironmentObject var learningPathsStore: LearningPathStore
     
     var body: some View {
-        VStack(spacing: 20) {
+        LazyVStack(spacing: 20) {
             ZStack(alignment: .topLeading) {
                 Rectangle()
                     .frame(width: 20, alignment: .topLeading)
@@ -104,7 +97,7 @@ struct LearningObjectiveJourneyCell: View {
                                             }
                                         }
                                     }
-
+//
                                 Spacer().frame(width: 50)
                             }
                         }.padding(.leading, 40).padding(.bottom, 50)
@@ -112,7 +105,7 @@ struct LearningObjectiveJourneyCell: View {
                     }
                     .frame(maxWidth: 1402.toScreenSize(), maxHeight: self.expand ? 250 : 0, alignment: .topLeading)
                     .padding(.trailing, 250)
-                    .isHidden(self.expand ? false : true)
+//                    .isHidden(self.expand ? false : true)
                 }
 
                 VStack(alignment: .center, spacing: 5) {
@@ -128,13 +121,14 @@ struct LearningObjectiveJourneyCell: View {
                         .fixedSize(horizontal: false, vertical: true)
                         .frame(width: 200)
                 }.frame(width: 260, height: 100, alignment: .center)
-                .isHidden(self.isAddable ? true : false)
+//                .isHidden(self.isAddable ? true : false)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
-                .isHidden(self.expand ? false : true)
+//                .isHidden(self.expand ? false : true)
 
                 HStack {
                     Divider()
-                         .background(Color(red: 70/255, green: 70/255, blue: 70/255)).padding(.top, 20).padding(.bottom, 20).padding(.trailing, 250).isHidden(self.isRatingView ? false : true)
+                         .background(Color(red: 70/255, green: 70/255, blue: 70/255)).padding(.top, 20).padding(.bottom, 20).padding(.trailing, 250)
+//                        .isHidden(self.isRatingView ? false : true)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .trailing)
                 .zIndex(1)
@@ -152,7 +146,7 @@ struct LearningObjectiveJourneyCell: View {
         .onTapGesture {
         //    withAnimation {       // TEMPORARY REMOVED BECAUSE OF UI SMALL LEFT RECTANGLE VIEW GLITCHED
                 self.expand.toggle()
-         //   }
+//            }
         }
     }
     

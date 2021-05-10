@@ -15,6 +15,8 @@ struct AddButton: View {
 //    @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
     
     
+    let objectives = LJM.storage.learningObjectives
+    
     var buttonSize: CGFloat
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State private var didTap: Bool = false
@@ -100,7 +102,7 @@ struct AddButton: View {
     
     func checkStudentContainsLearningObjective(learningObjectiveId : String) -> Bool {
         var isAdded = false
-        for studentLearningObjective in LJM.storage.studentLearningObjectives {
+        for studentLearningObjective in objectives {
             if studentLearningObjective.id == learningObjectiveId {
                 isAdded = true
                 return true

@@ -91,8 +91,7 @@ struct ScrollViewLearningObjectives: View {
                     if textFromSearchBar.isEmpty || (item.learningGoal!.lowercased().contains(textFromSearchBar.lowercased())) || ((item.description!.lowercased().contains(textFromSearchBar.lowercased()))) {
                         if item.strand != nil {
                             if self.selectedStrands.contains(item.strand!.strand) || self.selectedStrands.count == 0 {
-                                LearningObjectiveJourneyCell(rating: item.assessments?.first?.value ?? 0, isRatingView: isAddable ? true : false, isAddable: isAddable, learningPathSelected: self.$learningPathSelected, learningObj: item)
-                                    .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
+                                LearningObjectiveJourneyCell(rating: item.assessments?.first?.value ?? 0, isRatingView: isAddable, isAddable: isAddable, learningPathSelected: self.$learningPathSelected, learningObj: item)
                                     .contextMenu {
                                         if !isAddable {
                                             Button {
