@@ -116,15 +116,15 @@ struct LearningObjective: LJMCodableData, Hashable {
         }
     }
     
-    func getAssessments() -> Void {
-        if id != nil {
-            Webservices.getAssessmentHistoryOfLearningObjective(learningObjectiveId: id!) { (assessments : [Assessment]?, err) in
-                if let assessments = assessments {
+//    func getAssessments() -> Void {
+//        if let id = id {
+//            Webservices.getAssessmentHistoryOfLearningObjective(learningObjectiveId: id!) { (assessments : [Assessment]?, err) in
+//                if let assessments = assessments {
 //                    self.assessments = assessments
-                }
-            }
-        }
-    }
+//                }
+//            }
+//        }
+//    }
 }
 
 struct LearningPathReference: LJMCodableData, Equatable {

@@ -9,6 +9,7 @@ import SwiftUI
     
     var wrappedValue: [T] {
         get {
+            
             _wrapList = update()
             return _wrapList
         }
