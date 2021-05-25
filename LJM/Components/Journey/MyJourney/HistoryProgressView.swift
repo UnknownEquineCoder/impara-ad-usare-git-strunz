@@ -32,7 +32,7 @@ struct HistoryProgressView: View {
                 if assessment.id != nil {
                     Webservices.deleteAssessment(id: self.assessment.id!) { (assessment, err) in
                         // UPDATE UI DELETED HISTORY
-                        self.learningObj.getAssessments()
+//                        self.learningObj.getAssessments()
                     }
                 }
             }) {

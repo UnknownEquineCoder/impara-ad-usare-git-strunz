@@ -116,15 +116,37 @@ struct LearningObjective: LJMCodableData, Hashable {
         }
     }
     
-//    func getAssessments() -> Void {
+//    func withAssessments() -> Self {
+//        var localAssessments = [Assessment]()
+//
 //        if let id = id {
-//            Webservices.getAssessmentHistoryOfLearningObjective(learningObjectiveId: id!) { (assessments : [Assessment]?, err) in
-//                if let assessments = assessments {
-//                    self.assessments = assessments
-//                }
+//            Webservices.getAssessmentHistoryOfLearningObjective(learningObjectiveId: id) { fetchResult, err in
+//                if let _ = err { return }
+//                localAssessments = fetchResult
 //            }
 //        }
+//
+//        if localAssessments.count > 0 {
+//            return LearningObjective(id: id, tags: tags, code: code, strand: strand, learningGoal: learningGoal, isCore: isCore, objective: objective, coreRubricLevel: coreRubricLevel, description: description, createdByLearner: createdByLearner, documentation: documentation, assessments: localAssessments, learningPaths: learningPaths, rubricLevels: rubricLevels)
+//        }
+//        return self
 //    }
+}
+
+extension LearningObjective {
+    init(id: String?, tags: [String]?, code: String?, strand: Strand?, learningGoal: String?, isCore: Bool?, objective: String?, coreRubricLevel: Int?, description: String?, createdByLearner: String?, documentation: String?, learningPaths: [LearningPathReference]?, rubricLevels: [RubricLevels]?) {
+        
+        var fetchedAssessments = [Assessment]()
+        
+        if let id = id {
+            Webservices.getAssessmentHistoryOfLearningObjective(learningObjectiveId: id) { fetchResult, err in
+                if let _ = err { return }
+                fetchedAssessments = fetchResult
+            }
+        }
+        
+        self.init(id: id, tags: tags, code: code, strand: strand, learningGoal: learningGoal, isCore: isCore, objective: objective, coreRubricLevel: coreRubricLevel, description: description, createdByLearner: createdByLearner, documentation: documentation, assessments: fetchedAssessments, learningPaths: learningPaths, rubricLevels: rubricLevels)
+    }
 }
 
 struct LearningPathReference: LJMCodableData, Equatable {

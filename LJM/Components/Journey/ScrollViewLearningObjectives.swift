@@ -29,19 +29,23 @@ struct ScrollViewLearningObjectives: View {
         
         case "Core":
             return sortLearningObjectives(learningObj: storage.studentLearningObjectives)
+//                .map { $0.withAssessments() }
                 .filter { $0.isCore ?? false }
                 .sorted { $0.learningGoal?.lowercased() ?? "No Title" < $1.learningGoal?.lowercased() ?? "NoTitle"}
         case "Elective":
             return sortLearningObjectives(learningObj: storage.studentLearningObjectives)
+//                .map { $0.withAssessments() }
                 .filter { (!($0.isCore ?? false) ) }
                 .sorted { $0.learningGoal?.lowercased() ?? "No Title" < $1.learningGoal?.lowercased() ?? "NoTitle"}
         case "Evaluated":
             return sortLearningObjectives(learningObj: storage.studentLearningObjectives)
+//                .map { $0.withAssessments() }
                 .filter { $0.assessments?.first?.value ?? 0 > 0 }
                 .sorted { $0.learningGoal?.lowercased() ?? "No Title" < $1.learningGoal?.lowercased() ?? "NoTitle"}
         case "All":
             print(storage.learningObjectives.compactMap { $0.assessments })
             return sortLearningObjectives(learningObj: storage.studentLearningObjectives)
+//                .map { $0.withAssessments() }
                 .filter { ($0.assessments?.count ?? 0) > 0 }
                 .sorted { $0.learningGoal?.lowercased() ?? "No Title" < $1.learningGoal?.lowercased() ?? "NoTitle"}
         default:
