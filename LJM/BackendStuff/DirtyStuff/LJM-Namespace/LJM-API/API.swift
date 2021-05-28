@@ -14,12 +14,40 @@ extension LJM {
             API()
         }()
         
-        final func fetch<T: LJMData>(byID: T.ID, as type: T.Type = T.self) -> T {
+        final func fetch<T: LJMData>(byID: AnyHashable, as type: T.Type = T.self) -> T {
             undefined("TO DO: IMPLEMENT FETCH")
         }
         
-        final func update<T: LJMData>(fromID: T.ID, with value: T) -> T {
-            undefined("TO DO: IMPLEMENT UPDATE")
+        final func update<T: LJMCodableData>(fromID: AnyHashable, with value: T) {
+            
+            guard let url = API.Routing.route(.type(value: T.self), id: fromID)?.url else { return }
+            
+            print("URL", url)
+            
+            guard let params = value.dictionary else { return }
+            
+            print("Params", params)
+            
+            AF.request(url, method: .post, parameters: params, headers: Headers.headersFull).validate(statusCode: 200 ..< 299).responseJSON {
+                response in
+                
+                print("Response", response)
+                
+                let decoder = JSONDecoder()
+                
+                do {
+                    switch response.result {
+                    case .success:
+                        print("success",response)
+                        let json = try decoder.decode(T.self, from: response.data!)
+                        print(json)
+                    case .failure(let error):
+                        print("failure",error)
+                    }
+                } catch {
+                    print(error)
+                }
+            }
         }
         
         final func updateList<T: LJMCodableData>
@@ -30,7 +58,7 @@ extension LJM {
         final func fetchList<T: LJMCodableData>
         (as type: [T].Type = [T].self, completion: @escaping (Result<[T], Error>)->()) {
             
-            guard let url = API.Routing.route(T.self)?.url else { return }
+            guard let url = API.Routing.route(.array(value: type.self))?.url else { return }
             
             AF.request(url, headers: Headers.headersFull)
                 .responseDecodable(of: type) { response in
@@ -43,4 +71,11 @@ extension LJM {
                 }
         }
     }
+}
+
+extension Encodable {
+  var dictionary: Parameters? {
+    guard let data = try? JSONEncoder().encode(self) else { return nil }
+    return (try? JSONSerialization.jsonObject(with: data, options: .allowFragments)).flatMap { $0 as? Parameters }
+  }
 }

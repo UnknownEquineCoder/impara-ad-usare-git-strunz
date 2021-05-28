@@ -156,7 +156,7 @@ class Webservices {
             "assessments" : learningObjective.assessments
         ]
         
-        AF.request(URLs.getLearningObjectiveURL.appendingPathComponent(learningObjective.id!), method: .put, parameters: params, encoding: JSONEncoding.default, headers: Headers.headers).validate().responseJSON { (response) in
+        AF.request(URLs.getLearningObjectiveURL.appendingPathComponent(learningObjective.id), method: .put, parameters: params, encoding: JSONEncoding.default, headers: Headers.headers).validate().responseJSON { (response) in
             let decoder = JSONDecoder()
             
             do {

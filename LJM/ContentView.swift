@@ -7,7 +7,8 @@ struct ContentView: View {
 //    @StateObject var learningPathsStore = LearningPathStore()
 
     var body: some View {
-        Sidebar()
+//        Sidebar()
+        TestView()
             .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight, alignment: .center)
 //            .environmentObject(strandsStore)
 //            .environmentObject(learningPathsStore)

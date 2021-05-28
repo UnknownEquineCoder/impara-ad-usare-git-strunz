@@ -2,10 +2,10 @@ import Foundation
 import SwiftUI
 import Combine
 
-protocol LJMData: Identifiable {}
-protocol LJMEncodableData: LJMData & Encodable {}
-protocol LJMDecodableData: LJMData & Decodable {}
-protocol LJMCodableData: LJMData & Codable {}
+public protocol LJMData: Identifiable {}
+public protocol LJMEncodableData: LJMData & Encodable {}
+public protocol LJMDecodableData: LJMData & Decodable {}
+public protocol LJMCodableData: LJMData & Codable {}
 
 struct Mentor: LJMCodableData {
     var id: String
@@ -72,7 +72,7 @@ struct LearningPath: LJMCodableData, Identifiable, Equatable {
 
 struct LearningObjective: LJMCodableData, Hashable {
     
-    var id: String?
+    var id: String
     var tags : [String]?
     var code: String?
     var strand: Strand?
@@ -84,6 +84,7 @@ struct LearningObjective: LJMCodableData, Hashable {
     var createdByLearner: String?
     var documentation: String?
     var assessments: [Assessment]?
+    //Devono schiattare entrambi
     var learningPaths: [LearningPathReference]?
     var rubricLevels: [RubricLevels]?
     
@@ -116,34 +117,36 @@ struct LearningObjective: LJMCodableData, Hashable {
         }
     }
     
-//    func withAssessments() -> Self {
-//        var localAssessments = [Assessment]()
-//
-//        if let id = id {
-//            Webservices.getAssessmentHistoryOfLearningObjective(learningObjectiveId: id) { fetchResult, err in
-//                if let _ = err { return }
-//                localAssessments = fetchResult
-//            }
-//        }
-//
-//        if localAssessments.count > 0 {
-//            return LearningObjective(id: id, tags: tags, code: code, strand: strand, learningGoal: learningGoal, isCore: isCore, objective: objective, coreRubricLevel: coreRubricLevel, description: description, createdByLearner: createdByLearner, documentation: documentation, assessments: localAssessments, learningPaths: learningPaths, rubricLevels: rubricLevels)
-//        }
-//        return self
-//    }
+    //    func withAssessments() -> Self {
+    //        var localAssessments = [Assessment]()
+    //
+    //        if let id = id {
+    //            Webservices.getAssessmentHistoryOfLearningObjective(learningObjectiveId: id) { fetchResult, err in
+    //                if let _ = err { return }
+    //                localAssessments = fetchResult
+    //            }
+    //        }
+    //
+    //        if localAssessments.count > 0 {
+    //            return LearningObjective(id: id, tags: tags, code: code, strand: strand, learningGoal: learningGoal, isCore: isCore, objective: objective, coreRubricLevel: coreRubricLevel, description: description, createdByLearner: createdByLearner, documentation: documentation, assessments: localAssessments, learningPaths: learningPaths, rubricLevels: rubricLevels)
+    //        }
+    //        return self
+    //    }
 }
 
 extension LearningObjective {
-    init(id: String?, tags: [String]?, code: String?, strand: Strand?, learningGoal: String?, isCore: Bool?, objective: String?, coreRubricLevel: Int?, description: String?, createdByLearner: String?, documentation: String?, learningPaths: [LearningPathReference]?, rubricLevels: [RubricLevels]?) {
+    init(id: String, tags: [String]?, code: String?, strand: Strand?, learningGoal: String?, isCore: Bool?, objective: String?, coreRubricLevel: Int?, description: String?, createdByLearner: String?, documentation: String?, learningPaths: [LearningPathReference]?, rubricLevels: [RubricLevels]?) {
         
         var fetchedAssessments = [Assessment]()
         
-        if let id = id {
-            Webservices.getAssessmentHistoryOfLearningObjective(learningObjectiveId: id) { fetchResult, err in
-                if let _ = err { return }
-                fetchedAssessments = fetchResult
-            }
+        
+        Webservices.getAssessmentHistoryOfLearningObjective(learningObjectiveId: id) { fetchResult, err in
+            if let _ = err { return }
+            fetchedAssessments = fetchResult
+            
+            
         }
+        
         
         self.init(id: id, tags: tags, code: code, strand: strand, learningGoal: learningGoal, isCore: isCore, objective: objective, coreRubricLevel: coreRubricLevel, description: description, createdByLearner: createdByLearner, documentation: documentation, assessments: fetchedAssessments, learningPaths: learningPaths, rubricLevels: rubricLevels)
     }
@@ -302,4 +305,15 @@ class StrandsFilter: ObservableObject {
 
 class HistoryStore: ObservableObject {
     @Published var history: [Assessment] = [Assessment]()
+}
+
+extension Optional where Wrapped == String {
+    var orEmpty: Wrapped {
+        switch self {
+        case .some(let value):
+            return value
+        case .none:
+            return ""
+        }
+    }
 }

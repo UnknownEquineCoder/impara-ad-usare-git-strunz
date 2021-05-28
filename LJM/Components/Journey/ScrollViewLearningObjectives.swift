@@ -97,7 +97,7 @@ struct ScrollViewLearningObjectives: View {
                                 if !isAddable {
                                     Button {
                                         if item.id != nil {
-                                            Webservices.deleteLearningObjectiveFromStudentJourney(id: item.id!) { (deletedLearningObj, err) in
+                                            Webservices.deleteLearningObjectiveFromStudentJourney(id: item.id) { (deletedLearningObj, err) in
                                                 //  self.studentLearningObjectivesStore.removeItem(item)
                                                 storage.studentLearningObjectives.remove(object: item)
                                             }

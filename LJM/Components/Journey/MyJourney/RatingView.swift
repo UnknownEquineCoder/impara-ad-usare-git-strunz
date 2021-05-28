@@ -35,7 +35,7 @@ struct RatingView: View {
                         
                         if learningObj.id != nil {
                                                     
-                            Webservices.addAssessment(learningObjId: learningObj.id!, value: number) { (assessment, err) in
+                            Webservices.addAssessment(learningObjId: learningObj.id, value: number) { (assessment, err) in
                                 
                                 if err == nil {
 //                                    self.learningObj.getAssessments()
