@@ -16,7 +16,7 @@ struct RatingView: View {
     var maximumRating = 5
     @Binding var learningPathSelected : String?
     
-//    @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
+    //    @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
     
     var body: some View {
         VStack {
@@ -24,8 +24,9 @@ struct RatingView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 15, height: 15, alignment: .center)
-                .foregroundColor(learningObj.coreRubricLevel != nil ? Color.customCyan : Color.clear)
                 .offset(x: setupGoalRating())
+                .foregroundColor(learningObj.isCore() ? Color.customCyan : Color.clear)
+            
             
             HStack {
                 ForEach(1..<maximumRating + 1, id: \.self) { number in
@@ -33,17 +34,17 @@ struct RatingView: View {
                         self.rating = number
                         self.hover = false
                         
-                        if learningObj.id != nil {
-                                                    
-                            Webservices.addAssessment(learningObjId: learningObj.id, value: number) { (assessment, err) in
-                                
-                                if err == nil {
-//                                    self.learningObj.getAssessments()
-                                }
+                        
+                        
+                        Webservices.addAssessment(learningObjId: learningObj.id, value: number) { (assessment, err) in
+                            
+                            if err == nil {
+                                //                                    self.learningObj.getAssessments()
                             }
                         }
+                        
                     } label: {
-                        CircleView(number: number, rating: self.learningObj.assessments?.first?.value ?? 0)
+                        CircleView(number: number, rating: self.learningObj.assessments?.first?.score?.rawValue ?? 0)
                     }
                     .frame(width: 35, height: 35, alignment: .center)
                     .buttonStyle(PlainButtonStyle())
@@ -54,13 +55,16 @@ struct RatingView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 15, height: 15, alignment: .center)
-                .foregroundColor(learningObj.isCore ?? false ? Color.customLightGrey : Color.clear)
+                .foregroundColor(learningObj.isCore() ? Color.customLightGrey : Color.clear)
+            
             
         }
     }
     
+    
     func setupGoalRating() -> CGFloat {
-        if learningObj.rubricLevels != nil {
+        if learningObj.isCore() {
+            #warning("TODO: FIX WITH NEW LEARNING PATH")
             for rubricLevel in self.learningObj.rubricLevels! {
                 if rubricLevel.path == self.learningPathSelected {
                     switch rubricLevel.value {

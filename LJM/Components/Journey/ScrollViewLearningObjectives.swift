@@ -30,17 +30,17 @@ struct ScrollViewLearningObjectives: View {
         case "Core":
             return sortLearningObjectives(learningObj: storage.studentLearningObjectives)
 //                .map { $0.withAssessments() }
-                .filter { $0.isCore ?? false }
+                .filter { $0.isCore() }
                 .sorted { $0.learningGoal?.lowercased() ?? "No Title" < $1.learningGoal?.lowercased() ?? "NoTitle"}
         case "Elective":
             return sortLearningObjectives(learningObj: storage.studentLearningObjectives)
 //                .map { $0.withAssessments() }
-                .filter { (!($0.isCore ?? false) ) }
+                .filter { !($0.isCore()) }
                 .sorted { $0.learningGoal?.lowercased() ?? "No Title" < $1.learningGoal?.lowercased() ?? "NoTitle"}
         case "Evaluated":
             return sortLearningObjectives(learningObj: storage.studentLearningObjectives)
 //                .map { $0.withAssessments() }
-                .filter { $0.assessments?.first?.value ?? 0 > 0 }
+                .filter { $0.assessments?.first?.score?.rawValue ?? 0 > 0 }
                 .sorted { $0.learningGoal?.lowercased() ?? "No Title" < $1.learningGoal?.lowercased() ?? "NoTitle"}
         case "All":
             print(storage.learningObjectives.compactMap { $0.assessments })
@@ -59,7 +59,7 @@ struct ScrollViewLearningObjectives: View {
             return storage.mapLearningObjectives
         case "COMMUNAL":
             return storage.mapLearningObjectives
-                .filter { $0.isCore ?? false }
+                .filter { $0.isCore() }
         case let filterPathsTab:
             if filterPathsTab != nil {
                 return sortLearningObjectivesMap(learningPaths: storage.learningPaths, selectedPath: filterPathsTab!)
@@ -144,9 +144,9 @@ struct ScrollViewLearningObjectives: View {
         for learningPath in learningPaths {
             
             if selectedFilter != nil || selectedFilter != "" {
-                arrayFullMapLearningObjectives.append(contentsOf: learningPath.learningObjectives!)
+                arrayFullMapLearningObjectives.append(contentsOf: learningPath.learningObjectives())
             } else {
-                arrayFullMapLearningObjectives.append(contentsOf: learningPath.learningObjectives!)
+                arrayFullMapLearningObjectives.append(contentsOf: learningPath.learningObjectives())
             }
         }
         return arrayFullMapLearningObjectives
@@ -189,17 +189,17 @@ struct ScrollViewLearningObjectives: View {
         
         var arrayOfLearningObjectives : [LearningObjective] = [LearningObjective]()
         
-        if challenges != nil && challenges.count > 0 {
+        if challenges.count > 0 {
             for challenge in challenges {
                 
                 if selectedChallenge != "" {
-                    if challenge.title!.lowercased().replacingOccurrences(of: "challenge ", with: "") == selectedChallenge.lowercased() {
-                        arrayOfLearningObjectives.append(contentsOf: challenge.learningObjectives ?? [LearningObjective]())
+                    if challenge.name.lowercased().replacingOccurrences(of: "challenge ", with: "") == selectedChallenge.lowercased() {
+                        arrayOfLearningObjectives.append(contentsOf: challenge.learningObjectives())
                     }
                 } else {
                     for learningObjective in storage.challenges {
                         
-                        arrayOfLearningObjectives.append(contentsOf:learningObjective.learningObjectives ?? [LearningObjective]())
+                        arrayOfLearningObjectives.append(contentsOf:learningObjective.learningObjectives())
                     }
                     break
                 }
@@ -214,12 +214,13 @@ struct ScrollViewLearningObjectives: View {
         
         var arrayOfLearningObjectives : [LearningObjective] = [LearningObjective]()
         
-        if learningPaths != nil && learningPaths.count > 0 {
+        if learningPaths.count > 0 {
             for learningPath in learningPaths {
                 
                 if selectedPath != "" {
-                    if learningPath.title!.lowercased() == selectedPath.lowercased() {
-                        arrayOfLearningObjectives.append(contentsOf: learningPath.learningObjectives ?? [LearningObjective]())
+                    
+                    if learningPath.name.lowercased() == selectedPath.lowercased() {
+                        arrayOfLearningObjectives.append(contentsOf: learningPath.learningObjectives() )
                     }
                 } else {
                     arrayOfLearningObjectives.append(contentsOf: storage.mapLearningObjectives)
@@ -239,7 +240,7 @@ struct ScrollViewLearningObjectives: View {
             for assessment in assessments! {
                 
                 if assessment.learningObjectiveId == learningObjectiveId {
-                    value = assessment.value ?? 0
+                    value = assessment.score?.rawValue ?? 0
                 }
             }
         }

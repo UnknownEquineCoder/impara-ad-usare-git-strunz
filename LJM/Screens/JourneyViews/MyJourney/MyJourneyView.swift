@@ -78,7 +78,7 @@ struct MyJourneyView: View {
         var arrayStrandsFilter = [FilterChoice]()
         
         for strand in strands {
-            arrayStrandsFilter.append(FilterChoice(descriptor: strand.strand))
+            arrayStrandsFilter.append(FilterChoice(descriptor: strand.name))
         }
         
         return arrayStrandsFilter

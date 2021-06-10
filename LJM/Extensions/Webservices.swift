@@ -15,12 +15,12 @@ class Webservices {
         
     }
     
-    typealias ArrayLearningPathWebserviceResponse = ([LearningPath]?, APIError?) -> Void
-    typealias LearningPathWebserviceResponse = (LearningPath, APIError?) -> Void
-    typealias ArrayLearningObjectiveWebserviceResponse = ([LearningObjective], APIError?) -> Void
-    typealias LearningObjectiveWebserviceResponse = (LearningObjective, APIError?) -> Void
-    typealias AssessmentWebserviceResponse = (Assessment, APIError?) -> Void
-    typealias ArrayAssessmentWebserviceResponse = ([Assessment], APIError?) -> Void
+    typealias ArrayLearningPathWebserviceResponse = ([_LearningPath]?, APIError?) -> Void
+    typealias LearningPathWebserviceResponse = (_LearningPath, APIError?) -> Void
+    typealias ArrayLearningObjectiveWebserviceResponse = ([_LearningObjective], APIError?) -> Void
+    typealias LearningObjectiveWebserviceResponse = (_LearningObjective, APIError?) -> Void
+    typealias AssessmentWebserviceResponse = (_Assessment, APIError?) -> Void
+    typealias ArrayAssessmentWebserviceResponse = ([_Assessment], APIError?) -> Void
     typealias DeleteLOFromStudWebserviceResponse = (DeleteLOFromJourneyResponse, APIError?) -> Void
     typealias UserWebserviceResponse = (FrozenUser?, APIError?) -> Void
 
@@ -86,7 +86,7 @@ class Webservices {
     
     static func getAllLearningPaths(completion : @escaping ArrayLearningPathWebserviceResponse) {
         
-        AF.request(URLs.getLearningPathsURL, headers: Headers.headers).responseDecodable(of: [LearningPath].self){ response in
+        AF.request(URLs.getLearningPathsURL, headers: Headers.headers).responseDecodable(of: [_LearningPath].self){ response in
             guard let learningPaths = response.value else {
                 completion(nil, APIError.decodingProblem)
                 return
@@ -99,7 +99,7 @@ class Webservices {
     
     static func getStudentJourneyLearningObjectives(completion : @escaping ArrayLearningObjectiveWebserviceResponse) {
         
-        AF.request(URLs.getStudentJourneyLearningObjectiveURL, headers: Headers.headers).responseDecodable(of: [LearningObjective].self) { response in
+        AF.request(URLs.getStudentJourneyLearningObjectiveURL, headers: Headers.headers).responseDecodable(of: [_LearningObjective].self) { response in
             guard let learningObjectives = response.value else {
                 return
             }
@@ -110,7 +110,7 @@ class Webservices {
     
     static func getAllLearningObjectives(completion : @escaping ArrayLearningObjectiveWebserviceResponse) {
         
-        AF.request(URLs.getLearningObjectiveURL, headers: Headers.headersFull).responseDecodable(of: [LearningObjective].self) { response in
+        AF.request(URLs.getLearningObjectiveURL, headers: Headers.headersFull).responseDecodable(of: [_LearningObjective].self) { response in
                         
             guard let learningObjectives = response.value else {
                 return
@@ -121,7 +121,7 @@ class Webservices {
     }
 
     
-    static func addLearningObjective(learningObjective: LearningObjective, completion : @escaping LearningObjectiveWebserviceResponse) {
+    static func addLearningObjective(learningObjective: _LearningObjective, completion : @escaping LearningObjectiveWebserviceResponse) {
         
         let params : Parameters = [
             "title": learningObjective.learningGoal,
@@ -138,7 +138,7 @@ class Webservices {
                 switch response.result {
                 case .success:
                     print("success",response)
-                    let json = try decoder.decode(LearningObjective.self, from: response.data!)
+                    let json = try decoder.decode(_LearningObjective.self, from: response.data!)
                     completion(json, nil)
                 case .failure(let error):
                     print("failure",error)
@@ -149,7 +149,7 @@ class Webservices {
         }
     }
     
-    static func updateLearningObjective(learningObjective: LearningObjective, completion : @escaping LearningObjectiveWebserviceResponse) {
+    static func updateLearningObjective(learningObjective: _LearningObjective, completion : @escaping LearningObjectiveWebserviceResponse) {
         
         let params : Parameters = [
             "id" : learningObjective.id,
@@ -163,7 +163,7 @@ class Webservices {
                 switch response.result {
                 case .success:
                     print("success",response)
-                    let json = try decoder.decode(LearningObjective.self, from: response.data!)
+                    let json = try decoder.decode(_LearningObjective.self, from: response.data!)
                     completion(json, nil)
                 case .failure(let error):
                     print("failure",error)
@@ -188,7 +188,7 @@ class Webservices {
                 switch response.result {
                 case .success:
                     print("success",response)
-                    let json = try decoder.decode([Assessment].self, from: response.data!)
+                    let json = try decoder.decode([_Assessment].self, from: response.data!)
                     completion(json, nil)
                 case .failure(let error):
                     print("failure",error)
@@ -213,7 +213,7 @@ class Webservices {
                 switch response.result {
                 case .success:
                     print("success",response)
-                    let json = try decoder.decode(Assessment.self, from: response.data!)
+                    let json = try decoder.decode(_Assessment.self, from: response.data!)
                     completion(json, nil)
                 case .failure(let error):
                     print("failure",error)
@@ -237,7 +237,7 @@ class Webservices {
                 switch response.result {
                 case .success:
                     print("success",response)
-                    let json = try decoder.decode(Assessment.self, from: response.data!)
+                    let json = try decoder.decode(_Assessment.self, from: response.data!)
                     completion(json, nil)
                 case .failure(let error):
                     print("failure",error)

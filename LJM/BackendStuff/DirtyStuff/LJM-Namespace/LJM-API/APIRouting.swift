@@ -11,11 +11,11 @@ extension LJM.API {
             switch type {
             case .array(let value):
                 switch value {
-                case is [LearningObjective].Type:
+                case is [LJM.Models.LearningObjective].Type:
                     return .objectives
-                case is [Assessment].Type:
+                case is [LJM.Models.Assessment].Type:
                     return .assessments
-                case is [LearningPath].Type:
+                case is [LJM.Models.LearningPath].Type:
                     return .paths
                 default:
                     return nil
@@ -23,7 +23,7 @@ extension LJM.API {
                 
             case .type(let value):
                 switch value {
-                case is Assessment.Type:
+                case is LJM.Models.Assessment.Type:
                     return .assessment(id: id as? String ?? "Not found")
                 default:
                     return nil
@@ -40,7 +40,7 @@ extension LJM.API {
             case .paths:
                 return LJM.API.URLs.paths.rawValue
             case .assessment(let id):
-                return LJM.API.URLs.assessments.rawValue.appendingPathComponent(id!)
+                return LJM.API.URLs.assessments.rawValue.appendingPathComponent(id)
             }
         }
     }

@@ -46,12 +46,12 @@ enum Value {
     case exemplary
 }
 
-struct LearningPath: LJMCodableData, Identifiable, Equatable {
+struct _LearningPath: LJMCodableData, Identifiable, Equatable {
     var id: String?
     var title: String?
     var description: String?
     var createdByStudent: String?
-    var learningObjectives: [LearningObjective]?
+    var learningObjectives: [_LearningObjective]?
     
     enum CodingKeys: String, CodingKey {
         case id = "_id"
@@ -61,7 +61,7 @@ struct LearningPath: LJMCodableData, Identifiable, Equatable {
         case learningObjectives
     }
     
-    static func == (lhs: LearningPath, rhs: LearningPath) -> Bool {
+    static func == (lhs: _LearningPath, rhs: _LearningPath) -> Bool {
         if lhs.id == rhs.id {
             return true
         } else {
@@ -70,12 +70,12 @@ struct LearningPath: LJMCodableData, Identifiable, Equatable {
     }
 }
 
-struct LearningObjective: LJMCodableData, Hashable {
+struct _LearningObjective: LJMCodableData, Hashable {
     
     var id: String
     var tags : [String]?
     var code: String?
-    var strand: Strand?
+    var strand: _Strand?
     var learningGoal: String?
     var isCore: Bool?
     var objective: String?
@@ -83,7 +83,7 @@ struct LearningObjective: LJMCodableData, Hashable {
     var description: String?
     var createdByLearner: String?
     var documentation: String?
-    var assessments: [Assessment]?
+    var assessments: [_Assessment]?
     //Devono schiattare entrambi
     var learningPaths: [LearningPathReference]?
     var rubricLevels: [RubricLevels]?
@@ -109,7 +109,7 @@ struct LearningObjective: LJMCodableData, Hashable {
         hasher.combine(id)
     }
     
-    static func == (lhs: LearningObjective, rhs: LearningObjective) -> Bool {
+    static func == (lhs: _LearningObjective, rhs: _LearningObjective) -> Bool {
         if lhs.id == rhs.id {
             return true
         } else {
@@ -134,10 +134,10 @@ struct LearningObjective: LJMCodableData, Hashable {
     //    }
 }
 
-extension LearningObjective {
-    init(id: String, tags: [String]?, code: String?, strand: Strand?, learningGoal: String?, isCore: Bool?, objective: String?, coreRubricLevel: Int?, description: String?, createdByLearner: String?, documentation: String?, learningPaths: [LearningPathReference]?, rubricLevels: [RubricLevels]?) {
+extension _LearningObjective {
+    init(id: String, tags: [String]?, code: String?, strand: _Strand?, learningGoal: String?, isCore: Bool?, objective: String?, coreRubricLevel: Int?, description: String?, createdByLearner: String?, documentation: String?, learningPaths: [LearningPathReference]?, rubricLevels: [RubricLevels]?) {
         
-        var fetchedAssessments = [Assessment]()
+        var fetchedAssessments = [_Assessment]()
         
         
         Webservices.getAssessmentHistoryOfLearningObjective(learningObjectiveId: id) { fetchResult, err in
@@ -165,7 +165,7 @@ struct LearningPathReference: LJMCodableData, Equatable {
     }
 }
 
-struct Assessment: LJMCodableData, Identifiable, Hashable {
+struct _Assessment: LJMCodableData, Identifiable, Hashable {
     var id: String?
     var value: Int?
     var date: String?
@@ -187,7 +187,7 @@ struct Assessment: LJMCodableData, Identifiable, Hashable {
     }
 }
 
-struct Strand: LJMCodableData, Identifiable, Equatable {
+struct _Strand: LJMCodableData, Identifiable, Equatable {
     var id: String
     var strand: String
     var color: StrandColor?
@@ -200,7 +200,7 @@ struct Strand: LJMCodableData, Identifiable, Equatable {
         case __v
     }
     
-    static func == (lhs: Strand, rhs: Strand) -> Bool {
+    static func == (lhs: _Strand, rhs: _Strand) -> Bool {
         if lhs.id == rhs.id {
             return true
         } else {
@@ -231,9 +231,9 @@ struct DarkStrandColor: Codable {
     var blue: Int
 }
 
-struct StudentJourneyLearningObjectives: Decodable {
-    var learningObjectives: [LearningObjective?]
-}
+//struct StudentJourneyLearningObjectives: Decodable {
+//    var learningObjectives: [LearningObjective?]
+//}
 
 enum APIError: Error {
     case responseProblem
@@ -247,40 +247,40 @@ struct DeleteLOFromJourneyResponse: Codable {
 }
 
 class LearningPathStore: ObservableObject {
-    @Published var learningPaths = [LearningPath]()
+    @Published var learningPaths = [_LearningPath]()
     
-    func addItem(_ item: LearningPath) {
+    func addItem(_ item: _LearningPath) {
         learningPaths.append(item)
     }
 }
 
 class ChallengesStore: ObservableObject {
-    @Published var challenges = [LearningPath]()
+    @Published var challenges = [_LearningPath]()
     
-    func addItem(_ item: LearningPath) {
+    func addItem(_ item: _LearningPath) {
         challenges.append(item)
     }
 }
 
-class StudentLearningObjectivesStore: ObservableObject {
-    @Published var learningObjectives = [LearningObjective]()
-    
-    func addItem(_ item: LearningObjective) {
-        learningObjectives.append(item)
-    }
-    
-    func removeItem(_ item: LearningObjective) {
-        learningObjectives.remove(object: item)
-    }
-}
-
-class MapLearningObjectivesStore: ObservableObject {
-    @Published var learningObjectives = [LearningObjective]()
-    
-    func addItem(_ item: LearningObjective) {
-        learningObjectives.append(item)
-    }
-}
+//class StudentLearningObjectivesStore: ObservableObject {
+//    @Published var learningObjectives = [LearningObjective]()
+//
+//    func addItem(_ item: LearningObjective) {
+//        learningObjectives.append(item)
+//    }
+//
+//    func removeItem(_ item: LearningObjective) {
+//        learningObjectives.remove(object: item)
+//    }
+//}
+//
+//class MapLearningObjectivesStore: ObservableObject {
+//    @Published var learningObjectives = [LearningObjective]()
+//
+//    func addItem(_ item: LearningObjective) {
+//        learningObjectives.append(item)
+//    }
+//}
 
 class StrandsStore: ObservableObject {
     @Published var strands = [String]()
@@ -303,9 +303,9 @@ class StrandsFilter: ObservableObject {
     @Published var strands: [String] = [String]()
 }
 
-class HistoryStore: ObservableObject {
-    @Published var history: [Assessment] = [Assessment]()
-}
+//class HistoryStore: ObservableObject {
+//    @Published var history: [Assessment] = [Assessment]()
+//}
 
 extension Optional where Wrapped == String {
     var orEmpty: Wrapped {

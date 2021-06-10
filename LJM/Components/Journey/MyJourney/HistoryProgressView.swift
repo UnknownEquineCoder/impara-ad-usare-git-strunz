@@ -18,7 +18,7 @@ struct HistoryProgressView: View {
         HStack(spacing: 8) {
             HStack(spacing: 3) {
                 ForEach(1..<maximumRating + 1, id: \.self) { number in
-                    if number > assessment.value ?? 0 {
+                    if number > assessment.score?.rawValue ?? 0 {
                         Circle().strokeBorder(Color.white).frame(width: 15)
                     } else {
                         Circle().fill(Color.white).frame(width: 15)
@@ -26,15 +26,15 @@ struct HistoryProgressView: View {
                 }
             }
             
-            Text(self.assessment.date ?? "")
+            Text(self.assessment.date)
             
             Button(action: {
-                if assessment.id != nil {
-                    Webservices.deleteAssessment(id: self.assessment.id!) { (assessment, err) in
+                
+                    Webservices.deleteAssessment(id: self.assessment.id) { (assessment, err) in
                         // UPDATE UI DELETED HISTORY
 //                        self.learningObj.getAssessments()
                     }
-                }
+                
             }) {
                 Image(systemName: "xmark.circle.fill").foregroundColor(Color.customBlack)
             }.buttonStyle(PlainButtonStyle())

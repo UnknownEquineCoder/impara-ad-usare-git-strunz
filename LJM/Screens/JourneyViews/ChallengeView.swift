@@ -10,7 +10,7 @@ import SwiftUI
 struct ChallengeView: View {
     
     var challengeTabs : [String] {
-        return LJM.storage.challenges.map({ $0.title!.replacingOccurrences(of: "challenge ", with: "") })
+        return LJM.storage.challenges.map({ $0.name.replacingOccurrences(of: "challenge ", with: "") })
     }
     
     @State var selectedFilter = ""
@@ -69,7 +69,7 @@ struct ChallengeView: View {
         var arrayStrandsFilter = [FilterChoice]()
         
         for strand in strands {
-            arrayStrandsFilter.append(FilterChoice(descriptor: strand.strand))
+            arrayStrandsFilter.append(FilterChoice(descriptor: strand.name))
         }
         
         return arrayStrandsFilter

@@ -122,7 +122,7 @@ struct PathsView: View {
         var arrayStrandsFilter = [FilterChoice]()
         
         for strand in strands {
-            arrayStrandsFilter.append(FilterChoice(descriptor: strand.strand))
+            arrayStrandsFilter.append(FilterChoice(descriptor: strand.name))
         }
         
         return arrayStrandsFilter
@@ -132,7 +132,7 @@ struct PathsView: View {
         var arrayTitleLearningPath : [String] = [String]()
         
         for learningPath in learningPaths {
-            arrayTitleLearningPath.append(learningPath.title!)
+            arrayTitleLearningPath.append(learningPath.name)
         }
         
         return arrayTitleLearningPath

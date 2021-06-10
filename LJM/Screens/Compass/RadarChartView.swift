@@ -163,15 +163,16 @@ struct GraphDataProvider {
     static func from_API(type: GraphTypes) -> GraphDataProvider {
         
         var data = [CGFloat]()
+        #warning("TODO: REWORK WITH NEW DATA STRUCTURE")
         // we filter the data based on core vs elective
-        let unrefined_data = LJM.storage.learningObjectives.filter { $0.isCore == (type == .core) }
+        let unrefined_data = LJM.storage.learningObjectives.filter { $0.isCore() == (type == .core) }
         
         for strand in Strands.allCases {
             // we take 1 strand per iteration
-            let strand_data = unrefined_data.filter { $0.strand?.strand ?? "" == strand.rawValue }
+            let strand_data = unrefined_data.filter { $0.strand?.name ?? "" == strand.rawValue }
             // we remove nil scores and only take into account
             // the most recent change
-            let last_scores = strand_data.compactMap { $0.assessments?.last?.value }
+            let last_scores = strand_data.compactMap { $0.assessments?.last?.score?.rawValue }
             // we get the total of the scores
             let strand_sum = CGFloat(last_scores.reduce(0, +))
             // we append the total to the array
@@ -181,7 +182,7 @@ struct GraphDataProvider {
     }
     
     func max() -> CGFloat {
-        return Swift.max(CGFloat(LJM.storage.learningObjectives.filter { $0.isCore == (type == .core) }.count) * 5, CGFloat(100))
+        return Swift.max(CGFloat(LJM.storage.learningObjectives.filter { $0.isCore() == (type == .core) }.count) * 5, CGFloat(100))
     }
     
     enum GraphTypes {

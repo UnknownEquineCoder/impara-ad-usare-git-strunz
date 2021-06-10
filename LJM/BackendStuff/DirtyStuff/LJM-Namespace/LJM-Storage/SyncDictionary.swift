@@ -1,14 +1,49 @@
 import Foundation
-#warning("DO NOT TOUCH")
-#warning("DO NOT TOUCH")
-#warning("DO NOT TOUCH")
-#warning("DO NOT TOUCH")
-#warning("DO NOT TOUCH")
-#warning("DO NOT TOUCH")
-#warning("DO NOT TOUCH")
-#warning("DO NOT TOUCH")
+
+@propertyWrapper
+open class Sync<T: LJMCodableData> {
+    
+    public typealias Wrapped = LJM.Dictionary<T>
+    
+    private var _wrap: Wrapped
+    
+    open var wrappedValue: Wrapped {
+        get {
+            _wrap = refreshed()
+            return _wrap
+        }
+        
+        set {
+            _wrap = newValue
+        }
+    }
+    
+    public init(wrappedValue: Wrapped) {
+        self._wrap = wrappedValue
+    }
+    
+    private func refreshed() -> LJM.Dictionary<T> {
+        if let cachedValue = LJM.Caches.cachedValue(T.self) {
+            return Wrapped(cachedValue.dict)
+        }
+        
+        var value = [T]()
+        
+        LJM.api.fetchList(as: [T].self) { result in
+            switch result {
+            case .success(let fetchedValue):
+                LJM.Caches.updateCache(T.self, value: fetchedValue)
+                value = fetchedValue
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+        return Wrapped(value.dict)
+    }
+}
+
 extension LJM {
-    open class SyncDictionary<T: LJMCodableData>: ObservableObject {
+    open class Dictionary<T: LJMCodableData>: ObservableObject {
         public typealias IDDict = [T.ID : T]
         
         @Published private(set) var data: IDDict
@@ -18,12 +53,10 @@ extension LJM {
         }
         
         open func get(_ id: T.ID) -> T? {
-            data = refreshed()
             return data[id]
         }
         
         open func get(_ id: T.ID, defaultValue: T) -> T {
-            data = refreshed()
             return data[id] ?? defaultValue
         }
         
@@ -38,36 +71,12 @@ extension LJM {
             set { update(newValue) }
         }
         
+        public required init() { self.data = [:] }
         public required init(_ value: IDDict = [:]) { self.data = value }
         public required init(_ value: [T] = []) { self.data = value.dict }
     }
 }
 
-
-extension LJM.SyncDictionary {
-    private func refreshed() -> IDDict {
-        if let cachedValue = LJM.Caches.cachedValue(T.self) {
-            return cachedValue.dict
-        }
-        
-        var value = [T]()
-        
-        LJM.api.fetchList(as: [T].self) { result in
-            switch result {
-            case .success(let fetchedValue):
-                LJM.Caches.updateCache(T.self, value: fetchedValue)
-                value = fetchedValue
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-        return value.dict
-    }
-    
-    open func refresh() {
-        self.data = refreshed()
-    }
-}
 
 extension Array where Element: Identifiable {
     var dict: [Element.ID: Element] {
@@ -85,5 +94,28 @@ extension Array where Element: Identifiable {
 extension Dictionary {
     var array: [Value] {
         [Value](self.values)
+    }
+}
+
+
+struct Example {
+    @Sync var learningObjectives = LJM.Dictionary<LJM.Models.LearningObjective>()
+    
+    func examples() {
+        let objectivesAsArray: [LJM.Models.LearningObjective] = learningObjectives.rawData
+        let objectivesAsDictionary: [String : LJM.Models.LearningObjective] = learningObjectives.data
+        
+        debugPrint(objectivesAsArray, objectivesAsDictionary)
+    }
+}
+
+extension Optional where Wrapped: BinaryInteger {
+    var orZero: Wrapped {
+        switch self {
+        case .some(let value):
+            return value
+        case .none:
+            return 0
+        }
     }
 }

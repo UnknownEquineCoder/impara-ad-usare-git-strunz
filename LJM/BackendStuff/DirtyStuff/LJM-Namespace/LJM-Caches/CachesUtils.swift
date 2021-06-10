@@ -4,16 +4,19 @@ extension LJM.Caches {
     @frozen enum CacheKeys: String {
         case learningObjectives
         case learningPaths
+        case assessments
     }
 }
 
 extension LJM.Caches {
     static func cache<T: LJMData>(_ type: T.Type) -> IndexableCache<[T]>? {
         switch type {
-        case is LearningObjective.Type:
+        case is LJM.Models.LearningObjective.Type:
             return LJM.Caches.learningObjectives as? IndexableCache<[T]>
-        case is LearningPath.Type:
+        case is LJM.Models.LearningPath.Type:
             return LJM.Caches.learningPaths as? IndexableCache<[T]>
+        case is LJM.Models.Assessment.Type:
+            return LJM.Caches.assessments as? IndexableCache<[T]>
         default:
             return nil
         }
@@ -21,10 +24,12 @@ extension LJM.Caches {
     
     static func cacheKey<T: LJMData>(_ type: T.Type) -> CacheKeys.RawValue? {
         switch type {
-        case is LearningObjective.Type:
+        case is LJM.Models.LearningObjective.Type:
             return CacheKeys.learningObjectives.rawValue
-        case is LearningPath.Type:
+        case is LJM.Models.LearningPath.Type:
             return CacheKeys.learningPaths.rawValue
+        case is LJM.Models.Assessment.Type:
+            return CacheKeys.assessments.rawValue
         default:
             return nil
         }

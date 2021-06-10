@@ -41,34 +41,34 @@ struct AddButton: View {
                 self.didTap.toggle()
             }){
                 ZStack {
-                    if !checkStudentContainsLearningObjective(learningObjectiveId: self.learningObjectiveSelected.id ?? "No id") {
+                    if !checkStudentContainsLearningObjective(learningObjectiveId: self.learningObjectiveSelected.id) {
                         if didTap == false{
                             Image(systemName: "plus.circle")
                                 .resizable()
                                 .foregroundColor(Color("customCyan"))
                                 .onTapGesture {
-                                    if learningObjectiveSelected.id != nil {
+                                    
                                         Webservices.addAssessment(learningObjId: learningObjectiveSelected.id, value: 0) { (assessment, err) in
                                             if err == nil {
                                               //  self.studentLearningObjectivesStore.addItem(learningObjectiveSelected)
                                                 LJM.storage.studentLearningObjectives.append(learningObjectiveSelected)
                                             }
                                         }
-                                    }
+                                    
                                 }
                         }else{
                             Image(systemName: "checkmark.circle.fill")
                                 .resizable()
                                 .foregroundColor(Color("customCyan"))
                                 .onTapGesture {
-                                    if learningObjectiveSelected.id != nil {
+                                    
                                         Webservices.deleteLearningObjectiveFromStudentJourney(id: learningObjectiveSelected.id) { value, error in
                                             if error == nil {
                                               //  self.studentLearningObjectivesStore.removeItem(learningObjectiveSelected)
                                                 LJM.storage.studentLearningObjectives.remove(object: learningObjectiveSelected)
                                             }
                                         }
-                                    }
+                                    
                                 }
                         }
                     } else {
@@ -76,14 +76,14 @@ struct AddButton: View {
                             .resizable()
                             .foregroundColor(Color("customCyan"))
                             .onTapGesture {
-                                if learningObjectiveSelected.id != nil {
+                                
                                     Webservices.deleteLearningObjectiveFromStudentJourney(id: learningObjectiveSelected.id) { value, error in
                                         if error == nil {
                                          //   self.studentLearningObjectivesStore.removeItem(learningObjectiveSelected)
                                             LJM.storage.studentLearningObjectives.remove(object: learningObjectiveSelected)
                                         }
                                     }
-                                }
+                                
                             }
                     }
                 }

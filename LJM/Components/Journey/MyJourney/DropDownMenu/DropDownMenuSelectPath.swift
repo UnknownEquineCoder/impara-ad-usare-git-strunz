@@ -17,9 +17,9 @@ struct DropDownMenuSelectPath: View {
         Menu {
             ForEach(LJM.storage.learningPaths) { learningPath in
                 Button {
-                    selectedPath = learningPath.title ?? ""
+                    selectedPath = learningPath.name
                 } label: {
-                    Text(learningPath.title ?? "No title")
+                    Text(learningPath.name)
                 }
             }
         } label: {

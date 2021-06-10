@@ -24,20 +24,21 @@ struct LearningObjectiveJourneyCell: View {
                 VStack {
                     HStack(alignment: .top) {
                         VStack(alignment: .leading, spacing: 8) {
-                            Text(learningObj.strand?.strand.uppercased() ?? "No strand")
+                            Text(learningObj.strand?.name.uppercased() ?? "No strand")
                                 .foregroundColor(setupColor(darkMode: colorScheme == .dark ? true : false, strand: learningObj.strand!))
                                 .font(.system(size: 20, weight: .semibold, design: .rounded))
                             Text(learningObj.learningGoal?.uppercased() ?? "No title")
                                 .foregroundColor(colorScheme == .dark ? Color(red: 255/255, green: 255/255, blue: 255/255) : Color.customDarkGrey)
                                 .font(.system(size: 22.toFontSize(), weight: .light))
-                            Text(learningObj.isCore ?? true ? "CORE" : "ELECTIVE")
+                            Text(learningObj.isCore() ? "CORE" : "ELECTIVE")
+                            Text("CORE")
                                 .foregroundColor(colorScheme == .dark ? Color(red: 255/255, green: 255/255, blue: 255/255) : Color.customDarkGrey)
                                 .font(.system(size: 22.toFontSize(), weight: .light))
                         }.frame(width: 150, alignment: .leading).padding(.leading, 20).padding(.top, 15)
 
                         Spacer().frame(width: 100)
 
-                        Text(learningObj.objective ?? "No description")
+                        Text(learningObj.learningGoal ?? "No description")
                             .foregroundColor(colorScheme == .dark ? Color(red: 224/255, green: 224/255, blue: 224/255) : Color.customLightBlack)
                             .font(.system(size: 24.toFontSize(), weight: .regular))
                             .frame(maxWidth: 639.toScreenSize(), maxHeight: .infinity, alignment: .leading)
@@ -110,10 +111,10 @@ struct LearningObjectiveJourneyCell: View {
 
                 VStack(alignment: .center, spacing: 5) {
                     Spacer().frame(height: 200)
-                    Text(setupTitleProgressRubric(value: learningObj.assessments?.first?.value ?? 0))
+                    Text(setupTitleProgressRubric(value: learningObj.assessments?.first?.score?.rawValue ?? 0))
                         .font(.system(size: 15, weight: .medium))
                         .foregroundColor(Color.customCyan)
-                    Text(setupDescProgressOnRubric(value: learningObj.assessments?.first?.value ?? 0))
+                    Text(setupDescProgressOnRubric(value: learningObj.assessments?.first?.score?.rawValue ?? 0))
                         .font(.system(size: 10, weight: .medium))
                         .foregroundColor(Color.customDarkGrey)
                         .multilineTextAlignment(.center)
@@ -193,6 +194,7 @@ struct LearningObjectiveJourneyCell: View {
     }
     
     func setupColor(darkMode: Bool, strand: Strand) -> Color {
+        #warning("TODO: SET STRAND COLORS BACK TO AN ENUM")
         let red = darkMode ? strand.color!.dark.red : strand.color!.light.red
         let green = darkMode ? strand.color!.dark.green : strand.color!.light.green
         let blue = darkMode ? strand.color!.dark.blue : strand.color!.light.blue
