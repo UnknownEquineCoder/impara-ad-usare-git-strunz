@@ -14,6 +14,7 @@ struct LearningGoalsView: View {
     @State var selectedFilterInsideButton = "All"
     @State private var searchText = ""
     @State private var selectedPath = ""
+    @State private var added = false
     @State var selectedStrands = [String]()
     @Environment(\.colorScheme) var colorScheme
     var titleView: String

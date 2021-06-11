@@ -19,13 +19,13 @@ struct LearningObjectiveJourneyCell: View {
             ZStack(alignment: .topLeading) {
                 Rectangle()
                     .frame(width: 20, alignment: .topLeading)
-                    .foregroundColor(setupColor(darkMode: colorScheme == .dark ? true : false, strand: learningObj.strand!))
+                    .foregroundColor(setupColor(darkMode: colorScheme == .dark, strand: Strands(rawValue: learningObj.strand ?? "") ?? .TECHNICAL))
 
                 VStack {
                     HStack(alignment: .top) {
                         VStack(alignment: .leading, spacing: 8) {
-                            Text(learningObj.strand?.name.uppercased() ?? "No strand")
-                                .foregroundColor(setupColor(darkMode: colorScheme == .dark ? true : false, strand: learningObj.strand!))
+                            Text(learningObj.strand?.uppercased() ?? "No strand")
+                                .foregroundColor(setupColor(darkMode: colorScheme == .dark, strand: Strands(rawValue: learningObj.strand ?? "") ?? .TECHNICAL))
                                 .font(.system(size: 20, weight: .semibold, design: .rounded))
                             Text(learningObj.learningGoal?.uppercased() ?? "No title")
                                 .foregroundColor(colorScheme == .dark ? Color(red: 255/255, green: 255/255, blue: 255/255) : Color.customDarkGrey)
@@ -193,15 +193,10 @@ struct LearningObjectiveJourneyCell: View {
         }
     }
     
-    func setupColor(darkMode: Bool, strand: Strand) -> Color {
-        #warning("TODO: SET STRAND COLORS BACK TO AN ENUM")
-        let red = darkMode ? strand.color!.dark.red : strand.color!.light.red
-        let green = darkMode ? strand.color!.dark.green : strand.color!.light.green
-        let blue = darkMode ? strand.color!.dark.blue : strand.color!.light.blue
-         
-        let colorPath = Color(red: Double(red) / 255.0, green: Double(green) / 255.0, blue: Double(blue) / 255.0)
-                
-        return colorPath
+    func setupColor(darkMode: Bool, strand: Strands) -> Color {
+        
+        return strand.toColor(dark: darkMode)
+
         
     }
 }

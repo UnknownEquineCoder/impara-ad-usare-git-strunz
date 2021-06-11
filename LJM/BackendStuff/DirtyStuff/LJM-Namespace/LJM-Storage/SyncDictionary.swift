@@ -105,6 +105,8 @@ struct Example {
         let objectivesAsArray: [LJM.Models.LearningObjective] = learningObjectives.rawData
         let objectivesAsDictionary: [String : LJM.Models.LearningObjective] = learningObjectives.data
         
+        
+        
         debugPrint(objectivesAsArray, objectivesAsDictionary)
     }
 }

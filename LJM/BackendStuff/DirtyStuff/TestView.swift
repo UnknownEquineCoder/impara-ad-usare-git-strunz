@@ -20,9 +20,4 @@ struct TestView_Previews: PreviewProvider {
     }
 }
 
-@frozen enum Stores {
-    @Sync static var learningObjectives = LJM.Dictionary<LearningObjective>()
-    @Sync static var learningPaths = LJM.Dictionary<LearningPath>()
-    @Sync static var assessments = LJM.Dictionary<Assessment>()
-    @Sync static var strands = LJM.Dictionary<Strand>()
-}
+

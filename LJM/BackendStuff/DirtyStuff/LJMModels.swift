@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 
 extension LJM {
     @frozen public enum Models {
@@ -12,26 +13,21 @@ extension LJM {
             var description: String?
             var documentation: String?
             var code: Code
-            var strand: Models.Strand?
+            var strand: String?
             var assessments: [Models.Assessment]?
             
-            func isCore(from store: [LearningPath] = []) -> Bool {
+            func isCore(from store: [LearningPath] = Stores.learningPaths.rawData) -> Bool {
                 isIn(.CORE, from: store)
             }
             
-            func isIn(_ path: LearningPaths, from store: [LearningPath] = []) -> Bool {
+            func isIn(_ path: LearningPaths, from store: [LearningPath] = Stores.learningPaths.rawData) -> Bool {
                 let corePath = store.path(with: path)
                 let keys = corePath?.expectedValues.map { $0.keys.first }
                 
                 print("Keys: \(String(describing: keys)), len: \(keys?.count ?? 0)")
-
+                
                 return keys?.contains(self.id) ?? false
             }
-        }
-        
-        public struct Strand: LJMCodableData, Hashable {
-            public var id: String
-            var name: String
         }
         
         public struct Assessment: LJMCodableData, Hashable {
@@ -47,7 +43,7 @@ extension LJM {
             var name: String
             var expectedValues: [[Code : Score]]
             
-            func learningObjectives(from store: [LearningObjective] = []) -> [LearningObjective] {
+            func learningObjectives(from store: [LearningObjective] = Stores.learningObjectives.rawData) -> [LearningObjective] {
                 let codes = expectedValues.map { $0.keys.first }
                 return store.filter { codes.contains($0.id) }
             }
@@ -72,12 +68,45 @@ extension Date {
     }
 }
 
-public enum LearningPaths: String {
+public enum LearningPaths: String, CaseIterable {
     case CORE = "core"
     case UI_UX = "UI/UX"
     case BACKEND = "backend"
     case FRONTEND = "frontend"
     case BUSINESS = "business"
+}
+
+@frozen public enum Strands: String, CaseIterable {
+    case BUSINESS = "App Business and Marketing"
+    case PROCESS = "Process"
+    case PROFESSIONAL_SKILLS = "Professional Skills"
+    case TECHNICAL = "Technical"
+    case DESIGN = "Design"
+    
+    func toColor(dark: Bool) -> Color {
+        switch self {
+        case .BUSINESS:
+            return dark ?
+                Color(red: 151, green: 032, blue: 167) :
+                Color(red: 143, green: 042, blue: 157)
+        case .DESIGN:
+            return dark ?
+                Color(red: 173, green: 217, blue: 137) :
+                Color(red: 173, green: 217, blue: 137)
+        case .TECHNICAL:
+            return dark ?
+                Color(red: 114, green: 087, blue: 255) :
+                Color(red: 129, green: 105, blue: 252)
+        case .PROCESS:
+            return dark ?
+                Color(red: 252, green: 111, blue: 050) :
+                Color(red: 221, green: 101, blue: 049)
+        case .PROFESSIONAL_SKILLS:
+            return dark ?
+                Color(red: 252, green: 176, blue: 069) :
+                Color(red: 221, green: 156, blue: 065)
+        }
+    }
 }
 
 extension Array where Element == LearningPath {
@@ -86,7 +115,3 @@ extension Array where Element == LearningPath {
     }
 }
 
-public typealias LearningObjective = LJM.Models.LearningObjective
-public typealias LearningPath = LJM.Models.LearningPath
-public typealias Assessment = LJM.Models.Assessment
-public typealias Strand = LJM.Models.Strand

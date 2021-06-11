@@ -89,19 +89,19 @@ struct ScrollViewLearningObjectives: View {
     var body: some View {
         List(filteredLearningObjectives) { item in
             if textFromSearchBar.isEmpty || (item.learningGoal!.lowercased().contains(textFromSearchBar.lowercased())) || ((item.description!.lowercased().contains(textFromSearchBar.lowercased()))) {
-                if item.strand != nil {
-                    if self.selectedStrands.contains(item.strand!.strand) || self.selectedStrands.count == 0 {
-                        LearningObjectiveJourneyCell(rating: item.assessments?.first?.value ?? 0, isRatingView: isAddable ? true : false, isAddable: isAddable, learningPathSelected: self.$learningPathSelected, learningObj: item)
+                if let strand = item.strand {
+                    if self.selectedStrands.contains(strand) || self.selectedStrands.count == 0 {
+                        LearningObjectiveJourneyCell(rating: item.assessments?.first?.score?.rawValue ?? 0, isRatingView: isAddable, isAddable: isAddable, learningPathSelected: self.$learningPathSelected, learningObj: item)
                             .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
                             .contextMenu {
                                 if !isAddable {
                                     Button {
-                                        if item.id != nil {
+                                        
                                             Webservices.deleteLearningObjectiveFromStudentJourney(id: item.id) { (deletedLearningObj, err) in
                                                 //  self.studentLearningObjectivesStore.removeItem(item)
                                                 storage.studentLearningObjectives.remove(object: item)
                                             }
-                                        }
+                                        
                                     } label: {
                                         Text("Delete")
                                     }
@@ -127,7 +127,7 @@ struct ScrollViewLearningObjectives: View {
         .onChange(of: self.selectedStrands) { result in
             if !result.isEmpty {
                 self.totalLOs.total = self.filteredLearningObjectives.filter({ (LO) -> Bool in
-                    result.contains(LO.strand?.strand ?? "No Strand")
+                    result.contains(LO.strand ?? "")
                 }).count
             } else {
                 self.totalLOs.total = self.filteredLearningObjectives.count

@@ -72,7 +72,7 @@ struct PathsView: View {
                         .padding(.trailing, 200)
                         .frame(maxWidth: .infinity,  alignment: .trailing)
                     
-                    DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: setupStrandsOnFilter(strands: LJM.storage.strands))
+                    DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: setupStrandsOnFilter(strands: Strands.allCases))
                         .padding(.trailing, 20)
                         .frame(maxWidth: .infinity, alignment: .trailing)
                         .zIndex(1)
@@ -117,12 +117,12 @@ struct PathsView: View {
         }.padding(.leading, 50).padding(.trailing, 50)
     }
     
-    func setupStrandsOnFilter(strands: [Strand]) -> [FilterChoice] {
+    func setupStrandsOnFilter(strands: [Strands]) -> [FilterChoice] {
         
         var arrayStrandsFilter = [FilterChoice]()
         
         for strand in strands {
-            arrayStrandsFilter.append(FilterChoice(descriptor: strand.name))
+            arrayStrandsFilter.append(FilterChoice(descriptor: strand.rawValue))
         }
         
         return arrayStrandsFilter

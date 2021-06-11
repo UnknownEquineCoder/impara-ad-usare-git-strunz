@@ -169,7 +169,7 @@ struct GraphDataProvider {
         
         for strand in Strands.allCases {
             // we take 1 strand per iteration
-            let strand_data = unrefined_data.filter { $0.strand?.name ?? "" == strand.rawValue }
+            let strand_data = unrefined_data.filter { $0.strand ?? "" == strand.rawValue }
             // we remove nil scores and only take into account
             // the most recent change
             let last_scores = strand_data.compactMap { $0.assessments?.last?.score?.rawValue }
@@ -243,13 +243,7 @@ struct RadarChartView_Previews: PreviewProvider {
 
 
 
-public enum Strands: String, CaseIterable {
-    case business = "App Business and Marketing"
-    case process = "Process"
-    case professional_skills = "Professional Skills"
-    case technical = "Technical"
-    case design = "Design"
-}
+
 
 
 extension Array where Element: Identifiable {

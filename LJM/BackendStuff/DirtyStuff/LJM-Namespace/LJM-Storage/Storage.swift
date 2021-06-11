@@ -10,11 +10,11 @@ extension LJM {
         
         @Published var user = FrozenUser(name: "", surname: "")
         
-        @AutoUpdate var strands: [Strand] = [] {
-            willSet {
-                objectWillChange.send()
-            }
-        }
+//        @AutoUpdate var strands: [Strand] = [] {
+//            willSet {
+//                objectWillChange.send()
+//            }
+//        }
         
         @AutoUpdate var challenges: [LearningPath] = [] {
             willSet {
