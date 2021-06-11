@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CompassView: View, LJMView {
     @Environment(\.colorScheme) var colorScheme
-    @State var path = "UI/UX"
+    @State var path = LearningPaths.BACKEND
     @State var progressValue: Float = 10
     
     @State private var currentSubviewLabel = ""
@@ -46,19 +46,28 @@ struct CompassView: View, LJMView {
                         
                         HStack{
                             Spacer()
-                            VStack{
-                                GraphWithOverlay()
-                                    .frame(width: 395, height: 395)
-                                    .padding(.all, 45)
-                                
-                                DropDownMenuCompass(selectedPath: $path)
-                            }
-                            Spacer(minLength: 214)
                             
                             GraphWithOverlay()
                                 .frame(width: 395, height: 395)
                                 .padding(.all, 45)
-                                .padding(.bottom, 28)
+                                .padding(.bottom, 9)
+                            
+                            Spacer(minLength: 214)
+                            VStack{
+                                GraphWithOverlay()
+                                    .frame(width: 395, height: 395)
+                                    .padding(.top, 45)
+                                    .padding(.leading, 45)
+                                    .padding(.trailing, 45)
+                                
+                                Text("Path Expectations")
+                                    .fontWeight(.light)
+                                    .multilineTextAlignment(.center)
+                                    .font(.system(size: 18.toFontSize()))
+                                DropDownMenuCompass(selectedPath: $path)
+                                    
+                                
+                            }
                             
                             Spacer()
                         }
