@@ -28,6 +28,17 @@ extension LJM {
                 
                 return keys?.contains(self.id) ?? false
             }
+            
+            enum CodingKeys: String, CodingKey {
+                case id = "_id"
+                case tags = "tags"
+                case learningGoal = "learningGoal"
+                case description = "description"
+                case documentation = "documentation"
+                case code = "code"
+                case strand = "strand"
+                case assessments = "assessment"
+            }
         }
         
         public struct Assessment: LJMCodableData, Hashable {

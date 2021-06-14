@@ -15,7 +15,7 @@ struct AddButton: View {
 //    @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
     
     
-    let objectives = LJM.storage.learningObjectives
+    let objectives = Stores.learningObjectives.rawData
     
     var buttonSize: CGFloat
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -51,7 +51,7 @@ struct AddButton: View {
                                         Webservices.addAssessment(learningObjId: learningObjectiveSelected.id, value: 0) { (assessment, err) in
                                             if err == nil {
                                               //  self.studentLearningObjectivesStore.addItem(learningObjectiveSelected)
-                                                LJM.storage.studentLearningObjectives.append(learningObjectiveSelected)
+//                                                Stores.learningObjectives.rawData.append(learningObjectiveSelected)
                                             }
                                         }
                                     
@@ -65,7 +65,7 @@ struct AddButton: View {
                                         Webservices.deleteLearningObjectiveFromStudentJourney(id: learningObjectiveSelected.id) { value, error in
                                             if error == nil {
                                               //  self.studentLearningObjectivesStore.removeItem(learningObjectiveSelected)
-                                                LJM.storage.studentLearningObjectives.remove(object: learningObjectiveSelected)
+//                                                LJM.storage.studentLearningObjectives.remove(object: learningObjectiveSelected)
                                             }
                                         }
                                     
@@ -80,7 +80,7 @@ struct AddButton: View {
                                     Webservices.deleteLearningObjectiveFromStudentJourney(id: learningObjectiveSelected.id) { value, error in
                                         if error == nil {
                                          //   self.studentLearningObjectivesStore.removeItem(learningObjectiveSelected)
-                                            LJM.storage.studentLearningObjectives.remove(object: learningObjectiveSelected)
+//                                            LJM.storage.studentLearningObjectives.remove(object: learningObjectiveSelected)
                                         }
                                     }
                                 

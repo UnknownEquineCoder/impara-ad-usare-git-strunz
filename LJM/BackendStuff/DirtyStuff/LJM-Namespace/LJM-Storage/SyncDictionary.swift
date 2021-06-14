@@ -35,7 +35,7 @@ open class Sync<T: LJMCodableData> {
                 LJM.Caches.updateCache(T.self, value: fetchedValue)
                 value = fetchedValue
             case .failure(let error):
-                print(error.localizedDescription)
+                print("errore nel fetch", error, #file, "line:", #line, "\nType: ", T.self)
             }
         }
         return Wrapped(value.dict)

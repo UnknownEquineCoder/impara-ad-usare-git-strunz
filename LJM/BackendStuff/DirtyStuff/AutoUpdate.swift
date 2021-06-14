@@ -3,7 +3,8 @@ import SwiftUI
 /**
  Property Wrapper used to automatically update a datasource from both Cache and API
  */
-@propertyWrapper class AutoUpdate<T: LJMCodableData> {
+@available(*, deprecated, message: "Use LJM.Dictionary instead")
+@propertyWrapper class _AutoUpdate<T: LJMCodableData> {
 
     var _wrapList: [T]
     
@@ -37,7 +38,7 @@ import SwiftUI
     ///
     /// type(of: $items) => returns `AutoUpdate<Item>` (read and write)
     
-    var projectedValue: AutoUpdate<T> { self }
+    var projectedValue: _AutoUpdate<T> { self }
     
     /// Returns the cached value or fetches the updated version from the API
     /// and updates the cache.
@@ -56,6 +57,7 @@ import SwiftUI
                     LJM.Caches.updateCache(T.self, value: fetchedValue)
                     value = fetchedValue
                 case .failure(let error):
+                    print("ERRORE QUI \(T.self)")
                     print(error.localizedDescription)
                 }
             }
