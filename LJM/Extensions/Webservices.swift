@@ -73,9 +73,10 @@ class Webservices {
             let jwt = try decode(jwt: secretToken)
             
             if !jwt.expired {
-                completion(FrozenUser(name: jwt.body["name"] as! String, surname: ""), nil)
+                completion(FrozenUser(name: jwt.body["name"] as? String ?? "", surname: jwt.body["surname"] as? String ?? ""), nil)
             } else {
                 // Should redirect to Login if token expired
+                KeychainWrapper.standard.removeObject(forKey: "tokenAuth")
                 completion(nil, APIError.decodingProblem)
             }
 

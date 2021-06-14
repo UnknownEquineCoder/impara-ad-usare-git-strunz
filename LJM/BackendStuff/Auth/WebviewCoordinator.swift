@@ -42,7 +42,7 @@ extension WebviewCoordinator: WKScriptMessageHandler {
             
             // STORE KEYCHAIN TOKEN
             
-            KeychainWrapper.standard.set(secretToken, forKey: "tokenAuth")
+            LJM.storage.user.loginKey = secretToken
             
             Webservices.decodeToken(secretToken: secretToken) { user, err in
                 // User object and fill it

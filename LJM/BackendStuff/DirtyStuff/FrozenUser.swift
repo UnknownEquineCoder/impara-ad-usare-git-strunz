@@ -12,8 +12,8 @@ class FrozenUser: ObservableObject {
         }
     }
     
-    var name: String?
-    var surname: String?
+    @Published var name: String?
+    @Published var surname: String?
     
     init(name: String, surname: String) {
         self.name = name

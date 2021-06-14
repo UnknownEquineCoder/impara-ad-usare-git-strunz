@@ -134,6 +134,7 @@ struct CircleView: View {
             .popover(isPresented: self.$showingPopup) {
                 PopOverViewRating(showingPopup: $showingPopup, status: setupTitleProgressRubric(value: number), desc: setupDescProgressOnRubric(value: number))
                     .background(Color.white).border(Color.white)
+                    .allowsHitTesting(false)
             }
             .onHover { hover in
                 if hover {

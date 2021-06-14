@@ -25,20 +25,71 @@ struct DropDownMenuFilters: View {
                          FilterChoice(descriptor: "Technical"),
                          FilterChoice(descriptor: "Process")
     ]
-        
+    
     var body: some View {
         VStack {
             Button(action: {
                 self.showPopover =  true
             }) {
-                HStack{
-                    //                    Image(systemName: "chevron.down")
-                    //                        .resizable()
-                    //                        .foregroundColor(Color("customCyan"))
-                    //                        .frame(width: 10, height: 5, alignment: .center)
-                    //                                .padding()
+                HStack(spacing: 13) {
+                    Image("Filters_Icon")
+                        .resizable()
+                        .foregroundColor(Color("customCyan"))
+                        .frame(width: 20, height: 20, alignment: .center)
                     Text("Filters")
-                        .padding()
+                        .font(.system(size: 20, weight: .medium, design: .rounded))
+                        .foregroundColor(Color("customCyan"))
+                    
+                }.frame(width: 132.toScreenSize(), height: 35.toScreenSize(), alignment: .center)
+                .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color("customCyan")))
+                .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
+            }
+            .popover(
+                isPresented: self.$showPopover,
+                arrowEdge: .bottom
+                
+            ) {
+                VStack {
+                    List(filterOptions, id: \.self){
+                        element in
+                        MultiSelectRow(model: element, selectedItems: $selectedRows, selectedStrands: $selectedStrands)
+                    }
+                }.frame(width: 250, height: 200)
+            }
+            .buttonStyle(PlainButtonStyle())
+            .padding(.trailing, 20)
+            
+        }
+        
+    }
+    
+}
+
+struct DropDownMenuSort: View {
+    @State var expand = false
+    @State private var showPopover: Bool = false
+    @State var firstButtonSelected: Bool = false
+    @State var selectedRows = Set<UUID>()
+    
+    @Binding var selectedSort : String
+    
+    @Environment(\.colorScheme) var colorScheme
+    
+    var filterOptions = [FilterChoice(descriptor: "Alphabetical"),
+                         FilterChoice(descriptor: "By date")
+    ]
+    
+    var body: some View {
+        VStack {
+            Button(action: {
+                self.showPopover =  true
+            }) {
+                HStack(spacing: 13) {
+                    Image("Sort_Icon")
+                        .resizable()
+                        .foregroundColor(Color("customCyan"))
+                        .frame(width: 20, height: 20, alignment: .center)
+                    Text("Sort")
                         .font(.system(size: 20, weight: .medium, design: .rounded))
                         .foregroundColor(Color("customCyan"))
                     
@@ -54,9 +105,9 @@ struct DropDownMenuFilters: View {
                 VStack{
                     List(filterOptions, id: \.self){
                         element in
-                        MultiSelectRow(model: element, selectedItems: $selectedRows, selectedStrands: $selectedStrands)
+                        SingleSelectRow(model: element, selectedItems: $selectedRows, selectedSort: $selectedSort)
                     }
-                }
+                }.frame(width: 200, height: 150)
             }
             .buttonStyle(PlainButtonStyle())
             .padding(.trailing, 20)

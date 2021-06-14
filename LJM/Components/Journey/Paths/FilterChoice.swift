@@ -19,6 +19,38 @@ protocol IdentifiableWithDescriptor: Identifiable {
     var descriptor: String {get set}
 }
 
+struct SingleSelectRow<Model: IdentifiableWithDescriptor>: View {
+    @Environment(\.colorScheme) var colorScheme
+    
+    var model: Model
+    @Binding var selectedItems: Set<UUID>
+    @Binding var selectedSort : String
+    var isSelected: Bool {
+        selectedSort.contains(model.descriptor)
+    }
+    
+    var body: some View {
+        HStack {
+            Text(self.model.descriptor)
+            Spacer()
+            if self.isSelected {
+                Image(systemName: "checkmark")
+                    .foregroundColor(colorScheme == .dark ? .white : Color(red: 70/255, green: 70/255, blue: 70/255))
+            }
+        }
+        .onTapGesture {
+            if self.isSelected {
+                self.selectedItems.remove(self.model.id)
+              //  self.selectedStrands.remove(object: self.model.descriptor)
+            } else {
+                self.selectedItems.insert(self.model.id)
+              //  self.selectedStrands.append(self.model.descriptor)
+            }
+        }
+    }
+}
+
+
 struct MultiSelectRow<Model: IdentifiableWithDescriptor>: View {
     @Environment(\.colorScheme) var colorScheme
     

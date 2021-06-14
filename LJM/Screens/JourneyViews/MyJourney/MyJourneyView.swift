@@ -12,6 +12,7 @@ struct MyJourneyView: View {
     @State var selectedFilter = "All"
     @State var selectedFilterInsideButton = "All"
     @State var selectedStrands = [String]()
+    @State var selectedSort = ""
     
     let arrayFilters = ["All", "Core", "Elective", "Evaluated"]
     
@@ -32,10 +33,6 @@ struct MyJourneyView: View {
                 
                 TitleScreenView(title: "My Journey")
                 
-                DropDownMenuSelectPath(selectedPath: $selectedPath)
-                    .padding(.leading, 250)
-                    .padding(.top, 23)
-                
                 VStack(alignment: .leading) {
                     DescriptionTitleScreenView(desc: "Here you will find your Learning Objectives you choose to work on, that will help you build your own path. Based on the path you choose, the arrows will indicate the recommanded level to reach.")
                 }
@@ -48,19 +45,23 @@ struct MyJourneyView: View {
                 
             }.frame(maxWidth: .infinity)
             
+            HStack {
+                DropDownMenuSort(selectedSort: $selectedSort)
+                    .buttonStyle(PlainButtonStyle())
+                
+                DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: setupStrandsOnFilter(strands: Strands.allCases))
+                    .buttonStyle(PlainButtonStyle())
+                
+                SearchBarExpandableJourney(txtSearchBar: $searchText)
+                    .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
+            }
+            
             ZStack(alignment: .topLeading) {
                 
                 NumberTotalLearningOjbectivesView(totalLOs: self.totalLOs.total)
                 
-                SearchBarExpandableJourney(txtSearchBar: $searchText).background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
-                    .padding(.trailing, 200)
+                DropDownMenuSelectPath(selectedPath: $selectedPath)
                     .frame(maxWidth: .infinity,  alignment: .trailing)
-                
-                DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: setupStrandsOnFilter(strands: Strands.allCases))
-                    .buttonStyle(PlainButtonStyle())
-                    .padding(.trailing, 20)
-                    .frame(maxWidth: .infinity, alignment: .trailing)
-                    .zIndex(1)
                 
                 ListViewLearningObjectiveMyJourney(selectedFilter: $selectedFilter, txtSearchBar: $searchText, selectedPath: $selectedPath, selectedStrands: $selectedStrands, totalLOs: totalLOs)
                     .padding(.top, 50)

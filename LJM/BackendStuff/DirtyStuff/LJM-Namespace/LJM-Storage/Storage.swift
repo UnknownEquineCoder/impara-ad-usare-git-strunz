@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 
 extension LJM {
     /**
@@ -8,7 +9,7 @@ extension LJM {
     
     final class Storage: ObservableObject {
         
-        @Published var user = FrozenUser(name: "", surname: "")
+        @ObservedObject var user = FrozenUser(name: "", surname: "")
         
 //        @AutoUpdate var strands: [Strand] = [] {
 //            willSet {
