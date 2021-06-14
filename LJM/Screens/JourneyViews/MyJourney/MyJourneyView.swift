@@ -120,7 +120,7 @@ struct ListViewLearningObjectiveMyJourney: View {
     
     var body: some View {
         
-        if LJM.storage.studentLearningObjectives.count > 0 {
+        if Stores.learningObjectives.rawData.count > 0 {
             ZStack(alignment: .top) {
                 
                 Text("No learning objectives found ...")

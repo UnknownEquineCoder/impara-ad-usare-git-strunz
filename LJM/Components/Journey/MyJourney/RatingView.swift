@@ -89,35 +89,7 @@ struct RatingView: View {
                 }
             }
         }
-        
         return 0
-        
-        
-        
-//        if learningObj.isCore() {
-//            #warning("TODO: FIX WITH NEW LEARNING PATH")
-//            for rubricLevel in self.learningObj.rubricLevels! {
-//                if rubricLevel.path == self.learningPathSelected {
-//                    switch rubricLevel.value {
-//                    case 1:
-//                        return -85
-//                    case 2:
-//                        return -44
-//                    case 3:
-//                        return 0
-//                    case 4:
-//                        return 44
-//                    case 5:
-//                        return 85
-//                    default:
-//                        return 0
-//                    }
-//                }
-//            }
-//        } else {
-//            return 0
-//        }
-//        return 0
     }
 }
 

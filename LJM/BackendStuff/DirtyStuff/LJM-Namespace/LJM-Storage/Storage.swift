@@ -16,35 +16,35 @@ extension LJM {
 //            }
 //        }
         
-        @AutoUpdate var challenges: [LearningPath] = [] {
-            willSet {
-                objectWillChange.send()
-            }
-        }
-        
-        @AutoUpdate var studentLearningObjectives: [LearningObjective] = [] {
-            willSet {
-                objectWillChange.send()
-            }
-        }
-        
-        @AutoUpdate var mapLearningObjectives: [LearningObjective] = [] {
-            willSet {
-                objectWillChange.send()
-            }
-        }
-        
-        @AutoUpdate var learningObjectives: [LearningObjective] = [] {
-            willSet {
-                objectWillChange.send()
-            }
-        }
-        
-        @AutoUpdate var learningPaths: [LearningPath] = [] {
-            willSet {
-                objectWillChange.send()
-            }
-        }
+//        @ObservedObject var challenges: [LearningPath] = [] {
+//            willSet {
+//                objectWillChange.send()
+//            }
+//        }
+//
+//        @AutoUpdate var studentLearningObjectives: [LearningObjective] = [] {
+//            willSet {
+//                objectWillChange.send()
+//            }
+//        }
+//
+//        @AutoUpdate var mapLearningObjectives: [LearningObjective] = [] {
+//            willSet {
+//                objectWillChange.send()
+//            }
+//        }
+//
+//        @AutoUpdate var learningObjectives: [LearningObjective] = [] {
+//            willSet {
+//                objectWillChange.send()
+//            }
+//        }
+//
+//        @AutoUpdate var learningPaths: [LearningPath] = [] {
+//            willSet {
+//                objectWillChange.send()
+//            }
+//        }
         
         /**
         @AutoUpdate var graphData: [UnrefinedGraphData] = [] {

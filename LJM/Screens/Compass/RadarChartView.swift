@@ -165,7 +165,7 @@ struct GraphDataProvider {
         var data = [CGFloat]()
         #warning("TODO: REWORK WITH NEW DATA STRUCTURE")
         // we filter the data based on core vs elective
-        let unrefined_data = LJM.storage.learningObjectives.filter { $0.isCore() == (type == .core) }
+        let unrefined_data = Stores.learningObjectives.rawData.filter { $0.isCore() == (type == .core) }
         
         for strand in Strands.allCases {
             // we take 1 strand per iteration
@@ -182,7 +182,7 @@ struct GraphDataProvider {
     }
     
     func max() -> CGFloat {
-        return Swift.max(CGFloat(LJM.storage.learningObjectives.filter { $0.isCore() == (type == .core) }.count) * 5, CGFloat(100))
+        return Swift.max(CGFloat(Stores.learningObjectives.rawData.filter { $0.isCore() == (type == .core) }.count) * 5, CGFloat(100))
     }
     
     enum GraphTypes {

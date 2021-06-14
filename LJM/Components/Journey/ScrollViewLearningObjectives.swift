@@ -28,23 +28,23 @@ struct ScrollViewLearningObjectives: View {
         switch filterCore {
         
         case "Core":
-            return sortLearningObjectives(learningObj: storage.studentLearningObjectives)
+            return sortLearningObjectives(learningObj: Stores.learningObjectives.rawData)
 //                .map { $0.withAssessments() }
                 .filter { $0.isCore() }
                 .sorted { $0.learningGoal?.lowercased() ?? "No Title" < $1.learningGoal?.lowercased() ?? "NoTitle"}
         case "Elective":
-            return sortLearningObjectives(learningObj: storage.studentLearningObjectives)
+            return sortLearningObjectives(learningObj: Stores.learningObjectives.rawData)
 //                .map { $0.withAssessments() }
                 .filter { !($0.isCore()) }
                 .sorted { $0.learningGoal?.lowercased() ?? "No Title" < $1.learningGoal?.lowercased() ?? "NoTitle"}
         case "Evaluated":
-            return sortLearningObjectives(learningObj: storage.studentLearningObjectives)
+            return sortLearningObjectives(learningObj: Stores.learningObjectives.rawData)
 //                .map { $0.withAssessments() }
                 .filter { $0.assessments?.first?.score?.rawValue ?? 0 > 0 }
                 .sorted { $0.learningGoal?.lowercased() ?? "No Title" < $1.learningGoal?.lowercased() ?? "NoTitle"}
         case "All":
-            print(storage.learningObjectives.compactMap { $0.assessments })
-            return sortLearningObjectives(learningObj: storage.studentLearningObjectives)
+            print(Stores.learningObjectives.rawData.compactMap { $0.assessments })
+            return sortLearningObjectives(learningObj: Stores.learningObjectives.rawData)
 //                .map { $0.withAssessments() }
                 .filter { ($0.assessments?.count ?? 0) > 0 }
                 .sorted { $0.learningGoal?.lowercased() ?? "No Title" < $1.learningGoal?.lowercased() ?? "NoTitle"}
@@ -56,13 +56,13 @@ struct ScrollViewLearningObjectives: View {
     var filteredLearningObjectivesMap: [LearningObjective] {
         switch filteredMap {
         case "FULL MAP":
-            return storage.mapLearningObjectives
+            return Stores.learningObjectives.rawData
         case "COMMUNAL":
-            return storage.mapLearningObjectives
+            return Stores.learningObjectives.rawData
                 .filter { $0.isCore() }
         case let filterPathsTab:
             if filterPathsTab != nil {
-                return sortLearningObjectivesMap(learningPaths: storage.learningPaths, selectedPath: filterPathsTab!)
+                return sortLearningObjectivesMap(learningPaths: Stores.learningPaths.rawData, selectedPath: filterPathsTab!)
             } else {
                 return filteredChallenges
             }
@@ -74,7 +74,7 @@ struct ScrollViewLearningObjectives: View {
         switch filterChallenge {
         case let filterChallengeTab:
             if filterChallengeTab != nil {
-                return sortLearningObjectivesByChallenge(challenges: storage.challenges, selectedChallenge: filterChallengeTab!)
+                return sortLearningObjectivesByChallenge(challenges: Stores.learningPaths.rawData, selectedChallenge: filterChallengeTab!)
             } else {
                 return [LearningObjective]()
             }
@@ -99,7 +99,7 @@ struct ScrollViewLearningObjectives: View {
                                         
                                             Webservices.deleteLearningObjectiveFromStudentJourney(id: item.id) { (deletedLearningObj, err) in
                                                 //  self.studentLearningObjectivesStore.removeItem(item)
-                                                storage.studentLearningObjectives.remove(object: item)
+//                                                storage.studentLearningObjectives.remove(object: item)
                                             }
                                         
                                     } label: {
@@ -197,7 +197,7 @@ struct ScrollViewLearningObjectives: View {
                         arrayOfLearningObjectives.append(contentsOf: challenge.learningObjectives())
                     }
                 } else {
-                    for learningObjective in storage.challenges {
+                    for learningObjective in Stores.learningPaths.rawData {
                         
                         arrayOfLearningObjectives.append(contentsOf:learningObjective.learningObjectives())
                     }
@@ -223,7 +223,7 @@ struct ScrollViewLearningObjectives: View {
                         arrayOfLearningObjectives.append(contentsOf: learningPath.learningObjectives() )
                     }
                 } else {
-                    arrayOfLearningObjectives.append(contentsOf: storage.mapLearningObjectives)
+                    arrayOfLearningObjectives.append(contentsOf: Stores.learningObjectives.rawData)
                     
                     break
                 }
