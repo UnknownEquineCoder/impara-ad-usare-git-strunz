@@ -172,13 +172,13 @@ struct GraphDataProvider {
             let strand_data = unrefined_data.filter { $0.strand ?? "" == strand.rawValue }
             // we remove nil scores and only take into account
             // the most recent change
-            let last_scores = strand_data.compactMap { $0.assessments?.last?.score?.rawValue }
+            let last_scores = strand_data.compactMap { $0.assessments?.last?.score }
             // we get the total of the scores
             let strand_sum = CGFloat(last_scores.reduce(0, +))
             // we append the total to the array
             data.append(strand_sum)
         }
-        return GraphDataProvider(data, [50, 50, 50, 50, 50], type: type)
+        return GraphDataProvider(data, (1...5).map( {_ in CGFloat(Int.random(in: 20...99))} ), type: type)
     }
     
     func max() -> CGFloat {

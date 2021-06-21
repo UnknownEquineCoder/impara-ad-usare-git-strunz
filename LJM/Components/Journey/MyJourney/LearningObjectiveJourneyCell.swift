@@ -27,9 +27,11 @@ struct LearningObjectiveJourneyCell: View {
                             Text(learningObj.strand?.uppercased() ?? "No strand")
                                 .foregroundColor(setupColor(darkMode: colorScheme == .dark, strand: Strands(rawValue: learningObj.strand ?? "") ?? .TECHNICAL))
                                 .font(.system(size: 20, weight: .semibold, design: .rounded))
+                                .lineLimit(2)
                             Text(learningObj.learningGoal?.uppercased() ?? "No title")
                                 .foregroundColor(colorScheme == .dark ? Color(red: 255/255, green: 255/255, blue: 255/255) : Color.customDarkGrey)
                                 .font(.system(size: 22.toFontSize(), weight: .light))
+                                .lineLimit(2)
                             Text(learningObj.isCore() ? "CORE" : "ELECTIVE")
                             Text("CORE")
                                 .foregroundColor(colorScheme == .dark ? Color(red: 255/255, green: 255/255, blue: 255/255) : Color.customDarkGrey)
@@ -38,7 +40,7 @@ struct LearningObjectiveJourneyCell: View {
 
                         Spacer().frame(width: 100)
 
-                        Text(learningObj.learningGoal ?? "No description")
+                        Text(learningObj.description ?? "No description")
                             .foregroundColor(colorScheme == .dark ? Color(red: 224/255, green: 224/255, blue: 224/255) : Color.customLightBlack)
                             .font(.system(size: 24.toFontSize(), weight: .regular))
                             .frame(maxWidth: 639.toScreenSize(), maxHeight: .infinity, alignment: .leading)
@@ -111,10 +113,10 @@ struct LearningObjectiveJourneyCell: View {
 
                 VStack(alignment: .center, spacing: 5) {
                     Spacer().frame(height: 200)
-                    Text(setupTitleProgressRubric(value: learningObj.assessments?.first?.score?.rawValue ?? 0))
+                    Text(setupTitleProgressRubric(value: learningObj.assessments?.first?.score ?? 0))
                         .font(.system(size: 15, weight: .medium))
                         .foregroundColor(Color.customCyan)
-                    Text(setupDescProgressOnRubric(value: learningObj.assessments?.first?.score?.rawValue ?? 0))
+                    Text(setupDescProgressOnRubric(value: learningObj.assessments?.first?.score ?? 0))
                         .font(.system(size: 10, weight: .medium))
                         .foregroundColor(Color.customDarkGrey)
                         .multilineTextAlignment(.center)

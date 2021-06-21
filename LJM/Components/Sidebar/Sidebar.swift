@@ -1,10 +1,3 @@
-//
-//  Sidebar.swift
-//  LJM
-//
-//  Created by Laura Benetti on 27/11/20.
-//
-
 import Foundation
 import SwiftUI
 
@@ -19,6 +12,7 @@ struct Sidebar: View {
                 
                 StudentPictureView(size: 85)
                     .padding(.trailing)
+                
                 Navigation<CompassView>(buttonName: "Dashboard", buttonIcon: "square", tag: 0, selection: selection)
                 
                 Section(header: Text("Personal").font(.system(size: 28.toFontSize()))
@@ -28,9 +22,12 @@ struct Sidebar: View {
                     
                     Navigation<JourneyMainView>(buttonName: "Map", buttonIcon: "square", tag: 2, selection: selection)
                     
+                    
                     Navigation<MyJourneyMainView>(buttonName: "Journey", buttonIcon: "square", tag: 3, selection: selection)
                     
+                    
                     Navigation<CompassView>(buttonName: "Notebook", buttonIcon: "square", tag: 4, selection: selection)
+                    
                 }
                 
                 Section(header: Text("Resume").font(.system(size: 28.toFontSize()))

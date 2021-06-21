@@ -43,7 +43,7 @@ extension LJM {
         
         public struct Assessment: LJMCodableData, Hashable {
             public var id: String
-            var score: Score?
+            var score: Score.RawValue?
             var date: ReadableDate
             var learningObjectiveId: Models.LearningObjective.ID?
             var learnerId: String?
@@ -58,7 +58,15 @@ extension LJM {
                 let codes = expectedValues.map { $0.keys.first }
                 return store.filter { codes.contains($0.id) }
             }
+            
+            enum CodingKeys: String, CodingKey {
+                case id = "_id"
+                case name = "title"
+                case expectedValues = "expectedValues"
+            }
         }
+        
+        
         
         @frozen public enum Score: Int, Codable, CaseIterable, Hashable {
             case JUST_ADDED = 0
@@ -80,11 +88,11 @@ extension Date {
 }
 
 public enum LearningPaths: String, CaseIterable {
-    case CORE = "core"
+    case CORE = "Core"
     case UI_UX = "UI/UX"
-    case BACKEND = "backend"
-    case FRONTEND = "frontend"
-    case BUSINESS = "business"
+    case BACKEND = "Backend"
+    case FRONTEND = "Frontend"
+    case BUSINESS = "Business"
 }
 
 @frozen public enum Strands: String, CaseIterable {

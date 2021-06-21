@@ -32,6 +32,7 @@ open class Sync<T: LJMCodableData> {
         LJM.api.fetchList(as: [T].self) { result in
             switch result {
             case .success(let fetchedValue):
+                print("Successfully fetched data")
                 LJM.Caches.updateCache(T.self, value: fetchedValue)
                 value = fetchedValue
             case .failure(let error):

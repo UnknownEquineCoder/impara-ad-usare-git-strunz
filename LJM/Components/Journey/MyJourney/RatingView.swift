@@ -44,7 +44,7 @@ struct RatingView: View {
                         }
                         
                     } label: {
-                        CircleView(number: number, rating: self.learningObj.assessments?.first?.score?.rawValue ?? 0)
+                        CircleView(number: number, rating: self.learningObj.assessments?.first?.score ?? 0)
                     }
                     .frame(width: 35, height: 35, alignment: .center)
                     .buttonStyle(PlainButtonStyle())
@@ -64,7 +64,11 @@ struct RatingView: View {
     
     func setupGoalRating() -> CGFloat {
         
-        let path = Stores.learningPaths.rawData.path(with: LearningPaths(rawValue: learningPathSelected!)!)!
+        guard let path = Stores.learningPaths.rawData.path(with: LearningPaths(rawValue: learningPathSelected ?? "") ?? .UI_UX) else {
+            print("Not found", learningPathSelected)
+            return 0
+            
+        }
         
         for value in path.expectedValues {
             let id = value.keys.first
