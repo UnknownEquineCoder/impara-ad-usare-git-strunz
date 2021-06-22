@@ -44,7 +44,7 @@ struct RatingView: View {
                         }
                         
                     } label: {
-                        CircleView(number: number, rating: self.learningObj.assessments?.first?.score?.rawValue ?? 0)
+                        CircleView(number: number, rating: self.learningObj.assessments?.first?.score ?? 0)
                     }
                     .frame(width: 35, height: 35, alignment: .center)
                     .buttonStyle(PlainButtonStyle())
@@ -64,32 +64,36 @@ struct RatingView: View {
     
     func setupGoalRating() -> CGFloat {
         
-//        let path = Stores.learningPaths.rawData.path(with: LearningPaths(rawValue: learningPathSelected!)!)!
-//
-//        for value in path.expectedValues {
-//            let id = value.keys.first
-//            let score = value.values.first
-//
-//            if let id = id, let score = score?.rawValue {
-//                if self.learningObj.id == id {
-//                    switch score {
-//                    case 1:
-//                        return -85
-//                    case 2:
-//                        return -44
-//                    case 3:
-//                        return 0
-//                    case 4:
-//                        return 44
-//                    case 5:
-//                        return 85
-//                    default:
-//                        return 0
-//                    }
-//                }
-//            }
-//        }
-        return 3
+        guard let path = Stores.learningPaths.rawData.path(with: LearningPaths(rawValue: learningPathSelected ?? "") ?? .UI_UX) else {
+            print("Not found", learningPathSelected)
+            return 0
+            
+        }
+        
+        for value in path.expectedValues {
+            let id = value.keys.first
+            let score = value.values.first
+            
+            if let id = id, let score = score?.rawValue {
+                if self.learningObj.id == id {
+                    switch score {
+                    case 1:
+                        return -85
+                    case 2:
+                        return -44
+                    case 3:
+                        return 0
+                    case 4:
+                        return 44
+                    case 5:
+                        return 85
+                    default:
+                        return 0
+                    }
+                }
+            }
+        }
+        return 0
     }
 }
 

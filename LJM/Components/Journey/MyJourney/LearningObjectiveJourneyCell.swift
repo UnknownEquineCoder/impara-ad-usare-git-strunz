@@ -127,10 +127,10 @@ struct LearningObjectiveJourneyCell: View {
 
                 VStack(alignment: .center, spacing: 5) {
                     Spacer().frame(height: 200)
-                    Text(setupTitleProgressRubric(value: learningObj.assessments?.first?.score?.rawValue ?? 0))
+                    Text(setupTitleProgressRubric(value: learningObj.assessments?.first?.score ?? 0))
                         .font(.system(size: 15, weight: .medium))
                         .foregroundColor(Color.customCyan)
-                    Text(setupDescProgressOnRubric(value: learningObj.assessments?.first?.score?.rawValue ?? 0))
+                    Text(setupDescProgressOnRubric(value: learningObj.assessments?.first?.score ?? 0))
                         .font(.system(size: 10, weight: .medium))
                         .foregroundColor(Color.customDarkGrey)
                         .multilineTextAlignment(.center)

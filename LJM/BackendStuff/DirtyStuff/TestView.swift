@@ -5,9 +5,26 @@ struct TestView: View {
     @State var error = "AAAAAAAAAAAAAAAAAAAAA"
     
     var body: some View {
-        List {
-            ForEach(Stores.learningObjectives.rawData, id: \.id) {
-                Text("\($0.description ?? "No description")")
+        VStack {
+            Button("print") {
+                Stores.learningObjectives.rawData.forEach {
+                    print($0, ",")
+                }
+                Stores.learningPaths.rawData.forEach {
+                    print($0, ",")
+                }
+            }
+            
+            List {
+                ForEach(Stores.learningObjectives.rawData, id: \.id) {
+                    Text("\($0.description ?? "No description")")
+                }
+            }
+            
+            List {
+                ForEach(Stores.learningPaths.rawData, id: \.id) {
+                    Text("\($0.name)")
+                }
             }
         }
     }

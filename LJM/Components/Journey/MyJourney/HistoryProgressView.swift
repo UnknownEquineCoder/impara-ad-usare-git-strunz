@@ -19,7 +19,7 @@ struct HistoryProgressView: View {
         HStack(spacing: 8) {
             HStack(spacing: 3) {
                 ForEach(1..<maximumRating + 1, id: \.self) { number in
-                    if number > assessment.score?.rawValue ?? 0 {
+                    if number > assessment.score ?? 0 {
                         Circle().strokeBorder(Color.white).frame(width: 15)
                     } else {
                         Circle().fill(Color.white).frame(width: 15)
