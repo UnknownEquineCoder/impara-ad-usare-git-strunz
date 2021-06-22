@@ -10,6 +10,7 @@ import SwiftUI
 struct HistoryProgressView: View {
     var maximumRating = 5
     var assessment : Assessment
+    var isDeletable: Bool?
     
     @State var learningObj: LearningObjective
     
@@ -28,16 +29,19 @@ struct HistoryProgressView: View {
             
             Text(self.assessment.date)
             
-            Button(action: {
+            if self.isDeletable ?? false {
                 
+                Button(action: {
+                    
                     Webservices.deleteAssessment(id: self.assessment.id) { (assessment, err) in
                         // UPDATE UI DELETED HISTORY
-//                        self.learningObj.getAssessments()
+                        //                        self.learningObj.getAssessments()
                     }
-                
-            }) {
-                Image(systemName: "xmark.circle.fill").foregroundColor(Color.customBlack)
-            }.buttonStyle(PlainButtonStyle())
+                    
+                }) {
+                    Image(systemName: "xmark.circle.fill").foregroundColor(Color.customBlack)
+                }.buttonStyle(PlainButtonStyle())
+            }
         }.frame(height: 30, alignment: .center)
         .padding(.leading, 10).padding(.trailing, 10)
         .background(Color.customDarkGrey)

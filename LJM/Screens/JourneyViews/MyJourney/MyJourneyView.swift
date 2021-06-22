@@ -46,7 +46,7 @@ struct MyJourneyView: View {
             }.frame(maxWidth: .infinity)
             
             HStack {
-                DropDownMenuSort(selectedSort: $selectedSort)
+                DropDownMenuSort()
                     .buttonStyle(PlainButtonStyle())
                 
                 DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: setupStrandsOnFilter(strands: Strands.allCases))

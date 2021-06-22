@@ -22,30 +22,25 @@ protocol IdentifiableWithDescriptor: Identifiable {
 struct SingleSelectRow<Model: IdentifiableWithDescriptor>: View {
     @Environment(\.colorScheme) var colorScheme
     
+    @Binding var selectedSort: String?
+    
     var model: Model
     @Binding var selectedItems: Set<UUID>
-    @Binding var selectedSort : String
     var isSelected: Bool {
-        selectedSort.contains(model.descriptor)
+        selectedSort == model.descriptor
     }
     
     var body: some View {
         HStack {
             Text(self.model.descriptor)
             Spacer()
-            if self.isSelected {
+            if self.model.descriptor == self.selectedSort {
                 Image(systemName: "checkmark")
                     .foregroundColor(colorScheme == .dark ? .white : Color(red: 70/255, green: 70/255, blue: 70/255))
             }
         }
         .onTapGesture {
-            if self.isSelected {
-                self.selectedItems.remove(self.model.id)
-              //  self.selectedStrands.remove(object: self.model.descriptor)
-            } else {
-                self.selectedItems.insert(self.model.id)
-              //  self.selectedStrands.append(self.model.descriptor)
-            }
+            self.selectedSort = self.model.descriptor
         }
     }
 }

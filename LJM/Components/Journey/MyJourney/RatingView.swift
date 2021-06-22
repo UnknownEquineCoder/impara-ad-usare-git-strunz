@@ -64,32 +64,32 @@ struct RatingView: View {
     
     func setupGoalRating() -> CGFloat {
         
-        let path = Stores.learningPaths.rawData.path(with: LearningPaths(rawValue: learningPathSelected!)!)!
-        
-        for value in path.expectedValues {
-            let id = value.keys.first
-            let score = value.values.first
-            
-            if let id = id, let score = score?.rawValue {
-                if self.learningObj.id == id {
-                    switch score {
-                    case 1:
-                        return -85
-                    case 2:
-                        return -44
-                    case 3:
-                        return 0
-                    case 4:
-                        return 44
-                    case 5:
-                        return 85
-                    default:
-                        return 0
-                    }
-                }
-            }
-        }
-        return 0
+//        let path = Stores.learningPaths.rawData.path(with: LearningPaths(rawValue: learningPathSelected!)!)!
+//
+//        for value in path.expectedValues {
+//            let id = value.keys.first
+//            let score = value.values.first
+//
+//            if let id = id, let score = score?.rawValue {
+//                if self.learningObj.id == id {
+//                    switch score {
+//                    case 1:
+//                        return -85
+//                    case 2:
+//                        return -44
+//                    case 3:
+//                        return 0
+//                    case 4:
+//                        return 44
+//                    case 5:
+//                        return 85
+//                    default:
+//                        return 0
+//                    }
+//                }
+//            }
+//        }
+        return 3
     }
 }
 

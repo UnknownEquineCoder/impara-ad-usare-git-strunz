@@ -38,6 +38,14 @@ enum ChallengeEnum: String {
     case MC1 = "MC1"
 }
 
+enum CompassEnum: String {
+    case all = "All"
+    case core = "Core"
+    case elective = "Elective"
+    case added = "Added"
+    case notAdded = "Not Added"
+}
+
 enum Value {
     case noexposure
     case beggining

@@ -8,6 +8,7 @@ struct LearningObjectiveJourneyCell: View {
     @Environment(\.colorScheme) var colorScheme
     
     var isAddable = false
+    var isLearningGoalAdded: Bool?
     @Binding var learningPathSelected : String?
     
     var learningObj: LearningObjective
@@ -27,18 +28,20 @@ struct LearningObjectiveJourneyCell: View {
                             Text(learningObj.strand?.uppercased() ?? "No strand")
                                 .foregroundColor(setupColor(darkMode: colorScheme == .dark, strand: Strands(rawValue: learningObj.strand ?? "") ?? .TECHNICAL))
                                 .font(.system(size: 20, weight: .semibold, design: .rounded))
+                                .lineLimit(2)
                             Text(learningObj.learningGoal?.uppercased() ?? "No title")
                                 .foregroundColor(colorScheme == .dark ? Color(red: 255/255, green: 255/255, blue: 255/255) : Color.customDarkGrey)
                                 .font(.system(size: 22.toFontSize(), weight: .light))
+                                .lineLimit(2)
                             Text(learningObj.isCore() ? "CORE" : "ELECTIVE")
-                            Text("CORE")
                                 .foregroundColor(colorScheme == .dark ? Color(red: 255/255, green: 255/255, blue: 255/255) : Color.customDarkGrey)
                                 .font(.system(size: 22.toFontSize(), weight: .light))
+                                .lineLimit(2)
                         }.frame(width: 150, alignment: .leading).padding(.leading, 20).padding(.top, 15)
 
                         Spacer().frame(width: 100)
 
-                        Text(learningObj.learningGoal ?? "No description")
+                        Text(learningObj.description ?? "No description")
                             .foregroundColor(colorScheme == .dark ? Color(red: 224/255, green: 224/255, blue: 224/255) : Color.customLightBlack)
                             .font(.system(size: 24.toFontSize(), weight: .regular))
                             .frame(maxWidth: 639.toScreenSize(), maxHeight: .infinity, alignment: .leading)
@@ -46,16 +49,27 @@ struct LearningObjectiveJourneyCell: View {
 
                         Spacer()
 
-                        if !isAddable {
-                            RatingView(learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
-                                .padding(.top, 15).padding(.trailing, 30)
-                                .onAppear(perform: {
-                                    self.isRatingView.toggle()
-                                })
+                        if self.isLearningGoalAdded != nil {
+                            if self.isLearningGoalAdded! {
+                                RatingView(learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
+                                    .padding(.top, 15).padding(.trailing, 30)
+                                    .onAppear(perform: {
+                                        self.isRatingView.toggle()
+                                    })
+                            } else {
+                                AddButton(learningObjectiveSelected: learningObj, buttonSize: 27).padding(.trailing, 32).padding(.top, 24)
+                            }
                         } else {
-                            AddButton(learningObjectiveSelected: learningObj, buttonSize: 27).padding(.trailing, 32).padding(.top, 24)
+                            if !isAddable {
+                                RatingView(learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
+                                    .padding(.top, 15).padding(.trailing, 30)
+                                    .onAppear(perform: {
+                                        self.isRatingView.toggle()
+                                    })
+                            } else {
+                                AddButton(learningObjectiveSelected: learningObj, buttonSize: 27).padding(.trailing, 32).padding(.top, 24)
+                            }
                         }
-
                     }.padding(.leading, 20)
                     .frame(maxHeight: .infinity, alignment: .center)
 
@@ -89,12 +103,15 @@ struct LearningObjectiveJourneyCell: View {
                                     ScrollView(.horizontal, showsIndicators: false) {
                                         HStack(spacing: 10) {
                                             ForEach((learningObj.assessments ?? [Assessment]())!) { item in
-                                                if item == learningObj.assessments?.last || item == learningObj.assessments?.first {
+                                              //  if item == learningObj.assessments?.last || item == learningObj.assessments?.first {
 
+                                             //   } else {
+                                                if item == learningObj.assessments?.last {
+                                                    HistoryProgressView(assessment: item, isDeletable: true, learningObj: self.learningObj)
                                                 } else {
                                                     HistoryProgressView(assessment: item, learningObj: self.learningObj)
-
                                                 }
+                                             //  }
                                             }
                                         }
                                     }
@@ -102,11 +119,10 @@ struct LearningObjectiveJourneyCell: View {
                                 Spacer().frame(width: 50)
                             }
                         }.padding(.leading, 40).padding(.bottom, 50)
-
                     }
                     .frame(maxWidth: 1402.toScreenSize(), maxHeight: self.expand ? 250 : 0, alignment: .topLeading)
                     .padding(.trailing, 250)
-//                    .isHidden(self.expand ? false : true)
+                    .isHidden(self.expand ? false : true)
                 }
 
                 VStack(alignment: .center, spacing: 5) {
@@ -122,14 +138,14 @@ struct LearningObjectiveJourneyCell: View {
                         .fixedSize(horizontal: false, vertical: true)
                         .frame(width: 200)
                 }.frame(width: 260, height: 100, alignment: .center)
-//                .isHidden(self.isAddable ? true : false)
+                .isHidden(self.isAddable ? true : false)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
-//                .isHidden(self.expand ? false : true)
+                .isHidden(self.expand ? false : true)
 
                 HStack {
                     Divider()
                          .background(Color(red: 70/255, green: 70/255, blue: 70/255)).padding(.top, 20).padding(.bottom, 20).padding(.trailing, 250)
-//                        .isHidden(self.isRatingView ? false : true)
+                        .isHidden(self.isRatingView ? false : true)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .trailing)
                 .zIndex(1)
@@ -141,7 +157,7 @@ struct LearningObjectiveJourneyCell: View {
                     .padding(.bottom, 10)
             }
         }
-        .modifier(AnimatingCellHeight(height: expand ? 350 : 120))
+        .modifier(AnimatingCellHeight(height: expand ? 350 : 150))
         .background(colorScheme == .dark ? Color(red: 50/255, green: 50/255, blue: 50/255) : Color.customLightGrey)
         .cornerRadius(14)
         .onTapGesture {

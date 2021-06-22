@@ -22,6 +22,8 @@ struct ScrollViewLearningObjectives: View {
     var filterCore: CoreEnum.RawValue?
     var filteredMap: MapEnum.RawValue?
     var filterChallenge: ChallengeEnum.RawValue?
+    var filterCompass: CompassEnum.RawValue?
+    var filterLearningGoal: String?
     let storage = LJM.storage
     
     var filteredLearningObjectives: [LearningObjective] {
@@ -66,7 +68,6 @@ struct ScrollViewLearningObjectives: View {
             } else {
                 return filteredChallenges
             }
-            
         }
     }
     
@@ -76,9 +77,42 @@ struct ScrollViewLearningObjectives: View {
             if filterChallengeTab != nil {
                 return sortLearningObjectivesByChallenge(challenges: Stores.learningPaths.rawData, selectedChallenge: filterChallengeTab!)
             } else {
-                return [LearningObjective]()
+                return filteredCompass
             }
         }
+    }
+    
+    var filteredCompass: [LearningObjective] {
+        switch filterCompass {
+        
+        case "Core":
+            return sortLearningObjectivesCompass(learningGoal: filterLearningGoal ?? "No Learning Goal")
+                .filter { $0.isCore() }
+                .sorted { $0.learningGoal?.lowercased() ?? "No Title" < $1.learningGoal?.lowercased() ?? "No Title"}
+        case "Elective":
+            print("K?JINUYBVTCVUBHINJ")
+            return sortLearningObjectivesCompass(learningGoal: filterLearningGoal ?? "No Learning Goal")
+                .filter { !($0.isCore()) }
+                .sorted { $0.learningGoal?.lowercased() ?? "No Title" < $1.learningGoal?.lowercased() ?? "No Title"}
+        case "Added":
+            return sortLearningObjectivesCompass(learningGoal: filterLearningGoal ?? "No Learning Goal")
+                .filter { $0.assessments?.first?.score?.rawValue ?? 0 > 0 }
+                .sorted { $0.learningGoal?.lowercased() ?? "No Title" < $1.learningGoal?.lowercased() ?? "No Title"}
+        case "Not Added":
+            return sortLearningObjectivesCompass(learningGoal: filterLearningGoal ?? "No Learning Goal")
+                .filter { $0.assessments?.isEmpty ?? true }
+                .sorted { $0.learningGoal?.lowercased() ?? "No Title" < $1.learningGoal?.lowercased() ?? "No Title"}
+        case "All":
+            return sortLearningObjectivesCompass(learningGoal: filterLearningGoal ?? "No Learning Goal")
+                .sorted { $0.learningGoal?.lowercased() ?? "No Title" < $1.learningGoal?.lowercased() ?? "No Title"}
+        default:
+            return filteredLearningObjectivesMap
+        }
+    }
+    
+    var filteredLearningObjectivesForLearningGoals: [LearningObjective] {
+        
+        return sortLearningObjectivesCompass(learningGoal: filterLearningGoal ?? "No Learning Goal")
     }
     
     var isAddable = false
@@ -91,7 +125,7 @@ struct ScrollViewLearningObjectives: View {
             if textFromSearchBar.isEmpty || (item.learningGoal!.lowercased().contains(textFromSearchBar.lowercased())) || ((item.description!.lowercased().contains(textFromSearchBar.lowercased()))) {
                 if let strand = item.strand {
                     if self.selectedStrands.contains(strand) || self.selectedStrands.count == 0 {
-                        LearningObjectiveJourneyCell(rating: item.assessments?.first?.score?.rawValue ?? 0, isRatingView: isAddable, isAddable: isAddable, learningPathSelected: self.$learningPathSelected, learningObj: item)
+                        LearningObjectiveJourneyCell(rating: item.assessments?.first?.score?.rawValue ?? 0, isRatingView: isAddable, isAddable: isAddable, isLearningGoalAdded: item.assessments?.isEmpty ?? true ? false : true, learningPathSelected: self.$learningPathSelected, learningObj: item)
                             .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
                             .contextMenu {
                                 if !isAddable {
@@ -232,6 +266,22 @@ struct ScrollViewLearningObjectives: View {
         } else {
             return arrayOfLearningObjectives
         }
+    }
+    
+    func sortLearningObjectivesCompass(learningGoal: String) -> [LearningObjective] {
+        
+        var arrayOfLearningObjectives : [LearningObjective] = [LearningObjective]()
+        
+        print("NIJHUBGVYFGUBHNIJ?K")
+        
+        for learningObj in Stores.learningObjectives.rawData {
+            if learningObj.learningGoal == learningGoal {
+                arrayOfLearningObjectives.append(learningObj)
+            }
+        }
+        
+        return arrayOfLearningObjectives
+        
     }
     
     func getAssessmentRelatedToLearningObjective(learningObjectiveId: String, assessments: [Assessment]?) -> Int? {

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LearningGoalsView: View {
     
-    let arrayFilters = ["All", "Core", "Elective", "Evaluated"]
+    let arrayFilters = ["All", "Core", "Elective", "Added", "Not Added"]
     @State var selectedFilter = "All"
     @State var selectedFilterInsideButton = "All"
     @State private var searchText = ""
@@ -18,6 +18,9 @@ struct LearningGoalsView: View {
     @State var selectedStrands = [String]()
     @Environment(\.colorScheme) var colorScheme
     var titleView: String
+    
+    @ObservedObject var totalLOs : TotalNumberLearningObjectives
+
     
 //    @EnvironmentObject var learningPathsStore: LearningPathStore
 //    @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
@@ -49,22 +52,19 @@ struct LearningGoalsView: View {
             
             ZStack(alignment: .topLeading) {
                 
-                Text("Learning Objective Related:") .foregroundColor(Color.customDarkGrey)
+                Text("Learning Objective Related: \(self.totalLOs.total)") .foregroundColor(Color.customDarkGrey)
                     .font(.system(size: 15, weight: .medium, design: .rounded))
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                //ListViewLearningObjectiveMyJourney(selectedFilter: $selectedFilter, txtSearchBar: $searchText, selectedPath: $selectedPath, selectedStrands: $selectedStrands, totalLOs: totalLOs, selectedSegmentView: self.selectedView)
-                    //.padding(.top, 50)
+                ScrollViewLearningObjectives(totalLOs: totalLOs, learningPathSelected: Binding.constant(nil), filterCompass: selectedFilter, filterLearningGoal: titleView, textFromSearchBar: searchText, selectedStrands: []).padding(.top, 50).padding(.bottom, 60)
                     
             }.frame(maxWidth: .infinity).padding(.top, 10)
         }.padding(.leading, 50).padding(.trailing, 50)
     }
 }
 
-
-
 struct LearningGoalsView_Previews: PreviewProvider {
     static var previews: some View {
-        LearningGoalsView(titleView: "Marina")
+        LearningGoalsView(titleView: "Marina", totalLOs: TotalNumberLearningObjectives())
     }
 }

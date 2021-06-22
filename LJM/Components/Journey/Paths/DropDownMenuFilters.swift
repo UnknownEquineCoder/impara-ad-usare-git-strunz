@@ -71,11 +71,13 @@ struct DropDownMenuSort: View {
     @State var firstButtonSelected: Bool = false
     @State var selectedRows = Set<UUID>()
     
-    @Binding var selectedSort : String
+    @State var selectedSort: String? = nil
     
     @Environment(\.colorScheme) var colorScheme
     
-    var filterOptions = [FilterChoice(descriptor: "Alphabetical"),
+    var filterOptions = [FilterChoice(descriptor: "By strand alphabetically"),
+                         FilterChoice(descriptor: "Most evaluated first"),
+                         FilterChoice(descriptor: "Least evaluated first"),
                          FilterChoice(descriptor: "By date")
     ]
     
@@ -105,7 +107,7 @@ struct DropDownMenuSort: View {
                 VStack{
                     List(filterOptions, id: \.self){
                         element in
-                        SingleSelectRow(model: element, selectedItems: $selectedRows, selectedSort: $selectedSort)
+                        SingleSelectRow(selectedSort: $selectedSort, model: element, selectedItems: $selectedRows)
                     }
                 }.frame(width: 200, height: 150)
             }

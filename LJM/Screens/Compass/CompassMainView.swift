@@ -15,6 +15,8 @@ struct CompassView: View, LJMView {
     @State private var currentSubviewLabel = ""
     @State private var showingSubview = false
     
+    @ObservedObject var totalLOs = TotalNumberLearningObjectives()
+    
     var body: some View {
         StackNavigationView(
             currentSubviewLabel: self.$currentSubviewLabel,
@@ -104,7 +106,7 @@ struct CompassView: View, LJMView {
     }
     
     private func subView(forLabel label: String) -> LearningGoalsView {
-        return LearningGoalsView(titleView: label)
+        return LearningGoalsView(titleView: label, totalLOs: self.totalLOs)
     }
     
     private func showSubview(withLabel label: String) {

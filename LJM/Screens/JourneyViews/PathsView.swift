@@ -12,6 +12,7 @@ struct PathsView: View {
     @State var selectedStrands = [String]()
     @State var expand: Bool = false
     @State private var searchText = ""
+    @State var selectedSort = ""
     
     var filterTabsMap = ["FULL MAP", "COMMUNAL"]
     
@@ -26,7 +27,7 @@ struct PathsView: View {
     var body: some View {
         
         VStack {
-            VStack {
+            VStack(alignment: .leading) {
                 HStack {
                     TitleScreenView(title: "Map")
                     
@@ -64,18 +65,17 @@ struct PathsView: View {
                         .font(.system(size: 15, weight: .medium, design: .rounded))
                 }
                 
-                ZStack(alignment: .topLeading) {
-                    
-                    NumberTotalLearningOjbectivesView(totalLOs: self.totalLOs.total)
-                    
-                    SearchBarExpandableJourney(txtSearchBar: $searchText).background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
-                        .padding(.trailing, 200)
-                        .frame(maxWidth: .infinity,  alignment: .trailing)
+                HStack {
+                    DropDownMenuSort()
+                        .buttonStyle(PlainButtonStyle())
                     
                     DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: setupStrandsOnFilter(strands: Strands.allCases))
-                        .padding(.trailing, 20)
-                        .frame(maxWidth: .infinity, alignment: .trailing)
-                        .zIndex(1)
+                        .buttonStyle(PlainButtonStyle())
+                    
+                    SearchBarExpandableJourney(txtSearchBar: $searchText)
+                        .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
+                }
+                                    
                     
                     
                     //                    Button(action: {
@@ -99,6 +99,8 @@ struct PathsView: View {
                     //                }.padding(.top, 20)
                     
                     ZStack(alignment: .top) {
+                        NumberTotalLearningOjbectivesView(totalLOs: self.totalLOs.total)
+                        
                         Text("No learning objectives found ...")
                             .font(.system(size: 25, weight: .semibold, design: .rounded))
                             .multilineTextAlignment(.center)
@@ -106,11 +108,10 @@ struct PathsView: View {
                             .padding(.top, 75)
                             .isHidden(totalLOs.total > 0 ? true : false)
                         
-                        ScrollViewLearningObjectives(totalLOs: totalLOs, learningPathSelected: Binding.constant(nil), filteredMap: selectedFilter, isAddable: true, textFromSearchBar: searchText, selectedStrands: selectedStrands).padding(.top, 70)
+                        ScrollViewLearningObjectives(totalLOs: totalLOs, learningPathSelected: Binding.constant(nil), filteredMap: selectedFilter, isAddable: true, textFromSearchBar: searchText, selectedStrands: selectedStrands).padding(.top, 40).padding(.bottom, 50)
                         
-                    }
-                }.frame(minWidth: 0, idealWidth: 1000, maxWidth: .infinity,
-                        maxHeight: .infinity, alignment: .leading)
+                    }.padding(.top, 10)
+
                 
                 Spacer()
             }
