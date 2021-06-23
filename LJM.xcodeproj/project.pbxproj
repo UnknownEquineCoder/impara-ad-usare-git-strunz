@@ -66,6 +66,7 @@
 		969DEAE625DFDEBD00599D63 /* CompassMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969DEAE525DFDEBD00599D63 /* CompassMainView.swift */; };
 		96A4101E2571578500ACA0DE /* LJMProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A4101D2571578500ACA0DE /* LJMProtocol.swift */; };
 		96A4105125726DD600ACA0DE /* AddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A4105025726DD600ACA0DE /* AddButton.swift */; };
+		96BBAA85268325F000E9932E /* InfoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BBAA84268325F000E9932E /* InfoButton.swift */; };
 		96BE89D0257553BF00BE9E8F /* CountDownWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE89CF257553BF00BE9E8F /* CountDownWrapper.swift */; };
 		96CC613F257A38FC00CE7ABD /* DropDownMenuFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC613D257A38FC00CE7ABD /* DropDownMenuFilters.swift */; };
 		96CE7BC625C4183A006C4CDA /* FilterChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CE7BC525C4183A006C4CDA /* FilterChoice.swift */; };
@@ -197,6 +198,7 @@
 		96A4101D2571578500ACA0DE /* LJMProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LJMProtocol.swift; sourceTree = "<group>"; };
 		96A4105025726DD600ACA0DE /* AddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButton.swift; sourceTree = "<group>"; };
 		96B1A08A258397ED006DE527 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		96BBAA84268325F000E9932E /* InfoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoButton.swift; sourceTree = "<group>"; };
 		96BE89CF257553BF00BE9E8F /* CountDownWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownWrapper.swift; sourceTree = "<group>"; };
 		96CC613D257A38FC00CE7ABD /* DropDownMenuFilters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownMenuFilters.swift; sourceTree = "<group>"; };
 		96CE7BC525C4183A006C4CDA /* FilterChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterChoice.swift; sourceTree = "<group>"; };
@@ -336,6 +338,7 @@
 				961DB4E125E66F610020E9F6 /* SliderView.swift */,
 				96114BC025EFA92900FA119C /* ProgressBarGraph.swift */,
 				960451E625F0F46000F34D9A /* BarGraphFrame.swift */,
+				96BBAA84268325F000E9932E /* InfoButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -809,6 +812,7 @@
 				96533794260C898400316B7C /* StackNavigationView.swift in Sources */,
 				EA7028B02579B29600E1B6EB /* ArrowButtonScrollView.swift in Sources */,
 				55F3A48F2642C89B0010EE80 /* Pass.swift in Sources */,
+				96BBAA85268325F000E9932E /* InfoButton.swift in Sources */,
 				961DB4CE25E668410020E9F6 /* DatePicker.swift in Sources */,
 				5579EB9A263F00EE0086A4BE /* FrozenUser.swift in Sources */,
 			);
