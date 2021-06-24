@@ -13,14 +13,6 @@ struct GraphWithOverlay: View {
                 
                 RadarGraphFrame()
                 
-                NavigationLink(destination: Text("Testo forfettario")) {
-                    Text("UI/UX")
-                        .fontWeight(.semibold)
-                        .foregroundColor(Color.white)
-                        .underline()
-                        .font(.system(size: 22.toFontSize()))
-                }.buttonStyle(LinkButtonStyle())
-                
                 VStack(alignment: .leading, spacing: 20.0){
                     label("EXEMPLARY")
                     label("PROFICIENT")

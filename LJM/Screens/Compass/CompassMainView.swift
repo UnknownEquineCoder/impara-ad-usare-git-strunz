@@ -43,17 +43,29 @@ struct CompassView: View, LJMView {
                     }
                     ScrollView(showsIndicators: false){
                         DatePickerView().padding(.top, 7.toScreenSize())
-                        
-                        SliderView()
+                       
+                        HStack{
+                            InfoButton(title: "Spider Graphs: ", textBody: "The Communal graph shows progress based on the pathway all the students at the Academy have to take, while the Your Journey graph shows progress based on the specific pathway you decide to take, along with the Communal one.\n\nDepending on the Communal Expectation, the “Expectation” overlay shows you the basic progress level the Academy would like you to reach; “Your Progress”, instead, shows you the progress related to the path you decided to take.", heightCell: 241)
+                            Spacer()
+                            SliderView()
+                            Spacer()
+                        }
                         
                         HStack{
                             Spacer()
-                            
+                            VStack{
                             GraphWithOverlay()
                                 .frame(width: 395, height: 395)
                                 .padding(.all, 45)
                                 .padding(.bottom, 9)
                             
+                            Text("Communal")
+                                .fontWeight(.medium)
+                                .multilineTextAlignment(.center)
+                                .font(.system(size: 25.toFontSize()))
+                                .foregroundColor(colorScheme == .dark ? Color(red: 221/255, green: 221/255, blue: 221/255) : Color(red: 129/255, green: 129/255, blue: 129/255))
+                                .offset(y: -50)
+                            }
                             Spacer(minLength: 214)
                             VStack{
                                 GraphWithOverlay()
@@ -73,8 +85,12 @@ struct CompassView: View, LJMView {
                             
                             Spacer()
                         }
+                        HStack{
+                        InfoButton(title: "Bar Graphs: ", textBody: "The bar graphs below show your growth in detail, allowing you to examine every single Learning Goal, based on the Curriculum Strands.", heightCell: 131)
+                        Spacer()
                         LegendView()
-                        
+                        Spacer()
+                        }
                         Spacer()
                         
                         BarGraphFrame(color: Color(red: 252/255, green: 135/255, blue: 85/255), title: "Process", skills: ["Act", "Engage", "Investigate", "Ongoing Activities", "Project Management", "Scrum"], targetLabel: $currentSubviewLabel, showView: $showingSubview)
