@@ -39,7 +39,7 @@ struct CompassView: View, LJMView {
                     }
                     
                     VStack(alignment: .leading) {
-                        DescriptionTitleScreenView(desc: "Compass is your personal progress tracking tool. Here you are able to have a panoramic view of your personal progress.")
+                        DescriptionTitleScreenView(desc: "The Compass helps you to gauge your progress in meeting the Communal Learning Objectives and allows you to explore a variety of paths. Using this tool, you can plan your Learning Journey.")
                     }
                     ScrollView(showsIndicators: false){
                         DatePickerView().padding(.top, 7.toScreenSize())

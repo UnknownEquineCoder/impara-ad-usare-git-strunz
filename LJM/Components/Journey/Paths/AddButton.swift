@@ -15,7 +15,7 @@ struct AddButton: View {
 //    @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
     
     
-    let objectives = Stores.learningObjectives.rawData
+    var objectives = Stores.learningObjectives.rawData
     
     var buttonSize: CGFloat
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -48,13 +48,11 @@ struct AddButton: View {
                                 .foregroundColor(Color("customCyan"))
                                 .onTapGesture {
                                     
-                                        Webservices.addAssessment(learningObjId: learningObjectiveSelected.id, value: 0) { (assessment, err) in
-                                            if err == nil {
-                                              //  self.studentLearningObjectivesStore.addItem(learningObjectiveSelected)
-//                                                Stores.learningObjectives.rawData.append(learningObjectiveSelected)
-                                            }
-                                        }
+                                    var learningObj = Stores.learningObjectives.rawData.first(where:  { $0.id == self.learningObjectiveSelected.id } )
+                                        
+                                    learningObj?.addAssessment(LJM.Models.Assessment(id: "\(UUID())", score: 0, date: "\(Date())", learningObjectiveId: learningObjectiveSelected.id, learnerId: ""))
                                     
+                                    self.didTap.toggle()
                                 }
                         }else{
                             Image(systemName: "checkmark.circle.fill")
@@ -62,12 +60,12 @@ struct AddButton: View {
                                 .foregroundColor(Color("customCyan"))
                                 .onTapGesture {
                                     
-                                        Webservices.deleteLearningObjectiveFromStudentJourney(id: learningObjectiveSelected.id) { value, error in
-                                            if error == nil {
+//                                        Webservices.deleteLearningObjectiveFromStudentJourney(id: learningObjectiveSelected.id) { value, error in
+//                                            if error == nil {
                                               //  self.studentLearningObjectivesStore.removeItem(learningObjectiveSelected)
 //                                                LJM.storage.studentLearningObjectives.remove(object: learningObjectiveSelected)
-                                            }
-                                        }
+//                                            }
+//                                        }
                                     
                                 }
                         }
@@ -77,12 +75,12 @@ struct AddButton: View {
                             .foregroundColor(Color("customCyan"))
                             .onTapGesture {
                                 
-                                    Webservices.deleteLearningObjectiveFromStudentJourney(id: learningObjectiveSelected.id) { value, error in
-                                        if error == nil {
+//                                    Webservices.deleteLearningObjectiveFromStudentJourney(id: learningObjectiveSelected.id) { value, error in
+//                                        if error == nil {
                                          //   self.studentLearningObjectivesStore.removeItem(learningObjectiveSelected)
 //                                            LJM.storage.studentLearningObjectives.remove(object: learningObjectiveSelected)
-                                        }
-                                    }
+//                                        }
+//                                    }
                                 
                             }
                     }
@@ -102,8 +100,8 @@ struct AddButton: View {
     
     func checkStudentContainsLearningObjective(learningObjectiveId : String) -> Bool {
         var isAdded = false
-        for studentLearningObjective in objectives {
-            if studentLearningObjective.id == learningObjectiveId {
+        for learningObj in objectives {
+            if learningObj.id == learningObjectiveId && learningObj.assessments != nil {
                 isAdded = true
                 return true
             }

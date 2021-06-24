@@ -12,8 +12,7 @@ struct EmptyLearningObjectiveViewJourney: View {
     let addObjText = "Add a learning objective"
     
     var body: some View {
-        ZStack {
-            BackgroundImageReadingStudent()
+        ZStack(alignment: .top) {
             
             VStack {
                 Text("The Learning Objective is half the journey !")
@@ -32,15 +31,18 @@ struct EmptyLearningObjectiveViewJourney: View {
                 }) {
                     Text(addObjText.uppercased())
                         .padding()
-                        .font(.system(size: 13, weight: .medium, design: .rounded))
+                        .font(.system(size: 13, weight: .semibold, design: .rounded))
                         .foregroundColor(Color.customCyan)
                         .frame(width: 250, height: 50, alignment: .center)
-                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color.customCyan))
                         .background(Color.white)
+                        .cornerRadius(50)
+                        .overlay(RoundedRectangle(cornerRadius: 50).stroke(lineWidth: 2).foregroundColor(Color.customCyan))
                     
                 }.buttonStyle(PlainButtonStyle())
                 .padding(.top, 20)
             }
-        }
+        }.padding(.top, 60)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        .overlay(BackgroundImageReadingStudent().allowsHitTesting(false).frame(width: 1500, height: 700, alignment: .center).padding(.bottom, 350).padding(.trailing, 240))
     }
 }

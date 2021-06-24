@@ -28,6 +28,18 @@ extension LJM {
                 
                 return keys?.contains(self.id) ?? false
             }
+
+            mutating func addAssessment(_ item: Models.Assessment) {
+                if assessments != nil {
+                    assessments?.append(item)
+                } else {
+                    assessments = [item]
+                }
+            }
+
+            mutating func removeAssessment(_ item: Models.Assessment) {
+                assessments?.remove(object: item)
+            }
             
             enum CodingKeys: String, CodingKey {
                 case id = "_id"

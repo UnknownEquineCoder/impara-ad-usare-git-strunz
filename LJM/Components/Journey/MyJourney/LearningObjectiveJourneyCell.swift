@@ -172,7 +172,7 @@ struct LearningObjectiveJourneyCell: View {
         case 0:
             return ""
         case 1:
-            return "NO EXPOSURE"
+            return "NOT EVALUATED"
         case 2:
             return "BEGGINING"
         case 3:
@@ -193,9 +193,9 @@ struct LearningObjectiveJourneyCell: View {
         case 0:
             return ""
         case 1:
-            return ""
+            return "The LO has been added to your Journey but you have not evaluated yourself."
         case 2:
-            return "You have been exposed to the content within the learning objective."
+            return "You have been exposed to the Learning Objective Content."
         case 3:
             return "You can understand and apply concepts with assistance."
         case 4:

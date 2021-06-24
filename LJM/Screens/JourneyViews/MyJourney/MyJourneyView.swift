@@ -14,19 +14,19 @@ struct MyJourneyView: View {
     @State var selectedStrands = [String]()
     @State var selectedSort = ""
     
-    let arrayFilters = ["All", "Core", "Elective", "Evaluated"]
+    let arrayFilters = ["All", "Communal", "Elective", "Evaluated", "Not Evaluated"]
     
     @State private var searchText = ""
     @State private var selectedPath : String?
     
     @Environment(\.colorScheme) var colorScheme
     
-//    @EnvironmentObject var learningPathsStore: LearningPathStore
-//    @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
-//    @EnvironmentObject var strandsStore: StrandsStore
+    //    @EnvironmentObject var learningPathsStore: LearningPathStore
+    //    @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
+    //    @EnvironmentObject var strandsStore: StrandsStore
     
     @ObservedObject var totalLOs : TotalNumberLearningObjectives
-        
+    
     var body: some View {
         VStack(alignment: .leading) {
             ZStack(alignment: .topLeading) {
@@ -34,13 +34,13 @@ struct MyJourneyView: View {
                 TitleScreenView(title: "My Journey")
                 
                 VStack(alignment: .leading) {
-                    DescriptionTitleScreenView(desc: "Here you will find your Learning Objectives you choose to work on, that will help you build your own path. Based on the path you choose, the arrows will indicate the recommanded level to reach.")
+                    DescriptionTitleScreenView(desc: "During your Journey, you will encounter a series of Learning Objectives (LOs). The Communal LOs will be added to your Journey as they are addressed in the Challenges. Elective Objectives will appear here when you select them from the Map. You can compare your Journey to specific career paths to help with personal planning. The arrows indicate your current progress towards reaching the LO.")
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, 50)
                 
                 ScrollViewFiltersJourney(filterTabs: arrayFilters, selectedFilter: $selectedFilter)
-                    .padding(.top, 20)
+                    .padding(.top, 60)
                     .padding(.top, 120)
                 
             }.frame(maxWidth: .infinity)
@@ -54,14 +54,15 @@ struct MyJourneyView: View {
                 
                 SearchBarExpandableJourney(txtSearchBar: $searchText)
                     .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
-            }
+            }.isHidden(Stores.myJourneyObjs.count > 0 ? false : true)
             
             ZStack(alignment: .topLeading) {
                 
-                NumberTotalLearningOjbectivesView(totalLOs: self.totalLOs.total)
+                NumberTotalLearningOjbectivesView(totalLOs: self.totalLOs.total).isHidden(Stores.myJourneyObjs.count > 0 ? false : true)
                 
                 DropDownMenuSelectPath(selectedPath: $selectedPath)
                     .frame(maxWidth: .infinity,  alignment: .trailing)
+                    .isHidden(Stores.myJourneyObjs.count > 0 ? false : true)
                 
                 ListViewLearningObjectiveMyJourney(selectedFilter: $selectedFilter, txtSearchBar: $searchText, selectedPath: $selectedPath, selectedStrands: $selectedStrands, totalLOs: totalLOs)
                     .padding(.top, 50)
@@ -114,14 +115,15 @@ struct ListViewLearningObjectiveMyJourney: View {
     @Binding var selectedPath : String?
     @Binding var selectedStrands : [String]
     
-//    @EnvironmentObject var learningPathsStore: LearningPathStore
-//    @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
+    //    @EnvironmentObject var learningPathsStore: LearningPathStore
+    //    @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
     
     @ObservedObject var totalLOs : TotalNumberLearningObjectives
     
     var body: some View {
         
-        if Stores.learningObjectives.rawData.count > 0 {
+//        if Stores.myJourneyObjs.count > 0 {
+        if !checkIfMyJourneyIsEmpty() {
             ZStack(alignment: .top) {
                 
                 Text("No learning objectives found ...")
@@ -130,11 +132,30 @@ struct ListViewLearningObjectiveMyJourney: View {
                     .foregroundColor(Color.customDarkGrey)
                     .padding(.top, 20)
                     .isHidden(totalLOs.total > 0 ? true : false)
-                                
+                
                 ScrollViewLearningObjectives(totalLOs: self.totalLOs, learningPathSelected: $selectedPath, filterCore: selectedFilter, isAddable: false, textFromSearchBar: txtSearchBar, selectedStrands: selectedStrands)
             }
         } else {
             EmptyLearningObjectiveViewJourney()
+        }
+    }
+    
+    func checkIfMyJourneyIsEmpty() -> Bool {
+        var isEmpty = true
+        for LO in Stores.learningObjectives.rawData {
+            if LO.assessments != nil {
+                isEmpty = false
+                break
+            }
+        }
+        return isEmpty
+    }
+}
+
+extension Stores {
+    public static var myJourneyObjs: [LearningObjective] {
+        return Stores.learningObjectives.rawData.filter {
+            ($0.assessments ?? []).count > 0
         }
     }
 }

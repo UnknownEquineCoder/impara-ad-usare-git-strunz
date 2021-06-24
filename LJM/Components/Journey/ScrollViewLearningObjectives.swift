@@ -27,10 +27,10 @@ struct ScrollViewLearningObjectives: View {
     let storage = LJM.storage
     
     var filteredLearningObjectives: [LearningObjective] {
-        let objectives = Stores.learningObjectives.rawData
+        let objectives = Stores.myJourneyObjs
         
         switch filterCore {
-        case "Core":
+        case "Communal":
             return objectives
                 .filter { $0.isCore() }
                 .sorted { $0.learningGoal?.lowercased() ?? "No Title" < $1.learningGoal?.lowercased() ?? "NoTitle"}
@@ -40,34 +40,37 @@ struct ScrollViewLearningObjectives: View {
                 .sorted { $0.learningGoal?.lowercased() ?? "No Title" < $1.learningGoal?.lowercased() ?? "NoTitle"}
         case "Evaluated":
             return objectives
-                .filter { ($0.assessments ?? []).count > 0  }
+                .filter { ($0.assessments ?? []).count > 1  }
                 .sorted { $0.learningGoal?.lowercased() ?? "No Title" < $1.learningGoal?.lowercased() ?? "NoTitle"}
-        default:
+        case "Not Evaluated":
+            return objectives
+                .filter { $0.assessments?.first?.score == 0  }
+                .sorted { $0.learningGoal?.lowercased() ?? "No Title" < $1.learningGoal?.lowercased() ?? "NoTitle"}
+        case "All":
             return objectives
                 .sorted { $0.learningGoal?.lowercased() ?? "No Title" < $1.learningGoal?.lowercased() ?? "NoTitle"}
+        default:
+            return filteredLearningObjectivesMap
         }
     }
     
     var filteredLearningObjectivesMap: [LearningObjective] {
-        #warning("REVERT THIS")
-//        switch filteredMap {
-//        case "FULL MAP":
-//            return Stores.learningObjectives.rawData
-//        case "COMMUNAL":
-//            return Stores.learningObjectives.rawData
-//                .filter { $0.isCore() }
-//        case let filterPathsTab:
-//            if filterPathsTab != nil {
-//                return sortLearningObjectivesMap(learningPaths: Stores.learningPaths.rawData, selectedPath: filterPathsTab!)
-//            } else {
-//                return filteredChallenges
-//            }
-//
-//        }
-        
-        
-        
-        return Stores.learningObjectives.rawData
+        switch filteredMap {
+        case "FULL MAP":
+            return Stores.learningObjectives.rawData
+        case "COMMUNAL":
+            return Stores.learningObjectives.rawData
+                .filter { $0.isCore() }
+        case "ELECTIVE":
+            return Stores.learningObjectives.rawData
+                .filter { !($0.isCore()) }
+        case let filterPathsTab:
+            if filterPathsTab != nil {
+                return sortLearningObjectivesMap(learningPaths: Stores.learningPaths.rawData, selectedPath: filterPathsTab!)
+            } else {
+                return filteredChallenges
+            }
+        }
     }
     
     var filteredChallenges: [LearningObjective] {
@@ -89,13 +92,12 @@ struct ScrollViewLearningObjectives: View {
                 .filter { $0.isCore() }
                 .sorted { $0.learningGoal?.lowercased() ?? "No Title" < $1.learningGoal?.lowercased() ?? "No Title"}
         case "Elective":
-            print("K?JINUYBVTCVUBHINJ")
             return sortLearningObjectivesCompass(learningGoal: filterLearningGoal ?? "No Learning Goal")
                 .filter { !($0.isCore()) }
                 .sorted { $0.learningGoal?.lowercased() ?? "No Title" < $1.learningGoal?.lowercased() ?? "No Title"}
         case "Added":
             return sortLearningObjectivesCompass(learningGoal: filterLearningGoal ?? "No Learning Goal")
-                .filter { $0.assessments?.first?.score?.rawValue ?? 0 > 0 }
+                .filter { $0.assessments?.first?.score ?? 0 > 0 }
                 .sorted { $0.learningGoal?.lowercased() ?? "No Title" < $1.learningGoal?.lowercased() ?? "No Title"}
         case "Not Added":
             return sortLearningObjectivesCompass(learningGoal: filterLearningGoal ?? "No Learning Goal")
@@ -105,7 +107,7 @@ struct ScrollViewLearningObjectives: View {
             return sortLearningObjectivesCompass(learningGoal: filterLearningGoal ?? "No Learning Goal")
                 .sorted { $0.learningGoal?.lowercased() ?? "No Title" < $1.learningGoal?.lowercased() ?? "No Title"}
         default:
-            return filteredLearningObjectivesMap
+            return [LearningObjective]()
         }
     }
     
@@ -124,7 +126,7 @@ struct ScrollViewLearningObjectives: View {
             if textFromSearchBar.isEmpty || (item.learningGoal!.lowercased().contains(textFromSearchBar.lowercased())) || ((item.description!.lowercased().contains(textFromSearchBar.lowercased()))) {
                 if let strand = item.strand {
                     if self.selectedStrands.contains(strand) || self.selectedStrands.count == 0 {
-                        LearningObjectiveJourneyCell(rating: item.assessments?.first?.score?.rawValue ?? 0, isRatingView: isAddable, isAddable: isAddable, isLearningGoalAdded: item.assessments?.isEmpty ?? true ? false : true, learningPathSelected: self.$learningPathSelected, learningObj: item)
+                        LearningObjectiveJourneyCell(rating: item.assessments?.first?.score ?? 0, isRatingView: isAddable ? true : false, isAddable: isAddable, isLearningGoalAdded: item.assessments?.isEmpty ?? true ? false : true, learningPathSelected: self.$learningPathSelected, learningObj: item)
                             .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
                             .contextMenu {
                                 if !isAddable {
@@ -270,9 +272,7 @@ struct ScrollViewLearningObjectives: View {
     func sortLearningObjectivesCompass(learningGoal: String) -> [LearningObjective] {
         
         var arrayOfLearningObjectives : [LearningObjective] = [LearningObjective]()
-        
-        print("NIJHUBGVYFGUBHNIJ?K")
-        
+                
         for learningObj in Stores.learningObjectives.rawData {
             if learningObj.learningGoal == learningGoal {
                 arrayOfLearningObjectives.append(learningObj)

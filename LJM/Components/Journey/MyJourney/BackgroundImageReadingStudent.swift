@@ -8,8 +8,14 @@
 import SwiftUI
 
 func BackgroundImageReadingStudent() -> some View {
-    return Image("placeholder")
+    return Image("EmptyState")
+        .resizable()
+        .aspectRatio(contentMode: .fill)
+}
+
+func BackgroundImageLogin() -> some View {
+    return Image("Login")
         .resizable()
         .aspectRatio(contentMode: .fit)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .trailing)
+        .frame(maxWidth: 1500, maxHeight: 900, alignment: .center)
 }

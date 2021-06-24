@@ -14,7 +14,7 @@ struct PathsView: View {
     @State private var searchText = ""
     @State var selectedSort = ""
     
-    var filterTabsMap = ["FULL MAP", "COMMUNAL"]
+    var filterTabsMap = ["FULL MAP", "COMMUNAL", "ELECTIVE"]
     
     @Environment(\.colorScheme) var colorScheme
     
@@ -35,11 +35,11 @@ struct PathsView: View {
                 }
                 
                 VStack(alignment: .leading) {
-                    DescriptionTitleScreenView(desc: "Here’s the heart of the Academy: a library of Learning Objectives you can explore and make yours.")
+                    DescriptionTitleScreenView(desc: "The Map provides access to all the current Learning Objectives in the Academy Curriculum. The Communal Learning Objectives will be adressed during the Challenges and added to your Journey. You can also explore and add Elective Learning Objectives based on your interests and the profile of specific career paths.")
                 }
                 
                 HStack {
-                    Text("Map")
+                    Text("Views")
                         .fontWeight(.light)
                         .foregroundColor(Color.gray)
                         .font(.system(size: 20))
