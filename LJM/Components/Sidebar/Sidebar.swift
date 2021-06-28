@@ -13,7 +13,9 @@ struct Sidebar: View {
                 StudentPictureView(size: 85)
                     .padding(.trailing)
                 
+                #if false
                 Navigation<CompassView>(buttonName: "Dashboard", buttonIcon: "square", tag: 0, selection: selection)
+                #endif
                 
                 Section(header: Text("Personal").font(.system(size: 28.toFontSize()))
                             .fontWeight(.regular)) {
@@ -24,17 +26,17 @@ struct Sidebar: View {
                     
                     Navigation<MyJourneyMainView>(buttonName: "Journey", buttonIcon: "Journey_Icon", tag: 3, selection: selection)
                     
-                    
+                    #if false
                     Navigation<CompassView>(buttonName: "Notebook", buttonIcon: "square", tag: 4, selection: selection)
-                    
+                    #endif
                 }
-                
+                #if false
                 Section(header: Text("Resume").font(.system(size: 28.toFontSize()))
                             .fontWeight(.regular)) {
                     Navigation<CompassView>(buttonName: "Portfolio", buttonIcon: "square", tag: 5, selection: selection)
                     Navigation<CompassView>(buttonName: "Backpack", buttonIcon: "square", tag: 6, selection: selection)
                 }
-                
+                #endif
                 
             }
             .listStyle(SidebarListStyle())

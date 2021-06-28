@@ -4,14 +4,14 @@ public typealias LearningObjective = LJM.Models.LearningObjective
 public typealias LearningPath = LJM.Models.LearningPath
 public typealias Assessment = LJM.Models.Assessment
 
-@frozen enum SStores {
+@frozen enum Stores {
     @Sync static var learningObjectives = LJM.Dictionary<LearningObjective>()
     @Sync static var learningPaths = LJM.Dictionary<LearningPath>()
     @Sync static var assessments = LJM.Dictionary<Assessment>()
 }
 
 
-@frozen enum Stores {
+@frozen enum SStores {
     static var learningObjectives = LJM.Dictionary<LearningObjective>([LearningObjective(id: "60bf3d624d6492005107e0fc", tags: Optional(["Essentials", "File-Based Haptics", "Programmatic Haptics", "Game Controller Haptics", "Haptic Errors"]), learningGoal: Optional("Media,  Animation and Games"), description: Optional("Learn how to work with Media,  Animation and Games"), documentation: Optional("https://developer.apple.com/documentation/corehaptics"), code: "TEC085", strand: Optional("Technical"), assessments: nil) ,
                                                                        LearningObjective(id: "60bf3d624d6492005107e004", tags: Optional(["Product Page and Discovery", "Search optimization strategies"]), learningGoal: Optional("Store Presence"), description: Optional("Learn how to craft an effective presence in the app store."), documentation: nil, code: "BUS41", strand: Optional("App Business and Marketing"), assessments: nil) ,
                                                                        LearningObjective(id: "60bf3d624d6492005107e096", tags: Optional(["Curriculum vitae"]), learningGoal: Optional("Employability"), description: Optional("Empowered to improve your abilities in order to be prepared for your professional future."), documentation: nil, code: "PROF24", strand: Optional("Professional Skills"), assessments: nil) ,

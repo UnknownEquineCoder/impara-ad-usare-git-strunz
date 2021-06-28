@@ -74,10 +74,11 @@ struct CompassView: View, LJMView {
                                     .padding(.leading, 45)
                                     .padding(.trailing, 45)
                                 
-                                Text("Path Expectations")
-                                    .fontWeight(.light)
+                                Text("Paths")
+                                    .fontWeight(.medium)
                                     .multilineTextAlignment(.center)
-                                    .font(.system(size: 18.toFontSize()))
+                                    .font(.system(size: 25.toFontSize()))
+                                    .foregroundColor(colorScheme == .dark ? Color(red: 221/255, green: 221/255, blue: 221/255) : Color(red: 129/255, green: 129/255, blue: 129/255))
                                 DropDownMenuCompass(selectedPath: $path)
                                     
                                 

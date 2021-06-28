@@ -61,7 +61,7 @@ struct PathsView: View {
                     //         .font(.system(size: 15, weight: .medium, design: .rounded))
                     
                     ScrollViewFilters(filterTabs: getLearningPath(learningPaths: Stores.learningPaths.rawData), selectedFilter: $selectedFilter, vm: ScrollToModel())
-                        //                            .padding(.top, 20)
+                                                    .padding(.leading, 10)
                         .font(.system(size: 15, weight: .medium, design: .rounded))
                 }
                 
