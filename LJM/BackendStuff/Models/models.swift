@@ -270,17 +270,17 @@ class ChallengesStore: ObservableObject {
     }
 }
 
-//class StudentLearningObjectivesStore: ObservableObject {
-//    @Published var learningObjectives = [LearningObjective]()
-//
-//    func addItem(_ item: LearningObjective) {
-//        learningObjectives.append(item)
-//    }
-//
-//    func removeItem(_ item: LearningObjective) {
-//        learningObjectives.remove(object: item)
-//    }
-//}
+class StudentLearningObjectivesStore: ObservableObject {
+    @Published var learningObjectives = [LearningObjective]()
+
+    func addItem(_ item: LearningObjective) {
+        learningObjectives.append(item)
+    }
+
+    func removeItem(_ item: LearningObjective) {
+        learningObjectives.remove(object: item)
+    }
+}
 //
 //class MapLearningObjectivesStore: ObservableObject {
 //    @Published var learningObjectives = [LearningObjective]()

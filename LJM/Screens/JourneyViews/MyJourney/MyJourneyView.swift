@@ -20,12 +20,14 @@ struct MyJourneyView: View {
     @State private var selectedPath : String?
     
     @Environment(\.colorScheme) var colorScheme
-    
+        
     //    @EnvironmentObject var learningPathsStore: LearningPathStore
     //    @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
     //    @EnvironmentObject var strandsStore: StrandsStore
     
     @ObservedObject var totalLOs : TotalNumberLearningObjectives
+    
+    @EnvironmentObject var studentLearningObj: StudentLearningObjectivesStore
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -54,15 +56,15 @@ struct MyJourneyView: View {
                 
                 SearchBarExpandableJourney(txtSearchBar: $searchText)
                     .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
-            }.isHidden(Stores.myJourneyObjs.count > 0 ? false : true)
+            }.isHidden(self.studentLearningObj.learningObjectives.count > 0 ? false : true)
             
             ZStack(alignment: .topLeading) {
                 
-                NumberTotalLearningOjbectivesView(totalLOs: self.totalLOs.total).isHidden(Stores.myJourneyObjs.count > 0 ? false : true)
+                NumberTotalLearningOjbectivesView(totalLOs: self.totalLOs.total).isHidden(self.studentLearningObj.learningObjectives.count > 0 ? false : true)
                 
                 DropDownMenuSelectPath(selectedPath: $selectedPath)
                     .frame(maxWidth: .infinity,  alignment: .trailing)
-                    .isHidden(Stores.myJourneyObjs.count > 0 ? false : true)
+                    .isHidden(self.studentLearningObj.learningObjectives.count > 0 ? false : true)
                 
                 ListViewLearningObjectiveMyJourney(selectedFilter: $selectedFilter, txtSearchBar: $searchText, selectedPath: $selectedPath, selectedStrands: $selectedStrands, totalLOs: totalLOs)
                     .padding(.top, 50)
@@ -118,6 +120,8 @@ struct ListViewLearningObjectiveMyJourney: View {
     //    @EnvironmentObject var learningPathsStore: LearningPathStore
     //    @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
     
+    @EnvironmentObject var studentLearningObj: StudentLearningObjectivesStore
+    
     @ObservedObject var totalLOs : TotalNumberLearningObjectives
     
     var body: some View {
@@ -142,11 +146,10 @@ struct ListViewLearningObjectiveMyJourney: View {
     
     func checkIfMyJourneyIsEmpty() -> Bool {
         var isEmpty = true
-        for LO in Stores.learningObjectives.rawData {
-            if LO.assessments != nil {
-                isEmpty = false
-                break
-            }
+        if self.studentLearningObj.learningObjectives.isEmpty {
+            isEmpty = true
+        } else {
+            isEmpty = false
         }
         return isEmpty
     }

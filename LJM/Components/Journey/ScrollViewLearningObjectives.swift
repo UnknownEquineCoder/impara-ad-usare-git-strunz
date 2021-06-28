@@ -17,6 +17,9 @@ struct ScrollViewLearningObjectives: View {
     
     @ObservedObject var totalLOs : TotalNumberLearningObjectives
     
+    @EnvironmentObject var studentLearningObj: StudentLearningObjectivesStore
+
+    
     @Binding var learningPathSelected : String?
     
     var filterCore: CoreEnum.RawValue?
@@ -27,7 +30,7 @@ struct ScrollViewLearningObjectives: View {
     let storage = LJM.storage
     
     var filteredLearningObjectives: [LearningObjective] {
-        let objectives = Stores.myJourneyObjs
+        let objectives = self.studentLearningObj.learningObjectives
         
         switch filterCore {
         case "Communal":
@@ -126,7 +129,7 @@ struct ScrollViewLearningObjectives: View {
             if textFromSearchBar.isEmpty || (item.learningGoal!.lowercased().contains(textFromSearchBar.lowercased())) || ((item.description!.lowercased().contains(textFromSearchBar.lowercased()))) {
                 if let strand = item.strand {
                     if self.selectedStrands.contains(strand) || self.selectedStrands.count == 0 {
-                        LearningObjectiveJourneyCell(rating: item.assessments?.first?.score ?? 0, isRatingView: isAddable ? true : false, isAddable: isAddable, isLearningGoalAdded: item.assessments?.isEmpty ?? true ? false : true, learningPathSelected: self.$learningPathSelected, learningObj: item)
+                        LearningObjectiveJourneyCell(rating: checkIfLOonMyJourney() ? 1 : item.assessments?.first?.score ?? 0, isRatingView: true, isAddable: isAddable, isLearningGoalAdded: self.filterLearningGoal != nil ? (item.assessments?.isEmpty ?? true ? false : true) : nil, learningPathSelected: self.$learningPathSelected, learningObj: item)
                             .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
                             .contextMenu {
                                 if !isAddable {
@@ -171,6 +174,20 @@ struct ScrollViewLearningObjectives: View {
         .onReceive(totalLOs.$changeViewTotal) { (result) in
             self.totalLOs.total = self.filteredLearningObjectives.count
         }
+    }
+    
+    func checkIfLOonMyJourney() -> Bool {
+        var isInside = false
+        for LO in self.studentLearningObj.learningObjectives {
+            for learningObjMap in Stores.learningObjectives.rawData {
+                if learningObjMap.id == LO.id {
+                    isInside = true
+                }
+            }
+
+        }
+        
+        return isInside
     }
     
     func displayFullMapLearningObjectives(learningPaths: [LearningPath], selectedFilter: String?) -> [LearningObjective] {

@@ -13,7 +13,8 @@ import Combine
 struct AddButton: View {
     var learningObjectiveSelected: LearningObjective
 //    @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
-    
+    @EnvironmentObject var studentLearningObj: StudentLearningObjectivesStore
+
     
     var objectives = Stores.learningObjectives.rawData
     
@@ -48,9 +49,12 @@ struct AddButton: View {
                                 .foregroundColor(Color("customCyan"))
                                 .onTapGesture {
                                     
-                                    var learningObj = Stores.learningObjectives.rawData.first(where:  { $0.id == self.learningObjectiveSelected.id } )
-                                        
-                                    learningObj?.addAssessment(LJM.Models.Assessment(id: "\(UUID())", score: 0, date: "\(Date())", learningObjectiveId: learningObjectiveSelected.id, learnerId: ""))
+//                                    var learningObj = Stores.learningObjectives.rawData.first(where:  { $0.id == self.learningObjectiveSelected.id } )
+//
+//                                    learningObj?.addAssessment(LJM.Models.Assessment(id: "\(UUID())", score: 0, date: "\(Date())", learningObjectiveId: learningObjectiveSelected.id, learnerId: ""))
+                                    
+                                    self.studentLearningObj.addItem(learningObjectiveSelected)
+
                                     
                                     self.didTap.toggle()
                                 }
@@ -59,7 +63,8 @@ struct AddButton: View {
                                 .resizable()
                                 .foregroundColor(Color("customCyan"))
                                 .onTapGesture {
-                                    
+                                    self.studentLearningObj.removeItem(learningObjectiveSelected)
+
 //                                        Webservices.deleteLearningObjectiveFromStudentJourney(id: learningObjectiveSelected.id) { value, error in
 //                                            if error == nil {
                                               //  self.studentLearningObjectivesStore.removeItem(learningObjectiveSelected)
@@ -74,7 +79,8 @@ struct AddButton: View {
                             .resizable()
                             .foregroundColor(Color("customCyan"))
                             .onTapGesture {
-                                
+                                self.studentLearningObj.removeItem(learningObjectiveSelected)
+
 //                                    Webservices.deleteLearningObjectiveFromStudentJourney(id: learningObjectiveSelected.id) { value, error in
 //                                        if error == nil {
                                          //   self.studentLearningObjectivesStore.removeItem(learningObjectiveSelected)
@@ -100,7 +106,7 @@ struct AddButton: View {
     
     func checkStudentContainsLearningObjective(learningObjectiveId : String) -> Bool {
         var isAdded = false
-        for learningObj in objectives {
+        for learningObj in self.studentLearningObj.learningObjectives {
             if learningObj.id == learningObjectiveId && learningObj.assessments != nil {
                 isAdded = true
                 return true

@@ -6,6 +6,8 @@ struct Sidebar: View {
     @State private var sections = ["Dashboard", "Journey", "Notebook", "Portfolio", "Backpack"]
     @State private var selection: Int? = 1
     
+    @StateObject var studentLearningObj = StudentLearningObjectivesStore()
+    
     var body: some View {
         NavigationView {
             List {
@@ -42,7 +44,7 @@ struct Sidebar: View {
             .listStyle(SidebarListStyle())
             .frame(minWidth: 366.toScreenSize(), maxWidth: .infinity)
             
-        }
+        }.environmentObject(self.studentLearningObj)
     }
     
     
