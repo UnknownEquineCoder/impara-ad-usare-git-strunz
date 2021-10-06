@@ -5,7 +5,7 @@ import SwiftKeychainWrapper
 @main
 struct LJMApp: App {
         
-    @AppStorage("log_Status") var status = false
+    @AppStorage("log_Status") var status = true
     
     @AppStorage("webview_error") var webViewError: String = ""
     
@@ -15,13 +15,9 @@ struct LJMApp: App {
     
     var body: some Scene {
         WindowGroup {
-            //     ContentView()
-            
-            //     LoginView()
-            
             // MainScreen used as a Splash screen -> redirect to Login view or Content view regarding the login status
             MainScreen().onAppear {
-                status = false
+                status = true
             }.environmentObject(user)
         }
         
@@ -34,3 +30,4 @@ struct LJMApp: App {
         }.handlesExternalEvents(matching: Set(arrayLiteral: "*"))
     }
 }
+

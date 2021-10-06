@@ -56,18 +56,20 @@ struct MyJourneyView: View {
                 
                 SearchBarExpandableJourney(txtSearchBar: $searchText)
                     .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
-            }.isHidden(self.studentLearningObj.learningObjectives.count > 0 ? false : true)
+            }
+            //.isHidden(self.studentLearningObj.learningObjectives.count > 0 ? false : true)
             
             ZStack(alignment: .topLeading) {
                 
-                NumberTotalLearningOjbectivesView(totalLOs: self.totalLOs.total).isHidden(self.studentLearningObj.learningObjectives.count > 0 ? false : true)
+           //     NumberTotalLearningOjbectivesView(totalLOs: self.totalLOs.total)
+                    //.isHidden(self.studentLearningObj.learningObjectives.count > 0 ? false : true)
                 
-                DropDownMenuSelectPath(selectedPath: $selectedPath)
-                    .frame(maxWidth: .infinity,  alignment: .trailing)
-                    .isHidden(self.studentLearningObj.learningObjectives.count > 0 ? false : true)
+//                DropDownMenuSelectPath(selectedPath: $selectedPath)
+//                    .frame(maxWidth: .infinity,  alignment: .trailing)
+                    //.isHidden(self.studentLearningObj.learningObjectives.count > 0 ? false : true)
                 
-                ListViewLearningObjectiveMyJourney(selectedFilter: $selectedFilter, txtSearchBar: $searchText, selectedPath: $selectedPath, selectedStrands: $selectedStrands, totalLOs: totalLOs)
-                    .padding(.top, 50)
+//                ListViewLearningObjectiveMyJourney(selectedFilter: $selectedFilter, txtSearchBar: $searchText, selectedPath: $selectedPath, selectedStrands: $selectedStrands, totalLOs: totalLOs)
+//                    .padding(.top, 50)
                 
             }.frame(maxWidth: .infinity).padding(.top, 10)
         }.padding(.leading, 50).padding(.trailing, 50)

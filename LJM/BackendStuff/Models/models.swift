@@ -311,9 +311,54 @@ class StrandsFilter: ObservableObject {
     @Published var strands: [String] = [String]()
 }
 
-//class HistoryStore: ObservableObject {
-//    @Published var history: [Assessment] = [Assessment]()
-//}
+final class SidebarSelectedMenuStore: ObservableObject {
+    let pageListener: SidebarTitleMenuListPageListener
+    
+    @Published var menu: OutlineMenu {
+        didSet {
+            pageListener.menu = menu
+        }
+    }
+    
+    init(selectedMenu: OutlineMenu) {
+        self.menu = selectedMenu
+        self.pageListener = SidebarTitleMenuListPageListener(menu: selectedMenu)
+    }
+}
+
+final class SidebarTitleMenuListPageListener: SidebarTitlePagesListener {
+    var menu: OutlineMenu {
+        didSet {
+            currentPage = 1
+        }
+    }
+    
+    override func loadPage() {
+//        store.dispatch(action: MoviesActions.FetchMoviesMenuList(list: menu, page: currentPage))
+    }
+    
+    init(menu: OutlineMenu, loadOnInit: Bool? = true) {
+        self.menu = menu
+        
+        super.init()
+        
+        if loadOnInit == true {
+            loadPage()
+        }
+    }
+}
+
+class SidebarTitlePagesListener {
+    var currentPage: Int = 1 {
+        didSet {
+            loadPage()
+        }
+    }
+    
+    func loadPage() {
+        
+    }
+}
 
 extension Optional where Wrapped == String {
     var orEmpty: Wrapped {
