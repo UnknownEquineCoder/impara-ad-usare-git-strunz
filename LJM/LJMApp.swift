@@ -23,6 +23,7 @@ struct LJMApp: App {
     var body: some Scene {
         WindowGroup {
             // MainScreen used as a Splash screen -> redirect to Login view or Content view regarding the login status
+            
             MainScreen().onAppear { status = true }
             .environmentObject(user)
             .fileExporter(
