@@ -34,9 +34,9 @@ enum OutlineMenu: Int, CaseIterable, Identifiable {
     @ViewBuilder
     var contentView: some View {
         switch self {
-        case .compass:      CompassView()
+        case .compass:      MyJourneyMainView()
         case .journey:      MyJourneyMainView()
-        case .map:          JourneyMainView()
+        case .map:          CompassView()
         }
     }
 }
@@ -58,7 +58,7 @@ struct OutlineRow : View {
             }
             .frame(width: 40)
             Text(item.title)
-                .foregroundColor(isSelected ? .customCyan : .primary)
+                .foregroundColor(isSelected ? .customBlack : .primary)
                 .font(.system(size: 20, weight: .medium, design: .rounded))
         }
         .padding()

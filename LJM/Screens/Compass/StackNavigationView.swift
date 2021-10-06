@@ -20,14 +20,14 @@ struct StackNavigationView<RootContent, SubviewContent>: View where RootContent:
             VStack{
                 if !showingSubview { // Root view
                     rootView()
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                       //  .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .transition(AnyTransition.move(edge: .leading)).animation(.default)
                 }
                 if showingSubview { // Correct subview for current index
                     StackNavigationSubview(isVisible: self.$showingSubview) {
                         self.subviewByLabel(self.currentSubviewLabel)
                     }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                   // .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .transition(AnyTransition.move(edge: .trailing)).animation(.default)
                 }
             }

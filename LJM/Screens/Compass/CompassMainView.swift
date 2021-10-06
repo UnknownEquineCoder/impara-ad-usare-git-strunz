@@ -52,7 +52,6 @@ struct CompassView: View, LJMView {
                         }
                         
                         HStack{
-                            Spacer()
                             VStack{
                             GraphWithOverlay()
                                 .frame(width: 395, height: 395)
@@ -66,12 +65,11 @@ struct CompassView: View, LJMView {
                                 .foregroundColor(colorScheme == .dark ? Color(red: 221/255, green: 221/255, blue: 221/255) : Color(red: 129/255, green: 129/255, blue: 129/255))
                                 .offset(y: -50)
                             }
-                            Spacer(minLength: 214)
                             VStack{
                                 GraphWithOverlay()
                                     .frame(width: 395, height: 395)
                                     .padding(.top, 45)
-                                    .padding(.leading, 45)
+                                   // .padding(.leading, 45)
                                     .padding(.trailing, 45)
                                 
                                 Text("Paths")
@@ -83,8 +81,6 @@ struct CompassView: View, LJMView {
                                     
                                 
                             }
-                            
-                            Spacer()
                         }
                         HStack{
                         InfoButton(title: "Bar Graphs: ", textBody: "The bar graphs below show your growth in detail, allowing you to examine every single Learning Goal, based on the Curriculum Strands.", heightCell: 131)
@@ -113,11 +109,8 @@ struct CompassView: View, LJMView {
                     
                     
                 }
-                .padding(.leading, 70).padding(.trailing, 50)
+               // .padding(.leading, 70).padding(.trailing, 50)
             }
-            
-            .frame(minHeight: 1080.toScreenSize())
-            
         }
         }
     }

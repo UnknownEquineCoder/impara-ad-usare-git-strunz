@@ -30,10 +30,11 @@ struct SidebarView: View {
                     .padding(.top, 32)
                     .frame(width: 300)
                 }
-                .background(Color.primary.opacity(0.1))
-            }
+            }.background(Color.primary.opacity(0.1))
+            // View connected to the sidebar
             selectedMenu.contentView
-        }.environmentObject(self.studentLearningObj)
+        }
+        .environmentObject(self.studentLearningObj)
     }
 }
 
