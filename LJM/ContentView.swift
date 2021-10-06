@@ -1,5 +1,4 @@
 import SwiftUI
-import SwiftUIFlux
 
 struct ContentView: View {
     @AppStorage("log_Status") var status = false
