@@ -18,7 +18,7 @@ struct LJMApp: App {
     @State var importFile = false
     @State var exportFile = false
     @State private var toExport = Bundle.main.path(forResource: "file", ofType: "csv")
-    let fileName = "message.txt"
+    let file_Name = "Personal_Data.csv"
     
     var body: some Scene {
         WindowGroup {
@@ -27,9 +27,9 @@ struct LJMApp: App {
             .environmentObject(user)
             .fileExporter(
                 isPresented: $exportFile,
-                document: Doc(url: "Documents/\(fileName)" ),
+                document: Doc(url: "Documents/\(file_Name)" ),
                 contentType: .plainText,
-                defaultFilename: "Random",
+                defaultFilename: file_Name,
                 onCompletion: { res in
                     do{
                         let fileURL = try res.get()
@@ -40,7 +40,7 @@ struct LJMApp: App {
                 })
             .fileImporter(
                 isPresented: $importFile,
-                allowedContentTypes: [.image],
+                allowedContentTypes: [.plainText],
                 allowsMultipleSelection: false
             ) { result in
                 if case .success = result {
@@ -80,8 +80,8 @@ struct LJMApp: App {
                 // to export files
                 Button(action: {
                     //write on the file here
-                    let str = "Test Message"
-                    let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(fileName)
+                    let str = "Test,Message,something \n hello,there,folks"
+                    let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(file_Name)
                     do {
                         try str.write(to: url, atomically: true, encoding: .utf8)
 //                        let input = try String(contentsOf: url)

@@ -9,14 +9,14 @@ import Foundation
 import SwiftUI
 
 struct learning_Objective {
-    var id : String
+    var ID : String
     var strand : String
     var goal : String
     var goal_Short : String
     var description : String
     var isCore : Bool
     var Keyword : [String]
-    var core_Rubric_Level : [(String, String)]
+    var core_Rubric_Level : [String]
     var documentation : String
 }
 
@@ -38,9 +38,9 @@ struct profile {
 }
 
 struct evaluated_Objective {
-    var ID : String
-    var evaluation : Int
-    var evaluation_Date : Date
+    var learning_Objective_ID : String
+    var score : Int
+    var date : Date
 }
 
 struct challenge {
