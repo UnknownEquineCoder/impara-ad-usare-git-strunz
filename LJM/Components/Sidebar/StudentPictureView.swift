@@ -31,7 +31,7 @@ struct ProfileImage: View {
 struct StudentPictureView: View {
     var size: CGFloat = 140
     @State var imageName: String = "student"
-    
+    let shared_Profile = profile_Singleton.shared
     
     var profileImage: Image {
         get {
@@ -63,9 +63,13 @@ struct StudentPictureView: View {
                 
             }
             
-            ProfileNameLabel(qualifiedName: "\(LJM.storage.user.name ?? "") \(LJM.storage.user.surname ?? "Surname")").frame(width: 150)
+            ProfileNameLabel(qualifiedName: "\(shared_Profile.profile_data.name)").frame(width: 150)
                 .onTapGesture {
                     KeychainWrapper.standard.removeObject(forKey: "tokenAuth")
+            
+//            ProfileNameLabel(qualifiedName: "\(LJM.storage.user.name ?? "") \(LJM.storage.user.surname ?? "Surname")").frame(width: 150)
+//                .onTapGesture {
+//                    KeychainWrapper.standard.removeObject(forKey: "tokenAuth")
                 }
         }
         .padding(.trailing)

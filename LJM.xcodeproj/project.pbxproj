@@ -70,6 +70,8 @@
 		96BE89D0257553BF00BE9E8F /* CountDownWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE89CF257553BF00BE9E8F /* CountDownWrapper.swift */; };
 		96CC613F257A38FC00CE7ABD /* DropDownMenuFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC613D257A38FC00CE7ABD /* DropDownMenuFilters.swift */; };
 		96CE7BC625C4183A006C4CDA /* FilterChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CE7BC525C4183A006C4CDA /* FilterChoice.swift */; };
+		E02DFE8A270AEC3F004FF8B7 /* newModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02DFE89270AEC3F004FF8B7 /* newModels.swift */; };
+		E02DFE8C270C41E5004FF8B7 /* singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02DFE8B270C41E5004FF8B7 /* singleton.swift */; };
 		EA139BD42640910900E15E28 /* JWTDecode in Frameworks */ = {isa = PBXBuildFile; productRef = EA139BD32640910900E15E28 /* JWTDecode */; };
 		EA5B445D262E6F23002A97C7 /* MyJourneyMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5B445C262E6F23002A97C7 /* MyJourneyMainView.swift */; };
 		EA5B4463263027ED002A97C7 /* WebviewLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5B4462263027ED002A97C7 /* WebviewLogin.swift */; };
@@ -202,6 +204,8 @@
 		96BE89CF257553BF00BE9E8F /* CountDownWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownWrapper.swift; sourceTree = "<group>"; };
 		96CC613D257A38FC00CE7ABD /* DropDownMenuFilters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownMenuFilters.swift; sourceTree = "<group>"; };
 		96CE7BC525C4183A006C4CDA /* FilterChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterChoice.swift; sourceTree = "<group>"; };
+		E02DFE89270AEC3F004FF8B7 /* newModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = newModels.swift; sourceTree = "<group>"; };
+		E02DFE8B270C41E5004FF8B7 /* singleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = singleton.swift; sourceTree = "<group>"; };
 		EA5B445C262E6F23002A97C7 /* MyJourneyMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyJourneyMainView.swift; sourceTree = "<group>"; };
 		EA5B4462263027ED002A97C7 /* WebviewLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebviewLogin.swift; sourceTree = "<group>"; };
 		EA686EF8256EE4F300C121DC /* TopBarJourney.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarJourney.swift; sourceTree = "<group>"; };
@@ -381,6 +385,7 @@
 		964B662A256E6020006AB20E /* LJM */ = {
 			isa = PBXGroup;
 			children = (
+				E02DFE8D270C41F4004FF8B7 /* New Backend */,
 				EACD024025D50299008D12FE /* Modifiers */,
 				EA686F2C256F25B100C121DC /* Extensions */,
 				964B665C256E6270006AB20E /* BackendStuff */,
@@ -487,6 +492,15 @@
 				96B1A08A258397ED006DE527 /* CoreData.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E02DFE8D270C41F4004FF8B7 /* New Backend */ = {
+			isa = PBXGroup;
+			children = (
+				E02DFE89270AEC3F004FF8B7 /* newModels.swift */,
+				E02DFE8B270C41E5004FF8B7 /* singleton.swift */,
+			);
+			path = "New Backend";
 			sourceTree = "<group>";
 		};
 		EA5B446F26310AB9002A97C7 /* Auth */ = {
@@ -782,6 +796,7 @@
 				55E140AE263F391700999A28 /* CachesUtils.swift in Sources */,
 				EACD022F25D37B15008D12FE /* TitleScreenView.swift in Sources */,
 				5579EB7A263E078F0086A4BE /* ObjectWrapper.swift in Sources */,
+				E02DFE8A270AEC3F004FF8B7 /* newModels.swift in Sources */,
 				962F090E25E7C4F1001EAE85 /* ParticularCircle.swift in Sources */,
 				55A37516265E5FE5000BB4D3 /* SyncDictionary.swift in Sources */,
 				9641C4A525778F1D0088A0B6 /* SizesExtension.swift in Sources */,
@@ -797,6 +812,7 @@
 				EACD023425D37CCB008D12FE /* DescriptionTitleScreenView.swift in Sources */,
 				EACD023925D382AD008D12FE /* NumberTotalLearningOjbectivesView.swift in Sources */,
 				5579EB84263E08890086A4BE /* IndexableCache.swift in Sources */,
+				E02DFE8C270C41E5004FF8B7 /* singleton.swift in Sources */,
 				5579EB75263E06920086A4BE /* URLExtensions.swift in Sources */,
 				96BE89D0257553BF00BE9E8F /* CountDownWrapper.swift in Sources */,
 				9605C71825C95498007E808E /* LoginPage.swift in Sources */,
@@ -973,7 +989,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "Accent Color";
 				CODE_SIGN_ENTITLEMENTS = LJM/LJM.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"LJM/Preview Content\"";
@@ -999,7 +1015,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "Accent Color";
 				CODE_SIGN_ENTITLEMENTS = LJM/LJM.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"LJM/Preview Content\"";
