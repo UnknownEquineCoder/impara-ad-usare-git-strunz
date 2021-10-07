@@ -47,7 +47,6 @@ struct challenge {
     
 }
 
-
 // Sample and test CSV parsing
 
 struct sample_learning_objective {
