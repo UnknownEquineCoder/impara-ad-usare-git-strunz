@@ -27,7 +27,8 @@ struct CompassView: View, LJMView {
             subviewByLabel: { label in
                 self.subView(forLabel: label)
             }
-        ){        ZStack{
+        ){
+            ZStack{
             
             colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white
             
