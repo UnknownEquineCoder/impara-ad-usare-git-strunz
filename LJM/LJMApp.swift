@@ -30,8 +30,9 @@ struct LJMApp: App {
                 isPresented: $exportFile,
                 document: Doc(url: "Documents/\(file_Name)" ),
                 contentType: .plainText,
-                defaultFilename: file_Name,
-                onCompletion: { res in
+                defaultFilename: "\(file_Name)",
+                onCompletion: {
+                    res in
                     do{
                         let fileURL = try res.get()
                         print(fileURL)
@@ -39,6 +40,7 @@ struct LJMApp: App {
                         print("can not save the document ")
                     }
                 })
+            
             .fileImporter(
                 isPresented: $importFile,
                 allowedContentTypes: [.plainText],
@@ -46,8 +48,10 @@ struct LJMApp: App {
             ) { result in
                 if case .success = result {
                     do {
-                        let audioURL: URL = try result.get().first!
-                        print(audioURL)
+                        let fileURL: URL = try result.get().first!
+                        let data = try Data(contentsOf: fileURL)
+                        let file = try String.init(contentsOf: fileURL, encoding: .utf32)
+                        print("@@@@@@@@@@@@@@ \(file)")
                     } catch {
                         let nsError = error as NSError
                         fatalError("File Import Error \(nsError), \(nsError.userInfo)")
@@ -118,7 +122,7 @@ struct Doc : FileDocument {
     }
     
     func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
-        let file = try! FileWrapper(url: URL(fileURLWithPath: url), options: .immediate)
+        let file = try FileWrapper(url: URL(fileURLWithPath: url), options: .immediate)
         
         return file
     }
