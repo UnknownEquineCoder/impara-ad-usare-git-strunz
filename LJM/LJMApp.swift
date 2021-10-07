@@ -48,10 +48,11 @@ struct LJMApp: App {
             ) { result in
                 if case .success = result {
                     do {
-                        let fileURL: URL = try result.get().first!
-                        let data = try Data(contentsOf: fileURL)
-                        let file = try String.init(contentsOf: fileURL, encoding: .utf32)
-                        print("@@@@@@@@@@@@@@ \(file)")
+                        let fileURL: URL = try result.get()[0]
+                        let file = try String(contentsOf: fileURL)
+                        let lines = file.split(separator: "\n", omittingEmptySubsequences: false)
+                        
+                        print("@@@@@@@@@@@@@@ \(lines.last)")
                     } catch {
                         let nsError = error as NSError
                         fatalError("File Import Error \(nsError), \(nsError.userInfo)")
