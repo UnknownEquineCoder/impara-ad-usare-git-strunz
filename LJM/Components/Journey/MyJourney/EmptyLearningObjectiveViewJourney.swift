@@ -9,6 +9,8 @@ import SwiftUI
 
 struct EmptyLearningObjectiveViewJourney: View {
     
+    @Binding var selectedMenu: OutlineMenu
+    
     let addObjText = "Add a learning objective"
     
     var body: some View {
@@ -27,7 +29,7 @@ struct EmptyLearningObjectiveViewJourney: View {
                     .padding(.top, 20)
                 
                 Button(action: {
-
+                    self.selectedMenu = .map
                 }) {
                     Text(addObjText.uppercased())
                         .padding()

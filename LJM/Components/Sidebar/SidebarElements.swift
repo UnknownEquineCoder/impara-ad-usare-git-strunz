@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 enum OutlineMenu: Int, CaseIterable, Identifiable {
+    
     var id: Int {
         return self.rawValue
     }
@@ -28,15 +29,6 @@ enum OutlineMenu: Int, CaseIterable, Identifiable {
         case .compass:     return "Compass_Icon"
         case .journey:     return "Journey_Icon"
         case .map:         return "Map_Icon"
-        }
-    }
-    
-    @ViewBuilder
-    var contentView: some View {
-        switch self {
-        case .compass:      MyJourneyMainView()
-        case .journey:      MyJourneyMainView()
-        case .map:          CompassView()
         }
     }
 }

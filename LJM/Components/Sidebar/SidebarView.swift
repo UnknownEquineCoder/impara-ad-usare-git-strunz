@@ -32,7 +32,16 @@ struct SidebarView: View {
                 }
             }.background(Color.primary.opacity(0.1))
             // View connected to the sidebar
-            selectedMenu.contentView
+          //  selectedMenu.contentView
+            
+            switch selectedMenu {
+            case .compass:
+                NavigationView { CompassView() }
+            case .journey:
+                MyJourneyMainView(selectedMenu: $selectedMenu)
+            case .map:
+                JourneyMainView()
+            }
         }
         .environmentObject(self.studentLearningObj)
     }
@@ -63,7 +72,6 @@ struct OldSidebar: View {           // remove if new sidebar works properly
                     
                     Navigation<JourneyMainView>(buttonName: "Map", buttonIcon: "Map_Icon", tag: 2, selection: selection)
                     
-                    Navigation<MyJourneyMainView>(buttonName: "Journey", buttonIcon: "Journey_Icon", tag: 3, selection: selection)
                     
 #if false
                     Navigation<CompassView>(buttonName: "Notebook", buttonIcon: "square", tag: 4, selection: selection)

@@ -19,6 +19,8 @@ struct MyJourneyView: View {
     @State private var searchText = ""
     @State private var selectedPath : String?
     
+    @Binding var selectedMenu: OutlineMenu
+    
     @Environment(\.colorScheme) var colorScheme
         
     //    @EnvironmentObject var learningPathsStore: LearningPathStore
@@ -68,7 +70,7 @@ struct MyJourneyView: View {
                     .frame(maxWidth: .infinity,  alignment: .trailing)
                   //  .isHidden(self.studentLearningObj.learningObjectives.count > 0 ? false : true)
                 
-                ListViewLearningObjectiveMyJourney(selectedFilter: $selectedFilter, txtSearchBar: $searchText, selectedPath: $selectedPath, selectedStrands: $selectedStrands, totalLOs: totalLOs)
+                ListViewLearningObjectiveMyJourney(selectedFilter: $selectedFilter, txtSearchBar: $searchText, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedMenu: $selectedMenu, totalLOs: totalLOs)
                     .padding(.top, 50)
                 
             }.frame(maxWidth: .infinity).padding(.top, 10)
@@ -118,6 +120,7 @@ struct ListViewLearningObjectiveMyJourney: View {
     @Binding var txtSearchBar : String
     @Binding var selectedPath : String?
     @Binding var selectedStrands : [String]
+    @Binding var selectedMenu: OutlineMenu
     
     //    @EnvironmentObject var learningPathsStore: LearningPathStore
     //    @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
@@ -138,11 +141,12 @@ struct ListViewLearningObjectiveMyJourney: View {
                     .foregroundColor(Color.customDarkGrey)
                     .padding(.top, 20)
                     .isHidden(totalLOs.total > 0 ? true : false)
+                    
                 
                 ScrollViewLearningObjectives(totalLOs: self.totalLOs, learningPathSelected: $selectedPath, filterCore: selectedFilter, isAddable: false, textFromSearchBar: txtSearchBar, selectedStrands: selectedStrands)
             }
         } else {
-            EmptyLearningObjectiveViewJourney()
+            EmptyLearningObjectiveViewJourney(selectedMenu: $selectedMenu)
         }
     }
     

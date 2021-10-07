@@ -7,9 +7,11 @@
 
 import SwiftUI
 
-struct MyJourneyMainView: View, LJMView {
+struct MyJourneyMainView: View {
     @Environment(\.colorScheme) var colorScheme
     @State private var showSearchBarSideBar = true
+    
+    @Binding var selectedMenu: OutlineMenu
     
     @ObservedObject var totalLOs = TotalNumberLearningObjectives()
     
@@ -18,7 +20,7 @@ struct MyJourneyMainView: View, LJMView {
     var body: some View {
         ZStack(alignment: .top) {
             
-            MyJourneyView(totalLOs: self.totalLOs).modifier(PaddingMainSubViews())
+            MyJourneyView(selectedMenu: $selectedMenu, totalLOs: self.totalLOs).modifier(PaddingMainSubViews())
             
         }.background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
 //        .onAppear {
@@ -55,6 +57,6 @@ struct MyJourneyMainView: View, LJMView {
 
 struct MyJourneyMainView_Previews: PreviewProvider {
     static var previews: some View {
-        MyJourneyMainView()
+        MyJourneyMainView(selectedMenu: .constant(.journey))
     }
 }

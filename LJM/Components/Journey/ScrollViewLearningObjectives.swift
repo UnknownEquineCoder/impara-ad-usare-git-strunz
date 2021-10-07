@@ -19,7 +19,6 @@ struct ScrollViewLearningObjectives: View {
     
     @EnvironmentObject var studentLearningObj: StudentLearningObjectivesStore
 
-    
     @Binding var learningPathSelected : String?
     
     var filterCore: CoreEnum.RawValue?
