@@ -17,6 +17,9 @@ struct CompassView: View, LJMView {
     
     @ObservedObject var totalLOs = TotalNumberLearningObjectives()
     
+    // test data
+    let sampleLOs = loadCSV(from: "Grid view")
+    
     var body: some View {
         StackNavigationView(
             currentSubviewLabel: self.$currentSubviewLabel,
@@ -34,8 +37,9 @@ struct CompassView: View, LJMView {
                     HStack {
                         TitleScreenView(title: "Compass")
                             .padding(.top, 114.toScreenSize())
-                        
-                        
+                            .onTapGesture {
+                                print(self.sampleLOs)
+                            }
                         Spacer()
                     }
                     
@@ -70,7 +74,7 @@ struct CompassView: View, LJMView {
                                 GraphWithOverlay()
                                     .frame(width: 395, height: 395)
                                     .padding(.top, 45)
-                                   // .padding(.leading, 45)
+                                    .padding(.leading, 45)
                                     .padding(.trailing, 45)
                                 
                                 Text("Paths")
@@ -110,7 +114,7 @@ struct CompassView: View, LJMView {
                     
                     
                 }
-               // .padding(.leading, 70).padding(.trailing, 50)
+                .padding(.leading, 70).padding(.trailing, 50)
             }
         }
         }

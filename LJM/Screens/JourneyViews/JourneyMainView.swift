@@ -13,7 +13,7 @@ struct JourneyMainView: View, LJMView {
     @Environment(\.colorScheme) var colorScheme
     @State private var showSearchBarSideBar = true
     @State private var alertIsShowing = false
-    
+        
     @ObservedObject var selectedView = SelectedSegmentView()
     @ObservedObject var totalLOs = TotalNumberLearningObjectives()
     

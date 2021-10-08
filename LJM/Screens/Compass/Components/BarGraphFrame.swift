@@ -21,7 +21,9 @@ struct BarGraphFrame: View {
             ZStack{
                 Rectangle().fill(Color.clear)
                     .border(color)
-                    .frame(width: 1400.toScreenSize(), height: 75 * CGFloat(skills.count))
+                    .frame(height: 75 * CGFloat(skills.count))
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    
                 VStack{
                     HStack{
                         Text(title)
@@ -92,7 +94,8 @@ struct BarGraphFrame: View {
                 .padding(.top, 30)
                 .padding(.bottom, 30)
             }
-        }.frame(width: 1400.toScreenSize(), height: 75 * CGFloat(skills.count))
+        }.frame(height: 75 * CGFloat(skills.count))
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
