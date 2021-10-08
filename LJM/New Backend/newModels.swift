@@ -34,7 +34,7 @@ struct profile {
     var ID : String = "nice_ID"
     var name : String = "peppe peppardi"
     var image : Image?
-    var evaluated_Objective_IDs : [evaluated_Objective] = []
+    var evaluated_Objective_IDs : [String] = []
 }
 
 struct evaluated_Objective {

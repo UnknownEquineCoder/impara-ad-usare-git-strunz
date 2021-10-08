@@ -103,9 +103,6 @@ struct LJMApp: App {
         })
     }
     
-    func export_CSV(){
-        
-    }
     
 }
 
