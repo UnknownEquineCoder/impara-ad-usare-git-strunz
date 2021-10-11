@@ -41,7 +41,7 @@ struct StartView: View {
             
             switch selectedMenu {
             case .compass:
-                NavigationView { CompassView() }
+                CompassView()
             case .journey:
                 MyJourneyMainView(selectedMenu: $selectedMenu, path: $path)
             case .map:
