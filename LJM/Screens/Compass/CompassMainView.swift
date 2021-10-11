@@ -17,6 +17,10 @@ struct CompassView: View, LJMView {
     
     @ObservedObject var totalLOs = TotalNumberLearningObjectives()
     
+    // new data flow
+    
+    let shared : singleton_Shared = singleton_Shared()
+    
     // test data
     let sampleLOs = loadCSV(from: "Grid view")
     

@@ -31,6 +31,11 @@ struct MyJourneyView: View {
     
     @EnvironmentObject var studentLearningObj: StudentLearningObjectivesStore
     
+    // new data flow
+    
+    @Binding var path : [learning_Path]
+    let shared : singleton_Shared = singleton_Shared()
+    
     var body: some View {
         VStack(alignment: .leading) {
             ZStack(alignment: .topLeading) {

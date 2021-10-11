@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct JourneyMainView: View, LJMView {
+struct MapMainView: View {
     @State var selected = "Map"
     @Environment(\.colorScheme) var colorScheme
     @State private var showSearchBarSideBar = true
@@ -23,11 +23,16 @@ struct JourneyMainView: View, LJMView {
 //    @EnvironmentObject var strandsStore: StrandsStore
 //    @EnvironmentObject var learningPathsStore: LearningPathStore
     
+    // new data flow stuff
+    
+    @Binding var path : [learning_Path]
+    @Binding var rubric : [rubric_Level]
+    
     var body: some View {
         ZStack(alignment: .top) {
             
             if self.selectedView.selectedView == "Map" {
-                PathsView(totalLOs: self.totalLOs, selectedSegmentView: self.selectedView).modifier(PaddingMainSubViews())
+                PathsView(totalLOs: self.totalLOs, selectedSegmentView: self.selectedView, path: $path, rubric: $rubric)
                 
             } else {
                 ChallengeView(totalLOs: self.totalLOs, selectedSegmentView: self.selectedView).modifier(PaddingMainSubViews())
@@ -101,6 +106,6 @@ struct JourneyMainView: View, LJMView {
 
 struct JourneyMainView_Previews: PreviewProvider {
     static var previews: some View {
-        JourneyMainView()
+        MapMainView(path: .constant([]), rubric: .constant([]))
     }
 }

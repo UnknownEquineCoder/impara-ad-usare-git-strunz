@@ -24,6 +24,12 @@ struct PathsView: View {
 //    @EnvironmentObject var learningPathsStore: LearningPathStore
 //    @EnvironmentObject var strandsStore: StrandsStore
     
+    // new data flow
+    
+    @Binding var path : [learning_Path]
+    @Binding var rubric : [rubric_Level]
+    let shared : singleton_Shared = singleton_Shared()
+    
     var body: some View {
         
         VStack {

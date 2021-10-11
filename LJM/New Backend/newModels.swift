@@ -16,7 +16,7 @@ struct learning_Objective {
     var description : String
     var isCore : Bool
     var Keyword : [String]
-    var core_Rubric_Level : [String]
+    var core_Rubric_Level_ID : String
     var documentation : String
 }
 
@@ -27,7 +27,13 @@ struct learning_Path {
 
 struct rubric_Level {
     var ID : String
-    var value : String
+    var name : String
+    var core_Level : Int
+    var UI_UX_Level : Int
+    var front_Level : Int
+    var back_Level : Int
+    var game_Level : Int
+    var business_Level : Int
 }
 
 struct profile {
@@ -39,8 +45,8 @@ struct profile {
 
 struct evaluated_Objective {
     var learning_Objective_ID : String
-    var score : Int
-    var date : Date
+    var score : [Int]
+    var date : [Date]
 }
 
 struct challenge {

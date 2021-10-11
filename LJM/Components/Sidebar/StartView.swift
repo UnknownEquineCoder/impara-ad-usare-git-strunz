@@ -1,10 +1,15 @@
 import Foundation
 import SwiftUI
 
-struct SidebarView: View {
+struct StartView: View {
     @State var selectedMenu: OutlineMenu = .compass
     
     @StateObject var studentLearningObj = StudentLearningObjectivesStore() // needed to avoid crash but will be removed with new data flow
+    
+    // new data flow element
+    
+    @State var path : [learning_Path] = []
+    @State var rubric : [rubric_Level] = []
     
     @ViewBuilder
     var body: some View {
@@ -38,9 +43,9 @@ struct SidebarView: View {
             case .compass:
                 NavigationView { CompassView() }
             case .journey:
-                MyJourneyMainView(selectedMenu: $selectedMenu)
+                MyJourneyMainView(selectedMenu: $selectedMenu, path: $path)
             case .map:
-                JourneyMainView()
+                MapMainView(path: $path, rubric: $rubric)
             }
         }
         .environmentObject(self.studentLearningObj)
@@ -70,7 +75,7 @@ struct OldSidebar: View {           // remove if new sidebar works properly
                     
                     Navigation<CompassView>(buttonName: "Compass", buttonIcon: "Compass_Icon", tag: 1, selection: selection)
                     
-                    Navigation<JourneyMainView>(buttonName: "Map", buttonIcon: "Map_Icon", tag: 2, selection: selection)
+//                    Navigation<MapMainView>(buttonName: "Map", buttonIcon: "Map_Icon", tag: 2, selection: selection)
                     
                     
 #if false
