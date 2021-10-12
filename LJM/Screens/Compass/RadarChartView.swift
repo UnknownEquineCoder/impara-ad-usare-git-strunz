@@ -170,7 +170,6 @@ struct GraphDataProvider {
             // we append the total to the array
             data.append(strand_sum)
         }
-        
         return GraphDataProvider(data, (1...5).map( {_ in CGFloat(Int.random(in: 20...99))} ), type: type)
     }
     
