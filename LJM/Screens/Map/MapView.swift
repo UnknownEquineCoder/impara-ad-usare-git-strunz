@@ -15,7 +15,7 @@ struct MapView: View {
     @State var selectedSort = ""
     
     var filterTabsMap = ["FULL MAP", "COMMUNAL", "ELECTIVE"]
-    var fakePathsObjectArray = [learning_Path(title: "Design", learning_Objective_IDs: ["333", "3333"]), learning_Path(title: "Game", learning_Objective_IDs: ["3998", "5678"])]
+    var fakePathsObjectArray : [learning_Path] = []
     
     @Environment(\.colorScheme) var colorScheme
     
