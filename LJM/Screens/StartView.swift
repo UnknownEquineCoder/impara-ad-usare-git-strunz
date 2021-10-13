@@ -48,6 +48,78 @@ struct StartView: View {
             }
             
         }
+        .onAppear(perform: {
+            load_Learning_Rubric()
+            load_Learning_Path()
+        })
+    }
+    
+    func load_Learning_Rubric(){
+        
+        var csvToStruct = [rubric_Level]()
+        
+        guard let filePath = Bundle.main.path(forResource: "Rubric_Level", ofType: "csv") else {
+            rubric = []
+            return
+        }
+        
+        var data = ""
+        do {
+            data = try String(contentsOfFile: filePath)
+        } catch {
+            print(error)
+            rubric = []
+            return
+        }
+        
+        var rows = data.components(separatedBy: "\n")
+        
+        rows.removeFirst()
+        rows.removeLast()
+        
+        for row in rows {
+            
+            let csvColumns = row.components(separatedBy: ",")
+            
+            let LOsStruct = rubric_Level.init(raw: csvColumns)
+            csvToStruct.append(LOsStruct)
+            
+        }
+        
+        rubric = csvToStruct
+        
+    }
+    
+    func load_Learning_Path(){
+        var csvToStruct = [learning_Path]()
+        
+        guard let filePath = Bundle.main.path(forResource: "Learning_Paths", ofType: "csv") else {
+            path = []
+            return
+        }
+        
+        var data = ""
+        do {
+            data = try String(contentsOfFile: filePath)
+        } catch {
+            print(error)
+            path = []
+            return
+        }
+        
+        var rows = data.components(separatedBy: "\n")
+        
+        rows.removeFirst()
+        rows.removeLast()
+        
+        for row in rows {
+            
+            let csvColumns = row.components(separatedBy: ",")
+            
+            let LOsStruct = learning_Path.init(raw: csvColumns)
+            csvToStruct.append(LOsStruct)
+        }
+        path = csvToStruct
     }
 }
 

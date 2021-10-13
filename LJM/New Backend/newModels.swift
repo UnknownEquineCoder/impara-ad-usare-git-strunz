@@ -18,23 +18,52 @@ struct learning_Objective {
     var Keyword : [String]
     var core_Rubric_Level_ID : String
     var documentation : String
+    
+    var isEvaluated : Bool
+    
+    init(raw : [String]){
+        ID = raw[0]
+        strand = raw[1]
+        goal = raw[2]
+        goal_Short = raw[3]
+        description = raw[4]
+        isCore = raw[5] == "true" ? true : false
+        Keyword = raw[6].components(separatedBy: "-")
+        core_Rubric_Level_ID = raw[7]
+        documentation = raw[8]
+        isEvaluated = false
+    }
 
 }
 
 struct learning_Path {
     var title : String
     var learning_Objective_IDs : [String]
+    
+    init(raw : [String]){
+        title = raw[0]
+        learning_Objective_IDs = raw[1].components(separatedBy: "-")
+    }
 }
 
 struct rubric_Level {
     var ID : String
-    var name : String
-    var core_Level : Int
-    var UI_UX_Level : Int
-    var front_Level : Int
-    var back_Level : Int
-    var game_Level : Int
-    var business_Level : Int
+    var levels : [Int]
+//    var core_Level : Int
+//    var UI_UX_Level : Int
+//    var front_Level : Int
+//    var back_Level : Int
+//    var game_Level : Int
+//    var business_Level : Int
+    
+    init(raw : [String]){
+        ID = raw[0]
+        levels = []
+        
+        for index in 1...raw.count-1 {
+            levels.append(Int(raw[index]) ?? 0)
+        }
+    }
 }
 
 struct profile {
