@@ -18,6 +18,7 @@ struct learning_Objective {
     var Keyword : [String]
     var core_Rubric_Level_ID : String
     var documentation : String
+
 }
 
 struct learning_Path {
@@ -111,4 +112,28 @@ func loadCSV(from csvName: String) -> [sample_learning_objective] {
     }
     
     return csvToStruct
+}
+
+enum CoreEnum: String {
+    case core = "Core"
+    case elective = "Elective"
+    case evaluated = "Evaluated"
+    case all = "All"
+}
+
+enum MapEnum: String {
+    case full = "FULL MAP"
+    case communal = "COMMUNAL"
+}
+
+enum ChallengeEnum: String {
+    case MC1 = "MC1"
+}
+
+enum CompassEnum: String {
+    case all = "All"
+    case core = "Core"
+    case elective = "Elective"
+    case added = "Added"
+    case notAdded = "Not Added"
 }

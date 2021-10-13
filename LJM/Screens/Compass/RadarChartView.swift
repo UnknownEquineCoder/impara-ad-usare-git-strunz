@@ -3,6 +3,8 @@ import Shapes
 
 struct GraphWithOverlay: View {
     @Environment(\.colorScheme) var colorScheme
+    
+    let shared : singleton_Shared = singleton_Shared()
 
     var body: some View {
         GeometryReader { geo in
@@ -141,7 +143,6 @@ struct GraphDataProvider {
     var front_data: [CGFloat]
     var back_data: [CGFloat]
     
-    
     private init(_ front_data: [CGFloat], _ back_data: [CGFloat], type: GraphTypes) {
         self.front_data = front_data
         self.back_data = back_data
@@ -154,17 +155,22 @@ struct GraphDataProvider {
     
     static func from_API(type: GraphTypes) -> GraphDataProvider {
         
+        let shared : singleton_Shared = singleton_Shared()
+        let Strands = ["UI", "Business", "Design", "Professional"]
+
         var data = [CGFloat]()
         #warning("TODO: REWORK WITH NEW DATA STRUCTURE")
         // we filter the data based on core vs elective
-        let unrefined_data = Stores.learningObjectives.rawData.filter { $0.isCore() == (type == .core) }
-        
-        for strand in Strands.allCases {
+        let unrefined_data = shared.learning_Objectives.filter { $0.isCore == (type == .core) }
+
+        for strand in Strands {
             // we take 1 strand per iteration
-            let strand_data = unrefined_data.filter { $0.strand ?? "" == strand.rawValue }
+            let strand_data = unrefined_data.filter { $0.strand ?? "" == strand }
             // we remove nil scores and only take into account
             // the most recent change
-            let last_scores = strand_data.compactMap { $0.assessments?.last?.score }
+          //  let last_scores = strand_data.compactMap { $0.assessments?.last?.score }
+            let last_scores = strand_data.compactMap { _ in Int.random(in: 0...100) }
+
             // we get the total of the scores
             let strand_sum = CGFloat(last_scores.reduce(0, +))
             // we append the total to the array
@@ -174,7 +180,9 @@ struct GraphDataProvider {
     }
     
     func max() -> CGFloat {
-        return Swift.max(CGFloat(Stores.learningObjectives.rawData.filter { $0.isCore() == (type == .core) }.count) * 5, CGFloat(100))
+        let shared : singleton_Shared = singleton_Shared()
+
+        return Swift.max(CGFloat(shared.learning_Objectives.filter { $0.isCore == (type == .core) }.count) * 5, CGFloat(100))
     }
     
     enum GraphTypes {
@@ -218,7 +226,7 @@ struct RadarChart: View {
                     .stroke(gridColor, lineWidth: 1.toScreenSize())
                 
                 RadarCompositeGrid(size: geo.size.width, data: provider.back_data, b_color: Color.back_graph, f_color: RadialGradient.backGraph(size: geo.size.width), max: CGFloat(provider.max()))
-                
+
                 RadarCompositeGrid(size: geo.size.width, data: provider.front_data, b_color: Color.front_graph, f_color: RadialGradient.frontGraph(size: geo.size.width), max: CGFloat(provider.max()))
             }
         }
@@ -247,21 +255,21 @@ extension Array where Element: Identifiable {
     }
 }
 
-extension Array where Element: LJMCodableData {
-    mutating func updateAndRefresh(with value: Element, code: ()->()) {
-        update(with: value)
-        code()
-    }
-}
+//extension Array where Element: LJMCodableData {
+//    mutating func updateAndRefresh(with value: Element, code: ()->()) {
+//        update(with: value)
+//        code()
+//    }
+//}
 
-extension Array where Element == LearningObjective {
-    mutating func updateAssessments(with assessment: Assessment, on objective: LearningObjective) {
-        
-        var newObjective = objective
-        newObjective.assessments?.append(assessment)
-        
-        updateAndRefresh(with: objective) {
-            #warning("Implement update")
-        }
-    }
-}
+//extension Array where Element == LearningObjective {
+//    mutating func updateAssessments(with assessment: Assessment, on objective: LearningObjective) {
+//
+//        var newObjective = objective
+//        newObjective.assessments?.append(assessment)
+//
+//        updateAndRefresh(with: objective) {
+//            #warning("Implement update")
+//        }
+//    }
+//}

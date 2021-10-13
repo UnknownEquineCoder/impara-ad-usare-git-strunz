@@ -16,39 +16,44 @@ struct MainScreen: View{
     @AppStorage("log_Status") var status = false
         
     var body: some View {
+        
+        // The way SSO auth decoding token was managed
 
-        if LJM.storage.user.loginKey == nil || LJM.storage.user.loginKey == "" {
-            if status {
-                ContentView()
-            } else {
-                LoginView()
-            }
-        } else {
-            // decode token
-            if status {
-                ContentView()
-            } else {
-                decodeTokenAndNavigateToView(secretToken: (LJM.Storage.shared.user.loginKey)!)
-            }
-        }
+//        if LJM.storage.user.loginKey == nil || LJM.storage.user.loginKey == "" {
+//            if status {
+//                StartView()
+//            } else {
+//                LoginView()
+//            }
+//        } else {
+//            // decode token
+//            if status {
+//                StartView()
+//            } else {
+//                decodeTokenAndNavigateToView(secretToken: (LJM.Storage.shared.user.loginKey)!)
+//            }
+//        }
+        StartView()
     }
     
     func decodeTokenAndNavigateToView(secretToken: String) -> AnyView {
         
         var viewToGo = AnyView(LoginView())
         let semaphore = DispatchSemaphore(value: 0)
+        
+        // Decode token for auth
                 
-        Webservices.decodeToken(secretToken: secretToken) { user, err in
-            if err == nil && user != nil {
-                LJM.storage.user.name = user!.name
-                LJM.storage.user.surname = user!.surname
-                viewToGo = AnyView(ContentView())
-                semaphore.signal()
-            } else {
-                viewToGo = AnyView(LoginView())
-                semaphore.signal()
-            }
-        }
+//        Webservices.decodeToken(secretToken: secretToken) { user, err in
+//            if err == nil && user != nil {
+//                LJM.storage.user.name = user!.name
+//                LJM.storage.user.surname = user!.surname
+//                viewToGo = AnyView(ContentView())
+//                semaphore.signal()
+//            } else {
+//                viewToGo = AnyView(LoginView())
+//                semaphore.signal()
+//            }
+//        }
         semaphore.wait()
         return viewToGo
     }

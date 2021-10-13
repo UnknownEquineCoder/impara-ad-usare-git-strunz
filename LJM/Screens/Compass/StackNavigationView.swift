@@ -17,21 +17,23 @@ struct StackNavigationView<RootContent, SubviewContent>: View where RootContent:
     
     var body: some View {
         VStack {
+            
             VStack{
                 if !showingSubview { // Root view
                     rootView()
                          .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .transition(AnyTransition.move(edge: .leading)).animation(.default)
+                       // .transition(AnyTransition.move(edge: .leading)).animation(.default)
                 }
                 if showingSubview { // Correct subview for current index
                     StackNavigationSubview(isVisible: self.$showingSubview) {
                         self.subviewByLabel(self.currentSubviewLabel)
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .transition(AnyTransition.move(edge: .trailing)).animation(.default)
+                  // .transition(AnyTransition.move(edge: .trailing)).animation(.default)
                 }
             }
         }
+        
     }
     
     init(currentSubviewLabel: Binding<String>, showingSubview: Binding<Bool>, @ViewBuilder subviewByLabel: @escaping (String) -> SubviewContent, @ViewBuilder rootView: @escaping () -> RootContent) {

@@ -10,19 +10,20 @@ import SwiftUI
 
 struct DropDownMenuCompass: View{
     
-    @Binding var selectedPath: LearningPaths
+    @Binding var selectedPath: String
+    var fakePaths = ["Design", "Front", "Game"]
     
-    var body: some View{
+    var body: some View {
         Menu {
-            ForEach(LearningPaths.allCases, id: \.self) { path in
+            ForEach(fakePaths, id: \.self) { path in
                 Button {
                     selectedPath = path
                 } label: {
-                    Text(path == .UI_UX ? path.rawValue.uppercased() : path.rawValue.capitalized)
+                    Text(path)
                 }
             }
         } label: {
-            Text(selectedPath == .UI_UX ? selectedPath.rawValue.uppercased() : selectedPath.rawValue.capitalized )
+            Text(selectedPath)
         }
         .frame(width: 156.toScreenSize())
     }
