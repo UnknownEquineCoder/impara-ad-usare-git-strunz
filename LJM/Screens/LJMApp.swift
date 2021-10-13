@@ -18,11 +18,16 @@ struct LJMApp: App {
     @State private var toExport = Bundle.main.path(forResource: "file", ofType: "csv")
     let file_Name = "Personal_Data.csv"
     
+    let singleton = singleton_Shared.shared
+    
     var body: some Scene {
         WindowGroup {
             // MainScreen used as a Splash screen -> redirect to Login view or Content view regarding the login status
             
             StartView()
+                .onAppear(perform: {
+                    singleton.load_Learning_Objective()
+                })
             .fileExporter(
                 isPresented: $exportFile,
                 document: Doc(url: "Documents/\(file_Name)" ),
