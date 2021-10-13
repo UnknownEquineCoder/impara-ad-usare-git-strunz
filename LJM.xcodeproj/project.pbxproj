@@ -45,6 +45,9 @@
 		96CE7BC625C4183A006C4CDA /* FilterChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CE7BC525C4183A006C4CDA /* FilterChoice.swift */; };
 		E02DFE8A270AEC3F004FF8B7 /* newModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02DFE89270AEC3F004FF8B7 /* newModels.swift */; };
 		E02DFE8C270C41E5004FF8B7 /* singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02DFE8B270C41E5004FF8B7 /* singleton.swift */; };
+		E03211312716E70E00262144 /* Rubric_Level.csv in Resources */ = {isa = PBXBuildFile; fileRef = E032112E2716E70E00262144 /* Rubric_Level.csv */; };
+		E03211322716E70E00262144 /* Learning_Objectives.csv in Resources */ = {isa = PBXBuildFile; fileRef = E032112F2716E70E00262144 /* Learning_Objectives.csv */; };
+		E03211332716E70E00262144 /* Learning_Paths.csv in Resources */ = {isa = PBXBuildFile; fileRef = E03211302716E70E00262144 /* Learning_Paths.csv */; };
 		EA139BD42640910900E15E28 /* JWTDecode in Frameworks */ = {isa = PBXBuildFile; productRef = EA139BD32640910900E15E28 /* JWTDecode */; };
 		EA5B445D262E6F23002A97C7 /* MyJourneyMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5B445C262E6F23002A97C7 /* MyJourneyMainView.swift */; };
 		EA5B4463263027ED002A97C7 /* WebviewLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5B4462263027ED002A97C7 /* WebviewLogin.swift */; };
@@ -151,6 +154,9 @@
 		96CE7BC525C4183A006C4CDA /* FilterChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterChoice.swift; sourceTree = "<group>"; };
 		E02DFE89270AEC3F004FF8B7 /* newModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = newModels.swift; sourceTree = "<group>"; };
 		E02DFE8B270C41E5004FF8B7 /* singleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = singleton.swift; sourceTree = "<group>"; };
+		E032112E2716E70E00262144 /* Rubric_Level.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Rubric_Level.csv; path = "../../../../fake data csv/Rubric_Level.csv"; sourceTree = "<group>"; };
+		E032112F2716E70E00262144 /* Learning_Objectives.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Learning_Objectives.csv; path = "../../../../fake data csv/Learning_Objectives.csv"; sourceTree = "<group>"; };
+		E03211302716E70E00262144 /* Learning_Paths.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Learning_Paths.csv; path = "../../../../fake data csv/Learning_Paths.csv"; sourceTree = "<group>"; };
 		EA5B445C262E6F23002A97C7 /* MyJourneyMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyJourneyMainView.swift; sourceTree = "<group>"; };
 		EA5B4462263027ED002A97C7 /* WebviewLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebviewLogin.swift; sourceTree = "<group>"; };
 		EA686EF8256EE4F300C121DC /* TopBarJourney.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarJourney.swift; sourceTree = "<group>"; };
@@ -262,6 +268,7 @@
 		964B662A256E6020006AB20E /* LJM */ = {
 			isa = PBXGroup;
 			children = (
+				E032112D2716E6F900262144 /* FakeData */,
 				EA5B446F26310AB9002A97C7 /* Auth */,
 				E02DFE8D270C41F4004FF8B7 /* New Backend */,
 				EACD024025D50299008D12FE /* Modifiers */,
@@ -362,6 +369,16 @@
 				E02DFE8B270C41E5004FF8B7 /* singleton.swift */,
 			);
 			path = "New Backend";
+			sourceTree = "<group>";
+		};
+		E032112D2716E6F900262144 /* FakeData */ = {
+			isa = PBXGroup;
+			children = (
+				E032112F2716E70E00262144 /* Learning_Objectives.csv */,
+				E03211302716E70E00262144 /* Learning_Paths.csv */,
+				E032112E2716E70E00262144 /* Rubric_Level.csv */,
+			);
+			path = FakeData;
 			sourceTree = "<group>";
 		};
 		EA5B446F26310AB9002A97C7 /* Auth */ = {
@@ -572,8 +589,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E03211312716E70E00262144 /* Rubric_Level.csv in Resources */,
+				E03211332716E70E00262144 /* Learning_Paths.csv in Resources */,
 				55F4D7A8266188E10080E6A2 /* README-URGENT.txt in Resources */,
 				964B6633256E6022006AB20E /* Preview Assets.xcassets in Resources */,
+				E03211322716E70E00262144 /* Learning_Objectives.csv in Resources */,
 				964B6630256E6022006AB20E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
