@@ -18,6 +18,8 @@ struct LJMApp: App {
     @State private var toExport = Bundle.main.path(forResource: "file", ofType: "csv")
     let file_Name = "Personal_Data.csv"
     
+    @State var rubric : [rubric_Level] = []
+    
     let singleton = singleton_Shared.shared
     
     var body: some Scene {
@@ -103,7 +105,6 @@ struct LJMApp: App {
             })
         })
     }
-    
     
 }
 

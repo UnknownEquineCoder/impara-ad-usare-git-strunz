@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 struct learning_Objective {
+    
     var ID : String
     var strand : String
     var goal : String
@@ -16,12 +17,14 @@ struct learning_Objective {
     var description : String
     var isCore : Bool
     var Keyword : [String]
-    var core_Rubric_Level_ID : String
+    var core_Rubric_Levels : [Int]
     var documentation : String
     
-    var isEvaluated : Bool
+//    var eval_score : [Int]
+//    var eval_date : [Date]
     
-    init(raw : [String]){
+    init(raw : [String], rubric_Levels : [Int]){
+        
         ID = raw[0]
         strand = raw[1]
         goal = raw[2]
@@ -29,9 +32,11 @@ struct learning_Objective {
         description = raw[4]
         isCore = raw[5] == "true" ? true : false
         Keyword = raw[6].components(separatedBy: "-")
-        core_Rubric_Level_ID = raw[7]
+        core_Rubric_Levels = rubric_Levels
         documentation = raw[8]
-        isEvaluated = false
+        
+//        eval_score = scores ?? []
+//        eval_date = dates ?? []
     }
 
 }

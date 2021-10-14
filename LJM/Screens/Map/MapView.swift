@@ -24,7 +24,6 @@ struct MapView: View {
     // new data flow
     
     @Binding var path : [learning_Path]
-    @Binding var rubric : [rubric_Level]
     let shared : singleton_Shared = singleton_Shared()
     
     var body: some View {
@@ -86,6 +85,7 @@ struct MapView: View {
                     //  .isHidden(totalLOs.total > 0 ? true : false)
                     
                     ScrollViewLearningObjectives(learningPathSelected: Binding.constant(nil), filteredMap: selectedFilter, isAddable: true, textFromSearchBar: searchText, selectedStrands: selectedStrands).padding(.top, 40).padding(.bottom, 50)
+                        
                     
                 }.padding(.top, 10)
                 

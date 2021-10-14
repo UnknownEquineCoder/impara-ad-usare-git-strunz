@@ -17,10 +17,10 @@ class singleton_Shared{
     }
     
     func load_Learning_Objective(){
-        var csvToStruct = [learning_Objective]()
+        var csvToStruct : [learning_Objective] = []
+        let rubric_Level = load_Learning_Rubric()
         
         guard let filePath = Bundle.main.path(forResource: "Learning_Objectives", ofType: "csv") else {
-            learning_Objectives = []
             return
         }
         
@@ -29,7 +29,6 @@ class singleton_Shared{
             data = try String(contentsOfFile: filePath)
         } catch {
             print(error)
-            learning_Objectives = []
             return
         }
         
@@ -42,10 +41,48 @@ class singleton_Shared{
             
             let csvColumns = row.components(separatedBy: ",")
             
-            let LOsStruct = learning_Objective.init(raw: csvColumns)
-            csvToStruct.append(LOsStruct)
+            if let rubric_Specific_Level = rubric_Level.first(where: {$0.ID == csvColumns[7]}) {
+                let LOsStruct = learning_Objective.init(raw: csvColumns, rubric_Levels: rubric_Specific_Level.levels)
+                csvToStruct.append(LOsStruct)
+            }
+            
         }
         learning_Objectives = csvToStruct
     }
+    
+    func load_Learning_Rubric() -> [rubric_Level]{
+        
+        var csvToStruct : [rubric_Level] = []
+        
+        guard let filePath = Bundle.main.path(forResource: "Rubric_Level", ofType: "csv") else {
+            return csvToStruct
+        }
+        
+        var data = ""
+        do {
+            data = try String(contentsOfFile: filePath)
+        } catch {
+            print(error)
+            return csvToStruct
+        }
+        
+        var rows = data.components(separatedBy: "\n")
+        
+        rows.removeFirst()
+        rows.removeLast()
+        
+        for row in rows {
+            
+            let csvColumns = row.components(separatedBy: ",")
+            
+            let LOsStruct = rubric_Level.init(raw: csvColumns)
+            csvToStruct.append(LOsStruct)
+            
+        }
+        
+        return csvToStruct
+        
+    }
+    
 }
 

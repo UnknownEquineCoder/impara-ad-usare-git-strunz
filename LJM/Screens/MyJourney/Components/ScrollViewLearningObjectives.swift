@@ -147,6 +147,8 @@ struct ScrollViewLearningObjectives: View {
                                     }
                                 }
                             }
+                            .listRowBackground(Color.green)
+                            
                     }
                 }
             }
