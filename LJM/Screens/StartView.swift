@@ -6,7 +6,6 @@ struct StartView: View {
     
     // new data flow element
     @State var path : [learning_Path] = []
-    @State var rubric : [rubric_Level] = []
     
     @ViewBuilder
     var body: some View {
@@ -44,50 +43,13 @@ struct StartView: View {
             case .journey:
                 MyJourneyMainView(selectedMenu: $selectedMenu, path: $path)
             case .map:
-                MapMainView(path: $path, rubric: $rubric)
+                MapMainView(path: $path)
             }
             
         }
         .onAppear(perform: {
-            load_Learning_Rubric()
             load_Learning_Path()
         })
-    }
-    
-    func load_Learning_Rubric(){
-        
-        var csvToStruct = [rubric_Level]()
-        
-        guard let filePath = Bundle.main.path(forResource: "Rubric_Level", ofType: "csv") else {
-            rubric = []
-            return
-        }
-        
-        var data = ""
-        do {
-            data = try String(contentsOfFile: filePath)
-        } catch {
-            print(error)
-            rubric = []
-            return
-        }
-        
-        var rows = data.components(separatedBy: "\n")
-        
-        rows.removeFirst()
-        rows.removeLast()
-        
-        for row in rows {
-            
-            let csvColumns = row.components(separatedBy: ",")
-            
-            let LOsStruct = rubric_Level.init(raw: csvColumns)
-            csvToStruct.append(LOsStruct)
-            
-        }
-        
-        rubric = csvToStruct
-        
     }
     
     func load_Learning_Path(){
