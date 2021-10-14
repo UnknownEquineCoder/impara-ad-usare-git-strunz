@@ -7,6 +7,11 @@ struct StartView: View {
     // new data flow element
     @State var path : [learning_Path] = []
     
+    @StateObject var learningPathsStore = LearningPathStore()
+    @StateObject var strandsStore = StrandsStore()
+    
+    @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
+    
     @ViewBuilder
     var body: some View {
         HStack(spacing: 0) {
@@ -40,48 +45,22 @@ struct StartView: View {
             switch selectedMenu {
             case .compass:
                 CompassView()
+                    .environmentObject(learningPathsStore)
+                    .environmentObject(strandsStore)
             case .journey:
                 MyJourneyMainView(selectedMenu: $selectedMenu, path: $path)
+                    .environmentObject(learningPathsStore)
+                    .environmentObject(strandsStore)
             case .map:
                 MapMainView(path: $path)
+                    .environmentObject(learningPathsStore)
+                    .environmentObject(strandsStore)
             }
-            
         }
         .onAppear(perform: {
-            load_Learning_Path()
+            learningPathsStore.load_Learning_Path()
+            strandsStore.setupStrandsOnFilter(learningObjective: learningObjectiveStore.learningObjectives)
         })
-    }
-    
-    func load_Learning_Path(){
-        var csvToStruct = [learning_Path]()
-        
-        guard let filePath = Bundle.main.path(forResource: "Learning_Paths", ofType: "csv") else {
-            path = []
-            return
-        }
-        
-        var data = ""
-        do {
-            data = try String(contentsOfFile: filePath)
-        } catch {
-            print(error)
-            path = []
-            return
-        }
-        
-        var rows = data.components(separatedBy: "\n")
-        
-        rows.removeFirst()
-        rows.removeLast()
-        
-        for row in rows {
-            
-            let csvColumns = row.components(separatedBy: ",")
-            
-            let LOsStruct = learning_Path.init(raw: csvColumns)
-            csvToStruct.append(LOsStruct)
-        }
-        path = csvToStruct
     }
 }
 

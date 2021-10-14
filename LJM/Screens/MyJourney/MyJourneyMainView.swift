@@ -18,11 +18,11 @@ struct MyJourneyMainView: View {
     //new data flow
     
     @Binding var path : [learning_Path]
-    
+
     var body: some View {
         ZStack(alignment: .top) {
             
-            MyJourneyView(selectedMenu: $selectedMenu, path: $path).modifier(PaddingMainSubViews())
+            MyJourneyView(selectedMenu: $selectedMenu).modifier(PaddingMainSubViews())
             
         }.background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
     }

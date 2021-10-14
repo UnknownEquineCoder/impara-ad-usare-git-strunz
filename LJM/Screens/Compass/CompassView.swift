@@ -16,10 +16,10 @@ struct CompassView: View {
     @State private var showingSubview = false
     
     // new data flow
-    let shared : singleton_Shared = singleton_Shared()
+   // let shared : singleton_Shared = singleton_Shared()
     
-    // test data
-    let sampleLOs = loadCSV(from: "Grid view")
+    @EnvironmentObject var learningPath: LearningPathStore
+    @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     
     var body: some View {
         
@@ -39,9 +39,7 @@ struct CompassView: View {
                         HStack {
                             TitleScreenView(title: "Compass")
                                 .padding(.top, 114.toScreenSize())
-                                .onTapGesture {
-                                    print(self.sampleLOs)
-                                }
+                                
                             Spacer()
                         }
                         

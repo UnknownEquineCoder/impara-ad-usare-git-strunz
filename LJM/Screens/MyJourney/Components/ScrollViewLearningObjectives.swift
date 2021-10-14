@@ -17,11 +17,12 @@ struct ScrollViewLearningObjectives: View {
     var filterChallenge: ChallengeEnum.RawValue?
     var filterCompass: CompassEnum.RawValue?
     var filterLearningGoal: String?
-    
-    let shared : singleton_Shared = singleton_Shared()
+        
+    @EnvironmentObject var learningPathStore: LearningPathStore
+    @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     
     var filteredLearningObjectives: [learning_Objective] {
-        let objectives = self.shared.learning_Objectives
+        let objectives = self.learningObjectiveStore.learningObjectives
         
         switch filterCore {
         case "Communal":
@@ -57,17 +58,17 @@ struct ScrollViewLearningObjectives: View {
     var filteredLearningObjectivesMap: [learning_Objective] {
         switch filteredMap {
         case "FULL MAP":
-            return self.shared.learning_Objectives
+            return self.learningObjectiveStore.learningObjectives
         case "COMMUNAL":
-            return self.shared.learning_Objectives
+            return self.learningObjectiveStore.learningObjectives
                 .filter { $0.isCore }
         case "ELECTIVE":
-            return self.shared.learning_Objectives
+            return self.learningObjectiveStore.learningObjectives
                 .filter { !($0.isCore) }
         case let filterPathsTab:
             if filterPathsTab != nil {
 //                return sortLearningObjectivesMap(learningPaths: self.shared.learning_Objectives, selectedPath: filterPathsTab!)
-                return self.shared.learning_Objectives
+                return self.learningObjectiveStore.learningObjectives
             } else {
                 return filteredChallenges
             }
@@ -79,7 +80,7 @@ struct ScrollViewLearningObjectives: View {
         case let filterChallengeTab:
             if filterChallengeTab != nil {
 //                return sortLearningObjectivesByChallenge(challenges: self.shared.learning_Objectives, selectedChallenge: filterChallengeTab!)
-                return self.shared.learning_Objectives
+                return self.learningObjectiveStore.learningObjectives
             } else {
                 return filteredCompass
             }
@@ -297,7 +298,7 @@ struct ScrollViewLearningObjectives: View {
         
         var arrayOfLearningObjectives : [learning_Objective] = [learning_Objective]()
                 
-        for learningObj in self.shared.learning_Objectives {
+        for learningObj in self.learningObjectiveStore.learningObjectives {
             if learningObj.goal == learningGoal {
                 arrayOfLearningObjectives.append(learningObj)
             }

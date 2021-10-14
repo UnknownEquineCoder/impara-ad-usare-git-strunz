@@ -15,6 +15,23 @@ class singleton_Shared{
     func comunal_Data_Graph(){
         let data_To_Output : [Int] = []
     }
+}
+
+class TotalNumberLearningObjectives: ObservableObject {
+    @Published var total: Int = 0
+    @Published var changeViewTotal: Int = 0
+}
+
+class LearningObjectivesStore: ObservableObject {
+    @Published var learningObjectives = [learning_Objective]()
+
+    func addItem(_ item: learning_Objective) {
+        learningObjectives.append(item)
+    }
+
+    func removeItem(_ item: learning_Objective) {
+        learningObjectives.remove(object: item)
+    }
     
     func load_Learning_Objective(){
         var csvToStruct : [learning_Objective] = []
@@ -47,7 +64,7 @@ class singleton_Shared{
             }
             
         }
-        learning_Objectives = csvToStruct
+        learningObjectives = csvToStruct
     }
     
     func load_Learning_Rubric() -> [rubric_Level]{
@@ -86,3 +103,58 @@ class singleton_Shared{
     
 }
 
+class LearningPathStore: ObservableObject {
+    @Published var learningPaths = [learning_Path]()
+    
+    func addItem(_ item: learning_Path) {
+        learningPaths.append(item)
+    }
+    
+    func load_Learning_Path(){
+        var csvToStruct = [learning_Path]()
+        
+        guard let filePath = Bundle.main.path(forResource: "Learning_Paths", ofType: "csv") else {
+            learningPaths = []
+            return
+        }
+        
+        var data = ""
+        do {
+            data = try String(contentsOfFile: filePath)
+        } catch {
+            print(error)
+            learningPaths = []
+            return
+        }
+        
+        var rows = data.components(separatedBy: "\n")
+        
+        rows.removeFirst()
+        rows.removeLast()
+        
+        for row in rows {
+            
+            let csvColumns = row.components(separatedBy: ",")
+            
+            let LOsStruct = learning_Path.init(raw: csvColumns)
+            csvToStruct.append(LOsStruct)
+        }
+        learningPaths = csvToStruct
+    }
+}
+
+class StrandsStore: ObservableObject {
+    @Published var strands = [String]()
+    var arrayStrandsFilter = [FilterChoice]()
+
+    func addItem(_ item: String) {
+        strands.append(item)
+    }
+    
+    func setupStrandsOnFilter(learningObjective: [learning_Objective]) {
+        
+        for learningObjective in learningObjective {
+            arrayStrandsFilter.append(FilterChoice(descriptor: learningObjective.strand))
+        }
+    }
+}

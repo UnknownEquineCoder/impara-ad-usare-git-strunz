@@ -22,13 +22,15 @@ struct LJMApp: App {
     
     let singleton = singleton_Shared.shared
     
+    @StateObject var learningObjectiveStore = LearningObjectivesStore()
+    
     var body: some Scene {
         WindowGroup {
             // MainScreen used as a Splash screen -> redirect to Login view or Content view regarding the login status
             
             StartView()
                 .onAppear(perform: {
-                    singleton.load_Learning_Objective()
+                    learningObjectiveStore.load_Learning_Objective()
                 })
             .fileExporter(
                 isPresented: $exportFile,
@@ -65,6 +67,7 @@ struct LJMApp: App {
                     print("File Import Failed")
                 }
             }
+            .environmentObject(learningObjectiveStore)
         }
         
         

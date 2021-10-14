@@ -25,8 +25,10 @@ struct MyJourneyView: View {
     
     // new data flow
     
-    @Binding var path : [learning_Path]
-    let shared : singleton_Shared = singleton_Shared()
+    @EnvironmentObject var learningPathStore: LearningPathStore
+    @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
+    @EnvironmentObject var strandsStore: StrandsStore
+
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -50,7 +52,7 @@ struct MyJourneyView: View {
                 DropDownMenuSort()
                     .buttonStyle(PlainButtonStyle())
                 
-                DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: setupStrandsOnFilter())
+                DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: strandsStore.arrayStrandsFilter)
                     .buttonStyle(PlainButtonStyle())
                 
                 SearchBarExpandableJourney(txtSearchBar: $searchText)
@@ -76,17 +78,6 @@ struct MyJourneyView: View {
     
     func calculateAllLearningObjectives(learningPath: [learning_Path]) -> Int {
         return 10
-    }
-    
-    func setupStrandsOnFilter() -> [FilterChoice] {
-        
-        var arrayStrandsFilter = [FilterChoice]()
-        
-        for learningObjective in self.shared.learning_Objectives {
-            arrayStrandsFilter.append(FilterChoice(descriptor: learningObjective.strand))
-        }
-                
-        return arrayStrandsFilter
     }
 }
 
@@ -119,8 +110,8 @@ struct ListViewLearningObjectiveMyJourney: View {
     @Binding var selectedStrands : [String]
     @Binding var selectedMenu: OutlineMenu
     
-    let shared : singleton_Shared = singleton_Shared()
-            
+    @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
+
     var body: some View {
         
         if !checkIfMyJourneyIsEmpty() {
@@ -143,7 +134,7 @@ struct ListViewLearningObjectiveMyJourney: View {
     
     func checkIfMyJourneyIsEmpty() -> Bool {
         var isEmpty = true
-        if self.shared.learning_Objectives.isEmpty {
+        if self.learningObjectiveStore.learningObjectives.isEmpty {
             isEmpty = true
         } else {
             isEmpty = false
