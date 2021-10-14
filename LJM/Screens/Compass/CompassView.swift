@@ -40,9 +40,7 @@ struct CompassView: View {
                     HStack {
                         TitleScreenView(title: "Compass")
                             .padding(.top, 114.toScreenSize())
-                            .onTapGesture {
-                                print(self.sampleLOs)
-                            }
+                            
                         Spacer()
                     }
                     
