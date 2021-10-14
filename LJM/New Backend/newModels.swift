@@ -39,7 +39,7 @@ struct learning_Objective {
 struct learning_Path {
     var title : String
     var learning_Objective_IDs : [String]
-    
+   
     init(raw : [String]){
         title = raw[0]
         learning_Objective_IDs = raw[1].components(separatedBy: "-")
@@ -58,8 +58,7 @@ struct rubric_Level {
     
     init(raw : [String]){
         ID = raw[0]
-        levels = []
-        
+        levels = [] 
         for index in 1...raw.count-1 {
             levels.append(Int(raw[index]) ?? 0)
         }
