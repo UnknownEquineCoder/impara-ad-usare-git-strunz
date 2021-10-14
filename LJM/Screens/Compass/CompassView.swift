@@ -14,6 +14,8 @@ struct CompassView: View {
     
     @State private var currentSubviewLabel = ""
     @State private var showingSubview = false
+    
+    @State var data_Array : [CGFloat] = [20,40,60,80,100]
         
     // new data flow
     let shared : singleton_Shared = singleton_Shared()
@@ -56,7 +58,7 @@ struct CompassView: View {
                         
                         HStack{
                             VStack{
-                            GraphWithOverlay()
+                                GraphWithOverlay( data_Array: $data_Array)
                                 .frame(width: 395, height: 395)
                                 .padding(.all, 45)
                                 .padding(.bottom, 9)
@@ -69,7 +71,7 @@ struct CompassView: View {
                                 .offset(y: -50)
                             }
                             VStack{
-                                GraphWithOverlay()
+                                GraphWithOverlay( data_Array: $data_Array)
                                     .frame(width: 395, height: 395)
                                     .padding(.top, 45)
                                     .padding(.leading, 45)
