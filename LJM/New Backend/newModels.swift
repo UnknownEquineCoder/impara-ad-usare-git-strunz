@@ -20,8 +20,8 @@ struct learning_Objective : Equatable {
     var core_Rubric_Levels : [Int]
     var documentation : String
     
-//    var eval_score : [Int]
-//    var eval_date : [Date]
+    var eval_score : [Int]
+    var eval_date : [Date]
     
     init(raw : [String], rubric_Levels : [Int]){
         
@@ -35,8 +35,8 @@ struct learning_Objective : Equatable {
         core_Rubric_Levels = rubric_Levels
         documentation = raw[8]
         
-//        eval_score = scores ?? []
-//        eval_date = dates ?? []
+        eval_score = []
+        eval_date = []
     }
 
 }
