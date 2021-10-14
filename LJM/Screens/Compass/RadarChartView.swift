@@ -3,6 +3,7 @@ import Shapes
 
 struct GraphWithOverlay: View {
     @Environment(\.colorScheme) var colorScheme
+    @Binding var data_Array : [CGFloat]
     
     let shared : singleton_Shared = singleton_Shared()
 
@@ -11,7 +12,7 @@ struct GraphWithOverlay: View {
             ZStack {
                 colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : Color.white
                 
-                RadarChart(provider: GraphDataProvider.from_API(type: .core), gridColor: Color.gray)
+                RadarChart(gridColor: Color.gray, data_Array: $data_Array)
                 
                 RadarGraphFrame()
                 
@@ -103,21 +104,6 @@ struct RadarChartPath: Shape {
     }
 }
 
-struct GraphWithOverlayAndBackground: View {
-    
-    @Environment(\.colorScheme) var colorScheme
-    var body: some View {
-        GeometryReader { geo in
-            ZStack {
-                (colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : Color.white)
-                    .frame(width: geo.size.width, height: geo.size.height)
-                
-                GraphWithOverlay()
-                    .frame(width: geo.size.width*0.7, height: geo.size.height*0.7)
-            }
-        }
-    }
-}
 
 extension RadialGradient {
     static func frontGraph(size: CGFloat) -> RadialGradient  {
@@ -136,59 +122,6 @@ extension RadialGradient {
 extension Color {
     static let back_graph: Color = Color(red: 120/255, green: 224/255, blue: 144/255)
     static let front_graph: Color = Color(red: 104/255, green: 194/255, blue: 189/255)
-}
-
-struct GraphDataProvider {
-    var type: GraphTypes
-    var front_data: [CGFloat]
-    var back_data: [CGFloat]
-    
-    private init(_ front_data: [CGFloat], _ back_data: [CGFloat], type: GraphTypes) {
-        self.front_data = front_data
-        self.back_data = back_data
-        self.type = type
-    }
-    
-    static func placeholder(type: GraphTypes) -> GraphDataProvider {
-        return GraphDataProvider([10, 20, 30, 40, 50], [60, 70, 80, 90, 100], type: type)
-    }
-    
-    static func from_API(type: GraphTypes) -> GraphDataProvider {
-        
-        let shared : singleton_Shared = singleton_Shared()
-        let Strands = ["UI", "Business", "Design", "Professional"]
-
-        var data = [CGFloat]()
-        #warning("TODO: REWORK WITH NEW DATA STRUCTURE")
-        // we filter the data based on core vs elective
-        let unrefined_data = shared.learning_Objectives.filter { $0.isCore == (type == .core) }
-
-        for strand in Strands {
-            // we take 1 strand per iteration
-            let strand_data = unrefined_data.filter { $0.strand ?? "" == strand }
-            // we remove nil scores and only take into account
-            // the most recent change
-          //  let last_scores = strand_data.compactMap { $0.assessments?.last?.score }
-            let last_scores = strand_data.compactMap { _ in Int.random(in: 0...100) }
-
-            // we get the total of the scores
-            let strand_sum = CGFloat(last_scores.reduce(0, +))
-            // we append the total to the array
-            data.append(strand_sum)
-        }
-        return GraphDataProvider(data, (1...5).map( {_ in CGFloat(Int.random(in: 20...99))} ), type: type)
-    }
-    
-    func max() -> CGFloat {
-        let shared : singleton_Shared = singleton_Shared()
-
-        return Swift.max(CGFloat(shared.learning_Objectives.filter { $0.isCore == (type == .core) }.count) * 5, CGFloat(100))
-    }
-    
-    enum GraphTypes {
-        case core
-        case elective
-    }
 }
 
 struct RadarCompositeGrid: View {
@@ -210,9 +143,10 @@ struct RadarCompositeGrid: View {
 }
 
 struct RadarChart: View {
-    @State var provider: GraphDataProvider
     let gridColor: Color
     @Environment(\.colorScheme) var colorScheme
+    
+    @Binding var data_Array : [CGFloat]
     
     var body: some View {
         ZStack {
@@ -222,28 +156,16 @@ struct RadarChart: View {
                     .frame(width: geo.size.width, height: geo.size.height)
                     .scaleEffect(0.8)
                 
-                RadarChartGrid(categories: provider.back_data.count, divisions: 5, size: geo.size.width)
+                RadarChartGrid(categories: data_Array.count, divisions: 5, size: geo.size.width)
                     .stroke(gridColor, lineWidth: 1.toScreenSize())
                 
-                RadarCompositeGrid(size: geo.size.width, data: provider.back_data, b_color: Color.back_graph, f_color: RadialGradient.backGraph(size: geo.size.width), max: CGFloat(provider.max()))
+                RadarCompositeGrid(size: geo.size.width, data: data_Array, b_color: Color.back_graph, f_color: RadialGradient.backGraph(size: geo.size.width), max: CGFloat(100))
 
-                RadarCompositeGrid(size: geo.size.width, data: provider.front_data, b_color: Color.front_graph, f_color: RadialGradient.frontGraph(size: geo.size.width), max: CGFloat(provider.max()))
+//                RadarCompositeGrid(size: geo.size.width, data: provider.front_data, b_color: Color.front_graph, f_color: RadialGradient.frontGraph(size: geo.size.width), max: CGFloat(100))
             }
         }
     }
 }
-
-struct RadarChartView_Previews: PreviewProvider {
-    static var previews: some View {
-        GraphWithOverlayAndBackground()
-            .frame(width: 500, height: 500)
-    }
-}
-
-
-
-
-
 
 
 extension Array where Element: Identifiable {
