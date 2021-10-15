@@ -126,6 +126,7 @@ struct ListViewLearningObjectiveMyJourney: View {
                     
                 
                 ScrollViewLearningObjectives(learningPathSelected: $selectedPath, filterCore: selectedFilter, isAddable: false, textFromSearchBar: txtSearchBar, selectedStrands: selectedStrands)
+                
             }
         } else {
             EmptyLearningObjectiveViewJourney(selectedMenu: $selectedMenu)

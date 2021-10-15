@@ -33,6 +33,11 @@ class LearningObjectivesStore: ObservableObject {
         learningObjectives.remove(object: item)
     }
     
+    func evaluate_Object(index : Int, evaluation : Int, date : Date ){
+        learningObjectives[index].eval_date.append(date)
+        learningObjectives[index].eval_score.append(evaluation)
+    }
+    
     func load_Learning_Objective(){
         var csvToStruct : [learning_Objective] = []
         let rubric_Level = load_Learning_Rubric()

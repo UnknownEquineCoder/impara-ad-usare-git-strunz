@@ -20,7 +20,8 @@ struct MyJourneyMainView: View {
     var body: some View {
         ZStack(alignment: .top) {
             
-            MyJourneyView(selectedMenu: $selectedMenu).modifier(PaddingMainSubViews())
+            MyJourneyView(selectedMenu: $selectedMenu)
+                .modifier(PaddingMainSubViews())
             
         }.background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
     }

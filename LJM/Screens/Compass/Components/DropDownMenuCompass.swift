@@ -11,6 +11,7 @@ import SwiftUI
 struct DropDownMenuCompass: View{
     
     @Binding var selectedPath: String
+    var fakePaths : [String]
     
     @EnvironmentObject var learningPathStore: LearningPathStore
 
