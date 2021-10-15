@@ -127,33 +127,65 @@ struct ScrollViewLearningObjectives: View {
     var selectedStrands: [String]
     
     var body: some View {
-        List(filteredLearningObjectives, id: \.ID) { item in
-            if textFromSearchBar.isEmpty || (item.goal.lowercased().contains(textFromSearchBar.lowercased())) || ((item.description.lowercased().contains(textFromSearchBar.lowercased()))) {
-                if let strand = item.strand {
-                    if self.selectedStrands.contains(strand) || self.selectedStrands.count == 0 {
-                        LearningObjectiveJourneyCell(rating: checkIfLOonMyJourney() ? 1 : 0, isRatingView: true, isAddable: isAddable, isLearningGoalAdded: self.filterLearningGoal != nil ? true : nil, learningPathSelected: self.$learningPathSelected, learningObj: item)
-                            .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
-                            .contextMenu {
-                                if !isAddable {
-                                    Button {
-                                        
-//                                           // Delete learning objective from my journey
-                                //        Webservices.deleteLearningObjectiveFromStudentJourney(id: item.id) { (deletedLearningObj, err) in
-                                                //  self.studentLearningObjectivesStore.removeItem(item)
-//                                                storage.studentLearningObjectives.remove(object: item)
-//                                            }
-                                        
-                                    } label: {
-                                        Text("Delete")
+        ScrollView{
+            LazyVStack {
+                ForEach(filteredLearningObjectives, id: \.ID) { item in
+                    if textFromSearchBar.isEmpty || (item.goal.lowercased().contains(textFromSearchBar.lowercased())) || ((item.description.lowercased().contains(textFromSearchBar.lowercased()))) {
+                        if let strand = item.strand {
+                            if self.selectedStrands.contains(strand) || self.selectedStrands.count == 0 {
+                                LearningObjectiveJourneyCell(rating: checkIfLOonMyJourney() ? 1 : 0, isRatingView: true, isAddable: isAddable, isLearningGoalAdded: self.filterLearningGoal != nil ? true : nil, learningPathSelected: self.$learningPathSelected, learningObj: item)
+                                    .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
+                                    .contextMenu {
+                                        if !isAddable {
+                                            Button {
+                                                
+        //                                           // Delete learning objective from my journey
+                                        //        Webservices.deleteLearningObjectiveFromStudentJourney(id: item.id) { (deletedLearningObj, err) in
+                                                        //  self.studentLearningObjectivesStore.removeItem(item)
+        //                                                storage.studentLearningObjectives.remove(object: item)
+        //                                            }
+                                                
+                                            } label: {
+                                                Text("Delete")
+                                            }
+                                        }
                                     }
-                                }
+                                    
                             }
-                            .listRowBackground(Color.green)
-                            
+                        }
                     }
                 }
-            }
+            }.padding(.vertical, 20)
         }
+        
+        
+//        List(filteredLearningObjectives, id: \.ID) { item in
+//            if textFromSearchBar.isEmpty || (item.goal.lowercased().contains(textFromSearchBar.lowercased())) || ((item.description.lowercased().contains(textFromSearchBar.lowercased()))) {
+//                if let strand = item.strand {
+//                    if self.selectedStrands.contains(strand) || self.selectedStrands.count == 0 {
+//                        LearningObjectiveJourneyCell(rating: checkIfLOonMyJourney() ? 1 : 0, isRatingView: true, isAddable: isAddable, isLearningGoalAdded: self.filterLearningGoal != nil ? true : nil, learningPathSelected: self.$learningPathSelected, learningObj: item)
+//                            .background(Color.purple)
+////                            .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
+//                            .contextMenu {
+//                                if !isAddable {
+//                                    Button {
+//
+////                                           // Delete learning objective from my journey
+//                                //        Webservices.deleteLearningObjectiveFromStudentJourney(id: item.id) { (deletedLearningObj, err) in
+//                                                //  self.studentLearningObjectivesStore.removeItem(item)
+////                                                storage.studentLearningObjectives.remove(object: item)
+////                                            }
+//
+//                                    } label: {
+//                                        Text("Delete")
+//                                    }
+//                                }
+//                            }
+//
+//                    }
+//                }
+//            }
+//        }
         
         // way to change total number of objective number over the scroll view
         

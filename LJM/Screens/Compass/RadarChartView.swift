@@ -3,7 +3,8 @@ import Shapes
 
 struct GraphWithOverlay: View {
     @Environment(\.colorScheme) var colorScheme
-    @Binding var data_Array : [CGFloat]
+    @Binding var data_Front_Array : [CGFloat]
+    @Binding var data_Back_Array : [CGFloat]
     
     let shared : singleton_Shared = singleton_Shared()
 
@@ -12,7 +13,7 @@ struct GraphWithOverlay: View {
             ZStack {
                 colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : Color.white
                 
-                RadarChart(gridColor: Color.gray, data_Array: $data_Array)
+                RadarChart(gridColor: Color.gray, data_Front_Array: $data_Front_Array, data_Back_Array: $data_Back_Array)
                 
                 RadarGraphFrame()
                 
@@ -146,7 +147,8 @@ struct RadarChart: View {
     let gridColor: Color
     @Environment(\.colorScheme) var colorScheme
     
-    @Binding var data_Array : [CGFloat]
+    @Binding var data_Front_Array : [CGFloat]
+    @Binding var data_Back_Array : [CGFloat]
     
     var body: some View {
         ZStack {
@@ -156,12 +158,12 @@ struct RadarChart: View {
                     .frame(width: geo.size.width, height: geo.size.height)
                     .scaleEffect(0.8)
                 
-                RadarChartGrid(categories: data_Array.count, divisions: 5, size: geo.size.width)
+                RadarChartGrid(categories: data_Front_Array.count, divisions: 5, size: geo.size.width)
                     .stroke(gridColor, lineWidth: 1.toScreenSize())
                 
-                RadarCompositeGrid(size: geo.size.width, data: data_Array, b_color: Color.back_graph, f_color: RadialGradient.backGraph(size: geo.size.width), max: CGFloat(100))
+                RadarCompositeGrid(size: geo.size.width, data: data_Front_Array, b_color: Color.back_graph, f_color: RadialGradient.backGraph(size: geo.size.width), max: CGFloat(100))
 
-//                RadarCompositeGrid(size: geo.size.width, data: provider.front_data, b_color: Color.front_graph, f_color: RadialGradient.frontGraph(size: geo.size.width), max: CGFloat(100))
+                RadarCompositeGrid(size: geo.size.width, data: data_Back_Array, b_color: Color.front_graph, f_color: RadialGradient.frontGraph(size: geo.size.width), max: CGFloat(100))
             }
         }
     }
