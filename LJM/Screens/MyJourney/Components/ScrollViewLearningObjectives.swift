@@ -120,11 +120,11 @@ struct ScrollViewLearningObjectives: View {
     var body: some View {
         ScrollView{
             LazyVStack {
-                ForEach(filteredLearningObjectives, id: \.ID) { item in
+                ForEach(filteredLearningObjectivesMyJourney, id: \.ID) { item in
                     if textFromSearchBar.isEmpty || (item.goal.lowercased().contains(textFromSearchBar.lowercased())) || ((item.description.lowercased().contains(textFromSearchBar.lowercased()))) {
                         if let strand = item.strand {
                             if self.selectedStrands.contains(strand) || self.selectedStrands.count == 0 {
-                                LearningObjectiveJourneyCell(rating: checkIfLOonMyJourney() ? 1 : 0, isRatingView: true, isAddable: isAddable, isLearningGoalAdded: self.filterLearningGoal != nil ? true : nil, learningPathSelected: self.$learningPathSelected, learningObj: item)
+                                LearningObjectiveJourneyCell(rating: item.eval_score.last ?? 0, isRatingView: true, isAddable: isAddable, isLearningGoalAdded: self.filterLearningGoal != nil ? true : nil, learningPathSelected: self.$learningPathSelected, learningObj: item)
                                     .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
                                     .contextMenu {
                                         if !isAddable {
@@ -148,6 +148,11 @@ struct ScrollViewLearningObjectives: View {
                 }
             }.padding(.vertical, 20)
         }
+        
+    
+        
+        
+        
         
         
 //        List(filteredLearningObjectives, id: \.ID) { item in
