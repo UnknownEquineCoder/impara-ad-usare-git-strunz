@@ -11,15 +11,16 @@ import SwiftUI
 struct DropDownMenuCompass: View{
     
     @Binding var selectedPath: String
-    var fakePaths = ["Design", "Front", "Game"]
     
+    @EnvironmentObject var learningPathStore: LearningPathStore
+
     var body: some View {
         Menu {
-            ForEach(fakePaths, id: \.self) { path in
+            ForEach(learningPathStore.learningPaths, id: \.title) { path in
                 Button {
-                    selectedPath = path
+                    selectedPath = path.title
                 } label: {
-                    Text(path)
+                    Text(path.title)
                 }
             }
         } label: {

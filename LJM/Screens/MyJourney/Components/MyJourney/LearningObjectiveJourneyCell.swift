@@ -18,18 +18,17 @@ struct LearningObjectiveJourneyCell: View {
             ZStack(alignment: .topLeading) {
                 Rectangle()
                     .frame(width: 20, alignment: .topLeading)
-//                    .foregroundColor(setupColor(darkMode: colorScheme == .dark, strand: Strands(rawValue: learningObj.strand ?? "") ?? .TECHNICAL))
-                    .foregroundColor(Color.red)
-
+                //                    .foregroundColor(setupColor(darkMode: colorScheme == .dark, strand: Strands(rawValue: learningObj.strand ?? "") ?? .TECHNICAL))
+                    .foregroundColor(Color.customCyan)
+                
                 VStack {
                     HStack(alignment: .top) {
                         VStack(alignment: .leading, spacing: 8) {
-                            Text(learningObj.strand.uppercased() ?? "No strand")
-//                                .foregroundColor(setupColor(darkMode: colorScheme == .dark, strand: Strands(rawValue: learningObj.strand ?? "") ?? .TECHNICAL))
-                                .foregroundColor(Color.yellow)
-                                .font(.system(size: 20, weight: .semibold, design: .rounded))
+                            Text(learningObj.strand.uppercased())
+                                .foregroundColor(Color.customLightGrey)
+                                .font(.system(size: learningObj.strand.count > 15 ? 15 : 20, weight: .semibold, design: .rounded))
                                 .lineLimit(2)
-                            Text(learningObj.goal.uppercased() ?? "No title")
+                            Text(learningObj.goal_Short.uppercased())
                                 .foregroundColor(colorScheme == .dark ? Color(red: 255/255, green: 255/255, blue: 255/255) : Color.customDarkGrey)
                                 .font(.system(size: 22.toFontSize(), weight: .light))
                                 .lineLimit(2)
@@ -38,17 +37,17 @@ struct LearningObjectiveJourneyCell: View {
                                 .font(.system(size: 22.toFontSize(), weight: .light))
                                 .lineLimit(2)
                         }.frame(width: 150, alignment: .leading).padding(.leading, 20).padding(.top, 15)
-
+                        
                         Spacer().frame(width: 100)
-
-                        Text(learningObj.description ?? "No description")
+                        
+                        Text(learningObj.description)
                             .foregroundColor(colorScheme == .dark ? Color(red: 224/255, green: 224/255, blue: 224/255) : Color.customLightBlack)
                             .font(.system(size: 24.toFontSize(), weight: .regular))
                             .frame(maxWidth: 639.toScreenSize(), maxHeight: .infinity, alignment: .leading)
                             .lineLimit(self.expand ? nil : 4).padding()
-
+                        
                         Spacer()
-
+                        
                         if self.isLearningGoalAdded != nil {
                             if self.isLearningGoalAdded! {
                                 RatingView(learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
@@ -71,51 +70,52 @@ struct LearningObjectiveJourneyCell: View {
                             }
                         }
                     }.padding(.leading, 20)
-                    .frame(maxHeight: .infinity, alignment: .center)
-
+                        .frame(maxHeight: .infinity, alignment: .center)
+                    
                     HStack {
                         VStack(alignment: .leading, spacing: 20) {
                             Divider().background(Color(red: 70/255, green: 70/255, blue: 70/255)).padding(.trailing, 60)
-
+                            
                             HStack {
                                 Text("KEYWORDS").foregroundColor(Color.customDarkGrey)
                                     .font(.system(size: 17, weight: .light))
                                     .frame(width: 150, alignment: .leading)
-
+                                
                                 Spacer()
-
-                                Text("#\(learningObj.Keyword.joined(separator: " #") ?? "")")
+                                
+                                Text("#\(learningObj.Keyword.joined(separator: " #"))")
                                     .foregroundColor(Color.customLightBlack)
                                     .font(.system(size: 16, weight: .medium))
                                     .lineLimit(4)
                                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                                     .padding(.leading, 110).padding(.trailing, 50)
                                     .frame(height: 50)
-
+                                
                                 Spacer()
                             }
-
+                            
                             Divider().background(Color(red: 70/255, green: 70/255, blue: 70/255)).padding(.trailing, 60)
-
+                            
                             HStack {
                                 Text("HISTORY").foregroundColor(Color.customDarkGrey).font(.system(size: 17, weight: .light)).frame(width: 150, alignment: .leading)
                                 Spacer().frame(width: 100)
-                                    ScrollView(.horizontal, showsIndicators: false) {
-                                        HStack(spacing: 10) {
-//                                            ForEach((learningObj.assessments ?? [Assessment]())!) { item in
-//                                              //  if item == learningObj.assessments?.last || item == learningObj.assessments?.first {
-//
-//                                             //   } else {
-//                                                if item == learningObj.assessments?.last {
-//                                                    HistoryProgressView(assessment: item, isDeletable: true, learningObj: self.learningObj)
-//                                                } else {
-//                                                    HistoryProgressView(assessment: item, learningObj: self.learningObj)
-//                                                }
-//                                             //  }
-//                                            }
+                                ScrollView(.horizontal, showsIndicators: false) {
+                                    HStack(spacing: 10) {
+                                        
+                                        ForEach(learningObj.eval_score, id: \.self) { item in
+                                            if item == learningObj.eval_score.first || learningObj.eval_score.count < 2 {
+                                                
+                                            } else {
+                                                if item == learningObj.eval_score.last {
+                                                    HistoryProgressView(isDeletable: true, learningObj: self.learningObj)
+                                                } else {
+                                                    HistoryProgressView(learningObj: self.learningObj)
+                                                }
+                                            }
                                         }
                                     }
-//
+                                }
+                                
                                 Spacer().frame(width: 50)
                             }
                         }.padding(.leading, 40).padding(.bottom, 50)
@@ -124,32 +124,32 @@ struct LearningObjectiveJourneyCell: View {
                     .padding(.trailing, 250)
                     .isHidden(self.expand ? false : true)
                 }
-
+                
                 VStack(alignment: .center, spacing: 5) {
                     Spacer().frame(height: 200)
-//                    Text(setupTitleProgressRubric(value: learningObj.assessments?.first?.score ?? 0))
-//                        .font(.system(size: 15, weight: .medium))
-//                        .foregroundColor(Color.customCyan)
-//                    Text(setupDescProgressOnRubric(value: learningObj.assessments?.first?.score ?? 0))
-//                        .font(.system(size: 10, weight: .medium))
-//                        .foregroundColor(Color.customDarkGrey)
-//                        .multilineTextAlignment(.center)
-//                        .lineLimit(nil)
-//                        .fixedSize(horizontal: false, vertical: true)
-//                        .frame(width: 200)
+                    //                    Text(setupTitleProgressRubric(value: learningObj.assessments?.first?.score ?? 0))
+                    //                        .font(.system(size: 15, weight: .medium))
+                    //                        .foregroundColor(Color.customCyan)
+                    //                    Text(setupDescProgressOnRubric(value: learningObj.assessments?.first?.score ?? 0))
+                    //                        .font(.system(size: 10, weight: .medium))
+                    //                        .foregroundColor(Color.customDarkGrey)
+                    //                        .multilineTextAlignment(.center)
+                    //                        .lineLimit(nil)
+                    //                        .fixedSize(horizontal: false, vertical: true)
+                    //                        .frame(width: 200)
                 }.frame(width: 260, height: 100, alignment: .center)
-                .isHidden(self.isAddable ? true : false)
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
-                .isHidden(self.expand ? false : true)
-
+                    .isHidden(self.isAddable ? true : false)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+                    .isHidden(self.expand ? false : true)
+                
                 HStack {
                     Divider()
-                         .background(Color(red: 70/255, green: 70/255, blue: 70/255)).padding(.top, 20).padding(.bottom, 20).padding(.trailing, 250)
+                        .background(Color(red: 70/255, green: 70/255, blue: 70/255)).padding(.top, 20).padding(.bottom, 20).padding(.trailing, 250)
                         .isHidden(self.isRatingView ? false : true)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .trailing)
                 .zIndex(1)
-
+                
                 Image(systemName: self.expand ? "chevron.up" : "chevron.down")
                     .font(.system(size: 20, weight: .bold))
                     .foregroundColor(Color.customCyan)
@@ -161,9 +161,9 @@ struct LearningObjectiveJourneyCell: View {
         .background(colorScheme == .dark ? Color(red: 50/255, green: 50/255, blue: 50/255) : Color.customLightGrey)
         .cornerRadius(14)
         .onTapGesture {
-        //    withAnimation {       // TEMPORARY REMOVED BECAUSE OF UI SMALL LEFT RECTANGLE VIEW GLITCHED
-                self.expand.toggle()
-//            }
+            //    withAnimation {       // TEMPORARY REMOVED BECAUSE OF UI SMALL LEFT RECTANGLE VIEW GLITCHED
+            self.expand.toggle()
+            //            }
         }
     }
     
@@ -209,12 +209,12 @@ struct LearningObjectiveJourneyCell: View {
         }
     }
     
-//    func setupColor(darkMode: Bool, strand: Strands) -> Color {
-        
-//        return strand.toColor(dark: darkMode)
-//
-//
-//    }
+    //    func setupColor(darkMode: Bool, strand: Strands) -> Color {
+    
+    //        return strand.toColor(dark: darkMode)
+    //
+    //
+    //    }
 }
 
 struct AnimatingCellHeight: AnimatableModifier {

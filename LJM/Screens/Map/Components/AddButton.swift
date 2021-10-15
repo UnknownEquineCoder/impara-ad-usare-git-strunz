@@ -13,9 +13,7 @@ import Combine
 struct AddButton: View {
     var learningObjectiveSelected: learning_Objective
     
-    let shared : singleton_Shared = singleton_Shared()
-
-    var objectives = singleton_Shared().learning_Objectives
+    @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     
     var buttonSize: CGFloat
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -24,14 +22,12 @@ struct AddButton: View {
         didSet {
             if counter <= 0 {
                 didTap = false
-                print("Tieni le corna")
             }
         }
     }
     
     var body: some View {
         VStack{
-            
             
             CountDownWrapper<AddLabelView>()
                 .opacity(didTap ? 1 : 0)
@@ -41,38 +37,29 @@ struct AddButton: View {
                 self.didTap.toggle()
             }){
                 ZStack {
-                    if !checkStudentContainsLearningObjective(learningObjectiveId: self.learningObjectiveSelected.ID) {
-                        if didTap == false{
+                    if learningObjectiveSelected.eval_score.isEmpty {
+                        let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObjectiveSelected.ID})!
+                        
+                        if didTap == false {
                             Image(systemName: "plus.circle")
                                 .resizable()
                                 .foregroundColor(Color("customCyan"))
                                 .onTapGesture {
                                     
-//                                    var learningObj = Stores.learningObjectives.rawData.first(where:  { $0.id == self.learningObjectiveSelected.id } )
-//
-//                                    learningObj?.addAssessment(LJM.Models.Assessment(id: "\(UUID())", score: 0, date: "\(Date())", learningObjectiveId: learningObjectiveSelected.id, learnerId: ""))
                                     
-                                    // Add item to my journey list
-//                                    self.studentLearningObj.addItem(learningObjectiveSelected)
-
+                                    self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.append(0)
                                     
                                     self.didTap.toggle()
+                                    
                                 }
-                        }else{
+                        } else {
                             Image(systemName: "checkmark.circle.fill")
                                 .resizable()
                                 .foregroundColor(Color("customCyan"))
                                 .onTapGesture {
                                     // remove item from the learning objective list
                                     
-//                                    self.studentLearningObj.removeItem(learningObjectiveSelected)
-
-//                                        Webservices.deleteLearningObjectiveFromStudentJourney(id: learningObjectiveSelected.id) { value, error in
-//                                            if error == nil {
-                                              //  self.studentLearningObjectivesStore.removeItem(learningObjectiveSelected)
-//                                                LJM.storage.studentLearningObjectives.remove(object: learningObjectiveSelected)
-//                                            }
-//                                        }
+                                    self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.removeAll()
                                     
                                 }
                         }
@@ -81,50 +68,23 @@ struct AddButton: View {
                             .resizable()
                             .foregroundColor(Color("customCyan"))
                             .onTapGesture {
+                                
                                 // remove item from learning objective list
                                 
-//                                self.studentLearningObj.removeItem(learningObjectiveSelected)
-
-//                                    Webservices.deleteLearningObjectiveFromStudentJourney(id: learningObjectiveSelected.id) { value, error in
-//                                        if error == nil {
-                                         //   self.studentLearningObjectivesStore.removeItem(learningObjectiveSelected)
-//                                            LJM.storage.studentLearningObjectives.remove(object: learningObjectiveSelected)
-//                                        }
-//                                    }
+                                let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObjectiveSelected.ID})!
                                 
-                            }
+                                self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.removeAll()
+                                
+                        }
                     }
                 }
-                
             }
             .frame(width: buttonSize.toScreenSize(), height: buttonSize.toScreenSize(), alignment: .center)
             .buttonStyle(PlainButtonStyle())
             
-            
-            //            CountDownWrapper<UndoView>()
-            //                .opacity(didTap ? 1 : 0)
-            
         }
-        
-    }
-    
-    func checkStudentContainsLearningObjective(learningObjectiveId : String) -> Bool {
-        var isAdded = false
-//        for learningObj in self.studentLearningObj.learningObjectives {
-//            if learningObj.id == learningObjectiveId && learningObj.assessments != nil {
-//                isAdded = true
-//                return true
-//            }
-//        }
-        return isAdded
     }
 }
-
-//struct AddButton_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AddButton(buttonSize: 100)
-//    }
-//}
 
 struct AddLabelView: Vanishable {
     @ObservedObject var counter: Counter
@@ -132,9 +92,7 @@ struct AddLabelView: Vanishable {
     var body: some View{
         Text("Added to My Journey!")
             .foregroundColor(Color("customCyan"))
-        
     }
-    
 }
 
 struct UndoView: Vanishable {
@@ -147,7 +105,7 @@ struct UndoView: Vanishable {
                 .frame(width: 16, height: 16)
                 .overlay(Circle().stroke().foregroundColor(Color.gray))
             Button{
-
+                
             }label:{
                 Text("Undo")
                     .foregroundColor(.red)

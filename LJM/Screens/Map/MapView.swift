@@ -23,8 +23,9 @@ struct MapView: View {
     
     // new data flow
     
-    @Binding var path : [learning_Path]
-    let shared : singleton_Shared = singleton_Shared()
+    @EnvironmentObject var learningPathStore: LearningPathStore
+    @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
+    @EnvironmentObject var strandsStore: StrandsStore
     
     var body: some View {
         
@@ -58,7 +59,7 @@ struct MapView: View {
                         .foregroundColor(Color.gray)
                         .font(.system(size: 20))
                     
-                    ScrollViewFilters(filterTabs: getLearningPath(learningPaths: self.fakePathsObjectArray), selectedFilter: $selectedFilter, vm: ScrollToModel())
+                    ScrollViewFilters(filterTabs: getLearningPath(learningPaths: learningPathStore.learningPaths), selectedFilter: $selectedFilter, vm: ScrollToModel())
                         .padding(.leading, 10)
                         .font(.system(size: 15, weight: .medium, design: .rounded))
                 }
@@ -67,7 +68,7 @@ struct MapView: View {
                     DropDownMenuSort()
                         .buttonStyle(PlainButtonStyle())
                     
-                    DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: setupStrandsOnFilter())
+                    DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: strandsStore.arrayStrandsFilter)
                         .buttonStyle(PlainButtonStyle())
                     
                     SearchBarExpandableJourney(txtSearchBar: $searchText)
@@ -92,17 +93,6 @@ struct MapView: View {
                 Spacer()
             }
         }.padding(.leading, 50).padding(.trailing, 50)
-    }
-    
-    func setupStrandsOnFilter() -> [FilterChoice] {
-        
-        var arrayStrandsFilter = [FilterChoice]()
-        
-        for learningObjective in self.shared.learning_Objectives {
-            arrayStrandsFilter.append(FilterChoice(descriptor: learningObjective.strand))
-        }
-        
-        return arrayStrandsFilter
     }
     
     func getLearningPath(learningPaths: [learning_Path]) -> [String] {

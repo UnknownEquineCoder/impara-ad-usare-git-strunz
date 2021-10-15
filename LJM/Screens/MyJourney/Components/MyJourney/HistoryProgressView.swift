@@ -9,17 +9,18 @@ import SwiftUI
 
 struct HistoryProgressView: View {
     var maximumRating = 5
-    var assessment : evaluated_Objective
     var isDeletable: Bool?
     
     @State var learningObj: learning_Objective
-    
+        
+    @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
+
     var body: some View {
         
         HStack(spacing: 8) {
             HStack(spacing: 3) {
                 ForEach(1..<maximumRating + 1, id: \.self) { number in
-                    if number > assessment.score.first ?? 0 {
+                    if number > learningObj.eval_score.last ?? 0 {
                         Circle().strokeBorder(Color.white).frame(width: 15)
                     } else {
                         Circle().fill(Color.white).frame(width: 15)
@@ -27,12 +28,15 @@ struct HistoryProgressView: View {
                 }
             }
             // Assessment date hardcoded for now
-            Text("12/02/21")
+            Text("Date test")
             
             if self.isDeletable ?? false {
                 
+                let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObj.ID})!
+                
                 Button(action: {
                     // Delete assessment here
+                    self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.removeLast()
                     
                 }) {
                     Image(systemName: "xmark.circle.fill").foregroundColor(Color.customBlack)

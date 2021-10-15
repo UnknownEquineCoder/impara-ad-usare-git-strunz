@@ -18,9 +18,8 @@ struct CompassView: View {
     @State var data_Array : [CGFloat] = [20,40,60,80,100]
         
     // new data flow
-   // let shared : singleton_Shared = singleton_Shared()
     
-    @EnvironmentObject var learningPath: LearningPathStore
+    @EnvironmentObject var learningPathStore: LearningPathStore
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     
     var body: some View {

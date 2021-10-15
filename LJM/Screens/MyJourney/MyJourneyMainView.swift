@@ -17,8 +17,6 @@ struct MyJourneyMainView: View {
         
     //new data flow
     
-    @Binding var path : [learning_Path]
-
     var body: some View {
         ZStack(alignment: .top) {
             
@@ -30,6 +28,6 @@ struct MyJourneyMainView: View {
 
 struct MyJourneyMainView_Previews: PreviewProvider {
     static var previews: some View {
-        MyJourneyMainView(selectedMenu: .constant(.journey), path: .constant([]))
+        MyJourneyMainView(selectedMenu: .constant(.journey))
     }
 }

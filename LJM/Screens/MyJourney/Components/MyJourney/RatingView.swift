@@ -15,7 +15,10 @@ struct RatingView: View {
     @State private var hover = false
     var maximumRating = 5
     @Binding var learningPathSelected : String?
-        
+    
+    @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
+    @EnvironmentObject var learningPathStore: LearningPathStore
+    
     var body: some View {
         VStack {
             Image(systemName: "arrowtriangle.down.fill")
@@ -25,7 +28,6 @@ struct RatingView: View {
                 .offset(x: setupGoalRating())
                 .foregroundColor(learningObj.isCore ? Color.customCyan : Color.clear)
             
-            
             HStack {
                 ForEach(1..<maximumRating + 1, id: \.self) { number in
                     Button {
@@ -33,17 +35,11 @@ struct RatingView: View {
                         self.hover = false
                         
                         // Add assessment
-                        
-//                        Webservices.addAssessment(learningObjId: learningObj.id, value: number) { (assessment, err) in
-//
-//                            if err == nil {
-//                                //                                    self.learningObj.getAssessments()
-//                            }
-//                        }
+                        let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObj.ID})!
+                        self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.append(number)
                         
                     } label: {
-//                        CircleView(number: number, rating: self.learningObj.assessments?.first?.score ?? 0)
-                        CircleView(number: number, rating: 3)
+                        CircleView(number: number, rating: self.learningObj.eval_score.last ?? 0)
                     }
                     .frame(width: 35, height: 35, alignment: .center)
                     .buttonStyle(PlainButtonStyle())
@@ -56,42 +52,34 @@ struct RatingView: View {
                 .frame(width: 15, height: 15, alignment: .center)
                 .foregroundColor(learningObj.isCore ? Color.customLightGrey : Color.clear)
             
-            
         }
     }
     
     
     func setupGoalRating() -> CGFloat {
         
-//        guard let path = Stores.learningPaths.rawData.path(with: LearningPaths(rawValue: learningPathSelected ?? "") ?? .UI_UX) else {
-//            print("Not found", learningPathSelected)
-//            return 0
+//        let learningPathIndex = learningPathStore.learningPaths.firstIndex(where: {$0.title == learningPathSelected})!
 //
-//        }
-        
-//        for value in path.expectedValues {
-//            let id = value.keys.first
-//            let score = value.values.first
+//        let path = self.learningPathStore.learningPaths[learningPathIndex]
 //
-//            if let id = id, let score = score?.rawValue {
-//                if self.learningObj.id == id {
-//                    switch score {
-//                    case 1:
-//                        return -85
-//                    case 2:
-//                        return -44
-//                    case 3:
-//                        return 0
-//                    case 4:
-//                        return 44
-//                    case 5:
-//                        return 85
-//                    default:
-//                        return 0
-//                    }
-//                }
+//        if self.learningObj.id == id {
+//            switch score {
+//            case 1:
+//                return -85
+//            case 2:
+//                return -44
+//            case 3:
+//                return 0
+//            case 4:
+//                return 44
+//            case 5:
+//                return 85
+//            default:
+//                return 0
 //            }
 //        }
+        
+        
         return 0
     }
 }

@@ -48,11 +48,11 @@ struct StartView: View {
                     .environmentObject(learningPathsStore)
                     .environmentObject(strandsStore)
             case .journey:
-                MyJourneyMainView(selectedMenu: $selectedMenu, path: $path)
+                MyJourneyMainView(selectedMenu: $selectedMenu)
                     .environmentObject(learningPathsStore)
                     .environmentObject(strandsStore)
             case .map:
-                MapMainView(path: $path)
+                MapMainView()
                     .environmentObject(learningPathsStore)
                     .environmentObject(strandsStore)
             }

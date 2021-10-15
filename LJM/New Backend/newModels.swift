@@ -38,7 +38,6 @@ struct learning_Objective : Equatable {
         eval_score = []
         eval_date = []
     }
-
 }
 
 struct learning_Path {

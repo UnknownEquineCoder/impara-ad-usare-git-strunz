@@ -58,7 +58,6 @@ struct LJMApp: App {
                         let file = try String(contentsOf: fileURL)
                         let lines = file.split(separator: "\n", omittingEmptySubsequences: false)
                         
-                        print("@@@@@@@@@@@@@@ \(lines.last)")
                     } catch {
                         let nsError = error as NSError
                         fatalError("File Import Error \(nsError), \(nsError.userInfo)")

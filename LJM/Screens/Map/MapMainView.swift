@@ -17,14 +17,12 @@ struct MapMainView: View {
     @ObservedObject var selectedView = SelectedSegmentView()
     
     // new data flow stuff
-    
-    @Binding var path : [learning_Path]
-    
+        
     var body: some View {
         ZStack(alignment: .top) {
             
             if self.selectedView.selectedView == "Map" {
-                MapView(selectedSegmentView: self.selectedView, path: $path).modifier(PaddingMainSubViews())
+                MapView(selectedSegmentView: self.selectedView).modifier(PaddingMainSubViews())
                 
             } else {
                 ChallengeView(selectedSegmentView: self.selectedView).modifier(PaddingMainSubViews())
@@ -39,6 +37,6 @@ struct MapMainView: View {
 
 struct JourneyMainView_Previews: PreviewProvider {
     static var previews: some View {
-        MapMainView(path: .constant([]))
+        MapMainView()
     }
 }
