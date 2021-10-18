@@ -39,7 +39,7 @@ struct RatingView: View {
                         self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.append(number)
                         
                     } label: {
-                        CircleView(number: number, rating: self.learningObj.eval_score.last ?? 0)
+                        CircleView(number: number, rating: rating)
                     }
                     .frame(width: 35, height: 35, alignment: .center)
                     .buttonStyle(PlainButtonStyle())

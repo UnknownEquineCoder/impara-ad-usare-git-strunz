@@ -17,11 +17,6 @@ class singleton_Shared{
     }
 }
 
-class TotalNumberLearningObjectives: ObservableObject {
-    @Published var total: Int = 0
-    @Published var changeViewTotal: Int = 0
-}
-
 class LearningObjectivesStore: ObservableObject {
     @Published var learningObjectives = [learning_Objective]()
 
@@ -163,3 +158,13 @@ class StrandsStore: ObservableObject {
         }
     }
 }
+
+class TotalNumberOfLearningObjectivesStore: ObservableObject {
+    @Published var total: Int = 0
+    @Published var changeViewTotal: Int = 0
+}
+
+
+//class TotalNumberLearningObjectives: ObservableObject {
+//    @Published var total: Int = 0
+//}

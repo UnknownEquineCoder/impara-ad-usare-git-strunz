@@ -23,6 +23,7 @@ struct LJMApp: App {
     let singleton = singleton_Shared.shared
     
     @StateObject var learningObjectiveStore = LearningObjectivesStore()
+    @StateObject var totalNumberLearningObjectivesStore = TotalNumberOfLearningObjectivesStore()
     
     var body: some Scene {
         WindowGroup {
@@ -67,6 +68,7 @@ struct LJMApp: App {
                 }
             }
             .environmentObject(learningObjectiveStore)
+            .environmentObject(totalNumberLearningObjectivesStore)
         }
         
         
@@ -87,7 +89,6 @@ struct LJMApp: App {
                     Text("Import File")
                 }
                 
-                
                 // to export files
                 Button(action: {
                     //write on the file here
@@ -107,7 +108,6 @@ struct LJMApp: App {
             })
         })
     }
-    
 }
 
 struct Doc : FileDocument {

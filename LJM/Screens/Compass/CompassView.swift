@@ -122,8 +122,8 @@ struct CompassView: View {
                             .padding(.top, 50)
                             .padding(.bottom, 100)
                     }
-                    .padding(.leading, 70).padding(.trailing, 50)
                 }
+                .padding(.leading, 70).padding(.trailing, 50)
             }
         }
     }

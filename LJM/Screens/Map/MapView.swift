@@ -26,6 +26,7 @@ struct MapView: View {
     @EnvironmentObject var learningPathStore: LearningPathStore
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     @EnvironmentObject var strandsStore: StrandsStore
+    @EnvironmentObject var totalNumberLearningObjectivesStore : TotalNumberOfLearningObjectivesStore
     
     var body: some View {
         
@@ -76,17 +77,16 @@ struct MapView: View {
                 }
                 
                 ZStack(alignment: .top) {
-                    NumberTotalLearningOjbectivesView(totalLOs: 7)
+                    NumberTotalLearningOjbectivesView(totalLOs: self.totalNumberLearningObjectivesStore.total)
                     
                     Text("No learning objectives found ...")
                         .font(.system(size: 25, weight: .semibold, design: .rounded))
                         .multilineTextAlignment(.center)
                         .foregroundColor(Color.customDarkGrey)
                         .padding(.top, 75)
-                    //  .isHidden(totalLOs.total > 0 ? true : false)
+                        .isHidden(self.totalNumberLearningObjectivesStore.total == 0 ? false : true)
                     
                     ScrollViewLearningObjectives(learningPathSelected: Binding.constant(nil), filteredMap: selectedFilter, isAddable: true, textFromSearchBar: searchText, selectedStrands: selectedStrands).padding(.top, 40).padding(.bottom, 50)
-                        
                     
                 }.padding(.top, 10)
                 
@@ -103,6 +103,11 @@ struct MapView: View {
         }
         
         return arrayTitleLearningPath
+    }
+    
+    func checkIfMyJourneyIsEmpty() -> Bool {
+        let evaluated_Objectives = self.learningObjectiveStore.learningObjectives.filter({$0.eval_score.count > 0})
+        return evaluated_Objectives.isEmpty
     }
 }
 

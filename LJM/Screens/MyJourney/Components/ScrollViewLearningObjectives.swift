@@ -20,6 +20,7 @@ struct ScrollViewLearningObjectives: View {
         
     @EnvironmentObject var learningPathStore: LearningPathStore
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
+    @EnvironmentObject var totalNumberLearningObjectivesStore: TotalNumberOfLearningObjectivesStore
     
     var filteredLearningObjectivesMyJourney: [learning_Objective] {
         let objectives = self.learningObjectiveStore.learningObjectives
@@ -108,10 +109,6 @@ struct ScrollViewLearningObjectives: View {
         }
     }
     
-//    var filteredLearningObjectivesForLearningGoals: [learning_Objective] {
-//        return sortLearningObjectivesCompass(learningGoal: filterLearningGoal ?? "No Learning Goal")
-//    }
-    
     var isAddable = false
     
     var textFromSearchBar: String
@@ -129,13 +126,8 @@ struct ScrollViewLearningObjectives: View {
                                     .contextMenu {
                                         if !isAddable {
                                             Button {
-                                                
-        //                                           // Delete learning objective from my journey
-                                        //        Webservices.deleteLearningObjectiveFromStudentJourney(id: item.id) { (deletedLearningObj, err) in
-                                                        //  self.studentLearningObjectivesStore.removeItem(item)
-        //                                                storage.studentLearningObjectives.remove(object: item)
-        //                                            }
-                                                
+                                                // remove learning objective
+                                            
                                             } label: {
                                                 Text("Delete")
                                             }
@@ -147,126 +139,30 @@ struct ScrollViewLearningObjectives: View {
                     }
                 }
             }.padding(.vertical, 20)
+        }.onChange(of: self.filteredLearningObjectivesMyJourney) { result in
+            self.totalNumberLearningObjectivesStore.total = result.count
         }
-        
-    
-        
-        
-        
-        
-        
-//        List(filteredLearningObjectives, id: \.ID) { item in
-//            if textFromSearchBar.isEmpty || (item.goal.lowercased().contains(textFromSearchBar.lowercased())) || ((item.description.lowercased().contains(textFromSearchBar.lowercased()))) {
-//                if let strand = item.strand {
-//                    if self.selectedStrands.contains(strand) || self.selectedStrands.count == 0 {
-//                        LearningObjectiveJourneyCell(rating: checkIfLOonMyJourney() ? 1 : 0, isRatingView: true, isAddable: isAddable, isLearningGoalAdded: self.filterLearningGoal != nil ? true : nil, learningPathSelected: self.$learningPathSelected, learningObj: item)
-//                            .background(Color.purple)
-////                            .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
-//                            .contextMenu {
-//                                if !isAddable {
-//                                    Button {
-//
-////                                           // Delete learning objective from my journey
-//                                //        Webservices.deleteLearningObjectiveFromStudentJourney(id: item.id) { (deletedLearningObj, err) in
-//                                                //  self.studentLearningObjectivesStore.removeItem(item)
-////                                                storage.studentLearningObjectives.remove(object: item)
-////                                            }
-//
-//                                    } label: {
-//                                        Text("Delete")
-//                                    }
-//                                }
-//                            }
-//
-//                    }
-//                }
-//            }
-//        }
-        
-        // way to change total number of objective number over the scroll view
-        
-//        .onChange(of: self.filteredLearningObjectives) { result in
-//            self.totalLOs.total = result.count
-//        }
-//        .onChange(of: self.textFromSearchBar) { result in
-//            if result != "" {
-//                self.totalLOs.total = self.filteredLearningObjectives.filter({ (LO) -> Bool in
-//                    LO.description?.lowercased().contains(result.lowercased()) ?? false || LO.learningGoal?.lowercased().contains(result.lowercased()) ?? false
-//
-//                }).count
-//            } else {
-//                self.totalLOs.total = self.filteredLearningObjectives.count
-//            }
-//        }
-//        .onChange(of: self.selectedStrands) { result in
-//            if !result.isEmpty {
-//                self.totalLOs.total = self.filteredLearningObjectives.filter({ (LO) -> Bool in
-//                    result.contains(LO.strand ?? "")
-//                }).count
-//            } else {
-//                self.totalLOs.total = self.filteredLearningObjectives.count
-//            }
-//        }
-//        .onReceive(totalLOs.$changeViewTotal) { (result) in
-//            self.totalLOs.total = self.filteredLearningObjectives.count
-//        }
-    }
-    
-    func sortLearningObjectives(learningObj: [learning_Objective]) -> [learning_Objective] {
-        
-        //    var arrayOfLearningObjectives : [LearningObjective] = [LearningObjective]()
-        
-        return learningObj
-        
-        //        if learningPaths != nil && learningPaths.count > 0 {
-        //            for learningPath in learningPaths {
-        //                if selectedPath != "" {
-        //                    if learningPath.title?.lowercased() == selectedPath.lowercased() {
-        //                        for learningObjective in self.studentLearningObjectivesStore.learningObjectives {
-        //                            if learningObjective.learningPaths != nil {
-        //                                for lp in learningObjective.learningPaths! {
-        //                                    if lp._id == learningPath.id {
-        //                                        print("OIJUHYHIJ \(learningObjective)")
-        //                                        arrayOfLearningObjectives.append(learningObjective)
-        //                                    }
-        //                                }
-        //                            }
-        //                        }
-        //                    }
-        //                } else {
-        //                    print("IJOUHYBINJOK")
-        //                    arrayOfLearningObjectives.append(contentsOf: self.studentLearningObjectivesStore.learningObjectives)
-        //                    break
-        //                }
-        //            }
-        //            return arrayOfLearningObjectives
-        //        } else {
-        //            return arrayOfLearningObjectives
-        //        }
-    }
-    
-    func sortLearningObjectivesByChallenge(challenges: [learning_Path], selectedChallenge: String) -> [learning_Objective] {
-        
-        var arrayOfLearningObjectives : [learning_Objective] = [learning_Objective]()
-        
-//        if challenges.count > 0 {
-//            for challenge in challenges {
-//                if selectedChallenge != "" {
-//                    if challenge.title.lowercased().replacingOccurrences(of: "challenge ", with: "") == selectedChallenge.lowercased() {
-//                        arrayOfLearningObjectives.append(contentsOf: challenge.learningObjectives())
-//                    }
-//                } else {
-//                    for learningObjective in Stores.learningPaths.rawData {
-//
-//                        arrayOfLearningObjectives.append(contentsOf:learningObjective.learningObjectives())
-//                    }
-//                    break
-//                }
-//            }
-            return arrayOfLearningObjectives
-//        } else {
-//            return arrayOfLearningObjectives
-//        }
+        .onChange(of: self.textFromSearchBar) { result in
+            if result != "" {
+                self.totalNumberLearningObjectivesStore.total = self.filteredLearningObjectivesMyJourney.filter({ (LO) -> Bool in
+                    LO.description.lowercased().contains(result.lowercased()) || LO.goal.lowercased().contains(result.lowercased())
+                }).count
+            } else {
+                self.totalNumberLearningObjectivesStore.total = self.filteredLearningObjectivesMyJourney.count
+            }
+        }
+        .onChange(of: self.selectedStrands) { result in
+            if !result.isEmpty {
+                self.totalNumberLearningObjectivesStore.total = self.filteredLearningObjectivesMyJourney.filter({ (LO) -> Bool in
+                    result.contains(LO.strand)
+                }).count
+            } else {
+                self.totalNumberLearningObjectivesStore.total = self.filteredLearningObjectivesMyJourney.count
+            }
+        }
+        .onReceive(totalNumberLearningObjectivesStore.$changeViewTotal) { (result) in
+            self.totalNumberLearningObjectivesStore.total = self.filteredLearningObjectivesMyJourney.count
+        }
     }
     
     func sortLearningObjectivesMap(learningPaths: [learning_Path], selectedPath: String) -> [learning_Objective] {
@@ -289,21 +185,6 @@ struct ScrollViewLearningObjectives: View {
                 arrayOfLearningObjectives.append(learningObj)
             }
         }
-
         return arrayOfLearningObjectives
-        
     }
-    
-//    func getAssessmentRelatedToLearningObjective(learningObjectiveId: String, assessments: [Assessment]?) -> Int? {
-//        var value = 0
-//        if assessments != nil {
-//            for assessment in assessments! {
-//
-//                if assessment.learningObjectiveId == learningObjectiveId {
-//                    value = assessment.score ?? 0
-//                }
-//            }
-//        }
-//        return value
-//    }
 }
