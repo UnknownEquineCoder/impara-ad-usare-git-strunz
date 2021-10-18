@@ -5,6 +5,7 @@ struct GraphWithOverlay: View {
     @Environment(\.colorScheme) var colorScheme
     @Binding var data_Front_Array : [CGFloat]
     @Binding var data_Back_Array : [CGFloat]
+    @Binding var animation_Trigger : Bool
     
     let shared : singleton_Shared = singleton_Shared()
 
@@ -13,7 +14,7 @@ struct GraphWithOverlay: View {
             ZStack {
                 colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : Color.white
                 
-                RadarChart(gridColor: Color.gray, data_Front_Array: $data_Front_Array, data_Back_Array: $data_Back_Array)
+                RadarChart(gridColor: Color.gray, data_Front_Array: $data_Front_Array, data_Back_Array: $data_Back_Array, animation_Trigger: $animation_Trigger)
                 
                 RadarGraphFrame()
                 
@@ -84,20 +85,26 @@ struct RadarChartPath: Shape {
         for (index, entry) in data.enumerated() {
             switch index {
             case 0:
-                let _X = rect.midX + CGFloat(entry / maximum) * cos(CGFloat(index) * 2 * CGFloat.pi / CGFloat(data.count) - CGFloat.pi / 2) * radius
+                withAnimation {
+                    let _X = rect.midX + CGFloat(entry / maximum) * cos(CGFloat(index) * 2 * CGFloat.pi / CGFloat(data.count) - CGFloat.pi / 2) * radius
+                    
+                    let _Y = rect.midY + CGFloat(entry / maximum) * sin(CGFloat(index) * 2 * CGFloat.pi / CGFloat(data.count) - CGFloat.pi / 2) * radius
+                    
+                    path.move(to: CGPoint(x: _X,
+                                          y: _Y))
+                }
                 
-                let _Y = rect.midY + CGFloat(entry / maximum) * sin(CGFloat(index) * 2 * CGFloat.pi / CGFloat(data.count) - CGFloat.pi / 2) * radius
-                
-                path.move(to: CGPoint(x: _X,
-                                      y: _Y))
                 
             default:
-                let _X = rect.midX + CGFloat(entry / maximum) * cos(CGFloat(index) * 2 * CGFloat.pi / CGFloat(data.count) - CGFloat.pi / 2) * radius
+                withAnimation {
+                    let _X = rect.midX + CGFloat(entry / maximum) * cos(CGFloat(index) * 2 * CGFloat.pi / CGFloat(data.count) - CGFloat.pi / 2) * radius
+                    
+                    let _Y = rect.midY + CGFloat(entry / maximum) * sin(CGFloat(index) * 2 * CGFloat.pi / CGFloat(data.count) - CGFloat.pi / 2) * radius
+                    
+                    path.addLine(to: CGPoint(x: _X,
+                                             y: _Y))
+                }
                 
-                let _Y = rect.midY + CGFloat(entry / maximum) * sin(CGFloat(index) * 2 * CGFloat.pi / CGFloat(data.count) - CGFloat.pi / 2) * radius
-                
-                path.addLine(to: CGPoint(x: _X,
-                                         y: _Y))
             }
         }
         path.closeSubpath()
@@ -149,6 +156,7 @@ struct RadarChart: View {
     
     @Binding var data_Front_Array : [CGFloat]
     @Binding var data_Back_Array : [CGFloat]
+    @Binding var animation_Trigger : Bool
     
     var body: some View {
         ZStack {
@@ -162,8 +170,11 @@ struct RadarChart: View {
                     .stroke(gridColor, lineWidth: 1.toScreenSize())
                 
                 RadarCompositeGrid(size: geo.size.width, data: data_Front_Array, b_color: Color.back_graph, f_color: RadialGradient.backGraph(size: geo.size.width), max: CGFloat(100))
+                    .scaleEffect(animation_Trigger ? 1 : 0, anchor: .center)
+                    .animation(.easeInOut(duration: 0.25))
 
                 RadarCompositeGrid(size: geo.size.width, data: data_Back_Array, b_color: Color.front_graph, f_color: RadialGradient.frontGraph(size: geo.size.width), max: CGFloat(100))
+                    
             }
         }
     }
