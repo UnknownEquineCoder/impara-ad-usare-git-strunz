@@ -12,6 +12,8 @@ struct StartView: View {
     
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     
+    @State var filter_Path = "Design"
+    
     @ViewBuilder
     var body: some View {
         HStack(spacing: 0) {
@@ -44,11 +46,12 @@ struct StartView: View {
             
             switch selectedMenu {
             case .compass:
-                CompassView()
+                CompassView(path: $filter_Path)
                     .environmentObject(learningPathsStore)
                     .environmentObject(strandsStore)
             case .journey:
                 MyJourneyMainView(selectedMenu: $selectedMenu)
+//                MyJourneyMainView(selectedMenu: $selectedMenu)
                     .environmentObject(learningPathsStore)
                     .environmentObject(strandsStore)
             case .map:
