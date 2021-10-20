@@ -15,14 +15,16 @@ struct CompassView: View {
     @State private var currentSubviewLabel = ""
     @State private var showingSubview = false
     
-    @State var data_Front_Array : [CGFloat] = [0,100,80,40,20]
-    @State var data_Back_Array : [CGFloat] = [20,40,80,100,0]
+    @State var data_Front_Array : [CGFloat] = [5,5,5,5,5]
+    @State var data_Back_Array : [CGFloat] = [5,5,5,5,5]
     
-    @State var data_Path_Front_Array : [CGFloat] = [0,0,0,0,0]
-    @State var data_Path_Back_Array : [CGFloat] = [0,0,0,0,0]
+    @State var data_Path_Front_Array : [CGFloat] = [5,5,5,5,5]
+    @State var data_Path_Back_Array : [CGFloat] = [5,5,5,5,5]
     
     @State var animation_Trigger = false
     @State var animation_Trigger_Communal = false
+    
+    let graph_Minimum_Dimension : CGFloat = 5
     
     
     // This will be arrays for bars graphs
@@ -273,6 +275,10 @@ struct CompassView: View {
             if(data_Path_Front_Array[index] > 0){
                 data_Path_Front_Array[index] = (data_Path_Front_Array[index] / CGFloat(data_Quantity[index])) * 20
             }
+            
+            if data_Path_Front_Array[index] <= graph_Minimum_Dimension {
+                data_Path_Front_Array[index] = graph_Minimum_Dimension
+            }
         }
     }
     
@@ -291,9 +297,14 @@ struct CompassView: View {
             
         }
         
+        
         for index in 0...data_Quantity.count-1 {
             if(data_Front_Array[index] > 0){
                 data_Front_Array[index] = (data_Front_Array[index] / CGFloat(data_Quantity[index])) * 20
+            }
+            
+            if data_Front_Array[index] <= graph_Minimum_Dimension {
+                data_Front_Array[index] = graph_Minimum_Dimension
             }
         }
         
@@ -347,6 +358,10 @@ struct CompassView: View {
         for index in 0...data_Quantity.count-1 {
             if(data_Back_Array[index] > 0){
                 data_Back_Array[index] = (data_Back_Array[index] / CGFloat(data_Quantity[index])) * 20
+            }
+            
+            if(data_Back_Array[index] <= graph_Minimum_Dimension){
+                data_Back_Array[index] = graph_Minimum_Dimension
             }
         }
         
