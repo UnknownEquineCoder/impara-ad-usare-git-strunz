@@ -139,7 +139,6 @@ struct ScrollViewLearningObjectives: View {
                     }
                 }
             }
-            .background(Color.red)
         }.onChange(of: self.filteredLearningObjectivesMyJourney) { result in
             self.totalNumberLearningObjectivesStore.total = result.count
         }

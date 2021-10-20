@@ -125,16 +125,16 @@ struct LearningObjectiveJourneyCell: View {
                 
                 VStack(alignment: .center, spacing: 5) {
                     Spacer().frame(height: 200)
-                    //                    Text(setupTitleProgressRubric(value: learningObj.assessments?.first?.score ?? 0))
-                    //                        .font(.system(size: 15, weight: .medium))
-                    //                        .foregroundColor(Color.customCyan)
-                    //                    Text(setupDescProgressOnRubric(value: learningObj.assessments?.first?.score ?? 0))
-                    //                        .font(.system(size: 10, weight: .medium))
-                    //                        .foregroundColor(Color.customDarkGrey)
-                    //                        .multilineTextAlignment(.center)
-                    //                        .lineLimit(nil)
-                    //                        .fixedSize(horizontal: false, vertical: true)
-                    //                        .frame(width: 200)
+                    Text(setupTitleProgressRubric(value: learningObj.eval_score.last ?? 0))
+                        .font(.system(size: 15, weight: .medium))
+                        .foregroundColor(Color.customCyan)
+                    Text(setupDescProgressOnRubric(value: learningObj.eval_score.last ?? 0))
+                        .font(.system(size: 10, weight: .medium))
+                        .foregroundColor(Color.customDarkGrey)
+                        .multilineTextAlignment(.center)
+                        .lineLimit(nil)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .frame(width: 200)
                 }.frame(width: 260, height: 100, alignment: .center)
                     .isHidden(self.isAddable ? true : false)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
@@ -158,7 +158,7 @@ struct LearningObjectiveJourneyCell: View {
         .background(colorScheme == .dark ? Color(red: 50/255, green: 50/255, blue: 50/255) : Color.customLightGrey)
         .cornerRadius(14)
         .onTapGesture {
-            withAnimation {       // TEMPORARY REMOVED BECAUSE OF UI SMALL LEFT RECTANGLE VIEW GLITCHED
+            withAnimation {
                 self.expand.toggle()
             }
         }
