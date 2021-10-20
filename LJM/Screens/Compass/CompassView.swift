@@ -180,9 +180,7 @@ struct CompassView: View {
         business_Progress = (0 ..< business_Skills_Count).map { _ in 0 }
         var business_Progress_Quantity : [Int] = (0 ..< business_Skills_Count).map { _ in 0 }
         
-        let filtered_Learning_Objective = learningObjectiveStore.learningObjectives.filter({ $0.eval_score.count > 0 })
-
-        for learning_Objective in filtered_Learning_Objective {
+        for learning_Objective in learningObjectiveStore.learningObjectives {
 
             switch learning_Objective.strand {
                 case "App Business and Marketing":
