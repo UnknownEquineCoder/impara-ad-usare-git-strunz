@@ -11,7 +11,8 @@ struct BarGraphFrame: View {
     var color: Color
     var title: String
     var skills: [String]
-    var levels: [String] = ["No Exposure", "Beginning", "Progressing", "Proficient", "Exemplary"]
+    let levels: [String] = ["No Exposure", "Beginning", "Progressing", "Proficient", "Exemplary"]
+    @Binding var progress : [Double]
     
     @Binding var targetLabel: String
     @Binding var showView: Bool
@@ -75,14 +76,16 @@ struct BarGraphFrame: View {
                         
                         Spacer()
                         VStack(spacing: 51.toScreenSize()){
-                            ForEach(skills, id: \.self){
-                                skill in
-                                
-                                ProgressBarGraph(progress: Double(Int.random(in: 20...100)), color: color)
+                            ForEach(0..<skills.count) { index in
+                                ProgressBarGraph(progress: progress[index] * 20, color: color)
                                     .frame(width: geo.size.width * 0.66, height: 16.toScreenSize())
                                     .padding(.trailing, 116.toScreenSize())
-                                
                             }
+//                            for index in 0..<skills.count {
+//                                ProgressBarGraph(progress: progress[index], color: color)
+//                                    .frame(width: geo.size.width * 0.66, height: 16.toScreenSize())
+//                                    .padding(.trailing, 116.toScreenSize())
+//                            }
                         }
                         
                         

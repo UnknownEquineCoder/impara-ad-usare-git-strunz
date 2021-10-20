@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CompassView: View {
     @Environment(\.colorScheme) var colorScheme
-    @State var path = "Game"
+    @Binding var path : String
     @State var progressValue: Float = 10
     
     @State private var currentSubviewLabel = ""
@@ -23,12 +23,26 @@ struct CompassView: View {
     
     @State var animation_Trigger = false
     @State var animation_Trigger_Communal = false
-        
-    // new data flow
-   // let shared : singleton_Shared = singleton_Shared()
-    //Design,Front,Back,Game,Business
-    var fakePaths = ["Design", "Front","Back", "Game","Business"]
+    
+    
+    // This will be arrays for bars graphs
     let fake_Strands = ["App Business and Marketing","Process","Professional Skills","Technical","Design"]
+    
+    let process_Skills = ["Act", "Engage", "Investigate", "Ongoing Activities", "Project Management", "Scrum"]
+    let design_Skills = ["Accessibility", "Branding", "Design Fundamentals", "Game Design and Art Direction", "HIG Basics", "Prototyping", "User-Centered Design"]
+    let professional_Skills = ["Creative Workflow", "Collaboration", "Communication", "Employability", "Personal Growth", "Presentations", "Story Telling"]
+    let tecnical_Skills = ["Developer Tools", "Interface Development", "Logic and Programming", "Media, Animations and Games", "Networking and Backend", "Operating Systems", "Platform Functionalities", "Supporting Frameworks"]
+    let business_Skills = ["App Business", "App Marketing", "Entrepreneurship", "Legal Guidelines", "Store Guidelines", "Store Presence", "User Engagement"]
+    
+    @State var process_Progress : [Double] = [1,1,1,1,1,1,1,1,1,1,1,1]
+    @State var design_Progress : [Double] = [1,1,1,1,1,1,1,1,1,1,1,1]
+    @State var professional_Progress : [Double] = [1,1,1,1,1,1,1,1,1,1,1,1]
+    @State var tecnical_Progress : [Double] = [1,1,1,1,1,1,1,1,1,1,1,1]
+    @State var buisness_Progress : [Double] = [1,1,1,1,1,1,1,1,1,1,1,1]
+    
+    @State var idea_Test = [[1,1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1]]
+
+    let fakePaths = ["Design", "Front","Back", "Game","Business"]
     
     @EnvironmentObject var learningPathStore: LearningPathStore
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
@@ -126,19 +140,19 @@ struct CompassView: View {
                         }
                         Spacer()
                         
-                        BarGraphFrame(color: Color(red: 252/255, green: 135/255, blue: 85/255), title: "Process", skills: ["Act", "Engage", "Investigate", "Ongoing Activities", "Project Management", "Scrum"], targetLabel: $currentSubviewLabel, showView: $showingSubview)
+                        BarGraphFrame(color: Color(red: 252/255, green: 135/255, blue: 85/255), title: "Process", skills: process_Skills, progress: $process_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview)
                             .padding(.top, 54)
                         
-                        BarGraphFrame(color: Color(red: 101/255, green: 201/255, blue: 167/255), title: "Design", skills: ["Accessibility", "Branding", "Design Fundamentals", "Game Design and Art Direction", "HIG Basics", "Prototyping", "User-Centered Design"], targetLabel: $currentSubviewLabel, showView: $showingSubview)
+                        BarGraphFrame(color: Color(red: 101/255, green: 201/255, blue: 167/255), title: "Design", skills: design_Skills, progress: $design_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview)
                             .padding(.top, 50)
                         
-                        BarGraphFrame(color: Color(red: 252/255, green: 176/255, blue: 69/255), title: "Professional Skills", skills: ["Creative Workflow", "Collaboration", "Communication", "Employability", "Personal Growth", "Presentations", "Story Telling"], targetLabel: $currentSubviewLabel, showView: $showingSubview)
+                        BarGraphFrame(color: Color(red: 252/255, green: 176/255, blue: 69/255), title: "Professional Skills", skills: professional_Skills, progress: $professional_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview)
                             .padding(.top, 50)
                         
-                        BarGraphFrame(color: Color(red: 114/255, green: 87/255, blue: 255/255), title: "Technical", skills: ["Developer Tools", "Interface Development", "Logic and Programming", "Media, Animations and Games", "Networking and Backend", "Operating Systems", "Platform Functionalities", "Supporting Frameworks"], targetLabel: $currentSubviewLabel, showView: $showingSubview)
+                        BarGraphFrame(color: Color(red: 114/255, green: 87/255, blue: 255/255), title: "Technical", skills: tecnical_Skills, progress: $tecnical_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview)
                             .padding(.top, 50)
                         
-                        BarGraphFrame(color: Color(red: 172/255, green: 77/255, blue: 185/255), title: "Business", skills: ["App Business", "App Marketing", "Entrepreneurship", "Legal Guidelines", "Store Guidelines", "Store Presence", "User Engagement"], targetLabel: $currentSubviewLabel, showView: $showingSubview)
+                        BarGraphFrame(color: Color(red: 172/255, green: 77/255, blue: 185/255), title: "Business", skills: business_Skills, progress: $buisness_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview)
                             .padding(.top, 50)
                             .padding(.bottom, 100)
                     }
@@ -264,7 +278,7 @@ struct CompassView: View {
 
 struct CompassView_Previews: PreviewProvider {
     static var previews: some View {
-        CompassView()
+        CompassView(path: .constant("Design"))
     }
 }
 
