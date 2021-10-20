@@ -77,7 +77,7 @@ struct BarGraphFrame: View {
                         Spacer()
                         VStack(spacing: 51.toScreenSize()){
                             ForEach(0..<skills.count) { index in
-                                ProgressBarGraph(progress: progress[index] * 20, color: color)
+                                ProgressBarGraph(progress: (progress[index] * 20) + 1, color: color)
                                     .frame(width: geo.size.width * 0.66, height: 16.toScreenSize())
                                     .padding(.trailing, 116.toScreenSize())
                             }
