@@ -18,14 +18,12 @@ struct LearningObjectiveJourneyCell: View {
             ZStack(alignment: .topLeading) {
                 Rectangle()
                     .frame(width: 20, alignment: .leading)
-                //                    .foregroundColor(setupColor(darkMode: colorScheme == .dark, strand: Strands(rawValue: learningObj.strand ?? "") ?? .TECHNICAL))
-                    .foregroundColor(Color.customCyan)
-                
+                    .foregroundColor(setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand))
                 VStack {
                     HStack(alignment: .top) {
                         VStack(alignment: .leading, spacing: 8) {
                             Text(learningObj.strand.uppercased())
-                                .foregroundColor(Color.customLightGrey)
+                                .foregroundColor(setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand))
                                 .font(.system(size: learningObj.strand.count > 15 ? 15 : 20, weight: .semibold, design: .rounded))
                                 .lineLimit(2)
                             Text(learningObj.goal_Short.uppercased())
@@ -160,9 +158,9 @@ struct LearningObjectiveJourneyCell: View {
         .background(colorScheme == .dark ? Color(red: 50/255, green: 50/255, blue: 50/255) : Color.customLightGrey)
         .cornerRadius(14)
         .onTapGesture {
-            //    withAnimation {       // TEMPORARY REMOVED BECAUSE OF UI SMALL LEFT RECTANGLE VIEW GLITCHED
-            self.expand.toggle()
-            //            }
+            withAnimation {       // TEMPORARY REMOVED BECAUSE OF UI SMALL LEFT RECTANGLE VIEW GLITCHED
+                self.expand.toggle()
+            }
         }
         .modifier(AnimatingCellHeight(height: expand ? 350 : 150))
     }
@@ -209,12 +207,25 @@ struct LearningObjectiveJourneyCell: View {
         }
     }
     
-    //    func setupColor(darkMode: Bool, strand: Strands) -> Color {
-    
-    //        return strand.toColor(dark: darkMode)
-    //
-    //
-    //    }
+    func setupColor(darkMode: Bool, strand: String) -> Color {
+        
+        switch strand {
+        case "Design":
+            return darkMode ? Color.red : Color.yellow
+        case "Process":
+            return darkMode ? Color.blue : Color.green
+        case "App Business and Marketing":
+            return darkMode ? Color.green : Color.pink
+        case "Professional Skills":
+            return darkMode ? Color.yellow : Color.red
+        case "Technical":
+            return darkMode ? Color.pink : Color.blue
+            
+        default:
+            return Color.customCyan
+            
+        }
+    }
 }
 
 struct AnimatingCellHeight: AnimatableModifier {
