@@ -34,13 +34,11 @@ struct CompassView: View {
     let tecnical_Skills = ["Developer Tools", "Interface Development", "Logic and Programming", "Media, Animations and Games", "Networking and Backend", "Operating Systems", "Platform Functionalities", "Supporting Frameworks"]
     let business_Skills = ["App Business", "App Marketing", "Entrepreneurship", "Legal Guidelines", "Store Guidelines", "Store Presence", "User Engagement"]
     
-    @State var process_Progress : [Double] = [1,1,1,1,1,1,1,1,1,1,1,1]
-    @State var design_Progress : [Double] = [1,1,1,1,1,1,1,1,1,1,1,1]
-    @State var professional_Progress : [Double] = [1,1,1,1,1,1,1,1,1,1,1,1]
-    @State var tecnical_Progress : [Double] = [1,1,1,1,1,1,1,1,1,1,1,1]
-    @State var buisness_Progress : [Double] = [1,1,1,1,1,1,1,1,1,1,1,1]
-    
-    @State var idea_Test = [[1,1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1]]
+    @State var process_Progress : [Double] = [5,5,5,5,5,5,5,5,5,5,5,5]
+    @State var design_Progress : [Double] = [5,5,5,5,5,5,5,5,5,5,5,5]
+    @State var professional_Progress : [Double] = [5,5,5,5,5,5,5,5,5,5,5,5]
+    @State var tecnical_Progress : [Double] = [5,5,5,5,5,5,5,5,5,5,5,5]
+    @State var business_Progress : [Double] = [5,5,5,5,5,5,5,5,5,5,5,5]
 
     let fakePaths = ["Design", "Front","Back", "Game","Business"]
     
@@ -91,6 +89,7 @@ struct CompassView: View {
                                     green_Light_Date()
                                     animation_Trigger = true
                                     animation_Trigger_Communal = true
+                                    test_Idea_Function()
                                 }
                             
                             Text("Communal")
@@ -103,7 +102,7 @@ struct CompassView: View {
                             VStack{
                                 GraphWithOverlay(data_Front_Array: $data_Path_Front_Array, data_Back_Array: $data_Back_Array, animation_Trigger: $animation_Trigger)
                                     .frame(width: 395, height: 395)
-                                    .padding(.top, 45)
+                                    .padding(.top, 25)
                                     .padding(.leading, 45)
                                     .padding(.trailing, 45)
                                     .onAppear(perform: green_Light_Path_Graph_Data)
@@ -152,7 +151,7 @@ struct CompassView: View {
                         BarGraphFrame(color: Color(red: 114/255, green: 87/255, blue: 255/255), title: "Technical", skills: tecnical_Skills, progress: $tecnical_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview)
                             .padding(.top, 50)
                         
-                        BarGraphFrame(color: Color(red: 172/255, green: 77/255, blue: 185/255), title: "Business", skills: business_Skills, progress: $buisness_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview)
+                        BarGraphFrame(color: Color(red: 172/255, green: 77/255, blue: 185/255), title: "Business", skills: business_Skills, progress: $business_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview)
                             .padding(.top, 50)
                             .padding(.bottom, 100)
                     }
@@ -160,6 +159,98 @@ struct CompassView: View {
                 .padding(.leading, 70).padding(.trailing, 50)
             }
         }
+    }
+    
+    func test_Idea_Function(){
+        
+        let process_Skills_Count = process_Skills.count
+        let design_Skills_Count = design_Skills.count
+        let professional_Skills_Count = professional_Skills.count
+        let tecnical_Skills_Count = tecnical_Skills.count
+        let business_Skills_Count = business_Skills.count
+        
+        process_Progress = (0 ..< process_Skills_Count).map { _ in 0 }
+        var process_Progress_Quantity : [Int] = (0 ..< process_Skills_Count).map { _ in 0 }
+        design_Progress = (0 ..< design_Skills_Count).map { _ in 0 }
+        var design_Progress_Quantity : [Int] = (0 ..< design_Skills_Count).map { _ in 0 }
+        professional_Progress = (0 ..< professional_Skills_Count).map { _ in 0 }
+        var professional_Progress_Quantity : [Int] = (0 ..< professional_Skills_Count).map { _ in 0 }
+        tecnical_Progress = (0 ..< tecnical_Skills_Count).map { _ in 0 }
+        var tecnical_Progress_Quantity : [Int] = (0 ..< tecnical_Skills_Count).map { _ in 0 }
+        business_Progress = (0 ..< business_Skills_Count).map { _ in 0 }
+        var business_Progress_Quantity : [Int] = (0 ..< business_Skills_Count).map { _ in 0 }
+        
+        let filtered_Learning_Objective = learningObjectiveStore.learningObjectives.filter({ $0.eval_score.count > 0 })
+
+        for learning_Objective in filtered_Learning_Objective {
+
+            switch learning_Objective.strand {
+                case "App Business and Marketing":
+
+                    let element_Index = business_Skills.firstIndex(of: learning_Objective.goal_Short) ?? 0
+                    business_Progress[element_Index] += Double(learning_Objective.eval_score.last ?? 0)
+                    business_Progress_Quantity[element_Index] += 1
+                    break
+
+                case "Process":
+
+                    let element_Index = process_Skills.firstIndex(of: learning_Objective.goal_Short) ?? 0
+                    process_Progress[element_Index] += Double(learning_Objective.eval_score.last ?? 0)
+                    process_Progress_Quantity[element_Index] += 1
+                    break
+
+                case "Professional Skills":
+
+                    let element_Index = professional_Skills.firstIndex(of: learning_Objective.goal_Short) ?? 0
+                    professional_Progress[element_Index] += Double(learning_Objective.eval_score.last ?? 0)
+                    professional_Progress_Quantity[element_Index] += 1
+                    break
+
+                case "Technical":
+
+                    let element_Index = tecnical_Skills.firstIndex(of: learning_Objective.goal_Short) ?? 0
+                    tecnical_Progress[element_Index] += Double(learning_Objective.eval_score.last ?? 0)
+                    tecnical_Progress_Quantity[element_Index] += 1
+                    break
+
+                case "Design":
+
+                    let element_Index = design_Skills.firstIndex(of: learning_Objective.goal_Short) ?? 0
+                    design_Progress[element_Index] += Double(learning_Objective.eval_score.last ?? 0)
+                    design_Progress_Quantity[element_Index] += 1
+                    break
+
+                default:
+                    break
+            }
+        }
+        
+        for index in 0 ..< process_Skills_Count {
+            if(process_Progress_Quantity[index] > 0){
+                process_Progress[index] = (process_Progress[index] / CGFloat(process_Progress_Quantity[index]))
+            }
+        }
+        for index in 0 ..< design_Skills_Count {
+            if(design_Progress_Quantity[index] > 0){
+                design_Progress[index] = (design_Progress[index] / CGFloat(design_Progress_Quantity[index]))
+            }
+        }
+        for index in 0 ..< professional_Skills_Count {
+            if(professional_Progress_Quantity[index] > 0){
+                professional_Progress[index] = (professional_Progress[index] / CGFloat(professional_Progress_Quantity[index]))
+            }
+        }
+        for index in 0 ..< tecnical_Skills_Count {
+            if(tecnical_Progress_Quantity[index] > 0){
+                tecnical_Progress[index] = (tecnical_Progress[index] / CGFloat(tecnical_Progress_Quantity[index]))
+            }
+        }
+        for index in 0 ..< business_Skills_Count {
+            if(business_Progress_Quantity[index] > 0){
+                business_Progress[index] = (business_Progress[index] / CGFloat(business_Progress_Quantity[index]))
+            }
+        }
+        
     }
     
     func green_Light_Path_Graph_Data() {
