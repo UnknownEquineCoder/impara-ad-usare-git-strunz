@@ -17,7 +17,7 @@ struct LearningObjectiveJourneyCell: View {
         LazyVStack(spacing: 20) {
             ZStack(alignment: .topLeading) {
                 Rectangle()
-                    .frame(width: 20, alignment: .topLeading)
+                    .frame(width: 20, alignment: .leading)
                 //                    .foregroundColor(setupColor(darkMode: colorScheme == .dark, strand: Strands(rawValue: learningObj.strand ?? "") ?? .TECHNICAL))
                     .foregroundColor(Color.customCyan)
                 
@@ -157,7 +157,6 @@ struct LearningObjectiveJourneyCell: View {
                     .padding(.bottom, 10)
             }
         }
-        .modifier(AnimatingCellHeight(height: expand ? 350 : 150))
         .background(colorScheme == .dark ? Color(red: 50/255, green: 50/255, blue: 50/255) : Color.customLightGrey)
         .cornerRadius(14)
         .onTapGesture {
@@ -165,6 +164,7 @@ struct LearningObjectiveJourneyCell: View {
             self.expand.toggle()
             //            }
         }
+        .modifier(AnimatingCellHeight(height: expand ? 350 : 150))
     }
     
     func setupTitleProgressRubric(value: Int) -> String {

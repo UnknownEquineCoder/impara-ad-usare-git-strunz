@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ScrollViewLearningObjectives: View {
     @Environment(\.colorScheme) var colorScheme
-
+    
     @Binding var learningPathSelected : String?
     
     var filterCore: CoreEnum.RawValue?
@@ -17,7 +17,7 @@ struct ScrollViewLearningObjectives: View {
     var filterChallenge: ChallengeEnum.RawValue?
     var filterCompass: CompassEnum.RawValue?
     var filterLearningGoal: String?
-        
+    
     @EnvironmentObject var learningPathStore: LearningPathStore
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     @EnvironmentObject var totalNumberLearningObjectivesStore: TotalNumberOfLearningObjectivesStore
@@ -74,7 +74,7 @@ struct ScrollViewLearningObjectives: View {
         switch filterChallenge {
         case let filterChallengeTab:
             if filterChallengeTab != nil {
-//                return sortLearningObjectivesByChallenge(challenges: self.shared.learning_Objectives, selectedChallenge: filterChallengeTab!)
+                //                return sortLearningObjectivesByChallenge(challenges: self.shared.learning_Objectives, selectedChallenge: filterChallengeTab!)
                 return self.learningObjectiveStore.learningObjectives
             } else {
                 return filteredCompass
@@ -84,7 +84,7 @@ struct ScrollViewLearningObjectives: View {
     
     var filteredCompass: [learning_Objective] {
         switch filterCompass {
-        
+            
         case "Core":
             return sortLearningObjectivesCompass(learningGoal: filterLearningGoal ?? "No Learning Goal")
                 .filter { $0.isCore }
@@ -115,8 +115,8 @@ struct ScrollViewLearningObjectives: View {
     var selectedStrands: [String]
     
     var body: some View {
-        ScrollView{
-            LazyVStack {
+        ScrollView {
+            LazyVStack(spacing: 0) {
                 ForEach(filteredLearningObjectivesMyJourney, id: \.ID) { item in
                     if textFromSearchBar.isEmpty || (item.goal.lowercased().contains(textFromSearchBar.lowercased())) || ((item.description.lowercased().contains(textFromSearchBar.lowercased()))) {
                         if let strand = item.strand {
@@ -127,18 +127,19 @@ struct ScrollViewLearningObjectives: View {
                                         if !isAddable {
                                             Button {
                                                 // remove learning objective
-                                            
+                                                
                                             } label: {
                                                 Text("Delete")
                                             }
                                         }
                                     }
-                                    
+                                
                             }
                         }
                     }
                 }
-            }.padding(.vertical, 20)
+            }
+            .background(Color.red)
         }.onChange(of: self.filteredLearningObjectivesMyJourney) { result in
             self.totalNumberLearningObjectivesStore.total = result.count
         }
@@ -179,7 +180,7 @@ struct ScrollViewLearningObjectives: View {
     func sortLearningObjectivesCompass(learningGoal: String) -> [learning_Objective] {
         
         var arrayOfLearningObjectives : [learning_Objective] = [learning_Objective]()
-
+        
         for learningObj in self.learningObjectiveStore.learningObjectives {
             if learningObj.goal == learningGoal {
                 arrayOfLearningObjectives.append(learningObj)
