@@ -43,6 +43,9 @@
 		96BE89D0257553BF00BE9E8F /* CountDownWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96BE89CF257553BF00BE9E8F /* CountDownWrapper.swift */; };
 		96CC613F257A38FC00CE7ABD /* DropDownMenuFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC613D257A38FC00CE7ABD /* DropDownMenuFilters.swift */; };
 		96CE7BC625C4183A006C4CDA /* FilterChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CE7BC525C4183A006C4CDA /* FilterChoice.swift */; };
+		96CFFEC7271ED03100508104 /* ContextualMenuFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CFFEC6271ED03100508104 /* ContextualMenuFilters.swift */; };
+		96CFFEC9271ED03800508104 /* ContextMenuTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CFFEC8271ED03800508104 /* ContextMenuTest.swift */; };
+		96CFFECB271ED03F00508104 /* MenuTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CFFECA271ED03F00508104 /* MenuTest.swift */; };
 		E02DFE8A270AEC3F004FF8B7 /* newModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02DFE89270AEC3F004FF8B7 /* newModels.swift */; };
 		E02DFE8C270C41E5004FF8B7 /* singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02DFE8B270C41E5004FF8B7 /* singleton.swift */; };
 		E03211372716E89100262144 /* Rubric_Level.csv in Resources */ = {isa = PBXBuildFile; fileRef = E03211342716E89100262144 /* Rubric_Level.csv */; };
@@ -152,6 +155,9 @@
 		96BE89CF257553BF00BE9E8F /* CountDownWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountDownWrapper.swift; sourceTree = "<group>"; };
 		96CC613D257A38FC00CE7ABD /* DropDownMenuFilters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownMenuFilters.swift; sourceTree = "<group>"; };
 		96CE7BC525C4183A006C4CDA /* FilterChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterChoice.swift; sourceTree = "<group>"; };
+		96CFFEC6271ED03100508104 /* ContextualMenuFilters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContextualMenuFilters.swift; sourceTree = "<group>"; };
+		96CFFEC8271ED03800508104 /* ContextMenuTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContextMenuTest.swift; sourceTree = "<group>"; };
+		96CFFECA271ED03F00508104 /* MenuTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTest.swift; sourceTree = "<group>"; };
 		E02DFE89270AEC3F004FF8B7 /* newModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = newModels.swift; sourceTree = "<group>"; };
 		E02DFE8B270C41E5004FF8B7 /* singleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = singleton.swift; sourceTree = "<group>"; };
 		E03211342716E89100262144 /* Rubric_Level.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Rubric_Level.csv; sourceTree = "<group>"; };
@@ -350,6 +356,9 @@
 				96BE89CF257553BF00BE9E8F /* CountDownWrapper.swift */,
 				96CC613D257A38FC00CE7ABD /* DropDownMenuFilters.swift */,
 				96CE7BC525C4183A006C4CDA /* FilterChoice.swift */,
+				96CFFEC6271ED03100508104 /* ContextualMenuFilters.swift */,
+				96CFFEC8271ED03800508104 /* ContextMenuTest.swift */,
+				96CFFECA271ED03F00508104 /* MenuTest.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -619,11 +628,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96CFFECB271ED03F00508104 /* MenuTest.swift in Sources */,
 				96114BBC25EFA28C00FA119C /* DropDownMenuCompass.swift in Sources */,
 				96CE7BC625C4183A006C4CDA /* FilterChoice.swift in Sources */,
 				EA7028B52579B2CF00E1B6EB /* BackgroundImageReadingStudent.swift in Sources */,
 				EA7028BA2579C75000E1B6EB /* ScrollViewFilters.swift in Sources */,
 				EACD024225D502AB008D12FE /* Modifiers.swift in Sources */,
+				96CFFEC7271ED03100508104 /* ContextualMenuFilters.swift in Sources */,
 				960451E725F0F46000F34D9A /* BarGraphFrame.swift in Sources */,
 				EACD024A25D532A9008D12FE /* Webservices.swift in Sources */,
 				9641C4B72577AD700088A0B6 /* MainScreen.swift in Sources */,
@@ -662,6 +673,7 @@
 				EACD023425D37CCB008D12FE /* DescriptionTitleScreenView.swift in Sources */,
 				EACD023925D382AD008D12FE /* NumberTotalLearningOjbectivesView.swift in Sources */,
 				E02DFE8C270C41E5004FF8B7 /* singleton.swift in Sources */,
+				96CFFEC9271ED03800508104 /* ContextMenuTest.swift in Sources */,
 				5579EB75263E06920086A4BE /* URLExtensions.swift in Sources */,
 				96BE89D0257553BF00BE9E8F /* CountDownWrapper.swift in Sources */,
 				9605C71825C95498007E808E /* LoginPage.swift in Sources */,
@@ -833,11 +845,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "Accent Color";
 				CODE_SIGN_ENTITLEMENTS = LJM/LJM.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"LJM/Preview Content\"";
-				DEVELOPMENT_TEAM = KXZF72639J;
+				DEVELOPMENT_TEAM = 98GZP44QG5;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = LJM/Info.plist;
@@ -859,11 +871,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = "Accent Color";
 				CODE_SIGN_ENTITLEMENTS = LJM/LJM.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"LJM/Preview Content\"";
-				DEVELOPMENT_TEAM = KXZF72639J;
+				DEVELOPMENT_TEAM = 98GZP44QG5;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = LJM/Info.plist;
@@ -884,10 +896,10 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = KXZF72639J;
+				DEVELOPMENT_TEAM = 98GZP44QG5;
 				INFOPLIST_FILE = LJMTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -907,10 +919,10 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = KXZF72639J;
+				DEVELOPMENT_TEAM = 98GZP44QG5;
 				INFOPLIST_FILE = LJMTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -929,10 +941,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = KXZF72639J;
+				DEVELOPMENT_TEAM = 98GZP44QG5;
 				INFOPLIST_FILE = LJMUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -950,10 +962,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = KXZF72639J;
+				DEVELOPMENT_TEAM = 98GZP44QG5;
 				INFOPLIST_FILE = LJMUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

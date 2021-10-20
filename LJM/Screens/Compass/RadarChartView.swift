@@ -115,7 +115,7 @@ struct RadarChartPath: Shape {
 
 extension RadialGradient {
     static func frontGraph(size: CGFloat) -> RadialGradient  {
-        let colors = Gradient(colors: [Color(red: 57/255, green: 172/255, blue: 169/255, opacity: 0.5), Color(red: 6/255, green: 153/255, blue: 146/255, opacity: 1)])
+        let colors = Gradient(colors: [Color(red: 57/255, green: 172/255, blue: 169/255, opacity: 0.8), Color(red: 6/255, green: 153/255, blue: 146/255, opacity: 1)])
         
         return RadialGradient(gradient: colors, center: .center, startRadius: 50, endRadius: size/2)
     }
