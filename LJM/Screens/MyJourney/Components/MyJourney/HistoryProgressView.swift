@@ -30,7 +30,7 @@ struct HistoryProgressView: View {
             // Assessment date hardcoded for now
             Text("Date test")
             
-            if self.isDeletable ?? false {
+//            if self.isDeletable ?? false {
                 
                 let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObj.ID})!
                 
@@ -41,7 +41,7 @@ struct HistoryProgressView: View {
                 }) {
                     Image(systemName: "xmark.circle.fill").foregroundColor(Color.customBlack)
                 }.buttonStyle(PlainButtonStyle())
-            }
+          //  }
         }.frame(height: 30, alignment: .center)
         .padding(.leading, 10).padding(.trailing, 10)
         .background(Color.customDarkGrey)
