@@ -51,7 +51,6 @@ struct StartView: View {
                     .environmentObject(strandsStore)
             case .journey:
                 MyJourneyMainView(selectedMenu: $selectedMenu)
-//                MyJourneyMainView(selectedMenu: $selectedMenu)
                     .environmentObject(learningPathsStore)
                     .environmentObject(strandsStore)
             case .map:

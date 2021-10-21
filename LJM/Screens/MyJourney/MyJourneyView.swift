@@ -43,8 +43,7 @@ struct MyJourneyView: View {
                 .padding(.top, 50)
                 
                 ScrollViewFiltersJourney(filterTabs: arrayFilters, selectedFilter: $selectedFilter)
-                    .padding(.top, 60)
-                    .padding(.top, 120)
+                    .padding(.top, 180)
                 
             }.frame(maxWidth: .infinity)
             
@@ -70,9 +69,9 @@ struct MyJourneyView: View {
                     .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
                 
                 ListViewLearningObjectiveMyJourney(selectedFilter: $selectedFilter, txtSearchBar: $searchText, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedMenu: $selectedMenu)
-                    .padding(.top, 50)
+                    .padding(.top, 30)
                 
-            }.frame(maxWidth: .infinity).padding(.top, 10)
+            }.frame(maxWidth: .infinity)
         }.padding(.leading, 50).padding(.trailing, 50)
     }
     

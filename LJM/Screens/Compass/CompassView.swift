@@ -63,7 +63,7 @@ struct CompassView: View {
                 VStack {
                     HStack {
                         TitleScreenView(title: "Compass")
-                            .padding(.top, 114.toScreenSize())
+                            .padding(.top, 40)
                         Spacer()
                     }
                     
@@ -297,7 +297,6 @@ struct CompassView: View {
             
         }
         
-        
         for index in 0...data_Quantity.count-1 {
             if(data_Front_Array[index] > 0){
                 data_Front_Array[index] = (data_Front_Array[index] / CGFloat(data_Quantity[index])) * 20
@@ -352,7 +351,6 @@ struct CompassView: View {
                 data_Back_Array[temp_Strand_Index] += CGFloat(learning_Objective.eval_score.last ?? 0)
                 data_Quantity[temp_Strand_Index] += 1
             }
-            
         }
         
         for index in 0...data_Quantity.count-1 {
@@ -364,7 +362,6 @@ struct CompassView: View {
                 data_Back_Array[index] = graph_Minimum_Dimension
             }
         }
-        
     }
     
     private func subView(forLabel label: String) -> LearningGoalsView {
@@ -375,10 +372,7 @@ struct CompassView: View {
         currentSubviewLabel = label
         showingSubview = true
     }
-    
 }
-
-
 
 struct CompassView_Previews: PreviewProvider {
     static var previews: some View {

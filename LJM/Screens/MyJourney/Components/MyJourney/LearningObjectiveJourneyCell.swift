@@ -211,15 +211,15 @@ struct LearningObjectiveJourneyCell: View {
         
         switch strand {
         case "Design":
-            return darkMode ? Color.red : Color.yellow
+            return .customGreen
         case "Process":
-            return darkMode ? Color.blue : Color.green
+            return .customOrange
         case "App Business and Marketing":
-            return darkMode ? Color.green : Color.pink
+            return .customPurple
         case "Professional Skills":
-            return darkMode ? Color.yellow : Color.red
+            return .customYellow
         case "Technical":
-            return darkMode ? Color.pink : Color.blue
+            return .customBlue
             
         default:
             return Color.customCyan

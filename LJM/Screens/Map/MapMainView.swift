@@ -27,10 +27,10 @@ struct MapMainView: View {
             } else {
                 ChallengeView(selectedSegmentView: self.selectedView).modifier(PaddingMainSubViews())
             }
-            HStack {
-                TopBarJourney(selectedView: self.selectedView).padding(.top, 20).padding(.leading, 50)
-                Spacer()
-            }
+//            HStack {
+//                TopBarJourney(selectedView: self.selectedView).padding(.top, 20).padding(.leading, 50)
+//                Spacer()
+//            }
         }.background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
     }
 }
