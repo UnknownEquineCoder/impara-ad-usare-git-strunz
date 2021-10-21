@@ -38,6 +38,28 @@ struct learning_Objective : Equatable {
         eval_score = []
         eval_date = []
     }
+    
+    init(new_Raw : [String]){
+        ID = new_Raw[0]
+        strand = new_Raw[1]
+        goal = new_Raw[2]
+        goal_Short = new_Raw[3]
+        description = new_Raw[4]
+        
+        if(new_Raw[5].isEmpty){
+            Keyword = new_Raw[5].components(separatedBy: ",")
+        } else {
+            Keyword = new_Raw[6].components(separatedBy: ",")
+        }
+        
+        isCore = new_Raw[7].isEmpty ? false : true
+        
+        core_Rubric_Levels = [isCore ? 2 : 0,1,3,4,5,0]
+        documentation = ""
+        
+        eval_score = []
+        eval_date = []
+    }
 }
 
 struct learning_Path {

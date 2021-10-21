@@ -31,7 +31,7 @@ struct LJMApp: App {
             
             StartView()
                 .onAppear(perform: {
-                    learningObjectiveStore.load_Learning_Objective()
+                    learningObjectiveStore.load_Test_Data()
                 })
             .fileExporter(
                 isPresented: $exportFile,
