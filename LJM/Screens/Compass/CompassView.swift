@@ -263,9 +263,9 @@ struct CompassView: View {
         
         for learning_Objective in learningObjectiveStore.learningObjectives {
             
-            if(learning_Objective.core_Rubric_Levels[path_Index + 1] > 0){
+            if (CGFloat(learning_Objective.core_Rubric_Levels[path_Index + 1]) * CGFloat(learning_Objective.core_Rubric_Levels[0]))>1 {
                 let temp_Strand_Index = fake_Strands.firstIndex(of: learning_Objective.strand) ?? 0
-                data_Path_Front_Array[temp_Strand_Index] += CGFloat(learning_Objective.core_Rubric_Levels[path_Index + 1])
+                data_Path_Front_Array[temp_Strand_Index] += CGFloat( CGFloat(learning_Objective.core_Rubric_Levels[path_Index + 1]) < CGFloat(learning_Objective.core_Rubric_Levels[0]) ? learning_Objective.core_Rubric_Levels[0] : learning_Objective.core_Rubric_Levels[path_Index + 1])
                 data_Quantity[temp_Strand_Index] += 1
             }
             
@@ -287,15 +287,18 @@ struct CompassView: View {
         
         var data_Quantity = [0,0,0,0,0]
         
-        for learning_Objective in learningObjectiveStore.learningObjectives {
+        let filtered_Learning_Objective = learningObjectiveStore.learningObjectives.filter({$0.isCore})
+        
+        for learning_Objective in filtered_Learning_Objective {
             
-            if(learning_Objective.core_Rubric_Levels.first! > 0){
-                let temp_Strand_Index = fake_Strands.firstIndex(of: learning_Objective.strand) ?? 0
-                data_Front_Array[temp_Strand_Index] += CGFloat(learning_Objective.core_Rubric_Levels.first!)
-                data_Quantity[temp_Strand_Index] += 1
-            }
+            let temp_Strand_Index = fake_Strands.firstIndex(of: learning_Objective.strand) ?? 0
+            
+            data_Front_Array[temp_Strand_Index] += CGFloat(learning_Objective.core_Rubric_Levels.first!)
+            data_Quantity[temp_Strand_Index] += 1
             
         }
+        
+        print("$$$$$$$$$$ \(data_Front_Array) \(data_Quantity)")
         
         
         for index in 0...data_Quantity.count-1 {
