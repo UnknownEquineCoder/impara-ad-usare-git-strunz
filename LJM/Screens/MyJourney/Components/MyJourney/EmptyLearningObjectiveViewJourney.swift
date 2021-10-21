@@ -43,7 +43,7 @@ struct EmptyLearningObjectiveViewJourney: View {
                 }.buttonStyle(PlainButtonStyle())
                 .padding(.top, 20)
             }
-        }.padding(.top, 60)
+        }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .overlay(BackgroundImageReadingStudent().allowsHitTesting(false).frame(width: 1500, height: 700, alignment: .center).padding(.bottom, 350).padding(.trailing, 240))
     }
