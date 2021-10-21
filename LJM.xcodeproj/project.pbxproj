@@ -51,6 +51,7 @@
 		E03211372716E89100262144 /* Rubric_Level.csv in Resources */ = {isa = PBXBuildFile; fileRef = E03211342716E89100262144 /* Rubric_Level.csv */; };
 		E03211382716E89100262144 /* Learning_Objectives.csv in Resources */ = {isa = PBXBuildFile; fileRef = E03211352716E89100262144 /* Learning_Objectives.csv */; };
 		E03211392716E89100262144 /* Learning_Paths.csv in Resources */ = {isa = PBXBuildFile; fileRef = E03211362716E89100262144 /* Learning_Paths.csv */; };
+		E0E87CCC27214EED00FEF3D6 /* Coders.csv in Resources */ = {isa = PBXBuildFile; fileRef = E0E87CCB27214EED00FEF3D6 /* Coders.csv */; };
 		EA139BD42640910900E15E28 /* JWTDecode in Frameworks */ = {isa = PBXBuildFile; productRef = EA139BD32640910900E15E28 /* JWTDecode */; };
 		EA5B445D262E6F23002A97C7 /* MyJourneyMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5B445C262E6F23002A97C7 /* MyJourneyMainView.swift */; };
 		EA5B4463263027ED002A97C7 /* WebviewLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5B4462263027ED002A97C7 /* WebviewLogin.swift */; };
@@ -163,6 +164,7 @@
 		E03211342716E89100262144 /* Rubric_Level.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Rubric_Level.csv; sourceTree = "<group>"; };
 		E03211352716E89100262144 /* Learning_Objectives.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Learning_Objectives.csv; sourceTree = "<group>"; };
 		E03211362716E89100262144 /* Learning_Paths.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Learning_Paths.csv; sourceTree = "<group>"; };
+		E0E87CCB27214EED00FEF3D6 /* Coders.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Coders.csv; sourceTree = "<group>"; };
 		EA5B445C262E6F23002A97C7 /* MyJourneyMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyJourneyMainView.swift; sourceTree = "<group>"; };
 		EA5B4462263027ED002A97C7 /* WebviewLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebviewLogin.swift; sourceTree = "<group>"; };
 		EA686EF8256EE4F300C121DC /* TopBarJourney.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarJourney.swift; sourceTree = "<group>"; };
@@ -384,6 +386,7 @@
 			isa = PBXGroup;
 			children = (
 				E03211352716E89100262144 /* Learning_Objectives.csv */,
+				E0E87CCB27214EED00FEF3D6 /* Coders.csv */,
 				E03211362716E89100262144 /* Learning_Paths.csv */,
 				E03211342716E89100262144 /* Rubric_Level.csv */,
 			);
@@ -599,6 +602,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E03211372716E89100262144 /* Rubric_Level.csv in Resources */,
+				E0E87CCC27214EED00FEF3D6 /* Coders.csv in Resources */,
 				55F4D7A8266188E10080E6A2 /* README-URGENT.txt in Resources */,
 				E03211392716E89100262144 /* Learning_Paths.csv in Resources */,
 				964B6633256E6022006AB20E /* Preview Assets.xcassets in Resources */,

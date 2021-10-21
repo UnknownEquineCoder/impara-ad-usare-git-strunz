@@ -27,43 +27,33 @@ struct DropDownMenuFilters: View {
     ]
     
     var body: some View {
-        VStack {
-            Button(action: {
-                self.showPopover =  true
-            }) {
+            Menu {
+                Button("Cancel", action: {})
+                Menu("More") {
+                    Button("Rename", action: {})
+                    Button("Developer Mode", action: {})
+                }
+                Button("Search", action: {})
+                Button("Add", action: {})
+            } label: {
                 HStack(spacing: 13) {
                     Image("Filters_Icon")
                         .resizable()
                         .foregroundColor(Color("customCyan"))
-                        .frame(width: 20, height: 20, alignment: .center)
+                        .frame(width: 10, height: 10, alignment: .center)
                     Text("Filters")
                         .font(.system(size: 20, weight: .medium, design: .rounded))
                         .foregroundColor(Color("customCyan"))
-                    
-                }.frame(width: 132.toScreenSize(), height: 35.toScreenSize(), alignment: .center)
-                .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color("customCyan")))
-                .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
-            }
-            .popover(
-                isPresented: self.$showPopover,
-                arrowEdge: .bottom
+                }
                 
-            ) {
-                VStack {
-                    List(filterOptions, id: \.self){
-                        element in
-                        MultiSelectRow(model: element, selectedItems: $selectedRows, selectedStrands: $selectedStrands)
-                    }
-                }.frame(width: 250, height: 200)
             }
-            .buttonStyle(PlainButtonStyle())
-            .padding(.trailing, 20)
-            
-        }
-        
+            .frame(width: 132.toScreenSize(), height: 35.toScreenSize(), alignment: .center)
+            .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color("customCyan")))
+            .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
+            .menuStyle(BorderlessButtonMenuStyle(showsMenuIndicator: false))
     }
-    
 }
+
 
 struct DropDownMenuSort: View {
     @State var expand = false
@@ -96,8 +86,8 @@ struct DropDownMenuSort: View {
                         .foregroundColor(Color("customCyan"))
                     
                 }.frame(width: 132.toScreenSize(), height: 35.toScreenSize(), alignment: .center)
-                .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color("customCyan")))
-                .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
+                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color("customCyan")))
+                    .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
             }
             .popover(
                 isPresented: self.$showPopover,

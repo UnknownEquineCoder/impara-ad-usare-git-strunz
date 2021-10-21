@@ -18,14 +18,12 @@ struct LearningObjectiveJourneyCell: View {
             ZStack(alignment: .topLeading) {
                 Rectangle()
                     .frame(width: 20, alignment: .leading)
-                //                    .foregroundColor(setupColor(darkMode: colorScheme == .dark, strand: Strands(rawValue: learningObj.strand ?? "") ?? .TECHNICAL))
-                    .foregroundColor(Color.customCyan)
-                
+                    .foregroundColor(setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand))
                 VStack {
                     HStack(alignment: .top) {
                         VStack(alignment: .leading, spacing: 8) {
                             Text(learningObj.strand.uppercased())
-                                .foregroundColor(Color.customLightGrey)
+                                .foregroundColor(setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand))
                                 .font(.system(size: learningObj.strand.count > 15 ? 15 : 20, weight: .semibold, design: .rounded))
                                 .lineLimit(2)
                             Text(learningObj.goal_Short.uppercased())
@@ -43,9 +41,9 @@ struct LearningObjectiveJourneyCell: View {
                         Text(learningObj.description)
                             .foregroundColor(colorScheme == .dark ? Color(red: 224/255, green: 224/255, blue: 224/255) : Color.customLightBlack)
                             .font(.system(size: 24.toFontSize(), weight: .regular))
-                            .frame(maxWidth: 639.toScreenSize(), maxHeight: .infinity, alignment: .leading)
+                            .frame(maxWidth: 400, maxHeight: .infinity, alignment: .leading)
                             .lineLimit(self.expand ? nil : 4).padding()
-                        
+
                         Spacer()
                         
                         if self.isLearningGoalAdded != nil {
@@ -127,16 +125,16 @@ struct LearningObjectiveJourneyCell: View {
                 
                 VStack(alignment: .center, spacing: 5) {
                     Spacer().frame(height: 200)
-                    //                    Text(setupTitleProgressRubric(value: learningObj.assessments?.first?.score ?? 0))
-                    //                        .font(.system(size: 15, weight: .medium))
-                    //                        .foregroundColor(Color.customCyan)
-                    //                    Text(setupDescProgressOnRubric(value: learningObj.assessments?.first?.score ?? 0))
-                    //                        .font(.system(size: 10, weight: .medium))
-                    //                        .foregroundColor(Color.customDarkGrey)
-                    //                        .multilineTextAlignment(.center)
-                    //                        .lineLimit(nil)
-                    //                        .fixedSize(horizontal: false, vertical: true)
-                    //                        .frame(width: 200)
+                    Text(setupTitleProgressRubric(value: learningObj.eval_score.last ?? 0))
+                        .font(.system(size: 15, weight: .medium))
+                        .foregroundColor(Color.customCyan)
+                    Text(setupDescProgressOnRubric(value: learningObj.eval_score.last ?? 0))
+                        .font(.system(size: 10, weight: .medium))
+                        .foregroundColor(Color.customDarkGrey)
+                        .multilineTextAlignment(.center)
+                        .lineLimit(nil)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .frame(width: 200)
                 }.frame(width: 260, height: 100, alignment: .center)
                     .isHidden(self.isAddable ? true : false)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
@@ -160,9 +158,9 @@ struct LearningObjectiveJourneyCell: View {
         .background(colorScheme == .dark ? Color(red: 50/255, green: 50/255, blue: 50/255) : Color.customLightGrey)
         .cornerRadius(14)
         .onTapGesture {
-            //    withAnimation {       // TEMPORARY REMOVED BECAUSE OF UI SMALL LEFT RECTANGLE VIEW GLITCHED
-            self.expand.toggle()
-            //            }
+            withAnimation {
+                self.expand.toggle()
+            }
         }
         .modifier(AnimatingCellHeight(height: expand ? 350 : 150))
     }
@@ -209,12 +207,25 @@ struct LearningObjectiveJourneyCell: View {
         }
     }
     
-    //    func setupColor(darkMode: Bool, strand: Strands) -> Color {
-    
-    //        return strand.toColor(dark: darkMode)
-    //
-    //
-    //    }
+    func setupColor(darkMode: Bool, strand: String) -> Color {
+        
+        switch strand {
+        case "Design":
+            return .customGreen
+        case "Process":
+            return .customOrange
+        case "App Business and Marketing":
+            return .customPurple
+        case "Professional Skills":
+            return .customYellow
+        case "Technical":
+            return .customBlue
+            
+        default:
+            return Color.customCyan
+            
+        }
+    }
 }
 
 struct AnimatingCellHeight: AnimatableModifier {

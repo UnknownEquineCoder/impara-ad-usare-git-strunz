@@ -83,6 +83,9 @@ struct RadarChartPath: Shape {
         var path = Path()
         
         for (index, entry) in data.enumerated() {
+//            if(entry > 0){
+//                
+//            }
             switch index {
             case 0:
                 withAnimation {

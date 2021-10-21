@@ -27,11 +27,11 @@ struct StartView: View {
                             ForEach(OutlineMenu.allCases) { menu in
                                 ZStack(alignment: .leading) {
                                     OutlineRow(item: menu, selectedMenu: self.$selectedMenu)
-                                        .frame(height: 50)
+                                        .frame(height: 54)
                                     if menu == self.selectedMenu {
                                         Rectangle()
                                             .foregroundColor(Color.secondary.opacity(0.1))
-                                            .frame(height: 50)
+                                            .frame(height: 54)
                                     }
                                 }
                             }
@@ -51,7 +51,6 @@ struct StartView: View {
                     .environmentObject(strandsStore)
             case .journey:
                 MyJourneyMainView(selectedMenu: $selectedMenu)
-//                MyJourneyMainView(selectedMenu: $selectedMenu)
                     .environmentObject(learningPathsStore)
                     .environmentObject(strandsStore)
             case .map:
