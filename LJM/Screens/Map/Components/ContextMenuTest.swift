@@ -27,32 +27,71 @@ struct ContextMenuTest: View {
 //
 //    }
         VStack{
-            Button("Pop") { self.isPop.toggle() }
-            .popover(isPresented: $isPop, arrowEdge: .bottom) {
-                VStack {
-//                    Menu("test"){
-                        Menu("View"){
-                            Button("Full Map"){ self.showSheet = false }
-                            Button("Communal"){ self.showSheet = false }
-                            Button("Elective"){ self.showSheet = false }
-                        }.menuStyle(BorderlessButtonMenuStyle())
-                        Menu("Paths"){
-                            Button("Front-end"){ self.showSheet = false }
-                            Button("Back-end"){ self.showSheet = false }
-                            Button("Business"){ self.showSheet = false }
-                            Button("UI/UX"){ self.showSheet = false }
-                            Button("Game"){ self.showSheet = false }
-                        }.menuStyle(BorderlessButtonMenuStyle())
-                        Menu("Strands"){
-                            Button("App Business and Marketing"){ self.showSheet = false }
-                            Button("Process"){ self.showSheet = false }
-                            Button("Professional Skills"){ self.showSheet = false }
-                            Button("Technical"){ self.showSheet = false }
-                            Button("Design"){ self.showSheet = false }
-                        }.menuStyle(BorderlessButtonMenuStyle())
-//                    }
-                }
+            Button(action: {
+                self.isPop.toggle()
+                        }) {
+                            HStack {
+                                Image(systemName: "camera.filters")
+//                                                    .renderingMode(.original)
+//                                                    .font(.title)
+                                                    .foregroundColor(.white)
+                                                Text("Filters")
+//                                                    .font(.title)
+                                                    .foregroundColor(.white)
+                            }
+                        }
+                        .frame(width: 134.0, height: 35.0)
+                        .popover(isPresented: $isPop, arrowEdge: .bottom){
+                            VStack {
+            //                    Menu("test"){
+                                    Menu("View"){
+                                        Button("Full Map"){ self.showSheet = false }
+                                        Button("Communal"){ self.showSheet = false }
+                                        Button("Elective"){ self.showSheet = false }
+                                    }.menuStyle(BorderlessButtonMenuStyle())
+                                    Menu("Paths"){
+                                        Button("Front-end"){ self.showSheet = false }
+                                        Button("Back-end"){ self.showSheet = false }
+                                        Button("Business"){ self.showSheet = false }
+                                        Button("UI/UX"){ self.showSheet = false }
+                                        Button("Game"){ self.showSheet = false }
+                                    }.menuStyle(BorderlessButtonMenuStyle())
+                                    Menu("Strands"){
+                                        Button("App Business and Marketing"){ self.showSheet = false }
+                                        Button("Process"){ self.showSheet = false }
+                                        Button("Professional Skills"){ self.showSheet = false }
+                                        Button("Technical"){ self.showSheet = false }
+                                        Button("Design"){ self.showSheet = false }
+                                    }.menuStyle(BorderlessButtonMenuStyle())
+            //                    }
+                            }
+//            Button("Pop") { self.isPop.toggle() }
+//            .popover(isPresented: $isPop, arrowEdge: .bottom) {
+//                VStack {
+////                    Menu("test"){
+//                        Menu("View"){
+//                            Button("Full Map"){ self.showSheet = false }
+//                            Button("Communal"){ self.showSheet = false }
+//                            Button("Elective"){ self.showSheet = false }
+//                        }.menuStyle(BorderlessButtonMenuStyle())
+//                        Menu("Paths"){
+//                            Button("Front-end"){ self.showSheet = false }
+//                            Button("Back-end"){ self.showSheet = false }
+//                            Button("Business"){ self.showSheet = false }
+//                            Button("UI/UX"){ self.showSheet = false }
+//                            Button("Game"){ self.showSheet = false }
+//                        }.menuStyle(BorderlessButtonMenuStyle())
+//                        Menu("Strands"){
+//                            Button("App Business and Marketing"){ self.showSheet = false }
+//                            Button("Process"){ self.showSheet = false }
+//                            Button("Professional Skills"){ self.showSheet = false }
+//                            Button("Technical"){ self.showSheet = false }
+//                            Button("Design"){ self.showSheet = false }
+//                        }.menuStyle(BorderlessButtonMenuStyle())
+////                    }
+//                }
             }
+           
         }
 
     }
@@ -75,3 +114,15 @@ struct ContextMenuTest_Previews: PreviewProvider {
         ContextMenuTest()
     }
 }
+
+//struct MyButtonStyle: ButtonStyle {
+//
+//  func makeBody(configuration: Self.Configuration) -> some View {
+//    configuration.label
+//      .padding()
+//      .foregroundColor(.white)
+//      .background(configuration.isPressed ? Color.customCyan : Color(red: 97/255, green: 95/255, blue: 95/255))
+//      .cornerRadius(7.0)
+//  }
+//
+//}
