@@ -26,7 +26,7 @@ struct RatingView: View {
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 15, height: 15, alignment: .center)
                 .offset(x: setupGoalRating())
-                .foregroundColor(learningObj.isCore ? Color.customCyan : Color.clear)
+                .foregroundColor(.customCyan)
             
             HStack {
                 ForEach(1..<maximumRating + 1, id: \.self) { number in
