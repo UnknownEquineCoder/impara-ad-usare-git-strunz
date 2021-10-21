@@ -33,10 +33,46 @@ class LearningObjectivesStore: ObservableObject {
         learningObjectives[index].eval_score.append(evaluation)
     }
     
+    func load_Test_Data(){
+        
+        var csvToStruct : [learning_Objective] = []
+        
+        guard let filePath = Bundle.main.path(forResource: "Coders", ofType: "csv") else {
+            return
+        }
+        
+        var data = ""
+        do {
+            data = try String(contentsOfFile: filePath)
+        } catch {
+            print(error)
+            return
+        }
+        
+        var rows = data.components(separatedBy: "\n")
+        
+        rows.removeFirst()
+        rows.removeLast()
+        
+        for row in rows {
+            
+            let csvColumns = row.components(separatedBy: ";")
+            let learning_Objective_Element = learning_Objective.init(new_Raw: csvColumns)
+            csvToStruct.append(learning_Objective_Element)
+//            if let rubric_Specific_Level = rubric_Level.first(where: {$0.ID == csvColumns[7]}) {
+//                let LOsStruct = learning_Objective.init(raw: csvColumns, rubric_Levels: rubric_Specific_Level.levels)
+//                csvToStruct.append(LOsStruct)
+//            }
+            
+        }
+        
+        learningObjectives = csvToStruct
+    }
+    
     func load_Learning_Objective(){
         var csvToStruct : [learning_Objective] = []
         let rubric_Level = load_Learning_Rubric()
-        
+        print("#######")
         guard let filePath = Bundle.main.path(forResource: "Learning_Objectives", ofType: "csv") else {
             return
         }

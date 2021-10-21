@@ -62,6 +62,8 @@ struct StartView: View {
         .onAppear(perform: {
             learningPathsStore.load_Learning_Path()
             strandsStore.setupStrandsOnFilter(learningObjective: learningObjectiveStore.learningObjectives)
+//            learningObjectiveStore.load_Test_Data()
+            print("@@@@@\(learningObjectiveStore.learningObjectives)")
         })
     }
 }

@@ -24,7 +24,7 @@ struct CompassView: View {
     @State var animation_Trigger = false
     @State var animation_Trigger_Communal = false
     
-    let graph_Minimum_Dimension : CGFloat = 5
+    let graph_Minimum_Dimension : CGFloat = 2
     
     
     // This will be arrays for bars graphs
@@ -342,15 +342,17 @@ struct CompassView: View {
         
         var data_Quantity = [0,0,0,0,0]
         
-        let filtered_Learning_Objective = learningObjectiveStore.learningObjectives.filter({$0.eval_score.count > 0})
+        let filtered_Learning_Objective = learningObjectiveStore.learningObjectives
         
         for learning_Objective in filtered_Learning_Objective {
-            
+            let temp_Strand_Index = fake_Strands.firstIndex(of: learning_Objective.strand) ?? 0
             if((learning_Objective.eval_score.last ?? 0) > 0){
-                let temp_Strand_Index = fake_Strands.firstIndex(of: learning_Objective.strand) ?? 0
+                
                 data_Back_Array[temp_Strand_Index] += CGFloat(learning_Objective.eval_score.last ?? 0)
-                data_Quantity[temp_Strand_Index] += 1
             }
+            
+            data_Quantity[temp_Strand_Index] += 1
+            
         }
         
         for index in 0...data_Quantity.count-1 {
