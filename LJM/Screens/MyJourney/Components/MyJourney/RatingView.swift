@@ -55,7 +55,6 @@ struct RatingView: View {
         }
     }
     
-    
     func setupGoalRating() -> CGFloat {
         let fakePaths = ["Design", "Front","Back", "Game","Business"]
         let learningPathIndex = fakePaths.firstIndex(where: {$0 == learningPathSelected}) ?? 0
@@ -68,70 +67,9 @@ struct RatingView: View {
         }
         
         return CGFloat((44 * (something)) - 132 - (something == 5 ? 3 : 0))
-        
-//        switch something {
-//                case 1:
-//                    return -88
-//                case 2:
-//                    return -44
-//                case 3:
-//                    return 0
-//                case 4:
-//                    return 44
-//                case 5:
-//                    return 85
-//                default:
-//                    return 69
-//                }
+
     }
-//        switch path.title {
-//        case "Design":
-//            return [1]
-//        case "Front":
-//            return -44
-//        case "Back":
-//            return 0
-//        case "Game":
-//            return 44
-//        case "Business":
-//            return 85
-//        default:
-//            return 0
-//        }
-        
-//        switch learningObj.core_Rubric_Levels {
-//        case [1]:
-//            return -85
-//        case [2]:
-//            return -44
-//        case [3]:
-//            return 0
-//        case [4]:
-//            return 44
-//        case [5]:
-//            return 85
-//        default:
-//            return 0
-//        }
-        
-        //        if self.learningObj.id == id {
-        //            switch learningObj.core_Rubric_Levels {
-        //            case [1]:
-        //                return -85
-        //            case 2:
-        //                return -44
-        //            case 3:
-        //                return 0
-        //            case 4:
-        //                return 44
-        //            case 5:
-        //                return 85
-        //            default:
-        //                return 0
-        //            }
-        //        }
-//        return 0
-//    }
+
 }
 
 struct CircleView: View {
