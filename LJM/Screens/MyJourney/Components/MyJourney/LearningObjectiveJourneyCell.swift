@@ -34,7 +34,7 @@ struct LearningObjectiveJourneyCell: View {
                                 .foregroundColor(colorScheme == .dark ? Color(red: 255/255, green: 255/255, blue: 255/255) : Color.customDarkGrey)
                                 .font(.system(size: 22.toFontSize(), weight: .light))
                                 .lineLimit(2)
-                        }.frame(width: 150, alignment: .leading).padding(.leading, 20).padding(.top, 15)
+                        }.frame(width: 200, alignment: .leading).padding(.leading, 20).padding(.top, 15)
                         
                         Spacer().frame(width: 100)
                         
@@ -68,7 +68,7 @@ struct LearningObjectiveJourneyCell: View {
                             }
                         }
                     }.padding(.leading, 20)
-                        .frame(maxHeight: .infinity, alignment: .center)
+                    .frame(maxHeight: .infinity, alignment: .center)
                     
                     HStack {
                         VStack(alignment: .leading, spacing: 20) {
