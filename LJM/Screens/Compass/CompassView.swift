@@ -119,7 +119,6 @@ struct CompassView: View {
                                     .onChange(of: path) { _ in
                                         DispatchQueue.main.asyncAfter(deadline: .now()) {
                                             animation_Trigger = false
-                                            learningObjectiveStore.save_Status()
                                         }
                                         
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
@@ -261,7 +260,7 @@ struct CompassView: View {
         var data_Quantity = [0,0,0,0,0]
         path_Index = fakePaths.firstIndex(of: path) ?? 1
         
-        // filter for tonio cartonio 
+        // filter for tonio cartonio
         let filtered_Objectives = learningObjectiveStore.learningObjectives.filter({ ($0.core_Rubric_Levels[path_Index + 1] * $0.core_Rubric_Levels[0]) > 1})
 
         for learning_Objective in filtered_Objectives {
