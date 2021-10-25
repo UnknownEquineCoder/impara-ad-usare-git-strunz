@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct learning_Objective : Equatable, Codable {
+struct learning_Objective : Equatable, Encodable, Decodable {
     
     var ID : String
     var strand : String

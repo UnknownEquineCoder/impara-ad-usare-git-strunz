@@ -34,27 +34,27 @@ class LearningObjectivesStore: ObservableObject {
     
     func save_Status(){
         
-//        let evaluated_Object = learningObjectives.filter({$0.eval_score.count>0})
-//        
-//        UserDefaults.standard.set(evaluated_Object, forKey: "evaluated_Object")
-//        
-//        print("###### saving data")
+        let evaluated_Object = learningObjectives.filter({$0.eval_score.count>0})
+        print(learningObjectives[0])
+        if let encoded = try? PropertyListEncoder().encode(evaluated_Object) {
+            UserDefaults.standard.set(encoded, forKey: "evaluated_Object")
+        }
         
     }
     
     func load_Status(){
         
-//        let evaluated_Objects = UserDefaults.standard.object(forKey: "evaluated_Object") as? [learning_Objective] ?? []
-//
-//        for evaluated_Object in evaluated_Objects {
-//            let index = learningObjectives.firstIndex(of: evaluated_Object)
-//
-//            if index != nil {
-//                learningObjectives[index!] = evaluated_Object
-//            }
-//        }
-//
-//        print("###### load data")
+        let data = UserDefaults.standard.object(forKey: "evaluated_Object")
+        
+        if let evaluated_Objects = try? PropertyListDecoder().decode([learning_Objective].self, from: data as! Data ) {
+
+            for evaluated_Object in evaluated_Objects {
+                let index = learningObjectives.firstIndex(where: {$0.ID == evaluated_Object.ID})
+                if index != nil {
+                    learningObjectives[index!] = evaluated_Object
+                }
+            }
+        }
     }
     
     func load_Test_Data(){
