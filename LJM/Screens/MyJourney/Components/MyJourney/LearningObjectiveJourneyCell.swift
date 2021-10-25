@@ -14,7 +14,7 @@ struct LearningObjectiveJourneyCell: View {
     var learningObj: learning_Objective
     
     var body: some View {
-        LazyVStack(spacing: 20) {
+        LazyVStack {
             ZStack(alignment: .topLeading) {
                 Rectangle()
                     .frame(width: 20, alignment: .leading)
@@ -43,7 +43,7 @@ struct LearningObjectiveJourneyCell: View {
                             .font(.system(size: 24.toFontSize(), weight: .regular))
                             .frame(maxWidth: 400, maxHeight: .infinity, alignment: .leading)
                             .lineLimit(self.expand ? nil : 4).padding()
-
+                        
                         Spacer()
                         
                         if self.isLearningGoalAdded != nil {
@@ -100,16 +100,10 @@ struct LearningObjectiveJourneyCell: View {
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     HStack(spacing: 10) {
                                         
-                                        ForEach(learningObj.eval_score, id: \.self) { item in
-                                            if item == learningObj.eval_score.first || learningObj.eval_score.count < 2 {
-                                                
-                                            } else {
-                                                if item == learningObj.eval_score.last {
-                                                    HistoryProgressView(isDeletable: true, learningObj: self.learningObj)
-                                                } else {
-                                                    HistoryProgressView(learningObj: self.learningObj)
-                                                }
-                                            }
+                                        ForEach(0..<learningObj.eval_score.count, id: \.self) { index in
+                                            
+                                            HistoryProgressView(index: index, learningObj: self.learningObj)
+                                            
                                         }
                                     }
                                 }
@@ -163,6 +157,7 @@ struct LearningObjectiveJourneyCell: View {
             }
         }
         .modifier(AnimatingCellHeight(height: expand ? 350 : 150))
+        
     }
     
     func setupTitleProgressRubric(value: Int) -> String {

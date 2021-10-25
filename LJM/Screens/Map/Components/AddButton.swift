@@ -46,8 +46,8 @@ struct AddButton: View {
                                 .foregroundColor(Color("customCyan"))
                                 .onTapGesture {
                                     
-                                    
                                     self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.append(0)
+                                    self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.append(Date())
                                     
                                     self.didTap.toggle()
                                     
@@ -60,6 +60,7 @@ struct AddButton: View {
                                     // remove item from the learning objective list
                                     
                                     self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.removeAll()
+                                    self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.removeAll()
                                     
                                 }
                         }
@@ -74,6 +75,7 @@ struct AddButton: View {
                                 let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObjectiveSelected.ID})!
                                 
                                 self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.removeAll()
+                                self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.removeAll()
                                 
                         }
                     }

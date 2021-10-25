@@ -37,6 +37,7 @@ struct RatingView: View {
                         // Add assessment
                         let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObj.ID})!
                         self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.append(number)
+                        self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.append(Date())
                         
                     } label: {
                         CircleView(number: number, rating: rating)
