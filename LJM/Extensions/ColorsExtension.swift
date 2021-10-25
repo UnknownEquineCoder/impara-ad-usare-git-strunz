@@ -18,5 +18,4 @@ extension Color {
     public static let customGreen = Color("customGreen")
     public static let customOrange = Color("customOrange")
     public static let customYellow = Color("customYellow")
-    
 }

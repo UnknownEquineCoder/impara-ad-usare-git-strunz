@@ -141,19 +141,19 @@ struct CompassView: View {
                         }
                         Spacer()
                         
-                        BarGraphFrame(color: Color(red: 252/255, green: 135/255, blue: 85/255), title: "Process", skills: process_Skills, progress: $process_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview)
+                        BarGraphFrame(color: Color.customOrange, title: "Process", skills: process_Skills, progress: $process_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview)
                             .padding(.top, 54)
                         
-                        BarGraphFrame(color: Color(red: 101/255, green: 201/255, blue: 167/255), title: "Design", skills: design_Skills, progress: $design_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview)
+                        BarGraphFrame(color: Color.customGreen, title: "Design", skills: design_Skills, progress: $design_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview)
                             .padding(.top, 50)
                         
-                        BarGraphFrame(color: Color(red: 252/255, green: 176/255, blue: 69/255), title: "Professional Skills", skills: professional_Skills, progress: $professional_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview)
+                        BarGraphFrame(color: Color.customYellow, title: "Professional Skills", skills: professional_Skills, progress: $professional_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview)
                             .padding(.top, 50)
                         
-                        BarGraphFrame(color: Color(red: 114/255, green: 87/255, blue: 255/255), title: "Technical", skills: tecnical_Skills, progress: $tecnical_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview)
+                        BarGraphFrame(color: Color.customBlue, title: "Technical", skills: tecnical_Skills, progress: $tecnical_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview)
                             .padding(.top, 50)
                         
-                        BarGraphFrame(color: Color(red: 172/255, green: 77/255, blue: 185/255), title: "Business", skills: business_Skills, progress: $business_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview)
+                        BarGraphFrame(color: Color.customPurple, title: "Business", skills: business_Skills, progress: $business_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview)
                             .padding(.top, 50)
                             .padding(.bottom, 100)
                     }
