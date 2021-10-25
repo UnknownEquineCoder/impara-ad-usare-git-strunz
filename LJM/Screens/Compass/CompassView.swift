@@ -261,15 +261,15 @@ struct CompassView: View {
 //        Design,Front,Back,Game,Business
         path_Index = fakePaths.firstIndex(of: path) ?? 1
         
-        for learning_Objective in learningObjectiveStore.learningObjectives {
-            
-            if (CGFloat(learning_Objective.core_Rubric_Levels[path_Index + 1]) * CGFloat(learning_Objective.core_Rubric_Levels[0]))>1 {
-                let temp_Strand_Index = fake_Strands.firstIndex(of: learning_Objective.strand) ?? 0
-                data_Path_Front_Array[temp_Strand_Index] += CGFloat( CGFloat(learning_Objective.core_Rubric_Levels[path_Index + 1]) < CGFloat(learning_Objective.core_Rubric_Levels[0]) ? learning_Objective.core_Rubric_Levels[0] : learning_Objective.core_Rubric_Levels[path_Index + 1])
-                data_Quantity[temp_Strand_Index] += 1
-            }
-            
+        let filtered_Objectives = learningObjectiveStore.learningObjectives.filter({ ($0.core_Rubric_Levels[path_Index + 1] * $0.core_Rubric_Levels[0]) > 1})
+        
+        for learning_Objective in filtered_Objectives {
+            let temp_Strand_Index = fake_Strands.firstIndex(of: learning_Objective.strand) ?? 0
+            data_Path_Front_Array[temp_Strand_Index] += CGFloat(learning_Objective.core_Rubric_Levels[path_Index + 1])
+            data_Quantity[temp_Strand_Index] += 1
         }
+        
+//        CGFloat( CGFloat(learning_Objective.core_Rubric_Levels[path_Index + 1]) < CGFloat(learning_Objective.core_Rubric_Levels[0]) ? learning_Objective.core_Rubric_Levels[0] :
         
         for index in 0...data_Quantity.count-1 {
             if(data_Path_Front_Array[index] > 0){
@@ -287,7 +287,7 @@ struct CompassView: View {
         
         var data_Quantity = [0,0,0,0,0]
         
-        let filtered_Learning_Objective = learningObjectiveStore.learningObjectives.filter({$0.isCore})
+        let filtered_Learning_Objective = learningObjectiveStore.learningObjectives.filter({$0.eval_score.count > 0})
         
         for learning_Objective in filtered_Learning_Objective {
             
