@@ -52,7 +52,9 @@ struct OutlineRow : View {
             Text(item.title)
                 .foregroundColor(isSelected ? .customBlack : .primary)
                 .font(.system(size: 20, weight: .medium, design: .rounded))
+                .frame(width: 150, alignment: .leading)
         }
+        .contentShape(Rectangle())
         .padding()
         .padding(.leading, 25)
         .onTapGesture {

@@ -1,42 +1,43 @@
 import Foundation
 import SwiftUI
 
-struct RadarGraphFrame: View{
+struct RadarGraphFrame: View {
+    
+    @Environment(\.colorScheme) var colorScheme
     
     let categories = 5
     let divisions = 5
-    //let displacement: CGFloat
     
     let ballsColors: [ColorData] =
-        [
-            ColorData(252, 111, 050),
-            ColorData(252, 176, 069),
-            ColorData(114, 057, 255),
-            ColorData(101, 201, 167),
-            ColorData(185, 109, 195)
-        ]
-    
+    [
+        ColorData(212, 69, 27),
+        ColorData(255, 171, 7),
+        ColorData(59, 100, 244),
+        ColorData(102, 175, 45),
+        ColorData(144, 28, 146)
+    ]
+
     let strandLabels: [String] = ["PROCESS", "PROFESSIONAL SKILLS", "TECHNICAL", "DESIGN", "BUSINESS"]
+    
     
     var body: some View{
         GeometryReader { geo in
-        ZStack {
-            ForEach(getPointCenters(rect: geo.size),
-                    id: \.self) { data in
-                CircleAroundAPoint().path(around: data.toCG(), with: CGSize(width: 12, height: 12))
-                    .foregroundColor(Color(from: data.cData))
+            ZStack {
+                ForEach(getPointCenters(rect: geo.size),
+                        id: \.self) { data in
+                    CircleAroundAPoint().path(around: data.toCG(), with: CGSize(width: 12, height: 12))
+                        .foregroundColor(Color(from: data.cData))
+                }
+                
+                ForEach(0..<getLabel(rect: geo.size).count,
+                        id: \.self) { data in
+                    let point = getLabel(rect: geo.size)[data]
+                    Text(strandLabels[data])
+                        .position(x: point.x, y: point.y)
+                        .foregroundColor(Color(from: point.cData))
+                        .font(.system(size: 14.toFontSize(), weight: .light))
+                }
             }
-            
-            ForEach(0..<getLabel(rect: geo.size).count,
-                    id: \.self) { data in
-                let point = getLabel(rect: geo.size)[data]
-                Text(strandLabels[data])
-                    .position(x: point.x, y: point.y)
-                    .foregroundColor(Color(from: point.cData))
-                    .font(.system(size: 14.toFontSize(), weight: .light))
-            }
-        }
-        //.frame(width: 500, height: 500)
         }
     }
     
