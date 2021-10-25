@@ -36,7 +36,7 @@ struct LearningObjectiveJourneyCell: View {
                                 .lineLimit(2)
                         }.frame(width: 200, alignment: .leading).padding(.leading, 20).padding(.top, 15)
                         
-                        Spacer().frame(width: 100)
+                        Spacer().frame(width: 50)
                         
                         Text(learningObj.description)
                             .foregroundColor(colorScheme == .dark ? Color(red: 224/255, green: 224/255, blue: 224/255) : Color.customLightBlack)
