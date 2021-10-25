@@ -12,9 +12,8 @@ class singleton_Shared{
     var profile_data : profile = profile()
     var learning_Objectives : [learning_Objective] = []
     
-    func comunal_Data_Graph(){
-        let data_To_Output : [Int] = []
-    }
+    
+    
 }
 
 class LearningObjectivesStore: ObservableObject {
@@ -33,10 +32,34 @@ class LearningObjectivesStore: ObservableObject {
         learningObjectives[index].eval_score.append(evaluation)
     }
     
+    func save_Status(){
+        
+//        let evaluated_Object = learningObjectives.filter({$0.eval_score.count>0})
+//        
+//        UserDefaults.standard.set(evaluated_Object, forKey: "evaluated_Object")
+//        
+//        print("###### saving data")
+        
+    }
+    
+    func load_Status(){
+        
+//        let evaluated_Objects = UserDefaults.standard.object(forKey: "evaluated_Object") as? [learning_Objective] ?? []
+//
+//        for evaluated_Object in evaluated_Objects {
+//            let index = learningObjectives.firstIndex(of: evaluated_Object)
+//
+//            if index != nil {
+//                learningObjectives[index!] = evaluated_Object
+//            }
+//        }
+//
+//        print("###### load data")
+    }
+    
     func load_Test_Data(){
         
         learningObjectives = []
-        var csvToStruct : [rubric_Level] = []
         
         guard let file_Path_Learning_Objective = Bundle.main.path(forResource: "Coders", ofType: "csv") else {
             return
@@ -77,6 +100,7 @@ class LearningObjectivesStore: ObservableObject {
             learningObjectives.append(learning_Objective_Element)
             
         }
+        
     }
     
     func load_Rubric_Levels() -> [rubric_Level]{
