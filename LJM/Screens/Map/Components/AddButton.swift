@@ -46,7 +46,7 @@ struct AddButton: View {
                                 .foregroundColor(Color("customCyan"))
                                 .onTapGesture {
                                     
-                                    self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.append(0)
+                                    self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.append(1)
                                     self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.append(Date())
                                     
                                     self.didTap.toggle()

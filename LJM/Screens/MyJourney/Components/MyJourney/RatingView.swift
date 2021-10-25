@@ -76,8 +76,8 @@ struct RatingView: View {
 struct CircleView: View {
     @State var hovered = false
     @State private var showingPopup:Bool = false
-    var number = 0
-    var rating = 0
+    var number = 1
+    var rating = 1
     
     var body: some View {
         Circle()
