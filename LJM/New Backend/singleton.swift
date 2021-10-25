@@ -35,10 +35,55 @@ class LearningObjectivesStore: ObservableObject {
     
     func load_Test_Data(){
         
-        var csvToStruct : [learning_Objective] = []
+        learningObjectives = []
+        var csvToStruct : [rubric_Level] = []
         
-        guard let filePath = Bundle.main.path(forResource: "Coders", ofType: "csv") else {
+        guard let file_Path_Learning_Objective = Bundle.main.path(forResource: "Coders", ofType: "csv") else {
             return
+        }
+        
+        guard let file_Rubric_Levels = Bundle.main.path(forResource: "ALL PATHS", ofType: "csv") else {
+            return
+        }
+        
+        var data_Learning_Objectives = ""
+        var data_Rubric_Levels = ""
+        
+        do {
+            data_Learning_Objectives = try String(contentsOfFile: file_Path_Learning_Objective)
+            data_Rubric_Levels = try String(contentsOfFile: file_Rubric_Levels)
+        } catch {
+            print(error)
+            return
+        }
+        
+        var rows_Learning_Objectives = data_Learning_Objectives.components(separatedBy: "\n")
+        var rows_Rubric_Levels = data_Rubric_Levels.components(separatedBy: "\n")
+        
+        rows_Learning_Objectives.removeFirst()
+        rows_Learning_Objectives.removeLast()
+        
+        rows_Rubric_Levels.removeFirst()
+        rows_Rubric_Levels.removeLast()
+        
+        for row_Index in 0..<rows_Learning_Objectives.count {
+            
+            let learning_Objective_Columned = rows_Learning_Objectives[row_Index].components(separatedBy: ";")
+            
+            let rubric_Levels_Columned = rows_Rubric_Levels[row_Index].components(separatedBy: ";")
+            
+            let learning_Objective_Element = learning_Objective(learning_Objective_Raw: learning_Objective_Columned, rubric_Level_Raw: rubric_Levels_Columned)
+            
+            learningObjectives.append(learning_Objective_Element)
+            
+        }
+    }
+    
+    func load_Rubric_Levels() -> [rubric_Level]{
+        var csvToStruct : [rubric_Level] = []
+        
+        guard let filePath = Bundle.main.path(forResource: "ALL PATHS", ofType: "csv") else {
+            return csvToStruct
         }
         
         var data = ""
@@ -46,7 +91,7 @@ class LearningObjectivesStore: ObservableObject {
             data = try String(contentsOfFile: filePath)
         } catch {
             print(error)
-            return
+            return csvToStruct
         }
         
         var rows = data.components(separatedBy: "\n")
@@ -57,16 +102,14 @@ class LearningObjectivesStore: ObservableObject {
         for row in rows {
             
             let csvColumns = row.components(separatedBy: ";")
-            let learning_Objective_Element = learning_Objective.init(new_Raw: csvColumns)
-            csvToStruct.append(learning_Objective_Element)
-//            if let rubric_Specific_Level = rubric_Level.first(where: {$0.ID == csvColumns[7]}) {
-//                let LOsStruct = learning_Objective.init(raw: csvColumns, rubric_Levels: rubric_Specific_Level.levels)
-//                csvToStruct.append(LOsStruct)
-//            }
+            
+            let rubric_Level_Object = rubric_Level(new_Raw: csvColumns)
+//            let LOsStruct = rubric_Level.init(raw: csvColumns)
+            csvToStruct.append(rubric_Level_Object)
             
         }
         
-        learningObjectives = csvToStruct
+        return csvToStruct
     }
     
     func load_Learning_Objective(){
