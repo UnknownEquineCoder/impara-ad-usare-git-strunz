@@ -19,7 +19,6 @@
 		961962462726C49900ECA524 /* AddLOButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961962452726C49900ECA524 /* AddLOButton.swift */; };
 		961DB4CE25E668410020E9F6 /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961DB4CD25E668410020E9F6 /* DatePicker.swift */; };
 		961DB4E225E66F610020E9F6 /* SliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961DB4E125E66F610020E9F6 /* SliderView.swift */; };
-		961DB4E725E670AD0020E9F6 /* Sliders in Frameworks */ = {isa = PBXBuildFile; productRef = 961DB4E625E670AD0020E9F6 /* Sliders */; };
 		9622DCE525DE80DA009ECCB4 /* CompassPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9622DCE425DE80DA009ECCB4 /* CompassPopover.swift */; };
 		962F090E25E7C4F1001EAE85 /* ParticularCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962F090D25E7C4F1001EAE85 /* ParticularCircle.swift */; };
 		9641C4A525778F1D0088A0B6 /* SizesExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9641C4A425778F1D0088A0B6 /* SizesExtension.swift */; };
@@ -47,6 +46,8 @@
 		96CC613F257A38FC00CE7ABD /* DropDownMenuFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CC613D257A38FC00CE7ABD /* DropDownMenuFilters.swift */; };
 		96CE7BC625C4183A006C4CDA /* FilterChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CE7BC525C4183A006C4CDA /* FilterChoice.swift */; };
 		96E2DD852726EF170007D49B /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E2DD842726EF170007D49B /* SearchBar.swift */; };
+		96E2DD872727FD170007D49B /* DocDemoDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E2DD862727FD170007D49B /* DocDemoDocument.swift */; };
+		96E2DD892727FE370007D49B /* ALL PATHS.csv in Resources */ = {isa = PBXBuildFile; fileRef = 96E2DD882727FE370007D49B /* ALL PATHS.csv */; };
 		E02DFE8A270AEC3F004FF8B7 /* newModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02DFE89270AEC3F004FF8B7 /* newModels.swift */; };
 		E02DFE8C270C41E5004FF8B7 /* singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02DFE8B270C41E5004FF8B7 /* singleton.swift */; };
 		E03211372716E89100262144 /* Rubric_Level.csv in Resources */ = {isa = PBXBuildFile; fileRef = E03211342716E89100262144 /* Rubric_Level.csv */; };
@@ -161,6 +162,8 @@
 		96CC613D257A38FC00CE7ABD /* DropDownMenuFilters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownMenuFilters.swift; sourceTree = "<group>"; };
 		96CE7BC525C4183A006C4CDA /* FilterChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterChoice.swift; sourceTree = "<group>"; };
 		96E2DD842726EF170007D49B /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		96E2DD862727FD170007D49B /* DocDemoDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DocDemoDocument.swift; path = ../../../../Downloads/DocDemoDocument.swift; sourceTree = "<group>"; };
+		96E2DD882727FE370007D49B /* ALL PATHS.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "ALL PATHS.csv"; path = "../../../../Downloads/ALL PATHS.csv"; sourceTree = "<group>"; };
 		E02DFE89270AEC3F004FF8B7 /* newModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = newModels.swift; sourceTree = "<group>"; };
 		E02DFE8B270C41E5004FF8B7 /* singleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = singleton.swift; sourceTree = "<group>"; };
 		E03211342716E89100262144 /* Rubric_Level.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Rubric_Level.csv; sourceTree = "<group>"; };
@@ -199,7 +202,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				961DB4E725E670AD0020E9F6 /* Sliders in Frameworks */,
 				EA7335682648B817004B761A /* Introspect in Frameworks */,
 				EACD025325D53BC2008D12FE /* Alamofire in Frameworks */,
 				EA5B447826310DF7002A97C7 /* SwiftKeychainWrapper in Frameworks */,
@@ -377,6 +379,7 @@
 		E02DFE8D270C41F4004FF8B7 /* New Backend */ = {
 			isa = PBXGroup;
 			children = (
+				96E2DD862727FD170007D49B /* DocDemoDocument.swift */,
 				E02DFE89270AEC3F004FF8B7 /* newModels.swift */,
 				E02DFE8B270C41E5004FF8B7 /* singleton.swift */,
 			);
@@ -390,6 +393,7 @@
 				E0E87CCB27214EED00FEF3D6 /* Coders.csv */,
 				E03211362716E89100262144 /* Learning_Paths.csv */,
 				E03211342716E89100262144 /* Rubric_Level.csv */,
+				96E2DD882727FE370007D49B /* ALL PATHS.csv */,
 			);
 			path = FakeData;
 			sourceTree = "<group>";
@@ -504,7 +508,6 @@
 			packageProductDependencies = (
 				EACD025225D53BC2008D12FE /* Alamofire */,
 				964448BC25E500EA00F8359F /* Shapes */,
-				961DB4E625E670AD0020E9F6 /* Sliders */,
 				EA5B447726310DF7002A97C7 /* SwiftKeychainWrapper */,
 				EA139BD32640910900E15E28 /* JWTDecode */,
 				EA7335672648B817004B761A /* Introspect */,
@@ -583,7 +586,6 @@
 			packageReferences = (
 				EACD025125D53BC2008D12FE /* XCRemoteSwiftPackageReference "Alamofire" */,
 				964448BB25E500EA00F8359F /* XCRemoteSwiftPackageReference "swiftui-shapes" */,
-				961DB4E525E670AD0020E9F6 /* XCRemoteSwiftPackageReference "swiftui-sliders" */,
 				EA5B447626310DF7002A97C7 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
 				EA139BD22640910900E15E28 /* XCRemoteSwiftPackageReference "JWTDecode.swift" */,
 				EA7335662648B817004B761A /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
@@ -604,6 +606,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96E2DD892727FE370007D49B /* ALL PATHS.csv in Resources */,
 				E03211372716E89100262144 /* Rubric_Level.csv in Resources */,
 				E0E87CCC27214EED00FEF3D6 /* Coders.csv in Resources */,
 				55F4D7A8266188E10080E6A2 /* README-URGENT.txt in Resources */,
@@ -650,10 +653,10 @@
 				EA7028902572FDD300E1B6EB /* RatingView.swift in Sources */,
 				96A4105125726DD600ACA0DE /* AddButton.swift in Sources */,
 				EA686F1D256EF69C00C121DC /* ChallengeView.swift in Sources */,
+				96E2DD872727FD170007D49B /* DocDemoDocument.swift in Sources */,
 				9609087F2604A10900EB4242 /* LearningGoalsView.swift in Sources */,
 				9670A966256E9FBA0043F227 /* ProfileNameLabel.swift in Sources */,
 				96E2DD852726EF170007D49B /* SearchBar.swift in Sources */,
-				E0E87CD02722DD7100FEF3D6 /* DocDemoDocument.swift in Sources */,
 				964B665E256E64FD006AB20E /* StudentPictureView.swift in Sources */,
 				EACD027125DE88AA008D12FE /* DropDownMenuSelectPath.swift in Sources */,
 				EA686F07256EF1F100C121DC /* MapMainView.swift in Sources */,
@@ -1030,14 +1033,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		961DB4E525E670AD0020E9F6 /* XCRemoteSwiftPackageReference "swiftui-sliders" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/spacenation/swiftui-sliders";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 		964448BB25E500EA00F8359F /* XCRemoteSwiftPackageReference "swiftui-shapes" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/spacenation/swiftui-shapes";
@@ -1081,11 +1076,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		961DB4E625E670AD0020E9F6 /* Sliders */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 961DB4E525E670AD0020E9F6 /* XCRemoteSwiftPackageReference "swiftui-sliders" */;
-			productName = Sliders;
-		};
 		964448BC25E500EA00F8359F /* Shapes */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 964448BB25E500EA00F8359F /* XCRemoteSwiftPackageReference "swiftui-shapes" */;

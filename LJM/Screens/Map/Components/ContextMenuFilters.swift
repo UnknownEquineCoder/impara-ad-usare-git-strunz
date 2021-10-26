@@ -37,11 +37,12 @@ struct ContextMenuFilters: View {
             HStack(spacing: 13) {
                 Image(systemName: "camera.filters")
                     .resizable()
-                    .foregroundColor(colorScheme == .dark ? .white : .black)
-//                    .frame(width: 10, height: 10, alignment: .center)
+                    .frame(width: 10, height: 10)
+                    .foregroundColor(colorScheme == .dark ? Color(red: 160/255, green: 159/255, blue: 159/255) : Color(red: 87/255, green: 87/255, blue: 87/255))
+                    
                 Text("Filters")
 //                    .font(.system(size: 20, weight: .medium, design: .rounded))
-                    .foregroundColor(colorScheme == .dark ? .white : .black)
+                    .foregroundColor(colorScheme == .dark ? Color(red: 160/255, green: 159/255, blue: 159/255) : Color(red: 87/255, green: 87/255, blue: 87/255))
             }
 
         }
@@ -59,18 +60,6 @@ struct ContextMenuTest_Previews: PreviewProvider {
         ContextMenuFilters()
     }
 }
-
-//struct MyButtonStyle: ButtonStyle {
-//
-//  func makeBody(configuration: Self.Configuration) -> some View {
-//    configuration.label
-//      .padding()
-//      .foregroundColor(.white)
-//      .background(configuration.isPressed ? Color.customCyan : Color(red: 97/255, green: 95/255, blue: 95/255))
-//      .cornerRadius(7.0)
-//  }
-//
-//}
 
 
 
