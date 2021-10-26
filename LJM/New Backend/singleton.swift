@@ -18,6 +18,7 @@ class singleton_Shared{
 
 class LearningObjectivesStore: ObservableObject {
     @Published var learningObjectives = [learning_Objective]()
+    var isSavable = true
 
     func addItem(_ item: learning_Objective) {
         learningObjectives.append(item)
@@ -33,13 +34,13 @@ class LearningObjectivesStore: ObservableObject {
     }
     
     func save_Status(){
-        
-        let evaluated_Object = learningObjectives.filter({$0.eval_score.count>0})
-        print(learningObjectives[0])
-        if let encoded = try? PropertyListEncoder().encode(evaluated_Object) {
-            UserDefaults.standard.set(encoded, forKey: "evaluated_Object")
+        if(isSavable) {
+            let evaluated_Object = learningObjectives.filter({$0.eval_score.count>0})
+            print(learningObjectives[0])
+            if let encoded = try? PropertyListEncoder().encode(evaluated_Object) {
+                UserDefaults.standard.set(encoded, forKey: "evaluated_Object")
+            }
         }
-        
     }
     
     func load_Status(){
