@@ -7,7 +7,7 @@
 
 import SwiftUI
 import UniformTypeIdentifiers
-
+//p
 extension UTType {
     static var exampleText: UTType {
         UTType(importedAs: "com.exemple.LearningJourneyManager")
