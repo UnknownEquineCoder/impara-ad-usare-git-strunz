@@ -2,6 +2,7 @@ import Foundation
 import SwiftUI
 
 struct StartView: View {
+    
     @State var selectedMenu: OutlineMenu = .compass
     
     // new data flow element
