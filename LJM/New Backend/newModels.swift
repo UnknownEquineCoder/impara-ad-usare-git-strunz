@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct learning_Objective : Equatable {
+struct learning_Objective : Equatable, Encodable, Decodable {
     
     var ID : String
     var strand : String
@@ -22,6 +22,8 @@ struct learning_Objective : Equatable {
     
     var eval_score : [Int]
     var eval_date : [Date]
+    
+    private let rubric_Level_Types = ["Beginning","Progressing","Proficient","Exemplary"]
     
     init(raw : [String], rubric_Levels : [Int]){
         
@@ -39,22 +41,28 @@ struct learning_Objective : Equatable {
         eval_date = []
     }
     
-    init(new_Raw : [String]){
-        ID = new_Raw[0]
-        strand = new_Raw[1]
-        goal = new_Raw[2]
-        goal_Short = new_Raw[3]
-        description = new_Raw[4]
+    init(learning_Objective_Raw : [String], rubric_Level_Raw : [String]){
+        ID = learning_Objective_Raw[0]
+        strand = learning_Objective_Raw[1]
+        goal = learning_Objective_Raw[2]
+        goal_Short = learning_Objective_Raw[3]
+        description = learning_Objective_Raw[4]
         
-        if(new_Raw[5].isEmpty){
-            Keyword = new_Raw[5].components(separatedBy: ",")
+        if(learning_Objective_Raw[5].isEmpty){
+            Keyword = learning_Objective_Raw[6].components(separatedBy: ",")
         } else {
-            Keyword = new_Raw[6].components(separatedBy: ",")
+            Keyword = learning_Objective_Raw[5].components(separatedBy: ",")
         }
         
-        isCore = new_Raw[7].isEmpty ? false : true
+        isCore = learning_Objective_Raw[5].isEmpty ? false : true
         
-        core_Rubric_Levels = [isCore ? 2 : 0,1,3,4,5,0]
+        core_Rubric_Levels = [0,0,0,0,0,0]
+        
+        for rubric_Level_Index in 4..<rubric_Level_Raw.count {
+            
+            core_Rubric_Levels[rubric_Level_Index-4] = (rubric_Level_Types.firstIndex(of: rubric_Level_Index == 9 ? String(rubric_Level_Raw[rubric_Level_Index].dropLast()) : rubric_Level_Raw[rubric_Level_Index]) ?? -1) + 2
+        }
+        
         documentation = ""
         
         eval_score = []
@@ -87,6 +95,14 @@ struct rubric_Level {
         levels = [] 
         for index in 1...raw.count-1 {
             levels.append(Int(raw[index]) ?? 0)
+        }
+    }
+    
+    init(new_Raw : [String]){
+        ID = new_Raw[0]
+        levels = []
+        for index in 1...new_Raw.count-1 {
+            levels.append(Int(new_Raw[index]) ?? 0)
         }
     }
 }

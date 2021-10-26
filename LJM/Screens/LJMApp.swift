@@ -12,6 +12,8 @@ struct LJMApp: App {
         
     @State var webViewGotError: Bool = false
     
+    @State private var document: MessageDocument = MessageDocument(message: "Hello, World!")
+    
     //for import and export files
     @State var importFile = false
     @State var exportFile = false
@@ -25,28 +27,45 @@ struct LJMApp: App {
     @StateObject var learningObjectiveStore = LearningObjectivesStore()
     @StateObject var totalNumberLearningObjectivesStore = TotalNumberOfLearningObjectivesStore()
     
+//    let srtType = UTType(exportedAs: "com.company.srt-document", conformingTo: .commaSeparatedText)
+    let srtType = UTType("com.exemple.LearningJourneyManager")!
     var body: some Scene {
         WindowGroup {
             // MainScreen used as a Splash screen -> redirect to Login view or Content view regarding the login status
-            
-            StartView()
+//            DocumentGroup(newDocument: DocDemoDocument()) { file in
+                StartView()
+//            }
                 .onAppear(perform: {
                     learningObjectiveStore.load_Test_Data()
+                    learningObjectiveStore.load_Status()
                 })
-            .fileExporter(
-                isPresented: $exportFile,
-                document: Doc(url: "Documents/\(file_Name)" ),
-                contentType: .plainText,
-                defaultFilename: "\(file_Name)",
-                onCompletion: {
-                    res in
-                    do{
-                        let fileURL = try res.get()
-                        print(fileURL)
-                    } catch {
-                        print("can not save the document ")
+            
+                .fileExporter(
+                    isPresented: $exportFile,
+                    document: document,
+                    contentType: srtType,
+                    defaultFilename: "Message"
+                ) { result in
+                    if case .success = result {
+                        // Handle success.
+                    } else {
+                        // Handle failure.
                     }
-                })
+                }
+//            .fileExporter(
+//                isPresented: $exportFile,
+//                document: Doc(url: "Documents/\(file_Name)" ),
+//                contentType: srtType,
+//                defaultFilename: "\(file_Name)",
+//                onCompletion: {
+//                    res in
+//                    do{
+//                        let fileURL = try res.get()
+//                        print(fileURL)
+//                    } catch {
+//                        print("can not save the document ")
+//                    }
+//                })
             
             .fileImporter(
                 isPresented: $importFile,

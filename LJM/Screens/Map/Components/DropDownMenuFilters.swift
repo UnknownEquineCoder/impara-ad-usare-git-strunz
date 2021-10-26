@@ -45,7 +45,6 @@ struct DropDownMenuFilters: View {
                         .font(.system(size: 20, weight: .medium, design: .rounded))
                         .foregroundColor(Color("customCyan"))
                 }
-                
             }
             .frame(width: 132.toScreenSize(), height: 35.toScreenSize(), alignment: .center)
             .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color("customCyan")))

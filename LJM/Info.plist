@@ -4,6 +4,23 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string></string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>com.exemple.LearningJourneyManager</string>
+			</array>
+			<key>NSDocumentClass</key>
+			<string>NSDocument</string>
+		</dict>
+	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -59,5 +76,67 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.json</string>
+				<string>public.content</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Learning Journey Manager file</string>
+			<key>UTTypeIcons</key>
+			<dict>
+				<key>UTTypeIconText</key>
+				<string>LJM</string>
+			</dict>
+			<key>UTTypeIdentifier</key>
+			<string>com.exemple.LearningJourneyManager</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>LJM</string>
+				</array>
+				<key>public.mime-type</key>
+				<array/>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeIcons</key>
+			<dict/>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array/>
+			</dict>
+		</dict>
+	</array>
+	<key>UTImportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.json</string>
+				<string>public.content</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Learning Journey Manager file</string>
+			<key>UTTypeIcons</key>
+			<dict/>
+			<key>UTTypeIdentifier</key>
+			<string>com.exemple.LearningJourneyManager</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>LJM</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
 </dict>
 </plist>

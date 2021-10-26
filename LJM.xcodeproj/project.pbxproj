@@ -653,6 +653,7 @@
 				9609087F2604A10900EB4242 /* LearningGoalsView.swift in Sources */,
 				9670A966256E9FBA0043F227 /* ProfileNameLabel.swift in Sources */,
 				96E2DD852726EF170007D49B /* SearchBar.swift in Sources */,
+				E0E87CD02722DD7100FEF3D6 /* DocDemoDocument.swift in Sources */,
 				964B665E256E64FD006AB20E /* StudentPictureView.swift in Sources */,
 				EACD027125DE88AA008D12FE /* DropDownMenuSelectPath.swift in Sources */,
 				EA686F07256EF1F100C121DC /* MapMainView.swift in Sources */,
