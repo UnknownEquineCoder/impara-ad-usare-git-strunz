@@ -42,38 +42,39 @@ struct MapView: View {
                     DescriptionTitleScreenView(desc: "The Map provides access to all the current Learning Objectives in the Academy Curriculum. The Communal Learning Objectives will be adressed during the Challenges and added to your Journey. You can also explore and add Elective Learning Objectives based on your interests and the profile of specific career paths.")
                 }
                 
-                HStack {
-                    Text("Views")
-                        .fontWeight(.light)
-                        .foregroundColor(Color.gray)
-                        .font(.system(size: 20))
-                    ScrollViewFilters(filterTabs: self.filterTabsMap, selectedFilter: $selectedFilter, vm: ScrollToModel())
-                    //                            .padding(.top, 20)
-                        .font(.system(size: 15, weight: .medium, design: .rounded))
-                        .padding(.leading, 10)
-                }
+//                HStack {
+//                    Text("Views")
+//                        .fontWeight(.light)
+//                        .foregroundColor(Color.gray)
+//                        .font(.system(size: 20))
+//                    ScrollViewFilters(filterTabs: self.filterTabsMap, selectedFilter: $selectedFilter, vm: ScrollToModel())
+//                    //                            .padding(.top, 20)
+//                        .font(.system(size: 15, weight: .medium, design: .rounded))
+//                        .padding(.leading, 10)
+//                }
                 
-                HStack{
-                    
-                    Text("Paths")
-                        .fontWeight(.light)
-                        .foregroundColor(Color.gray)
-                        .font(.system(size: 20))
-                    
-                    ScrollViewFilters(filterTabs: getLearningPath(learningPaths: learningPathStore.learningPaths), selectedFilter: $selectedFilter, vm: ScrollToModel())
-                        .padding(.leading, 10)
-                        .font(.system(size: 15, weight: .medium, design: .rounded))
-                }
+//                HStack{
+//
+//                    Text("Paths")
+//                        .fontWeight(.light)
+//                        .foregroundColor(Color.gray)
+//                        .font(.system(size: 20))
+//
+//                    ScrollViewFilters(filterTabs: getLearningPath(learningPaths: learningPathStore.learningPaths), selectedFilter: $selectedFilter, vm: ScrollToModel())
+//                        .padding(.leading, 10)
+//                        .font(.system(size: 15, weight: .medium, design: .rounded))
+//                }
                 
                 HStack {
-                    DropDownMenuSort()
-                        .buttonStyle(PlainButtonStyle())
-                    
-                    DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: strandsStore.arrayStrandsFilter)
-                        .buttonStyle(PlainButtonStyle())
+//                    DropDownMenuSort()
+//                        .buttonStyle(PlainButtonStyle())
+                    SortButtonMenu()
+                    ContextMenuFilters()
+//                    DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: strandsStore.arrayStrandsFilter)
+//                        .buttonStyle(PlainButtonStyle())
                     
                     SearchBarExpandableJourney(txtSearchBar: $searchText)
-                        .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
+//                        .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
                 }
                 
                 ZStack(alignment: .top) {
@@ -119,4 +120,5 @@ class ScrollToModel2: ObservableObject {
     }
     @Published var direction: Action? = nil
 }
+
 

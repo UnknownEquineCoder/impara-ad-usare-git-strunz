@@ -58,7 +58,7 @@ struct CompassView: View {
         ){
             ZStack{
                 
-                colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white
+                colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : Color(red: 245/255, green: 245/255, blue: 245/255)
                 
                 VStack {
                     HStack {

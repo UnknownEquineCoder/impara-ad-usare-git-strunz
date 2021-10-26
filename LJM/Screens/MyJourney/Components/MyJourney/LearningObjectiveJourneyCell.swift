@@ -149,7 +149,7 @@ struct LearningObjectiveJourneyCell: View {
                     .padding(.bottom, 10)
             }
         }
-        .background(colorScheme == .dark ? Color(red: 50/255, green: 50/255, blue: 50/255) : Color.customLightGrey)
+        .background(colorScheme == .dark ? Color(red: 50/255, green: 50/255, blue: 50/255) : Color(red: 230/255, green: 230/255, blue: 230/255))
         .cornerRadius(14)
         .onTapGesture {
             withAnimation {

@@ -34,7 +34,7 @@ struct MyJourneyView: View {
         VStack(alignment: .leading) {
             ZStack(alignment: .topLeading) {
                 
-                TitleScreenView(title: "My Journey")
+                TitleScreenView(title: "Journey")
                 
                 VStack(alignment: .leading) {
                     DescriptionTitleScreenView(desc: "During your Journey, you will encounter a series of Learning Objectives (LOs). The Communal LOs will be added to your Journey as they are addressed in the Challenges. Elective Objectives will appear here when you select them from the Map. You can compare your Journey to specific career paths to help with personal planning. The arrows indicate your current progress towards reaching the LO.")
@@ -42,22 +42,30 @@ struct MyJourneyView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, 50)
                 
-                ScrollViewFiltersJourney(filterTabs: arrayFilters, selectedFilter: $selectedFilter)
-                    .padding(.top, 180)
+//                SortButtonMenu().padding(.top, 185)
+//                ContextMenuFilters().padding(.top, 185).padding(.leading, 90)
+//                ContextMenuFilters().padding(.top, 185).padding(.leading, 130)
+                
+//                ScrollViewFiltersJourney(filterTabs: arrayFilters, selectedFilter: $selectedFilter)
+//                    .padding(.top, 180)
                 
             }.frame(maxWidth: .infinity)
             
             HStack {
-                DropDownMenuSort()
-                    .buttonStyle(PlainButtonStyle())
                 
-                DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: strandsStore.arrayStrandsFilter)
-                    .buttonStyle(PlainButtonStyle())
+                SortButtonMenu()
+                ContextMenuFilters()
+//                DropDownMenuSort()
+//                    .buttonStyle(PlainButtonStyle())
+                
+//                DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: strandsStore.arrayStrandsFilter)
+//                    .buttonStyle(PlainButtonStyle())
                 
                 SearchBarExpandableJourney(txtSearchBar: $searchText)
-                    .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
+//                    .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .red)
             }
             .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
+            
 
             ZStack(alignment: .topLeading) {
                 

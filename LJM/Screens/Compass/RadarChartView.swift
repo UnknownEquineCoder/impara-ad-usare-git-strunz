@@ -12,7 +12,7 @@ struct GraphWithOverlay: View {
     var body: some View {
         GeometryReader { geo in
             ZStack {
-                colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : Color.white
+                colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : Color(red: 245/255, green: 245/255, blue: 245/255)
                 
                 RadarChart(gridColor: Color.gray, data_Front_Array: $data_Front_Array, data_Back_Array: $data_Back_Array, animation_Trigger: $animation_Trigger)
                 
@@ -118,13 +118,13 @@ struct RadarChartPath: Shape {
 
 extension RadialGradient {
     static func frontGraph(size: CGFloat) -> RadialGradient  {
-        let colors = Gradient(colors: [Color(red: 57/255, green: 172/255, blue: 169/255, opacity: 0.5), Color(red: 6/255, green: 153/255, blue: 146/255, opacity: 1)])
+        let colors = Gradient(colors: [Color(red: 57/255, green: 172/255, blue: 169/255, opacity: 0.8), Color(red: 6/255, green: 153/255, blue: 146/255, opacity: 1)])
         
         return RadialGradient(gradient: colors, center: .center, startRadius: 50, endRadius: size/2)
     }
     
     static func backGraph(size: CGFloat) -> RadialGradient  {
-        let colors = Gradient(colors: [Color(red: 183/255, green: 232/255, blue: 148/255, opacity: 0.5), Color(red: 120/255, green: 224/255, blue: 144/255, opacity: 1)])
+        let colors = Gradient(colors: [Color(red: 183/255, green: 232/255, blue: 148/255, opacity: 0.3), Color(red: 120/255, green: 224/255, blue: 144/255, opacity: 0.6)])
         
         return RadialGradient(gradient: colors, center: .center, startRadius: 50, endRadius: size/2)
     }

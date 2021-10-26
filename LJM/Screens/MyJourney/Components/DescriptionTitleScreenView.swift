@@ -13,7 +13,7 @@ struct DescriptionTitleScreenView: View {
     
     var body: some View {
         Text(desc)
-            .font(.system(size: 20, weight: .medium))
+            .font(.system(size: 20, weight: .regular))
             .foregroundColor(Color.customDarkGrey)
             .padding(.top, 20)
             .padding(.trailing, 90)
