@@ -68,18 +68,32 @@ struct LJMApp: App {
             ) { result in
                 if case .success = result {
                     do {
+                        learningObjectiveStore.isSavable = false
                       
                         guard let selectedFile: URL = try result.get().first else { return }
                         guard let message = String(data: try Data(contentsOf: selectedFile), encoding: .utf8) else { return }
                         let rows = message.components(separatedBy: "\n")
+                        var learning_Objectives = learningObjectiveStore.learningObjectives
                         
                         for row in rows {
                             let row_Data = row.components(separatedBy: ",")
+                            let index = learning_Objectives.firstIndex(where: {$0.ID == row_Data[0]}) ?? 0
                             
+                            let eval_Date_Row = row_Data[2].components(separatedBy: "-")
+                            let eval_score_Row = row_Data[1].components(separatedBy: "-")
+                            
+                            var converted_Eval_Date : [Date] = []
+                            var converted_Eval_Score : [Int] = []
+                            
+                            for index in 0..<eval_score_Row.count {
+                                converted_Eval_Date.append(Date(timeIntervalSince1970: Double(eval_Date_Row[index])!))
+                                converted_Eval_Score.append(Int(eval_Date_Row[index])!)
+                            }
+                            
+                            learning_Objectives[index].eval_date = converted_Eval_Date
+                            learning_Objectives[index].eval_score = converted_Eval_Score
                             
                         }
-
-                        print("########### \(rows)")
                         
                     } catch {
                         let nsError = error as NSError
