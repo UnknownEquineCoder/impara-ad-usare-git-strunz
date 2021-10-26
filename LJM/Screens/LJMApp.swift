@@ -5,8 +5,6 @@ import UniformTypeIdentifiers
 
 @main
 struct LJMApp: App {
-        
-    @AppStorage("log_Status") var status = true
     
     @AppStorage("webview_error") var webViewError: String = ""
         
@@ -20,10 +18,6 @@ struct LJMApp: App {
     @State private var toExport = Bundle.main.path(forResource: "file", ofType: "csv")
     let file_Name = "Personal_Data.csv"
     
-    @State var rubric : [rubric_Level] = []
-    
-    let singleton = singleton_Shared.shared
-    
     @StateObject var learningObjectiveStore = LearningObjectivesStore()
     @StateObject var totalNumberLearningObjectivesStore = TotalNumberOfLearningObjectivesStore()
     
@@ -34,7 +28,7 @@ struct LJMApp: App {
             // MainScreen used as a Splash screen -> redirect to Login view or Content view regarding the login status
 //            DocumentGroup(newDocument: DocDemoDocument()) { file in
                 StartView()
-//            }
+                //            }
                 .onAppear(perform: {
                     learningObjectiveStore.load_Test_Data()
                     learningObjectiveStore.load_Status()
@@ -69,14 +63,23 @@ struct LJMApp: App {
             
             .fileImporter(
                 isPresented: $importFile,
-                allowedContentTypes: [.plainText],
+                allowedContentTypes: [srtType],
                 allowsMultipleSelection: false
             ) { result in
                 if case .success = result {
                     do {
-                        let fileURL: URL = try result.get()[0]
-                        let file = try String(contentsOf: fileURL)
-                        let lines = file.split(separator: "\n", omittingEmptySubsequences: false)
+                      
+                        guard let selectedFile: URL = try result.get().first else { return }
+                        guard let message = String(data: try Data(contentsOf: selectedFile), encoding: .utf8) else { return }
+                        let rows = message.components(separatedBy: "\n")
+                        
+                        for row in rows {
+                            let row_Data = row.components(separatedBy: ",")
+                            
+                            
+                        }
+
+                        print("########### \(rows)")
                         
                     } catch {
                         let nsError = error as NSError
@@ -110,16 +113,29 @@ struct LJMApp: App {
                 
                 // to export files
                 Button(action: {
-                    //write on the file here
-                    let str = "Test,Message,something \n hello,there,folks"
-                    let url = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(file_Name)
-                    do {
-                        try str.write(to: url, atomically: true, encoding: .utf8)
-//                        let input = try String(contentsOf: url)
-//                        print("@@@@@@@@@@@@@@ \(input)")
-                    } catch {
-                        print("@@@@@@@@@@@@@@@@@@@@@ \(error.localizedDescription)")
+                    
+                    var data_To_Save = ""
+                    let evaluated_Learning_Objectives = learningObjectiveStore.learningObjectives.filter({$0.eval_score.count > 0})
+                    
+                    data_To_Save.append("ID,eval_score,eval_date\n")
+                    
+                    for learning_Objective in evaluated_Learning_Objectives {
+                        data_To_Save.append("\(learning_Objective.ID),")
+                        
+                        for eval_Score_Index in 0..<learning_Objective.eval_score.count-1 {
+                            data_To_Save.append("\(learning_Objective.eval_score[eval_Score_Index])-")
+                        }
+                        data_To_Save.append("\(learning_Objective.eval_score.last!),")
+                        
+                        for eval_Score_Index in 0..<learning_Objective.eval_date.count-1 {
+                            data_To_Save.append("\(learning_Objective.eval_date[eval_Score_Index].timeIntervalSince1970)-")
+                        }
+                        data_To_Save.append("\(learning_Objective.eval_date.last!.timeIntervalSince1970)\n")
+                        
                     }
+                    
+                    document.message = data_To_Save
+                    
                     exportFile.toggle()
                 }) {
                     Text("Export File")
@@ -127,6 +143,7 @@ struct LJMApp: App {
             })
         })
     }
+    
 }
 
 struct Doc : FileDocument {

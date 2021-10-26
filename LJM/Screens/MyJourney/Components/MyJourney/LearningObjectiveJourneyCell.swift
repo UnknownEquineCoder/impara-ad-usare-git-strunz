@@ -41,7 +41,7 @@ struct LearningObjectiveJourneyCell: View {
                         Text(learningObj.description)
                             .foregroundColor(colorScheme == .dark ? Color(red: 224/255, green: 224/255, blue: 224/255) : Color.customLightBlack)
                             .font(.system(size: 24.toFontSize(), weight: .regular))
-                            .frame(maxWidth:630, maxHeight: .infinity, alignment: .leading)
+                            .frame(maxWidth: 630, maxHeight: .infinity, alignment: .leading)
                             .lineLimit(self.expand ? nil : 4).padding()
                         
                         Spacer()
