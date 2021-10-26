@@ -41,7 +41,7 @@ struct LearningObjectiveJourneyCell: View {
                         Text(learningObj.description)
                             .foregroundColor(colorScheme == .dark ? Color(red: 224/255, green: 224/255, blue: 224/255) : Color.customLightBlack)
                             .font(.system(size: 24.toFontSize(), weight: .regular))
-                            .frame(maxWidth: 400, maxHeight: .infinity, alignment: .leading)
+                            .frame(maxWidth:630, maxHeight: .infinity, alignment: .leading)
                             .lineLimit(self.expand ? nil : 4).padding()
 
                         Spacer()
@@ -155,7 +155,7 @@ struct LearningObjectiveJourneyCell: View {
                     .padding(.bottom, 10)
             }
         }
-        .background(colorScheme == .dark ? Color(red: 50/255, green: 50/255, blue: 50/255) : Color.customLightGrey)
+        .background(colorScheme == .dark ? Color(red: 50/255, green: 50/255, blue: 50/255) : Color(red: 230/255, green: 230/255, blue: 230/255))
         .cornerRadius(14)
         .onTapGesture {
             withAnimation {
