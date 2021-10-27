@@ -109,13 +109,12 @@ struct LJMApp: App {
                         print("File Import Failed")
                     }
                 }
-            }
-            .environmentObject(learningObjectiveStore)
-            .environmentObject(totalNumberLearningObjectivesStore)
-            .environmentObject(learningPathsStore)
-            .environmentObject(strandsStore)
+            
+                .environmentObject(learningObjectiveStore)
+                .environmentObject(totalNumberLearningObjectivesStore)
+                .environmentObject(learningPathsStore)
+                .environmentObject(strandsStore)
         }
-        
         
         WindowGroup("LoginPage") {
             WebviewLogin(url: "https://ljm-dev-01.fed.it.iosda.org/api/auth/saml/login", error: $webViewGotError)
@@ -166,7 +165,6 @@ struct LJMApp: App {
             })
         })
     }
-    
 }
 
 struct Doc : FileDocument {
