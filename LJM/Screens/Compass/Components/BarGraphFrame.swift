@@ -20,10 +20,18 @@ struct BarGraphFrame: View {
     var body: some View {
         GeometryReader { geo in
             ZStack{
-                Rectangle().fill(Color.clear)
-                    .border(color)
+//                RoundedRectangle(cornerRadius: 18)
+//                    .stroke(color, lineWidth: 2)
+//                    .frame(height: 75 * CGFloat(skills.count))
+//                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                
+                Rectangle()
+                    .fill(color).opacity(0.1)
+//                    .border(color)
                     .frame(height: 75 * CGFloat(skills.count))
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .addBorder(color, width: 1.5, cornerRadius: 10)
+                    
                     
                 VStack{
                     HStack{
@@ -106,5 +114,13 @@ struct BarGraphFrame_Previews: PreviewProvider {
     static var previews: some View {
         //BarGraphFrame(color: .red, title: "PROCESS", skills: ["Aldo","Giovanni","Giacomo"])
         EmptyView()
+    }
+}
+
+extension View {
+    public func addBorder<S>(_ content: S, width: CGFloat = 1, cornerRadius: CGFloat) -> some View where S : ShapeStyle {
+        let roundedRect = RoundedRectangle(cornerRadius: cornerRadius)
+        return clipShape(roundedRect)
+             .overlay(roundedRect.strokeBorder(content, lineWidth: width))
     }
 }
