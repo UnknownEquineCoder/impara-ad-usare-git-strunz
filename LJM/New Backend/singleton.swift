@@ -46,16 +46,18 @@ class LearningObjectivesStore: ObservableObject {
     func load_Status(){
         
         let data = UserDefaults.standard.object(forKey: "evaluated_Object")
-        
-        if let evaluated_Objects = try? PropertyListDecoder().decode([learning_Objective].self, from: data as! Data ) {
+        if data != nil {
+            if let evaluated_Objects = try? PropertyListDecoder().decode([learning_Objective].self, from: data as! Data ) {
 
-            for evaluated_Object in evaluated_Objects {
-                let index = learningObjectives.firstIndex(where: {$0.ID == evaluated_Object.ID})
-                if index != nil {
-                    learningObjectives[index!] = evaluated_Object
+                for evaluated_Object in evaluated_Objects {
+                    let index = learningObjectives.firstIndex(where: {$0.ID == evaluated_Object.ID})
+                    if index != nil {
+                        learningObjectives[index!] = evaluated_Object
+                    }
                 }
             }
         }
+        
     }
     
     func load_Test_Data(){

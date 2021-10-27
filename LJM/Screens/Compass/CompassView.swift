@@ -76,7 +76,7 @@ struct CompassView: View {
                         HStack{
                             InfoButton(title: "Spider Graphs: ", textBody: "The Communal graph shows progress based on the pathway all the students at the Academy have to take, while the Your Journey graph shows progress based on the specific pathway you decide to take, along with the Communal one.\n\nDepending on the Communal Expectation, the “Expectation” overlay shows you the basic progress level the Academy would like you to reach; “Your Progress”, instead, shows you the progress related to the path you decided to take.", heightCell: 241)
                             Spacer()
-                            SliderView()
+//                            SliderView()
                             Spacer()
                         }
                         

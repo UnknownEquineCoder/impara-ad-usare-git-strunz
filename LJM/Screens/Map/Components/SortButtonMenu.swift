@@ -24,12 +24,12 @@ struct SortButtonMenu: View {
         } label: {
             HStack(spacing: 13) {
                 Image(systemName: "arrow.up.arrow.down.circle")
-//                    .resizable()
-                    .foregroundColor(colorScheme == .dark ? .white : .black)
+                    .resizable()
+                    .foregroundColor(colorScheme == .dark ? Color(red: 160/255, green: 159/255, blue: 159/255) : Color(red: 87/255, green: 87/255, blue: 87/255))
 //                    .frame(width: 10, height: 10, alignment: .center)
                 Text("Sort")
 //                    .font(.system(size: 20, weight: .medium, design: .rounded))
-                    .foregroundColor(colorScheme == .dark ? .white : .black)
+                    .foregroundColor(colorScheme == .dark ? Color(red: 160/255, green: 159/255, blue: 159/255) : Color(red: 87/255, green: 87/255, blue: 87/255))
             }
 
         }
