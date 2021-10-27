@@ -35,9 +35,9 @@ struct ContextMenuFilters: View {
             }
         } label: {
             HStack(spacing: 13) {
-                Image(systemName: "camera.filters")
-                    .resizable()
-                    .frame(width: 10, height: 10)
+                Image(systemName: "line.3.horizontal.decrease.circle")
+//                    .resizable()
+//                    .frame(width: 10, height: 10)
                     .foregroundColor(colorScheme == .dark ? Color(red: 160/255, green: 159/255, blue: 159/255) : Color(red: 87/255, green: 87/255, blue: 87/255))
                     
                 Text("Filters")
