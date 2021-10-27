@@ -134,6 +134,7 @@ enum CoreEnum: String {
 enum MapEnum: String {
     case full = "FULL MAP"
     case communal = "COMMUNAL"
+    
 }
 
 enum ChallengeEnum: String {

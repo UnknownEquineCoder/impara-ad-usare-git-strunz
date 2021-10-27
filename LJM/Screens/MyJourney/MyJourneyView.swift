@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MyJourneyView: View {
     
-    @State var selectedFilter = "All"
+    @State var selectedFilter = "FULL MAP"
     @State var selectedFilterInsideButton = "All"
     @State var selectedStrands = [String]()
     @State var selectedSort = ""
@@ -54,7 +54,7 @@ struct MyJourneyView: View {
             HStack {
                 
                 SortButtonMenu()
-                ContextMenuFilters()
+                ContextMenuFilters(fromMap: false, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedStrands: $selectedStrands)
 //                DropDownMenuSort()
 //                    .buttonStyle(PlainButtonStyle())
                 
@@ -72,9 +72,9 @@ struct MyJourneyView: View {
                 NumberTotalLearningOjbectivesView(totalLOs: self.totalNumberLearningObjectivesStore.total)
                     .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
 
-                DropDownMenuSelectPath(selectedPath: $selectedPath)
-                    .frame(maxWidth: .infinity,  alignment: .trailing)
-                    .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
+//                DropDownMenuSelectPath(selectedPath: $selectedPath)
+//                    .frame(maxWidth: .infinity,  alignment: .trailing)
+//                    .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
                 
                 ListViewLearningObjectiveMyJourney(selectedFilter: $selectedFilter, txtSearchBar: $searchText, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedMenu: $selectedMenu)
                     .padding(.top, 30)

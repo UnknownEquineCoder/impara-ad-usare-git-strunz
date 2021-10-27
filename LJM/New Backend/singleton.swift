@@ -11,19 +11,16 @@ class singleton_Shared{
     static let shared = singleton_Shared()
     var profile_data : profile = profile()
     var learning_Objectives : [learning_Objective] = []
-    
-    
-    
 }
 
 class LearningObjectivesStore: ObservableObject {
     @Published var learningObjectives = [learning_Objective]()
     var isSavable = true
-
+    
     func addItem(_ item: learning_Objective) {
         learningObjectives.append(item)
     }
-
+    
     func removeItem(_ item: learning_Objective) {
         learningObjectives.remove(object: item)
     }
@@ -48,7 +45,7 @@ class LearningObjectivesStore: ObservableObject {
         let data = UserDefaults.standard.object(forKey: "evaluated_Object")
         if data != nil {
             if let evaluated_Objects = try? PropertyListDecoder().decode([learning_Objective].self, from: data as! Data ) {
-
+                
                 for evaluated_Object in evaluated_Objects {
                     let index = learningObjectives.firstIndex(where: {$0.ID == evaluated_Object.ID})
                     if index != nil {
@@ -57,10 +54,9 @@ class LearningObjectivesStore: ObservableObject {
                 }
             }
         }
-        
     }
     
-    func load_Test_Data(){
+    func load_Test_Data(_ completion: @escaping (() -> Void)) {
         
         learningObjectives = []
         
@@ -101,9 +97,8 @@ class LearningObjectivesStore: ObservableObject {
             let learning_Objective_Element = learning_Objective(learning_Objective_Raw: learning_Objective_Columned, rubric_Level_Raw: rubric_Levels_Columned)
             
             learningObjectives.append(learning_Objective_Element)
-            
         }
-        
+        completion()
     }
     
     func load_Rubric_Levels() -> [rubric_Level]{
@@ -131,7 +126,7 @@ class LearningObjectivesStore: ObservableObject {
             let csvColumns = row.components(separatedBy: ";")
             
             let rubric_Level_Object = rubric_Level(new_Raw: csvColumns)
-//            let LOsStruct = rubric_Level.init(raw: csvColumns)
+            //            let LOsStruct = rubric_Level.init(raw: csvColumns)
             csvToStruct.append(rubric_Level_Object)
             
         }
@@ -252,15 +247,13 @@ class LearningPathStore: ObservableObject {
 class StrandsStore: ObservableObject {
     @Published var strands = [String]()
     var arrayStrandsFilter = [FilterChoice]()
-
-    func addItem(_ item: String) {
-        strands.append(item)
-    }
+    var arrayStrandsNativeFilter = [String]()
     
-    func setupStrandsOnFilter(learningObjective: [learning_Objective]) {
-        
-        for learningObjective in learningObjective {
-            arrayStrandsFilter.append(FilterChoice(descriptor: learningObjective.strand))
+    func setupStrandsOnNativeFilter(learningObjectives: [learning_Objective]) {
+        for learningObjective in learningObjectives {
+            if !arrayStrandsNativeFilter.contains(learningObjective.strand) {
+                arrayStrandsNativeFilter.append(learningObjective.strand)
+            }
         }
     }
 }

@@ -20,6 +20,8 @@ struct LJMApp: App {
     
     @StateObject var learningObjectiveStore = LearningObjectivesStore()
     @StateObject var totalNumberLearningObjectivesStore = TotalNumberOfLearningObjectivesStore()
+    @StateObject var learningPathsStore = LearningPathStore()
+    @StateObject var strandsStore = StrandsStore()
     
 //    let srtType = UTType(exportedAs: "com.company.srt-document", conformingTo: .commaSeparatedText)
     let srtType = UTType("com.exemple.LearningJourneyManager")!
@@ -30,8 +32,12 @@ struct LJMApp: App {
                 StartView()
                 //            }
                 .onAppear(perform: {
-                    learningObjectiveStore.load_Test_Data()
-                    learningObjectiveStore.load_Status()
+                    learningObjectiveStore.load_Test_Data() {
+                        learningObjectiveStore.load_Status()
+                        learningPathsStore.load_Learning_Path()
+                        strandsStore.setupStrandsOnNativeFilter(learningObjectives: learningObjectiveStore.learningObjectives)
+                    }
+                    
                 })
             
                 .fileExporter(
@@ -105,6 +111,8 @@ struct LJMApp: App {
             }
             .environmentObject(learningObjectiveStore)
             .environmentObject(totalNumberLearningObjectivesStore)
+            .environmentObject(learningPathsStore)
+            .environmentObject(strandsStore)
         }
         
         
