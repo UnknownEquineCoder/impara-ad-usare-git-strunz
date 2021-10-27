@@ -13,10 +13,8 @@ struct MapView: View {
     @State var expand: Bool = false
     @State private var searchText = ""
     @State var selectedSort = ""
-    
-    var filterTabsMap = ["FULL MAP", "COMMUNAL", "ELECTIVE"]
-    var fakePathsObjectArray : [learning_Path] = []
-    
+    @State private var selectedPath : String?
+        
     @Environment(\.colorScheme) var colorScheme
     
     @ObservedObject var selectedSegmentView : SelectedSegmentView
@@ -69,7 +67,7 @@ struct MapView: View {
 //                    DropDownMenuSort()
 //                        .buttonStyle(PlainButtonStyle())
                     SortButtonMenu()
-                    ContextMenuFilters()
+                    ContextMenuFilters(fromMap: true, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedStrands: $selectedStrands)
 //                    DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: strandsStore.arrayStrandsFilter)
 //                        .buttonStyle(PlainButtonStyle())
                     
@@ -87,7 +85,7 @@ struct MapView: View {
                         .padding(.top, 75)
                         .isHidden(self.totalNumberLearningObjectivesStore.total == 0 ? false : true)
                     
-                    ScrollViewLearningObjectives(learningPathSelected: Binding.constant(nil), filteredMap: selectedFilter, isAddable: true, textFromSearchBar: searchText, selectedStrands: selectedStrands)
+                    ScrollViewLearningObjectives(learningPathSelected: $selectedPath, filteredMap: selectedFilter, isAddable: true, textFromSearchBar: searchText, selectedStrands: selectedStrands)
                         .padding(.top, 30)
                     
                 }.padding(.top, 10)

@@ -7,7 +7,7 @@ import UniformTypeIdentifiers
 struct LJMApp: App {
     
     @AppStorage("webview_error") var webViewError: String = ""
-        
+    
     @State var webViewGotError: Bool = false
     
     @State private var document: MessageDocument = MessageDocument(message: "Hello, World!")
@@ -20,18 +20,24 @@ struct LJMApp: App {
     
     @StateObject var learningObjectiveStore = LearningObjectivesStore()
     @StateObject var totalNumberLearningObjectivesStore = TotalNumberOfLearningObjectivesStore()
+    @StateObject var learningPathsStore = LearningPathStore()
+    @StateObject var strandsStore = StrandsStore()
     
-//    let srtType = UTType(exportedAs: "com.company.srt-document", conformingTo: .commaSeparatedText)
+    //    let srtType = UTType(exportedAs: "com.company.srt-document", conformingTo: .commaSeparatedText)
     let srtType = UTType("com.exemple.LearningJourneyManager")!
     var body: some Scene {
         WindowGroup {
             // MainScreen used as a Splash screen -> redirect to Login view or Content view regarding the login status
-//            DocumentGroup(newDocument: DocDemoDocument()) { file in
-                StartView()
-                //            }
+            //            DocumentGroup(newDocument: DocDemoDocument()) { file in
+            StartView()
+            //            }
                 .onAppear(perform: {
-                    learningObjectiveStore.load_Test_Data()
-                    learningObjectiveStore.load_Status()
+                    learningObjectiveStore.load_Test_Data() {
+                        learningObjectiveStore.load_Status()
+                        learningPathsStore.load_Learning_Path()
+                        strandsStore.setupStrandsOnNativeFilter(learningObjectives: learningObjectiveStore.learningObjectives)
+                    }
+                    
                 })
             
                 .fileExporter(
@@ -46,67 +52,69 @@ struct LJMApp: App {
                         // Handle failure.
                     }
                 }
-//            .fileExporter(
-//                isPresented: $exportFile,
-//                document: Doc(url: "Documents/\(file_Name)" ),
-//                contentType: srtType,
-//                defaultFilename: "\(file_Name)",
-//                onCompletion: {
-//                    res in
-//                    do{
-//                        let fileURL = try res.get()
-//                        print(fileURL)
-//                    } catch {
-//                        print("can not save the document ")
-//                    }
-//                })
+            //            .fileExporter(
+            //                isPresented: $exportFile,
+            //                document: Doc(url: "Documents/\(file_Name)" ),
+            //                contentType: srtType,
+            //                defaultFilename: "\(file_Name)",
+            //                onCompletion: {
+            //                    res in
+            //                    do{
+            //                        let fileURL = try res.get()
+            //                        print(fileURL)
+            //                    } catch {
+            //                        print("can not save the document ")
+            //                    }
+            //                })
             
-            .fileImporter(
-                isPresented: $importFile,
-                allowedContentTypes: [srtType],
-                allowsMultipleSelection: false
-            ) { result in
-                if case .success = result {
-                    do {
-                        learningObjectiveStore.isSavable = false
-                      
-                        guard let selectedFile: URL = try result.get().first else { return }
-                        guard let message = String(data: try Data(contentsOf: selectedFile), encoding: .utf8) else { return }
-                        let rows = message.components(separatedBy: "\n")
-                        var learning_Objectives = learningObjectiveStore.learningObjectives
-                        
-                        for row in rows {
-                            let row_Data = row.components(separatedBy: ",")
-                            let index = learning_Objectives.firstIndex(where: {$0.ID == row_Data[0]}) ?? 0
+                .fileImporter(
+                    isPresented: $importFile,
+                    allowedContentTypes: [srtType],
+                    allowsMultipleSelection: false
+                ) { result in
+                    if case .success = result {
+                        do {
+                            learningObjectiveStore.isSavable = false
                             
-                            let eval_Date_Row = row_Data[2].components(separatedBy: "-")
-                            let eval_score_Row = row_Data[1].components(separatedBy: "-")
+                            guard let selectedFile: URL = try result.get().first else { return }
+                            guard let message = String(data: try Data(contentsOf: selectedFile), encoding: .utf8) else { return }
+                            let rows = message.components(separatedBy: "\n")
+                            var learning_Objectives = learningObjectiveStore.learningObjectives
                             
-                            var converted_Eval_Date : [Date] = []
-                            var converted_Eval_Score : [Int] = []
-                            
-                            for index in 0..<eval_score_Row.count {
-                                converted_Eval_Date.append(Date(timeIntervalSince1970: Double(eval_Date_Row[index])!))
-                                converted_Eval_Score.append(Int(eval_Date_Row[index])!)
+                            for row in rows {
+                                let row_Data = row.components(separatedBy: ",")
+                                let index = learning_Objectives.firstIndex(where: {$0.ID == row_Data[0]}) ?? 0
+                                
+                                let eval_Date_Row = row_Data[2].components(separatedBy: "-")
+                                let eval_score_Row = row_Data[1].components(separatedBy: "-")
+                                
+                                var converted_Eval_Date : [Date] = []
+                                var converted_Eval_Score : [Int] = []
+                                
+                                for index in 0..<eval_score_Row.count {
+                                    converted_Eval_Date.append(Date(timeIntervalSince1970: Double(eval_Date_Row[index])!))
+                                    converted_Eval_Score.append(Int(eval_Date_Row[index])!)
+                                }
+                                
+                                learning_Objectives[index].eval_date = converted_Eval_Date
+                                learning_Objectives[index].eval_score = converted_Eval_Score
+                                
                             }
                             
-                            learning_Objectives[index].eval_date = converted_Eval_Date
-                            learning_Objectives[index].eval_score = converted_Eval_Score
-                            
+                        } catch {
+                            let nsError = error as NSError
+                            fatalError("File Import Error \(nsError), \(nsError.userInfo)")
                         }
-                        
-                    } catch {
-                        let nsError = error as NSError
-                        fatalError("File Import Error \(nsError), \(nsError.userInfo)")
+                    } else {
+                        print("File Import Failed")
                     }
-                } else {
-                    print("File Import Failed")
                 }
-            }
-            .environmentObject(learningObjectiveStore)
-            .environmentObject(totalNumberLearningObjectivesStore)
+            
+                .environmentObject(learningObjectiveStore)
+                .environmentObject(totalNumberLearningObjectivesStore)
+                .environmentObject(learningPathsStore)
+                .environmentObject(strandsStore)
         }
-        
         
         WindowGroup("LoginPage") {
             WebviewLogin(url: "https://ljm-dev-01.fed.it.iosda.org/api/auth/saml/login", error: $webViewGotError)
@@ -121,7 +129,7 @@ struct LJMApp: App {
                 // to import files
                 Button(action: {
                     importFile.toggle()
-                    }) {
+                }) {
                     Text("Import File")
                 }
                 
@@ -157,7 +165,6 @@ struct LJMApp: App {
             })
         })
     }
-    
 }
 
 struct Doc : FileDocument {

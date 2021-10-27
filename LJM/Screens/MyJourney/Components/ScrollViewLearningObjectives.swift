@@ -26,23 +26,23 @@ struct ScrollViewLearningObjectives: View {
         let objectives = self.learningObjectiveStore.learningObjectives
         
         switch filterCore {
-        case "Communal":
+        case "COMMUNAL":
             return objectives
                 .filter { $0.isCore && !$0.eval_score.isEmpty }
                 .sorted { $0.goal.lowercased() < $1.goal.lowercased() }
-        case "Elective":
+        case "ELECTIVE":
             return objectives
                 .filter { !$0.isCore && !$0.eval_score.isEmpty }
                 .sorted { $0.goal.lowercased() < $1.goal.lowercased() }
-        case "Evaluated":
-            return objectives
-                .filter { $0.eval_score.count > 2 }
-                .sorted { $0.goal.lowercased() < $1.goal.lowercased() }
-        case "Not Evaluated":
-            return objectives
-                .filter { $0.eval_score.count == 1 }
-                .sorted { $0.goal.lowercased() < $1.goal.lowercased() }
-        case "All":
+            //        case "Evaluated":
+            //            return objectives
+            //                .filter { $0.eval_score.count > 2 }
+            //                .sorted { $0.goal.lowercased() < $1.goal.lowercased() }
+            //        case "Not Evaluated":
+            //            return objectives
+            //                .filter { $0.eval_score.count == 1 }
+            //                .sorted { $0.goal.lowercased() < $1.goal.lowercased() }
+        case "FULL MAP":
             return objectives
                 .filter { !$0.eval_score.isEmpty }
                 .sorted { $0.goal.lowercased() < $1.goal.lowercased() }
@@ -122,7 +122,6 @@ struct ScrollViewLearningObjectives: View {
                         if let strand = item.strand {
                             if self.selectedStrands.contains(strand) || self.selectedStrands.count == 0 {
                                 LearningObjectiveJourneyCell(rating: item.eval_score.last ?? 0, isRatingView: true, isAddable: isAddable, isLearningGoalAdded: self.filterLearningGoal != nil ? true : nil, learningPathSelected: self.$learningPathSelected, learningObj: item)
-//                                    .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
                                     .contextMenu {
                                         if !isAddable {
                                             Button {
@@ -166,13 +165,18 @@ struct ScrollViewLearningObjectives: View {
     }
     
     func sortLearningObjectivesMap(learningPaths: [learning_Path], selectedPath: String) -> [learning_Objective] {
+                
+        var arrayOfLearningObjectives = [learning_Objective]()
         
-        let learning_Path_Index = learningPaths.firstIndex(where: {$0.title == selectedPath})!
-        
-        let arrayOfLearningObjectives = learningObjectiveStore.learningObjectives.filter { learning_Objective in
-            learningPaths[learning_Path_Index].learning_Objective_IDs.contains(learning_Objective.ID)
+        if let learning_Path_Index = learningPaths.firstIndex(where: {$0.title == selectedPath}) {
+            arrayOfLearningObjectives = learningObjectiveStore.learningObjectives.filter { learning_Objective in
+                // algo whenever we have learning objectives related to learning paths
+//                learningPaths[learning_Path_Index].learning_Objective_IDs.contains(learning_Objective.ID)
+                
+                learning_Objective.core_Rubric_Levels[learning_Path_Index] > 1
+            }
         }
-        
+                
         return arrayOfLearningObjectives
     }
     

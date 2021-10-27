@@ -64,6 +64,12 @@ struct CompassView: View {
                     HStack {
                         TitleScreenView(title: "Compass")
                             .padding(.top, 40)
+                            .onAppear {
+                                print("fdggr \(self.learningObjectiveStore.learningObjectives)")
+                            }
+                            .onTapGesture {
+                                print("fdddddddggr \(self.learningObjectiveStore.learningObjectives)")
+                            }
                         Spacer()
                     }
                     
