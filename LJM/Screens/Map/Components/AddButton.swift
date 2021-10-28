@@ -95,7 +95,7 @@ struct AddLabelView: Vanishable {
     @ObservedObject var counter: Counter
     
     var body: some View{
-        Text("Added to My Journey!")
+        Text("Added to my Journey!")
             .foregroundColor(Color("customCyan"))
     }
 }
