@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19206" systemVersion="20G165" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Evaluated_Object" representedClassName="Evaluated_Object" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <relationship name="evaluated_Date" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Evaluation_Date"/>
+        <relationship name="evaluated_Score" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Evaluation_Score"/>
+    </entity>
+    <entity name="Evaluation_Date" representedClassName="Evaluation_Date" syncable="YES" codeGenerationType="class">
+        <attribute name="evaluation_Date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
+    <entity name="Evaluation_Score" representedClassName="Evaluation_Score" syncable="YES" codeGenerationType="class">
+        <attribute name="evaluated_Score" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
+    <elements>
+        <element name="Evaluated_Object" positionX="176.96484375" positionY="65.515625" width="128" height="88"/>
+        <element name="Evaluation_Date" positionX="-38.703125" positionY="107.7734375" width="128" height="58"/>
+        <element name="Evaluation_Score" positionX="429.06640625" positionY="123.34765625" width="128" height="44"/>
+    </elements>
+</model>
