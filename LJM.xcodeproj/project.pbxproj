@@ -37,6 +37,7 @@
 		9670A976257105290043F227 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9670A975257105290043F227 /* StartView.swift */; };
 		9672C8F425E3F46B005CC753 /* RadarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9672C8F325E3F46B005CC753 /* RadarChartView.swift */; };
 		967EE8CB256E722F008065C9 /* AddImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967EE8CA256E722F008065C9 /* AddImageButton.swift */; };
+		968BFD3027298BF70025108D /* InfoButtonBarGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968BFD2F27298BF70025108D /* InfoButtonBarGraph.swift */; };
 		9696F9332726A13A009614F4 /* SortButtonMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9696F9322726A13A009614F4 /* SortButtonMenu.swift */; };
 		9696F9352726A764009614F4 /* ContextMenuFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9696F9342726A764009614F4 /* ContextMenuFilters.swift */; };
 		969DEAE625DFDEBD00599D63 /* CompassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969DEAE525DFDEBD00599D63 /* CompassView.swift */; };
@@ -77,7 +78,6 @@
 		EACD023925D382AD008D12FE /* NumberTotalLearningOjbectivesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACD023825D382AD008D12FE /* NumberTotalLearningOjbectivesView.swift */; };
 		EACD024225D502AB008D12FE /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACD024125D502AB008D12FE /* Modifiers.swift */; };
 		EACD024A25D532A9008D12FE /* Webservices.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACD024925D532A9008D12FE /* Webservices.swift */; };
-		EACD025325D53BC2008D12FE /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = EACD025225D53BC2008D12FE /* Alamofire */; };
 		EACD026C25DE8781008D12FE /* CustomDropDownMenuSelectPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACD026B25DE8781008D12FE /* CustomDropDownMenuSelectPath.swift */; };
 		EACD027125DE88AA008D12FE /* DropDownMenuSelectPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACD027025DE88AA008D12FE /* DropDownMenuSelectPath.swift */; };
 		EAD2C81A257085CA008CDDA1 /* LearningObjectiveJourneyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD2C819257085CA008CDDA1 /* LearningObjectiveJourneyCell.swift */; };
@@ -152,6 +152,7 @@
 		9670A975257105290043F227 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		9672C8F325E3F46B005CC753 /* RadarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadarChartView.swift; sourceTree = "<group>"; };
 		967EE8CA256E722F008065C9 /* AddImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddImageButton.swift; sourceTree = "<group>"; };
+		968BFD2F27298BF70025108D /* InfoButtonBarGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoButtonBarGraph.swift; sourceTree = "<group>"; };
 		9696F9322726A13A009614F4 /* SortButtonMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortButtonMenu.swift; sourceTree = "<group>"; };
 		9696F9342726A764009614F4 /* ContextMenuFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenuFilters.swift; sourceTree = "<group>"; };
 		969DEAE525DFDEBD00599D63 /* CompassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompassView.swift; sourceTree = "<group>"; };
@@ -203,7 +204,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA7335682648B817004B761A /* Introspect in Frameworks */,
-				EACD025325D53BC2008D12FE /* Alamofire in Frameworks */,
 				EA5B447826310DF7002A97C7 /* SwiftKeychainWrapper in Frameworks */,
 				EA139BD42640910900E15E28 /* JWTDecode in Frameworks */,
 				964448BD25E500EA00F8359F /* Shapes in Frameworks */,
@@ -238,6 +238,7 @@
 				96114BC025EFA92900FA119C /* ProgressBarGraph.swift */,
 				960451E625F0F46000F34D9A /* BarGraphFrame.swift */,
 				96BBAA84268325F000E9932E /* InfoButton.swift */,
+				968BFD2F27298BF70025108D /* InfoButtonBarGraph.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -506,7 +507,6 @@
 			);
 			name = LJM;
 			packageProductDependencies = (
-				EACD025225D53BC2008D12FE /* Alamofire */,
 				964448BC25E500EA00F8359F /* Shapes */,
 				EA5B447726310DF7002A97C7 /* SwiftKeychainWrapper */,
 				EA139BD32640910900E15E28 /* JWTDecode */,
@@ -584,7 +584,6 @@
 			);
 			mainGroup = 964B661F256E6020006AB20E;
 			packageReferences = (
-				EACD025125D53BC2008D12FE /* XCRemoteSwiftPackageReference "Alamofire" */,
 				964448BB25E500EA00F8359F /* XCRemoteSwiftPackageReference "swiftui-shapes" */,
 				EA5B447626310DF7002A97C7 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
 				EA139BD22640910900E15E28 /* XCRemoteSwiftPackageReference "JWTDecode.swift" */,
@@ -656,6 +655,7 @@
 				E0E87CD6272801C900FEF3D6 /* DocDemoDocument.swift in Sources */,
 				9609087F2604A10900EB4242 /* LearningGoalsView.swift in Sources */,
 				9670A966256E9FBA0043F227 /* ProfileNameLabel.swift in Sources */,
+				968BFD3027298BF70025108D /* InfoButtonBarGraph.swift in Sources */,
 				96E2DD852726EF170007D49B /* SearchBar.swift in Sources */,
 				964B665E256E64FD006AB20E /* StudentPictureView.swift in Sources */,
 				EACD027125DE88AA008D12FE /* DropDownMenuSelectPath.swift in Sources */,
@@ -1065,14 +1065,6 @@
 				minimumVersion = 0.1.3;
 			};
 		};
-		EACD025125D53BC2008D12FE /* XCRemoteSwiftPackageReference "Alamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.4.1;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1095,11 +1087,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EA7335662648B817004B761A /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
 			productName = Introspect;
-		};
-		EACD025225D53BC2008D12FE /* Alamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = EACD025125D53BC2008D12FE /* XCRemoteSwiftPackageReference "Alamofire" */;
-			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
