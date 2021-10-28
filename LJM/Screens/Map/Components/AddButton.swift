@@ -43,6 +43,7 @@ struct AddButton: View {
                         if didTap == false {
                             Image(systemName: "plus.circle")
                                 .resizable()
+                                .frame(width: 35, height: 35)
                                 .foregroundColor(Color("customCyan"))
                                 .onTapGesture {
                                     
@@ -55,6 +56,7 @@ struct AddButton: View {
                         } else {
                             Image(systemName: "checkmark.circle.fill")
                                 .resizable()
+                                .frame(width: 35, height: 35)
                                 .foregroundColor(Color("customCyan"))
                                 .onTapGesture {
                                     // remove item from the learning objective list
@@ -67,6 +69,7 @@ struct AddButton: View {
                     } else {
                         Image(systemName: "checkmark.circle.fill")
                             .resizable()
+                            .frame(width: 35, height: 35)
                             .foregroundColor(Color("customCyan"))
                             .onTapGesture {
                                 
@@ -92,7 +95,7 @@ struct AddLabelView: Vanishable {
     @ObservedObject var counter: Counter
     
     var body: some View{
-        Text("Added to My Journey!")
+        Text("Added to my Journey!")
             .foregroundColor(Color("customCyan"))
     }
 }

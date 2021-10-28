@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Journey.png",
+      "filename" : "JourneyThin.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Journey@2x.png",
+      "filename" : "JourneyThin@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Journey@3x.png",
+      "filename" : "JourneyThin@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

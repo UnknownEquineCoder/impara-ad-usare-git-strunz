@@ -2,12 +2,12 @@
 //  InfoButton.swift
 //  LJM
 //
-//  Created by Laura Benetti on 23/06/21.
+//  Created by Laura Benetti on 27/10/21.
 //
 
 import SwiftUI
 
-struct InfoButton: View {
+struct InfoButtonBarGraph: View {
     @State private var showPopover = false
     var title: String = "Titolo"
     var textBody: String = "Body"
@@ -34,15 +34,15 @@ struct InfoButton: View {
                     .font(.system(size: 20.toFontSize()))
                     .foregroundColor(colorScheme == .dark ? Color(red: 221/255, green: 221/255, blue: 221/255) : Color(red: 165/255, green: 165/255, blue: 165/255))
             }
-            .frame(width: 400, height: 250)
+            .frame(width: 200, height: 150)
             .padding()
         })
     }
 }
 
-struct InfoButton_Previews: PreviewProvider {
+struct InfoButtonBarGraph_Previews: PreviewProvider {
     static var previews: some View {
-        InfoButton(heightCell: 300)
+        InfoButtonBarGraph(heightCell: 300)
     }
 }
 
@@ -131,6 +131,7 @@ struct InfoButton_Previews: PreviewProvider {
 //        }
 //    }
 //}
+
 
 
 

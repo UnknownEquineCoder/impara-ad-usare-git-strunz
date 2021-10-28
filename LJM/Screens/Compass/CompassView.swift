@@ -64,6 +64,12 @@ struct CompassView: View {
                     HStack {
                         TitleScreenView(title: "Compass")
                             .padding(.top, 40)
+                            .onAppear {
+                                print("fdggr \(self.learningObjectiveStore.learningObjectives)")
+                            }
+                            .onTapGesture {
+                                print("fdddddddggr \(self.learningObjectiveStore.learningObjectives)")
+                            }
                         Spacer()
                     }
                     
@@ -134,28 +140,36 @@ struct CompassView: View {
                             }
                         }
                         HStack{
-                        InfoButton(title: "Bar Graphs: ", textBody: "The bar graphs below show your growth in detail, allowing you to examine every single Learning Goal, based on the Curriculum Strands.", heightCell: 131)
+                        
                         Spacer()
                         LegendView()
                         Spacer()
+                        }.padding(.bottom, 20)
+                        HStack{
+                            InfoButtonBarGraph(title: "Bar Graphs: ", textBody: "The bar graphs below show your growth in detail, allowing you to examine every single Learning Goal, based on the Curriculum Strands.", heightCell: 131)
+                            
+                            Spacer()
                         }
                         Spacer()
                         
-                        BarGraphFrame(color: Color.customOrange, title: "Process", skills: process_Skills, progress: $process_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview)
-                            .padding(.top, 54)
+                        Group{
+                            BarGraphFrame(color: Color.customOrange, title: "Process", skills: process_Skills, progress: $process_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview)
+                            
+                            BarGraphFrame(color: Color.customGreen, title: "Design", skills: design_Skills, progress: $design_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview)
+                                .padding(.top, 50)
+                            
+                            BarGraphFrame(color: Color.customYellow, title: "Professional Skills", skills: professional_Skills, progress: $professional_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview)
+                                .padding(.top, 50)
+                            
+                            BarGraphFrame(color: Color.customBlue, title: "Technical", skills: tecnical_Skills, progress: $tecnical_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview)
+                                .padding(.top, 50)
+                            
+                            BarGraphFrame(color: Color.customPurple, title: "Business", skills: business_Skills, progress: $business_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview)
+                                .padding(.top, 50)
+                                .padding(.bottom, 100)
+                        }
                         
-                        BarGraphFrame(color: Color.customGreen, title: "Design", skills: design_Skills, progress: $design_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview)
-                            .padding(.top, 50)
                         
-                        BarGraphFrame(color: Color.customYellow, title: "Professional Skills", skills: professional_Skills, progress: $professional_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview)
-                            .padding(.top, 50)
-                        
-                        BarGraphFrame(color: Color.customBlue, title: "Technical", skills: tecnical_Skills, progress: $tecnical_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview)
-                            .padding(.top, 50)
-                        
-                        BarGraphFrame(color: Color.customPurple, title: "Business", skills: business_Skills, progress: $business_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview)
-                            .padding(.top, 50)
-                            .padding(.bottom, 100)
                     }
                 }
                 .padding(.leading, 70).padding(.trailing, 50)

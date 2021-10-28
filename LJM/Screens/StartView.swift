@@ -7,9 +7,7 @@ struct StartView: View {
     
     // new data flow element
     @State var path : [learning_Path] = []
-    
-    @StateObject var learningPathsStore = LearningPathStore()
-    @StateObject var strandsStore = StrandsStore()
+
     
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     
@@ -48,22 +46,12 @@ struct StartView: View {
             switch selectedMenu {
             case .compass:
                 CompassView(path: $filter_Path)
-                    .environmentObject(learningPathsStore)
-                    .environmentObject(strandsStore)
             case .journey:
                 MyJourneyMainView(selectedMenu: $selectedMenu)
-                    .environmentObject(learningPathsStore)
-                    .environmentObject(strandsStore)
             case .map:
                 MapMainView()
-                    .environmentObject(learningPathsStore)
-                    .environmentObject(strandsStore)
             }
         }
-        .onAppear(perform: {
-            learningPathsStore.load_Learning_Path()
-            strandsStore.setupStrandsOnFilter(learningObjective: learningObjectiveStore.learningObjectives)
-        })
     }
 }
 

@@ -109,7 +109,7 @@ struct rubric_Level {
 
 struct profile {
     var ID : String = "nice_ID"
-    var name : String = "Denys Pashkov"
+    var name : String = "Jane Appleseed"
     var image : Image?
     var evaluated_Objective_IDs : [String] = []
 }
@@ -134,6 +134,7 @@ enum CoreEnum: String {
 enum MapEnum: String {
     case full = "FULL MAP"
     case communal = "COMMUNAL"
+    
 }
 
 enum ChallengeEnum: String {
