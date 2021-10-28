@@ -9,6 +9,8 @@ import Foundation
 import SwiftUI
 
 struct SortButtonMenu: View {
+    
+    @Binding var selectedSort: SortEnum?
     @State private var isPop = false
     @State private var text = ""
     @State var showSheet = false
@@ -17,10 +19,11 @@ struct SortButtonMenu: View {
     var body: some View {
 
         Menu {
-            Button("By Date", action: {})
-            Button("By Strands Alphabetically", action: {})
-            Button("Most Evaluated First", action: {})
-            Button("Least Evaluated First", action: {})
+            Button("By Date", action: {selectedSort = .byDate})
+            Button("By Strands Alphabetically", action: {selectedSort = .alphabetic})
+            Button("Most Evaluated First", action: {selectedSort = .mostEvalFirst})
+            Button("Least Evaluated First", action: {selectedSort = .leastEvalFirst})
+            
         } label: {
             HStack(spacing: 13) {
                 Image(systemName: "arrow.up.arrow.down.circle")
@@ -47,7 +50,7 @@ struct SortButtonMenu: View {
 struct SortButtonMenu_Previews: PreviewProvider {
 
     static var previews: some View {
-        SortButtonMenu()
+        SortButtonMenu(selectedSort: .constant(.byDate))
     }
 }
 

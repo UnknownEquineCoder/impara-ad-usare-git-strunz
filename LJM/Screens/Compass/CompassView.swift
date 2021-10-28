@@ -54,9 +54,10 @@ struct CompassView: View {
             showingSubview: self.$showingSubview,
             subviewByLabel: { label in
                 self.subView(forLabel: label)
+                
             }
         ){
-            ZStack{
+            ZStack {
                 
                 colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : Color(red: 245/255, green: 245/255, blue: 245/255)
                 

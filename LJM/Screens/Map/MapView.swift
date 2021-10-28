@@ -12,7 +12,7 @@ struct MapView: View {
     @State var selectedStrands = [String]()
     @State var expand: Bool = false
     @State private var searchText = ""
-    @State var selectedSort = ""
+    @State var selectedSort: SortEnum?
     @State private var selectedPath : String?
         
     @Environment(\.colorScheme) var colorScheme
@@ -66,7 +66,7 @@ struct MapView: View {
                 HStack {
 //                    DropDownMenuSort()
 //                        .buttonStyle(PlainButtonStyle())
-                    SortButtonMenu()
+                    SortButtonMenu(selectedSort: $selectedSort)
                     ContextMenuFilters(fromMap: true, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedStrands: $selectedStrands)
 //                    DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: strandsStore.arrayStrandsFilter)
 //                        .buttonStyle(PlainButtonStyle())
