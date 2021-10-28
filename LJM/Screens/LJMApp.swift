@@ -30,6 +30,7 @@ struct LJMApp: App {
             // MainScreen used as a Splash screen -> redirect to Login view or Content view regarding the login status
             //            DocumentGroup(newDocument: DocDemoDocument()) { file in
             StartView()
+                .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight, alignment: .center)
             //            }
                 .onAppear(perform: {
                     learningObjectiveStore.load_Test_Data() {
