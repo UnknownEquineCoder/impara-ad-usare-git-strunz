@@ -54,7 +54,7 @@ struct LearningObjectiveJourneyCell: View {
                                         self.isRatingView.toggle()
                                     })
                             } else {
-                                AddButton(learningObjectiveSelected: learningObj, buttonSize: 27).padding(.trailing, 32).padding(.top, 24)
+                                AddButton(learningObjectiveSelected: learningObj, buttonSize: 27).padding(.trailing, 60).padding(.top, 20)
                             }
                         } else {
                             if !isAddable {
@@ -64,7 +64,7 @@ struct LearningObjectiveJourneyCell: View {
                                         self.isRatingView.toggle()
                                     })
                             } else {
-                                AddButton(learningObjectiveSelected: learningObj, buttonSize: 27).padding(.trailing, 32).padding(.top, 24)
+                                AddButton(learningObjectiveSelected: learningObj, buttonSize: 27).padding(.trailing, 60).padding(.top, 20)
                             }
                         }
                     }.padding(.leading, 20)

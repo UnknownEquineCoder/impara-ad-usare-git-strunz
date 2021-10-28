@@ -52,6 +52,8 @@
 		E03211372716E89100262144 /* Rubric_Level.csv in Resources */ = {isa = PBXBuildFile; fileRef = E03211342716E89100262144 /* Rubric_Level.csv */; };
 		E03211382716E89100262144 /* Learning_Objectives.csv in Resources */ = {isa = PBXBuildFile; fileRef = E03211352716E89100262144 /* Learning_Objectives.csv */; };
 		E03211392716E89100262144 /* Learning_Paths.csv in Resources */ = {isa = PBXBuildFile; fileRef = E03211362716E89100262144 /* Learning_Paths.csv */; };
+		E04251AD27295F34000A1D69 /* StudentData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E04251AB27295F34000A1D69 /* StudentData.xcdatamodeld */; };
+		E04251B3272AAABA000A1D69 /* percistency_Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04251B2272AAABA000A1D69 /* percistency_Manager.swift */; };
 		E0E87CCC27214EED00FEF3D6 /* Coders.csv in Resources */ = {isa = PBXBuildFile; fileRef = E0E87CCB27214EED00FEF3D6 /* Coders.csv */; };
 		E0E87CD4272801BD00FEF3D6 /* ALL PATHS.csv in Resources */ = {isa = PBXBuildFile; fileRef = E0E87CD3272801BC00FEF3D6 /* ALL PATHS.csv */; };
 		E0E87CD6272801C900FEF3D6 /* DocDemoDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E87CD5272801C900FEF3D6 /* DocDemoDocument.swift */; };
@@ -168,6 +170,8 @@
 		E03211342716E89100262144 /* Rubric_Level.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Rubric_Level.csv; sourceTree = "<group>"; };
 		E03211352716E89100262144 /* Learning_Objectives.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Learning_Objectives.csv; sourceTree = "<group>"; };
 		E03211362716E89100262144 /* Learning_Paths.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Learning_Paths.csv; sourceTree = "<group>"; };
+		E04251AC27295F34000A1D69 /* profile.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = profile.xcdatamodel; sourceTree = "<group>"; };
+		E04251B2272AAABA000A1D69 /* percistency_Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = percistency_Manager.swift; sourceTree = "<group>"; };
 		E0E87CCB27214EED00FEF3D6 /* Coders.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Coders.csv; sourceTree = "<group>"; };
 		E0E87CD3272801BC00FEF3D6 /* ALL PATHS.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ALL PATHS.csv"; sourceTree = "<group>"; };
 		E0E87CD5272801C900FEF3D6 /* DocDemoDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocDemoDocument.swift; sourceTree = "<group>"; };
@@ -380,6 +384,7 @@
 		E02DFE8D270C41F4004FF8B7 /* New Backend */ = {
 			isa = PBXGroup;
 			children = (
+				E04251AA27295E00000A1D69 /* Models */,
 				E02DFE89270AEC3F004FF8B7 /* newModels.swift */,
 				E02DFE8B270C41E5004FF8B7 /* singleton.swift */,
 				E0E87CD5272801C900FEF3D6 /* DocDemoDocument.swift */,
@@ -397,6 +402,15 @@
 				E03211342716E89100262144 /* Rubric_Level.csv */,
 			);
 			path = FakeData;
+			sourceTree = "<group>";
+		};
+		E04251AA27295E00000A1D69 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E04251B2272AAABA000A1D69 /* percistency_Manager.swift */,
+				E04251AB27295F34000A1D69 /* StudentData.xcdatamodeld */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		EA5B446F26310AB9002A97C7 /* Auth */ = {
@@ -677,6 +691,7 @@
 				E02DFE8A270AEC3F004FF8B7 /* newModels.swift in Sources */,
 				962F090E25E7C4F1001EAE85 /* ParticularCircle.swift in Sources */,
 				9641C4A525778F1D0088A0B6 /* SizesExtension.swift in Sources */,
+				E04251AD27295F34000A1D69 /* StudentData.xcdatamodeld in Sources */,
 				964B662C256E6020006AB20E /* LJMApp.swift in Sources */,
 				EAF3703E257A2AC400C72707 /* ScrollViewLearningObjectives.swift in Sources */,
 				961DB4E225E66F610020E9F6 /* SliderView.swift in Sources */,
@@ -691,6 +706,7 @@
 				9605C71825C95498007E808E /* LoginPage.swift in Sources */,
 				9622DCE525DE80DA009ECCB4 /* CompassPopover.swift in Sources */,
 				960A8B2125E7B9FA00492C3F /* RadarGraphFrame.swift in Sources */,
+				E04251B3272AAABA000A1D69 /* percistency_Manager.swift in Sources */,
 				967EE8CB256E722F008065C9 /* AddImageButton.swift in Sources */,
 				EAF37039257A2A4900C72707 /* EmptyLearningObjectiveViewJourney.swift in Sources */,
 				EA686F18256EF69100C121DC /* MapView.swift in Sources */,
@@ -1089,6 +1105,19 @@
 			productName = Introspect;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		E04251AB27295F34000A1D69 /* StudentData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E04251AC27295F34000A1D69 /* profile.xcdatamodel */,
+			);
+			currentVersion = E04251AC27295F34000A1D69 /* profile.xcdatamodel */;
+			path = StudentData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 964B6620256E6020006AB20E /* Project object */;
 }
