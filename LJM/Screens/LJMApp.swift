@@ -6,8 +6,6 @@ import UniformTypeIdentifiers
 @main
 struct LJMApp: App {
     
-    let persistenceController = PersistenceController.shared
-    
     //for import and export files
     @State var importFile = false
     @State var exportFile = false
@@ -25,7 +23,6 @@ struct LJMApp: App {
             // MainScreen used as a Splash screen -> redirect to Login view or Content view regarding the login status
             //            DocumentGroup(newDocument: DocDemoDocument()) { file in
             StartView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight, alignment: .center)
             //            }
                 .onAppear(perform: {

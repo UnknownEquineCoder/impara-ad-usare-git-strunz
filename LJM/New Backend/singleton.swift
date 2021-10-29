@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 class singleton_Shared{
     static let shared = singleton_Shared()
@@ -14,7 +15,16 @@ class singleton_Shared{
 }
 
 class LearningObjectivesStore: ObservableObject {
+    
+    let persistenceController = PersistenceController.shared
+    @Environment(\.managedObjectContext) private var viewContext
+    @FetchRequest(
+        sortDescriptors: [],
+        animation: .default)
+    private var items: FetchedResults<EvaluatedObjects>
+    
     @Published var learningObjectives = [learning_Objective]()
+    
     var isSavable = true
     
     func addItem(_ item: learning_Objective) {
