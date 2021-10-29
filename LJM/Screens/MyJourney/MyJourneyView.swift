@@ -12,7 +12,7 @@ struct MyJourneyView: View {
     @State var selectedFilter = "FULL MAP"
     @State var selectedFilterInsideButton = "All"
     @State var selectedStrands = [String]()
-    @State var selectedSort = ""
+    @State var selectedSort : SortEnum?
     
     let arrayFilters = ["All", "Communal", "Elective", "Evaluated", "Not Evaluated"]
     
@@ -53,7 +53,7 @@ struct MyJourneyView: View {
             
             HStack {
                 
-                SortButtonMenu()
+                SortButtonMenu(selectedSort: $selectedSort)
                 ContextMenuFilters(fromMap: false, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedStrands: $selectedStrands)
 //                DropDownMenuSort()
 //                    .buttonStyle(PlainButtonStyle())
@@ -76,7 +76,7 @@ struct MyJourneyView: View {
 //                    .frame(maxWidth: .infinity,  alignment: .trailing)
 //                    .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
                 
-                ListViewLearningObjectiveMyJourney(selectedFilter: $selectedFilter, txtSearchBar: $searchText, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedMenu: $selectedMenu)
+                ListViewLearningObjectiveMyJourney(selectedFilter: $selectedFilter, txtSearchBar: $searchText, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedMenu: $selectedMenu, selectedSort: $selectedSort)
                     .padding(.top, 30)
                 
             }.frame(maxWidth: .infinity)
@@ -117,6 +117,7 @@ struct ListViewLearningObjectiveMyJourney: View {
     @Binding var selectedPath : String?
     @Binding var selectedStrands : [String]
     @Binding var selectedMenu: OutlineMenu
+    @Binding var selectedSort: SortEnum?
     
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     @EnvironmentObject var totalNumberLearningObjectivesStore : TotalNumberOfLearningObjectivesStore
@@ -133,7 +134,7 @@ struct ListViewLearningObjectiveMyJourney: View {
                     .padding(.top, 20)
                     .isHidden(self.totalNumberLearningObjectivesStore.total > 0 ? true : false)
                 
-                ScrollViewLearningObjectives(learningPathSelected: $selectedPath, filterCore: selectedFilter, isAddable: false, textFromSearchBar: txtSearchBar, selectedStrands: selectedStrands)
+                ScrollViewLearningObjectives(learningPathSelected: $selectedPath, filterCore: selectedFilter, filterSort: selectedSort, isAddable: false, textFromSearchBar: txtSearchBar, selectedStrands: selectedStrands)
                 
             }
         } else {

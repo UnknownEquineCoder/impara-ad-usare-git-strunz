@@ -23,8 +23,10 @@ struct GraphWithOverlay: View {
                     label("PROFICIENT")
                     label("PROGRESSING")
                     label("BEGINNING")
+                    label("NOT EVALUATED")
                 }
-                .padding(.bottom, geo.size.height/2.18)
+                .padding(.bottom, geo.size.height/1.90)
+                .padding(.leading, 10)
             }
         }
         //.frame(width: aSize * 1.2, height: aSize * 1.2)

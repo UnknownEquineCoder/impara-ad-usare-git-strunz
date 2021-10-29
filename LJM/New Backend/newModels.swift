@@ -131,10 +131,16 @@ enum CoreEnum: String {
     case all = "All"
 }
 
+enum SortEnum: String {
+    case byDate = "By Date"
+    case alphabetic = "By Strands Alphabetically"
+    case mostEvalFirst = "Most Evaluated First"
+    case leastEvalFirst = "Least Evaluated First"
+}
+
 enum MapEnum: String {
     case full = "FULL MAP"
     case communal = "COMMUNAL"
-    
 }
 
 enum ChallengeEnum: String {
