@@ -16,13 +16,6 @@ class singleton_Shared{
 
 class LearningObjectivesStore: ObservableObject {
     
-    let persistenceController = PersistenceController.shared
-    @Environment(\.managedObjectContext) private var viewContext
-    @FetchRequest(
-        sortDescriptors: [],
-        animation: .default)
-    private var items: FetchedResults<EvaluatedObjects>
-    
     @Published var learningObjectives = [learning_Objective]()
     
     var isSavable = true
@@ -50,20 +43,35 @@ class LearningObjectivesStore: ObservableObject {
         }
     }
     
-    func load_Status(){
+    func load_Status(objectives: FetchedResults<EvaluatedObject>){
         
-        let data = UserDefaults.standard.object(forKey: "evaluated_Object")
-        if data != nil {
-            if let evaluated_Objects = try? PropertyListDecoder().decode([learning_Objective].self, from: data as! Data ) {
+        /// core data implementation
+        
+        let cd_Learned_Obectives = PersistenceController().load(objectives: objectives)
+        
+        for evaluated_Ojectives in cd_Learned_Obectives {
                 
-                for evaluated_Object in evaluated_Objects {
-                    let index = learningObjectives.firstIndex(where: {$0.ID == evaluated_Object.ID})
-                    if index != nil {
-                        learningObjectives[index!] = evaluated_Object
-                    }
+                let index = learningObjectives.firstIndex(where: {$0.ID == evaluated_Ojectives.id})
+                if index != nil {
+                    learningObjectives[index!].eval_score = evaluated_Ojectives.eval_Score
+                    learningObjectives[index!].eval_date = evaluated_Ojectives.eval_Date
                 }
-            }
         }
+        
+        /// user default implementation
+        
+//        let data = UserDefaults.standard.object(forKey: "evaluated_Object")
+//        if data != nil {
+//            if let evaluated_Objects = try? PropertyListDecoder().decode([learning_Objective].self, from: data as! Data ) {
+//
+//                for evaluated_Object in evaluated_Objects {
+//                    let index = learningObjectives.firstIndex(where: {$0.ID == evaluated_Object.ID})
+//                    if index != nil {
+//                        learningObjectives[index!] = evaluated_Object
+//                    }
+//                }
+//            }
+//        }
     }
     
     func load_Test_Data(_ completion: @escaping (() -> Void)) {

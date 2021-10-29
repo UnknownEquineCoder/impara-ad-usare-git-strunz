@@ -3,6 +3,14 @@ import SwiftUI
 
 struct StartView: View {
     
+    // core data elements
+    @Environment(\.managedObjectContext) private var viewContext
+
+    @FetchRequest(
+        sortDescriptors: [],
+        animation: .default)
+    private var objectives: FetchedResults<EvaluatedObject>
+    
     @State var selectedMenu: OutlineMenu = .compass
     
     // new data flow element
@@ -51,6 +59,9 @@ struct StartView: View {
             case .map:
                 MapMainView()
             }
+        }
+        .onAppear {
+//            learningObjectiveStore.load_Status(objectives: objectives)
         }
     }
 }

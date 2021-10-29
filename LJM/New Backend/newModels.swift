@@ -70,6 +70,12 @@ struct learning_Objective : Equatable, Encodable, Decodable {
     }
 }
 
+struct CD_Evaluated_Object {
+    let id : String
+    let eval_Date : [Date]
+    let eval_Score : [Int]
+}
+
 struct learning_Path {
     var title : String
     var learning_Objective_IDs : [String]
