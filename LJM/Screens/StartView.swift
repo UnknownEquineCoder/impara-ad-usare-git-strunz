@@ -12,12 +12,15 @@ struct StartView: View {
     private var objectives: FetchedResults<EvaluatedObject>
     
     @State var selectedMenu: OutlineMenu = .compass
+    @StateObject var learningPathsStore = LearningPathStore()
+    @StateObject var strandsStore = StrandsStore()
     
     // new data flow element
     @State var path : [learning_Path] = []
 
     
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
+    
     
     @State var filter_Path = "Design"
     
@@ -55,14 +58,21 @@ struct StartView: View {
             case .compass:
                 CompassView(path: $filter_Path)
             case .journey:
-                MyJourneyMainView(selectedMenu: $selectedMenu)
+                MyJourneyMainView(selectedMenu: $selectedMenu, fetched_Data: objectives)
             case .map:
-                MapMainView()
+                MapMainView(fetched_Data: objectives)
             }
         }
-        .onAppear {
-//            learningObjectiveStore.load_Status(objectives: objectives)
-        }
+        .onAppear(perform: {
+            learningObjectiveStore.load_Test_Data() {
+                
+                learningObjectiveStore.load_Status(objectives: objectives)
+                learningPathsStore.load_Learning_Path()
+                strandsStore.setupStrandsOnNativeFilter(learningObjectives: learningObjectiveStore.learningObjectives)
+            }
+            
+        })
     }
+    
 }
 

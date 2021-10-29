@@ -20,17 +20,23 @@ class LearningObjectivesStore: ObservableObject {
     
     var isSavable = true
     
-    func addItem(_ item: learning_Objective) {
+    func add_Evaluation(_ item: learning_Objective) {
         learningObjectives.append(item)
     }
     
-    func removeItem(_ item: learning_Objective) {
-        learningObjectives.remove(object: item)
+    func remove_Evaluation(index : Int,fetched_Data : FetchedResults<EvaluatedObject> ) {
+        
+        PersistenceController.shared.delete(l_Objective: learningObjectives[index], objectives: fetched_Data)
+        
+        learningObjectives[index].eval_score.removeAll()
+        learningObjectives[index].eval_date.removeAll()
     }
     
-    func evaluate_Object(index : Int, evaluation : Int, date : Date ){
+    func evaluate_Object(index : Int, evaluation : Int, date : Date, fetched_Data : FetchedResults<EvaluatedObject> ){
         learningObjectives[index].eval_date.append(date)
         learningObjectives[index].eval_score.append(evaluation)
+        
+        PersistenceController.shared.evalutate_Learning_Objective(l_Objective: learningObjectives[index], objectives: fetched_Data)
     }
     
     func save_Status(){
@@ -50,8 +56,9 @@ class LearningObjectivesStore: ObservableObject {
         let cd_Learned_Obectives = PersistenceController().load(objectives: objectives)
         
         for evaluated_Ojectives in cd_Learned_Obectives {
-                
+            
                 let index = learningObjectives.firstIndex(where: {$0.ID == evaluated_Ojectives.id})
+            
                 if index != nil {
                     learningObjectives[index!].eval_score = evaluated_Ojectives.eval_Score
                     learningObjectives[index!].eval_date = evaluated_Ojectives.eval_Date

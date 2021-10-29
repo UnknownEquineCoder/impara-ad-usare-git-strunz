@@ -47,12 +47,10 @@ struct PersistenceController {
         
         // declering the new object that is evaluated
         let new_Evaluated_Object = EvaluatedObject(context: context)
-        
         // assigning to the new object the values that it will have
         new_Evaluated_Object.id = l_Objective.ID
         new_Evaluated_Object.eval_Dates = l_Objective.eval_date as NSObject
         new_Evaluated_Object.eval_Scores = l_Objective.eval_score as NSObject
-        
         // check for objectives saved if this one was alredy evaluated, if it was alredy evaluated
         // it will delete the old evaluation
         for objective in objectives {
@@ -105,15 +103,20 @@ struct PersistenceController {
         
         // check for objectives saved if this one was alredy evaluated, if it was alredy evaluated
         // it will delete the old evaluation
+        
         for objective in objectives {
+            
             if objective.id == l_Objective.ID {
+                
                 context.delete(objective)
             }
         }
         
         // if the context was changed it will update
         if context.hasChanges {
+            
             do {
+                
                 // save the context with new element added
                 try context.save()
             } catch {

@@ -29,14 +29,7 @@ struct LJMApp: App {
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight, alignment: .center)
             //            }
-                .onAppear(perform: {
-                    learningObjectiveStore.load_Test_Data() {
-                        
-                        learningPathsStore.load_Learning_Path()
-                        strandsStore.setupStrandsOnNativeFilter(learningObjectives: learningObjectiveStore.learningObjectives)
-                    }
-                    
-                })
+                
             
                 .fileExporter(
                     isPresented: $exportFile,
