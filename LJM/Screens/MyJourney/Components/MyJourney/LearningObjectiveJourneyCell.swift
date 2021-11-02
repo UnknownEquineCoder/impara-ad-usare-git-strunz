@@ -12,7 +12,6 @@ struct LearningObjectiveJourneyCell: View {
     @Binding var learningPathSelected : String?
     
     var learningObj: learning_Objective
-    let fetched_Data : FetchedResults<EvaluatedObject>
     
     var body: some View {
         VStack {
@@ -49,23 +48,23 @@ struct LearningObjectiveJourneyCell: View {
                         
                         if self.isLearningGoalAdded != nil {
                             if self.isLearningGoalAdded! {
-                                RatingView(fetched_Data: fetched_Data, learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
+                                RatingView( learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
                                     .padding(.top, 15).padding(.trailing, 30)
                                     .onAppear(perform: {
                                         self.isRatingView.toggle()
                                     })
                             } else {
-                                AddButton(learningObjectiveSelected: learningObj, fetched_Data: fetched_Data, buttonSize: 27).padding(.trailing, 60).padding(.top, 20)
+                                AddButton(learningObjectiveSelected: learningObj, buttonSize: 27).padding(.trailing, 60).padding(.top, 20)
                             }
                         } else {
                             if !isAddable {
-                                RatingView(fetched_Data: fetched_Data, learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
+                                RatingView( learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
                                     .padding(.top, 15).padding(.trailing, 30)
                                     .onAppear(perform: {
                                         self.isRatingView.toggle()
                                     })
                             } else {
-                                AddButton(learningObjectiveSelected: learningObj, fetched_Data: fetched_Data, buttonSize: 27).padding(.trailing, 60).padding(.top, 20)
+                                AddButton(learningObjectiveSelected: learningObj, buttonSize: 27).padding(.trailing, 60).padding(.top, 20)
                             }
                         }
                     }.padding(.leading, 20)

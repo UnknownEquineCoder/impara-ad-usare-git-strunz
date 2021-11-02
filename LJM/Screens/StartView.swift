@@ -58,12 +58,12 @@ struct StartView: View {
                     .environmentObject(learningPathsStore)
                     .environmentObject(strandsStore)
             case .journey:
-                MyJourneyMainView(selectedMenu: $selectedMenu, fetched_Data: objectives)
+                MyJourneyMainView(selectedMenu: $selectedMenu)
                     .environmentObject(totalNumberLearningObjectivesStore)
                     .environmentObject(learningPathsStore)
                     .environmentObject(strandsStore)
             case .map:
-                MapMainView(fetched_Data: objectives)
+                MapMainView()
                     .environmentObject(totalNumberLearningObjectivesStore)
                     .environmentObject(learningPathsStore)
                     .environmentObject(strandsStore)
@@ -71,7 +71,7 @@ struct StartView: View {
         }
         .onAppear(perform: {
             learningObjectiveStore.load_Test_Data() {
-                
+                PersistenceController.shared.fetched_Learning_Objectives = objectives
                 learningObjectiveStore.load_Status(objectives: objectives)
                 learningPathsStore.load_Learning_Path()
                 strandsStore.setupStrandsOnNativeFilter(learningObjectives: learningObjectiveStore.learningObjectives)

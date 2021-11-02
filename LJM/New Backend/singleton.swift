@@ -24,19 +24,19 @@ class LearningObjectivesStore: ObservableObject {
         learningObjectives.append(item)
     }
     
-    func remove_Evaluation(index : Int,fetched_Data : FetchedResults<EvaluatedObject> ) {
+    func remove_Evaluation(index : Int ) {
         
-        PersistenceController.shared.delete(l_Objective: learningObjectives[index], objectives: fetched_Data)
+        PersistenceController.shared.delete(l_Objective: learningObjectives[index])
         
         learningObjectives[index].eval_score.removeAll()
         learningObjectives[index].eval_date.removeAll()
     }
     
-    func evaluate_Object(index : Int, evaluation : Int, date : Date, fetched_Data : FetchedResults<EvaluatedObject> ){
+    func evaluate_Object(index : Int, evaluation : Int, date : Date ){
         learningObjectives[index].eval_date.append(date)
         learningObjectives[index].eval_score.append(evaluation)
         
-        PersistenceController.shared.evalutate_Learning_Objective(l_Objective: learningObjectives[index], objectives: fetched_Data)
+        PersistenceController.shared.evalutate_Learning_Objective(l_Objective: learningObjectives[index])
     }
     
     func evaluate_Object(index : Int, evaluations : [Int], dates : [Date]){

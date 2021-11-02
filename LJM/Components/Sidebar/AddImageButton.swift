@@ -13,6 +13,7 @@ import AppKit
 struct AddImageButton: View {
     var buttonSize: CGFloat
     @Binding var imageName: String
+    @Binding var imageData : Data?
     
     var body: some View {
         Button{
@@ -37,12 +38,11 @@ struct AddImageButton: View {
                     let image = NSImage(byReferencingFile: path)!
                     let data = image.tiffRepresentation
                     
+                    imageData = data
+                    
+//                    PersistenceController.shared.update_Image(data: data!, student: fetched_Student)
+                    
                     UserDefaults.standard.set(data, forKey: "propic")
-                    
-                    
-                    
-                    
-                    
                     
                     // path contains the file path e.g
                     // /Users/ourcodeworld/Desktop/tiger.jpeg

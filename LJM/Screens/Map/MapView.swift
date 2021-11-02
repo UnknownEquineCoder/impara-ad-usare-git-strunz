@@ -26,12 +26,30 @@ struct MapView: View {
     @EnvironmentObject var strandsStore: StrandsStore
     @EnvironmentObject var totalNumberLearningObjectivesStore : TotalNumberOfLearningObjectivesStore
     
-    let fetched_Data : FetchedResults<EvaluatedObject>
     
     var body: some View {
         
         VStack {
             VStack(alignment: .leading) {
+                
+                Button {
+                    for index in learningObjectiveStore.learningObjectives.indices {
+                        learningObjectiveStore.learningObjectives[index].eval_date.append(Date())
+                        learningObjectiveStore.learningObjectives[index].eval_score.append(Int.random(in: 1...5))
+                    }
+                } label: {
+                    Text("Add")
+                }
+
+                Button {
+                    for index in learningObjectiveStore.learningObjectives.indices {
+                        learningObjectiveStore.learningObjectives[index].eval_date = []
+                        learningObjectiveStore.learningObjectives[index].eval_score = []
+                    }
+                } label: {
+                    Text("Delete")
+                }
+                
                 HStack {
                     TitleScreenView(title: "Map")
                     
@@ -87,7 +105,7 @@ struct MapView: View {
                         .padding(.top, 75)
                         .isHidden(self.totalNumberLearningObjectivesStore.total == 0 ? false : true)
                     
-                    ScrollViewLearningObjectives(learningPathSelected: $selectedPath, filteredMap: selectedFilter, isAddable: true, textFromSearchBar: searchText, selectedStrands: selectedStrands, fetched_Data: fetched_Data)
+                    ScrollViewLearningObjectives(learningPathSelected: $selectedPath, filteredMap: selectedFilter, isAddable: true, textFromSearchBar: searchText, selectedStrands: selectedStrands)
                         .padding(.top, 30)
                     
                 }.padding(.top, 10)

@@ -15,7 +15,6 @@ struct MapMainView: View {
     @State private var alertIsShowing = false
         
     @ObservedObject var selectedView = SelectedSegmentView()
-    let fetched_Data : FetchedResults<EvaluatedObject>
     
     // new data flow stuff
         
@@ -23,10 +22,10 @@ struct MapMainView: View {
         ZStack(alignment: .top) {
             
             if self.selectedView.selectedView == "Map" {
-                MapView(selectedSegmentView: self.selectedView, fetched_Data: fetched_Data).modifier(PaddingMainSubViews())
+                MapView(selectedSegmentView: self.selectedView).modifier(PaddingMainSubViews())
                 
             } else {
-                ChallengeView(fetched_Data: fetched_Data, selectedSegmentView: self.selectedView).modifier(PaddingMainSubViews())
+                ChallengeView( selectedSegmentView: self.selectedView).modifier(PaddingMainSubViews())
             }
 //            HStack {
 //                TopBarJourney(selectedView: self.selectedView).padding(.top, 20).padding(.leading, 50)
