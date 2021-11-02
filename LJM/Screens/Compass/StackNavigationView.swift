@@ -9,6 +9,8 @@ import SwiftUI
 
 struct StackNavigationView<RootContent, SubviewContent>: View where RootContent: View, SubviewContent: View {
     
+    @Environment(\.colorScheme) var colorScheme
+    
     @Binding var currentSubviewLabel: String
     @Binding var showingSubview: Bool
     let subviewByLabel: (String) -> SubviewContent
@@ -32,7 +34,7 @@ struct StackNavigationView<RootContent, SubviewContent>: View where RootContent:
                   // .transition(AnyTransition.move(edge: .trailing)).animation(.default)
                 }
             }
-        }
+        }.background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : Color(red: 245/255, green: 245/255, blue: 245/255))
         
     }
     
@@ -55,7 +57,7 @@ struct StackNavigationView<RootContent, SubviewContent>: View where RootContent:
                     Button(action: {
                         self.isVisible = false
                     }) {
-                        HStack{
+                        HStack {
                             Image(systemName: "chevron.backward").foregroundColor(Color.customCyan)
                                 .scaleEffect(CGSize(width: 1.26, height: 1.26))
                             Text("Compass")
@@ -67,8 +69,9 @@ struct StackNavigationView<RootContent, SubviewContent>: View where RootContent:
                     Spacer()
                 }
                 .padding(.horizontal).padding(.vertical, 4)
-                // contentView() // Main view content
-            }
+                 contentView() // Main view content
+                
+            }.padding(.top, 10)
         }
     }
 }

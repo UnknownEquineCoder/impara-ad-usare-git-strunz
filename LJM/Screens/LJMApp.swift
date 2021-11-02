@@ -6,18 +6,14 @@ import UniformTypeIdentifiers
 @main
 struct LJMApp: App {
     
-    @AppStorage("webview_error") var webViewError: String = ""
-    
-    @State var webViewGotError: Bool = false
-    
-    @State private var document: MessageDocument = MessageDocument(message: "Hello, World!")
+    // instantiating the controller for core data
+    let persistenceController = PersistenceController.shared
     
     //for import and export files
     @State var importFile = false
     @State var exportFile = false
-    @State private var toExport = Bundle.main.path(forResource: "file", ofType: "csv")
-    let file_Name = "Personal_Data.csv"
-    
+    @State private var document: MessageDocument = MessageDocument(message: "Hello, World!")
+
     @StateObject var learningObjectiveStore = LearningObjectivesStore()
     @StateObject var totalNumberLearningObjectivesStore = TotalNumberOfLearningObjectivesStore()
     @StateObject var learningPathsStore = LearningPathStore()
@@ -30,16 +26,10 @@ struct LJMApp: App {
             // MainScreen used as a Splash screen -> redirect to Login view or Content view regarding the login status
             //            DocumentGroup(newDocument: DocDemoDocument()) { file in
             StartView()
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight, alignment: .center)
             //            }
-                .onAppear(perform: {
-                    learningObjectiveStore.load_Test_Data() {
-                        learningObjectiveStore.load_Status()
-                        learningPathsStore.load_Learning_Path()
-                        strandsStore.setupStrandsOnNativeFilter(learningObjectives: learningObjectiveStore.learningObjectives)
-                    }
-                    
-                })
+                
             
                 .fileExporter(
                     isPresented: $exportFile,
@@ -53,21 +43,6 @@ struct LJMApp: App {
                         // Handle failure.
                     }
                 }
-            //            .fileExporter(
-            //                isPresented: $exportFile,
-            //                document: Doc(url: "Documents/\(file_Name)" ),
-            //                contentType: srtType,
-            //                defaultFilename: "\(file_Name)",
-            //                onCompletion: {
-            //                    res in
-            //                    do{
-            //                        let fileURL = try res.get()
-            //                        print(fileURL)
-            //                    } catch {
-            //                        print("can not save the document ")
-            //                    }
-            //                })
-            
                 .fileImporter(
                     isPresented: $importFile,
                     allowedContentTypes: [srtType],
@@ -115,56 +90,49 @@ struct LJMApp: App {
                 .environmentObject(totalNumberLearningObjectivesStore)
                 .environmentObject(learningPathsStore)
                 .environmentObject(strandsStore)
-        }
-        
-        WindowGroup("LoginPage") {
-            WebviewLogin(url: "https://ljm-dev-01.fed.it.iosda.org/api/auth/saml/login", error: $webViewGotError)
-                .alert(isPresented: $webViewGotError, content: {
-                    Alert(title: Text("Error"), message: Text(webViewError))
-                })
-        }
-        .handlesExternalEvents(matching: Set(arrayLiteral: "*"))
-        .commands(content: {
-            CommandGroup(after: .appInfo, addition: {
-                
-                // to import files
-                Button(action: {
-                    importFile.toggle()
-                }) {
-                    Text("Import File")
-                }
-                
-                // to export files
-                Button(action: {
+        }.handlesExternalEvents(matching: Set(arrayLiteral: "*"))
+            .commands(content: {
+                CommandGroup(after: .importExport, addition: {
                     
-                    var data_To_Save = ""
-                    let evaluated_Learning_Objectives = learningObjectiveStore.learningObjectives.filter({$0.eval_score.count > 0})
-                    
-                    data_To_Save.append("ID,eval_score,eval_date\n")
-                    
-                    for learning_Objective in evaluated_Learning_Objectives {
-                        data_To_Save.append("\(learning_Objective.ID),")
-                        
-                        for eval_Score_Index in 0..<learning_Objective.eval_score.count-1 {
-                            data_To_Save.append("\(learning_Objective.eval_score[eval_Score_Index])-")
-                        }
-                        data_To_Save.append("\(learning_Objective.eval_score.last!),")
-                        
-                        for eval_Score_Index in 0..<learning_Objective.eval_date.count-1 {
-                            data_To_Save.append("\(learning_Objective.eval_date[eval_Score_Index].timeIntervalSince1970)-")
-                        }
-                        data_To_Save.append("\(learning_Objective.eval_date.last!.timeIntervalSince1970)\n")
-                        
+                    // to import files
+                    Button(action: {
+                        importFile.toggle()
+                    }) {
+                        Text("Import File")
                     }
                     
-                    document.message = data_To_Save
-                    
-                    exportFile.toggle()
-                }) {
-                    Text("Export File")
-                }
+                    // to export files
+                    Button(action: {
+                        
+                        var data_To_Save = ""
+                        let evaluated_Learning_Objectives = learningObjectiveStore.learningObjectives.filter({$0.eval_score.count > 0})
+                        
+                        data_To_Save.append("ID,eval_score,eval_date\n")
+                        
+                        for learning_Objective in evaluated_Learning_Objectives {
+                            data_To_Save.append("\(learning_Objective.ID),")
+                            
+                            for eval_Score_Index in 0..<learning_Objective.eval_score.count-1 {
+                                data_To_Save.append("\(learning_Objective.eval_score[eval_Score_Index])-")
+                            }
+                            data_To_Save.append("\(learning_Objective.eval_score.last!),")
+                            
+                            for eval_Score_Index in 0..<learning_Objective.eval_date.count-1 {
+                                data_To_Save.append("\(learning_Objective.eval_date[eval_Score_Index].timeIntervalSince1970)-")
+                            }
+                            data_To_Save.append("\(learning_Objective.eval_date.last!.timeIntervalSince1970)\n")
+                            
+                        }
+                        
+                        document.message = data_To_Save
+                        
+                        exportFile.toggle()
+                    }) {
+                        Text("Export File")
+                    }
+                })
             })
-        })
+        
     }
 }
 

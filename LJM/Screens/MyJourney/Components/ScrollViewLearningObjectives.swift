@@ -16,6 +16,7 @@ struct ScrollViewLearningObjectives: View {
     var filteredMap: MapEnum.RawValue?
     var filterChallenge: ChallengeEnum.RawValue?
     var filterCompass: CompassEnum.RawValue?
+    var filterSort: SortEnum?
     var filterLearningGoal: String?
     
     @EnvironmentObject var learningPathStore: LearningPathStore
@@ -23,6 +24,7 @@ struct ScrollViewLearningObjectives: View {
     @EnvironmentObject var totalNumberLearningObjectivesStore: TotalNumberOfLearningObjectivesStore
     
     var filteredLearningObjectivesMyJourney: [learning_Objective] {
+        
         let objectives = self.learningObjectiveStore.learningObjectives
         
         switch filterCore {
@@ -114,14 +116,17 @@ struct ScrollViewLearningObjectives: View {
     var textFromSearchBar: String
     var selectedStrands: [String]
     
+    let fetched_Data : FetchedResults<EvaluatedObject>
+    
     var body: some View {
         ScrollView {
-            LazyVStack(spacing: 0) {
+            LazyVStack(spacing: 20) {
                 ForEach(filteredLearningObjectivesMyJourney, id: \.ID) { item in
                     if textFromSearchBar.isEmpty || (item.goal.lowercased().contains(textFromSearchBar.lowercased())) || ((item.description.lowercased().contains(textFromSearchBar.lowercased()))) {
                         if let strand = item.strand {
                             if self.selectedStrands.contains(strand) || self.selectedStrands.count == 0 {
-                                LearningObjectiveJourneyCell(rating: item.eval_score.last ?? 0, isRatingView: true, isAddable: isAddable, isLearningGoalAdded: self.filterLearningGoal != nil ? true : nil, learningPathSelected: self.$learningPathSelected, learningObj: item)
+                                
+                                LearningObjectiveJourneyCell(rating: item.eval_score.last ?? 0, isRatingView: true, isAddable: isAddable, isLearningGoalAdded: self.filterLearningGoal != nil ? true : nil, learningPathSelected: self.$learningPathSelected, learningObj: item, fetched_Data: fetched_Data)
                                     .contextMenu {
                                         if !isAddable {
                                             Button {
@@ -132,8 +137,7 @@ struct ScrollViewLearningObjectives: View {
                                             }
                                         }
                                     }
-                                
-                            }
+                                }
                         }
                     }
                 }
@@ -163,6 +167,28 @@ struct ScrollViewLearningObjectives: View {
             self.totalNumberLearningObjectivesStore.total = self.filteredLearningObjectivesMyJourney.count
         }
     }
+    
+//    func sortLearningObjectivesWithFilter() -> [learning_Objective] {
+//
+//        let objectives = self.learningObjectiveStore.learningObjectives
+//
+//        switch filterSort {
+//        case .byDate:
+//            return objectives
+////                .sorted { $0.eval_date.first ?? <#default value#> < $1.eval_date.first }
+//        case .alphabetic:
+//            return objectives
+////                .sorted { $0.strand.sorted() }
+//        case .mostEvalFirst:
+//            return objectives
+//
+//        case .leastEvalFirst:
+//            return objectives
+//
+//        default:
+//            return objectives
+//        }
+//    }
     
     func sortLearningObjectivesMap(learningPaths: [learning_Path], selectedPath: String) -> [learning_Objective] {
                 

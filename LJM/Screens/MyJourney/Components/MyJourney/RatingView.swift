@@ -9,6 +9,9 @@ import SwiftUI
 
 struct RatingView: View {
     
+    // for core data
+    var fetched_Data : FetchedResults<EvaluatedObject>
+    
     @State var learningObj: learning_Objective
     
     @Binding var rating: Int
@@ -38,7 +41,7 @@ struct RatingView: View {
                         let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObj.ID})!
                         self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.append(number)
                         self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.append(Date())
-                        
+                        PersistenceController.shared.evalutate_Learning_Objective(l_Objective: self.learningObjectiveStore.learningObjectives[learningObjectiveIndex], objectives: fetched_Data)
                     } label: {
                         CircleView(number: number, rating: rating)
                     }

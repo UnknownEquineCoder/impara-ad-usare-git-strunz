@@ -12,7 +12,7 @@ struct MapView: View {
     @State var selectedStrands = [String]()
     @State var expand: Bool = false
     @State private var searchText = ""
-    @State var selectedSort = ""
+    @State var selectedSort: SortEnum?
     @State private var selectedPath : String?
         
     @Environment(\.colorScheme) var colorScheme
@@ -25,6 +25,8 @@ struct MapView: View {
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     @EnvironmentObject var strandsStore: StrandsStore
     @EnvironmentObject var totalNumberLearningObjectivesStore : TotalNumberOfLearningObjectivesStore
+    
+    let fetched_Data : FetchedResults<EvaluatedObject>
     
     var body: some View {
         
@@ -66,7 +68,7 @@ struct MapView: View {
                 HStack {
 //                    DropDownMenuSort()
 //                        .buttonStyle(PlainButtonStyle())
-                    SortButtonMenu()
+                    SortButtonMenu(selectedSort: $selectedSort)
                     ContextMenuFilters(fromMap: true, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedStrands: $selectedStrands)
 //                    DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: strandsStore.arrayStrandsFilter)
 //                        .buttonStyle(PlainButtonStyle())
@@ -85,7 +87,7 @@ struct MapView: View {
                         .padding(.top, 75)
                         .isHidden(self.totalNumberLearningObjectivesStore.total == 0 ? false : true)
                     
-                    ScrollViewLearningObjectives(learningPathSelected: $selectedPath, filteredMap: selectedFilter, isAddable: true, textFromSearchBar: searchText, selectedStrands: selectedStrands)
+                    ScrollViewLearningObjectives(learningPathSelected: $selectedPath, filteredMap: selectedFilter, isAddable: true, textFromSearchBar: searchText, selectedStrands: selectedStrands, fetched_Data: fetched_Data)
                         .padding(.top, 30)
                     
                 }.padding(.top, 10)
