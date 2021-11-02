@@ -22,6 +22,7 @@ struct ContextMenuFilters: View {
     
     var body: some View {
         Menu {
+            
             Group{
                 Button("Full Map", action: {selectedFilter = "FULL MAP"})
                 Button("Communal", action: {selectedFilter = "COMMUNAL"})

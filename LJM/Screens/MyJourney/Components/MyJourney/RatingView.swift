@@ -89,7 +89,7 @@ struct CircleView: View {
             .background(Circle().foregroundColor(number > rating ? Color.customLightGrey : Color.customCyan))
             .popover(isPresented: self.$showingPopup) {
                 PopOverViewRating(showingPopup: $showingPopup, status: setupTitleProgressRubric(value: number), desc: setupDescProgressOnRubric(value: number))
-                    .background(Color.white).border(Color.white)
+//                    .background(Color.white).border(Color.white)
                     .allowsHitTesting(false)
             }
             .onHover { hover in
@@ -119,9 +119,9 @@ struct CircleView: View {
         case 0:
             return ""
         case 1:
-            return "NO EXPOSURE"
+            return "NOT EVALUATED"
         case 2:
-            return "BEGGINING"
+            return "BEGINNING"
         case 3:
             return "PROGRESSING"
         case 4:
@@ -140,7 +140,7 @@ struct CircleView: View {
         case 0:
             return ""
         case 1:
-            return ""
+            return "The LO has been added to your Journey but you have not evaluated yourself."
         case 2:
             return "You have been exposed to the content within the learning objective."
         case 3:
@@ -168,9 +168,9 @@ struct PopOverViewRating: View {
                 .font(.system(size: 13, weight: .medium))
                 .foregroundColor(Color.customCyan)
             Text(desc)
-                .font(.system(size: 8, weight: .medium))
+                .font(.system(size: 11, weight: .regular))
                 .foregroundColor(Color.customDarkGrey)
-                .multilineTextAlignment(.center)
-        }.frame(width: 150, height: 50, alignment: .center).padding()
+                .multilineTextAlignment(.leading)
+        }.frame(width: 160, height: 80, alignment: .center).padding()
     }
 }

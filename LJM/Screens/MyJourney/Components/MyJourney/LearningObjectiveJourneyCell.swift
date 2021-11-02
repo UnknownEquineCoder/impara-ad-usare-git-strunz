@@ -121,10 +121,10 @@ struct LearningObjectiveJourneyCell: View {
                 VStack(alignment: .center, spacing: 5) {
                     Spacer().frame(height: 200)
                     Text(setupTitleProgressRubric(value: learningObj.eval_score.last ?? 0))
-                        .font(.system(size: 15, weight: .medium))
+                        .font(.system(size: 16, weight: .medium))
                         .foregroundColor(Color.customCyan)
                     Text(setupDescProgressOnRubric(value: learningObj.eval_score.last ?? 0))
-                        .font(.system(size: 10, weight: .medium))
+                        .font(.system(size: 14, weight: .regular))
                         .foregroundColor(Color.customDarkGrey)
                         .multilineTextAlignment(.center)
                         .lineLimit(nil)
@@ -167,7 +167,7 @@ struct LearningObjectiveJourneyCell: View {
         case 1:
             return "NOT EVALUATED"
         case 2:
-            return "BEGGINING"
+            return "BEGINNING"
         case 3:
             return "PROGRESSING"
         case 4:

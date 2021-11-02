@@ -11,7 +11,7 @@ struct BarGraphFrame: View {
     var color: Color
     var title: String
     var skills: [String]
-    let levels: [String] = ["No Exposure", "Beginning", "Progressing", "Proficient", "Exemplary"]
+    let levels: [String] = ["Not Evaluated", "Beginning", "Progressing", "Proficient", "Exemplary"]
     @Binding var progress : [Double]
     
     @Binding var targetLabel: String
