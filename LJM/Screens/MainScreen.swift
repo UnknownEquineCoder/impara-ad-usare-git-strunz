@@ -36,27 +36,27 @@ struct MainScreen: View{
         StartView()
     }
     
-    func decodeTokenAndNavigateToView(secretToken: String) -> AnyView {
-        
-        var viewToGo = AnyView(LoginView())
-        let semaphore = DispatchSemaphore(value: 0)
-        
-        // Decode token for auth
-                
-//        Webservices.decodeToken(secretToken: secretToken) { user, err in
-//            if err == nil && user != nil {
-//                LJM.storage.user.name = user!.name
-//                LJM.storage.user.surname = user!.surname
-//                viewToGo = AnyView(ContentView())
-//                semaphore.signal()
-//            } else {
-//                viewToGo = AnyView(LoginView())
-//                semaphore.signal()
-//            }
-//        }
-        semaphore.wait()
-        return viewToGo
-    }
+//    func decodeTokenAndNavigateToView(secretToken: String) -> AnyView {
+//        
+//        var viewToGo = AnyView(LoginView())
+//        let semaphore = DispatchSemaphore(value: 0)
+//        
+//        // Decode token for auth
+//                
+////        Webservices.decodeToken(secretToken: secretToken) { user, err in
+////            if err == nil && user != nil {
+////                LJM.storage.user.name = user!.name
+////                LJM.storage.user.surname = user!.surname
+////                viewToGo = AnyView(ContentView())
+////                semaphore.signal()
+////            } else {
+////                viewToGo = AnyView(LoginView())
+////                semaphore.signal()
+////            }
+////        }
+//        semaphore.wait()
+//        return viewToGo
+//    }
 }
 
 struct MainScreen_Previews: PreviewProvider {

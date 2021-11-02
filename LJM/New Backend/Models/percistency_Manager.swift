@@ -14,6 +14,7 @@ struct PersistenceController {
     let container: NSPersistentCloudKitContainer
     
     var fetched_Learning_Objectives : FetchedResults<EvaluatedObject>? = nil
+    var fetched_Profile : FetchedResults<Student>? = nil
     
     init(inMemory: Bool = false) {
         container = NSPersistentCloudKitContainer(name: "StudentData")
@@ -41,19 +42,22 @@ struct PersistenceController {
     
     /// function for update the name
     
-    func update_Image(data : Data, student : FetchedResults<Student>){
+    func update_Image(data : Data){
         let context = PersistenceController.shared.container.viewContext
         
         // declering the new object that is evaluated
         let new_Student = Student(context: context)
         // assigning to the new object the values that it will have
         new_Student.image = data as NSObject
-        if let last_Student = student.first {
-            new_Student.name = last_Student.name
-            new_Student.cognome = last_Student.cognome
-            
-            context.delete(last_Student)
+        if let profile = fetched_Profile {
+            if let last_Student = profile.first {
+                new_Student.name = last_Student.name
+                new_Student.cognome = last_Student.cognome
+                
+                context.delete(last_Student)
+            }
         }
+        
         
         do {
             // save the context with new element added

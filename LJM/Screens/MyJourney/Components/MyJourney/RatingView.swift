@@ -61,9 +61,7 @@ struct RatingView: View {
         
         let learningPathIndex = learningPathStore.learningPaths.firstIndex(where: { $0.title.lowercased() == learningPathSelected?.lowercased() }) ?? -1
         //        Design,Front,Back,Game,Business
-        
-        print("OJIUH \(learningPathIndex) ---- \(learningPathSelected) ---- \(learningPathStore.learningPaths)")
-        
+                
         let something  =  learningObj.core_Rubric_Levels[learningPathIndex + 1]
         
         if (something == 0) {
