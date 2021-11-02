@@ -32,24 +32,6 @@ struct MapView: View {
         VStack {
             VStack(alignment: .leading) {
                 
-                Button {
-                    for index in learningObjectiveStore.learningObjectives.indices {
-                        learningObjectiveStore.learningObjectives[index].eval_date.append(Date())
-                        learningObjectiveStore.learningObjectives[index].eval_score.append(Int.random(in: 1...5))
-                    }
-                } label: {
-                    Text("Add")
-                }
-
-                Button {
-                    for index in learningObjectiveStore.learningObjectives.indices {
-                        learningObjectiveStore.learningObjectives[index].eval_date = []
-                        learningObjectiveStore.learningObjectives[index].eval_score = []
-                    }
-                } label: {
-                    Text("Delete")
-                }
-                
                 HStack {
                     TitleScreenView(title: "Map")
                     
