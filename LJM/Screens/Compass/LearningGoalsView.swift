@@ -28,6 +28,7 @@ struct LearningGoalsView: View {
     
     //@ObservedObject var selectedView : SelectedSegmentView
     
+    
     var body: some View {
         VStack(alignment: .leading) {
             ZStack(alignment: .topLeading) {
@@ -54,7 +55,7 @@ struct LearningGoalsView: View {
                     .font(.system(size: 15, weight: .medium, design: .rounded))
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                ScrollViewLearningObjectives(learningPathSelected: Binding.constant(nil), filterCore: selectedFilter, filterLearningGoal: titleView, textFromSearchBar: searchText, selectedStrands: []).padding(.top, 50).padding(.bottom, 60)
+//                ScrollViewLearningObjectives(learningPathSelected: Binding.constant(nil), filterCore: selectedFilter, filterLearningGoal: titleView, textFromSearchBar: searchText, selectedStrands: [], fetched_Data: fetched_Data).padding(.top, 50).padding(.bottom, 60)
                     
             }.frame(maxWidth: .infinity).padding(.top, 10)
         }.padding(.leading, 50).padding(.trailing, 50)
@@ -62,8 +63,8 @@ struct LearningGoalsView: View {
     }
 }
 
-struct LearningGoalsView_Previews: PreviewProvider {
-    static var previews: some View {
-        LearningGoalsView(titleView: "Marina")
-    }
-}
+//struct LearningGoalsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        LearningGoalsView(titleView: "Marina")
+//    }
+//}

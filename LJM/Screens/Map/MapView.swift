@@ -26,6 +26,8 @@ struct MapView: View {
     @EnvironmentObject var strandsStore: StrandsStore
     @EnvironmentObject var totalNumberLearningObjectivesStore : TotalNumberOfLearningObjectivesStore
     
+    let fetched_Data : FetchedResults<EvaluatedObject>
+    
     var body: some View {
         
         VStack {
@@ -85,7 +87,7 @@ struct MapView: View {
                         .padding(.top, 75)
                         .isHidden(self.totalNumberLearningObjectivesStore.total == 0 ? false : true)
                     
-                    ScrollViewLearningObjectives(learningPathSelected: $selectedPath, filteredMap: selectedFilter, isAddable: true, textFromSearchBar: searchText, selectedStrands: selectedStrands)
+                    ScrollViewLearningObjectives(learningPathSelected: $selectedPath, filteredMap: selectedFilter, isAddable: true, textFromSearchBar: searchText, selectedStrands: selectedStrands, fetched_Data: fetched_Data)
                         .padding(.top, 30)
                     
                 }.padding(.top, 10)

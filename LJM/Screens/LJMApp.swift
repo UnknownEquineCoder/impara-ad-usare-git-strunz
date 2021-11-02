@@ -6,6 +6,7 @@ import UniformTypeIdentifiers
 @main
 struct LJMApp: App {
     
+    // instantiating the controller for core data
     let persistenceController = PersistenceController.shared
     
     //for import and export files
@@ -28,14 +29,7 @@ struct LJMApp: App {
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight, alignment: .center)
             //            }
-                .onAppear(perform: {
-                    learningObjectiveStore.load_Test_Data() {
-                        learningObjectiveStore.load_Status()
-                        learningPathsStore.load_Learning_Path()
-                        strandsStore.setupStrandsOnNativeFilter(learningObjectives: learningObjectiveStore.learningObjectives)
-                    }
-                    
-                })
+                
             
                 .fileExporter(
                     isPresented: $exportFile,

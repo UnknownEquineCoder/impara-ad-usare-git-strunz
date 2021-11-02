@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 class singleton_Shared {
     static let shared = singleton_Shared()
@@ -14,20 +15,28 @@ class singleton_Shared {
 }
 
 class LearningObjectivesStore: ObservableObject {
+    
     @Published var learningObjectives = [learning_Objective]()
+    
     var isSavable = true
     
-    func addItem(_ item: learning_Objective) {
+    func add_Evaluation(_ item: learning_Objective) {
         learningObjectives.append(item)
     }
     
-    func removeItem(_ item: learning_Objective) {
-        learningObjectives.remove(object: item)
+    func remove_Evaluation(index : Int,fetched_Data : FetchedResults<EvaluatedObject> ) {
+        
+        PersistenceController.shared.delete(l_Objective: learningObjectives[index], objectives: fetched_Data)
+        
+        learningObjectives[index].eval_score.removeAll()
+        learningObjectives[index].eval_date.removeAll()
     }
     
-    func evaluate_Object(index : Int, evaluation : Int, date : Date ){
+    func evaluate_Object(index : Int, evaluation : Int, date : Date, fetched_Data : FetchedResults<EvaluatedObject> ){
         learningObjectives[index].eval_date.append(date)
         learningObjectives[index].eval_score.append(evaluation)
+        
+        PersistenceController.shared.evalutate_Learning_Objective(l_Objective: learningObjectives[index], objectives: fetched_Data)
     }
     
     func save_Status(){
@@ -40,20 +49,36 @@ class LearningObjectivesStore: ObservableObject {
         }
     }
     
-    func load_Status(){
+    func load_Status(objectives: FetchedResults<EvaluatedObject>){
         
-        let data = UserDefaults.standard.object(forKey: "evaluated_Object")
-        if data != nil {
-            if let evaluated_Objects = try? PropertyListDecoder().decode([learning_Objective].self, from: data as! Data ) {
-                
-                for evaluated_Object in evaluated_Objects {
-                    let index = learningObjectives.firstIndex(where: {$0.ID == evaluated_Object.ID})
-                    if index != nil {
-                        learningObjectives[index!] = evaluated_Object
-                    }
+        /// core data implementation
+        
+        let cd_Learned_Obectives = PersistenceController().load(objectives: objectives)
+        
+        for evaluated_Ojectives in cd_Learned_Obectives {
+            
+                let index = learningObjectives.firstIndex(where: {$0.ID == evaluated_Ojectives.id})
+            
+                if index != nil {
+                    learningObjectives[index!].eval_score = evaluated_Ojectives.eval_Score
+                    learningObjectives[index!].eval_date = evaluated_Ojectives.eval_Date
                 }
-            }
         }
+        
+        /// user default implementation
+        
+//        let data = UserDefaults.standard.object(forKey: "evaluated_Object")
+//        if data != nil {
+//            if let evaluated_Objects = try? PropertyListDecoder().decode([learning_Objective].self, from: data as! Data ) {
+//
+//                for evaluated_Object in evaluated_Objects {
+//                    let index = learningObjectives.firstIndex(where: {$0.ID == evaluated_Object.ID})
+//                    if index != nil {
+//                        learningObjectives[index!] = evaluated_Object
+//                    }
+//                }
+//            }
+//        }
     }
     
     func load_Test_Data(_ completion: @escaping (() -> Void)) {
