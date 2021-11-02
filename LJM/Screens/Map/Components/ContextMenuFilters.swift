@@ -89,6 +89,9 @@ struct ContextMenuFilters: View {
                 }
                 
             }
+            Divider()
+            Button("Evaluated", action: {})
+            Button("Not Evaluated", action: {})
         } label: {
             HStack(spacing: 13) {
                 Image(systemName: "line.3.horizontal.decrease.circle")
