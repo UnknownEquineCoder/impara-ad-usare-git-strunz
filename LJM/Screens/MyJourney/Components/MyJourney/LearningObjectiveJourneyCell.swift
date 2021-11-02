@@ -48,7 +48,7 @@ struct LearningObjectiveJourneyCell: View {
                         Spacer()
                         
                         if self.isLearningGoalAdded != nil {
-                            if self.isLearningGoalAdded! {
+                            if learningObj.eval_score.count > 0 {
                                 RatingView(fetched_Data: fetched_Data, learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
                                     .padding(.top, 15).padding(.trailing, 30)
                                     .onAppear(perform: {
@@ -56,9 +56,13 @@ struct LearningObjectiveJourneyCell: View {
                                     })
                             } else {
                                 AddButton(learningObjectiveSelected: learningObj, fetched_Data: fetched_Data, buttonSize: 27).padding(.trailing, 60).padding(.top, 20)
+                                    .onAppear(perform: {
+                                        self.isRatingView.toggle()
+                                    })
                             }
                         } else {
                             if !isAddable {
+                                
                                 RatingView(fetched_Data: fetched_Data, learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
                                     .padding(.top, 15).padding(.trailing, 30)
                                     .onAppear(perform: {
@@ -66,6 +70,10 @@ struct LearningObjectiveJourneyCell: View {
                                     })
                             } else {
                                 AddButton(learningObjectiveSelected: learningObj, fetched_Data: fetched_Data, buttonSize: 27).padding(.trailing, 60).padding(.top, 20)
+                                    .onAppear(perform: {
+                                        self.isRatingView.toggle()
+
+                                    })
                             }
                         }
                     }.padding(.leading, 20)

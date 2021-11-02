@@ -53,7 +53,7 @@ struct StartView: View {
             
             switch selectedMenu {
             case .compass:
-                CompassView(path: $filter_Path)
+                CompassView(path: $filter_Path, fetched_Data: objectives)
                     .environmentObject(totalNumberLearningObjectivesStore)
                     .environmentObject(learningPathsStore)
                     .environmentObject(strandsStore)

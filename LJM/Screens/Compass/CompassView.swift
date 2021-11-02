@@ -44,6 +44,8 @@ struct CompassView: View {
 
     let fakePaths = ["Design", "Front","Back", "Game","Business"]
     
+    let fetched_Data : FetchedResults<EvaluatedObject>
+    
     @EnvironmentObject var learningPathStore: LearningPathStore
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     
@@ -375,18 +377,12 @@ struct CompassView: View {
     }
     
     private func subView(forLabel label: String) -> LearningGoalsView {
-        return LearningGoalsView(titleView: label)
+        return LearningGoalsView(titleView: label, fetched_Data: fetched_Data)
     }
     
     private func showSubview(withLabel label: String) {
         currentSubviewLabel = label
         showingSubview = true
-    }
-}
-
-struct CompassView_Previews: PreviewProvider {
-    static var previews: some View {
-        CompassView(path: .constant("Design"))
     }
 }
 
