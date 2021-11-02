@@ -115,7 +115,7 @@ struct rubric_Level {
 
 struct profile {
     var ID : String = "nice_ID"
-    var name : String = "Jane Appleseed"
+    var name : String = "Name Surname"
     var image : Image?
     var evaluated_Objective_IDs : [String] = []
 }
