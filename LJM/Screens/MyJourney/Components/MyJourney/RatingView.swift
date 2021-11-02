@@ -57,8 +57,8 @@ struct RatingView: View {
     }
     
     func setupGoalRating() -> CGFloat {
-        let fakePaths = ["Design", "Front","Back", "Game","Business"]
-        let learningPathIndex = fakePaths.firstIndex(where: {$0 == learningPathSelected}) ?? 0
+       // let fakePaths = ["Design", "Front","Back", "Game","Business"]
+        let learningPathIndex = learningPathStore.learningPaths.firstIndex(where: { $0 == learningPathSelected })
         //        Design,Front,Back,Game,Business
 
         let something  =  learningObj.core_Rubric_Levels[learningPathIndex + 1]
@@ -68,9 +68,7 @@ struct RatingView: View {
         }
         
         return CGFloat((44 * (something)) - 132 - (something == 5 ? 3 : 0))
-
     }
-
 }
 
 struct CircleView: View {
