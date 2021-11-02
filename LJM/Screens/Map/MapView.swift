@@ -12,7 +12,7 @@ struct MapView: View {
     @State var selectedStrands = [String]()
     @State var expand: Bool = false
     @State private var searchText = ""
-    @State var selectedSort: SortEnum?
+//    @State var selectedSort: SortEnum?
     @State private var selectedPath : String?
         
     @Environment(\.colorScheme) var colorScheme
@@ -26,12 +26,12 @@ struct MapView: View {
     @EnvironmentObject var strandsStore: StrandsStore
     @EnvironmentObject var totalNumberLearningObjectivesStore : TotalNumberOfLearningObjectivesStore
     
-    let fetched_Data : FetchedResults<EvaluatedObject>
     
     var body: some View {
         
         VStack {
             VStack(alignment: .leading) {
+                
                 HStack {
                     TitleScreenView(title: "Map")
                     
@@ -68,7 +68,7 @@ struct MapView: View {
                 HStack {
 //                    DropDownMenuSort()
 //                        .buttonStyle(PlainButtonStyle())
-                    SortButtonMenu(selectedSort: $selectedSort)
+//                    SortButtonMenu(selectedSort: $selectedSort)
                     ContextMenuFilters(fromMap: true, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedStrands: $selectedStrands)
 //                    DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: strandsStore.arrayStrandsFilter)
 //                        .buttonStyle(PlainButtonStyle())

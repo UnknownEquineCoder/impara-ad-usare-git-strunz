@@ -32,7 +32,7 @@ struct LJMApp: App {
                     isPresented: $exportFile,
                     document: document,
                     contentType: srtType,
-                    defaultFilename: "Message"
+                    defaultFilename: "Nome - Cognome - \(Date())"
                 ) { result in
                     if case .success = result {
                         // Handle success.

@@ -22,56 +22,26 @@ struct ContextMenuFilters: View {
     
     var body: some View {
         Menu {
-            Menu("View") {
+            Group{
                 Button("Full Map", action: {selectedFilter = "FULL MAP"})
                 Button("Communal", action: {selectedFilter = "COMMUNAL"})
                 Button("Elective", action: {selectedFilter = "ELECTIVE"})
+            Divider()
+            
+            
+                Button("UI/UX", action: {})
+                
+                Button("Frontend", action: {})
+                
+                Button("Backend", action: {})
+                
+                Button("Game", action: {})
+                
+                Button("Business", action: {})
             }
             
-            Menu("Paths") {
-                Button("UI/UX", action: {
-                    print("IOJHUYGH \(self.strandsStore.arrayStrandsNativeFilter)")
-                    if self.fromMap {
-                        selectedFilter = "UI/UX"
-                    } else {
-                        selectedPath = "UI/UX"
-                    }
-                })
-                
-                Button("Frontend", action: {
-                    if self.fromMap {
-                        selectedFilter = "Front"
-                    } else {
-                        selectedPath = "Front"
-                    }
-                })
-                
-                Button("Backend", action: {
-                    if self.fromMap {
-                        selectedFilter = "Back"
-                    } else {
-                        selectedPath = "Back"
-                    }
-                })
-                
-                Button("Game", action: {
-                    if self.fromMap {
-                        selectedFilter = "Game"
-                    } else {
-                        selectedPath = "Game"
-                    }
-                })
-                
-                Button("Business", action: {
-                    if self.fromMap {
-                        selectedFilter = "Business"
-                    } else {
-                        selectedPath = "Business"
-                    }
-                })
-            }
-            
-            Menu("Strands") {
+            Divider()
+            Group{
                 ForEach(self.strandsStore.arrayStrandsNativeFilter, id: \.self) { strand in
                     Button {
                         if !self.selectedStrands.contains(strand) {
@@ -88,6 +58,10 @@ struct ContextMenuFilters: View {
                     }
                 }
                 
+            
+            Divider()
+            Button("Evaluated", action: {})
+            Button("Not Evaluated", action: {})
             }
         } label: {
             HStack(spacing: 13) {
