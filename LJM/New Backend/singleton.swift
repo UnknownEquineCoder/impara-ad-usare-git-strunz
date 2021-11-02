@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-class singleton_Shared{
+class singleton_Shared {
     static let shared = singleton_Shared()
     var profile_data : profile = profile()
     var learning_Objectives : [learning_Objective] = []
@@ -308,8 +308,3 @@ class TotalNumberOfLearningObjectivesStore: ObservableObject {
     @Published var total: Int = 0
     @Published var changeViewTotal: Int = 0
 }
-
-
-//class TotalNumberLearningObjectives: ObservableObject {
-//    @Published var total: Int = 0
-//}

@@ -15,9 +15,6 @@ struct LJMApp: App {
     @State private var document: MessageDocument = MessageDocument(message: "Hello, World!")
 
     @StateObject var learningObjectiveStore = LearningObjectivesStore()
-    @StateObject var totalNumberLearningObjectivesStore = TotalNumberOfLearningObjectivesStore()
-    @StateObject var learningPathsStore = LearningPathStore()
-    @StateObject var strandsStore = StrandsStore()
     
     //    let srtType = UTType(exportedAs: "com.company.srt-document", conformingTo: .commaSeparatedText)
     let srtType = UTType("com.exemple.LearningJourneyManager")!
@@ -94,10 +91,7 @@ struct LJMApp: App {
                     }
                 }
                 .environmentObject(learningObjectiveStore)
-                .environmentObject(totalNumberLearningObjectivesStore)
-                .environmentObject(learningPathsStore)
-                .environmentObject(strandsStore)
-            
+
         }.handlesExternalEvents(matching: Set(arrayLiteral: "*"))
             .commands(content: {
                 CommandGroup(after: .importExport, addition: {
@@ -140,7 +134,6 @@ struct LJMApp: App {
                     }
                 })
             })
-        
     }
 }
 
