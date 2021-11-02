@@ -5,22 +5,19 @@ struct StartView: View {
     
     // core data elements
     @Environment(\.managedObjectContext) private var viewContext
-
+    
     @FetchRequest(
         sortDescriptors: [],
         animation: .default)
     private var objectives: FetchedResults<EvaluatedObject>
     
     @State var selectedMenu: OutlineMenu = .compass
+    
+    @StateObject var totalNumberLearningObjectivesStore = TotalNumberOfLearningObjectivesStore()
     @StateObject var learningPathsStore = LearningPathStore()
     @StateObject var strandsStore = StrandsStore()
     
-    // new data flow element
-    @State var path : [learning_Path] = []
-
-    
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
-    
     
     @State var filter_Path = "Design"
     
@@ -57,10 +54,19 @@ struct StartView: View {
             switch selectedMenu {
             case .compass:
                 CompassView(path: $filter_Path)
+                    .environmentObject(totalNumberLearningObjectivesStore)
+                    .environmentObject(learningPathsStore)
+                    .environmentObject(strandsStore)
             case .journey:
                 MyJourneyMainView(selectedMenu: $selectedMenu, fetched_Data: objectives)
+                    .environmentObject(totalNumberLearningObjectivesStore)
+                    .environmentObject(learningPathsStore)
+                    .environmentObject(strandsStore)
             case .map:
                 MapMainView(fetched_Data: objectives)
+                    .environmentObject(totalNumberLearningObjectivesStore)
+                    .environmentObject(learningPathsStore)
+                    .environmentObject(strandsStore)
             }
         }
         .onAppear(perform: {

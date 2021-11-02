@@ -287,8 +287,3 @@ class TotalNumberOfLearningObjectivesStore: ObservableObject {
     @Published var total: Int = 0
     @Published var changeViewTotal: Int = 0
 }
-
-
-//class TotalNumberLearningObjectives: ObservableObject {
-//    @Published var total: Int = 0
-//}

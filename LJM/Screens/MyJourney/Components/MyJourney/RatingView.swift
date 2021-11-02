@@ -28,8 +28,8 @@ struct RatingView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 15, height: 15, alignment: .center)
+                .foregroundColor(learningPathSelected != nil ? .customCyan : .clear)
                 .offset(x: setupGoalRating())
-                .foregroundColor(.customCyan)
             
             HStack {
                 ForEach(1..<maximumRating + 1, id: \.self) { number in
@@ -61,12 +61,15 @@ struct RatingView: View {
     
     func setupGoalRating() -> CGFloat {
        // let fakePaths = ["Design", "Front","Back", "Game","Business"]
-        let learningPathIndex = learningPathStore.learningPaths.firstIndex(where: { $0 == learningPathSelected })
+        
+        let learningPathIndex = learningPathStore.learningPaths.firstIndex(where: { $0.title.lowercased() == learningPathSelected?.lowercased() }) ?? -1
         //        Design,Front,Back,Game,Business
-
+        
+        print("OJIUH \(learningPathIndex) ---- \(learningPathSelected) ---- \(learningPathStore.learningPaths)")
+        
         let something  =  learningObj.core_Rubric_Levels[learningPathIndex + 1]
         
-        if(something == 0) {
+        if (something == 0) {
              return -88
         }
         
