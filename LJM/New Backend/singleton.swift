@@ -39,6 +39,24 @@ class LearningObjectivesStore: ObservableObject {
         PersistenceController.shared.evalutate_Learning_Objective(l_Objective: learningObjectives[index], objectives: fetched_Data)
     }
     
+    func evaluate_Object(index : Int, evaluations : [Int], dates : [Date]){
+        learningObjectives[index].eval_date = dates
+        learningObjectives[index].eval_score = evaluations
+    }
+    
+    func reset_Evaluated(onComplete: @escaping() -> Void){
+        
+        for index in 0..<learningObjectives.count {
+            if(learningObjectives[index].eval_date.count > 0) {
+                learningObjectives[index].eval_date = []
+                learningObjectives[index].eval_score = []
+            }
+        }
+        
+        onComplete()
+        
+    }
+    
     func save_Status(){
         if(isSavable) {
             let evaluated_Object = learningObjectives.filter({$0.eval_score.count>0})
@@ -53,16 +71,18 @@ class LearningObjectivesStore: ObservableObject {
         
         /// core data implementation
         
-        let cd_Learned_Obectives = PersistenceController().load(objectives: objectives)
-        
-        for evaluated_Ojectives in cd_Learned_Obectives {
+        if isSavable {
+            let cd_Learned_Obectives = PersistenceController().load(objectives: objectives)
             
-                let index = learningObjectives.firstIndex(where: {$0.ID == evaluated_Ojectives.id})
-            
-                if index != nil {
-                    learningObjectives[index!].eval_score = evaluated_Ojectives.eval_Score
-                    learningObjectives[index!].eval_date = evaluated_Ojectives.eval_Date
-                }
+            for evaluated_Ojectives in cd_Learned_Obectives {
+                
+                    let index = learningObjectives.firstIndex(where: {$0.ID == evaluated_Ojectives.id})
+                
+                    if index != nil {
+                        learningObjectives[index!].eval_score = evaluated_Ojectives.eval_Score
+                        learningObjectives[index!].eval_date = evaluated_Ojectives.eval_Date
+                    }
+            }
         }
         
         /// user default implementation
@@ -123,6 +143,7 @@ class LearningObjectivesStore: ObservableObject {
             
             learningObjectives.append(learning_Objective_Element)
         }
+        
         completion()
     }
     
