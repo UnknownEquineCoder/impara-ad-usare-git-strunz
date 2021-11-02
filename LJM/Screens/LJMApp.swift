@@ -52,29 +52,37 @@ struct LJMApp: App {
                         do {
                             learningObjectiveStore.isSavable = false
                             
+//                            learningObjectiveStore.reset_Evaluated()
+                            
                             guard let selectedFile: URL = try result.get().first else { return }
                             guard let message = String(data: try Data(contentsOf: selectedFile), encoding: .utf8) else { return }
-                            let rows = message.components(separatedBy: "\n")
-                            var learning_Objectives = learningObjectiveStore.learningObjectives
+                            var rows = message.components(separatedBy: "\n")
+                            let learning_Objectives = learningObjectiveStore.learningObjectives
                             
-                            for row in rows {
-                                let row_Data = row.components(separatedBy: ",")
-                                let index = learning_Objectives.firstIndex(where: {$0.ID == row_Data[0]}) ?? 0
+                            rows.removeFirst()
+                            rows.removeLast()
+                            
+                            learningObjectiveStore.reset_Evaluated {
                                 
-                                let eval_Date_Row = row_Data[2].components(separatedBy: "-")
-                                let eval_score_Row = row_Data[1].components(separatedBy: "-")
-                                
-                                var converted_Eval_Date : [Date] = []
-                                var converted_Eval_Score : [Int] = []
-                                
-                                for index in 0..<eval_score_Row.count {
-                                    converted_Eval_Date.append(Date(timeIntervalSince1970: Double(eval_Date_Row[index])!))
-                                    converted_Eval_Score.append(Int(eval_Date_Row[index])!)
+                                for row in rows {
+                                    
+                                    let row_Data = row.components(separatedBy: ",")
+                                    
+                                    let eval_Date_Row = row_Data[2].components(separatedBy: "-")
+                                    let eval_score_Row = row_Data[1].components(separatedBy: "-")
+                                    
+                                    var converted_Eval_Date : [Date] = []
+                                    var converted_Eval_Score : [Int] = []
+                                    
+                                    for index in 0..<eval_score_Row.count {
+                                        converted_Eval_Date.append(Date(timeIntervalSince1970: Double(eval_Date_Row[index])!))
+                                        converted_Eval_Score.append(Int(eval_score_Row[index])!)
+                                    }
+                                                                    
+                                    let index = learning_Objectives.firstIndex(where: {$0.ID == row_Data[0]}) ?? 0
+                                    
+                                    learningObjectiveStore.evaluate_Object(index: index, evaluations: converted_Eval_Score, dates: converted_Eval_Date)
                                 }
-                                
-                                learning_Objectives[index].eval_date = converted_Eval_Date
-                                learning_Objectives[index].eval_score = converted_Eval_Score
-                                
                             }
                             
                         } catch {
@@ -85,11 +93,11 @@ struct LJMApp: App {
                         print("File Import Failed")
                     }
                 }
-            
                 .environmentObject(learningObjectiveStore)
                 .environmentObject(totalNumberLearningObjectivesStore)
                 .environmentObject(learningPathsStore)
                 .environmentObject(strandsStore)
+            
         }.handlesExternalEvents(matching: Set(arrayLiteral: "*"))
             .commands(content: {
                 CommandGroup(after: .importExport, addition: {
