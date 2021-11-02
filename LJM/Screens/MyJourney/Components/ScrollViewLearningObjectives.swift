@@ -116,8 +116,6 @@ struct ScrollViewLearningObjectives: View {
     var textFromSearchBar: String
     var selectedStrands: [String]
     
-    let fetched_Data : FetchedResults<EvaluatedObject>
-    
     var body: some View {
         ScrollView {
             LazyVStack(spacing: 20) {
@@ -126,7 +124,7 @@ struct ScrollViewLearningObjectives: View {
                         if let strand = item.strand {
                             if self.selectedStrands.contains(strand) || self.selectedStrands.count == 0 {
                                 
-                                LearningObjectiveJourneyCell(rating: item.eval_score.last ?? 0, isRatingView: true, isAddable: isAddable, isLearningGoalAdded: self.filterLearningGoal != nil ? true : nil, learningPathSelected: self.$learningPathSelected, learningObj: item, fetched_Data: fetched_Data)
+                                LearningObjectiveJourneyCell(rating: item.eval_score.last ?? 0, isRatingView: true, isAddable: isAddable, isLearningGoalAdded: self.filterLearningGoal != nil ? true : nil, learningPathSelected: self.$learningPathSelected, learningObj: item)
                                     .contextMenu {
                                         if !isAddable {
                                             Button {

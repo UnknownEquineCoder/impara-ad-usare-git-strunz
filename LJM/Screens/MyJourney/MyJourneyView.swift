@@ -29,7 +29,7 @@ struct MyJourneyView: View {
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     @EnvironmentObject var strandsStore: StrandsStore
     @EnvironmentObject var totalNumberLearningObjectivesStore : TotalNumberOfLearningObjectivesStore
-    let fetched_Data : FetchedResults<EvaluatedObject>
+    
     var body: some View {
         VStack(alignment: .leading) {
             ZStack(alignment: .topLeading) {
@@ -79,7 +79,7 @@ struct MyJourneyView: View {
 //                    .frame(maxWidth: .infinity,  alignment: .trailing)
 //                    .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
                 
-                ListViewLearningObjectiveMyJourney(selectedFilter: $selectedFilter, txtSearchBar: $searchText, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedMenu: $selectedMenu, selectedSort: $selectedSort, fetched_Data: fetched_Data)
+                ListViewLearningObjectiveMyJourney(selectedFilter: $selectedFilter, txtSearchBar: $searchText, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedMenu: $selectedMenu, selectedSort: $selectedSort)
                     .padding(.top, 30)
                 
             }.frame(maxWidth: .infinity)
@@ -124,7 +124,7 @@ struct ListViewLearningObjectiveMyJourney: View {
     
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     @EnvironmentObject var totalNumberLearningObjectivesStore : TotalNumberOfLearningObjectivesStore
-    let fetched_Data : FetchedResults<EvaluatedObject>
+    
     var body: some View {
         
         if !checkIfMyJourneyIsEmpty() {
@@ -137,7 +137,7 @@ struct ListViewLearningObjectiveMyJourney: View {
                     .padding(.top, 20)
                     .isHidden(self.totalNumberLearningObjectivesStore.total > 0 ? true : false)
                 
-                ScrollViewLearningObjectives(learningPathSelected: $selectedPath, filterCore: selectedFilter, filterSort: selectedSort, isAddable: false, textFromSearchBar: txtSearchBar, selectedStrands: selectedStrands, fetched_Data: fetched_Data)
+                ScrollViewLearningObjectives(learningPathSelected: $selectedPath, filterCore: selectedFilter, filterSort: selectedSort, isAddable: false, textFromSearchBar: txtSearchBar, selectedStrands: selectedStrands)
                 
             }
         } else {

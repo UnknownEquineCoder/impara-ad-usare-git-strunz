@@ -15,8 +15,6 @@ struct AddButton: View {
     
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     
-    var fetched_Data : FetchedResults<EvaluatedObject>
-    
     var buttonSize: CGFloat
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State private var didTap: Bool = false
@@ -49,7 +47,7 @@ struct AddButton: View {
                                 .foregroundColor(Color("customCyan"))
                                 .onTapGesture {
                                     
-                                    learningObjectiveStore.evaluate_Object(index: learningObjectiveIndex, evaluation: 1, date: Date(), fetched_Data: fetched_Data)
+                                    learningObjectiveStore.evaluate_Object(index: learningObjectiveIndex, evaluation: 1, date: Date())
                                     
                                     self.didTap.toggle()
                                     
@@ -62,7 +60,7 @@ struct AddButton: View {
                                 .onTapGesture {
                                     // remove item from the learning objective list
                                     
-                                    learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex, fetched_Data: fetched_Data)
+                                    learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
                                     
                                 }
                         }
@@ -77,7 +75,7 @@ struct AddButton: View {
                                 
                                 let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObjectiveSelected.ID})!
                                 
-                                learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex, fetched_Data: fetched_Data)
+                                learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
                                 
                         }
                     }

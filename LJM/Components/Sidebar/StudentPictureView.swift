@@ -12,13 +12,17 @@ import SwiftKeychainWrapper
 struct ProfileImage: View {
     @AppStorage("propic") var data: Data = Data()
     @State var toToggle: Bool = false
+    @Binding var imageData : Data?
     
     var body: Image {
         imageBody
     }
     
     var imageBody: Image {
-        if let nsImage = NSImage(data: data) {
+        if imageData != nil {
+            defer { self.toToggle.toggle() }
+            return Image(nsImage: NSImage(data: imageData!)!)
+        } else if let nsImage = NSImage(data: data) {
             defer { self.toToggle.toggle() }
             return Image(nsImage: nsImage)
         } else {
@@ -29,8 +33,18 @@ struct ProfileImage: View {
 }
 
 struct StudentPictureView: View {
+    
+    // core data elements
+    @Environment(\.managedObjectContext) private var viewContext
+    
+    @FetchRequest(
+        sortDescriptors: [],
+        animation: .default)
+    private var student: FetchedResults<Student>
+    
     var size: CGFloat = 140
     @State var imageName: String = "student"
+    @State var imageData : Data?
     let shared = singleton_Shared.shared
     
     var profileImage: Image {
@@ -38,7 +52,7 @@ struct StudentPictureView: View {
             if let data = UserDefaults.standard.data(forKey: "propic"), let image = NSImage(data: data) {
                 return Image(nsImage: image)
             } else {
-                return Image("student")
+                return Image(imageName)
             }
         }
     }
@@ -47,7 +61,7 @@ struct StudentPictureView: View {
     var body: some View {
         HStack{
             ZStack{
-                ProfileImage().body
+                ProfileImage( imageData: $imageData).body
                 //Image(imageName)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
@@ -55,10 +69,11 @@ struct StudentPictureView: View {
                     .cornerRadius(250)
                     .padding()
                     .shadow(color: Color.black.opacity(0.36), radius: 5, x: 0, y: 5)
+                
                 Circle()
                     .strokeBorder(LinearGradient(gradient: Gradient(colors: [Color("Light green"), Color("Dark green")]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 3)
                     .frame(width: size.toScreenSize(), height: size.toScreenSize(), alignment: .leading)
-                AddImageButton(buttonSize: (size/4).toScreenSize(), imageName: $imageName)
+                AddImageButton(buttonSize: (size/4).toScreenSize(), imageName: $imageName, imageData: $imageData)
                     .padding([.top, .leading], 0.66*size.toScreenSize())
                 
             }
