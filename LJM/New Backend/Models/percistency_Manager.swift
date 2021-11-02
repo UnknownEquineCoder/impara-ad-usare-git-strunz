@@ -41,7 +41,7 @@ struct PersistenceController {
     }
     
     /// function for update the name
-    
+    // for update the file
     func update_Image(data : Data){
         let context = PersistenceController.shared.container.viewContext
         
