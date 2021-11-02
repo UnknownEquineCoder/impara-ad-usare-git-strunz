@@ -49,8 +49,8 @@ struct StudentPictureView: View {
     
     var profileImage: Image {
         get {
-            if let data = UserDefaults.standard.data(forKey: "propic"), let image = NSImage(data: data) {
-                return Image(nsImage: image)
+            if imageData != nil {
+                return Image(nsImage: NSImage(data: imageData!)!)
             } else {
                 return Image(imageName)
             }
@@ -69,6 +69,14 @@ struct StudentPictureView: View {
                     .cornerRadius(250)
                     .padding()
                     .shadow(color: Color.black.opacity(0.36), radius: 5, x: 0, y: 5)
+                    .onAppear {
+                        if let first_Student = student.first{
+                            PersistenceController.shared.fetched_Profile = student
+                            if let image_Data = first_Student.image as? Data {
+                                imageData = image_Data
+                            }
+                        }
+                    }
                 
                 Circle()
                     .strokeBorder(LinearGradient(gradient: Gradient(colors: [Color("Light green"), Color("Dark green")]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 3)

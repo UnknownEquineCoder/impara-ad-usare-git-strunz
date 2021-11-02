@@ -14,6 +14,7 @@ struct PersistenceController {
     let container: NSPersistentCloudKitContainer
     
     var fetched_Learning_Objectives : FetchedResults<EvaluatedObject>? = nil
+    var fetched_Profile : FetchedResults<Student>? = nil
     
     init(inMemory: Bool = false) {
         container = NSPersistentCloudKitContainer(name: "StudentData")
@@ -41,7 +42,7 @@ struct PersistenceController {
     
     /// function for update the name
     
-    func update_Image(data : Data, student : FetchedResults<Student>){
+    func update_Image(data : Data){
         let context = PersistenceController.shared.container.viewContext
         
         // declering the new object that is evaluated
@@ -54,6 +55,7 @@ struct PersistenceController {
             
             context.delete(last_Student)
         }
+        
         
         do {
             // save the context with new element added

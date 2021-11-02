@@ -23,7 +23,7 @@ struct learning_Objective : Equatable, Encodable, Decodable {
     var eval_score : [Int]
     var eval_date : [Date]
     
-    private let rubric_Level_Types = ["Beginning","Progressing","Proficient","Exemplary"]
+    private var rubric_Level_Types = ["Beginning","Progressing","Proficient","Exemplary"]
     
     init(raw : [String], rubric_Levels : [Int]){
         
@@ -115,7 +115,7 @@ struct rubric_Level {
 
 struct profile {
     var ID : String = "nice_ID"
-    var name : String = "Jane Appleseed"
+    var name : String = "Name Surname"
     var image : Image?
     var evaluated_Objective_IDs : [String] = []
 }

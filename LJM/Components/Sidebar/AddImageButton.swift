@@ -40,10 +40,7 @@ struct AddImageButton: View {
                     
                     imageData = data
                     
-//                    PersistenceController.shared.update_Image(data: data!, student: fetched_Student)
-                    
-                    UserDefaults.standard.set(data, forKey: "propic")
-                    
+                    PersistenceController.shared.update_Image(data: data!)
                     // path contains the file path e.g
                     // /Users/ourcodeworld/Desktop/tiger.jpeg
                 }

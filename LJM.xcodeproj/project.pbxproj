@@ -11,7 +11,6 @@
 		55F4D7A8266188E10080E6A2 /* README-URGENT.txt in Resources */ = {isa = PBXBuildFile; fileRef = 55F4D7A7266188E10080E6A2 /* README-URGENT.txt */; };
 		941445EA26429894005BA5CB /* WebviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941445E926429894005BA5CB /* WebviewCoordinator.swift */; };
 		960451E725F0F46000F34D9A /* BarGraphFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960451E625F0F46000F34D9A /* BarGraphFrame.swift */; };
-		9605C71825C95498007E808E /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9605C71725C95498007E808E /* LoginPage.swift */; };
 		9609087F2604A10900EB4242 /* LearningGoalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9609087E2604A10900EB4242 /* LearningGoalsView.swift */; };
 		960A8B2125E7B9FA00492C3F /* RadarGraphFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A8B2025E7B9FA00492C3F /* RadarGraphFrame.swift */; };
 		96114BBC25EFA28C00FA119C /* DropDownMenuCompass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96114BBB25EFA28C00FA119C /* DropDownMenuCompass.swift */; };
@@ -22,7 +21,6 @@
 		9622DCE525DE80DA009ECCB4 /* CompassPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9622DCE425DE80DA009ECCB4 /* CompassPopover.swift */; };
 		962F090E25E7C4F1001EAE85 /* ParticularCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962F090D25E7C4F1001EAE85 /* ParticularCircle.swift */; };
 		9641C4A525778F1D0088A0B6 /* SizesExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9641C4A425778F1D0088A0B6 /* SizesExtension.swift */; };
-		9641C4B72577AD700088A0B6 /* MainScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9641C4B62577AD700088A0B6 /* MainScreen.swift */; };
 		964448BD25E500EA00F8359F /* Shapes in Frameworks */ = {isa = PBXBuildFile; productRef = 964448BC25E500EA00F8359F /* Shapes */; };
 		964B662C256E6020006AB20E /* LJMApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B662B256E6020006AB20E /* LJMApp.swift */; };
 		964B6630256E6022006AB20E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 964B662F256E6022006AB20E /* Assets.xcassets */; };
@@ -122,7 +120,6 @@
 		55F4D7A7266188E10080E6A2 /* README-URGENT.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "README-URGENT.txt"; sourceTree = "<group>"; };
 		941445E926429894005BA5CB /* WebviewCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebviewCoordinator.swift; sourceTree = "<group>"; };
 		960451E625F0F46000F34D9A /* BarGraphFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarGraphFrame.swift; sourceTree = "<group>"; };
-		9605C71725C95498007E808E /* LoginPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPage.swift; sourceTree = "<group>"; };
 		9609087E2604A10900EB4242 /* LearningGoalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningGoalsView.swift; sourceTree = "<group>"; };
 		960A8B2025E7B9FA00492C3F /* RadarGraphFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadarGraphFrame.swift; sourceTree = "<group>"; };
 		96114BBB25EFA28C00FA119C /* DropDownMenuCompass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownMenuCompass.swift; sourceTree = "<group>"; };
@@ -133,7 +130,6 @@
 		9622DCE425DE80DA009ECCB4 /* CompassPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompassPopover.swift; sourceTree = "<group>"; };
 		962F090D25E7C4F1001EAE85 /* ParticularCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticularCircle.swift; sourceTree = "<group>"; };
 		9641C4A425778F1D0088A0B6 /* SizesExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizesExtension.swift; sourceTree = "<group>"; };
-		9641C4B62577AD700088A0B6 /* MainScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreen.swift; sourceTree = "<group>"; };
 		964B6628256E6020006AB20E /* LJM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LJM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		964B662B256E6020006AB20E /* LJMApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LJMApp.swift; sourceTree = "<group>"; };
 		964B662F256E6022006AB20E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -339,9 +335,7 @@
 			isa = PBXGroup;
 			children = (
 				964B662B256E6020006AB20E /* LJMApp.swift */,
-				9641C4B62577AD700088A0B6 /* MainScreen.swift */,
 				9670A975257105290043F227 /* StartView.swift */,
-				9605C71725C95498007E808E /* LoginPage.swift */,
 				9622DCE325DE80B5009ECCB4 /* Compass */,
 				EA686F0E256EF63900C121DC /* MyJourney */,
 				EAE9E83F271453170032F50E /* Map */,
@@ -658,7 +652,6 @@
 				EACD024225D502AB008D12FE /* Modifiers.swift in Sources */,
 				960451E725F0F46000F34D9A /* BarGraphFrame.swift in Sources */,
 				EACD024A25D532A9008D12FE /* Webservices.swift in Sources */,
-				9641C4B72577AD700088A0B6 /* MainScreen.swift in Sources */,
 				EA686F10256EF67B00C121DC /* MyJourneyView.swift in Sources */,
 				9670A96E256EAA330043F227 /* SidebarElements.swift in Sources */,
 				969DEAE625DFDEBD00599D63 /* CompassView.swift in Sources */,
@@ -703,7 +696,6 @@
 				5579EB75263E06920086A4BE /* URLExtensions.swift in Sources */,
 				96BE89D0257553BF00BE9E8F /* CountDownWrapper.swift in Sources */,
 				9696F9332726A13A009614F4 /* SortButtonMenu.swift in Sources */,
-				9605C71825C95498007E808E /* LoginPage.swift in Sources */,
 				9622DCE525DE80DA009ECCB4 /* CompassPopover.swift in Sources */,
 				960A8B2125E7B9FA00492C3F /* RadarGraphFrame.swift in Sources */,
 				E04251B3272AAABA000A1D69 /* percistency_Manager.swift in Sources */,
