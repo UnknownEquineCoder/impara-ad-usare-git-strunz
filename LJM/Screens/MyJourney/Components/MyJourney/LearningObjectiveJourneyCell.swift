@@ -102,7 +102,7 @@ struct LearningObjectiveJourneyCell: View {
                                         
                                         ForEach(0..<learningObj.eval_score.count, id: \.self) { index in
                                             
-                                            HistoryProgressView(index: index, learningObj: self.learningObj)
+                                            HistoryProgressView(index: index, rating: $rating, learningObj: self.learningObj)
                                             
                                         }
                                     }
