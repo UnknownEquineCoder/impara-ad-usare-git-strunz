@@ -384,10 +384,4 @@ struct CompassView: View {
     }
 }
 
-struct CompassView_Previews: PreviewProvider {
-    static var previews: some View {
-        CompassView(path: .constant("Design"))
-    }
-}
-
 

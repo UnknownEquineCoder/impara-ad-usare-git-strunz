@@ -47,7 +47,7 @@ struct LearningObjectiveJourneyCell: View {
                         Spacer()
                         
                         if self.isLearningGoalAdded != nil {
-                            if self.isLearningGoalAdded! {
+                            if learningObj.eval_score.count > 0 {
                                 RatingView( learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
                                     .padding(.top, 15).padding(.trailing, 30)
                                     .onAppear(perform: {

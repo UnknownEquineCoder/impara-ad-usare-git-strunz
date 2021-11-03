@@ -71,7 +71,7 @@ struct ScrollViewLearningObjectives: View {
             }
         }
     }
-    
+        
     var filteredChallenges: [learning_Objective] {
         switch filterChallenge {
         case let filterChallengeTab:
@@ -112,6 +112,7 @@ struct ScrollViewLearningObjectives: View {
     }
     
     var isAddable = false
+    var isLearningGoalAdded: Bool?
     
     var textFromSearchBar: String
     var selectedStrands: [String]
@@ -124,7 +125,7 @@ struct ScrollViewLearningObjectives: View {
                         if let strand = item.strand {
                             if self.selectedStrands.contains(strand) || self.selectedStrands.count == 0 {
                                 
-                                LearningObjectiveJourneyCell(rating: item.eval_score.last ?? 0, isRatingView: true, isAddable: isAddable, isLearningGoalAdded: self.filterLearningGoal != nil ? true : nil, learningPathSelected: self.$learningPathSelected, learningObj: item)
+                                LearningObjectiveJourneyCell(rating: item.eval_score.last ?? 0, isRatingView: item.eval_score.count > 0, isAddable: isAddable, isLearningGoalAdded: isLearningGoalAdded == nil ? nil : (isLearningGoalAdded ?? false && item.eval_score.count > 0), learningPathSelected: self.$learningPathSelected, learningObj: item)
                                     .contextMenu {
                                         if !isAddable {
                                             Button {
@@ -140,7 +141,8 @@ struct ScrollViewLearningObjectives: View {
                     }
                 }
             }
-        }.onChange(of: self.filteredLearningObjectivesMyJourney) { result in
+        }.padding(.bottom, 60)
+        .onChange(of: self.filteredLearningObjectivesMyJourney) { result in
             self.totalNumberLearningObjectivesStore.total = result.count
         }
         .onChange(of: self.textFromSearchBar) { result in
@@ -209,7 +211,7 @@ struct ScrollViewLearningObjectives: View {
         var arrayOfLearningObjectives : [learning_Objective] = [learning_Objective]()
         
         for learningObj in self.learningObjectiveStore.learningObjectives {
-            if learningObj.goal == learningGoal {
+            if learningObj.goal_Short.lowercased() == learningGoal.lowercased() {
                 arrayOfLearningObjectives.append(learningObj)
             }
         }

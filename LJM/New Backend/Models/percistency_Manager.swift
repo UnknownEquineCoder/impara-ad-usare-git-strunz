@@ -58,6 +58,9 @@ struct PersistenceController {
             }
         }
         
+        new_Student.name =  "Name"
+
+        
         
         do {
             // save the context with new element added
