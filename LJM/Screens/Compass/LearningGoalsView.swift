@@ -37,7 +37,7 @@ struct LearningGoalsView: View {
                 TitleScreenView(title: titleView)
                 
                 VStack(alignment: .leading) {
-                    DescriptionTitleScreenView(desc: "Here you can take a look at all the Learning Objectives related to the Learning Goal you're looking at. Adding a Learning Objective to evaluate it will automatically add it to 'My Journey' and mark it as checked in 'Map' as well.")
+                    DescriptionTitleScreenView(desc: "Here you can take a look at all the Learning Objectives related to the Learning Goal you're looking at. Adding a Learning Objective to evaluate it will automatically add it to 'Journey' and mark it as checked in 'Map' as well.")
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, 50)
