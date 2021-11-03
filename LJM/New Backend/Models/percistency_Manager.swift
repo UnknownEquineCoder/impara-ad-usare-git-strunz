@@ -52,11 +52,14 @@ struct PersistenceController {
         if let profile = fetched_Profile {
             if let last_Student = profile.first {
                 new_Student.name = last_Student.name
-                new_Student.cognome = last_Student.cognome
+//                new_Student.cognome = last_Student.cognome
                 
                 context.delete(last_Student)
             }
         }
+        
+        new_Student.name =  "Name"
+
         
         
         do {
@@ -84,7 +87,7 @@ struct PersistenceController {
         new_Student.name = name
         
         if let last_Student = student.first {
-            new_Student.cognome = last_Student.cognome
+//            new_Student.cognome = last_Student.cognome
             new_Student.image = last_Student.image 
             context.delete(last_Student)
         }
@@ -111,7 +114,7 @@ struct PersistenceController {
         let new_Student = Student(context: context)
         // assigning to the new object the values that it will have
         
-        new_Student.cognome = surname
+//        new_Student.cognome = surname
         
         if let last_Student = student.first {
             new_Student.name = last_Student.name

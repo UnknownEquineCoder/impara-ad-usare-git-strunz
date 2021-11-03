@@ -87,7 +87,7 @@ struct MapView: View {
                         .padding(.top, 75)
                         .isHidden(self.totalNumberLearningObjectivesStore.total == 0 ? false : true)
                     
-                    ScrollViewLearningObjectives(learningPathSelected: $selectedPath, filteredMap: selectedFilter, filterLearningGoal: nil, isAddable: true, isLearningGoalAdded: nil, textFromSearchBar: searchText, selectedStrands: selectedStrands, fetched_Data: fetched_Data)
+                    ScrollViewLearningObjectives(learningPathSelected: $selectedPath, filteredMap: selectedFilter, filterLearningGoal: nil, isAddable: true, isLearningGoalAdded: nil, textFromSearchBar: searchText, selectedStrands: selectedStrands)
                         .padding(.top, 30)
                     
                 }.padding(.top, 10)

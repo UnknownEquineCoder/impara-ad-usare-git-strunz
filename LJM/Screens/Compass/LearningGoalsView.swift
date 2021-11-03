@@ -18,8 +18,6 @@ struct LearningGoalsView: View {
     @State var selectedStrands = [String]()
     @Environment(\.colorScheme) var colorScheme
     var titleView: String
-    
-    let fetched_Data : FetchedResults<EvaluatedObject>
         
 //    @EnvironmentObject var learningPathsStore: LearningPathStore
 //    @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
@@ -57,9 +55,9 @@ struct LearningGoalsView: View {
                     .font(.system(size: 15, weight: .medium, design: .rounded))
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                ScrollViewLearningObjectives(learningPathSelected: Binding.constant(nil), filterCompass: "All", filterLearningGoal: titleView, isLearningGoalAdded: false, textFromSearchBar: searchText, selectedStrands: [], fetched_Data: fetched_Data)
+                ScrollViewLearningObjectives(learningPathSelected: Binding.constant(nil), filterCompass: "All", filterLearningGoal: titleView, isLearningGoalAdded: false, textFromSearchBar: searchText, selectedStrands: [])
                     .padding(.top, 50)
-                    .padding(.bottom, 60)
+                    
                     
             }.frame(maxWidth: .infinity).padding(.top, 10)
         }.padding(.leading, 50).padding(.trailing, 50)
