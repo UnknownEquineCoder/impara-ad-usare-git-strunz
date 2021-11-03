@@ -48,7 +48,7 @@ struct LearningObjectiveJourneyCell: View {
                         
                         if self.isLearningGoalAdded != nil {
                             if learningObj.eval_score.count > 0 {
-                                RatingView( learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
+                                RatingView(learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
                                     .padding(.top, 15).padding(.trailing, 30)
                                     .onAppear(perform: {
                                         self.isRatingView.toggle()
@@ -58,7 +58,7 @@ struct LearningObjectiveJourneyCell: View {
                             }
                         } else {
                             if !isAddable {
-                                RatingView( learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
+                                RatingView(learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
                                     .padding(.top, 15).padding(.trailing, 30)
                                     .onAppear(perform: {
                                         self.isRatingView.toggle()

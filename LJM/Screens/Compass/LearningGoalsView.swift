@@ -23,8 +23,8 @@ struct LearningGoalsView: View {
 //    @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
 //    @EnvironmentObject var strandsStore: StrandsStore
 //
-    @ObservedObject var totalLOs = TotalNumberOfLearningObjectivesStore()
-        
+    @EnvironmentObject var totalNumberLearningObjectivesStore : TotalNumberOfLearningObjectivesStore
+
     //@ObservedObject var selectedView : SelectedSegmentView
     
     
@@ -50,7 +50,7 @@ struct LearningGoalsView: View {
             
             ZStack(alignment: .topLeading) {
                 
-                Text("\(self.totalLOs.total) Learning Objectives:")
+                Text("\(self.totalNumberLearningObjectivesStore.total) Learning Objectives:")
                     .foregroundColor(Color.customDarkGrey)
                     .font(.system(size: 15, weight: .medium, design: .rounded))
                     .frame(maxWidth: .infinity, alignment: .leading)
