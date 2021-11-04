@@ -27,6 +27,7 @@ struct learning_Objective : Equatable, Encodable, Decodable {
     
     init(raw : [String], rubric_Levels : [Int]){
         
+        
         ID = raw[0]
         strand = raw[1]
         goal = raw[2]
@@ -42,6 +43,7 @@ struct learning_Objective : Equatable, Encodable, Decodable {
     }
     
     init(learning_Objective_Raw : [String], rubric_Level_Raw : [String]){
+        
         ID = learning_Objective_Raw[0]
         strand = learning_Objective_Raw[1]
         goal = learning_Objective_Raw[2]
@@ -54,12 +56,11 @@ struct learning_Objective : Equatable, Encodable, Decodable {
             Keyword = learning_Objective_Raw[5].components(separatedBy: ",")
         }
         
-        isCore = learning_Objective_Raw[5].isEmpty ? false : true
+        isCore = rubric_Level_Raw[4].isEmpty ? false : true
         
         core_Rubric_Levels = [0,0,0,0,0,0]
         
         for rubric_Level_Index in 4..<rubric_Level_Raw.count {
-            
             core_Rubric_Levels[rubric_Level_Index-4] = (rubric_Level_Types.firstIndex(of: rubric_Level_Index == 9 ? String(rubric_Level_Raw[rubric_Level_Index].dropLast()) : rubric_Level_Raw[rubric_Level_Index]) ?? -1) + 2
         }
         

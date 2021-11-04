@@ -54,7 +54,6 @@ struct CompassView: View {
             showingSubview: self.$showingSubview,
             subviewByLabel: { label in
                 self.subView(forLabel: label)
-                
             }
         ){
             ZStack {
@@ -83,12 +82,14 @@ struct CompassView: View {
                         
                         HStack{
                             VStack{
-                                GraphWithOverlay(data_Front_Array: $data_Front_Array, data_Back_Array: $data_Back_Array, animation_Trigger: $animation_Trigger_Communal)
+                                
+                                CoreRadarChartView(data_Front_Array: $data_Front_Array, data_Back_Array: $data_Back_Array, animation_Trigger: $animation_Trigger_Communal)
                                 .frame(width: 395, height: 395)
                                 .padding(.all, 45)
                                 .padding(.bottom, 9)
                                 .onAppear {
-                                    dark_Light_Data()
+                                    dark_Core_Datas()
+                                    dark_Path_Datas()
                                     green_Light_Date()
                                     animation_Trigger = true
                                     animation_Trigger_Communal = true
@@ -103,7 +104,7 @@ struct CompassView: View {
                                 .offset(y: -50)
                             }
                             VStack{
-                                GraphWithOverlay(data_Front_Array: $data_Path_Front_Array, data_Back_Array: $data_Back_Array, animation_Trigger: $animation_Trigger)
+                                GraphWithOverlay(data_Front_Array: $data_Path_Front_Array, data_Back_Array: $data_Path_Back_Array, animation_Trigger: $animation_Trigger)
                                     .frame(width: 395, height: 395)
                                     .padding(.top, 25)
                                     .padding(.leading, 45)
@@ -290,7 +291,36 @@ struct CompassView: View {
     }
     
     func green_Light_Date() {
-        data_Front_Array = [0,0,0,0,0]
+        data_Front_Array = [60,60,60,60,60]
+        
+//        var data_Quantity = [0,0,0,0,0]
+//
+//        let filtered_Learning_Objective = learningObjectiveStore.learningObjectives.filter({$0.isCore})
+//
+//        for learning_Objective in filtered_Learning_Objective {
+//
+//            let temp_Strand_Index = fake_Strands.firstIndex(of: learning_Objective.strand) ?? 0
+//
+//            data_Front_Array[temp_Strand_Index] += CGFloat(learning_Objective.core_Rubric_Levels.first!)
+//            data_Quantity[temp_Strand_Index] += 1
+//
+//        }
+//
+//        for index in 0...data_Quantity.count-1 {
+//            if(data_Front_Array[index] > 0){
+//                data_Front_Array[index] = (data_Front_Array[index] / CGFloat(data_Quantity[index])) * 20
+//            }
+//
+//            if data_Front_Array[index] <= graph_Minimum_Dimension {
+//                data_Front_Array[index] = graph_Minimum_Dimension
+//            }
+//        }
+        
+    }
+    
+    func dark_Core_Datas() {
+
+        data_Back_Array = [0,0,0,0,0]
         
         var data_Quantity = [0,0,0,0,0]
         
@@ -299,64 +329,15 @@ struct CompassView: View {
         for learning_Objective in filtered_Learning_Objective {
             
             let temp_Strand_Index = fake_Strands.firstIndex(of: learning_Objective.strand) ?? 0
-            
-            data_Front_Array[temp_Strand_Index] += CGFloat(learning_Objective.core_Rubric_Levels.first!)
-            data_Quantity[temp_Strand_Index] += 1
-            
-        }
-        
-        for index in 0...data_Quantity.count-1 {
-            if(data_Front_Array[index] > 0){
-                data_Front_Array[index] = (data_Front_Array[index] / CGFloat(data_Quantity[index])) * 20
-            }
-            
-            if data_Front_Array[index] <= graph_Minimum_Dimension {
-                data_Front_Array[index] = graph_Minimum_Dimension
-            }
-        }
-        
-    }
-    
-//    func dark_Light_Path_Graph_Data() {
-//
-//        data_Path_Back_Array = [0,0,0,0,0]
-//        var path_Index = 0
-//        var data_Quantity = [0,0,0,0,0]
-////        Design,Front,Back,Game,Business
-//        path_Index = fakePaths.firstIndex(of: path) ?? 1
-//
-//        let filtered_Learning_Objective = learningObjectiveStore.learningObjectives.filter({$0.eval_score.count > 0})
-//
-//        for learning_Objective in filtered_Learning_Objective {
-//
-//            if((learning_Objective.eval_score.last ?? 0) > 0){
-//                let temp_Strand_Index = fake_Strands.firstIndex(of: learning_Objective.strand) ?? 0
-//                data_Path_Back_Array[temp_Strand_Index] += CGFloat(learning_Objective.eval_score.last ?? 0)
-//                data_Quantity[temp_Strand_Index] += 1
-//            }
-//
-//        }
-//
-//        for index in 0...data_Quantity.count-1 {
-//            if(data_Path_Back_Array[index] > 0){
-//                data_Path_Back_Array[index] = (data_Path_Back_Array[index] / CGFloat(data_Quantity[index])) * 20
-//            }
-//        }
-//    }
-    
-    private func dark_Light_Data(){
-        
-        data_Back_Array = [0,0,0,0,0]
-        
-        var data_Quantity = [0,0,0,0,0]
-        
-        let filtered_Learning_Objective = learningObjectiveStore.learningObjectives
-        
-        for learning_Objective in filtered_Learning_Objective {
-            let temp_Strand_Index = fake_Strands.firstIndex(of: learning_Objective.strand) ?? 0
             if((learning_Objective.eval_score.last ?? 0) > 0){
                 
-                data_Back_Array[temp_Strand_Index] += CGFloat(learning_Objective.eval_score.last ?? 0)
+                var score = CGFloat(learning_Objective.eval_score.last ?? 0)
+                
+                if score > 3 {
+                    score = 3
+                }
+                
+                data_Back_Array[temp_Strand_Index] += score
             }
             
             data_Quantity[temp_Strand_Index] += 1
@@ -370,6 +351,36 @@ struct CompassView: View {
             
             if(data_Back_Array[index] <= graph_Minimum_Dimension){
                 data_Back_Array[index] = graph_Minimum_Dimension
+            }
+        }
+    }
+    
+    private func dark_Path_Datas(){
+        
+        data_Path_Back_Array = [0,0,0,0,0]
+        
+        var data_Quantity = [0,0,0,0,0]
+        
+        let filtered_Learning_Objective = learningObjectiveStore.learningObjectives
+        
+        for learning_Objective in filtered_Learning_Objective {
+            let temp_Strand_Index = fake_Strands.firstIndex(of: learning_Objective.strand) ?? 0
+            if((learning_Objective.eval_score.last ?? 0) > 0){
+                
+                data_Path_Back_Array[temp_Strand_Index] += CGFloat(learning_Objective.eval_score.last ?? 0)
+            }
+            
+            data_Quantity[temp_Strand_Index] += 1
+            
+        }
+        
+        for index in 0...data_Quantity.count-1 {
+            if(data_Path_Back_Array[index] > 0){
+                data_Path_Back_Array[index] = (data_Path_Back_Array[index] / CGFloat(data_Quantity[index])) * 20
+            }
+            
+            if(data_Path_Back_Array[index] <= graph_Minimum_Dimension){
+                data_Path_Back_Array[index] = graph_Minimum_Dimension
             }
         }
     }
