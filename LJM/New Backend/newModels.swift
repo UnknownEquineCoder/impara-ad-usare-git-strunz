@@ -77,7 +77,7 @@ struct CD_Evaluated_Object {
     let eval_Score : [Int]
 }
 
-struct learning_Path {
+struct learning_Path: Hashable {
     var title : String
     var learning_Objective_IDs : [String]
    
@@ -136,6 +136,11 @@ enum CoreEnum: String {
     case elective = "Elective"
     case evaluated = "Evaluated"
     case all = "All"
+}
+
+enum EvaluatedOrNotEnum {
+    case evaluated
+    case notEvaluated
 }
 
 enum SortEnum: String {

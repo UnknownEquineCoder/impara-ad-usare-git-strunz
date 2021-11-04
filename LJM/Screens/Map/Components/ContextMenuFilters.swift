@@ -11,38 +11,56 @@ import SwiftUI
 struct ContextMenuFilters: View {
     
     var fromMap = false
+    var arrayMainFilters = ["Full Map", "Communal", "Elective"]
     
     @Binding var selectedFilter: CoreEnum.RawValue
     @Binding var selectedPath : String?
     @Binding var selectedStrands : [String]
+    @Binding var selectedEvaluatedOrNotFilter: EvaluatedOrNotEnum?
     
     @Environment(\.colorScheme) var colorScheme
     
     @EnvironmentObject var strandsStore: StrandsStore
+    @EnvironmentObject var learningPathsStore: LearningPathStore
     
     var body: some View {
         Menu {
-            
-            Group{
-                Button("Full Map", action: {selectedFilter = "FULL MAP"})
-                Button("Communal", action: {selectedFilter = "COMMUNAL"})
-                Button("Elective", action: {selectedFilter = "ELECTIVE"})
-            Divider()
-            
-            
-                Button("UI/UX", action: {})
+            Group {
+                ForEach(arrayMainFilters, id: \.self) { mainFilter in
+                    Button {
+                        selectedFilter = mainFilter.uppercased()
+                    } label: {
+                        HStack {
+                            Text(mainFilter)
+                            Image(systemName: "checkmark")
+                                .isHidden(!(selectedFilter.lowercased() == mainFilter.lowercased()))
+                        }
+                    }
+                }
                 
-                Button("Frontend", action: {})
+                Divider()
                 
-                Button("Backend", action: {})
-                
-                Button("Game", action: {})
-                
-                Button("Business", action: {})
+                ForEach(self.learningPathsStore.learningPaths, id: \.title) { learningPath in
+                    Button {
+                        if self.fromMap {
+                            selectedFilter = learningPath.title
+                        } else {
+                            selectedPath = learningPath.title
+                        }
+                        
+                    } label: {
+                        HStack {
+                            Text(learningPath.title)
+                            Image(systemName: "checkmark")
+                                .isHidden(!(selectedFilter == learningPath.title || selectedPath == learningPath.title))
+                        }
+                    }
+                }
             }
             
             Divider()
-            Group{
+            
+            Group {
                 ForEach(self.strandsStore.arrayStrandsNativeFilter, id: \.self) { strand in
                     Button {
                         if !self.selectedStrands.contains(strand) {
@@ -59,10 +77,29 @@ struct ContextMenuFilters: View {
                     }
                 }
                 
-            
-            Divider()
-            Button("Evaluated", action: {})
-            Button("Not Evaluated", action: {})
+                Divider()
+                
+                if fromMap {
+                    Button {
+                        selectedEvaluatedOrNotFilter = .evaluated
+                    } label: {
+                        HStack {
+                            Text("Evaluated")
+                            Image(systemName: "checkmark")
+                                .isHidden(!(selectedEvaluatedOrNotFilter == .evaluated))
+                        }
+                    }
+                    
+                    Button {
+                        selectedEvaluatedOrNotFilter = .notEvaluated
+                    } label: {
+                        HStack {
+                            Text("Not Evaluated")
+                            Image(systemName: "checkmark")
+                                .isHidden(!(selectedEvaluatedOrNotFilter == .notEvaluated))
+                        }
+                    }
+                }
             }
         } label: {
             HStack(spacing: 13) {
@@ -78,8 +115,6 @@ struct ContextMenuFilters: View {
             
         }
         .frame(width: 132.toScreenSize(), height: 35.toScreenSize(), alignment: .center)
-        //        .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color("customCyan")))
-        //        .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .red)
         .menuStyle(BorderedButtonMenuStyle())
         
     }
@@ -89,7 +124,7 @@ struct ContextMenuFilters: View {
 struct ContextMenuTest_Previews: PreviewProvider {
     
     static var previews: some View {
-        ContextMenuFilters(selectedFilter: .constant("CORE"), selectedPath: .constant(""), selectedStrands: .constant([""]))
+        ContextMenuFilters(selectedFilter: .constant("CORE"), selectedPath: .constant(""), selectedStrands: .constant([""]), selectedEvaluatedOrNotFilter: .constant(.evaluated))
     }
 }
 

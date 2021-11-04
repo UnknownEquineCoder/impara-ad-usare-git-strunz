@@ -18,6 +18,7 @@ struct ScrollViewLearningObjectives: View {
     var filterCompass: CompassEnum.RawValue?
     var filterSort: SortEnum?
     var filterLearningGoal: String?
+    var filterEvaluatedOrNot: EvaluatedOrNotEnum?
     
     @EnvironmentObject var learningPathStore: LearningPathStore
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
@@ -56,12 +57,12 @@ struct ScrollViewLearningObjectives: View {
     var filteredLearningObjectivesMap: [learning_Objective] {
         switch filteredMap {
         case "FULL MAP":
-            return self.learningObjectiveStore.learningObjectives
+            return checkForFilterEvaluatedOrNot()
         case "COMMUNAL":
-            return self.learningObjectiveStore.learningObjectives
+            return checkForFilterEvaluatedOrNot()
                 .filter { $0.isCore }
         case "ELECTIVE":
-            return self.learningObjectiveStore.learningObjectives
+            return checkForFilterEvaluatedOrNot()
                 .filter { !($0.isCore) }
         case let filterPathsTab:
             if filterPathsTab != nil {
@@ -142,19 +143,17 @@ struct ScrollViewLearningObjectives: View {
                     $0.strand.contains(textFromSearchBar.lowercased()) ||
                     $0.goal_Short.contains(textFromSearchBar.lowercased())
                 }), id: \.ID) { item in
-//                    if  textFromSearchBar.isEmpty ||
-//                        (item.goal.lowercased().contains(textFromSearchBar.lowercased())) ||
-//                        ((item.description.lowercased().contains(textFromSearchBar.lowercased()))) ||
-//                          {
                         if let strand = item.strand {
                             if self.selectedStrands.contains(strand) || self.selectedStrands.count == 0 {
-                                
                                 LearningObjectiveJourneyCell(rating: item.eval_score.last ?? 0, isRatingView: item.eval_score.count > 0, isAddable: isAddable, isLearningGoalAdded: isLearningGoalAdded == nil ? nil : (isLearningGoalAdded ?? false && item.eval_score.count > 0), learningPathSelected: self.$learningPathSelected, learningObj: item)
                                     .contextMenu {
                                         if !isAddable {
                                             Button {
                                                 // remove learning objective
-                                                
+                                                let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == item.ID})!
+                                                self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.removeAll()
+                                                self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.removeAll()
+
                                             } label: {
                                                 Text("Delete")
                                             }
@@ -214,12 +213,18 @@ struct ScrollViewLearningObjectives: View {
 //        }
 //    }
     
+    func checkForFilterEvaluatedOrNot() -> [learning_Objective] {
+        return filterEvaluatedOrNot == nil ? learningObjectiveStore.learningObjectives : (filterEvaluatedOrNot == .evaluated ? learningObjectiveStore.learningObjectives.filter({$0.eval_score.count > 0}) : learningObjectiveStore.learningObjectives.filter({$0.eval_score.count == 0}))
+    }
+    
     func sortLearningObjectivesMap(learningPaths: [learning_Path], selectedPath: String) -> [learning_Objective] {
                 
         var arrayOfLearningObjectives = [learning_Objective]()
         
         if let learning_Path_Index = learningPaths.firstIndex(where: {$0.title == selectedPath}) {
-            arrayOfLearningObjectives = learningObjectiveStore.learningObjectives.filter { learning_Objective in
+            arrayOfLearningObjectives =
+                checkForFilterEvaluatedOrNot()
+                .filter { learning_Objective in
                 // algo whenever we have learning objectives related to learning paths
 //                learningPaths[learning_Path_Index].learning_Objective_IDs.contains(learning_Objective.ID)
                 

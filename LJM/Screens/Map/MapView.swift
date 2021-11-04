@@ -14,6 +14,7 @@ struct MapView: View {
     @State private var searchText = ""
 //    @State var selectedSort: SortEnum?
     @State private var selectedPath : String?
+    @State var selectedEvaluatedOrNotFilter: EvaluatedOrNotEnum?
         
     @Environment(\.colorScheme) var colorScheme
     
@@ -69,7 +70,7 @@ struct MapView: View {
 //                    DropDownMenuSort()
 //                        .buttonStyle(PlainButtonStyle())
 //                    SortButtonMenu(selectedSort: $selectedSort)
-                    ContextMenuFilters(fromMap: true, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedStrands: $selectedStrands)
+                    ContextMenuFilters(fromMap: true, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedEvaluatedOrNotFilter: $selectedEvaluatedOrNotFilter)
 //                    DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: strandsStore.arrayStrandsFilter)
 //                        .buttonStyle(PlainButtonStyle())
                     
@@ -87,7 +88,7 @@ struct MapView: View {
                         .padding(.top, 75)
                         .isHidden(self.totalNumberLearningObjectivesStore.total == 0 ? false : true)
                     
-                    ScrollViewLearningObjectives(learningPathSelected: $selectedPath, filteredMap: selectedFilter, filterLearningGoal: nil, isAddable: true, isLearningGoalAdded: nil, textFromSearchBar: searchText, selectedStrands: selectedStrands)
+                    ScrollViewLearningObjectives(learningPathSelected: $selectedPath, filteredMap: selectedFilter, filterLearningGoal: nil, filterEvaluatedOrNot: selectedEvaluatedOrNotFilter, isAddable: true, isLearningGoalAdded: nil, textFromSearchBar: searchText, selectedStrands: selectedStrands)
                         .padding(.top, 30)
                     
                 }.padding(.top, 10)
