@@ -24,6 +24,8 @@ struct CompassView: View {
     @State var animation_Trigger = false
     @State var animation_Trigger_Communal = false
     
+    @State var selected_Date : Date = Date()
+    
     let graph_Minimum_Dimension : CGFloat = 2
     
     
@@ -71,7 +73,12 @@ struct CompassView: View {
                         DescriptionTitleScreenView(desc: "The Compass helps you to gauge your progress in meeting the Communal Learning Objectives and allows you to explore a variety of paths. Using this tool, you can plan your Learning Journey.")
                     }
                     ScrollView(showsIndicators: false){
-                        DatePickerView().padding(.top, 7.toScreenSize())
+                        DatePickerView(pickerDate: $selected_Date)
+                            .padding(.top, 7.toScreenSize())
+                            .onChange(of: selected_Date) { date in
+                                    dark_Path_Datas()
+                                    dark_Core_Datas()
+                            }
                        
                         HStack{
                             InfoButton(title: "Spider Graphs: ", textBody: "The Communal graph shows progress based on the pathway all the students at the Academy have to take, while the Your Journey graph shows progress based on the specific pathway you decide to take, along with the Communal one.\n\nDepending on the Communal Expectation, the “Expectation” overlay shows you the basic progress level the Academy would like you to reach; “Your Progress”, instead, shows you the progress related to the path you decided to take.", heightCell: 241)
@@ -331,13 +338,18 @@ struct CompassView: View {
             let temp_Strand_Index = fake_Strands.firstIndex(of: learning_Objective.strand) ?? 0
             if((learning_Objective.eval_score.last ?? 0) > 0){
                 
-                var score = CGFloat(learning_Objective.eval_score.last ?? 0)
+                let data_Filtered_Index = closestMatch(values: learning_Objective.eval_date, inputValue: selected_Date)
                 
-                if score > 3 {
-                    score = 3
+                if(data_Filtered_Index != -1){
+                    var score = CGFloat(learning_Objective.eval_score.last ?? 0)
+                    
+                    if score > 3 {
+                        score = 3
+                    }
+                    
+                    data_Back_Array[temp_Strand_Index] += score
                 }
                 
-                data_Back_Array[temp_Strand_Index] += score
             }
             
             data_Quantity[temp_Strand_Index] += 1
@@ -367,7 +379,13 @@ struct CompassView: View {
             let temp_Strand_Index = fake_Strands.firstIndex(of: learning_Objective.strand) ?? 0
             if((learning_Objective.eval_score.last ?? 0) > 0){
                 
-                data_Path_Back_Array[temp_Strand_Index] += CGFloat(learning_Objective.eval_score.last ?? 0)
+                let data_Filtered_Index = closestMatch(values: learning_Objective.eval_date, inputValue: selected_Date)
+                
+                if(data_Filtered_Index != -1){
+                
+                    data_Path_Back_Array[temp_Strand_Index] += CGFloat(learning_Objective.eval_score.last ?? 0)
+                    
+                }
             }
             
             data_Quantity[temp_Strand_Index] += 1
@@ -392,6 +410,18 @@ struct CompassView: View {
     private func showSubview(withLabel label: String) {
         currentSubviewLabel = label
         showingSubview = true
+    }
+    
+    func closestMatch(values: [Date], inputValue: Date) -> Int {
+        
+        let possible_Index = values.firstIndex(where: {$0 > inputValue} )
+        
+        if let found_Index = possible_Index {
+            if found_Index == 0{ return -1 }
+            return found_Index - 1
+        } else {
+            return values.count - 1
+        }
     }
 }
 
