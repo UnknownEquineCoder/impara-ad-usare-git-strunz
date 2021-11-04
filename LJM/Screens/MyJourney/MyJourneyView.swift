@@ -36,9 +36,6 @@ struct MyJourneyView: View {
             ZStack(alignment: .topLeading) {
                 
                 TitleScreenView(title: "Journey")
-                    .onTapGesture {
-                        print("IJOHUYGH \(self.learningPathStore.learningPaths)")
-                    }
                 
                 VStack(alignment: .leading) {
                     DescriptionTitleScreenView(desc: "During your Journey, you will encounter a series of Learning Objectives (LOs). The Communal LOs will be added to your Journey as they are addressed in the Challenges. Elective Objectives will appear here when you select them from the Map. You can compare your Journey to specific career paths to help with personal planning. The arrows indicate your current progress towards reaching the LO.")

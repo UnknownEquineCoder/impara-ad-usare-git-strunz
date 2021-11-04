@@ -78,6 +78,8 @@ struct AddButton: View {
                                 
                                 learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
                                 
+                                didTap = false
+                                
                         }
                     }
                 }
