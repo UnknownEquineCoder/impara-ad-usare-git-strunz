@@ -13,6 +13,7 @@ struct MyJourneyView: View {
     @State var selectedFilterInsideButton = "All"
     @State var selectedStrands = [String]()
     @State var selectedSort : SortEnum?
+    @State var selectedEvaluatedOrNotFilter: EvaluatedOrNotEnum?
     
     let arrayFilters = ["All", "Communal", "Elective", "Evaluated", "Not Evaluated"]
     
@@ -57,7 +58,7 @@ struct MyJourneyView: View {
             HStack {
                 
                 SortButtonMenu(selectedSort: $selectedSort)
-                ContextMenuFilters(fromMap: false, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedStrands: $selectedStrands)
+                ContextMenuFilters(fromMap: false, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedEvaluatedOrNotFilter: $selectedEvaluatedOrNotFilter)
 //                DropDownMenuSort()
 //                    .buttonStyle(PlainButtonStyle())
                 
