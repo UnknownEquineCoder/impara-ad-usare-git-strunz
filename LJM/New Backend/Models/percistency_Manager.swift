@@ -50,9 +50,10 @@ struct PersistenceController {
         // assigning to the new object the values that it will have
         new_Student.image = data as NSObject
         if let profile = fetched_Profile {
+            
             if let last_Student = profile.first {
-                new_Student.name = last_Student.name
-                new_Student.cognome = last_Student.cognome
+                new_Student.name = last_Student.name ?? "name"
+                new_Student.cognome = last_Student.cognome ?? "surname"
                 
                 context.delete(last_Student)
             }

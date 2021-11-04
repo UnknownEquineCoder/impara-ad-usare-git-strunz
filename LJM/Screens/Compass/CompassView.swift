@@ -29,8 +29,7 @@ struct CompassView: View {
     
     // This will be arrays for bars graphs
     let fake_Strands = ["App Business and Marketing","Process","Professional Skills","Technical","Design"]
-    
-    let process_Skills = ["Act", "Engage", "Investigate", "Ongoing Activities", "Project Management", "Scrum"]
+    let process_Skills = ["Act", "Engage", "Investigate ", "Ongoing Activities", "Project Management", "Scrum"]
     let design_Skills = ["Accessibility", "Branding", "Design Fundamentals", "Game Design and Art Direction", "HIG Basics", "Prototyping", "User-Centered Design"]
     let professional_Skills = ["Creative Workflow", "Collaboration", "Communication", "Employability", "Personal Growth", "Presentations", "Story Telling"]
     let tecnical_Skills = ["Developer Tools", "Interface Development", "Logic and Programming", "Media, Animations and Games", "Networking and Backend", "Operating Systems", "Platform Functionalities", "Supporting Frameworks"]
