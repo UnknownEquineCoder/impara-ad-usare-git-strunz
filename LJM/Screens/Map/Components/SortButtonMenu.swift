@@ -27,6 +27,7 @@ struct SortButtonMenu: View {
                             .isHidden(selectedSort != .first_Assest)
                     }
                 }
+            
             Button { withAnimation { selectedSort = .last_Assest } }
         label: {
             HStack {

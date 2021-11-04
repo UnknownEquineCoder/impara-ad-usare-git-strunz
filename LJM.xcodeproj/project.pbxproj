@@ -52,6 +52,7 @@
 		E03211392716E89100262144 /* Learning_Paths.csv in Resources */ = {isa = PBXBuildFile; fileRef = E03211362716E89100262144 /* Learning_Paths.csv */; };
 		E04251AD27295F34000A1D69 /* StudentData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E04251AB27295F34000A1D69 /* StudentData.xcdatamodeld */; };
 		E04251B3272AAABA000A1D69 /* percistency_Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04251B2272AAABA000A1D69 /* percistency_Manager.swift */; };
+		E04251B72733EACD000A1D69 /* CoreRadarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04251B62733EACD000A1D69 /* CoreRadarChartView.swift */; };
 		E0E87CCC27214EED00FEF3D6 /* Coders.csv in Resources */ = {isa = PBXBuildFile; fileRef = E0E87CCB27214EED00FEF3D6 /* Coders.csv */; };
 		E0E87CD4272801BD00FEF3D6 /* ALL PATHS.csv in Resources */ = {isa = PBXBuildFile; fileRef = E0E87CD3272801BC00FEF3D6 /* ALL PATHS.csv */; };
 		E0E87CD6272801C900FEF3D6 /* DocDemoDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E87CD5272801C900FEF3D6 /* DocDemoDocument.swift */; };
@@ -168,6 +169,7 @@
 		E03211362716E89100262144 /* Learning_Paths.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Learning_Paths.csv; sourceTree = "<group>"; };
 		E04251AC27295F34000A1D69 /* profile.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = profile.xcdatamodel; sourceTree = "<group>"; };
 		E04251B2272AAABA000A1D69 /* percistency_Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = percistency_Manager.swift; sourceTree = "<group>"; };
+		E04251B62733EACD000A1D69 /* CoreRadarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreRadarChartView.swift; sourceTree = "<group>"; };
 		E0E87CCB27214EED00FEF3D6 /* Coders.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Coders.csv; sourceTree = "<group>"; };
 		E0E87CD3272801BC00FEF3D6 /* ALL PATHS.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ALL PATHS.csv"; sourceTree = "<group>"; };
 		E0E87CD5272801C900FEF3D6 /* DocDemoDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocDemoDocument.swift; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 				962F090D25E7C4F1001EAE85 /* ParticularCircle.swift */,
 				9609087E2604A10900EB4242 /* LearningGoalsView.swift */,
 				96533793260C898400316B7C /* StackNavigationView.swift */,
+				E04251B62733EACD000A1D69 /* CoreRadarChartView.swift */,
 			);
 			path = Compass;
 			sourceTree = "<group>";
@@ -681,6 +684,7 @@
 				EA686F25256EFBFA00C121DC /* SearchBarExpandableJourney.swift in Sources */,
 				9670A976257105290043F227 /* StartView.swift in Sources */,
 				EACD022F25D37B15008D12FE /* TitleScreenView.swift in Sources */,
+				E04251B72733EACD000A1D69 /* CoreRadarChartView.swift in Sources */,
 				E02DFE8A270AEC3F004FF8B7 /* newModels.swift in Sources */,
 				962F090E25E7C4F1001EAE85 /* ParticularCircle.swift in Sources */,
 				9641C4A525778F1D0088A0B6 /* SizesExtension.swift in Sources */,
