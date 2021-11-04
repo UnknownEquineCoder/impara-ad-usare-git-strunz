@@ -143,8 +143,8 @@ enum EvaluatedOrNotEnum {
 }
 
 enum SortEnum: String {
-    case byDate = "By Date"
-    case alphabetic = "By Strands Alphabetically"
+    case first_Assest = "First assested"
+    case last_Assest = "Last assested"
     case mostEvalFirst = "Most Evaluated First"
     case leastEvalFirst = "Least Evaluated First"
 }
