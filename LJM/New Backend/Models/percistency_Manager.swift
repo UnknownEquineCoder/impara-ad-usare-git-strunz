@@ -59,7 +59,6 @@ struct PersistenceController {
             }
         }
         
-        
         do {
             // save the context with new element added
             try context.save()
@@ -85,8 +84,8 @@ struct PersistenceController {
         new_Student.name = name
         
         if let last_Student = student.first {
-            new_Student.cognome = last_Student.cognome
-            new_Student.image = last_Student.image 
+//            new_Student.cognome = last_Student.cognome
+            new_Student.image = last_Student.image
             context.delete(last_Student)
         }
         
@@ -112,7 +111,7 @@ struct PersistenceController {
         let new_Student = Student(context: context)
         // assigning to the new object the values that it will have
         
-        new_Student.cognome = surname
+//        new_Student.cognome = surname
         
         if let last_Student = student.first {
             new_Student.name = last_Student.name

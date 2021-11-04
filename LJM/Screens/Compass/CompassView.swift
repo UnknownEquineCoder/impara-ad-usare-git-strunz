@@ -29,10 +29,11 @@ struct CompassView: View {
     
     // This will be arrays for bars graphs
     let fake_Strands = ["App Business and Marketing","Process","Professional Skills","Technical","Design"]
+    
     let process_Skills = ["Act", "Engage", "Investigate ", "Ongoing Activities", "Project Management", "Scrum"]
-    let design_Skills = ["Accessibility", "Branding", "Design Fundamentals", "Game Design and Art Direction", "HIG Basics", "Prototyping", "User-Centered Design"]
-    let professional_Skills = ["Creative Workflow", "Collaboration", "Communication", "Employability", "Personal Growth", "Presentations", "Story Telling"]
-    let tecnical_Skills = ["Developer Tools", "Interface Development", "Logic and Programming", "Media, Animations and Games", "Networking and Backend", "Operating Systems", "Platform Functionalities", "Supporting Frameworks"]
+    let design_Skills = ["Accessibility", "Branding", "Design Fundamentals", "Game Design and Art Direction", "HIG Basic", "HIG Advanced", "Prototyping", "User Centered Design"]
+    let professional_Skills = ["Creative Workflow", "Collaboration", "Communication", "Employability", "Personal Growth", "Presentations", "Storytelling"]
+    let tecnical_Skills = ["Developer Tools", "Interfaces Development", "Logic and Programming", "Media,  Animation and Games", "Networking and Backend", "Operating Systems", "Platform Functionalities", "Supporting Frameworks"]
     let business_Skills = ["App Business", "App Marketing", "Entrepreneurship", "Legal Guidelines", "Store Guidelines", "Store Presence", "User Engagement"]
     
     @State var process_Progress : [Double] = [5,5,5,5,5,5,5,5,5,5,5,5]
@@ -380,12 +381,6 @@ struct CompassView: View {
     private func showSubview(withLabel label: String) {
         currentSubviewLabel = label
         showingSubview = true
-    }
-}
-
-struct CompassView_Previews: PreviewProvider {
-    static var previews: some View {
-        CompassView(path: .constant("Design"))
     }
 }
 

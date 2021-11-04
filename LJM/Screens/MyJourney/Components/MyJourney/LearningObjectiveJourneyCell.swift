@@ -47,24 +47,24 @@ struct LearningObjectiveJourneyCell: View {
                         Spacer()
                         
                         if self.isLearningGoalAdded != nil {
-                            if self.isLearningGoalAdded! {
-                                RatingView( learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
+                            if learningObj.eval_score.count > 0 {
+                                RatingView(learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
                                     .padding(.top, 15).padding(.trailing, 30)
                                     .onAppear(perform: {
                                         self.isRatingView.toggle()
                                     })
                             } else {
-                                AddButton(learningObjectiveSelected: learningObj, buttonSize: 27).padding(.trailing, 60).padding(.top, 20)
+                                AddButton(learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27).padding(.trailing, 60).padding(.top, 20)
                             }
                         } else {
                             if !isAddable {
-                                RatingView( learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
+                                RatingView(learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
                                     .padding(.top, 15).padding(.trailing, 30)
                                     .onAppear(perform: {
                                         self.isRatingView.toggle()
                                     })
                             } else {
-                                AddButton(learningObjectiveSelected: learningObj, buttonSize: 27).padding(.trailing, 60).padding(.top, 20)
+                                AddButton(learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27).padding(.trailing, 60).padding(.top, 20)
                             }
                         }
                     }.padding(.leading, 20)
@@ -102,7 +102,7 @@ struct LearningObjectiveJourneyCell: View {
                                         
                                         ForEach(0..<learningObj.eval_score.count, id: \.self) { index in
                                             
-                                            HistoryProgressView(index: index, learningObj: self.learningObj)
+                                            HistoryProgressView(index: index, rating: $rating, learningObj: self.learningObj)
                                             
                                         }
                                     }
@@ -120,10 +120,10 @@ struct LearningObjectiveJourneyCell: View {
                 VStack(alignment: .center, spacing: 5) {
                     Spacer().frame(height: 200)
                     Text(setupTitleProgressRubric(value: learningObj.eval_score.last ?? 0))
-                        .font(.system(size: 15, weight: .medium))
+                        .font(.system(size: 16, weight: .medium))
                         .foregroundColor(Color.customCyan)
                     Text(setupDescProgressOnRubric(value: learningObj.eval_score.last ?? 0))
-                        .font(.system(size: 10, weight: .medium))
+                        .font(.system(size: 14, weight: .regular))
                         .foregroundColor(Color.customDarkGrey)
                         .multilineTextAlignment(.center)
                         .lineLimit(nil)
@@ -166,7 +166,7 @@ struct LearningObjectiveJourneyCell: View {
         case 1:
             return "NOT EVALUATED"
         case 2:
-            return "BEGGINING"
+            return "BEGINNING"
         case 3:
             return "PROGRESSING"
         case 4:

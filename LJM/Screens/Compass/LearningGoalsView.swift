@@ -18,14 +18,13 @@ struct LearningGoalsView: View {
     @State var selectedStrands = [String]()
     @Environment(\.colorScheme) var colorScheme
     var titleView: String
-    
-    
+        
 //    @EnvironmentObject var learningPathsStore: LearningPathStore
 //    @EnvironmentObject var studentLearningObjectivesStore: StudentLearningObjectivesStore
 //    @EnvironmentObject var strandsStore: StrandsStore
 //
-    @ObservedObject var totalLOs = TotalNumberOfLearningObjectivesStore()
-    
+    @EnvironmentObject var totalNumberLearningObjectivesStore : TotalNumberOfLearningObjectivesStore
+
     //@ObservedObject var selectedView : SelectedSegmentView
     
     
@@ -38,7 +37,7 @@ struct LearningGoalsView: View {
                 TitleScreenView(title: titleView)
                 
                 VStack(alignment: .leading) {
-                    DescriptionTitleScreenView(desc: "Here you can take a look at all the Learning Objectives related to the Learning Goal you're looking at. Adding a Learning Objective to evaluate it will automatically add it to 'My Journey' and mark it as checked in 'Map' as well.")
+                    DescriptionTitleScreenView(desc: "Here you can take a look at all the Learning Objectives related to the Learning Goal you're looking at. Adding a Learning Objective to evaluate it will automatically add it to 'Journey' and mark it as checked in 'Map' as well.")
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, 50)
@@ -51,11 +50,14 @@ struct LearningGoalsView: View {
             
             ZStack(alignment: .topLeading) {
                 
-                Text("Learning Objective Related: \(self.totalLOs.total)") .foregroundColor(Color.customDarkGrey)
+                Text("\(self.totalNumberLearningObjectivesStore.total) Learning Objectives:")
+                    .foregroundColor(Color.customDarkGrey)
                     .font(.system(size: 15, weight: .medium, design: .rounded))
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-//                ScrollViewLearningObjectives(learningPathSelected: Binding.constant(nil), filterCore: selectedFilter, filterLearningGoal: titleView, textFromSearchBar: searchText, selectedStrands: [], fetched_Data: fetched_Data).padding(.top, 50).padding(.bottom, 60)
+                ScrollViewLearningObjectives(learningPathSelected: Binding.constant(nil), filterCompass: "All", filterLearningGoal: titleView, isLearningGoalAdded: false, textFromSearchBar: searchText, selectedStrands: [])
+                    .padding(.top, 50)
+                    
                     
             }.frame(maxWidth: .infinity).padding(.top, 10)
         }.padding(.leading, 50).padding(.trailing, 50)

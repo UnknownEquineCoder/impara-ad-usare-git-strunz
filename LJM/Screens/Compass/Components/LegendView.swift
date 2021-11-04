@@ -11,7 +11,7 @@ import SwiftUI
 struct LegendView: View{
     var body: some View{
         HStack{
-            Rectangle()
+            RoundedRectangle(cornerRadius: 10, style: .continuous)
                 .fill(Color(red: 6/255, green: 153/255, blue: 146/255))
                 .frame(width: 18.toScreenSize(), height: 14.toScreenSize())
             Text("My progress")
@@ -19,7 +19,7 @@ struct LegendView: View{
                 .font(.system(size: 16.toFontSize()))
             Spacer()
             
-            Rectangle()
+            RoundedRectangle(cornerRadius: 10, style: .continuous)
                 .fill(Color(red: 120/255, green: 224/255, blue: 144/255))
                 .frame(width: 18.toScreenSize(), height: 14.toScreenSize())
             Text("Expectations")

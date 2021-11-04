@@ -1,4 +1,5 @@
 import Foundation
+import AppKit
 
 public extension BinaryInteger {
     func toFontSize() -> CGFloat {
@@ -7,6 +8,7 @@ public extension BinaryInteger {
     
     func toScreenSize() -> CGFloat {
         return CGFloat(self) * 0.872
+        
     }
 }
 

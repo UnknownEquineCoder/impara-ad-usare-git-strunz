@@ -11,6 +11,7 @@ struct HistoryProgressView: View {
     var maximumRating = 5
     var index: Int
     let dateFormatter = DateFormatter()
+    @Binding var rating: Int
     
     var dateValue: String {
         dateFormatter.dateStyle = .short
@@ -38,13 +39,19 @@ struct HistoryProgressView: View {
             
             let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObj.ID})!
             
-            Button(action: {
-                // Delete assessment here
-                self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.remove(at: index)
-                self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.remove(at: index)
-            }) {
-                Image(systemName: "xmark.circle.fill").foregroundColor(Color.customBlack)
-            }.buttonStyle(PlainButtonStyle())
+            if !(index == 0) {
+                Button(action: {
+                    // Delete assessment here
+                    print("IUHJOK \(index)")
+                    self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.remove(at: index)
+                    self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.remove(at: index)
+                    
+                    self.rating = self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.last ?? 0
+
+                }) {
+                    Image(systemName: "xmark.circle.fill").foregroundColor(Color.customBlack)
+                }.buttonStyle(PlainButtonStyle())
+            }
         }.frame(height: 30, alignment: .center)
             .padding(.leading, 10).padding(.trailing, 10)
             .background(Color.customDarkGrey)
