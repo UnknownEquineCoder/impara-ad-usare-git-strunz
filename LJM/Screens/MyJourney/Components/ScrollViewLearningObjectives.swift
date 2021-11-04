@@ -120,7 +120,21 @@ struct ScrollViewLearningObjectives: View {
     var body: some View {
         ScrollView {
             LazyVStack(spacing: 20) {
-                ForEach(filteredLearningObjectivesMyJourney.filter({
+                ForEach(filteredLearningObjectivesMyJourney.sorted(by: { first, second in
+                    switch filterSort {
+                    case .leastEvalFirst:
+                        return first.eval_date.count < second.eval_date.count
+                    case .mostEvalFirst:
+                        return first.eval_date.count > second.eval_date.count
+                    case .none:
+                        return true
+                    case .some(.first_Assest):
+                        return (first.eval_date.last ?? Date()) > (second.eval_date.last ?? Date())
+                    case .some(.last_Assest):
+                        return (first.eval_date.last ?? Date()) < (second.eval_date.last ?? Date())
+                    }
+                })
+                .filter({
                     textFromSearchBar.isEmpty ||
                     $0.goal.lowercased().contains(textFromSearchBar.lowercased()) ||
                     $0.description.lowercased().contains(textFromSearchBar.lowercased()) ||
