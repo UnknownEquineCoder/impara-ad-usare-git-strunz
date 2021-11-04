@@ -54,7 +54,6 @@ struct PersistenceController {
             if let last_Student = profile.first {
                 new_Student.name = last_Student.name ?? "name"
                 new_Student.cognome = last_Student.cognome ?? "surname"
-                
                 context.delete(last_Student)
             }
         }

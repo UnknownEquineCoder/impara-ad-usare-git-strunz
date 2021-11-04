@@ -120,8 +120,18 @@ struct ScrollViewLearningObjectives: View {
     var body: some View {
         ScrollView {
             LazyVStack(spacing: 20) {
-                ForEach(filteredLearningObjectivesMyJourney, id: \.ID) { item in
-                    if textFromSearchBar.isEmpty || (item.goal.lowercased().contains(textFromSearchBar.lowercased())) || ((item.description.lowercased().contains(textFromSearchBar.lowercased()))) {
+                ForEach(filteredLearningObjectivesMyJourney.filter({
+                    textFromSearchBar.isEmpty ||
+                    $0.goal.lowercased().contains(textFromSearchBar.lowercased()) ||
+                    $0.description.lowercased().contains(textFromSearchBar.lowercased()) ||
+                    $0.Keyword.contains(where: {$0.contains(textFromSearchBar.lowercased())}) ||
+                    $0.strand.contains(textFromSearchBar.lowercased()) ||
+                    $0.goal_Short.contains(textFromSearchBar.lowercased())
+                }), id: \.ID) { item in
+//                    if  textFromSearchBar.isEmpty ||
+//                        (item.goal.lowercased().contains(textFromSearchBar.lowercased())) ||
+//                        ((item.description.lowercased().contains(textFromSearchBar.lowercased()))) ||
+//                          {
                         if let strand = item.strand {
                             if self.selectedStrands.contains(strand) || self.selectedStrands.count == 0 {
                                 
@@ -138,7 +148,7 @@ struct ScrollViewLearningObjectives: View {
                                     }
                                 }
                         }
-                    }
+//                    }
                 }
             }
         }.padding(.bottom, 60)
