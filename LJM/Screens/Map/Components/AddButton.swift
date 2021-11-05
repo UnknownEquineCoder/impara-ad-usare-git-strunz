@@ -47,8 +47,8 @@ struct AddButton: View {
                                 .frame(width: 35, height: 35)
                                 .foregroundColor(Color("customCyan"))
                                 .onTapGesture {
-                                    
-                                    learningObjectiveStore.evaluate_Object(index: learningObjectiveIndex, evaluation: 1, date: Date())
+                                    let new_Date = Calendar.current.date(bySettingHour: 0, minute: 1, second: 0, of: Date())!
+                                    learningObjectiveStore.evaluate_Object(index: learningObjectiveIndex, evaluation: 1, date: new_Date)
                                     self.rating = 1
                                     self.didTap.toggle()
                                     

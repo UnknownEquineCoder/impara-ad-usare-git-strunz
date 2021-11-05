@@ -128,10 +128,10 @@ struct ScrollViewLearningObjectives: View {
                     case .mostEvalFirst:
                         return first.eval_date.count > second.eval_date.count
                     case .none:
-                        return true
-                    case .some(.first_Assest):
+                        return false
+                    case .first_Assest:
                         return (first.eval_date.last ?? Date()) > (second.eval_date.last ?? Date())
-                    case .some(.last_Assest):
+                    case .last_Assest:
                         return (first.eval_date.last ?? Date()) < (second.eval_date.last ?? Date())
                     }
                 })
