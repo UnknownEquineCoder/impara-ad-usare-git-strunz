@@ -51,7 +51,7 @@ struct PopoverView: View {
     
     var body: some View {
         VStack {
-            Text("Adding this LO will automatically add it to 'My Journey' and mark it as checked in 'Map'").multilineTextAlignment(.leading).lineLimit(6)
+            Text("Adding this LO will automatically add it to 'Journey' and mark it as checked in 'Map'").multilineTextAlignment(.leading).lineLimit(6)
             HStack{
             Button("Cancel") {
             }
