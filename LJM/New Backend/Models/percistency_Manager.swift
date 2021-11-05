@@ -141,10 +141,12 @@ struct PersistenceController {
         
         // declering the new object that is evaluated
         let new_Evaluated_Object = EvaluatedObject(context: context)
+        
         // assigning to the new object the values that it will have
         new_Evaluated_Object.id = l_Objective.ID
         new_Evaluated_Object.eval_Dates = l_Objective.eval_date as NSObject
         new_Evaluated_Object.eval_Scores = l_Objective.eval_score as NSObject
+        
         // check for objectives saved if this one was alredy evaluated, if it was alredy evaluated
         // it will delete the old evaluation
         for objective in fetched_Learning_Objectives! {
