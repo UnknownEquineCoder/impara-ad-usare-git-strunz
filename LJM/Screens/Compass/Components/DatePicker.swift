@@ -10,7 +10,7 @@ import SwiftUI
 
 struct DatePickerView: View{
     @Environment(\.colorScheme) var colorScheme
-    @State private var pickerDate = Date()
+    @Binding var pickerDate : Date
     
     
     var body: some View {
@@ -31,7 +31,7 @@ struct DatePickerView: View{
 
 struct DatePicker_Previews: PreviewProvider {
     static var previews: some View {
-        DatePickerView()
+        DatePickerView(pickerDate: .constant(Date()))
     }
 }
 

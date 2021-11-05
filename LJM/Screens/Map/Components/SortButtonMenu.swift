@@ -19,10 +19,39 @@ struct SortButtonMenu: View {
     var body: some View {
 
         Menu {
-            Button("By Date", action: {selectedSort = .byDate})
-            Button("By Strands Alphabetically", action: {selectedSort = .alphabetic})
-            Button("Most Evaluated First", action: {selectedSort = .mostEvalFirst})
-            Button("Least Evaluated First", action: {selectedSort = .leastEvalFirst})
+            Button { withAnimation { selectedSort = .first_Assest } }
+                label: {
+                    HStack{
+                        Text("By Most Recent")
+                        Image(systemName: "checkmark")
+                            .isHidden(selectedSort != .first_Assest)
+                    }
+                }
+            
+            Button { withAnimation { selectedSort = .last_Assest } }
+        label: {
+            HStack {
+                Text("By Least Recent")
+                Image(systemName: "checkmark")
+                    .isHidden(selectedSort != .last_Assest)
+            }
+        }
+            Button { withAnimation { selectedSort = .mostEvalFirst } }
+                label: {
+                    HStack{
+                        Text("Most Evaluated First")
+                        Image(systemName: "checkmark")
+                            .isHidden(selectedSort != .mostEvalFirst)
+                        }
+                    }
+            Button { withAnimation { selectedSort = .leastEvalFirst } }
+                label: {
+                    HStack{
+                        Text("Least Evaluated First")
+                        Image(systemName: "checkmark")
+                            .isHidden(selectedSort != .leastEvalFirst)
+                    }
+                }
             
         } label: {
             HStack(spacing: 13) {
@@ -50,7 +79,7 @@ struct SortButtonMenu: View {
 struct SortButtonMenu_Previews: PreviewProvider {
 
     static var previews: some View {
-        SortButtonMenu(selectedSort: .constant(.byDate))
+        SortButtonMenu(selectedSort: .constant(.last_Assest))
     }
 }
 

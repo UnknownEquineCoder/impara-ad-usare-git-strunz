@@ -56,7 +56,7 @@ struct LearningObjectiveJourneyCell: View {
                                         self.isRatingView.toggle()
                                     })
                             } else {
-                                AddButton(learningObjectiveSelected: learningObj, buttonSize: 27).padding(.trailing, 60).padding(.top, 20)
+                                AddButton(learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27).padding(.trailing, 60).padding(.top, 20)
                             }
                         } else {
                             if !isAddable {
@@ -66,7 +66,7 @@ struct LearningObjectiveJourneyCell: View {
                                         self.isRatingView.toggle()
                                     })
                             } else {
-                                AddButton(learningObjectiveSelected: learningObj, buttonSize: 27).padding(.trailing, 60).padding(.top, 20)
+                                AddButton(learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27).padding(.trailing, 60).padding(.top, 20)
                             }
                         }
 //
@@ -115,7 +115,7 @@ struct LearningObjectiveJourneyCell: View {
                                         
                                         ForEach(0..<learningObj.eval_score.count, id: \.self) { index in
                                             
-                                            HistoryProgressView(index: index, learningObj: self.learningObj)
+                                            HistoryProgressView(index: index, rating: $rating, learningObj: self.learningObj)
                                             
                                         }
                                     }

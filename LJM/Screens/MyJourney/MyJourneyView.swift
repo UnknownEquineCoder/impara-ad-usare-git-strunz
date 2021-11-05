@@ -13,6 +13,7 @@ struct MyJourneyView: View {
     @State var selectedFilterInsideButton = "All"
     @State var selectedStrands = [String]()
     @State var selectedSort : SortEnum?
+    @State var selectedEvaluatedOrNotFilter: EvaluatedOrNotEnum?
     
     let arrayFilters = ["All", "Communal", "Elective", "Evaluated", "Not Evaluated"]
     
@@ -35,9 +36,6 @@ struct MyJourneyView: View {
             ZStack(alignment: .topLeading) {
                 
                 TitleScreenView(title: "Journey")
-                    .onTapGesture {
-                        print("IJOHUYGH \(self.learningPathStore.learningPaths)")
-                    }
                 
                 VStack(alignment: .leading) {
                     DescriptionTitleScreenView(desc: "During your Journey, you will encounter a series of Learning Objectives (LOs). The Communal LOs will be added to your Journey as they are addressed in the Challenges. Elective Objectives will appear here when you select them from the Map. You can compare your Journey to specific career paths to help with personal planning. The arrows indicate your current progress towards reaching the LO.")
@@ -57,7 +55,7 @@ struct MyJourneyView: View {
             HStack {
                 
                 SortButtonMenu(selectedSort: $selectedSort)
-                ContextMenuFilters(fromMap: false, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedStrands: $selectedStrands)
+                ContextMenuFilters(fromMap: false, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedEvaluatedOrNotFilter: $selectedEvaluatedOrNotFilter)
 //                DropDownMenuSort()
 //                    .buttonStyle(PlainButtonStyle())
                 

@@ -12,6 +12,7 @@ import Combine
 
 struct AddButton: View {
     var learningObjectiveSelected: learning_Objective
+    @Binding var rating: Int
     
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     
@@ -48,7 +49,7 @@ struct AddButton: View {
                                 .onTapGesture {
                                     
                                     learningObjectiveStore.evaluate_Object(index: learningObjectiveIndex, evaluation: 1, date: Date())
-                                    
+                                    self.rating = 1
                                     self.didTap.toggle()
                                     
                                 }
@@ -76,6 +77,8 @@ struct AddButton: View {
                                 let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObjectiveSelected.ID})!
                                 
                                 learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
+                                
+                                didTap = false
                                 
                         }
                     }

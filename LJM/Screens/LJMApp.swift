@@ -5,7 +5,7 @@ import UniformTypeIdentifiers
 
 @main
 struct LJMApp: App {
-    
+    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     // instantiating the controller for core data
     let persistenceController = PersistenceController.shared
     
@@ -157,3 +157,11 @@ struct Doc : FileDocument {
     }
 }
 
+class AppDelegate: NSObject, NSApplicationDelegate {
+
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        print("Info from `applicationDidFinishLaunching(_:): Finished launching…")
+        let _ = NSApplication.shared.windows.map { $0.tabbingMode = .disallowed }
+        
+    }
+}

@@ -38,11 +38,13 @@ struct AddImageButton: View {
                     let image = NSImage(byReferencingFile: path)!
                     let data = image.tiffRepresentation
                     
-                    imageData = data
+                    if let image_Data = data {
+                        imageData = image_Data
+                        
+                        PersistenceController.shared.update_Image(data: image_Data)
+                    }
                     
-                    PersistenceController.shared.update_Image(data: data!)
-                    // path contains the file path e.g
-                    // /Users/ourcodeworld/Desktop/tiger.jpeg
+                    
                 }
                 
             } else {
