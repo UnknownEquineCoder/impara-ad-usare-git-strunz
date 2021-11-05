@@ -34,6 +34,7 @@
 		9670A96E256EAA330043F227 /* SidebarElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9670A96D256EAA330043F227 /* SidebarElements.swift */; };
 		9670A976257105290043F227 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9670A975257105290043F227 /* StartView.swift */; };
 		9672C8F425E3F46B005CC753 /* RadarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9672C8F325E3F46B005CC753 /* RadarChartView.swift */; };
+		9673746B2733EDAD00A0EC5A /* DeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9673746A2733EDAD00A0EC5A /* DeleteButton.swift */; };
 		967EE8CB256E722F008065C9 /* AddImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967EE8CA256E722F008065C9 /* AddImageButton.swift */; };
 		968BFD3027298BF70025108D /* InfoButtonBarGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968BFD2F27298BF70025108D /* InfoButtonBarGraph.swift */; };
 		9696F9332726A13A009614F4 /* SortButtonMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9696F9322726A13A009614F4 /* SortButtonMenu.swift */; };
@@ -149,6 +150,7 @@
 		9670A96D256EAA330043F227 /* SidebarElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarElements.swift; sourceTree = "<group>"; };
 		9670A975257105290043F227 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		9672C8F325E3F46B005CC753 /* RadarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadarChartView.swift; sourceTree = "<group>"; };
+		9673746A2733EDAD00A0EC5A /* DeleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteButton.swift; sourceTree = "<group>"; };
 		967EE8CA256E722F008065C9 /* AddImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddImageButton.swift; sourceTree = "<group>"; };
 		968BFD2F27298BF70025108D /* InfoButtonBarGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoButtonBarGraph.swift; sourceTree = "<group>"; };
 		9696F9322726A13A009614F4 /* SortButtonMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortButtonMenu.swift; sourceTree = "<group>"; };
@@ -426,6 +428,7 @@
 				EACD023825D382AD008D12FE /* NumberTotalLearningOjbectivesView.swift */,
 				961962452726C49900ECA524 /* AddLOButton.swift */,
 				96E2DD842726EF170007D49B /* SearchBar.swift */,
+				9673746A2733EDAD00A0EC5A /* DeleteButton.swift */,
 				EA7028D82579F7D000E1B6EB /* MyJourney */,
 			);
 			path = Components;
@@ -677,6 +680,7 @@
 				9696F9352726A764009614F4 /* ContextMenuFilters.swift in Sources */,
 				EA686EF9256EE4F300C121DC /* TopBarJourney.swift in Sources */,
 				96CC613F257A38FC00CE7ABD /* DropDownMenuFilters.swift in Sources */,
+				9673746B2733EDAD00A0EC5A /* DeleteButton.swift in Sources */,
 				EA686F2E256F25CF00C121DC /* Extensions.swift in Sources */,
 				EA686F25256EFBFA00C121DC /* SearchBarExpandableJourney.swift in Sources */,
 				9670A976257105290043F227 /* StartView.swift in Sources */,

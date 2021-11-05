@@ -27,7 +27,7 @@ struct ProfileImage: View {
             return Image(nsImage: nsImage)
         } else {
             defer { self.toToggle.toggle() }
-            return Image("Student")
+            return Image("profile-placeholder")
         }
     }
 }
@@ -43,7 +43,7 @@ struct StudentPictureView: View {
     private var student: FetchedResults<Student>
     
     var size: CGFloat = 140
-    @State var imageName: String = "student"
+    @State var imageName: String = "profile-placeholder"
     @State var imageData : Data?
     let shared = singleton_Shared.shared
     

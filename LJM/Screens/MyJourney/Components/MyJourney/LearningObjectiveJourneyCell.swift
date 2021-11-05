@@ -11,6 +11,8 @@ struct LearningObjectiveJourneyCell: View {
     var isLearningGoalAdded: Bool?
     @Binding var learningPathSelected : String?
     
+    @State private var showingAlert = false
+    
     var learningObj: learning_Objective
     
     var body: some View {
@@ -67,6 +69,17 @@ struct LearningObjectiveJourneyCell: View {
                                 AddButton(learningObjectiveSelected: learningObj, buttonSize: 27).padding(.trailing, 60).padding(.top, 20)
                             }
                         }
+//
+//                        Button(action: {
+//                                  print("button pressed")
+//
+//                                }) {
+//                                    Image(systemName: "x.circle.fill")
+//                                        .frame(width: 50, height: 50)
+////                                    .renderingMode(.original)
+//                                }.buttonStyle(PlainButtonStyle())
+////                            .frame(width: 50, height: 50)
+                        
                     }.padding(.leading, 20)
                     .frame(maxHeight: .infinity, alignment: .center)
                     
@@ -129,6 +142,34 @@ struct LearningObjectiveJourneyCell: View {
                         .lineLimit(nil)
                         .fixedSize(horizontal: false, vertical: true)
                         .frame(width: 200)
+//                    Button("Show Alert") {
+//                        showingAlert = true
+//                    }
+                    Spacer()
+                    Spacer()
+                    Spacer()
+                    
+                    VStack{
+                    Button(action: {
+                              print("button pressed")
+                        showingAlert = true
+
+                            }) {
+                                Image(systemName: "trash")
+                                .renderingMode(.original)
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                    .alert(isPresented:$showingAlert) {
+                        Alert(
+                            title: Text("Are you sure you want to delete this Learning Objective?"),
+                            message: Text("You can't undo this action"),
+                            primaryButton: .destructive(Text("Delete")) {
+                                print("Deleting...")
+                            },
+                            secondaryButton: .cancel()
+                        )
+                    }
+                }
                 }.frame(width: 260, height: 100, alignment: .center)
                     .isHidden(self.isAddable ? true : false)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
