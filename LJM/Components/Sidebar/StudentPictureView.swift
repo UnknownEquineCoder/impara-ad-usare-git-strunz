@@ -70,11 +70,15 @@ struct StudentPictureView: View {
                     .padding()
                     .shadow(color: Color.black.opacity(0.36), radius: 5, x: 0, y: 5)
                     .onAppear {
-                        if let first_Student = student.first{
+                        if let first_Student = student.last{
                             PersistenceController.shared.fetched_Profile = student
                             if let image_Data = first_Student.image as? Data {
                                 imageData = image_Data
+                            } else {
+                                print("@@@@@@ problem2")
                             }
+                        } else {
+                            print("@@@@@@ problem1")
                         }
                     }
                 
