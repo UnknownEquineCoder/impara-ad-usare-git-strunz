@@ -43,15 +43,15 @@ struct LearningObjectiveJourneyCell: View {
                         Text(learningObj.description)
                             .foregroundColor(colorScheme == .dark ? Color(red: 224/255, green: 224/255, blue: 224/255) : Color.customLightBlack)
                             .font(.system(size: 24.toFontSize(), weight: .regular))
-                            .frame(maxWidth: 400, maxHeight: .infinity, alignment: .leading)
                             .lineLimit(self.expand ? nil : 4).padding()
+                            .padding(.trailing, 20)
                         
                         Spacer()
                         
                         if self.isLearningGoalAdded != nil {
                             if learningObj.eval_score.count > 0 {
                                 RatingView(learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
-                                    .padding(.top, 15).padding(.trailing, 30)
+                                    .padding(.top, 15).padding(.trailing, 30).padding(.leading, 20)
                                     .onAppear(perform: {
                                         self.isRatingView.toggle()
                                     })
