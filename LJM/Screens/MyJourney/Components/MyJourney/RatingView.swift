@@ -63,13 +63,12 @@ struct RatingView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 15, height: 15, alignment: .center)
-                .foregroundColor(learningObj.isCore ? Color.customLightGrey : Color.clear)
+                .foregroundColor(learningObj.isCore ? Color.customDarkGrey : Color.clear)
             
         }
     }
     
     func setupGoalRating() -> CGFloat {
-       // let fakePaths = ["Design", "Front","Back", "Game","Business"]
         
         let learningPathIndex = learningPathStore.learningPaths.firstIndex(where: { $0.title.lowercased() == learningPathSelected?.lowercased() }) ?? -1
         //        Design,Front,Back,Game,Business
