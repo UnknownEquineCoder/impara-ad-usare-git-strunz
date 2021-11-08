@@ -27,7 +27,7 @@ struct ProfileImage: View {
             return Image(nsImage: nsImage)
         } else {
             defer { self.toToggle.toggle() }
-            return Image("profile-placeholder")
+            return Image("UserPlaceholder")
         }
     }
 }
@@ -43,7 +43,7 @@ struct StudentPictureView: View {
     private var student: FetchedResults<Student>
     
     var size: CGFloat = 140
-    @State var imageName: String = "profile-placeholder"
+    @State var imageName: String = "UserPlaceholder"
     @State var imageData : Data?
     let shared = singleton_Shared.shared
     
@@ -70,7 +70,7 @@ struct StudentPictureView: View {
                     .padding()
                     .shadow(color: Color.black.opacity(0.36), radius: 5, x: 0, y: 5)
                     .onAppear {
-                        if let first_Student = student.first{
+                        if let first_Student = student.last{
                             PersistenceController.shared.fetched_Profile = student
                             if let image_Data = first_Student.image as? Data {
                                 imageData = image_Data
@@ -86,7 +86,7 @@ struct StudentPictureView: View {
                 
             }
             
-            ProfileNameLabel(qualifiedName: "\(shared.profile_data.name)").frame(width: 150)
+            ProfileNameLabel(qualifiedName: student.last?.name ?? "name").frame(width: 150, height: 150)
                 .onTapGesture {
                     KeychainWrapper.standard.removeObject(forKey: "tokenAuth")
             
