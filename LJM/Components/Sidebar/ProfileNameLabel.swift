@@ -37,9 +37,3 @@ struct ProfileNameLabel: View {
         }
     }
 }
-
-//struct ProfileNameLabel_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ProfileNameLabel(qualifiedName: "Student Name")
-//    }
-//}
