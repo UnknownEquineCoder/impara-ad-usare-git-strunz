@@ -145,31 +145,31 @@ struct LearningObjectiveJourneyCell: View {
 //                    Button("Show Alert") {
 //                        showingAlert = true
 //                    }
-                    Spacer()
-                    Spacer()
-                    Spacer()
-                    
-                    VStack{
-                    Button(action: {
-                              print("button pressed")
-                        showingAlert = true
-
-                            }) {
-                                Image(systemName: "trash")
-                                .renderingMode(.original)
-                            }
-                            .buttonStyle(PlainButtonStyle())
-                    .alert(isPresented:$showingAlert) {
-                        Alert(
-                            title: Text("Are you sure you want to delete this Learning Objective?"),
-                            message: Text("You can't undo this action"),
-                            primaryButton: .destructive(Text("Delete")) {
-                                print("Deleting...")
-                            },
-                            secondaryButton: .cancel()
-                        )
-                    }
-                }
+//                    Spacer()
+//                    Spacer()
+//                    Spacer()
+//
+//                    VStack{
+//                    Button(action: {
+//                              print("button pressed")
+//                        showingAlert = true
+//
+//                            }) {
+//                                Image(systemName: "trash")
+//                                .renderingMode(.original)
+//                            }
+//                            .buttonStyle(PlainButtonStyle())
+//                    .alert(isPresented:$showingAlert) {
+//                        Alert(
+//                            title: Text("Are you sure you want to delete this Learning Objective?"),
+//                            message: Text("You can't undo this action"),
+//                            primaryButton: .destructive(Text("Delete")) {
+//                                print("Deleting...")
+//                            },
+//                            secondaryButton: .cancel()
+//                        )
+//                    }
+//                }
                 }.frame(width: 260, height: 100, alignment: .center)
                     .isHidden(self.isAddable ? true : false)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
