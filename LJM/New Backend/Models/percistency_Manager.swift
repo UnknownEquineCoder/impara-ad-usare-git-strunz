@@ -42,13 +42,16 @@ struct PersistenceController {
     
     /// function for update the profile
 
-    func update_Profile(image : Data, name : String){
+    func update_Profile(image : Data?, name : String){
         let context = PersistenceController.shared.container.viewContext
         
         let new_Student = Student(context: context)
         
         new_Student.name = name
-        new_Student.image = image as NSObject
+        if let image_Confirmed = image {
+            new_Student.image = image_Confirmed as NSObject
+        }
+        
         
         if let profile = fetched_Profile {
             if let last_Student = profile.last {
