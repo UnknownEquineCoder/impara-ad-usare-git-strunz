@@ -90,7 +90,7 @@ struct StudentPictureView: View {
                 
             }
             
-            ProfileNameLabel(name: $username, image_Data: $imageData)
+            ProfileNameLabel(name: $username, image_Data: $imageData).frame(width: 150)
                 .onTapGesture {
                     KeychainWrapper.standard.removeObject(forKey: "tokenAuth")
 //
