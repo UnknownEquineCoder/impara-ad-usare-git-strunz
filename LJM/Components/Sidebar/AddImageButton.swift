@@ -14,6 +14,7 @@ struct AddImageButton: View {
     var buttonSize: CGFloat
     @Binding var imageName: String
     @Binding var imageData : Data?
+    @Binding var username : String
     
     var body: some View {
         Button{
@@ -40,8 +41,7 @@ struct AddImageButton: View {
                     
                     if let image_Data = data {
                         imageData = image_Data
-                        
-                        PersistenceController.shared.update_Image(data: image_Data)
+                        PersistenceController.shared.update_Profile(image: image_Data, name: username)
                     }
                     
                     

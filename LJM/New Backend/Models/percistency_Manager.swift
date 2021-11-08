@@ -40,6 +40,37 @@ struct PersistenceController {
         })
     }
     
+    /// function for update the profile
+
+    func update_Profile(image : Data?, name : String){
+        let context = PersistenceController.shared.container.viewContext
+        
+        let new_Student = Student(context: context)
+        
+        new_Student.name = name
+        if let image_Confirmed = image {
+            new_Student.image = image_Confirmed as NSObject
+        }
+        
+        
+        if let profile = fetched_Profile {
+            if let last_Student = profile.last {
+                context.delete(last_Student)
+            }
+        }
+        
+        do {
+            // save the context with new element added
+            try context.save()
+        } catch {
+            // Replace this implementation with code to handle the error appropriately.
+            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
+        
+    }
+    
     /// function for update the name
     // for update the file
     func update_Image(data : Data){
