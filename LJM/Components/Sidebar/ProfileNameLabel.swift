@@ -37,3 +37,25 @@ struct ProfileNameLabel: View {
         }
     }
 }
+
+extension String {
+    init(sep:String, _ lines:String...){
+        self = ""
+        for (idx, item) in lines.enumerated() {
+            self += "\(item)"
+            if idx < lines.count-1 {
+                self += sep
+            }
+        }
+    }
+
+    init(_ lines:String...){
+        self = ""
+        for (idx, item) in lines.enumerated() {
+            self += "\(item)"
+            if idx < lines.count-1 {
+                self += "\n"
+            }
+        }
+    }
+}
