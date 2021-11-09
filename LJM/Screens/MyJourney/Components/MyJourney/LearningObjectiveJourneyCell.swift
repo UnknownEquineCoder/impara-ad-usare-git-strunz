@@ -183,7 +183,8 @@ struct LearningObjectiveJourneyCell: View {
                 HStack {
                     Divider()
                         .background(Color(red: 70/255, green: 70/255, blue: 70/255)).padding(.top, 20).padding(.bottom, 20).padding(.trailing, 250)
-                        .isHidden(self.isRatingView ? false : true)
+                        .padding(.trailing, !isAddable ? 25 : 0)
+                    
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .trailing)
                 .zIndex(1)
