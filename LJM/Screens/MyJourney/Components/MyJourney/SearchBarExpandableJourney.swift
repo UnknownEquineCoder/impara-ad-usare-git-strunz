@@ -29,14 +29,6 @@ struct SearchBarExpandableJourney: View {
                         .foregroundColor(Color.customBlack)
                         .textFieldStyle(RoundedBorderTextFieldStyle.init())
                     
-//                    Rectangle()
-//                        .frame(height: 1)
-//                        .foregroundColor(.customDarkGrey)
-//                        .opacity(0.5)
-//                        .padding(.leading, 10)
-//                        .padding(.trailing, 10)
-//                        .padding(.top, 30)
-                    
                     Button(action: {
                         withAnimation {
                             self.txtSearchBar = ""
