@@ -134,7 +134,7 @@ struct LearningObjectiveJourneyCell: View {
                 }
                 
                 VStack(alignment: .center, spacing: 5) {
-                    Spacer().frame(height: 200)
+                    Spacer().frame(height: 300)
                     Text(setupTitleProgressRubric(value: learningObj.eval_score.last ?? 0))
                         .font(.system(size: 16, weight: .medium))
                         .foregroundColor(Color.customCyan)
@@ -148,9 +148,8 @@ struct LearningObjectiveJourneyCell: View {
                     //                    Button("Show Alert") {
                     //                        showingAlert = true
                     //                    }
-                    Spacer()
-                    Spacer()
-                    Spacer()
+                    
+                    Spacer().frame(height: 50)
                     
                     VStack {
                         Button(action: {
@@ -184,7 +183,8 @@ struct LearningObjectiveJourneyCell: View {
                 HStack {
                     Divider()
                         .background(Color(red: 70/255, green: 70/255, blue: 70/255)).padding(.top, 20).padding(.bottom, 20).padding(.trailing, 250)
-                        .isHidden(self.isRatingView ? false : true)
+                        .padding(.trailing, !isAddable ? 25 : 0)
+                    
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .trailing)
                 .zIndex(1)
