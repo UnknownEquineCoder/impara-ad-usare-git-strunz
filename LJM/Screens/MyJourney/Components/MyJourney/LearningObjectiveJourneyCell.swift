@@ -203,7 +203,6 @@ struct LearningObjectiveJourneyCell: View {
                 self.expand.toggle()
             }
         }
-        
     }
     
     func setupTitleProgressRubric(value: Int) -> String {
