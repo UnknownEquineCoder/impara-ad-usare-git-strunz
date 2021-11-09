@@ -12,8 +12,9 @@ struct ProfileNameLabel: View {
     @Environment(\.colorScheme) var colorScheme
     @Binding var name : String
     @Binding var image_Data : Data?
+    
     var body: some View {
-        VStack{
+        VStack(alignment: .leading){
             Text("Hello,")
                 .fontWeight(.regular)
                 .font(.system(size: 25.toFontSize()))
@@ -22,40 +23,44 @@ struct ProfileNameLabel: View {
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.trailing, 95)
             
+//            if name.isEmpty {
+//                            Text("Placeholder Text")
+//                        }
+            
+//            TextEditor(text: $name).background(Color.clear)
+//                .onChange(of: name, perform: { _ in
+//                PersistenceController.shared.update_Profile(image: image_Data, name: name)
+//            })
+//                .font(.system(size: 25.toFontSize()))
+//                .textFieldStyle(PlainTextFieldStyle())
+//                .font(Font.headline.weight(.regular))
+//                .foregroundColor(colorScheme == .dark ? .white : Color(red: 70/255, green: 70/255, blue: 70/255))
+//                .multilineTextAlignment(.leading)
+//                .fixedSize(horizontal: false, vertical: true)
+//                .lineLimit(3)
+            
             TextField("Name", text: $name, onCommit: {
                 PersistenceController.shared.update_Profile(image: image_Data, name: name)
             })
                 .font(.system(size: 25.toFontSize()))
-            .textFieldStyle(PlainTextFieldStyle())
-            .font(Font.headline.weight(.regular))
+                .textFieldStyle(PlainTextFieldStyle())
+                .font(Font.headline.weight(.regular))
                 .foregroundColor(colorScheme == .dark ? .white : Color(red: 70/255, green: 70/255, blue: 70/255))
                 .multilineTextAlignment(.leading)
                 .fixedSize(horizontal: false, vertical: true)
                 .lineLimit(3)
-                .scaledToFit()
+                
             
         }
     }
 }
 
-extension String {
-    init(sep:String, _ lines:String...){
-        self = ""
-        for (idx, item) in lines.enumerated() {
-            self += "\(item)"
-            if idx < lines.count-1 {
-                self += sep
-            }
+extension NSTextView {
+    open override var frame: CGRect {
+        didSet {
+            backgroundColor = .clear //<<here clear
+            drawsBackground = true
         }
-    }
 
-    init(_ lines:String...){
-        self = ""
-        for (idx, item) in lines.enumerated() {
-            self += "\(item)"
-            if idx < lines.count-1 {
-                self += "\n"
-            }
-        }
     }
 }
