@@ -27,7 +27,7 @@ struct ProfileImage: View {
             return Image(nsImage: nsImage)
         } else {
             defer { self.toToggle.toggle() }
-            return Image("profile-placeholder")
+            return Image("UserPlaceholder")
         }
     }
 }
@@ -43,8 +43,9 @@ struct StudentPictureView: View {
     private var student: FetchedResults<Student>
     
     var size: CGFloat = 140
-    @State var imageName: String = "profile-placeholder"
+    @State var imageName: String = "UserPlaceholder"
     @State var imageData : Data?
+    @State var username : String = "Name"
     let shared = singleton_Shared.shared
     
     var profileImage: Image {
@@ -70,10 +71,13 @@ struct StudentPictureView: View {
                     .padding()
                     .shadow(color: Color.black.opacity(0.36), radius: 5, x: 0, y: 5)
                     .onAppear {
-                        if let first_Student = student.first{
+                        if let first_Student = student.last{
                             PersistenceController.shared.fetched_Profile = student
                             if let image_Data = first_Student.image as? Data {
                                 imageData = image_Data
+                            }
+                            if let student_Name = first_Student.name {
+                                username = student_Name
                             }
                         }
                     }
@@ -81,18 +85,18 @@ struct StudentPictureView: View {
                 Circle()
                     .strokeBorder(LinearGradient(gradient: Gradient(colors: [Color("Light green"), Color("Dark green")]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 3)
                     .frame(width: size.toScreenSize(), height: size.toScreenSize(), alignment: .leading)
-                AddImageButton(buttonSize: (size/4).toScreenSize(), imageName: $imageName, imageData: $imageData)
+                AddImageButton(buttonSize: (size/4).toScreenSize(), imageName: $imageName, imageData: $imageData, username: $username)
                     .padding([.top, .leading], 0.66*size.toScreenSize())
                 
             }
             
-            ProfileNameLabel(qualifiedName: "\(shared.profile_data.name)").frame(width: 150)
+            ProfileNameLabel(name: $username, image_Data: $imageData).frame(width: 150)
                 .onTapGesture {
                     KeychainWrapper.standard.removeObject(forKey: "tokenAuth")
-            
-//            ProfileNameLabel(qualifiedName: "\(LJM.storage.user.name ?? "") \(LJM.storage.user.surname ?? "Surname")").frame(width: 150)
-//                .onTapGesture {
-//                    KeychainWrapper.standard.removeObject(forKey: "tokenAuth")
+//
+////            ProfileNameLabel(qualifiedName: "\(LJM.storage.user.name ?? "") \(LJM.storage.user.surname ?? "Surname")").frame(width: 150)
+////                .onTapGesture {
+////                    KeychainWrapper.standard.removeObject(forKey: "tokenAuth")
                 }
         }
         .padding(.trailing)

@@ -44,7 +44,7 @@ struct CompassView: View {
     @State var tecnical_Progress : [Double] = [5,5,5,5,5,5,5,5,5,5,5,5]
     @State var business_Progress : [Double] = [5,5,5,5,5,5,5,5,5,5,5,5]
 
-    let fakePaths = ["Design", "Front","Back", "Game","Business"]
+    let fakePaths = ["Design", "Frontend","Backend", "Game","Business"]
     
     @EnvironmentObject var learningPathStore: LearningPathStore
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
