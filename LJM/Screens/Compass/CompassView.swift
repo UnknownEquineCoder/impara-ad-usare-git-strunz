@@ -43,11 +43,10 @@ struct CompassView: View {
     @State var professional_Progress : [Double] = [5,5,5,5,5,5,5,5,5,5,5,5]
     @State var tecnical_Progress : [Double] = [5,5,5,5,5,5,5,5,5,5,5,5]
     @State var business_Progress : [Double] = [5,5,5,5,5,5,5,5,5,5,5,5]
-
-    let fakePaths = ["Design", "Frontend","Backend", "Game","Business"]
     
     @EnvironmentObject var learningPathStore: LearningPathStore
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
+    @EnvironmentObject var strandsStore: StrandsStore
     
     var body: some View {
         
@@ -124,7 +123,7 @@ struct CompassView: View {
                                     .font(.system(size: 25.toFontSize()))
                                     .foregroundColor(colorScheme == .dark ? Color(red: 221/255, green: 221/255, blue: 221/255) : Color(red: 129/255, green: 129/255, blue: 129/255))
                                 
-                                DropDownMenuCompass(selectedPath: $path, fakePaths: fakePaths)
+                                DropDownMenuCompass(selectedPath: $path)
                                     .onChange(of: path) { _ in
                                         DispatchQueue.main.asyncAfter(deadline: .now()) {
                                             animation_Trigger = false
