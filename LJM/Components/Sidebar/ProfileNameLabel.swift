@@ -22,7 +22,7 @@ struct ProfileNameLabel: View {
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.trailing, 95)
             
-            TextField("Name Surname", text: $name, onCommit: {
+            TextField("Name", text: $name, onCommit: {
                 PersistenceController.shared.update_Profile(image: image_Data, name: name)
             })
                 .font(.system(size: 25.toFontSize()))
