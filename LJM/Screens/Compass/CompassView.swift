@@ -267,7 +267,6 @@ struct CompassView: View {
                 business_Progress[index] = (business_Progress[index] / CGFloat(business_Progress_Quantity[index]))
             }
         }
-        
     }
     
     func green_Light_Path_Graph_Data() {
@@ -275,7 +274,7 @@ struct CompassView: View {
         data_Path_Front_Array = [0,0,0,0,0]
         var path_Index = 0
         var data_Quantity = [0,0,0,0,0]
-        path_Index = fakePaths.firstIndex(of: path) ?? 1
+        path_Index = learningPathStore.learningPaths.firstIndex(where: {$0.title == path}) ?? 1
         
         // filter for tonio cartonio
         let filtered_Objectives = learningObjectiveStore.learningObjectives.filter({ ($0.core_Rubric_Levels[path_Index + 1] * $0.core_Rubric_Levels[0]) > 1})

@@ -17,11 +17,11 @@ struct DropDownMenuCompass: View{
 
     var body: some View {
         Menu {
-            ForEach(fakePaths, id: \.self) { path in
+            ForEach(learningPathStore.learningPaths, id: \.self) { path in
                 Button {
-                    selectedPath = path
+                    selectedPath = path.title
                 } label: {
-                    Text(path)
+                    Text(path.title)
                 }
             }
         } label: {

@@ -121,7 +121,8 @@ struct ScrollViewLearningObjectives: View {
     var body: some View {
         ScrollView {
             LazyVStack(spacing: 20) {
-                ForEach(filteredLearningObjectivesMyJourney.sorted(by: { first, second in
+                ForEach(filteredLearningObjectivesMyJourney
+                    .sorted(by: { first, second in
                     switch filterSort {
                     case .leastEvalFirst:
                         return first.eval_date.count < second.eval_date.count
@@ -145,6 +146,7 @@ struct ScrollViewLearningObjectives: View {
                 }), id: \.ID) { item in
                         if let strand = item.strand {
                             if self.selectedStrands.contains(strand) || self.selectedStrands.count == 0 {
+                                
                                 LearningObjectiveJourneyCell(rating: item.eval_score.last ?? 0, isRatingView: item.eval_score.count > 0, isAddable: isAddable, isLearningGoalAdded: isLearningGoalAdded == nil ? nil : (isLearningGoalAdded ?? false && item.eval_score.count > 0), learningPathSelected: self.$learningPathSelected, learningObj: item)
                                     .contextMenu {
                                         if !isAddable {
@@ -161,7 +163,6 @@ struct ScrollViewLearningObjectives: View {
                                     }
                                 }
                         }
-//                    }
                 }
             }
         }.padding(.bottom, 60)
@@ -186,32 +187,25 @@ struct ScrollViewLearningObjectives: View {
                 self.totalNumberLearningObjectivesStore.total = self.filteredLearningObjectivesMyJourney.count
             }
         }
+//        .onChange(of: self.filterEvaluatedOrNot) { result in
+//            print("oiqjsdoi \(result)")
+//            if result == .evaluated {
+//                print("iojqofdijdf")
+//                self.totalNumberLearningObjectivesStore.total = self.filteredLearningObjectivesMyJourney.filter({ (LO) -> Bool in
+//                        LO.eval_score.count > 0
+//                }).count
+//            } else {
+//                print("qoijsdiopqd")
+//                self.totalNumberLearningObjectivesStore.total = self.filteredLearningObjectivesMyJourney.filter({ (LO) -> Bool in
+//                        LO.eval_score.count == 0
+//                }).count
+//            }
+//        }
         .onReceive(totalNumberLearningObjectivesStore.$changeViewTotal) { (result) in
             self.totalNumberLearningObjectivesStore.total = self.filteredLearningObjectivesMyJourney.count
+            
         }
     }
-    
-//    func sortLearningObjectivesWithFilter() -> [learning_Objective] {
-//
-//        let objectives = self.learningObjectiveStore.learningObjectives
-//
-//        switch filterSort {
-//        case .byDate:
-//            return objectives
-////                .sorted { $0.eval_date.first ?? <#default value#> < $1.eval_date.first }
-//        case .alphabetic:
-//            return objectives
-////                .sorted { $0.strand.sorted() }
-//        case .mostEvalFirst:
-//            return objectives
-//
-//        case .leastEvalFirst:
-//            return objectives
-//
-//        default:
-//            return objectives
-//        }
-//    }
     
     func checkForFilterEvaluatedOrNot() -> [learning_Objective] {
         return filterEvaluatedOrNot == nil ? learningObjectiveStore.learningObjectives : (filterEvaluatedOrNot == .evaluated ? learningObjectiveStore.learningObjectives.filter({$0.eval_score.count > 0}) : learningObjectiveStore.learningObjectives.filter({$0.eval_score.count == 0}))
