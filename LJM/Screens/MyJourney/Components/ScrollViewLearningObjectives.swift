@@ -115,7 +115,7 @@ struct ScrollViewLearningObjectives: View {
     var isAddable = false
     var isLearningGoalAdded: Bool?
     
-    var textFromSearchBar: String
+    @Binding var textFromSearchBar: String
     var selectedStrands: [String]
     
     var body: some View {
@@ -147,7 +147,15 @@ struct ScrollViewLearningObjectives: View {
                         if let strand = item.strand {
                             if self.selectedStrands.contains(strand) || self.selectedStrands.count == 0 {
                                 
-                                LearningObjectiveJourneyCell(rating: item.eval_score.last ?? 0, isRatingView: item.eval_score.count > 0, isAddable: isAddable, isLearningGoalAdded: isLearningGoalAdded == nil ? nil : (isLearningGoalAdded ?? false && item.eval_score.count > 0), learningPathSelected: self.$learningPathSelected, learningObj: item)
+                                LearningObjectiveJourneyCell(
+                                    rating: item.eval_score.last ?? 0,
+                                    isRatingView: item.eval_score.count > 0,
+                                    filter_Text: $textFromSearchBar,
+                                    isAddable: isAddable,
+                                    isLearningGoalAdded: isLearningGoalAdded == nil ? nil : (isLearningGoalAdded ?? false && item.eval_score.count > 0),
+                                    learningPathSelected: self.$learningPathSelected,
+                                    learningObj: item)
+                                
                                     .contextMenu {
                                         if !isAddable {
                                             Button {
@@ -165,7 +173,8 @@ struct ScrollViewLearningObjectives: View {
                         }
                 }
             }
-        }.padding(.bottom, 60)
+        }
+        .padding(.bottom, 60)
         .onChange(of: self.filteredLearningObjectivesMyJourney) { result in
             self.totalNumberLearningObjectivesStore.total = result.count
         }
@@ -187,20 +196,6 @@ struct ScrollViewLearningObjectives: View {
                 self.totalNumberLearningObjectivesStore.total = self.filteredLearningObjectivesMyJourney.count
             }
         }
-//        .onChange(of: self.filterEvaluatedOrNot) { result in
-//            print("oiqjsdoi \(result)")
-//            if result == .evaluated {
-//                print("iojqofdijdf")
-//                self.totalNumberLearningObjectivesStore.total = self.filteredLearningObjectivesMyJourney.filter({ (LO) -> Bool in
-//                        LO.eval_score.count > 0
-//                }).count
-//            } else {
-//                print("qoijsdiopqd")
-//                self.totalNumberLearningObjectivesStore.total = self.filteredLearningObjectivesMyJourney.filter({ (LO) -> Bool in
-//                        LO.eval_score.count == 0
-//                }).count
-//            }
-//        }
         .onReceive(totalNumberLearningObjectivesStore.$changeViewTotal) { (result) in
             self.totalNumberLearningObjectivesStore.total = self.filteredLearningObjectivesMyJourney.count
             

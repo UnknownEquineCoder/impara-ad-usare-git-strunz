@@ -58,7 +58,7 @@ struct LearningGoalsView: View {
                     .padding(.top, 75)
                     .isHidden(self.totalNumberLearningObjectivesStore.total == 0 ? false : true)
                 
-                ScrollViewLearningObjectives(learningPathSelected: $selectedPath, filterCompass: selectedFilter, filterLearningGoal: titleView, isLearningGoalAdded: false, textFromSearchBar: searchText, selectedStrands: selectedStrands)
+                ScrollViewLearningObjectives(learningPathSelected: $selectedPath, filterCompass: selectedFilter, filterLearningGoal: titleView, isLearningGoalAdded: false, textFromSearchBar: $searchText, selectedStrands: selectedStrands)
                     .padding(.top, 50)
                 
             }.frame(maxWidth: .infinity).padding(.top, 10)
