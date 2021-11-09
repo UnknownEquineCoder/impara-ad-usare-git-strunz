@@ -140,22 +140,17 @@ struct LearningObjectiveJourneyCell: View {
                         .lineLimit(nil)
                         .fixedSize(horizontal: false, vertical: true)
                         .frame(width: 200)
-                    //                    Button("Show Alert") {
-                    //                        showingAlert = true
-                    //                    }
+
                     
                     Spacer().frame(height: 50)
                     
                     VStack {
                         Button(action: {
-                            let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObj.ID})!
-                            
-                            learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
-                            
                             showingAlert = true
                         }) {
                             Image(systemName: "trash")
                                 .renderingMode(.original)
+                                .foregroundColor(Color.red)
                                 .isHidden(!(learningObj.eval_score.count > 0))
                         }
                         .buttonStyle(PlainButtonStyle())
@@ -165,6 +160,8 @@ struct LearningObjectiveJourneyCell: View {
                                 message: Text("You can't undo this action"),
                                 primaryButton: .destructive(Text("Delete")) {
                                     print("Deleting...")
+                                    let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObj.ID})!
+                                    learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
                                 },
                                 secondaryButton: .cancel()
                             )
@@ -198,7 +195,6 @@ struct LearningObjectiveJourneyCell: View {
                 self.expand.toggle()
             }
         }
-        
     }
     
     private func generateContent(in g: GeometryProxy) -> some View {

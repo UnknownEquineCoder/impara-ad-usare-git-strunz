@@ -88,23 +88,23 @@ struct ScrollViewLearningObjectives: View {
     var filteredCompass: [learning_Objective] {
         switch filterCompass {
             
-        case "Core":
+        case "COMMUNAL":
             return sortLearningObjectivesCompass(learningGoal: filterLearningGoal ?? "No Learning Goal")
                 .filter { $0.isCore }
                 .sorted { $0.goal.lowercased() < $1.goal.lowercased() }
-        case "Elective":
+        case "ELECTIVE":
             return sortLearningObjectivesCompass(learningGoal: filterLearningGoal ?? "No Learning Goal")
                 .filter { !($0.isCore) }
                 .sorted { $0.goal.lowercased() < $1.goal.lowercased() }
-        case "Added":
+        case "EVALUATED":
             return sortLearningObjectivesCompass(learningGoal: filterLearningGoal ?? "No Learning Goal")
                 .filter { !$0.eval_score.isEmpty }
                 .sorted { $0.goal.lowercased() < $1.goal.lowercased() }
-        case "Not Added":
+        case "NOT EVALUATED":
             return sortLearningObjectivesCompass(learningGoal: filterLearningGoal ?? "No Learning Goal")
                 .filter { $0.eval_score.isEmpty }
                 .sorted { $0.goal.lowercased() < $1.goal.lowercased() }
-        case "All":
+        case "FULL MAP":
             return sortLearningObjectivesCompass(learningGoal: filterLearningGoal ?? "No Learning Goal")
                 .sorted { $0.goal.lowercased() < $1.goal.lowercased() }
         default:
