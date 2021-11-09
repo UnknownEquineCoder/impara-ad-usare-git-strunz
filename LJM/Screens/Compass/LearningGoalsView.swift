@@ -55,7 +55,7 @@ struct LearningGoalsView: View {
                     .font(.system(size: 15, weight: .medium, design: .rounded))
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                ScrollViewLearningObjectives(learningPathSelected: Binding.constant(nil), filterCompass: "All", filterLearningGoal: titleView, isLearningGoalAdded: false, textFromSearchBar: searchText, selectedStrands: [])
+                ScrollViewLearningObjectives(learningPathSelected: Binding.constant(nil), filterCompass: "All", filterLearningGoal: titleView, isLearningGoalAdded: false, textFromSearchBar: $searchText, selectedStrands: [])
                     .padding(.top, 50)
                     
             }.frame(maxWidth: .infinity).padding(.top, 10)

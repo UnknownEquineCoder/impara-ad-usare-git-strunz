@@ -6,6 +6,7 @@ struct LearningObjectiveJourneyCell: View {
     @State var isRatingView: Bool
     var value : Int = 0
     @Environment(\.colorScheme) var colorScheme
+    @Binding var filter_Text : String
     
     var isAddable = false
     var isLearningGoalAdded: Bool?
@@ -14,6 +15,8 @@ struct LearningObjectiveJourneyCell: View {
     @State private var showingAlert = false
     
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
+    
+    @State private var totalHeight = CGFloat.infinity
     
     var learningObj: learning_Objective
     
@@ -72,16 +75,6 @@ struct LearningObjectiveJourneyCell: View {
                                 AddButton(learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27).padding(.trailing, 60).padding(.top, 20)
                             }
                         }
-                        //
-                        //                        Button(action: {
-                        //                                  print("button pressed")
-                        //
-                        //                                }) {
-                        //                                    Image(systemName: "x.circle.fill")
-                        //                                        .frame(width: 50, height: 50)
-                        ////                                    .renderingMode(.original)
-                        //                                }.buttonStyle(PlainButtonStyle())
-                        ////                            .frame(width: 50, height: 50)
                         
                     }.padding(.leading, 20)
                         .frame(maxHeight: .infinity, alignment: .center)
@@ -97,13 +90,15 @@ struct LearningObjectiveJourneyCell: View {
                                 
                                 Spacer()
                                 
-                                Text("#\(learningObj.Keyword.joined(separator: " #"))")
+                                
+                                GeometryReader { geometry in
+                                    generateContent(in: geometry)
+                                }
+                                .frame( height: 50)
                                     .foregroundColor(Color.customLightBlack)
                                     .font(.system(size: 16, weight: .medium))
-                                    .lineLimit(4)
-                                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
-                                    .padding(.leading, 110).padding(.trailing, 50)
-                                    .frame(height: 50)
+                                    .padding(.leading, 110)
+                                    .padding(.trailing, 50)
                                 
                                 Spacer()
                             }
@@ -204,6 +199,94 @@ struct LearningObjectiveJourneyCell: View {
             }
         }
         
+    }
+    
+    private func generateContent(in g: GeometryProxy) -> some View {
+            var width = CGFloat.zero
+            var height = CGFloat.zero
+
+            return ZStack(alignment: .topLeading) {
+                ForEach(learningObj.Keyword, id: \.self) { keyword in
+                    Text("#\(keyword.replacingOccurrences(of: " ", with: "_")) ")
+                        .onTapGesture {
+                            withAnimation {
+                                filter_Text = keyword
+                            }
+                            
+                        }
+                        .onLongPressGesture {
+                            let pasteboard = NSPasteboard.general
+                            pasteboard.clearContents()
+                            pasteboard.setString(keyword, forType: .string)
+                        }
+                        .padding([.horizontal, .vertical], 4)
+                        .alignmentGuide(.leading, computeValue: { d in
+                            if (abs(width - d.width) > g.size.width)
+                            {
+                                width = 0
+                                height -= d.height
+                            }
+                            let result = width
+                            if keyword == learningObj.Keyword.last! {
+                                width = 0 //last item
+                            } else {
+                                width -= d.width
+                            }
+                            return result
+                        })
+                        .alignmentGuide(.top, computeValue: {d in
+                            let result = height
+                            if keyword == learningObj.Keyword.last! {
+                                height = 0 // last item
+                            }
+                            return result
+                        })
+                }
+            }
+        }
+    
+//    func generateContent(in g: GeometryProxy) -> some View {
+//        var width = CGFloat.zero
+//        var height = CGFloat.zero
+//
+//        return ZStack(alignment: .topLeading) {
+//            ForEach(learningObj.Keyword, id: \.self) { keyword in
+//                Text("#\(keyword.replacingOccurrences(of: " ", with: "_")) ")
+//                    .padding([.horizontal, .vertical], 4)
+//                    .alignmentGuide(.leading, computeValue: { d in
+//                        if (abs(width - d.width) > g.size.width)
+//                        {
+//                            width = 0
+//                            height -= d.height
+//                        }
+//                        let result = width
+//                        if keyword == self.learningObj.Keyword.last! {
+//                            width = 0 //last item
+//                        } else {
+//                            width -= d.width
+//                        }
+//                        return result
+//                    })
+//                    .alignmentGuide(.top, computeValue: {d in
+//                        let result = height
+//                        if keyword == self.learningObj.Keyword.last! {
+//                            height = 0 // last item
+//                        }
+//                        return result
+//                    })
+//            }
+//        }
+//        .background(viewHeightReader($totalHeight))
+//    }
+    
+    func viewHeightReader(_ binding: Binding<CGFloat>) -> some View {
+        return GeometryReader { geometry -> Color in
+            let rect = geometry.frame(in: .local)
+            DispatchQueue.main.async {
+                binding.wrappedValue = rect.size.height
+            }
+            return .clear
+        }
     }
     
     func setupTitleProgressRubric(value: Int) -> String {

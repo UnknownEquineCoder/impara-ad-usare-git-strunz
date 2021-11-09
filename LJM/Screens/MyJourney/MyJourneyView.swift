@@ -135,7 +135,7 @@ struct ListViewLearningObjectiveMyJourney: View {
                     .padding(.top, 20)
                     .isHidden(self.totalNumberLearningObjectivesStore.total > 0 ? true : false)
                 
-                ScrollViewLearningObjectives(learningPathSelected: $selectedPath, filterCore: selectedFilter, filterSort: selectedSort, isAddable: false, isLearningGoalAdded: nil, textFromSearchBar: txtSearchBar, selectedStrands: selectedStrands)
+                ScrollViewLearningObjectives(learningPathSelected: $selectedPath, filterCore: selectedFilter, filterSort: selectedSort, isAddable: false, isLearningGoalAdded: nil, textFromSearchBar: $txtSearchBar, selectedStrands: selectedStrands)
                 
             }
         } else {
