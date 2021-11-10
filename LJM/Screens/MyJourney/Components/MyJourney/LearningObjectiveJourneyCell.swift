@@ -45,7 +45,7 @@ struct LearningObjectiveJourneyCell: View {
                         
                         Spacer().frame(width: 50)
                         
-                        Text(learningObj.description)
+                        Text("\(learningObj.ID) - \(learningObj.description)")
                             .foregroundColor(colorScheme == .dark ? Color(red: 224/255, green: 224/255, blue: 224/255) : Color.customLightBlack)
                             .font(.system(size: 24.toFontSize(), weight: .regular))
                             .padding(.trailing, 30)
@@ -94,7 +94,7 @@ struct LearningObjectiveJourneyCell: View {
                                 GeometryReader { geometry in
                                     generateContent(in: geometry)
                                 }
-                                .frame( height: 50)
+                                .frame( height: learningObj.Keyword.count > 6 ? 105 : 50)
                                     .foregroundColor(Color.customLightBlack)
                                     .font(.system(size: 16, weight: .medium))
                                     .padding(.leading, 110)
