@@ -62,6 +62,22 @@ struct CompassView: View {
                 colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : Color(red: 245/255, green: 245/255, blue: 245/255)
                 
                 VStack {
+                    
+//                    HStack{
+//                        Button {
+//                            for index in learningObjectiveStore.learningObjectives.indices {
+//                                learningObjectiveStore.learningObjectives[index].eval_date = []
+//                                learningObjectiveStore.learningObjectives[index].eval_score = []
+//                                
+//                                learningObjectiveStore.learningObjectives[index].eval_score.append(Int.random(in: 1...5))
+//                                learningObjectiveStore.learningObjectives[index].eval_date.append(Date())
+//                            }
+//                        } label: {
+//                            Text("Random Generate")
+//                        }
+//
+//                    }
+                    
                     HStack {
                         TitleScreenView(title: "Compass")
                             .padding(.top, 40)
