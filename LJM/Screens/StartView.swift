@@ -19,7 +19,7 @@ struct StartView: View {
     
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     
-    @State var filter_Path = "Design"
+    @State var filter_Path = "UI/UX"
     
     @ViewBuilder
     var body: some View {
@@ -34,11 +34,12 @@ struct StartView: View {
                             ForEach(OutlineMenu.allCases) { menu in
                                 ZStack(alignment: .leading) {
                                     OutlineRow(item: menu, selectedMenu: self.$selectedMenu)
-                                        .frame(height: 54)
+                                        .frame(height: 54).padding([.leading, .trailing], 10)
                                     if menu == self.selectedMenu {
-                                        Rectangle()
+                                        RoundedRectangle(cornerRadius: 8)
                                             .foregroundColor(Color.secondary.opacity(0.1))
                                             .frame(height: 54)
+                                            .padding([.leading, .trailing], 10)
                                     }
                                 }
                             }
