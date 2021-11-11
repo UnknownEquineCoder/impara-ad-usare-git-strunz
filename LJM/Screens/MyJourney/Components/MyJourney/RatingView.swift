@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RatingView: View {
-    
+
     @State var learningObj: learning_Objective
     
     @Binding var rating: Int
@@ -30,34 +30,33 @@ struct RatingView: View {
             
             HStack {
                 ForEach(1..<maximumRating + 1, id: \.self) { number in
-                    Button {
-                        self.rating = number
-                        self.hover = false
-                        
-                        // Add assessment
-                        let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObj.ID})!
-                        
-                        let new_Date = Calendar.current.date(bySettingHour: 0, minute: 1, second: 0, of: Date())!
-                        
-                        let index_To_Delete = self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.firstIndex(where: {$0 == new_Date})
-                        
-                        if let to_Delete = index_To_Delete {
-                            self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.remove(at: to_Delete)
-                            self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.remove(at: to_Delete)
+                    CircleView( number: number, rating: rating)
+                        .onTapGesture {
+                            self.rating = number
+                            //                        self.hover = false
+                            
+                            // Add assessment
+                            let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObj.ID})!
+                            
+                            let new_Date = Calendar.current.date(bySettingHour: 0, minute: 1, second: 0, of: Date())!
+                            
+                            let index_To_Delete = self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.firstIndex(where: {$0 == new_Date})
+                            
+                            if let to_Delete = index_To_Delete {
+                                self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.remove(at: to_Delete)
+                                self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.remove(at: to_Delete)
+                            }
+                            
+                            self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.append(number)
+                            
+                            self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.append(new_Date)
+                            PersistenceController.shared.evalutate_Learning_Objective(l_Objective: self.learningObjectiveStore.learningObjectives[learningObjectiveIndex])
+                            
                         }
-                        
-                        self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.append(number)
-                        
-                        self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.append(new_Date)
-                        PersistenceController.shared.evalutate_Learning_Objective(l_Objective: self.learningObjectiveStore.learningObjectives[learningObjectiveIndex])
-                        
-                    } label: {
-                        CircleView(number: number, rating: rating)
-                    }
-                    .frame(width: 35, height: 35, alignment: .center)
-                    .buttonStyle(PlainButtonStyle())
+                        .frame(width: 35, height: 35, alignment: .center)
                 }
             }
+            
             
             Image(systemName: "arrowtriangle.up")
                 .resizable()
@@ -72,15 +71,17 @@ struct RatingView: View {
         
         let learningPathIndex = learningPathStore.learningPaths.firstIndex(where: { $0.title.lowercased() == learningPathSelected?.lowercased() }) ?? -1
         //        Design,Front,Back,Game,Business
-                
+        
         let something  =  learningObj.core_Rubric_Levels[learningPathIndex + 1]
         
         if (something == 0) {
-             return -88
+            return -88
         }
         
         return CGFloat((44 * (something)) - 132 - (something == 5 ? 3 : 0))
     }
+    
+    
 }
 
 struct CircleView: View {
@@ -90,34 +91,46 @@ struct CircleView: View {
     var rating = 1
     
     var body: some View {
-        Circle()
-            .strokeBorder(number > rating ? (hovered ? Color.customCyan : Color.customDarkGrey) : Color.clear, lineWidth: 2)
-            .background(Circle().foregroundColor(number > rating ? Color.customLightGrey : Color.customCyan))
-            .popover(isPresented: self.$showingPopup) {
-                PopOverViewRating(showingPopup: $showingPopup, status: setupTitleProgressRubric(value: number), desc: setupDescProgressOnRubric(value: number))
-//                    .background(Color.white).border(Color.white)
-                    .allowsHitTesting(false)
-            }
-            .onHover { hover in
-                if hover {
-                    self.hovered = true
-                } else {
-                    self.hovered = false
-                    self.showingPopup = false
+        ZStack {
+            //            if hovered {
+            //                PopOverViewRating()
+            Text("")
+                .padding(.bottom, 30)
+                .popover(isPresented: $hovered) {
+                    PopOverViewRating(status: setupTitleProgressRubric(value: number), desc: setupDescProgressOnRubric(value: number))
                 }
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    if hovered {
-                        if hover {
-                            self.showingPopup = true
-                        } else {
-                            self.showingPopup = false
-                        }
+            
+            //            }
+            
+            Circle()
+                .strokeBorder(number > rating ? (hovered ? Color.customCyan : Color.customDarkGrey) : Color.clear, lineWidth: 2)
+                .background(Circle().foregroundColor(number > rating ? Color.customLightGrey : Color.customCyan))
+                .frame(width: 40, height: 40)
+                .onHover { hover in
+                    if hover {
+                        self.hovered = true
+                        self.showingPopup = true
                     } else {
+                        self.hovered = false
                         self.showingPopup = false
                     }
+                    
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+//                        if hovered {
+//                            if hover {
+//                                self.showingPopup = true
+//                            } else {
+//                                self.showingPopup = false
+//                            }
+//                        } else {
+//                            self.showingPopup = false
+//                        }
+//                    }
                 }
-            }
+            //            .popover(isPresented: self.$showingPopup) {
+            //                PopOverViewRating(showingPopup: $showingPopup, status: setupTitleProgressRubric(value: number), desc: setupDescProgressOnRubric(value: number))
+            //            }
+        }
     }
     
     func setupTitleProgressRubric(value: Int) -> String {
@@ -161,10 +174,11 @@ struct CircleView: View {
             
         }
     }
+    
+    
 }
 
 struct PopOverViewRating: View {
-    @Binding var showingPopup: Bool
     var status = "Progressing"
     var desc = "You can understand and apply concepts with assistance."
     
@@ -177,6 +191,7 @@ struct PopOverViewRating: View {
                 .font(.system(size: 11, weight: .regular))
                 .foregroundColor(Color.customDarkGrey)
                 .multilineTextAlignment(.leading)
-        }.frame(width: 160, height: 80, alignment: .center).padding()
+        }
+        .frame(width: 160, height: 80, alignment: .center).padding()
     }
 }

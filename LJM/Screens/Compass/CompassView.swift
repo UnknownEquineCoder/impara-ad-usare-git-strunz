@@ -90,7 +90,7 @@ struct CompassView: View {
                             VStack{
                                 
                                 CoreRadarChartView(data_Front_Array: $data_Front_Array, data_Back_Array: $data_Back_Array, animation_Trigger: $animation_Trigger_Communal)
-                                .frame(width: 395, height: 395)
+                                    .frame(width: (NSScreen.screenWidth ?? 1200) / 3.8, height: (NSScreen.screenWidth ?? 1200) / 3.8)
                                 .padding(.all, 45)
                                 .padding(.bottom, 9)
                                 .onAppear {
@@ -111,7 +111,7 @@ struct CompassView: View {
                             }
                             VStack{
                                 GraphWithOverlay(data_Front_Array: $data_Path_Front_Array, data_Back_Array: $data_Path_Back_Array, animation_Trigger: $animation_Trigger)
-                                    .frame(width: 395, height: 395)
+                                    .frame(width: (NSScreen.screenWidth ?? 1200) / 3.8, height: (NSScreen.screenWidth ?? 1200) / 3.8)
                                     .padding(.top, 25)
                                     .padding(.leading, 45)
                                     .padding(.trailing, 45)
@@ -149,23 +149,23 @@ struct CompassView: View {
                         }.padding(.bottom, 20)
                         HStack{
                             InfoButtonBarGraph(title: "Bar Graphs: ", textBody: "The bar graphs below show your growth in detail, allowing you to examine every single Learning Goal, based on the Curriculum Strands.", heightCell: 131)
-                            
+
                             Spacer()
                         }
                         Spacer()
                         
                         Group{
                             BarGraphFrame(color: Color.customOrange, title: "Process", skills: process_Skills, progress: $process_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview)
-                            
+
                             BarGraphFrame(color: Color.customGreen, title: "Design", skills: design_Skills, progress: $design_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview)
                                 .padding(.top, 50)
-                            
+
                             BarGraphFrame(color: Color.customYellow, title: "Professional Skills", skills: professional_Skills, progress: $professional_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview)
                                 .padding(.top, 50)
-                            
+
                             BarGraphFrame(color: Color.customBlue, title: "Technical", skills: tecnical_Skills, progress: $tecnical_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview)
                                 .padding(.top, 50)
-                            
+
                             BarGraphFrame(color: Color.customPurple, title: "Business", skills: business_Skills, progress: $business_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview)
                                 .padding(.top, 50)
                                 .padding(.bottom, 100)

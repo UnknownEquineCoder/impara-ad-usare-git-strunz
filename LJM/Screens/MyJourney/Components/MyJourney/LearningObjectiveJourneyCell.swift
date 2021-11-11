@@ -23,6 +23,36 @@ struct LearningObjectiveJourneyCell: View {
     var body: some View {
         VStack {
             ZStack(alignment: .topLeading) {
+                
+                HStack{
+                    Spacer()
+                    VStack {
+                        Spacer()
+                        if self.isLearningGoalAdded != nil {
+                            if learningObj.eval_score.count > 0 {
+                                RatingView(learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
+                                    .padding(.top, 15).padding(.trailing, 30).padding(.leading, 20)
+                                    .onAppear(perform: {
+                                        self.isRatingView.toggle()
+                                    })
+                            } else {
+                                AddButton(learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27).padding(.trailing, 60).padding(.top, 20)
+                            }
+                        } else {
+                            if !isAddable {
+                                RatingView(learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
+                                    .padding(.top, 15).padding(.trailing, 30)
+                                    .onAppear(perform: {
+                                        self.isRatingView.toggle()
+                                    })
+                            } else {
+                                AddButton(learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27).padding(.trailing, 60).padding(.top, 20)
+                            }
+                        }
+                        Spacer()
+                    }
+                }
+                
                 Rectangle()
                     .frame(width: 20, alignment: .leading)
                     .foregroundColor(setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand))
@@ -54,27 +84,33 @@ struct LearningObjectiveJourneyCell: View {
                         
                         Spacer()
                         
-                        if self.isLearningGoalAdded != nil {
-                            if learningObj.eval_score.count > 0 {
-                                RatingView(learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
-                                    .padding(.top, 15).padding(.trailing, 30).padding(.leading, 20)
-                                    .onAppear(perform: {
-                                        self.isRatingView.toggle()
-                                    })
-                            } else {
-                                AddButton(learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27).padding(.trailing, 60).padding(.top, 20)
-                            }
-                        } else {
-                            if !isAddable {
-                                RatingView(learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
-                                    .padding(.top, 15).padding(.trailing, 30)
-                                    .onAppear(perform: {
-                                        self.isRatingView.toggle()
-                                    })
-                            } else {
-                                AddButton(learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27).padding(.trailing, 60).padding(.top, 20)
-                            }
-                        }
+//                        VStack{
+//                            Spacer()
+//                            if self.isLearningGoalAdded != nil {
+//                                if learningObj.eval_score.count > 0 {
+//                                    RatingView(learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
+//                                        .padding(.top, 15).padding(.trailing, 30).padding(.leading, 20)
+//                                        .onAppear(perform: {
+//                                            self.isRatingView.toggle()
+//                                        })
+//                                } else {
+//                                    AddButton(learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27).padding(.trailing, 60).padding(.top, 20)
+//                                }
+//                            } else {
+//                                if !isAddable {
+//                                    RatingView(learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
+//                                        .padding(.top, 15).padding(.trailing, 30)
+//                                        .onAppear(perform: {
+//                                            self.isRatingView.toggle()
+//                                        })
+//                                } else {
+//                                    AddButton(learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27).padding(.trailing, 60).padding(.top, 20)
+//                                }
+//                            }
+//                            Spacer()
+//                        }
+                        
+                        
                         
                     }.padding(.leading, 20)
                         .frame(maxHeight: .infinity, alignment: .center)
@@ -195,6 +231,8 @@ struct LearningObjectiveJourneyCell: View {
                 self.expand.toggle()
             }
         }
+        
+        
     }
     
     private func generateContent(in g: GeometryProxy) -> some View {
