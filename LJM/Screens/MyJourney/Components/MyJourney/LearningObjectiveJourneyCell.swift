@@ -24,29 +24,37 @@ struct LearningObjectiveJourneyCell: View {
         VStack {
             ZStack(alignment: .topLeading) {
                 
-                HStack{
+                HStack {
                     Spacer()
+                    
                     VStack {
-                        Spacer()
+                        if expand && !isAddable {
+                            Spacer().frame(height: 20)
+                        } else {
+                            Spacer()
+                        }
+                        
                         if self.isLearningGoalAdded != nil {
                             if learningObj.eval_score.count > 0 {
                                 RatingView(learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
-                                    .padding(.top, 15).padding(.trailing, 30).padding(.leading, 20)
+                                    .padding(.trailing, 30).padding(.leading, 20)
                                     .onAppear(perform: {
                                         self.isRatingView.toggle()
                                     })
                             } else {
-                                AddButton(learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27).padding(.trailing, 60).padding(.top, 20)
+                                AddButton(learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27).padding(.trailing, 60)
+                                    .padding(.bottom, 20)
                             }
                         } else {
                             if !isAddable {
                                 RatingView(learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
-                                    .padding(.top, 15).padding(.trailing, 30)
+                                    .padding(.trailing, 30)
                                     .onAppear(perform: {
                                         self.isRatingView.toggle()
                                     })
                             } else {
-                                AddButton(learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27).padding(.trailing, 60).padding(.top, 20)
+                                AddButton(learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27).padding(.trailing, 60)
+                                   .padding(.bottom, 20)
                             }
                         }
                         Spacer()
@@ -71,7 +79,10 @@ struct LearningObjectiveJourneyCell: View {
                                 .foregroundColor(colorScheme == .dark ? Color(red: 255/255, green: 255/255, blue: 255/255) : Color.customDarkGrey)
                                 .font(.system(size: 22.toFontSize(), weight: .light))
                                 .lineLimit(2)
-                        }.frame(width: 200, alignment: .leading).padding(.leading, 20).padding(.top, 15)
+                        }
+                        .frame(width: 150, alignment: .leading)
+                        .padding(.leading, 20)
+                        .padding(.top, 10)
                         
                         Spacer().frame(width: 50)
                         
@@ -79,41 +90,15 @@ struct LearningObjectiveJourneyCell: View {
                             .foregroundColor(colorScheme == .dark ? Color(red: 224/255, green: 224/255, blue: 224/255) : Color.customLightBlack)
                             .font(.system(size: 24.toFontSize(), weight: .regular))
                             .padding(.trailing, 30)
-                            .lineLimit(self.expand ? nil : 4).padding()
+                            .lineLimit(self.expand ? nil : 4)
+                            .padding()
                             .padding(.trailing, 20)
                         
-                        Spacer()
-                        
-//                        VStack{
-//                            Spacer()
-//                            if self.isLearningGoalAdded != nil {
-//                                if learningObj.eval_score.count > 0 {
-//                                    RatingView(learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
-//                                        .padding(.top, 15).padding(.trailing, 30).padding(.leading, 20)
-//                                        .onAppear(perform: {
-//                                            self.isRatingView.toggle()
-//                                        })
-//                                } else {
-//                                    AddButton(learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27).padding(.trailing, 60).padding(.top, 20)
-//                                }
-//                            } else {
-//                                if !isAddable {
-//                                    RatingView(learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
-//                                        .padding(.top, 15).padding(.trailing, 30)
-//                                        .onAppear(perform: {
-//                                            self.isRatingView.toggle()
-//                                        })
-//                                } else {
-//                                    AddButton(learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27).padding(.trailing, 60).padding(.top, 20)
-//                                }
-//                            }
-//                            Spacer()
-//                        }
-                        
-                        
-                        
-                    }.padding(.leading, 20)
-                        .frame(maxHeight: .infinity, alignment: .center)
+                        Spacer().frame(width: 230)
+
+                    }
+                    .padding(.leading, 20)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                     
                     HStack {
                         VStack(alignment: .leading, spacing: 20) {
@@ -124,8 +109,7 @@ struct LearningObjectiveJourneyCell: View {
                                     .font(.system(size: 17, weight: .light))
                                     .frame(width: 150, alignment: .leading)
                                 
-                                Spacer()
-                                
+                                Spacer().frame(width: 50)
                                 
                                 GeometryReader { geometry in
                                     generateContent(in: geometry)
@@ -133,7 +117,7 @@ struct LearningObjectiveJourneyCell: View {
                                 .frame( height: learningObj.Keyword.count > 6 ? 105 : 50)
                                     .foregroundColor(Color.customLightBlack)
                                     .font(.system(size: 16, weight: .medium))
-                                    .padding(.leading, 110)
+                                    .padding(.leading, 10)
                                     .padding(.trailing, 50)
                                 
                                 Spacer()
@@ -143,7 +127,7 @@ struct LearningObjectiveJourneyCell: View {
                             
                             HStack {
                                 Text("HISTORY").foregroundColor(Color.customDarkGrey).font(.system(size: 17, weight: .light)).frame(width: 150, alignment: .leading)
-                                Spacer().frame(width: 100)
+                                Spacer().frame(width: 50)
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     HStack(spacing: 10) {
                                         
@@ -231,8 +215,6 @@ struct LearningObjectiveJourneyCell: View {
                 self.expand.toggle()
             }
         }
-        
-        
     }
     
     private func generateContent(in g: GeometryProxy) -> some View {
