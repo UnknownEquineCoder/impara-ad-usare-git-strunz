@@ -199,7 +199,6 @@ struct CompassView: View {
         var business_Progress_Quantity : [Int] = (0 ..< business_Skills_Count).map { _ in 0 }
         
         for learning_Objective in learningObjectiveStore.learningObjectives {
-
             switch learning_Objective.strand {
                 case "App Business and Marketing":
 
@@ -230,8 +229,8 @@ struct CompassView: View {
                     break
 
                 case "Design":
-
-                    let element_Index = design_Skills.firstIndex(of: learning_Objective.goal_Short) ?? 0
+                let element_Index = design_Skills.firstIndex(where: { $0.lowercased() == learning_Objective.goal_Short.lowercased()}) ?? 0
+                
                     design_Progress[element_Index] += Double(learning_Objective.eval_score.last ?? 0)
                     design_Progress_Quantity[element_Index] += 1
                     break

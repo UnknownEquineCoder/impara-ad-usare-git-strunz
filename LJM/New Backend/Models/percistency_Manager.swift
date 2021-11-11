@@ -82,8 +82,6 @@ struct PersistenceController {
         new_Student.image = data as NSObject
         if let profile = fetched_Profile {
             
-            print("$$$$$$$ \(profile.first?.name) 00 \(profile.last?.name)")
-            
             if let last_Student = profile.last {
                 new_Student.name = last_Student.name ?? "name"
                 new_Student.cognome = last_Student.cognome ?? "surname"
@@ -125,7 +123,6 @@ struct PersistenceController {
         do {
             // save the context with new element added
             try context.save()
-            print("$$$$$$$ \(fetched_Profile?.first?.name) 00 \(fetched_Profile?.last?.name)")
             
         } catch {
             // Replace this implementation with code to handle the error appropriately.

@@ -142,7 +142,8 @@ struct ScrollViewLearningObjectives: View {
                     $0.description.lowercased().contains(textFromSearchBar.lowercased()) ||
                     $0.Keyword.contains(where: {$0.lowercased().contains(textFromSearchBar.lowercased())}) ||
                     $0.strand.lowercased().contains(textFromSearchBar.lowercased()) ||
-                    $0.goal_Short.lowercased().contains(textFromSearchBar.lowercased())
+                    $0.goal_Short.lowercased().contains(textFromSearchBar.lowercased()) ||
+                    $0.ID.lowercased().contains(textFromSearchBar.lowercased())
                 }), id: \.ID) { item in
                         if let strand = item.strand {
                             if self.selectedStrands.contains(strand) || self.selectedStrands.count == 0 {
