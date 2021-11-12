@@ -9,6 +9,8 @@ import SwiftUI
 
 struct InfoButtonBarGraph: View {
     @State private var showPopover = false
+    @State private var hoveredInfoButton = false
+
     var title: String = "Titolo"
     var textBody: String = "Body"
     var heightCell: CGFloat
@@ -18,19 +20,17 @@ struct InfoButtonBarGraph: View {
         Button(action: {
             self.showPopover =  true
         }) {
-            Image(systemName: "info.circle").resizable().frame(width: 17.toScreenSize(), height: 17.toScreenSize())
+            Image(systemName: hoveredInfoButton ? "info.circle.fill" : "info.circle").resizable().frame(width: 17.toScreenSize(), height: 17.toScreenSize())
                 .foregroundColor(Color(red: 165/255, green: 165/255, blue: 165/255))
         }.buttonStyle(PlainButtonStyle())
+            .onHover { hovered in
+                hoveredInfoButton = hovered
+            }
             .popover(isPresented: $showPopover, arrowEdge: .trailing, content: {
-            VStack{
-//                HStack {
-//                    Text(title).font(.title).font(.system(size: 24.toFontSize())).fontWeight(.semibold).multilineTextAlignment(.leading)
-//                        .foregroundColor(colorScheme == .dark ? Color(red: 221/255, green: 221/255, blue: 221/255) : Color(red: 70/255, green: 70/255, blue: 70/255))
-//                    Spacer()
-//                }
+            VStack {
+                
                 Text(textBody)
                     .fontWeight(.light)
-//                    .frame(width: 1024.toScreenSize(), height: heightCell.toScreenSize())
                     .font(.system(size: 20.toFontSize()))
                     .foregroundColor(colorScheme == .dark ? Color(red: 221/255, green: 221/255, blue: 221/255) : Color(red: 165/255, green: 165/255, blue: 165/255))
             }

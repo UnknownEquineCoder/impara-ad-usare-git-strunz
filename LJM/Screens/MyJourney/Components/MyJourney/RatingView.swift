@@ -72,13 +72,13 @@ struct RatingView: View {
         let learningPathIndex = learningPathStore.learningPaths.firstIndex(where: { $0.title.lowercased() == learningPathSelected?.lowercased() }) ?? -1
         //        Design,Front,Back,Game,Business
         
-        let something  =  learningObj.core_Rubric_Levels[learningPathIndex + 1]
+        let core_Rubric_Level  =  learningObj.core_Rubric_Levels[learningPathIndex + 1]
         
-        if (something == 0) {
+        if (core_Rubric_Level == 0) {
             return -88
         }
         
-        return CGFloat((44 * (something)) - 132 - (something == 5 ? 3 : 0))
+        return CGFloat((44 * (core_Rubric_Level)) - 132 - (core_Rubric_Level == 5 ? 3 : 0))
     }
     
     

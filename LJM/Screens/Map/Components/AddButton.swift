@@ -9,9 +9,12 @@ import Foundation
 import SwiftUI
 import Combine
 
-
 struct AddButton: View {
     var learningObjectiveSelected: learning_Objective
+    
+    @State var hovered = false
+    @State private var showingPopup:Bool = false
+
     @Binding var rating: Int
     
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
@@ -33,11 +36,16 @@ struct AddButton: View {
             CountDownWrapper<AddLabelView>()
                 .opacity(didTap ? 1 : 0)
             
-            
             Button(action: {
                 self.didTap.toggle()
             }){
                 ZStack {
+                    Text("")
+                        .padding(.bottom, 30)
+                        .popover(isPresented: $hovered) {
+                            PopoverView()
+                        }
+                    
                     if learningObjectiveSelected.eval_score.isEmpty {
                         let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObjectiveSelected.ID})!
                         
@@ -46,12 +54,20 @@ struct AddButton: View {
                                 .resizable()
                                 .frame(width: 35, height: 35)
                                 .foregroundColor(Color("customCyan"))
+                                .onHover(perform: { hover in
+                                    if hover {
+                                        self.hovered = true
+                                        self.showingPopup = true
+                                    } else {
+                                        self.hovered = false
+                                        self.showingPopup = false
+                                    }
+                                })
                                 .onTapGesture {
                                     let new_Date = Calendar.current.date(bySettingHour: 0, minute: 1, second: 0, of: Date())!
                                     learningObjectiveStore.evaluate_Object(index: learningObjectiveIndex, evaluation: 1, date: new_Date)
                                     self.rating = 1
                                     self.didTap.toggle()
-                                    
                                 }
                         } else {
                             Image(systemName: "checkmark.circle.fill")
@@ -79,14 +95,12 @@ struct AddButton: View {
                                 learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
                                 
                                 didTap = false
-                                
-                        }
+                            }
                     }
                 }
             }
             .frame(width: buttonSize.toScreenSize(), height: buttonSize.toScreenSize(), alignment: .center)
             .buttonStyle(PlainButtonStyle())
-            
         }
     }
 }
