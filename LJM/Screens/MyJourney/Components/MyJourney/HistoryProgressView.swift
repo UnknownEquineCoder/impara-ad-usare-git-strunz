@@ -9,16 +9,20 @@ import SwiftUI
 
 struct HistoryProgressView: View {
     var maximumRating = 5
-    var index: Int
     let dateFormatter = DateFormatter()
     @Binding var rating: Int
     
     var dateValue: String {
         dateFormatter.dateStyle = .short
-        return dateFormatter.string(from: learningObj.eval_date[index])
+        return dateFormatter.string(from: learning_Date)
     }
     
-    @State var learningObj: learning_Objective
+    let learning_Score : Int
+    let learning_Date : Date
+    let learning_ID : String
+    let index : Int
+    
+//    @State var learningObj: learning_Objective
     
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     
@@ -27,7 +31,7 @@ struct HistoryProgressView: View {
         HStack(spacing: 8) {
             HStack(spacing: 3) {
                 ForEach(1..<maximumRating + 1, id: \.self) { number in
-                    if number > learningObj.eval_score[index] {
+                    if number > learning_Score {
                         Circle().strokeBorder(Color.white).frame(width: 15)
                     } else {
                         Circle().fill(Color.white).frame(width: 15)
@@ -37,14 +41,14 @@ struct HistoryProgressView: View {
             
             Text(dateValue)
             
-            let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObj.ID})!
+            let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learning_ID})!
             
             if !(index == 0) {
                 Button(action: {
-                    // Delete assessment here
+                    
                     self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.remove(at: index)
                     self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.remove(at: index)
-                    
+
                     self.rating = self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.last ?? 0
 
                 }) {

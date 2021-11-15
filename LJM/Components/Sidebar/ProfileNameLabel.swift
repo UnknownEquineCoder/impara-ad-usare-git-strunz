@@ -13,7 +13,7 @@ struct ProfileNameLabel: View {
     @Binding var name : String
     @Binding var image_Data : Data?
     var body: some View {
-        VStack{
+        VStack(spacing: 5){
             Text("Hello,")
                 .fontWeight(.regular)
                 .font(.system(size: 25.toFontSize()))
@@ -22,9 +22,12 @@ struct ProfileNameLabel: View {
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.trailing, 95)
             
-            TextField("Name", text: $name, onCommit: {
-                PersistenceController.shared.update_Profile(image: image_Data, name: name)
-            })
+            TextField("Name", text: $name)
+                .onChange(of: name) { newName in
+                    if(newName != ""){
+                        PersistenceController.shared.update_Profile(image: image_Data, name: newName)
+                    }
+                }
                 .font(.system(size: 25.toFontSize()))
             .textFieldStyle(PlainTextFieldStyle())
             .font(Font.headline.weight(.regular))
@@ -32,7 +35,6 @@ struct ProfileNameLabel: View {
                 .multilineTextAlignment(.leading)
                 .fixedSize(horizontal: false, vertical: true)
                 .lineLimit(3)
-                .scaledToFit()
             
         }
     }
