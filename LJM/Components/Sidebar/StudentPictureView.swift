@@ -91,13 +91,6 @@ struct StudentPictureView: View {
             }
             
             ProfileNameLabel(name: $username, image_Data: $imageData).frame(width: 150)
-                .onTapGesture {
-                    KeychainWrapper.standard.removeObject(forKey: "tokenAuth")
-//
-////            ProfileNameLabel(qualifiedName: "\(LJM.storage.user.name ?? "") \(LJM.storage.user.surname ?? "Surname")").frame(width: 150)
-////                .onTapGesture {
-////                    KeychainWrapper.standard.removeObject(forKey: "tokenAuth")
-                }
         }
         .padding(.trailing)
     }

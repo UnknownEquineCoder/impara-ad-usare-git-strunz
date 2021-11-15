@@ -18,14 +18,14 @@ struct GraphWithOverlay: View {
                 
                 RadarGraphFrame()
                 
-                VStack(alignment: .leading, spacing: 20.0){
+                VStack(alignment: .leading, spacing: 18.0){
                     label("EXEMPLARY")
                     label("PROFICIENT")
                     label("PROGRESSING")
                     label("BEGINNING")
                     label("NOT EVALUATED")
                 }
-                .padding(.bottom, geo.size.height/1.90)
+                .padding(.bottom, geo.size.height/2)
                 .padding(.leading, 10)
             }
         }

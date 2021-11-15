@@ -131,9 +131,8 @@ struct LearningObjectiveJourneyCell: View {
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     HStack(spacing: 10) {
                                         
-                                        ForEach(0..<learningObj.eval_score.count, id: \.self) { index in
-                                            
-                                            HistoryProgressView(index: index, rating: $rating, learningObj: self.learningObj)
+                                        ForEach(learningObj.eval_score.indices, id: \.self) { index in
+                                            HistoryProgressView(rating: $rating, learning_Score: learningObj.eval_score[index], learning_Date: learningObj.eval_date[index], learning_ID: learningObj.ID, index: index)
                                             
                                         }
                                     }

@@ -32,25 +32,29 @@ struct RatingView: View {
                 ForEach(1..<maximumRating + 1, id: \.self) { number in
                     CircleView( number: number, rating: rating)
                         .onTapGesture {
-                            self.rating = number
-                            //                        self.hover = false
-                            
-                            // Add assessment
-                            let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObj.ID})!
-                            
-                            let new_Date = Calendar.current.date(bySettingHour: 0, minute: 1, second: 0, of: Date())!
-                            
-                            let index_To_Delete = self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.firstIndex(where: {$0 == new_Date})
-                            
-                            if let to_Delete = index_To_Delete {
-                                self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.remove(at: to_Delete)
-                                self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.remove(at: to_Delete)
+                            withAnimation {
+                                self.rating = number
+                                //                        self.hover = false
+                                
+                                // Add assessment
+                                let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObj.ID})!
+                                
+                                let new_Date = Calendar.current.date(bySettingHour: 0, minute: 1, second: 0, of: Date())!
+                                
+                                let index_To_Delete = self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.firstIndex(where: {$0 == new_Date})
+                                
+                                if let to_Delete = index_To_Delete {
+                                    self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.remove(at: to_Delete)
+                                    self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.remove(at: to_Delete)
+                                }
+                                
+                                    self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.append(number)
+                                    self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.append(new_Date)
+                                    
+                                    PersistenceController.shared.evalutate_Learning_Objective(l_Objective: self.learningObjectiveStore.learningObjectives[learningObjectiveIndex])
                             }
-                            
-                            self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.append(number)
-                            
-                            self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.append(new_Date)
-                            PersistenceController.shared.evalutate_Learning_Objective(l_Objective: self.learningObjectiveStore.learningObjectives[learningObjectiveIndex])
+                                
+                                
                             
                         }
                         .frame(width: 35, height: 35, alignment: .center)

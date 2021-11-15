@@ -16,13 +16,15 @@ struct LJMApp: App {
 
     @StateObject var learningObjectiveStore = LearningObjectivesStore()
     
+    @State var isLoading = false
+    
     //    let srtType = UTType(exportedAs: "com.company.srt-document", conformingTo: .commaSeparatedText)
     let srtType = UTType("com.exemple.LearningJourneyManager")!
     var body: some Scene {
         WindowGroup {
             // MainScreen used as a Splash screen -> redirect to Login view or Content view regarding the login status
             //            DocumentGroup(newDocument: DocDemoDocument()) { file in
-            StartView()
+            StartView(isLoading: $isLoading)
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight, alignment: .center)
             //            }
@@ -47,6 +49,9 @@ struct LJMApp: App {
                 ) { result in
                     if case .success = result {
                         do {
+                            
+                            isLoading = true
+                            
                             learningObjectiveStore.isSavable = false
                             
 //                            learningObjectiveStore.reset_Evaluated()
@@ -82,6 +87,11 @@ struct LJMApp: App {
                                 }
                             }
                             
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.001) {
+                                isLoading = false
+                            }
+                            
                         } catch {
                             let nsError = error as NSError
                             fatalError("File Import Error \(nsError), \(nsError.userInfo)")
@@ -91,14 +101,15 @@ struct LJMApp: App {
                     }
                 }
                 .environmentObject(learningObjectiveStore)
-
         }.handlesExternalEvents(matching: Set(arrayLiteral: "*"))
             .commands(content: {
                 CommandGroup(after: .importExport, addition: {
                     
                     // to import files
                     Button(action: {
+                        
                         importFile.toggle()
+                        
                     }) {
                         Text("Import File")
                     }
@@ -129,6 +140,8 @@ struct LJMApp: App {
                         document.message = data_To_Save
                         
                         exportFile.toggle()
+                        
+                        
                     }) {
                         Text("Export File")
                     }
