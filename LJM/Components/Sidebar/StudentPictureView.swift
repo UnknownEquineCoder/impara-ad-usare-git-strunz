@@ -63,7 +63,6 @@ struct StudentPictureView: View {
         HStack{
             ZStack{
                 ProfileImage( imageData: $imageData).body
-                //Image(imageName)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: size.toScreenSize(), height: size.toScreenSize(), alignment: .leading)
@@ -90,7 +89,8 @@ struct StudentPictureView: View {
                 
             }
             
-            ProfileNameLabel(name: $username, image_Data: $imageData).frame(width: 150)
+            ProfileNameLabel(name: $username, image_Data: $imageData)
+                .frame(width: 150)
         }
         .padding(.trailing)
     }

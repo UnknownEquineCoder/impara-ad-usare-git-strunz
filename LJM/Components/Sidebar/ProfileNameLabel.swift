@@ -13,7 +13,7 @@ struct ProfileNameLabel: View {
     @Binding var name : String
     @Binding var image_Data : Data?
     var body: some View {
-        VStack{
+        VStack(spacing: 5){
             Text("Hello,")
                 .fontWeight(.regular)
                 .font(.system(size: 25.toFontSize()))
@@ -35,7 +35,6 @@ struct ProfileNameLabel: View {
                 .multilineTextAlignment(.leading)
                 .fixedSize(horizontal: false, vertical: true)
                 .lineLimit(3)
-                .scaledToFit()
             
         }
     }
