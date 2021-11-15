@@ -89,7 +89,6 @@ struct CompassView: View {
                         
                         HStack{
                             VStack{
-                                
                                 CoreRadarChartView(data_Front_Array: $data_Front_Array, data_Back_Array: $data_Back_Array, animation_Trigger: $animation_Trigger_Communal)
                                     .frame(width: (NSScreen.screenWidth ?? 1200) / 3.8, height: (NSScreen.screenWidth ?? 1200) / 3.8)
                                 .padding(.all, 45)

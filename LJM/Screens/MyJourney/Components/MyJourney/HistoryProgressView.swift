@@ -42,7 +42,6 @@ struct HistoryProgressView: View {
             if !(index == 0) {
                 Button(action: {
                     // Delete assessment here
-                    print("IUHJOK \(index)")
                     self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.remove(at: index)
                     self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.remove(at: index)
                     

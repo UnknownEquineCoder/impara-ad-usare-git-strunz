@@ -92,16 +92,12 @@ struct CircleView: View {
     
     var body: some View {
         ZStack {
-            //            if hovered {
-            //                PopOverViewRating()
             Text("")
                 .padding(.bottom, 30)
                 .popover(isPresented: $hovered) {
                     PopOverViewRating(status: setupTitleProgressRubric(value: number), desc: setupDescProgressOnRubric(value: number))
                 }
-            
-            //            }
-            
+                        
             Circle()
                 .strokeBorder(number > rating ? (hovered ? Color.customCyan : Color.customDarkGrey) : Color.clear, lineWidth: 2)
                 .background(Circle().foregroundColor(number > rating ? Color.customLightGrey : Color.customCyan))
