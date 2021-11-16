@@ -74,10 +74,11 @@ struct RatingView: View {
     
     func setupGoalRating() -> CGFloat {
         
-        let learningPathIndex = learningPathStore.learningPaths.firstIndex(where: { $0.title.lowercased() == learningPathSelected?.lowercased() }) ?? -1
+        let learningPathIndex = learningPathStore.learningPaths.firstIndex(where: { $0.title.lowercased() == learningPathSelected?.lowercased() }) ?? 0
+        
         //        Design,Front,Back,Game,Business
         
-        let core_Rubric_Level  =  learningObj.core_Rubric_Levels[learningPathIndex + 1]
+        let core_Rubric_Level  =  learningObj.core_Rubric_Levels[learningPathIndex]
         
         if (core_Rubric_Level == 0) {
             return -88
