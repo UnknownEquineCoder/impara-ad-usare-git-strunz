@@ -24,7 +24,6 @@ struct ScrollViewFilters : View {
                             
                             Button(action: {
                                 selectedFilter = i
-
                             }) {
                                 Text(i.uppercased())
                                     .font(.system(size: 15, weight: .semibold, design: .rounded))

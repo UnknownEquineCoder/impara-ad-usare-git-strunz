@@ -122,7 +122,7 @@ struct LearningObjectiveJourneyCell: View {
                                 
                                 Spacer()
                             }
-                            
+                            //comment for update
                             Divider().background(Color(red: 70/255, green: 70/255, blue: 70/255)).padding(.trailing, 60)
                             
 //                            HStack {
