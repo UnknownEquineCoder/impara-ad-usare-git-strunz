@@ -93,25 +93,30 @@ struct CircleView: View {
     @State var hovered = false
     @State private var showingPopup:Bool = false
     @Environment(\.colorScheme) var colorScheme
+    
     var number = 1
     var rating = 1
     
     var body: some View {
-        Text("")
-            .padding(.bottom, 30)
-            .popover(isPresented: $hovered) {
-                PopOverViewRating(status: setupTitleProgressRubric(value: number), desc: setupDescProgressOnRubric(value: number))
-            }
-        Circle()
-            .strokeBorder(number > rating ? (hovered ? Color.customCyan : colorScheme == .dark ? Color(red: 154/255, green: 154/255, blue: 154/255) : Color.customDarkGrey) : Color.clear, lineWidth: 2)
-            .background(Circle().foregroundColor(number > rating ? colorScheme == .dark ? Color(red: 73/255, green: 73/255, blue: 73/255) : Color.customLightGrey : Color.customCyan))
-            .onHover { hover in
-                if hover {
-                    self.hovered = true
-                } else {
-                    self.hovered = false
-                    self.showingPopup = false
+        ZStack {
+            Text("")
+                .padding(.bottom, 30)
+                .popover(isPresented: $hovered) {
+                    PopOverViewRating(status: setupTitleProgressRubric(value: number), desc: setupDescProgressOnRubric(value: number))
                 }
+                        
+            Circle()
+                .strokeBorder(number > rating ? (hovered ? Color.customCyan : colorScheme == .dark ? Color(red: 154/255, green: 154/255, blue: 154/255) : Color.customDarkGrey) : Color.clear, lineWidth: 2)
+                .background(Circle().foregroundColor(number > rating ? colorScheme == .dark ? Color(red: 73/255, green: 73/255, blue: 73/255) : Color.customLightGrey : Color.customCyan))
+                .frame(width: 40, height: 40)
+                .onHover { hover in
+                    if hover {
+                        self.hovered = true
+                        self.showingPopup = true
+                    } else {
+                        self.hovered = false
+                        self.showingPopup = false
+                    }
                     
 //                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
 //                        if hovered {
@@ -174,7 +179,7 @@ struct CircleView: View {
     }
     
     
-
+}
 
 struct PopOverViewRating: View {
     var status = "Progressing"

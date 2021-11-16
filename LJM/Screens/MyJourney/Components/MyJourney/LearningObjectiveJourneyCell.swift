@@ -54,7 +54,7 @@ struct LearningObjectiveJourneyCell: View {
                                     })
                             } else {
                                 AddButton(learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27).padding(.trailing, 60)
-                                   .padding(.bottom, 20)
+                                    .padding(.bottom, 20)
                             }
                         }
                         Spacer()
@@ -95,7 +95,7 @@ struct LearningObjectiveJourneyCell: View {
                             .padding(.trailing, 20)
                         
                         Spacer().frame(width: 230)
-
+                        
                     }
                     .padding(.leading, 20)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
@@ -115,22 +115,48 @@ struct LearningObjectiveJourneyCell: View {
                                     generateContent(in: geometry)
                                 }
                                 .frame( height: learningObj.Keyword.count > 6 ? 105 : 50)
-                                    .foregroundColor(Color.customLightBlack)
-                                    .font(.system(size: 16, weight: .medium))
-                                    .padding(.leading, 10)
-                                    .padding(.trailing, 50)
+                                .foregroundColor(Color.customLightBlack)
+                                .font(.system(size: 16, weight: .medium))
+                                .padding(.leading, 10)
+                                .padding(.trailing, 50)
                                 
                                 Spacer()
                             }
                             
                             Divider().background(Color(red: 70/255, green: 70/255, blue: 70/255)).padding(.trailing, 60)
                             
+//                            HStack {
+//                                Text("HISTORY").foregroundColor(Color.customDarkGrey).font(.system(size: 17, weight: .light)).frame(width: 150, alignment: .leading)
+//                                Spacer().frame(width: 50)
+//                                if learningObj.eval_score.isEmpty {
+//                                    Text("This Learning Objective has never been assessed...")
+//                                        .foregroundColor(Color.customDarkGrey)
+//                                        .font(.system(size: 15, weight: .medium))
+//                                }
+//                                ScrollView(.horizontal, showsIndicators: false) {
+//                                    HStack(spacing: 10) {
+//
+//                                        ForEach(learningObj.eval_score.indices, id: \.self) { index in
+//                                            HistoryProgressView(rating: $rating, learning_Score: learningObj.eval_score[index], learning_Date: learningObj.eval_date[index], learning_ID: learningObj.ID, index: index)
+//
+//                                        }
+//                                    }
+//                                }
+//
+//                                Spacer().frame(width: 50)
+//                            }
+                            
                             HStack {
                                 Text("LAST ASSESSMENTS").foregroundColor(Color.customDarkGrey).font(.system(size: 17, weight: .light)).frame(width: 170, alignment: .leading)
                                 Spacer().frame(width: 100)
+                                
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     HStack(spacing: 10) {
-                                        
+                                        if learningObj.eval_score.isEmpty {
+                                            Text("This Learning Objective has never been assessed...")
+                                                .foregroundColor(Color.customDarkGrey)
+                                                .font(.system(size: 15, weight: .medium))
+                                        }
                                         ForEach(learningObj.eval_score.indices, id: \.self) { index in
                                             HistoryProgressView(rating: $rating, learning_Score: learningObj.eval_score[index], learning_Date: learningObj.eval_date[index], learning_ID: learningObj.ID, index: index)
                                             
@@ -159,7 +185,7 @@ struct LearningObjectiveJourneyCell: View {
                         .lineLimit(nil)
                         .fixedSize(horizontal: false, vertical: true)
                         .frame(width: 200)
-
+                    
                     
                     Spacer().frame(height: 50)
                     
@@ -217,82 +243,82 @@ struct LearningObjectiveJourneyCell: View {
     }
     
     private func generateContent(in g: GeometryProxy) -> some View {
-            var width = CGFloat.zero
-            var height = CGFloat.zero
-
-            return ZStack(alignment: .topLeading) {
-                ForEach(learningObj.Keyword, id: \.self) { keyword in
-                    Text("#\(keyword.replacingOccurrences(of: " ", with: "_")) ")
-                        .onTapGesture {
-                            withAnimation {
-                                filter_Text = keyword
-                            }
-                            
+        var width = CGFloat.zero
+        var height = CGFloat.zero
+        
+        return ZStack(alignment: .topLeading) {
+            ForEach(learningObj.Keyword, id: \.self) { keyword in
+                Text("#\(keyword.replacingOccurrences(of: " ", with: "_")) ")
+                    .onTapGesture {
+                        withAnimation {
+                            filter_Text = keyword
                         }
-                        .onLongPressGesture {
-                            let pasteboard = NSPasteboard.general
-                            pasteboard.clearContents()
-                            pasteboard.setString(keyword, forType: .string)
+                        
+                    }
+                    .onLongPressGesture {
+                        let pasteboard = NSPasteboard.general
+                        pasteboard.clearContents()
+                        pasteboard.setString(keyword, forType: .string)
+                    }
+                    .padding([.horizontal, .vertical], 4)
+                    .alignmentGuide(.leading, computeValue: { d in
+                        if (abs(width - d.width) > g.size.width)
+                        {
+                            width = 0
+                            height -= d.height
                         }
-                        .padding([.horizontal, .vertical], 4)
-                        .alignmentGuide(.leading, computeValue: { d in
-                            if (abs(width - d.width) > g.size.width)
-                            {
-                                width = 0
-                                height -= d.height
-                            }
-                            let result = width
-                            if keyword == learningObj.Keyword.last! {
-                                width = 0 //last item
-                            } else {
-                                width -= d.width
-                            }
-                            return result
-                        })
-                        .alignmentGuide(.top, computeValue: {d in
-                            let result = height
-                            if keyword == learningObj.Keyword.last! {
-                                height = 0 // last item
-                            }
-                            return result
-                        })
-                }
+                        let result = width
+                        if keyword == learningObj.Keyword.last! {
+                            width = 0 //last item
+                        } else {
+                            width -= d.width
+                        }
+                        return result
+                    })
+                    .alignmentGuide(.top, computeValue: {d in
+                        let result = height
+                        if keyword == learningObj.Keyword.last! {
+                            height = 0 // last item
+                        }
+                        return result
+                    })
             }
         }
+    }
     
-//    func generateContent(in g: GeometryProxy) -> some View {
-//        var width = CGFloat.zero
-//        var height = CGFloat.zero
-//
-//        return ZStack(alignment: .topLeading) {
-//            ForEach(learningObj.Keyword, id: \.self) { keyword in
-//                Text("#\(keyword.replacingOccurrences(of: " ", with: "_")) ")
-//                    .padding([.horizontal, .vertical], 4)
-//                    .alignmentGuide(.leading, computeValue: { d in
-//                        if (abs(width - d.width) > g.size.width)
-//                        {
-//                            width = 0
-//                            height -= d.height
-//                        }
-//                        let result = width
-//                        if keyword == self.learningObj.Keyword.last! {
-//                            width = 0 //last item
-//                        } else {
-//                            width -= d.width
-//                        }
-//                        return result
-//                    })
-//                    .alignmentGuide(.top, computeValue: {d in
-//                        let result = height
-//                        if keyword == self.learningObj.Keyword.last! {
-//                            height = 0 // last item
-//                        }
-//                        return result
-//                    })
-//            }
-//        }
-//        .background(viewHeightReader($totalHeight))
-//    }
+    //    func generateContent(in g: GeometryProxy) -> some View {
+    //        var width = CGFloat.zero
+    //        var height = CGFloat.zero
+    //
+    //        return ZStack(alignment: .topLeading) {
+    //            ForEach(learningObj.Keyword, id: \.self) { keyword in
+    //                Text("#\(keyword.replacingOccurrences(of: " ", with: "_")) ")
+    //                    .padding([.horizontal, .vertical], 4)
+    //                    .alignmentGuide(.leading, computeValue: { d in
+    //                        if (abs(width - d.width) > g.size.width)
+    //                        {
+    //                            width = 0
+    //                            height -= d.height
+    //                        }
+    //                        let result = width
+    //                        if keyword == self.learningObj.Keyword.last! {
+    //                            width = 0 //last item
+    //                        } else {
+    //                            width -= d.width
+    //                        }
+    //                        return result
+    //                    })
+    //                    .alignmentGuide(.top, computeValue: {d in
+    //                        let result = height
+    //                        if keyword == self.learningObj.Keyword.last! {
+    //                            height = 0 // last item
+    //                        }
+    //                        return result
+    //                    })
+    //            }
+    //        }
+    //        .background(viewHeightReader($totalHeight))
+    //    }
     
     func viewHeightReader(_ binding: Binding<CGFloat>) -> some View {
         return GeometryReader { geometry -> Color in
