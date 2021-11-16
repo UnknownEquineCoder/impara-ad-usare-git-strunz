@@ -10,6 +10,7 @@ import SwiftUI
 struct RatingView: View {
     
     @State var learningObj: learning_Objective
+    @Environment(\.colorScheme) var colorScheme
     
     @Binding var rating: Int
     @State private var hover = false
@@ -86,13 +87,14 @@ struct RatingView: View {
 struct CircleView: View {
     @State var hovered = false
     @State private var showingPopup:Bool = false
+    @Environment(\.colorScheme) var colorScheme
     var number = 1
     var rating = 1
     
     var body: some View {
         Circle()
-            .strokeBorder(number > rating ? (hovered ? Color.customCyan : Color.customDarkGrey) : Color.clear, lineWidth: 2)
-            .background(Circle().foregroundColor(number > rating ? Color.customLightGrey : Color.customCyan))
+            .strokeBorder(number > rating ? (hovered ? Color.customCyan : colorScheme == .dark ? Color(red: 154/255, green: 154/255, blue: 154/255) : Color.customDarkGrey) : Color.clear, lineWidth: 2)
+            .background(Circle().foregroundColor(number > rating ? colorScheme == .dark ? Color(red: 73/255, green: 73/255, blue: 73/255) : Color.customLightGrey : Color.customCyan))
             .popover(isPresented: self.$showingPopup) {
                 PopOverViewRating(showingPopup: $showingPopup, status: setupTitleProgressRubric(value: number), desc: setupDescProgressOnRubric(value: number))
 //                    .background(Color.white).border(Color.white)

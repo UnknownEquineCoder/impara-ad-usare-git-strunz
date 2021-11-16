@@ -22,12 +22,12 @@ struct LegendView: View{
             RoundedRectangle(cornerRadius: 10, style: .continuous)
                 .fill(Color(red: 120/255, green: 224/255, blue: 144/255))
                 .frame(width: 18.toScreenSize(), height: 14.toScreenSize())
-            Text("Expectations")
+            Text("Path Expectations")
                 .fontWeight(.light)
                 .font(.system(size: 16.toFontSize()))
             
                 
-        }.frame(width: 226)
+        }.frame(width: 250)
     }
 }
 

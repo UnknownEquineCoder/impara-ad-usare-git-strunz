@@ -19,7 +19,7 @@ struct StartView: View {
     
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     
-    @State var filter_Path = "Design"
+    @State var filter_Path = "Select a Path"
     
     @ViewBuilder
     var body: some View {

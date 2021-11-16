@@ -39,6 +39,16 @@ struct ProfileNameLabel: View {
 //                .fixedSize(horizontal: false, vertical: true)
 //                .lineLimit(3)
             
+//            CustomTextEditor.init(placeholder: "Start typing..", text: $name)
+//                                    .font(.body)
+//                                    .background(Color.clear)
+//                                    .accentColor(.green)
+//                                    .frame(height: 25)
+//                                    .cornerRadius(8)
+//                                    .onChange(of: name, perform: { _ in
+//                                        PersistenceController.shared.update_Profile(image: image_Data, name: name)
+//                                    })
+            
             TextField("Name", text: $name, onCommit: {
                 PersistenceController.shared.update_Profile(image: image_Data, name: name)
             })
@@ -55,12 +65,30 @@ struct ProfileNameLabel: View {
     }
 }
 
-extension NSTextView {
-    open override var frame: CGRect {
-        didSet {
-            backgroundColor = .clear //<<here clear
-            drawsBackground = true
-        }
+//struct CustomTextEditor: View {
+//    let placeholder: String
+//    @Binding var text: String
+//    let internalPadding: CGFloat = 5
+//    var body: some View {
+//        ZStack(alignment: .topLeading) {
+//            if text.isEmpty  {
+//                Text(placeholder)
+//                    .foregroundColor(Color.primary.opacity(0.25))
+//                    .padding(EdgeInsets(top: 7, leading: 4, bottom: 0, trailing: 0))
+//                    .padding(internalPadding)
+//            }
+//            TextEditor(text: $text)
+//                .padding(internalPadding)
+//        }
+//    }
+//}
 
-    }
-}
+//extension NSTextView {
+//    open override var frame: CGRect {
+//        didSet {
+//            backgroundColor = .clear //<<here clear
+//            drawsBackground = true
+//        }
+//
+//    }
+//}

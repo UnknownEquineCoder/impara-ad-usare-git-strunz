@@ -56,7 +56,8 @@ struct OutlineRow : View {
                 .font(.system(size: 20, weight: .regular))
                 .frame(width: 150, alignment: .leading)
         }
-        .contentShape(Rectangle())
+//        .contentShape(Rectangle())
+        .contentShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
         .padding()
         .padding(.leading, 25)
         .onTapGesture {
@@ -64,4 +65,5 @@ struct OutlineRow : View {
         }
     }
 }
+
 

@@ -31,11 +31,11 @@ struct LearningObjectiveJourneyCell: View {
                         VStack(alignment: .leading, spacing: 8) {
                             Text(learningObj.strand.uppercased())
                                 .foregroundColor(setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand))
-                                .font(.system(size: learningObj.strand.count > 15 ? 15 : 20, weight: .semibold, design: .rounded))
+                                .font(.system(size: learningObj.strand.count > 15 ? 15 : 20, weight: .bold, design: .rounded))
                                 .lineLimit(2)
                             Text(learningObj.goal_Short.uppercased())
                                 .foregroundColor(colorScheme == .dark ? Color(red: 255/255, green: 255/255, blue: 255/255) : Color.customDarkGrey)
-                                .font(.system(size: 22.toFontSize(), weight: .light))
+                                .font(.system(size: 22.toFontSize(), weight: .regular))
                                 .lineLimit(2)
                             Text(learningObj.isCore ? "CORE" : "ELECTIVE")
                                 .foregroundColor(colorScheme == .dark ? Color(red: 255/255, green: 255/255, blue: 255/255) : Color.customDarkGrey)
@@ -106,7 +106,7 @@ struct LearningObjectiveJourneyCell: View {
                             Divider().background(Color(red: 70/255, green: 70/255, blue: 70/255)).padding(.trailing, 60)
                             
                             HStack {
-                                Text("HISTORY").foregroundColor(Color.customDarkGrey).font(.system(size: 17, weight: .light)).frame(width: 150, alignment: .leading)
+                                Text("LAST ASSESSMENTS").foregroundColor(Color.customDarkGrey).font(.system(size: 17, weight: .light)).frame(width: 170, alignment: .leading)
                                 Spacer().frame(width: 100)
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     HStack(spacing: 10) {

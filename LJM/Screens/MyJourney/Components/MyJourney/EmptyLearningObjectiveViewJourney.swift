@@ -17,12 +17,12 @@ struct EmptyLearningObjectiveViewJourney: View {
         ZStack(alignment: .top) {
             
             VStack {
-                Text("The Learning Objective is half the Journey!")
+                Text("The first Learning Objective is half the Journey!")
                     .font(.system(size: 45, weight: .semibold))
                     .multilineTextAlignment(.center)
                     .foregroundColor(Color.customBlack)
                 
-                Text("Tap the button to add the first one.")
+                Text("Tap the button to add one.")
                     .font(.system(size: 25, weight: .semibold))
                     .multilineTextAlignment(.center)
                     .foregroundColor(Color.customDarkGrey)
