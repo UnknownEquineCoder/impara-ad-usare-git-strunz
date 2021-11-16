@@ -27,20 +27,21 @@ struct ScrollViewLearningObjectives: View {
     var filteredLearningObjectivesMyJourney: [learning_Objective] {
         
         let objectives = self.learningObjectiveStore.learningObjectives
-            .filter { !$0.eval_score.isEmpty }
-            .sorted { $0.goal.lowercased() < $1.goal.lowercased() }
         
         switch filterCore {
         case "COMMUNAL":
             return objectives
-                .filter { $0.isCore }
+                .filter { $0.isCore && !$0.eval_score.isEmpty }
+                .sorted { $0.goal.lowercased() < $1.goal.lowercased() }
             
         case "ELECTIVE":
             return objectives
-                .filter { !$0.isCore }
-            
+                .filter { !$0.isCore && !$0.eval_score.isEmpty }
+                .sorted { $0.goal.lowercased() < $1.goal.lowercased() }
         case "FULL MAP":
             return objectives
+                .filter { !$0.eval_score.isEmpty }
+                .sorted { $0.goal.lowercased() < $1.goal.lowercased() }
         default:
             return filteredLearningObjectivesMap
         }

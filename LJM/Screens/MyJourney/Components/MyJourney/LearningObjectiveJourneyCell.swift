@@ -122,12 +122,17 @@ struct LearningObjectiveJourneyCell: View {
                                 
                                 Spacer()
                             }
-                            
+                            //comment for update
                             Divider().background(Color(red: 70/255, green: 70/255, blue: 70/255)).padding(.trailing, 60)
                             
                             HStack {
                                 Text("HISTORY").foregroundColor(Color.customDarkGrey).font(.system(size: 17, weight: .light)).frame(width: 150, alignment: .leading)
                                 Spacer().frame(width: 50)
+                                if learningObj.eval_score.isEmpty {
+                                    Text("This Learning Objective has never been assessed...")
+                                        .foregroundColor(Color.customDarkGrey)
+                                        .font(.system(size: 15, weight: .medium))
+                                }
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     HStack(spacing: 10) {
                                         

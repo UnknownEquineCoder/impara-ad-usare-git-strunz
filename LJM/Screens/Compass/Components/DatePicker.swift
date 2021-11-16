@@ -19,8 +19,10 @@ struct DatePickerView: View{
           selection: $pickerDate,
           displayedComponents: .date,
           label: { EmptyView() }
-        ).padding(.horizontal, 20)
-        .datePickerStyle(FieldDatePickerStyle())
+        )
+            .id(pickerDate)
+            .padding(.horizontal, 20)
+//        .datePickerStyle(FieldDatePickerStyle())
         .frame(width: 80, height: 26)
 
         }
