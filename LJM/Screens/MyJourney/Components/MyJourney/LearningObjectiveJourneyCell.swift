@@ -107,7 +107,7 @@ struct LearningObjectiveJourneyCell: View {
                             HStack {
                                 Text("KEYWORDS").foregroundColor(Color.customDarkGrey)
                                     .font(.system(size: 17, weight: .light))
-                                    .frame(width: 150, alignment: .leading)
+                                    .frame(width: 170, alignment: .leading)
                                 
                                 Spacer().frame(width: 50)
                                 
@@ -117,7 +117,7 @@ struct LearningObjectiveJourneyCell: View {
                                 .frame( height: learningObj.Keyword.count > 6 ? 105 : 50)
                                 .foregroundColor(Color.customLightBlack)
                                 .font(.system(size: 16, weight: .medium))
-                                .padding(.leading, 10)
+//                                .padding(.leading, 10)
                                 .padding(.trailing, 50)
                                 
                                 Spacer()
@@ -148,14 +148,14 @@ struct LearningObjectiveJourneyCell: View {
                             
                             HStack {
                                 Text("LAST ASSESSMENTS").foregroundColor(Color.customDarkGrey).font(.system(size: 17, weight: .light)).frame(width: 170, alignment: .leading)
-                                Spacer().frame(width: 100)
+                                Spacer().frame(width: 50)
                                 
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     HStack(spacing: 10) {
                                         if learningObj.eval_score.isEmpty {
                                             Text("This Learning Objective has never been assessed...")
                                                 .foregroundColor(Color.customDarkGrey)
-                                                .font(.system(size: 15, weight: .medium))
+                                                .font(.system(size: 17, weight: .light))
                                         }
                                         ForEach(learningObj.eval_score.indices, id: \.self) { index in
                                             HistoryProgressView(rating: $rating, learning_Score: learningObj.eval_score[index], learning_Date: learningObj.eval_date[index], learning_ID: learningObj.ID, index: index)
