@@ -192,7 +192,7 @@ struct CompassView: View {
                 }
                 .padding(.leading, 70).padding(.trailing, 50)
             }
-        }
+        }.background(Color.init("customDarkGrayDarkMode"))
     }
     
     func test_Idea_Function(){

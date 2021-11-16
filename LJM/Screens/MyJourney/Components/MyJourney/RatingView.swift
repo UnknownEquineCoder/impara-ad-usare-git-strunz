@@ -174,7 +174,7 @@ struct CircleView: View {
     }
     
     
-}
+
 
 struct PopOverViewRating: View {
     var status = "Progressing"
