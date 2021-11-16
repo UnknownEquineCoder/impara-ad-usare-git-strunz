@@ -3,6 +3,8 @@ import SwiftUI
 
 struct StartView: View {
     
+    @Binding var isLoading : Bool
+    
     // core data elements
     @Environment(\.managedObjectContext) private var viewContext
     
@@ -34,11 +36,12 @@ struct StartView: View {
                             ForEach(OutlineMenu.allCases) { menu in
                                 ZStack(alignment: .leading) {
                                     OutlineRow(item: menu, selectedMenu: self.$selectedMenu)
-                                        .frame(height: 54)
+                                        .frame(height: 54).padding([.leading, .trailing], 10)
                                     if menu == self.selectedMenu {
-                                        Rectangle()
+                                        RoundedRectangle(cornerRadius: 8)
                                             .foregroundColor(Color.secondary.opacity(0.1))
                                             .frame(height: 54)
+                                            .padding([.leading, .trailing], 10)
                                     }
                                 }
                             }
@@ -50,24 +53,36 @@ struct StartView: View {
             }.background(Color.primary.opacity(0.1))
             
             // View connected to the sidebar
-            
-            switch selectedMenu {
-            case .compass:
-                CompassView(path: $filter_Path)
-                    .environmentObject(totalNumberLearningObjectivesStore)
-                    .environmentObject(learningPathsStore)
-                    .environmentObject(strandsStore)
-            case .journey:
-                MyJourneyMainView(selectedMenu: $selectedMenu)
-                    .environmentObject(totalNumberLearningObjectivesStore)
-                    .environmentObject(learningPathsStore)
-                    .environmentObject(strandsStore)
-            case .map:
-                MapMainView()
-                    .environmentObject(totalNumberLearningObjectivesStore)
-                    .environmentObject(learningPathsStore)
-                    .environmentObject(strandsStore)
+            if isLoading {
+                HStack{
+                    Spacer()
+                    VStack{
+                        Spacer()
+                        Text("Loading...")
+                        Spacer()
+                    }
+                    Spacer()
+                }
+            } else {
+                switch selectedMenu {
+                case .compass:
+                    CompassView(path: $filter_Path)
+                        .environmentObject(totalNumberLearningObjectivesStore)
+                        .environmentObject(learningPathsStore)
+                        .environmentObject(strandsStore)
+                case .journey:
+                    MyJourneyMainView(selectedMenu: $selectedMenu)
+                        .environmentObject(totalNumberLearningObjectivesStore)
+                        .environmentObject(learningPathsStore)
+                        .environmentObject(strandsStore)
+                case .map:
+                    MapMainView()
+                        .environmentObject(totalNumberLearningObjectivesStore)
+                        .environmentObject(learningPathsStore)
+                        .environmentObject(strandsStore)
+                }
             }
+            
         }
         .onAppear(perform: {
             learningObjectiveStore.load_Test_Data() {

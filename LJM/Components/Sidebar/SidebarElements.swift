@@ -48,7 +48,6 @@ struct OutlineRow : View {
                     .frame(width: 2.0)
                     .imageScale(.small)
                     .foregroundColor(Color(red: 25/255, green: 144/255, blue: 135/255))
-//                    .foregroundColor(isSelected ? .customCyan : .primary)
             }
             .frame(width: 40)
             Text(item.title)

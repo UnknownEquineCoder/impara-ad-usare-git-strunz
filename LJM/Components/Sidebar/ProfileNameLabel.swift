@@ -14,7 +14,7 @@ struct ProfileNameLabel: View {
     @Binding var image_Data : Data?
     
     var body: some View {
-        VStack(alignment: .leading){
+        VStack(spacing: 5){
             Text("Hello,")
                 .fontWeight(.regular)
                 .font(.system(size: 25.toFontSize()))
@@ -23,35 +23,12 @@ struct ProfileNameLabel: View {
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.trailing, 95)
             
-//            if name.isEmpty {
-//                            Text("Placeholder Text")
-//                        }
-            
-//            TextEditor(text: $name).background(Color.clear)
-//                .onChange(of: name, perform: { _ in
-//                PersistenceController.shared.update_Profile(image: image_Data, name: name)
-//            })
-//                .font(.system(size: 25.toFontSize()))
-//                .textFieldStyle(PlainTextFieldStyle())
-//                .font(Font.headline.weight(.regular))
-//                .foregroundColor(colorScheme == .dark ? .white : Color(red: 70/255, green: 70/255, blue: 70/255))
-//                .multilineTextAlignment(.leading)
-//                .fixedSize(horizontal: false, vertical: true)
-//                .lineLimit(3)
-            
-//            CustomTextEditor.init(placeholder: "Start typing..", text: $name)
-//                                    .font(.body)
-//                                    .background(Color.clear)
-//                                    .accentColor(.green)
-//                                    .frame(height: 25)
-//                                    .cornerRadius(8)
-//                                    .onChange(of: name, perform: { _ in
-//                                        PersistenceController.shared.update_Profile(image: image_Data, name: name)
-//                                    })
-            
-            TextField("Name", text: $name, onCommit: {
-                PersistenceController.shared.update_Profile(image: image_Data, name: name)
-            })
+            TextField("Name", text: $name)
+                .onChange(of: name) { newName in
+                    if(newName != ""){
+                        PersistenceController.shared.update_Profile(image: image_Data, name: newName)
+                    }
+                }
                 .font(.system(size: 25.toFontSize()))
                 .textFieldStyle(PlainTextFieldStyle())
                 .font(Font.headline.weight(.regular))

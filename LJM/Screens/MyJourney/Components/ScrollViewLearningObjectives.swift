@@ -27,42 +27,35 @@ struct ScrollViewLearningObjectives: View {
     var filteredLearningObjectivesMyJourney: [learning_Objective] {
         
         let objectives = self.learningObjectiveStore.learningObjectives
+            .filter { !$0.eval_score.isEmpty }
+            .sorted { $0.goal.lowercased() < $1.goal.lowercased() }
         
         switch filterCore {
         case "COMMUNAL":
             return objectives
-                .filter { $0.isCore && !$0.eval_score.isEmpty }
-                .sorted { $0.goal.lowercased() < $1.goal.lowercased() }
+                .filter { $0.isCore }
+            
         case "ELECTIVE":
             return objectives
-                .filter { !$0.isCore && !$0.eval_score.isEmpty }
-                .sorted { $0.goal.lowercased() < $1.goal.lowercased() }
-            //        case "Evaluated":
-            //            return objectives
-            //                .filter { $0.eval_score.count > 2 }
-            //                .sorted { $0.goal.lowercased() < $1.goal.lowercased() }
-            //        case "Not Evaluated":
-            //            return objectives
-            //                .filter { $0.eval_score.count == 1 }
-            //                .sorted { $0.goal.lowercased() < $1.goal.lowercased() }
+                .filter { !$0.isCore }
+            
         case "FULL MAP":
             return objectives
-                .filter { !$0.eval_score.isEmpty }
-                .sorted { $0.goal.lowercased() < $1.goal.lowercased() }
         default:
             return filteredLearningObjectivesMap
         }
     }
     
     var filteredLearningObjectivesMap: [learning_Objective] {
+        let objectives = self.learningObjectiveStore.learningObjectives
         switch filteredMap {
         case "FULL MAP":
-            return checkForFilterEvaluatedOrNot()
+            return objectives
         case "COMMUNAL":
-            return checkForFilterEvaluatedOrNot()
+            return objectives
                 .filter { $0.isCore }
         case "ELECTIVE":
-            return checkForFilterEvaluatedOrNot()
+            return objectives
                 .filter { !($0.isCore) }
         case let filterPathsTab:
             if filterPathsTab != nil {
@@ -72,7 +65,7 @@ struct ScrollViewLearningObjectives: View {
             }
         }
     }
-        
+    
     var filteredChallenges: [learning_Objective] {
         switch filterChallenge {
         case let filterChallengeTab:
@@ -122,7 +115,7 @@ struct ScrollViewLearningObjectives: View {
         ScrollView {
             LazyVStack(spacing: 20) {
                 ForEach(filteredLearningObjectivesMyJourney
-                    .sorted(by: { first, second in
+                            .sorted(by: { first, second in
                     switch filterSort {
                     case .leastEvalFirst:
                         return first.eval_date.count < second.eval_date.count
@@ -136,7 +129,7 @@ struct ScrollViewLearningObjectives: View {
                         return (first.eval_date.last ?? Date()) < (second.eval_date.last ?? Date())
                     }
                 })
-                .filter({
+                            .filter({
                     textFromSearchBar.isEmpty ||
                     $0.goal.lowercased().contains(textFromSearchBar.lowercased()) ||
                     $0.description.lowercased().contains(textFromSearchBar.lowercased()) ||
@@ -144,84 +137,183 @@ struct ScrollViewLearningObjectives: View {
                     $0.strand.lowercased().contains(textFromSearchBar.lowercased()) ||
                     $0.goal_Short.lowercased().contains(textFromSearchBar.lowercased()) ||
                     $0.ID.lowercased().contains(textFromSearchBar.lowercased())
+                }).filter({
+                    if filterEvaluatedOrNot == nil {
+                       return true
+                    } else {
+                        return filterEvaluatedOrNot == .evaluated ? $0.eval_score.count > 0 : $0.eval_score.isEmpty
+                    }
                 }), id: \.ID) { item in
-                        if let strand = item.strand {
-                            if self.selectedStrands.contains(strand) || self.selectedStrands.count == 0 {
-                                
-                                LearningObjectiveJourneyCell(
-                                    rating: item.eval_score.last ?? 0,
-                                    isRatingView: item.eval_score.count > 0,
-                                    filter_Text: $textFromSearchBar,
-                                    isAddable: isAddable,
-                                    isLearningGoalAdded: isLearningGoalAdded == nil ? nil : (isLearningGoalAdded ?? false && item.eval_score.count > 0),
-                                    learningPathSelected: self.$learningPathSelected,
-                                    learningObj: item)
-                                
-                                    .contextMenu {
-                                        if !isAddable {
-                                            Button {
-                                                // remove learning objective
-                                                let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == item.ID})!
-                                                self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.removeAll()
-                                                self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.removeAll()
-
-                                            } label: {
-                                                Text("Delete")
-                                            }
+                    if let strand = item.strand {
+                        if self.selectedStrands.contains(strand) || self.selectedStrands.count == 0 {
+                            
+                            LearningObjectiveJourneyCell(
+                                rating: item.eval_score.last ?? 0,
+                                isRatingView: item.eval_score.count > 0,
+                                filter_Text: $textFromSearchBar,
+                                isAddable: isAddable,
+                                isLearningGoalAdded: isLearningGoalAdded == nil ? nil : (isLearningGoalAdded ?? false && item.eval_score.count > 0),
+                                learningPathSelected: self.$learningPathSelected,
+                                learningObj: item)
+                            
+                                .contextMenu {
+                                    if !isAddable {
+                                        Button {
+                                            // remove learning objective
+                                            let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == item.ID})!
+                                            self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.removeAll()
+                                            self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.removeAll()
+                                            
+                                        } label: {
+                                            Text("Delete")
                                         }
                                     }
                                 }
                         }
+                    }
                 }
             }
         }
         .padding(.bottom, 60)
+//        .onChange(of: self.filteredLearningObjectivesMyJourney || self.textFromSearchBar || self.selectedStrands, perform: { _ in
+//
+//        })
         .onChange(of: self.filteredLearningObjectivesMyJourney) { result in
-            self.totalNumberLearningObjectivesStore.total = result.count
+
+            self.totalNumberLearningObjectivesStore.total = 0
+            
+            let temp =
+            result
+            .filter({
+                textFromSearchBar.isEmpty ||
+                $0.goal.lowercased().contains(textFromSearchBar.lowercased()) ||
+                $0.description.lowercased().contains(textFromSearchBar.lowercased()) ||
+                $0.Keyword.contains(where: {$0.lowercased().contains(textFromSearchBar.lowercased())}) ||
+                $0.strand.lowercased().contains(textFromSearchBar.lowercased()) ||
+                $0.goal_Short.lowercased().contains(textFromSearchBar.lowercased()) ||
+                $0.ID.lowercased().contains(textFromSearchBar.lowercased())
+            }).filter({
+                if selectedStrands.count == 0 {
+                    return true
+                } else {
+                    return self.selectedStrands.contains($0.strand)
+                }
+            }) as [learning_Objective]
+            
+            self.totalNumberLearningObjectivesStore.total = temp.filter({
+                if filterEvaluatedOrNot == nil {
+                   return true
+                } else {
+                    return filterEvaluatedOrNot == .evaluated ? $0.eval_score.count > 0 : $0.eval_score.isEmpty
+                }
+            }).count
         }
         .onChange(of: self.textFromSearchBar) { result in
-            if result != "" {
-                self.totalNumberLearningObjectivesStore.total = self.filteredLearningObjectivesMyJourney.filter({ (LO) -> Bool in
-                    LO.description.lowercased().contains(result.lowercased()) || LO.goal.lowercased().contains(result.lowercased())
-                }).count
-            } else {
-                self.totalNumberLearningObjectivesStore.total = self.filteredLearningObjectivesMyJourney.count
-            }
+            
+            let temp =
+            filteredLearningObjectivesMyJourney
+            .filter({
+                textFromSearchBar.isEmpty ||
+                $0.goal.lowercased().contains(result.lowercased()) ||
+                $0.description.lowercased().contains(result.lowercased()) ||
+                $0.Keyword.contains(where: {$0.lowercased().contains(result.lowercased())}) ||
+                $0.strand.lowercased().contains(result.lowercased()) ||
+                $0.goal_Short.lowercased().contains(result.lowercased()) ||
+                $0.ID.lowercased().contains(result.lowercased())
+            }).filter({
+                if selectedStrands.count == 0 {
+                    return true
+                } else {
+                    return self.selectedStrands.contains($0.strand)
+                }
+            }) as [learning_Objective]
+            
+            self.totalNumberLearningObjectivesStore.total = temp.filter({
+                if filterEvaluatedOrNot == nil {
+                   return true
+                } else {
+                    return filterEvaluatedOrNot == .evaluated ? $0.eval_score.count > 0 : $0.eval_score.isEmpty
+                }
+            }).count
         }
         .onChange(of: self.selectedStrands) { result in
-            if !result.isEmpty {
-                self.totalNumberLearningObjectivesStore.total = self.filteredLearningObjectivesMyJourney.filter({ (LO) -> Bool in
-                    result.contains(LO.strand)
-                }).count
-            } else {
-                self.totalNumberLearningObjectivesStore.total = self.filteredLearningObjectivesMyJourney.count
-            }
-        }
-        .onReceive(totalNumberLearningObjectivesStore.$changeViewTotal) { (result) in
-            self.totalNumberLearningObjectivesStore.total = self.filteredLearningObjectivesMyJourney.count
+            
+            let temp =
+            filteredLearningObjectivesMyJourney
+            .filter({
+                textFromSearchBar.isEmpty ||
+                $0.goal.lowercased().contains(textFromSearchBar.lowercased()) ||
+                $0.description.lowercased().contains(textFromSearchBar.lowercased()) ||
+                $0.Keyword.contains(where: {$0.lowercased().contains(textFromSearchBar.lowercased())}) ||
+                $0.strand.lowercased().contains(textFromSearchBar.lowercased()) ||
+                $0.goal_Short.lowercased().contains(textFromSearchBar.lowercased()) ||
+                $0.ID.lowercased().contains(textFromSearchBar.lowercased())
+            }).filter({
+                if result.count == 0 {
+                    return true
+                } else {
+                    return result.contains($0.strand)
+                }
+            }) as [learning_Objective]
+            
+            self.totalNumberLearningObjectivesStore.total = temp.filter({
+                if filterEvaluatedOrNot == nil {
+                   return true
+                } else {
+                    return filterEvaluatedOrNot == .evaluated ? $0.eval_score.count > 0 : $0.eval_score.isEmpty
+                }
+            }).count
             
         }
+        .onChange(of: filterEvaluatedOrNot, perform: { result in
+            let temp =
+            filteredLearningObjectivesMyJourney
+            .filter({
+                textFromSearchBar.isEmpty ||
+                $0.goal.lowercased().contains(textFromSearchBar.lowercased()) ||
+                $0.description.lowercased().contains(textFromSearchBar.lowercased()) ||
+                $0.Keyword.contains(where: {$0.lowercased().contains(textFromSearchBar.lowercased())}) ||
+                $0.strand.lowercased().contains(textFromSearchBar.lowercased()) ||
+                $0.goal_Short.lowercased().contains(textFromSearchBar.lowercased()) ||
+                $0.ID.lowercased().contains(textFromSearchBar.lowercased())
+            }).filter({
+                if selectedStrands.count == 0 {
+                    return true
+                } else {
+                    return selectedStrands.contains($0.strand)
+                }
+            }) as [learning_Objective]
+            
+            self.totalNumberLearningObjectivesStore.total = temp.filter({
+                if result == nil {
+                   return true
+                } else {
+                    return result == .evaluated ? $0.eval_score.count > 0 : $0.eval_score.isEmpty
+                }
+            }).count
+
+        })
+        .onReceive(totalNumberLearningObjectivesStore.$changeViewTotal) { (result) in
+            self.totalNumberLearningObjectivesStore.total = self.filteredLearningObjectivesMyJourney.count
+        }
     }
     
-    func checkForFilterEvaluatedOrNot() -> [learning_Objective] {
-        return filterEvaluatedOrNot == nil ? learningObjectiveStore.learningObjectives : (filterEvaluatedOrNot == .evaluated ? learningObjectiveStore.learningObjectives.filter({$0.eval_score.count > 0}) : learningObjectiveStore.learningObjectives.filter({$0.eval_score.count == 0}))
-    }
+//    func checkForFilterEvaluatedOrNot() -> [learning_Objective] {
+//        return filterEvaluatedOrNot == nil ? learningObjectiveStore.learningObjectives : (filterEvaluatedOrNot == .evaluated ? learningObjectiveStore.learningObjectives.filter({$0.eval_score.count > 0}) : learningObjectiveStore.learningObjectives.filter({$0.eval_score.count == 0}))
+//    }
     
     func sortLearningObjectivesMap(learningPaths: [learning_Path], selectedPath: String) -> [learning_Objective] {
-                
+        
         var arrayOfLearningObjectives = [learning_Objective]()
         
         if let learning_Path_Index = learningPaths.firstIndex(where: {$0.title == selectedPath}) {
-            arrayOfLearningObjectives =
-                checkForFilterEvaluatedOrNot()
+            arrayOfLearningObjectives = learningObjectiveStore.learningObjectives
                 .filter { learning_Objective in
-                // algo whenever we have learning objectives related to learning paths
-//                learningPaths[learning_Path_Index].learning_Objective_IDs.contains(learning_Objective.ID)
-                
-                learning_Objective.core_Rubric_Levels[learning_Path_Index] > 1
-            }
+                    // algo whenever we have learning objectives related to learning paths
+                    //                learningPaths[learning_Path_Index].learning_Objective_IDs.contains(learning_Objective.ID)
+                    learning_Objective.core_Rubric_Levels[learning_Path_Index] > 1
+                }
         }
-                
         return arrayOfLearningObjectives
     }
     

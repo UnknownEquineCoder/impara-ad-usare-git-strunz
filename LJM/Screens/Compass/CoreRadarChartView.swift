@@ -18,13 +18,12 @@ struct CoreRadarChartView: View {
                 
                 RadarGraphFrame()
                 
-                VStack(alignment: .leading, spacing: 25.0){
-                    label("")
+                VStack(alignment: .leading, spacing: 37.0){
                     label("PROGRESSING")
                     label("BEGINNING")
                     label("NOT EVALUATED")
                 }
-                .padding(.bottom, geo.size.height/1.90)
+                .padding(.bottom, (geo.size.height/1.90)+5)
                 .padding(.leading, 10)
             }
         }

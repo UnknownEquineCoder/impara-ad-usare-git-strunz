@@ -13,17 +13,19 @@ struct InfoButton: View {
     var title: String = "Titolo"
     var textBody: String = "Body"
     var heightCell: CGFloat
+    @State private var hoveredInfoButton = false
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         Button(action: {
             self.showPopover =  true
         }) {
-            Image(systemName: "info.circle").resizable().frame(width: 17.toScreenSize(), height: 17.toScreenSize())
+            Image(systemName: hoveredInfoButton ? "info.circle.fill" : "info.circle").resizable().frame(width: 17.toScreenSize(), height: 17.toScreenSize())
                 .foregroundColor(Color(red: 165/255, green: 165/255, blue: 165/255))
-        }
-//        .buttonStyle(PlainButtonStyle())
-            .buttonStyle(CustomButtonStyle())
+        }.buttonStyle(PlainButtonStyle())
+            .onHover { hovered in
+                hoveredInfoButton = hovered
+            }
             .popover(isPresented: $showPopover, arrowEdge: .trailing, content: {
                 VStack{
                     Text(textBody)
