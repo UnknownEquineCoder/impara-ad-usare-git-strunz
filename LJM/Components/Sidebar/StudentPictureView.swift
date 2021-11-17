@@ -34,6 +34,8 @@ struct ProfileImage: View {
 
 struct StudentPictureView: View {
     
+    @StateObject var learningObjectiveStore = LearningObjectivesStore()
+    
     // core data elements
     @Environment(\.managedObjectContext) private var viewContext
     
@@ -77,6 +79,7 @@ struct StudentPictureView: View {
                             }
                             if let student_Name = first_Student.name {
                                 username = student_Name
+                                PersistenceController.shared.name = student_Name
                             }
                         }
                     }
