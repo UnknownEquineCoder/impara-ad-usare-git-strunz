@@ -22,9 +22,8 @@ struct DatePickerView: View{
         )
             .id(pickerDate)
             .padding(.horizontal, 20)
-//        .datePickerStyle(FieldDatePickerStyle())
-        .frame(width: 80, height: 26)
-
+            .frame(width: 80, height: 26)
+            .environment(\.locale, Locale(identifier: "en"))
         }
     
     }

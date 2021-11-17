@@ -23,7 +23,7 @@ struct ProfileNameLabel: View {
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.trailing, 95)
             
-            TextField("Name", text: $name)
+            TextField("Your name here", text: $name)
                 .onChange(of: name) { newName in
                     if(newName != ""){
                         PersistenceController.shared.update_Profile(image: image_Data, name: newName)
