@@ -91,8 +91,8 @@ struct CompassView: View {
                         DatePickerView(pickerDate: $selected_Date)
                             .padding(.top, 7.toScreenSize())
                             .onChange(of: selected_Date) { date in
-                                    dark_Path_Datas()
-                                    dark_Core_Datas()
+                                dark_Path_Datas()
+                                dark_Core_Datas()
                             }
                        
                         HStack{
@@ -141,6 +141,9 @@ struct CompassView: View {
                                 
                                 DropDownMenuCompass(selectedPath: $path)
                                     .onChange(of: path) { _ in
+                                        
+                                        test_Idea_Function()
+                                        
                                         DispatchQueue.main.asyncAfter(deadline: .now()) {
                                             animation_Trigger = false
                                         }
@@ -197,6 +200,12 @@ struct CompassView: View {
     
     func test_Idea_Function(){
         
+        process_Progress = [5,5,5,5,5,5,5,5,5,5,5,5]
+        design_Progress = [5,5,5,5,5,5,5,5,5,5,5,5]
+        professional_Progress = [5,5,5,5,5,5,5,5,5,5,5,5]
+        tecnical_Progress = [5,5,5,5,5,5,5,5,5,5,5,5]
+        business_Progress = [5,5,5,5,5,5,5,5,5,5,5,5]
+        
         let process_Skills_Count = process_Skills.count
         let design_Skills_Count = design_Skills.count
         let professional_Skills_Count = professional_Skills.count
@@ -214,7 +223,14 @@ struct CompassView: View {
         business_Progress = (0 ..< business_Skills_Count).map { _ in 0 }
         var business_Progress_Quantity : [Int] = (0 ..< business_Skills_Count).map { _ in 0 }
         
-        for learning_Objective in learningObjectiveStore.learningObjectives {
+        var learning_Objectives = learningObjectiveStore.learningObjectives
+        
+        if path != "Select a Path" {
+            let path_Index = learningPathStore.learningPaths.firstIndex(where: {$0.title == path}) ?? 1
+            learning_Objectives = learning_Objectives.filter({ ($0.core_Rubric_Levels[path_Index] * $0.core_Rubric_Levels[0]) > 1})
+        }
+        
+        for learning_Objective in learning_Objectives {
             switch learning_Objective.strand {
                 case "App Business and Marketing":
 
@@ -290,12 +306,16 @@ struct CompassView: View {
         var data_Quantity = [0,0,0,0,0]
         path_Index = learningPathStore.learningPaths.firstIndex(where: {$0.title == path}) ?? 1
         
+        if path == "Select a Path" {
+            return
+        }
+        
         // filter for tonio cartonio
-        let filtered_Objectives = learningObjectiveStore.learningObjectives.filter({ ($0.core_Rubric_Levels[path_Index + 1] * $0.core_Rubric_Levels[0]) > 1})
-
+        let filtered_Objectives = learningObjectiveStore.learningObjectives.filter({ ($0.core_Rubric_Levels[path_Index] * $0.core_Rubric_Levels[0]) > 1})
+        
         for learning_Objective in filtered_Objectives {
             let temp_Strand_Index = fake_Strands.firstIndex(of: learning_Objective.strand) ?? 0
-            data_Path_Front_Array[temp_Strand_Index] += (learning_Objective.core_Rubric_Levels[path_Index + 1] > learning_Objective.core_Rubric_Levels[0]) ?  CGFloat(learning_Objective.core_Rubric_Levels[path_Index + 1]) : CGFloat(learning_Objective.core_Rubric_Levels[0])
+            data_Path_Front_Array[temp_Strand_Index] += (learning_Objective.core_Rubric_Levels[path_Index] > learning_Objective.core_Rubric_Levels[0]) ?  CGFloat(learning_Objective.core_Rubric_Levels[path_Index]) : CGFloat(learning_Objective.core_Rubric_Levels[0])
             data_Quantity[temp_Strand_Index] += 1
         }
         

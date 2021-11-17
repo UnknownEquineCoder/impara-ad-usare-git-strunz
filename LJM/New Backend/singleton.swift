@@ -17,6 +17,7 @@ class singleton_Shared {
 class LearningObjectivesStore: ObservableObject {
     
     @Published var learningObjectives = [learning_Objective]()
+    @Published var name : String = ""
     
     var isSavable = true
     

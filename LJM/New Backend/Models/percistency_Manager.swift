@@ -11,6 +11,8 @@ import SwiftUI
 struct PersistenceController {
     static var shared = PersistenceController()
     
+    var name = "Name"
+    
     let container: NSPersistentCloudKitContainer
     
     var fetched_Learning_Objectives : FetchedResults<EvaluatedObject>? = nil

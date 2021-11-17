@@ -8,13 +8,12 @@ struct LJMApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     // instantiating the controller for core data
     let persistenceController = PersistenceController.shared
+    @StateObject var learningObjectiveStore = LearningObjectivesStore()
     
     //for import and export files
     @State var importFile = false
     @State var exportFile = false
     @State private var document: MessageDocument = MessageDocument(message: "Hello, World!")
-
-    @StateObject var learningObjectiveStore = LearningObjectivesStore()
     
     @State var isLoading = false
     
@@ -34,7 +33,7 @@ struct LJMApp: App {
                     isPresented: $exportFile,
                     document: document,
                     contentType: srtType,
-                    defaultFilename: "Nome - Cognome - \(Date())"
+                    defaultFilename: "\(PersistenceController.shared.name) - \(Date())"
                 ) { result in
                     if case .success = result {
                         // Handle success.
