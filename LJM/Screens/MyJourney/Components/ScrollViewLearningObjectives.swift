@@ -162,8 +162,11 @@ struct ScrollViewLearningObjectives: View {
                                         Button {
                                             // remove learning objective
                                             let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == item.ID})!
-                                            self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.removeAll()
-                                            self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.removeAll()
+//                                            self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.removeAll()
+//                                            self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.removeAll()
+                                            
+                                            learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
+
                                             
                                         } label: {
                                             Text("Delete")
