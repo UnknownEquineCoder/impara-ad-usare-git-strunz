@@ -22,7 +22,7 @@ struct SortButtonMenu: View {
             Button { withAnimation { selectedSort = .first_Assest } }
                 label: {
                     HStack{
-                        Text("By Most Recent")
+                        Text("Most Recent")
                         Image(systemName: "checkmark")
                             .isHidden(selectedSort != .first_Assest)
                     }
@@ -31,7 +31,7 @@ struct SortButtonMenu: View {
             Button { withAnimation { selectedSort = .last_Assest } }
         label: {
             HStack {
-                Text("By Least Recent")
+                Text("Least Recent")
                 Image(systemName: "checkmark")
                     .isHidden(selectedSort != .last_Assest)
             }
@@ -59,7 +59,7 @@ struct SortButtonMenu: View {
                     .resizable()
                     .foregroundColor(colorScheme == .dark ? Color(red: 160/255, green: 159/255, blue: 159/255) : Color(red: 87/255, green: 87/255, blue: 87/255))
 //                    .frame(width: 10, height: 10, alignment: .center)
-                Text("Sort")
+                Text("Sort by")
 //                    .font(.system(size: 20, weight: .medium, design: .rounded))
                     .foregroundColor(colorScheme == .dark ? Color(red: 160/255, green: 159/255, blue: 159/255) : Color(red: 87/255, green: 87/255, blue: 87/255))
             }
