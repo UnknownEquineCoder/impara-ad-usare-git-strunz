@@ -21,11 +21,15 @@ struct LJMApp: App {
     
     //    let srtType = UTType(exportedAs: "com.company.srt-document", conformingTo: .commaSeparatedText)
     let srtType = UTType("com.exemple.LearningJourneyManager")!
+    let semaphore = DispatchSemaphore(value: 1)
+    let dispatchGroup = DispatchGroup()
+    
     var body: some Scene {
         WindowGroup {
             // MainScreen used as a Splash screen -> redirect to Login view or Content view regarding the login status
             //            DocumentGroup(newDocument: DocDemoDocument()) { file in
             if #available(macOS 12.0, *) {
+                
                 StartView(isLoading: $isLoading)
                     .environment(\.managedObjectContext, persistenceController.container.viewContext)
                     .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight, alignment: .center)
@@ -36,8 +40,7 @@ struct LJMApp: App {
                         }
                         
                         Button("Yes", role: .cancel) {
-//                            importFile.toggle()
-                            
+                            dispatchGroup.leave()
                         }
                     }
                 //            }
@@ -60,18 +63,17 @@ struct LJMApp: App {
                         allowsMultipleSelection: false
                     ) { result in
                         if case .success = result {
-                            
                             showingAlertImport.toggle()
                             
+                            dispatchGroup.enter()
+                            
+                            dispatchGroup.notify(queue: .main) {
+                                
                                 do {
-                                    
-                                    print("JIHUGYFTVGUHIJ")
                                     isLoading = true
                                     
                                     learningObjectiveStore.isSavable = false
-                                    
-                                    //                            learningObjectiveStore.reset_Evaluated()
-                                    
+                                                                        
                                     guard let selectedFile: URL = try result.get().first else { return }
                                     guard let message = String(data: try Data(contentsOf: selectedFile), encoding: .utf8) else { return }
                                     var rows = message.components(separatedBy: "\n")
@@ -111,13 +113,13 @@ struct LJMApp: App {
                                     let nsError = error as NSError
                                     fatalError("File Import Error \(nsError), \(nsError.userInfo)")
                                 }
-                            
+                            }
                             
                         } else {
                             print("File Import Failed")
                         }
                     }
-                    
+                
                     .environmentObject(learningObjectiveStore)
             } else {
                 // Fallback on earlier versions
@@ -132,7 +134,6 @@ struct LJMApp: App {
                     }) {
                         Text("Import File")
                     }
-                    
                     
                     // to export files
                     Button(action: {
