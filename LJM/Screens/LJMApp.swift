@@ -34,7 +34,6 @@ struct LJMApp: App {
                     .environment(\.managedObjectContext, persistenceController.container.viewContext)
                     .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight, alignment: .center)
                     .alert("Do you want to override your data with this file ?", isPresented: $showingAlertImport) {
-                        
                         Button("No", role: .cancel) {
                             
                         }
@@ -114,12 +113,10 @@ struct LJMApp: App {
                                     fatalError("File Import Error \(nsError), \(nsError.userInfo)")
                                 }
                             }
-                            
                         } else {
                             print("File Import Failed")
                         }
                     }
-                
                     .environmentObject(learningObjectiveStore)
             } else {
                 // Fallback on earlier versions
