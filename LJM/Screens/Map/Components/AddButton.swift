@@ -160,9 +160,9 @@ struct UndoView: Vanishable {
                 .foregroundColor(Color("customCyan"))
                 .frame(width: 16, height: 16)
                 .overlay(Circle().stroke().foregroundColor(Color.gray))
-            Button{
+            Button {
                 
-            }label:{
+            } label: {
                 Text("Undo")
                     .foregroundColor(.red)
             }.buttonStyle(PlainButtonStyle())
