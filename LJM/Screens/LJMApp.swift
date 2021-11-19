@@ -24,16 +24,14 @@ struct LJMApp: App {
             // MainScreen used as a Splash screen -> redirect to Login view or Content view regarding the login status
             //            DocumentGroup(newDocument: DocDemoDocument()) { file in
             StartView(isLoading: $isLoading)
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight, alignment: .center)
+                .environment(\.managedObjectContext, PersistenceController.container.viewContext)
+                .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight!*0.89, alignment: .center)
             //            }
-                
-            
                 .fileExporter(
                     isPresented: $exportFile,
                     document: document,
                     contentType: srtType,
-                    defaultFilename: "\(PersistenceController.shared.name) - \(Date())"
+                    defaultFilename: "g - \(Date())"
                 ) { result in
                     if case .success = result {
                         // Handle success.
@@ -147,6 +145,7 @@ struct LJMApp: App {
                 })
             })
     }
+    
 }
 
 struct Doc : FileDocument {

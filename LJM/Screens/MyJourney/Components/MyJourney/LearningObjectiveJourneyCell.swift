@@ -125,27 +125,6 @@ struct LearningObjectiveJourneyCell: View {
                             //comment for update
                             Divider().background(Color(red: 70/255, green: 70/255, blue: 70/255)).padding(.trailing, 60)
                             
-//                            HStack {
-//                                Text("HISTORY").foregroundColor(Color.customDarkGrey).font(.system(size: 17, weight: .light)).frame(width: 150, alignment: .leading)
-//                                Spacer().frame(width: 50)
-//                                if learningObj.eval_score.isEmpty {
-//                                    Text("This Learning Objective has never been assessed...")
-//                                        .foregroundColor(Color.customDarkGrey)
-//                                        .font(.system(size: 15, weight: .medium))
-//                                }
-//                                ScrollView(.horizontal, showsIndicators: false) {
-//                                    HStack(spacing: 10) {
-//
-//                                        ForEach(learningObj.eval_score.indices, id: \.self) { index in
-//                                            HistoryProgressView(rating: $rating, learning_Score: learningObj.eval_score[index], learning_Date: learningObj.eval_date[index], learning_ID: learningObj.ID, index: index)
-//
-//                                        }
-//                                    }
-//                                }
-//
-//                                Spacer().frame(width: 50)
-//                            }
-                            
                             HStack {
                                 Text("LAST ASSESSMENTS").foregroundColor(Color.customDarkGrey).font(.system(size: 17, weight: .light)).frame(width: 170, alignment: .leading)
                                 Spacer().frame(width: 50)
@@ -248,7 +227,7 @@ struct LearningObjectiveJourneyCell: View {
         
         return ZStack(alignment: .topLeading) {
             ForEach(learningObj.Keyword, id: \.self) { keyword in
-                Text("#\(keyword.replacingOccurrences(of: " ", with: "_")) ")
+                Text("#\(keyword.replacingOccurrences(of: " ", with: "")) ")
                     .onTapGesture {
                         withAnimation {
                             filter_Text = keyword
@@ -285,40 +264,6 @@ struct LearningObjectiveJourneyCell: View {
             }
         }
     }
-    
-    //    func generateContent(in g: GeometryProxy) -> some View {
-    //        var width = CGFloat.zero
-    //        var height = CGFloat.zero
-    //
-    //        return ZStack(alignment: .topLeading) {
-    //            ForEach(learningObj.Keyword, id: \.self) { keyword in
-    //                Text("#\(keyword.replacingOccurrences(of: " ", with: "_")) ")
-    //                    .padding([.horizontal, .vertical], 4)
-    //                    .alignmentGuide(.leading, computeValue: { d in
-    //                        if (abs(width - d.width) > g.size.width)
-    //                        {
-    //                            width = 0
-    //                            height -= d.height
-    //                        }
-    //                        let result = width
-    //                        if keyword == self.learningObj.Keyword.last! {
-    //                            width = 0 //last item
-    //                        } else {
-    //                            width -= d.width
-    //                        }
-    //                        return result
-    //                    })
-    //                    .alignmentGuide(.top, computeValue: {d in
-    //                        let result = height
-    //                        if keyword == self.learningObj.Keyword.last! {
-    //                            height = 0 // last item
-    //                        }
-    //                        return result
-    //                    })
-    //            }
-    //        }
-    //        .background(viewHeightReader($totalHeight))
-    //    }
     
     func viewHeightReader(_ binding: Binding<CGFloat>) -> some View {
         return GeometryReader { geometry -> Color in

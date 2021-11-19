@@ -54,6 +54,7 @@
 		E04251AD27295F34000A1D69 /* StudentData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E04251AB27295F34000A1D69 /* StudentData.xcdatamodeld */; };
 		E04251B3272AAABA000A1D69 /* percistency_Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04251B2272AAABA000A1D69 /* percistency_Manager.swift */; };
 		E04251B72733EACD000A1D69 /* CoreRadarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04251B62733EACD000A1D69 /* CoreRadarChartView.swift */; };
+		E09982422745385900F678D7 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E09982412745385900F678D7 /* CloudKit.framework */; };
 		E0E87CCC27214EED00FEF3D6 /* Coders.csv in Resources */ = {isa = PBXBuildFile; fileRef = E0E87CCB27214EED00FEF3D6 /* Coders.csv */; };
 		E0E87CD4272801BD00FEF3D6 /* ALL PATHS.csv in Resources */ = {isa = PBXBuildFile; fileRef = E0E87CD3272801BC00FEF3D6 /* ALL PATHS.csv */; };
 		E0E87CD6272801C900FEF3D6 /* DocDemoDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E87CD5272801C900FEF3D6 /* DocDemoDocument.swift */; };
@@ -172,6 +173,7 @@
 		E04251AC27295F34000A1D69 /* profile.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = profile.xcdatamodel; sourceTree = "<group>"; };
 		E04251B2272AAABA000A1D69 /* percistency_Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = percistency_Manager.swift; sourceTree = "<group>"; };
 		E04251B62733EACD000A1D69 /* CoreRadarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreRadarChartView.swift; sourceTree = "<group>"; };
+		E09982412745385900F678D7 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		E0E87CCB27214EED00FEF3D6 /* Coders.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Coders.csv; sourceTree = "<group>"; };
 		E0E87CD3272801BC00FEF3D6 /* ALL PATHS.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ALL PATHS.csv"; sourceTree = "<group>"; };
 		E0E87CD5272801C900FEF3D6 /* DocDemoDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocDemoDocument.swift; sourceTree = "<group>"; };
@@ -207,6 +209,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E09982422745385900F678D7 /* CloudKit.framework in Frameworks */,
 				EA7335682648B817004B761A /* Introspect in Frameworks */,
 				EA5B447826310DF7002A97C7 /* SwiftKeychainWrapper in Frameworks */,
 				EA139BD42640910900E15E28 /* JWTDecode in Frameworks */,
@@ -375,6 +378,7 @@
 		96B1A089258397ED006DE527 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E09982412745385900F678D7 /* CloudKit.framework */,
 				96B1A08A258397ED006DE527 /* CoreData.framework */,
 			);
 			name = Frameworks;
@@ -878,7 +882,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"LJM/Preview Content\"";
-				DEVELOPMENT_TEAM = 44MJBDB342;
+				DEVELOPMENT_TEAM = QJTRTDLS6U;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = LJM/Info.plist;
@@ -907,7 +911,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"LJM/Preview Content\"";
-				DEVELOPMENT_TEAM = 44MJBDB342;
+				DEVELOPMENT_TEAM = QJTRTDLS6U;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = LJM/Info.plist;
@@ -976,7 +980,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = QJTRTDLS6U;
 				INFOPLIST_FILE = LJMUITests/Info.plist;
@@ -998,7 +1002,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = QJTRTDLS6U;
 				INFOPLIST_FILE = LJMUITests/Info.plist;

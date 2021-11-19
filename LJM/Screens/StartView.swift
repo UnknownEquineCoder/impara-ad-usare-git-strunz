@@ -8,9 +8,10 @@ struct StartView: View {
     // core data elements
     @Environment(\.managedObjectContext) private var viewContext
     
-    @FetchRequest(
-        sortDescriptors: [],
-        animation: .default)
+//    @FetchRequest(
+//        sortDescriptors: [],
+//        animation: .default)
+    @FetchRequest(fetchRequest: EvaluatedObject.get_Evaluated_Object_List_Request(), animation: .default)
     private var objectives: FetchedResults<EvaluatedObject>
     
     @State var selectedMenu: OutlineMenu = .compass
@@ -30,6 +31,7 @@ struct StartView: View {
                 VStack {
                     StudentPictureView(size: 85)
                         .padding(.trailing)
+                        
                     
                     ScrollView(showsIndicators: false) {
                         VStack(alignment: .leading) {
@@ -86,14 +88,15 @@ struct StartView: View {
         }
         .onAppear(perform: {
             learningObjectiveStore.load_Test_Data() {
+                
                 PersistenceController.shared.fetched_Learning_Objectives = objectives
                 learningObjectiveStore.load_Status(objectives: objectives)
                 learningPathsStore.load_Learning_Path()
                 strandsStore.setupStrandsOnNativeFilter(learningObjectives: learningObjectiveStore.learningObjectives)
+                
             }
             
         })
     }
     
 }
-
