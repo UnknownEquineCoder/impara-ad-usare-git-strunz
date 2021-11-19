@@ -82,7 +82,6 @@ struct StartView: View {
                         .environmentObject(strandsStore)
                 }
             }
-            
         }
         .onAppear(perform: {
             learningObjectiveStore.load_Test_Data() {

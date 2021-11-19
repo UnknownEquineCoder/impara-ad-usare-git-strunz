@@ -14,6 +14,7 @@ struct AddButton: View {
     
     @State var hovered = false
     @State private var showingPopup:Bool = false
+    @State private var showingAlert = false
 
     @Binding var rating: Int
     
@@ -31,7 +32,7 @@ struct AddButton: View {
     }
     
     var body: some View {
-        VStack{
+        VStack {
             
             CountDownWrapper<AddLabelView>()
                 .opacity(didTap ? 1 : 0)
@@ -76,9 +77,25 @@ struct AddButton: View {
                                 .foregroundColor(Color("customCyan"))
                                 .onTapGesture {
                                     // remove item from the learning objective list
-                                    
-                                    learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
-                                    
+                                    if learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.count > 0 {
+                                        // pop up
+                                        
+                                        showingAlert = true
+                                        
+                                    } else {
+                                        
+                                        learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
+                                    }
+                                }
+                                .alert(isPresented:$showingAlert) {
+                                    Alert(
+                                        title: Text("Are you sure you want to delete this Learning Objective?"),
+                                        message: Text("You can't undo this action"),
+                                        primaryButton: .destructive(Text("Delete")) {
+                                            print("Deleting...")
+                                        },
+                                        secondaryButton: .cancel()
+                                    )
                                 }
                         }
                     } else {
@@ -89,12 +106,32 @@ struct AddButton: View {
                             .onTapGesture {
                                 
                                 // remove item from learning objective list
-                                
                                 let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObjectiveSelected.ID})!
+
+                                if learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.count > 1 {
+                                    
+                                    showingAlert = true
+                                    
+                                    didTap = false
+                                    
+                                } else {
+                                    
+                                    learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
+                                }
                                 
-                                learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
-                                
-                                didTap = false
+                            }
+                            .alert(isPresented:$showingAlert) {
+                                Alert(
+                                    title: Text("Are you sure you want to delete this Learning Objective?"),
+                                    message: Text("You can't undo this action"),
+                                    primaryButton: .destructive(Text("Delete")) {
+                                        let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObjectiveSelected.ID})!
+
+                                        learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
+                                        print("Deleting...")
+                                    },
+                                    secondaryButton: .cancel()
+                                )
                             }
                     }
                 }
@@ -123,9 +160,9 @@ struct UndoView: Vanishable {
                 .foregroundColor(Color("customCyan"))
                 .frame(width: 16, height: 16)
                 .overlay(Circle().stroke().foregroundColor(Color.gray))
-            Button{
+            Button {
                 
-            }label:{
+            } label: {
                 Text("Undo")
                     .foregroundColor(.red)
             }.buttonStyle(PlainButtonStyle())

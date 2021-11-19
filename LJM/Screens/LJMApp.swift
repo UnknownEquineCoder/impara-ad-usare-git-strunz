@@ -17,27 +17,34 @@ struct LJMApp: App {
     @State private var document: MessageDocument = MessageDocument(message: "Hello, World!")
     
     @State var isLoading = false
+    @State var isSavable = false
     @State private var showingAlertImport = false
     
     //    let srtType = UTType(exportedAs: "com.company.srt-document", conformingTo: .commaSeparatedText)
     let srtType = UTType("com.exemple.LearningJourneyManager")!
+    let semaphore = DispatchSemaphore(value: 1)
+    let dispatchGroup = DispatchGroup()
+    
     var body: some Scene {
         WindowGroup {
             // MainScreen used as a Splash screen -> redirect to Login view or Content view regarding the login status
             //            DocumentGroup(newDocument: DocDemoDocument()) { file in
             if #available(macOS 12.0, *) {
+                
                 StartView(isLoading: $isLoading)
                     .environment(\.managedObjectContext, persistenceController.container.viewContext)
                     .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight, alignment: .center)
                     .alert("Do you want to override your data with this file ?", isPresented: $showingAlertImport) {
-                        
                         Button("No", role: .cancel) {
+                            self.isSavable = false
                             
+                            dispatchGroup.leave()
                         }
                         
                         Button("Yes", role: .cancel) {
-//                            importFile.toggle()
-                            
+                            self.isSavable = true
+
+                            dispatchGroup.leave()
                         }
                     }
                 //            }
@@ -60,18 +67,17 @@ struct LJMApp: App {
                         allowsMultipleSelection: false
                     ) { result in
                         if case .success = result {
-                            
                             showingAlertImport.toggle()
                             
+                            dispatchGroup.enter()
+                            
+                            dispatchGroup.notify(queue: .main) {
+                                
                                 do {
-                                    
-                                    print("JIHUGYFTVGUHIJ")
                                     isLoading = true
                                     
-                                    learningObjectiveStore.isSavable = false
-                                    
-                                    //                            learningObjectiveStore.reset_Evaluated()
-                                    
+                                    learningObjectiveStore.isSavable = self.isSavable
+                                                                        
                                     guard let selectedFile: URL = try result.get().first else { return }
                                     guard let message = String(data: try Data(contentsOf: selectedFile), encoding: .utf8) else { return }
                                     var rows = message.components(separatedBy: "\n")
@@ -111,16 +117,92 @@ struct LJMApp: App {
                                     let nsError = error as NSError
                                     fatalError("File Import Error \(nsError), \(nsError.userInfo)")
                                 }
-                            
-                            
+                            }
                         } else {
                             print("File Import Failed")
                         }
                     }
-                    
                     .environmentObject(learningObjectiveStore)
             } else {
                 // Fallback on earlier versions
+                
+                StartView(isLoading: $isLoading)
+                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                    .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight, alignment: .center)
+                    .fileExporter(
+                        isPresented: $exportFile,
+                        document: document,
+                        contentType: srtType,
+                        defaultFilename: "\(PersistenceController.shared.name) - \(Date())"
+                    ) { result in
+                        if case .success = result {
+                            // Handle success.
+                        } else {
+                            // Handle failure.
+                        }
+                    }
+                    .fileImporter(
+                        isPresented: $importFile,
+                        allowedContentTypes: [srtType],
+                        allowsMultipleSelection: false
+                    ) { result in
+                        if case .success = result {
+                            showingAlertImport.toggle()
+                            
+                            dispatchGroup.enter()
+                            
+                            dispatchGroup.notify(queue: .main) {
+                                
+                                do {
+                                    isLoading = true
+                                    
+                                    learningObjectiveStore.isSavable = self.isSavable
+                                                                        
+                                    guard let selectedFile: URL = try result.get().first else { return }
+                                    guard let message = String(data: try Data(contentsOf: selectedFile), encoding: .utf8) else { return }
+                                    var rows = message.components(separatedBy: "\n")
+                                    let learning_Objectives = learningObjectiveStore.learningObjectives
+                                    
+                                    rows.removeFirst()
+                                    rows.removeLast()
+                                    
+                                    learningObjectiveStore.reset_Evaluated {
+                                        
+                                        for row in rows {
+                                            
+                                            let row_Data = row.components(separatedBy: ",")
+                                            
+                                            let eval_Date_Row = row_Data[2].components(separatedBy: "-")
+                                            let eval_score_Row = row_Data[1].components(separatedBy: "-")
+                                            
+                                            var converted_Eval_Date : [Date] = []
+                                            var converted_Eval_Score : [Int] = []
+                                            
+                                            for index in 0..<eval_score_Row.count {
+                                                converted_Eval_Date.append(Date(timeIntervalSince1970: Double(eval_Date_Row[index])!))
+                                                converted_Eval_Score.append(Int(eval_score_Row[index])!)
+                                            }
+                                            
+                                            let index = learning_Objectives.firstIndex(where: {$0.ID == row_Data[0]}) ?? 0
+                                            
+                                            learningObjectiveStore.evaluate_Object(index: index, evaluations: converted_Eval_Score, dates: converted_Eval_Date)
+                                        }
+                                    }
+                                    
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.001) {
+                                        isLoading = false
+                                    }
+                                    
+                                } catch {
+                                    let nsError = error as NSError
+                                    fatalError("File Import Error \(nsError), \(nsError.userInfo)")
+                                }
+                            }
+                        } else {
+                            print("File Import Failed")
+                        }
+                    }
+                    .environmentObject(learningObjectiveStore)
             }
         }.handlesExternalEvents(matching: Set(arrayLiteral: "*"))
             .commands(content: {
@@ -132,7 +214,6 @@ struct LJMApp: App {
                     }) {
                         Text("Import File")
                     }
-                    
                     
                     // to export files
                     Button(action: {
@@ -167,10 +248,6 @@ struct LJMApp: App {
                     }
                 })
             })
-    }
-    
-    func checkAlertViewResult(isConfirmed: Bool) -> Bool {
-        return isConfirmed
     }
 }
 
