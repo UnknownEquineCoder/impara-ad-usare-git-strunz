@@ -32,21 +32,27 @@ struct LJMApp: App {
             if #available(macOS 12.0, *) {
                 
                 StartView(isLoading: $isLoading)
-                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                    .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight, alignment: .center)
-                    .alert("Do you want to override your data with this file ?", isPresented: $showingAlertImport) {
-                        Button("No", role: .cancel) {
-                            self.isSavable = false
-                            
-                            dispatchGroup.leave()
-                        }
-                        
-                        Button("Yes", role: .cancel) {
-                            self.isSavable = true
-
-                            dispatchGroup.leave()
-                        }
-                    }
+                    
+                    .environment(\.managedObjectContext, PersistenceController.container.viewContext)
+                    .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight!*0.88, alignment: .center)
+//                    .alert(isPresented: $showingAlertImport, content: {
+//                        VStack{
+//                            Text("Do you want to override your data with this file ?")
+//                            HStack{
+//                                Button("No", role: .cancel) {
+//                                    self.isSavable = false
+//
+//                                    dispatchGroup.leave()
+//                                }
+//
+//                                Button("Yes", role: .cancel) {
+//                                    self.isSavable = true
+//
+//                                    dispatchGroup.leave()
+//                                }
+//                            }
+//                        }
+//                    })
                 //            }
                 
                     .fileExporter(
@@ -127,7 +133,7 @@ struct LJMApp: App {
                 // Fallback on earlier versions
                 
                 StartView(isLoading: $isLoading)
-                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                    .environment(\.managedObjectContext, PersistenceController.container.viewContext)
                     .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight, alignment: .center)
                     .fileExporter(
                         isPresented: $exportFile,
@@ -249,6 +255,7 @@ struct LJMApp: App {
                 })
             })
     }
+    
 }
 
 struct Doc : FileDocument {

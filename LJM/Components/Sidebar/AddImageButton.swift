@@ -41,9 +41,8 @@ struct AddImageButton: View {
                     
                     if let image_Data = data {
                         imageData = image_Data
-                        PersistenceController.shared.update_Profile(image: image_Data, name: username)
+                        UserDefaults.standard.set(image_Data, forKey: "Image_Saved")
                     }
-                    
                     
                 }
                 
@@ -55,7 +54,6 @@ struct AddImageButton: View {
             ZStack{
                 Circle()
                     .foregroundColor(.white)
-//                    .frame(width: 50, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                 Image(systemName: "plus.circle.fill")
                     .resizable()
                     .foregroundColor(Color(red: 89/255, green: 91/255, blue: 93/255, opacity: 1.0))

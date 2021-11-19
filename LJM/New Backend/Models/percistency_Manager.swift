@@ -8,150 +8,113 @@
 import CoreData
 import SwiftUI
 
-struct PersistenceController {
+extension EvaluatedObject{
+    static func get_Evaluated_Object_List_Request() -> NSFetchRequest<EvaluatedObject>{
+        let request : NSFetchRequest<EvaluatedObject> = EvaluatedObject.fetchRequest()
+        
+        request.sortDescriptors = []
+        
+        return request
+    }
+}
+
+extension Student{
+    static func get_Student_Request() -> NSFetchRequest<Student>{
+        let request : NSFetchRequest<Student> = Student.fetchRequest()
+        
+        request.sortDescriptors = []
+        
+        return request
+    }
+}
+
+class PersistenceController {
     static var shared = PersistenceController()
     
     var name = "Name"
     
-    let container: NSPersistentCloudKitContainer
+    static var container: NSPersistentCloudKitContainer = {
+        
+        let container = NSPersistentCloudKitContainer(name: "StudentData")
+        
+        guard let description = container.persistentStoreDescriptions.first else {
+            fatalError("No Description found")
+        }
+        description.setOption(true as NSObject, forKey: NSPersistentStoreRemoteChangeNotificationPostOptionKey)
+        
+        container.loadPersistentStores { description, error in
+            if let error = error {
+                fatalError("Unable to load persistent stores: \(error)")
+            }
+        }
+        
+        container.viewContext.automaticallyMergesChangesFromParent = true
+        container.viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
+        
+//        NotificationCenter.default.addObserver(PersistenceController.shared, selector: #selector(process_Update), name: .NSPersistentStoreRemoteChange, object: nil)
+        
+        return container
+    }()
     
+    @objc
+    func process_Update(notification : NSNotification){
+        operation_Queue.addOperation {
+            // process notification
+            let context = PersistenceController.container.newBackgroundContext()
+
+            context.performAndWait {
+                var items : [EvaluatedObject] = []
+                var usable_Items : [CD_Evaluated_Object] = []
+                do{
+                    try items = context.fetch(EvaluatedObject.get_Evaluated_Object_List_Request())
+                } catch {
+                    let nsError = error as NSError
+                    print("Unsolved error \(nsError.description)")
+                }
+
+                for item in items {
+                    usable_Items.append(CD_Evaluated_Object(id: item.id ?? "ND", eval_Date: item.eval_Dates as! [Date], eval_Score: item.eval_Scores as! [Int]))
+                }
+
+                print("%%%% \(usable_Items)")
+
+                for item in usable_Items {
+                    print("%%%%%% \(item.id)")
+                }
+
+            }
+        }
+    }
+    
+    @State var operation_Queue : OperationQueue = {
+        var queue = OperationQueue()
+        queue.maxConcurrentOperationCount = 1
+        return queue
+    }()
+
     var fetched_Learning_Objectives : FetchedResults<EvaluatedObject>? = nil
     var fetched_Profile : FetchedResults<Student>? = nil
     
-    init(inMemory: Bool = false) {
-        container = NSPersistentCloudKitContainer(name: "StudentData")
-        if inMemory {
-            container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
-        }
-        
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-            if let error = error as NSError? {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                
-                /*
-                 Typical reasons for an error here include:
-                 * The parent directory does not exist, cannot be created, or disallows writing.
-                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
-                 * The device is out of space.
-                 * The store could not be migrated to the current model version.
-                 Check the error message to determine what the actual problem was.
-                 */
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
-        })
-    }
     
     /// function for update the profile
-
+    
     func update_Profile(image : Data?, name : String){
-        let context = PersistenceController.shared.container.viewContext
+        let context = PersistenceController.container.viewContext
+        
+        do{
+            let fetched_Data = try context.fetch(Student.get_Student_Request())
+            
+            for objective in fetched_Data {
+                context.delete(objective)
+            }
+             
+        } catch {
+            fatalError("Unsolver Error during a fetch in evaluated learning objective function")
+        }
         
         let new_Student = Student(context: context)
         
         new_Student.name = name
-        if let image_Confirmed = image {
-            new_Student.image = image_Confirmed as NSObject
-        }
-        
-        
-        if let profile = fetched_Profile {
-            if let last_Student = profile.last {
-                context.delete(last_Student)
-            }
-        }
-        
-        do {
-            // save the context with new element added
-            try context.save()
-        } catch {
-            // Replace this implementation with code to handle the error appropriately.
-            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-        }
-        
-    }
-    
-    /// function for update the name
-    // for update the file
-    func update_Image(data : Data){
-        let context = PersistenceController.shared.container.viewContext
-        
-        // declering the new object that is evaluated
-        let new_Student = Student(context: context)
-        // assigning to the new object the values that it will have
-        new_Student.image = data as NSObject
-        if let profile = fetched_Profile {
-            
-            if let last_Student = profile.last {
-                new_Student.name = last_Student.name ?? "name"
-                new_Student.cognome = last_Student.cognome ?? "surname"
-                context.delete(last_Student)
-            }
-        }
-        
-        do {
-            // save the context with new element added
-            try context.save()
-        } catch {
-            // Replace this implementation with code to handle the error appropriately.
-            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-        }
-        
-    }
-    
-    /// function for update the name of the student and
-    
-    func update_Name(name : String){
-        
-        let context = PersistenceController.shared.container.viewContext
-        
-        // declering the new object that is evaluated
-        let new_Student = Student(context: context)
-        // assigning to the new object the values that it will have
-        
-        new_Student.name = name
-        
-        if let profile = fetched_Profile {
-            if let last_Student = profile.last {
-                new_Student.image = last_Student.image
-//                context.delete(last_Student)
-            }
-        }
-    
-        do {
-            // save the context with new element added
-            try context.save()
-            
-        } catch {
-            // Replace this implementation with code to handle the error appropriately.
-            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-        }
-        
-    }
-    
-    /// function for update the surname of the student and
-    
-    func update_Surname(surname : String, student : FetchedResults<Student>){
-        
-        let context = PersistenceController.shared.container.viewContext
-        
-        // declering the new object that is evaluated
-        let new_Student = Student(context: context)
-        // assigning to the new object the values that it will have
-        
-//        new_Student.cognome = surname
-        
-        if let last_Student = student.first {
-            new_Student.name = last_Student.name
-            new_Student.image = last_Student.image
-            context.delete(last_Student)
-        }
         
         do {
             // save the context with new element added
@@ -172,7 +135,21 @@ struct PersistenceController {
     
     func evalutate_Learning_Objective(l_Objective : learning_Objective){
         // create the correct context of the core data
-        let context = PersistenceController.shared.container.viewContext
+        let context = PersistenceController.container.viewContext
+         
+        do{
+            let fetched_Data = try context.fetch(EvaluatedObject.get_Evaluated_Object_List_Request())
+            
+            for objective in fetched_Data {
+                 
+                if objective.id == l_Objective.ID {
+                    context.delete(objective)
+                }
+            }
+             
+        } catch {
+            fatalError("Unsolver Error during a fetch in evaluated learning objective function")
+        }
         
         // declering the new object that is evaluated
         let new_Evaluated_Object = EvaluatedObject(context: context)
@@ -184,11 +161,8 @@ struct PersistenceController {
         
         // check for objectives saved if this one was alredy evaluated, if it was alredy evaluated
         // it will delete the old evaluation
-        for objective in fetched_Learning_Objectives! {
-            if objective.id == new_Evaluated_Object.id {
-                context.delete(objective)
-            }
-        }
+        
+        
         
         if context.hasChanges {
             do {
@@ -230,17 +204,23 @@ struct PersistenceController {
     
     func delete(l_Objective : learning_Objective){
         // create the correct context of the core data
-        let context = PersistenceController.shared.container.viewContext
+        let context = PersistenceController.container.viewContext
         
         // check for objectives saved if this one was alredy evaluated, if it was alredy evaluated
         // it will delete the old evaluation
         
-        for objective in fetched_Learning_Objectives! {
+        do{
+            let fetched_Data = try context.fetch(EvaluatedObject.get_Evaluated_Object_List_Request())
             
-            if objective.id == l_Objective.ID {
-                
-                context.delete(objective)
+            for objective in fetched_Data {
+                 
+                if objective.id == l_Objective.ID {
+                    context.delete(objective)
+                }
             }
+             
+        } catch {
+            fatalError("Unsolver Error during a fetch in evaluated learning objective function")
         }
         
         // if the context was changed it will update
