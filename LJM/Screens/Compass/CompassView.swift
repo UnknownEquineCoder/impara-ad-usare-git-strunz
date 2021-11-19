@@ -225,7 +225,7 @@ struct CompassView: View {
         
         var learning_Objectives = learningObjectiveStore.learningObjectives
         
-        if path != "Select a Path" {
+        if path != "Pick a Path" {
             let path_Index = learningPathStore.learningPaths.firstIndex(where: {$0.title == path}) ?? 1
             learning_Objectives = learning_Objectives.filter({ ($0.core_Rubric_Levels[path_Index] * $0.core_Rubric_Levels[0]) > 1})
         }
@@ -306,7 +306,7 @@ struct CompassView: View {
         var data_Quantity = [0,0,0,0,0]
         path_Index = learningPathStore.learningPaths.firstIndex(where: {$0.title == path}) ?? 1
         
-        if path == "Select a Path" {
+        if path == "Pick a Path" {
             return
         }
         
