@@ -93,6 +93,34 @@ struct StartView: View {
                 learningPathsStore.load_Learning_Path()
                 strandsStore.setupStrandsOnNativeFilter(learningObjectives: learningObjectiveStore.learningObjectives)
                 
+                if learningObjectiveStore.learningObjectives.filter({$0.eval_score.count>0}).count == 0 { 
+                    isLoading = true
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                        let context = PersistenceController.container.newBackgroundContext()
+                        var items : [EvaluatedObject] = []
+                        var usable_Items : [CD_Evaluated_Object] = []
+                        do{
+                            try items = context.fetch(EvaluatedObject.get_Evaluated_Object_List_Request())
+                        } catch {
+                            let nsError = error as NSError
+                        }
+
+                        for item in items {
+                            usable_Items.append(CD_Evaluated_Object(id: item.id ?? "ND", eval_Date: item.eval_Dates as! [Date], eval_Score: item.eval_Scores as! [Int]))
+                        }
+                        
+                        for objective_To_Add in usable_Items {
+                            let possible_Index = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == objective_To_Add.id})
+                            
+                            if let index = possible_Index{
+                                learningObjectiveStore.learningObjectives[index].eval_date = objective_To_Add.eval_Date
+                                learningObjectiveStore.learningObjectives[index].eval_score = objective_To_Add.eval_Score
+                            }
+                        }
+                        isLoading = false
+                    }
+                }
+                
             }
             
         })
