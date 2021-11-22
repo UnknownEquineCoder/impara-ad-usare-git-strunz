@@ -147,19 +147,22 @@ struct CompassView: View {
                                 DropDownMenuCompass(selectedPath: $path)
                                     .onChange(of: path) { _ in
                                         
-                                        test_Idea_Function()
-                                        
                                         DispatchQueue.main.asyncAfter(deadline: .now()) {
-                                            animation_Trigger = false
+                                            withAnimation {
+                                                animation_Trigger = false
+                                            }
                                         }
                                         
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                                             green_Light_Path_Graph_Data()
                                             dark_Path_Datas()
+                                            test_Idea_Function()
                                         }
                                         
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                            animation_Trigger = true
+                                            withAnimation {
+                                                animation_Trigger = true
+                                            }
                                         }
                                     }
                                     
@@ -181,18 +184,18 @@ struct CompassView: View {
                         Spacer()
                         
                         Group{
-                            BarGraphFrame(color: Color.customOrange, title: "Process", skills: process_Skills, progress: $process_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview)
+                            BarGraphFrame(color: Color.customOrange, title: "Process", skills: process_Skills, progress: $process_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview, animation_Trigger: $animation_Trigger)
 
-                            BarGraphFrame(color: Color.customGreen, title: "Design", skills: design_Skills, progress: $design_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview)
+                            BarGraphFrame(color: Color.customGreen, title: "Design", skills: design_Skills, progress: $design_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview, animation_Trigger: $animation_Trigger)
                                 .padding(.top, 50)
 
-                            BarGraphFrame(color: Color.customYellow, title: "Professional Skills", skills: professional_Skills, progress: $professional_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview)
+                            BarGraphFrame(color: Color.customYellow, title: "Professional Skills", skills: professional_Skills, progress: $professional_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview, animation_Trigger: $animation_Trigger)
                                 .padding(.top, 50)
 
-                            BarGraphFrame(color: Color.customBlue, title: "Technical", skills: tecnical_Skills, progress: $tecnical_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview)
+                            BarGraphFrame(color: Color.customBlue, title: "Technical", skills: tecnical_Skills, progress: $tecnical_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview, animation_Trigger: $animation_Trigger)
                                 .padding(.top, 50)
 
-                            BarGraphFrame(color: Color.customPurple, title: "Business", skills: business_Skills, progress: $business_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview)
+                            BarGraphFrame(color: Color.customPurple, title: "Business", skills: business_Skills, progress: $business_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview, animation_Trigger: $animation_Trigger)
                                 .padding(.top, 50)
                                 .padding(.bottom, 100)
                         }
@@ -230,11 +233,13 @@ struct CompassView: View {
         business_Progress = (0 ..< business_Skills_Count).map { _ in 0 }
         var business_Progress_Quantity : [Int] = (0 ..< business_Skills_Count).map { _ in 0 }
         
-        var learning_Objectives = learningObjectiveStore.learningObjectives
-        
-        if path != "None" {
+        var learning_Objectives : [learning_Objective] = []
+        if path == "Pick a Path" || path == "None" {
+            learning_Objectives = learningObjectiveStore.learningObjectives
+        } else {
             let path_Index = learningPathStore.learningPaths.firstIndex(where: {$0.title == path}) ?? 1
-            learning_Objectives = learning_Objectives.filter({ ($0.core_Rubric_Levels[path_Index] * $0.core_Rubric_Levels[0]) > 1})
+            
+            learning_Objectives = learningObjectiveStore.learningObjectives.filter({ ($0.core_Rubric_Levels[path_Index] * $0.core_Rubric_Levels[0]) > 1})
         }
         
         for learning_Objective in learning_Objectives {
@@ -413,11 +418,11 @@ struct CompassView: View {
         
         var data_Quantity = [0,0,0,0,0]
         
-        let path_Index = learningPathStore.learningPaths.firstIndex(where: {$0.title == path}) ?? 1
         var filtered_Learning_Objective : [learning_Objective] = []
         if path == "Pick a Path" || path == "None" {
             filtered_Learning_Objective = learningObjectiveStore.learningObjectives
         } else {
+            let path_Index = learningPathStore.learningPaths.firstIndex(where: {$0.title == path}) ?? 1
             filtered_Learning_Objective = learningObjectiveStore.learningObjectives.filter({ ($0.core_Rubric_Levels[path_Index] * $0.core_Rubric_Levels[0]) > 1})
         }
         

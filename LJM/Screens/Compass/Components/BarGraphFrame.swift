@@ -16,6 +16,7 @@ struct BarGraphFrame: View {
     
     @Binding var targetLabel: String
     @Binding var showView: Bool
+    @Binding var animation_Trigger : Bool
     
     var body: some View {
         GeometryReader { geo in
@@ -80,7 +81,7 @@ struct BarGraphFrame: View {
                                     
                                     Spacer()
                                     
-                                    ProgressBarGraph(progress: (progress[index] * 20) + 1, color: color)
+                                    ProgressBarGraph(progress: (animation_Trigger ? progress[index] * 20 : 0 ) + 1, color: color)
                                         .frame(width: geo.size.width * 0.66, height: 16.toScreenSize())
                                         .padding(.trailing, 116.toScreenSize())
                                 }
