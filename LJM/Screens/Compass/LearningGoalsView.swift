@@ -15,6 +15,7 @@ struct LearningGoalsView: View {
     @State private var selectedPath: String?
     @State private var added = false
     @State var selectedStrands = [String]()
+    @State var selectedPaths = [String]()
     @State var selectedEvaluatedOrNotFilter: EvaluatedOrNotEnum?
     
     @Environment(\.colorScheme) var colorScheme
@@ -38,7 +39,7 @@ struct LearningGoalsView: View {
             
             HStack {
                 
-                ContextMenuFilters(fromMap: false, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedEvaluatedOrNotFilter: $selectedEvaluatedOrNotFilter)
+                ContextMenuFilters(fromMap: false, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedPaths: $selectedPaths, selectedStrands: $selectedStrands, selectedEvaluatedOrNotFilter: $selectedEvaluatedOrNotFilter)
                 
                 SearchBarExpandableJourney(txtSearchBar: $searchText)
                 

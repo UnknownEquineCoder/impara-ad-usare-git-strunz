@@ -15,6 +15,7 @@ struct ContextMenuFilters: View {
     
     @Binding var selectedFilter: CoreEnum.RawValue
     @Binding var selectedPath : String?
+    @Binding var selectedPaths: [String]
     @Binding var selectedStrands : [String]
     @Binding var selectedEvaluatedOrNotFilter: EvaluatedOrNotEnum?
     
@@ -41,18 +42,47 @@ struct ContextMenuFilters: View {
                 Divider()
                 
                 ForEach(self.learningPathsStore.learningPaths, id: \.title) { learningPath in
-                    Button {
-                        if self.fromMap {
-                            selectedFilter = learningPath.title
-                        } else {
-                            selectedPath = learningPath.title
+                    if !fromMap {
+                        Button {
+//                            if self.fromMap {
+//                                selectedFilter = learningPath.title
+//                            } else {
+                                selectedPath = learningPath.title
+//                            }
+                            
+                        } label: {
+                            HStack {
+                                Text(learningPath.title)
+                                Image(systemName: "checkmark")
+                                    .isHidden(!(selectedFilter == learningPath.title || selectedPath == learningPath.title))
+                            }
                         }
-                        
-                    } label: {
-                        HStack {
-                            Text(learningPath.title)
-                            Image(systemName: "checkmark")
-                                .isHidden(!(selectedFilter == learningPath.title || selectedPath == learningPath.title))
+                    } else {
+                        Button {
+//                            if self.fromMap {
+                               // selectedFilter = learningPath.title
+//                            } else {
+//                                selectedPath = learningPath.title
+//                            }
+                            
+//                            if !self.selectedStrands.contains(strand) {
+//                                self.selectedStrands.append(strand)
+//                            } else {
+//                                self.selectedStrands.remove(object: strand)
+//                            }
+                                                        
+                            if !self.selectedPaths.contains(learningPath.title) {
+                                selectedPaths.append(learningPath.title)
+                            } else {
+                                selectedPaths.remove(object: learningPath.title)
+                            }
+                            
+                        } label: {
+                            HStack {
+                                Text(learningPath.title)
+                                Image(systemName: "checkmark")
+                                    .isHidden(!(selectedFilter == learningPath.title || selectedPath == learningPath.title))
+                            }
                         }
                     }
                 }
@@ -120,13 +150,5 @@ struct ContextMenuFilters: View {
     }
     
 }
-
-struct ContextMenuTest_Previews: PreviewProvider {
-    
-    static var previews: some View {
-        ContextMenuFilters(selectedFilter: .constant("CORE"), selectedPath: .constant(""), selectedStrands: .constant([""]), selectedEvaluatedOrNotFilter: .constant(.evaluated))
-    }
-}
-
 
 

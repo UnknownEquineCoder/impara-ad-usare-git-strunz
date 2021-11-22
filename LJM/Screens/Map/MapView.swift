@@ -10,6 +10,7 @@ import SwiftUI
 struct MapView: View {
     @State var selectedFilter = "FULL MAP"
     @State var selectedStrands = [String]()
+    @State var selectedPaths = [String]()
     @State var expand: Bool = false
     @State private var searchText = ""
 //    @State var selectedSort: SortEnum?
@@ -70,7 +71,7 @@ struct MapView: View {
 //                    DropDownMenuSort()
 //                        .buttonStyle(PlainButtonStyle())
 //                    SortButtonMenu(selectedSort: $selectedSort)
-                    ContextMenuFilters(fromMap: true, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedEvaluatedOrNotFilter: $selectedEvaluatedOrNotFilter)
+                    ContextMenuFilters(fromMap: true, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedPaths: $selectedPaths, selectedStrands: $selectedStrands, selectedEvaluatedOrNotFilter: $selectedEvaluatedOrNotFilter)
 //                    DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: strandsStore.arrayStrandsFilter)
 //                        .buttonStyle(PlainButtonStyle())
                     

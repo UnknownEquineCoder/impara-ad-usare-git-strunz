@@ -32,28 +32,23 @@ struct LJMApp: App {
             if #available(macOS 12.0, *) {
                 
                 StartView(isLoading: $isLoading)
-                    
+                
                     .environment(\.managedObjectContext, PersistenceController.container.viewContext)
                     .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight!*0.88, alignment: .center)
-//                    .alert(isPresented: $showingAlertImport, content: {
-//                        VStack{
-//                            Text("Do you want to override your data with this file ?")
-//                            HStack{
-//                                Button("No", role: .cancel) {
-//                                    self.isSavable = false
-//
-//                                    dispatchGroup.leave()
-//                                }
-//
-//                                Button("Yes", role: .cancel) {
-//                                    self.isSavable = true
-//
-//                                    dispatchGroup.leave()
-//                                }
-//                            }
-//                        }
-//                    })
-                //            }
+                
+                    .alert("Do you want to override your data with this file ?", isPresented: $showingAlertImport) {
+                        Button("No", role: .cancel) {
+                            self.isSavable = false
+                            
+                            dispatchGroup.leave()
+                        }
+                        
+                        Button("Yes", role: .cancel) {
+                            self.isSavable = true
+                            
+                            dispatchGroup.leave()
+                        }
+                    }
                 
                     .fileExporter(
                         isPresented: $exportFile,
@@ -83,7 +78,7 @@ struct LJMApp: App {
                                     isLoading = true
                                     
                                     learningObjectiveStore.isSavable = self.isSavable
-                                                                        
+                                    
                                     guard let selectedFile: URL = try result.get().first else { return }
                                     guard let message = String(data: try Data(contentsOf: selectedFile), encoding: .utf8) else { return }
                                     var rows = message.components(separatedBy: "\n")
@@ -163,7 +158,7 @@ struct LJMApp: App {
                                     isLoading = true
                                     
                                     learningObjectiveStore.isSavable = self.isSavable
-                                                                        
+                                    
                                     guard let selectedFile: URL = try result.get().first else { return }
                                     guard let message = String(data: try Data(contentsOf: selectedFile), encoding: .utf8) else { return }
                                     var rows = message.components(separatedBy: "\n")
