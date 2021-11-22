@@ -71,7 +71,7 @@ struct learning_Objective : Equatable, Encodable, Decodable {
     }
 }
 
-struct CD_Evaluated_Object {
+struct CD_Evaluated_Object : Equatable{
     let id : String
     let eval_Date : [Date]
     let eval_Score : [Int]
