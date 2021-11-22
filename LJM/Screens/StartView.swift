@@ -24,7 +24,7 @@ struct StartView: View {
     
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     
-    @State var filter_Path = "Pick a Path"
+    @State var filter_Path = "None"
     
     @ViewBuilder
     var body: some View {
@@ -126,13 +126,11 @@ struct StartView: View {
         let context = PersistenceController.container.newBackgroundContext()
         var items : [EvaluatedObject] = []
         var usable_Items : [CD_Evaluated_Object] = []
-        var student : Student?
         
         do{
             try items = context.fetch(EvaluatedObject.get_Evaluated_Object_List_Request())
-            try student = context.fetch(Student.get_Student_Request()).last
         } catch {
-            let nsError = error as NSError
+            print("error : \(error)")
         }
         
         for item in items {

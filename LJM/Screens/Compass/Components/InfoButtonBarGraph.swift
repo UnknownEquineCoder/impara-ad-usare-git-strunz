@@ -33,7 +33,7 @@ struct InfoButtonBarGraph: View {
                         .font(.system(size: 20.toFontSize()))
                         .foregroundColor(colorScheme == .dark ? Color(red: 221/255, green: 221/255, blue: 221/255) : Color(red: 165/255, green: 165/255, blue: 165/255))
                 }
-                .frame(width: 200, height: 150)
+                .frame(width: 300, height: 170)
                 .padding()
             })
     }

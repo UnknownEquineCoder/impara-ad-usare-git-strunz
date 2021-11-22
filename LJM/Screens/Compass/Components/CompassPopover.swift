@@ -11,9 +11,9 @@ import SwiftUI
 struct CompassPopover: View {
     
     @State private var showPopover: Bool = false
-
     
-
+    
+    
     var body: some View {
         VStack {
             Button(action: {
@@ -26,7 +26,7 @@ struct CompassPopover: View {
                         .foregroundColor(Color("customCyan"))
                     
                 }.frame(width: 132.toScreenSize(), height: 35.toScreenSize(), alignment: .center)
-                .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color("customCyan")))
+                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color("customCyan")))
             }
             .popover(
                 isPresented: self.$showPopover,
@@ -34,16 +34,17 @@ struct CompassPopover: View {
                 
             ) {
                 VStack{
-                PopoverView().frame(width: 200, height: 200)
+                    PopoverView().frame(width: 200, height: 200)
+                }
+                .padding(.trailing, 20)
+                
             }
-            .padding(.trailing, 20)
             
         }
-        
-    }
     }
     
 }
+
 
 struct PopoverView: View {
     
@@ -53,8 +54,8 @@ struct PopoverView: View {
         VStack {
             Text("Adding this LO will automatically add it to 'Journey' and mark it as checked in 'Map'").multilineTextAlignment(.leading).lineLimit(6)
             HStack{
-            Button("Cancel") {
-            }
+                Button("Cancel") {
+                }
                 Button("Got it!") {
                 }
             }.padding()
@@ -68,10 +69,10 @@ struct PopoverView: View {
         }.padding()
     }
 }
-    
+
 
 struct CompassPopover_Previews: PreviewProvider {
     static var previews: some View {
-      CompassPopover()
+        CompassPopover()
     }
 }
