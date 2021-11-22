@@ -7,10 +7,12 @@ struct StartView: View {
     
     // core data elements
     @Environment(\.managedObjectContext) private var viewContext
+    @State var timer: Timer?
+    @State var runCount = 0
     
-//    @FetchRequest(
-//        sortDescriptors: [],
-//        animation: .default)
+    //    @FetchRequest(
+    //        sortDescriptors: [],
+    //        animation: .default)
     @FetchRequest(fetchRequest: EvaluatedObject.get_Evaluated_Object_List_Request(), animation: .default)
     private var objectives: FetchedResults<EvaluatedObject>
     
@@ -31,7 +33,7 @@ struct StartView: View {
                 VStack {
                     StudentPictureView(size: 85)
                         .padding(.trailing)
-                        
+                    
                     
                     ScrollView(showsIndicators: false) {
                         VStack(alignment: .leading) {
@@ -86,6 +88,7 @@ struct StartView: View {
             }
         }
         .onAppear(perform: {
+            
             learningObjectiveStore.load_Test_Data() {
                 
                 PersistenceController.shared.fetched_Learning_Objectives = objectives
@@ -93,37 +96,75 @@ struct StartView: View {
                 learningPathsStore.load_Learning_Path()
                 strandsStore.setupStrandsOnNativeFilter(learningObjectives: learningObjectiveStore.learningObjectives)
                 
-                if learningObjectiveStore.learningObjectives.filter({$0.eval_score.count>0}).count == 0 { 
-                    isLoading = true
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                        let context = PersistenceController.container.newBackgroundContext()
-                        var items : [EvaluatedObject] = []
-                        var usable_Items : [CD_Evaluated_Object] = []
-                        do{
-                            try items = context.fetch(EvaluatedObject.get_Evaluated_Object_List_Request())
-                        } catch {
-                            let nsError = error as NSError
-                        }
-
-                        for item in items {
-                            usable_Items.append(CD_Evaluated_Object(id: item.id ?? "ND", eval_Date: item.eval_Dates as! [Date], eval_Score: item.eval_Scores as! [Int]))
-                        }
-                        
-                        for objective_To_Add in usable_Items {
-                            let possible_Index = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == objective_To_Add.id})
-                            
-                            if let index = possible_Index{
-                                learningObjectiveStore.learningObjectives[index].eval_date = objective_To_Add.eval_Date
-                                learningObjectiveStore.learningObjectives[index].eval_score = objective_To_Add.eval_Score
+                if learningObjectiveStore.learningObjectives.filter({$0.eval_score.count>0}).count == 0 {
+                    withAnimation {
+                        isLoading = true
+                    }
+                    
+                    timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true) { timer in
+                        update_Store()
+                        runCount+=1
+                        if runCount == 50 {
+                            withAnimation {
+                                isLoading = false
                             }
+                            timer.invalidate()
                         }
-                        isLoading = false
                     }
                 }
                 
+                
             }
-            
         })
+    }
+    
+    @State var temp_Array : [CD_Evaluated_Object] = []
+    @State var jumpedTime = 0
+    
+    func update_Store() {
+        
+        let context = PersistenceController.container.newBackgroundContext()
+        var items : [EvaluatedObject] = []
+        var usable_Items : [CD_Evaluated_Object] = []
+        var student : Student?
+        
+        do{
+            try items = context.fetch(EvaluatedObject.get_Evaluated_Object_List_Request())
+            try student = context.fetch(Student.get_Student_Request()).last
+        } catch {
+            let nsError = error as NSError
+        }
+        
+        for item in items {
+            usable_Items.append(CD_Evaluated_Object(id: item.id ?? "ND", eval_Date: item.eval_Dates as! [Date], eval_Score: item.eval_Scores as! [Int]))
+        }
+        
+        for objective_To_Add in usable_Items {
+            let possible_Index = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == objective_To_Add.id})
+            
+            if let index = possible_Index{
+                learningObjectiveStore.learningObjectives[index].eval_date = objective_To_Add.eval_Date
+                learningObjectiveStore.learningObjectives[index].eval_score = objective_To_Add.eval_Score
+            }
+        }
+        
+        if temp_Array.count > 0 {
+            if temp_Array ==  usable_Items{
+                if jumpedTime == 3 {
+                    timer?.invalidate()
+                    isLoading = false
+                    // TODO implement the name update here
+                } else {
+                    jumpedTime+=1
+                }
+            } else {
+                jumpedTime = 0
+            }
+        }
+        
+        temp_Array = usable_Items
+        
+        //        }
     }
     
 }

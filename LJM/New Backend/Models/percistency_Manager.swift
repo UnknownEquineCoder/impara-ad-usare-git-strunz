@@ -51,45 +51,7 @@ class PersistenceController {
         container.viewContext.automaticallyMergesChangesFromParent = true
         container.viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
         
-//        NotificationCenter.default.addObserver(PersistenceController.shared, selector: #selector(process_Update), name: .NSPersistentStoreRemoteChange, object: nil)
-        
         return container
-    }()
-    
-    @objc
-    func process_Update(notification : NSNotification){
-        operation_Queue.addOperation {
-            // process notification
-            let context = PersistenceController.container.newBackgroundContext()
-
-            context.performAndWait {
-                var items : [EvaluatedObject] = []
-                var usable_Items : [CD_Evaluated_Object] = []
-                do{
-                    try items = context.fetch(EvaluatedObject.get_Evaluated_Object_List_Request())
-                } catch {
-                    let nsError = error as NSError
-                    print("Unsolved error \(nsError.description)")
-                }
-
-                for item in items {
-                    usable_Items.append(CD_Evaluated_Object(id: item.id ?? "ND", eval_Date: item.eval_Dates as! [Date], eval_Score: item.eval_Scores as! [Int]))
-                }
-
-                print("%%%% \(usable_Items)")
-
-                for item in usable_Items {
-                    print("%%%%%% \(item.id)")
-                }
-
-            }
-        }
-    }
-    
-    @State var operation_Queue : OperationQueue = {
-        var queue = OperationQueue()
-        queue.maxConcurrentOperationCount = 1
-        return queue
     }()
 
     var fetched_Learning_Objectives : FetchedResults<EvaluatedObject>? = nil
