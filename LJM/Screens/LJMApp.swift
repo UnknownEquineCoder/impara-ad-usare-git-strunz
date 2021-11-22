@@ -35,6 +35,15 @@ struct LJMApp: App {
                     
                     .environment(\.managedObjectContext, PersistenceController.container.viewContext)
                     .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight!*0.88, alignment: .center)
+                    .alert(isPresented: $showingAlertImport) {
+                        Alert(title: Text("Do you want to override your data with this file ?"), message: nil, primaryButton: .default(Text("Yes"), action: {
+                            self.isSavable = true
+                            dispatchGroup.leave()
+                        }), secondaryButton: .default(Text("No"), action: {
+                            self.isSavable = false
+                            dispatchGroup.leave()
+                        }))
+                        }
 //                    .alert(isPresented: $showingAlertImport, content: {
 //                        VStack{
 //                            Text("Do you want to override your data with this file ?")
@@ -53,7 +62,6 @@ struct LJMApp: App {
 //                            }
 //                        }
 //                    })
-                //            }
                 
                     .fileExporter(
                         isPresented: $exportFile,
@@ -73,6 +81,7 @@ struct LJMApp: App {
                         allowsMultipleSelection: false
                     ) { result in
                         if case .success = result {
+                            print("@@@@@@@@@@ something else")
                             showingAlertImport.toggle()
                             
                             dispatchGroup.enter()
@@ -91,9 +100,13 @@ struct LJMApp: App {
                                     
                                     rows.removeFirst()
                                     rows.removeLast()
-                                    
+                                     
                                     learningObjectiveStore.reset_Evaluated {
-                                        
+                                        if isSavable {
+                                            // this part of the code will be lounched for override on cloudkit
+                                            persistenceController.override_Data(rows: rows)
+                                        }
+                                        // this part of the code will put the datas visible in that moment
                                         for row in rows {
                                             
                                             let row_Data = row.components(separatedBy: ",")
@@ -113,6 +126,10 @@ struct LJMApp: App {
                                             
                                             learningObjectiveStore.evaluate_Object(index: index, evaluations: converted_Eval_Score, dates: converted_Eval_Date)
                                         }
+                                        
+                                        
+                                    
+                                        
                                     }
                                     
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.001) {
@@ -121,10 +138,11 @@ struct LJMApp: App {
                                     
                                 } catch {
                                     let nsError = error as NSError
-                                    fatalError("File Import Error \(nsError), \(nsError.userInfo)")
+                                    fatalError("@@@@@ File Import Error \(nsError), \(nsError.userInfo)")
                                 }
                             }
                         } else {
+                            print("@@@@@@@ grrrrr reaction")
                             print("File Import Failed")
                         }
                     }
@@ -152,13 +170,11 @@ struct LJMApp: App {
                         allowedContentTypes: [srtType],
                         allowsMultipleSelection: false
                     ) { result in
+                        
                         if case .success = result {
                             showingAlertImport.toggle()
                             
-                            dispatchGroup.enter()
                             
-                            dispatchGroup.notify(queue: .main) {
-                                
                                 do {
                                     isLoading = true
                                     
@@ -174,6 +190,12 @@ struct LJMApp: App {
                                     
                                     learningObjectiveStore.reset_Evaluated {
                                         
+                                        if isSavable {
+                                            // this part of the code will be lounched for override on cloudkit
+                                            persistenceController.override_Data(rows: rows)
+                                        }
+                                        
+                                        // this part of the code will put the datas visible in that moment
                                         for row in rows {
                                             
                                             let row_Data = row.components(separatedBy: ",")
@@ -203,9 +225,10 @@ struct LJMApp: App {
                                     let nsError = error as NSError
                                     fatalError("File Import Error \(nsError), \(nsError.userInfo)")
                                 }
-                            }
+                            
                         } else {
-                            print("File Import Failed")
+                            
+                            print("@@@@@ File Import Failed")
                         }
                     }
                     .environmentObject(learningObjectiveStore)

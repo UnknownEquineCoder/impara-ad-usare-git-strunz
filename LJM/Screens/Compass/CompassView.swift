@@ -104,6 +104,7 @@ struct CompassView: View {
                         }
                         
                         HStack{
+                            Spacer()
                             VStack{
                                 CoreRadarChartView(data_Front_Array: $data_Front_Array, data_Back_Array: $data_Back_Array, animation_Trigger: $animation_Trigger_Communal)
                                     .frame(width: (NSScreen.screenWidth ?? 1200) / 3.8, height: (NSScreen.screenWidth ?? 1200) / 3.8)
@@ -125,6 +126,10 @@ struct CompassView: View {
                                 .foregroundColor(colorScheme == .dark ? Color(red: 221/255, green: 221/255, blue: 221/255) : Color(red: 129/255, green: 129/255, blue: 129/255))
                                 .offset(y: -50)
                             }
+                            
+                            Spacer()
+                            Spacer()
+                            
                             VStack{
                                 GraphWithOverlay(data_Front_Array: $data_Path_Front_Array, data_Back_Array: $data_Path_Back_Array, animation_Trigger: $animation_Trigger)
                                     .frame(width: (NSScreen.screenWidth ?? 1200) / 3.8, height: (NSScreen.screenWidth ?? 1200) / 3.8)
@@ -150,6 +155,7 @@ struct CompassView: View {
                                         
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                                             green_Light_Path_Graph_Data()
+                                            dark_Path_Datas()
                                         }
                                         
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
@@ -159,6 +165,7 @@ struct CompassView: View {
                                     
                                 
                             }
+                            Spacer()
                         }
                         HStack{
                         
@@ -406,7 +413,13 @@ struct CompassView: View {
         
         var data_Quantity = [0,0,0,0,0]
         
-        let filtered_Learning_Objective = learningObjectiveStore.learningObjectives
+        let path_Index = learningPathStore.learningPaths.firstIndex(where: {$0.title == path}) ?? 1
+        var filtered_Learning_Objective : [learning_Objective] = []
+        if path == "Pick a Path" || path == "None" {
+            filtered_Learning_Objective = learningObjectiveStore.learningObjectives
+        } else {
+            filtered_Learning_Objective = learningObjectiveStore.learningObjectives.filter({ ($0.core_Rubric_Levels[path_Index] * $0.core_Rubric_Levels[0]) > 1})
+        }
         
         for learning_Objective in filtered_Learning_Objective {
             let temp_Strand_Index = fake_Strands.firstIndex(of: learning_Objective.strand) ?? 0

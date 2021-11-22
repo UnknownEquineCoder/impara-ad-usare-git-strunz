@@ -162,6 +162,66 @@ class PersistenceController {
         return temp_Evaluated_Objects
     }
     
+    /// this function will take an array of data of learning objective and override the datas saved on cloudkit
+    
+    func override_Data(rows : [String]){
+        // create the correct context of the core data
+        let context = PersistenceController.container.viewContext
+        
+        // Delete all the learning Objectives that was saved before
+        
+        do{
+            let fetched_Data = try context.fetch(EvaluatedObject.get_Evaluated_Object_List_Request())
+            
+            for objective in fetched_Data {
+                
+                context.delete(objective)
+                
+            }
+             
+        } catch {
+            fatalError("Unsolver Error during a fetch in evaluated learning objective function")
+        }
+        
+        // taking the row data and transforming in a data that is possible to save
+        for row in rows {
+            // declering the new object that is evaluated
+            let new_Evaluated_Object = EvaluatedObject(context: context)
+            
+            let row_Data = row.components(separatedBy: ",")
+            
+            let eval_Date_Row = row_Data[2].components(separatedBy: "-")
+            let eval_score_Row = row_Data[1].components(separatedBy: "-")
+            
+            var converted_Eval_Date : [Date] = []
+            var converted_Eval_Score : [Int] = []
+            
+            for index in 0..<eval_score_Row.count {
+                converted_Eval_Date.append(Date(timeIntervalSince1970: Double(eval_Date_Row[index])!))
+                converted_Eval_Score.append(Int(eval_score_Row[index])!)
+            }
+            
+            // assigning to the new object the values that it will have
+            new_Evaluated_Object.id = row_Data[0]
+            new_Evaluated_Object.eval_Dates = converted_Eval_Date as NSObject
+            new_Evaluated_Object.eval_Scores = converted_Eval_Score as NSObject
+        }
+        
+        // save if there are any update
+        if context.hasChanges {
+            do {
+                // save the context with new element added
+                try context.save()
+            } catch {
+                // Replace this implementation with code to handle the error appropriately.
+                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+        }
+        
+    }
+    
     /// it will take a learning objective that have to be deleted from the database and it will delete it
     
     func delete(l_Objective : learning_Objective){

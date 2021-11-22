@@ -179,7 +179,8 @@ struct RadarChart: View {
                     .animation(.easeInOut(duration: 0.25))
 
                 RadarCompositeGrid(size: geo.size.width, data: data_Back_Array, b_color: Color.front_graph, f_color: RadialGradient.frontGraph(size: geo.size.width), max: CGFloat(100))
-                    
+                    .scaleEffect(animation_Trigger ? 1 : 0, anchor: .center)
+                    .animation(.easeInOut(duration: 0.25))
             }
         }
     }
