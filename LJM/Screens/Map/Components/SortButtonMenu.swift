@@ -36,22 +36,22 @@ struct SortButtonMenu: View {
                     .isHidden(selectedSort != .last_Assest)
             }
         }
-            Button { withAnimation { selectedSort = .mostEvalFirst } }
-                label: {
-                    HStack{
-                        Text("Most Evaluated First")
-                        Image(systemName: "checkmark")
-                            .isHidden(selectedSort != .mostEvalFirst)
-                        }
-                    }
-            Button { withAnimation { selectedSort = .leastEvalFirst } }
-                label: {
-                    HStack{
-                        Text("Least Evaluated First")
-                        Image(systemName: "checkmark")
-                            .isHidden(selectedSort != .leastEvalFirst)
-                    }
-                }
+//            Button { withAnimation { selectedSort = .mostEvalFirst } }
+//                label: {
+//                    HStack{
+//                        Text("Most Evaluated First")
+//                        Image(systemName: "checkmark")
+//                            .isHidden(selectedSort != .mostEvalFirst)
+//                        }
+//                    }
+//            Button { withAnimation { selectedSort = .leastEvalFirst } }
+//                label: {
+//                    HStack{
+//                        Text("Least Evaluated First")
+//                        Image(systemName: "checkmark")
+//                            .isHidden(selectedSort != .leastEvalFirst)
+//                    }
+//                }
             
         } label: {
             HStack(spacing: 13) {

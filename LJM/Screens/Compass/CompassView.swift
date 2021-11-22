@@ -167,7 +167,7 @@ struct CompassView: View {
                         Spacer()
                         }.padding(.bottom, 20)
                         HStack{
-                            InfoButtonBarGraph(title: "Bar Graphs: ", textBody: "The bar graphs below show your growth in detail, allowing you to examine every single Learning Goal, based on the Curriculum Strands.", heightCell: 131)
+                            InfoButtonBarGraph(title: "Bar Graphs: ", textBody: "The bar graphs below show your growth in detail, allowing you to examine every single Learning Goal, based on the Curriculum Strands. \n\nThe level of the bars is calculated according to the path selected in the dropdown menu above.", heightCell: 131)
 
                             Spacer()
                         }
@@ -225,7 +225,7 @@ struct CompassView: View {
         
         var learning_Objectives = learningObjectiveStore.learningObjectives
         
-        if path != "Pick a Path" {
+        if path != "None" {
             let path_Index = learningPathStore.learningPaths.firstIndex(where: {$0.title == path}) ?? 1
             learning_Objectives = learning_Objectives.filter({ ($0.core_Rubric_Levels[path_Index] * $0.core_Rubric_Levels[0]) > 1})
         }
@@ -306,7 +306,7 @@ struct CompassView: View {
         var data_Quantity = [0,0,0,0,0]
         path_Index = learningPathStore.learningPaths.firstIndex(where: {$0.title == path}) ?? 1
         
-        if path == "Pick a Path" {
+        if path == "None" {
             return
         }
         
