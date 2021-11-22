@@ -77,14 +77,20 @@ struct AddButton: View {
                                 .foregroundColor(Color("customCyan"))
                                 .onTapGesture {
                                     // remove item from the learning objective list
-                                    if learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.count > 0 {
+                                    if learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.count > 1 {
                                         // pop up
                                         
                                         showingAlert = true
                                         
+                                        didTap = false
+
+                                        
                                     } else {
                                         
                                         learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
+                                        
+                                        didTap = false
+
                                     }
                                 }
                                 .alert(isPresented:$showingAlert) {
@@ -92,6 +98,9 @@ struct AddButton: View {
                                         title: Text("Are you sure you want to delete this Learning Objective?"),
                                         message: Text("You can't undo this action"),
                                         primaryButton: .destructive(Text("Delete")) {
+                                            let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObjectiveSelected.ID})!
+
+                                            learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
                                             print("Deleting...")
                                         },
                                         secondaryButton: .cancel()
@@ -117,6 +126,7 @@ struct AddButton: View {
                                 } else {
                                     
                                     learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
+                                    didTap = false
                                 }
                                 
                             }

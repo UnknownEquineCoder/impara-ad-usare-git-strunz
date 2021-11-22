@@ -67,7 +67,7 @@ struct LJMApp: App {
                                     isLoading = true
                                     
                                     learningObjectiveStore.isSavable = self.isSavable
-                                                                        
+                                    
                                     guard let selectedFile: URL = try result.get().first else { return }
                                     guard let message = String(data: try Data(contentsOf: selectedFile), encoding: .utf8) else { return }
                                     var rows = message.components(separatedBy: "\n")
