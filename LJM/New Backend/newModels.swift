@@ -90,12 +90,6 @@ struct learning_Path: Hashable {
 struct rubric_Level {
     var ID : String
     var levels : [Int]
-//    var core_Level : Int
-//    var UI_UX_Level : Int
-//    var front_Level : Int
-//    var back_Level : Int
-//    var game_Level : Int
-//    var business_Level : Int
     
     init(raw : [String]){
         ID = raw[0]
@@ -115,20 +109,8 @@ struct rubric_Level {
 }
 
 struct profile {
-    var ID : String = "nice_ID"
     var name : String = "Name Surname"
     var image : Image?
-    var evaluated_Objective_IDs : [String] = []
-}
-
-struct evaluated_Objective {
-    var learning_Objective_ID : String
-    var score : [Int]
-    var date : [Date]
-}
-
-struct challenge {
-    
 }
 
 enum CoreEnum: String {
