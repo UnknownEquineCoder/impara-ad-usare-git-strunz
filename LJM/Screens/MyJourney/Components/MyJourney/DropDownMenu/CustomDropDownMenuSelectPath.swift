@@ -32,7 +32,7 @@ struct DropDownSelectPathView: View {
                     .foregroundColor(Color.customCyan)
                 
             }.onTapGesture {
-                self.selectedPath = "Pick a path"
+                self.selectedPath = "None"
                 self.colorSelectedPath = Color.gray
                 self.expand.toggle()
             }

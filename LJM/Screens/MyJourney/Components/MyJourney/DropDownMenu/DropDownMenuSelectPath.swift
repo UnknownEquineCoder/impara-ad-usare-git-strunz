@@ -23,7 +23,7 @@ struct DropDownMenuSelectPath: View {
                 }
             }
         } label: {
-            Text((selectedPath == "" ? "Pick a path" : selectedPath) ?? "Pick a path")
+            Text((selectedPath == "" ? "None" : selectedPath) ?? "None")
         }.frame(width: 250)
     }
 }
