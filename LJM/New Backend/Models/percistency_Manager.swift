@@ -110,6 +110,10 @@ class PersistenceController {
         
         new_Student.name = name
         
+        if let image_To_Save = image {
+            new_Student.image = image_To_Save as NSObject
+        }
+        
         do {
             // save the context with new element added
             try context.save()

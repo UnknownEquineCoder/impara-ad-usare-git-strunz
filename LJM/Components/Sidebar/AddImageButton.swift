@@ -40,8 +40,9 @@ struct AddImageButton: View {
                     let data = image.tiffRepresentation
                     
                     if let image_Data = data {
+                        PersistenceController.shared.update_Profile(image: image_Data, name: username)
                         imageData = image_Data
-                        UserDefaults.standard.set(image_Data, forKey: "Image_Saved")
+//                        UserDefaults.standard.set(image_Data, forKey: "Image_Saved")
                     }
                     
                 }

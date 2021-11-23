@@ -44,6 +44,12 @@ struct CompassView: View {
     @State var tecnical_Progress : [Double] = [5,5,5,5,5,5,5,5,5,5,5,5]
     @State var business_Progress : [Double] = [5,5,5,5,5,5,5,5,5,5,5,5]
     
+    @State var expectation_Process_Progress : [Double] = [5,5,5,5,5,5,5,5,5,5,5,5]
+    @State var expectation_Design_Progress : [Double] = [5,5,5,5,5,5,5,5,5,5,5,5]
+    @State var expectation_Professional_Progress : [Double] = [5,5,5,5,5,5,5,5,5,5,5,5]
+    @State var expectation_Tecnical_Progress : [Double] = [5,5,5,5,5,5,5,5,5,5,5,5]
+    @State var expectation_Business_Progress : [Double] = [5,5,5,5,5,5,5,5,5,5,5,5]
+    
     @EnvironmentObject var learningPathStore: LearningPathStore
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     @EnvironmentObject var strandsStore: StrandsStore
@@ -63,20 +69,20 @@ struct CompassView: View {
                 
                 VStack {
                     
-//                    HStack{
-//                        Button {
-//                            for index in learningObjectiveStore.learningObjectives.indices {
-//                                learningObjectiveStore.learningObjectives[index].eval_date = []
-//                                learningObjectiveStore.learningObjectives[index].eval_score = []
-//                                
-//                                learningObjectiveStore.learningObjectives[index].eval_score.append(Int.random(in: 1...5))
-//                                learningObjectiveStore.learningObjectives[index].eval_date.append(Date())
-//                            }
-//                        } label: {
-//                            Text("Random Generate")
-//                        }
-//
-//                    }
+                    //                    HStack{
+                    //                        Button {
+                    //                            for index in learningObjectiveStore.learningObjectives.indices {
+                    //                                learningObjectiveStore.learningObjectives[index].eval_date = []
+                    //                                learningObjectiveStore.learningObjectives[index].eval_score = []
+                    //
+                    //                                learningObjectiveStore.learningObjectives[index].eval_score.append(Int.random(in: 1...5))
+                    //                                learningObjectiveStore.learningObjectives[index].eval_date.append(Date())
+                    //                            }
+                    //                        } label: {
+                    //                            Text("Random Generate")
+                    //                        }
+                    //
+                    //                    }
                     
                     HStack {
                         TitleScreenView(title: "Compass")
@@ -94,12 +100,12 @@ struct CompassView: View {
                                 dark_Path_Datas()
                                 dark_Core_Datas()
                             }
-                       
+                        
                         HStack{
                             InfoButton(title: "Spider Graphs: ", textBody: "The Communal graph shows progress based on the pathway all the students at the Academy have to take, while the Your Journey graph shows progress based on the specific pathway you decide to take, along with the Communal one.\n\nDepending on the Communal Expectation, the “Expectation” overlay shows you the basic progress level the Academy would like you to reach; “Your Progress”, instead, shows you the progress related to the path you decided to take.", heightCell: 241)
-                                
+                            
                             Spacer()
-//                            SliderView()
+                            //                            SliderView()
                             Spacer()
                         }
                         
@@ -108,23 +114,24 @@ struct CompassView: View {
                             VStack{
                                 CoreRadarChartView(data_Front_Array: $data_Front_Array, data_Back_Array: $data_Back_Array, animation_Trigger: $animation_Trigger_Communal)
                                     .frame(width: (NSScreen.screenWidth ?? 1200) / 3.8, height: (NSScreen.screenWidth ?? 1200) / 3.8)
-                                .padding(.all, 45)
-                                .padding(.bottom, 9)
-                                .onAppear {
-                                    dark_Core_Datas()
-                                    dark_Path_Datas()
-                                    green_Light_Date()
-                                    animation_Trigger = true
-                                    animation_Trigger_Communal = true
-                                    test_Idea_Function()
-                                }
-                            
-                            Text("Communal")
-                                .fontWeight(.medium)
-                                .multilineTextAlignment(.center)
-                                .font(.system(size: 25.toFontSize()))
-                                .foregroundColor(colorScheme == .dark ? Color(red: 221/255, green: 221/255, blue: 221/255) : Color(red: 129/255, green: 129/255, blue: 129/255))
-                                .offset(y: -50)
+                                    .padding(.all, 45)
+                                    .padding(.bottom, 9)
+                                    .onAppear {
+                                        dark_Core_Datas()
+                                        dark_Path_Datas()
+                                        green_Light_Date()
+                                        animation_Trigger = true
+                                        animation_Trigger_Communal = true
+                                        bars_For_Path_Selected()
+                                        bars_For_expectation()
+                                    }
+                                
+                                Text("Communal")
+                                    .fontWeight(.medium)
+                                    .multilineTextAlignment(.center)
+                                    .font(.system(size: 25.toFontSize()))
+                                    .foregroundColor(colorScheme == .dark ? Color(red: 221/255, green: 221/255, blue: 221/255) : Color(red: 129/255, green: 129/255, blue: 129/255))
+                                    .offset(y: -50)
                             }
                             
                             Spacer()
@@ -156,7 +163,8 @@ struct CompassView: View {
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                                             green_Light_Path_Graph_Data()
                                             dark_Path_Datas()
-                                            test_Idea_Function()
+                                            bars_For_Path_Selected()
+                                            bars_For_expectation()
                                         }
                                         
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
@@ -165,37 +173,37 @@ struct CompassView: View {
                                             }
                                         }
                                     }
-                                    
+                                
                                 
                             }
                             Spacer()
                         }
                         HStack{
-                        
-                        Spacer()
-                        LegendView()
-                        Spacer()
+                            
+                            Spacer()
+                            LegendView()
+                            Spacer()
                         }.padding(.bottom, 20)
                         HStack{
                             InfoButtonBarGraph(title: "Bar Graphs: ", textBody: "The bar graphs below show your growth in detail, allowing you to examine every single Learning Goal, based on the Curriculum Strands. \n\nThe level of the bars is calculated according to the path selected in the dropdown menu above.", heightCell: 131)
-
+                            
                             Spacer()
                         }
                         Spacer()
                         
                         Group{
-                            BarGraphFrame(color: Color.customOrange, title: "Process", skills: process_Skills, progress: $process_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview, animation_Trigger: $animation_Trigger)
-
-                            BarGraphFrame(color: Color.customGreen, title: "Design", skills: design_Skills, progress: $design_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview, animation_Trigger: $animation_Trigger)
+                            BarGraphFrame(color: Color.customOrange, title: "Process", skills: process_Skills, progress: $process_Progress, expectation_Progress: $expectation_Process_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview, animation_Trigger: $animation_Trigger)
+                            
+                            BarGraphFrame(color: Color.customGreen, title: "Design", skills: design_Skills, progress: $design_Progress, expectation_Progress: $expectation_Design_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview, animation_Trigger: $animation_Trigger)
                                 .padding(.top, 50)
-
-                            BarGraphFrame(color: Color.customYellow, title: "Professional Skills", skills: professional_Skills, progress: $professional_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview, animation_Trigger: $animation_Trigger)
+                            
+                            BarGraphFrame(color: Color.customYellow, title: "Professional Skills", skills: professional_Skills, progress: $professional_Progress, expectation_Progress: $expectation_Professional_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview, animation_Trigger: $animation_Trigger)
                                 .padding(.top, 50)
-
-                            BarGraphFrame(color: Color.customBlue, title: "Technical", skills: tecnical_Skills, progress: $tecnical_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview, animation_Trigger: $animation_Trigger)
+                            
+                            BarGraphFrame(color: Color.customBlue, title: "Technical", skills: tecnical_Skills, progress: $tecnical_Progress, expectation_Progress: $expectation_Tecnical_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview, animation_Trigger: $animation_Trigger)
                                 .padding(.top, 50)
-
-                            BarGraphFrame(color: Color.customPurple, title: "Business", skills: business_Skills, progress: $business_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview, animation_Trigger: $animation_Trigger)
+                            
+                            BarGraphFrame(color: Color.customPurple, title: "Business", skills: business_Skills, progress: $business_Progress, expectation_Progress: $expectation_Business_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview, animation_Trigger: $animation_Trigger)
                                 .padding(.top, 50)
                                 .padding(.bottom, 100)
                         }
@@ -208,7 +216,7 @@ struct CompassView: View {
         }
     }
     
-    func test_Idea_Function(){
+    func bars_For_Path_Selected(){
         
         process_Progress = [5,5,5,5,5,5,5,5,5,5,5,5]
         design_Progress = [5,5,5,5,5,5,5,5,5,5,5,5]
@@ -244,49 +252,49 @@ struct CompassView: View {
         
         for learning_Objective in learning_Objectives {
             switch learning_Objective.strand {
-                case "App Business and Marketing":
-
-                    let element_Index = business_Skills.firstIndex(of: learning_Objective.goal_Short) ?? 0
-                    business_Progress[element_Index] += Double(learning_Objective.eval_score.last ?? 0)
-                    business_Progress_Quantity[element_Index] += 1
-                    break
-
-                case "Process":
-
-                    let element_Index = process_Skills.firstIndex(of: learning_Objective.goal_Short) ?? 0
-                    process_Progress[element_Index] += Double(learning_Objective.eval_score.last ?? 0)
-                    process_Progress_Quantity[element_Index] += 1
-                    break
-
-                case "Professional Skills":
-
-                    let element_Index = professional_Skills.firstIndex(of: learning_Objective.goal_Short) ?? 0
-                    professional_Progress[element_Index] += Double(learning_Objective.eval_score.last ?? 0)
-                    professional_Progress_Quantity[element_Index] += 1
-                    break
-
-                case "Technical":
-
-                    let element_Index = tecnical_Skills.firstIndex(of: learning_Objective.goal_Short) ?? 0
-                    tecnical_Progress[element_Index] += Double(learning_Objective.eval_score.last ?? 0)
-                    tecnical_Progress_Quantity[element_Index] += 1
-                    break
-
-                case "Design":
+            case "App Business and Marketing":
+                
+                let element_Index = business_Skills.firstIndex(of: learning_Objective.goal_Short) ?? 0
+                business_Progress[element_Index] += Double(learning_Objective.eval_score.last ?? 0)
+                business_Progress_Quantity[element_Index] += 1
+                break
+                
+            case "Process":
+                
+                let element_Index = process_Skills.firstIndex(of: learning_Objective.goal_Short) ?? 0
+                process_Progress[element_Index] += Double(learning_Objective.eval_score.last ?? 0)
+                process_Progress_Quantity[element_Index] += 1
+                break
+                
+            case "Professional Skills":
+                
+                let element_Index = professional_Skills.firstIndex(of: learning_Objective.goal_Short) ?? 0
+                professional_Progress[element_Index] += Double(learning_Objective.eval_score.last ?? 0)
+                professional_Progress_Quantity[element_Index] += 1
+                break
+                
+            case "Technical":
+                
+                let element_Index = tecnical_Skills.firstIndex(of: learning_Objective.goal_Short) ?? 0
+                tecnical_Progress[element_Index] += Double(learning_Objective.eval_score.last ?? 0)
+                tecnical_Progress_Quantity[element_Index] += 1
+                break
+                
+            case "Design":
                 let element_Index = design_Skills.firstIndex(where: { $0.lowercased() == learning_Objective.goal_Short.lowercased()}) ?? 0
                 
-                    design_Progress[element_Index] += Double(learning_Objective.eval_score.last ?? 0)
-                    design_Progress_Quantity[element_Index] += 1
-                    break
-
-                default:
-                    break
+                design_Progress[element_Index] += Double(learning_Objective.eval_score.last ?? 0)
+                design_Progress_Quantity[element_Index] += 1
+                break
+                
+            default:
+                break
             }
         }
         
         for index in 0 ..< process_Skills_Count {
             if(process_Progress_Quantity[index] > 0){
-                process_Progress[index] = (process_Progress[index] / CGFloat(process_Progress_Quantity[index]))
+                business_Progress[index] = (business_Progress[index] / CGFloat(process_Progress_Quantity[index]))
             }
         }
         for index in 0 ..< design_Skills_Count {
@@ -307,6 +315,122 @@ struct CompassView: View {
         for index in 0 ..< business_Skills_Count {
             if(business_Progress_Quantity[index] > 0){
                 business_Progress[index] = (business_Progress[index] / CGFloat(business_Progress_Quantity[index]))
+            }
+        }
+        
+    }
+    
+    func bars_For_expectation(){
+        
+        expectation_Process_Progress = [5,5,5,5,5,5,5,5,5,5,5,5]
+        expectation_Design_Progress = [5,5,5,5,5,5,5,5,5,5,5,5]
+        expectation_Professional_Progress = [5,5,5,5,5,5,5,5,5,5,5,5]
+        expectation_Tecnical_Progress = [5,5,5,5,5,5,5,5,5,5,5,5]
+        expectation_Business_Progress = [5,5,5,5,5,5,5,5,5,5,5,5]
+        
+        let process_Skills_Count = process_Skills.count
+        let design_Skills_Count = design_Skills.count
+        let professional_Skills_Count = professional_Skills.count
+        let tecnical_Skills_Count = tecnical_Skills.count
+        let business_Skills_Count = business_Skills.count
+        
+        expectation_Process_Progress = (0 ..< process_Skills_Count).map { _ in 0 }
+        var process_Progress_Quantity : [Int] = (0 ..< process_Skills_Count).map { _ in 0 }
+        expectation_Design_Progress = (0 ..< design_Skills_Count).map { _ in 0 }
+        var design_Progress_Quantity : [Int] = (0 ..< design_Skills_Count).map { _ in 0 }
+        expectation_Professional_Progress = (0 ..< professional_Skills_Count).map { _ in 0 }
+        var professional_Progress_Quantity : [Int] = (0 ..< professional_Skills_Count).map { _ in 0 }
+        expectation_Tecnical_Progress = (0 ..< tecnical_Skills_Count).map { _ in 0 }
+        var tecnical_Progress_Quantity : [Int] = (0 ..< tecnical_Skills_Count).map { _ in 0 }
+        expectation_Business_Progress = (0 ..< business_Skills_Count).map { _ in 0 }
+        var business_Progress_Quantity : [Int] = (0 ..< business_Skills_Count).map { _ in 0 }
+        
+        var path_Index = -1
+        
+        var learning_Objectives : [learning_Objective] = []
+        if path == "Pick a Path" || path == "None" {
+            learning_Objectives = learningObjectiveStore.learningObjectives
+        } else {
+            path_Index = learningPathStore.learningPaths.firstIndex(where: {$0.title == path}) ?? 1
+            
+            learning_Objectives = learningObjectiveStore.learningObjectives.filter({ ($0.core_Rubric_Levels[path_Index] * $0.core_Rubric_Levels[0]) > 1})
+        }
+        
+        for learning_Objective in learning_Objectives {
+            switch learning_Objective.strand {
+            case "App Business and Marketing":
+                
+                if path_Index == -1 { return }
+                
+                let element_Index = business_Skills.firstIndex(of: learning_Objective.goal_Short) ?? 0
+                expectation_Business_Progress[element_Index] += learning_Objective.core_Rubric_Levels[path_Index] > learning_Objective.core_Rubric_Levels[0] ? Double(learning_Objective.core_Rubric_Levels[path_Index]) : Double(learning_Objective.core_Rubric_Levels[0])
+                business_Progress_Quantity[element_Index] += 1
+                break
+                
+            case "Process":
+                
+                if path_Index == -1 { return }
+                
+                let element_Index = process_Skills.firstIndex(of: learning_Objective.goal_Short) ?? 0
+                expectation_Process_Progress[element_Index] += learning_Objective.core_Rubric_Levels[path_Index] > learning_Objective.core_Rubric_Levels[0] ? Double(learning_Objective.core_Rubric_Levels[path_Index]) : Double(learning_Objective.core_Rubric_Levels[0])
+                process_Progress_Quantity[element_Index] += 1
+                break
+                
+            case "Professional Skills":
+                
+                if path_Index == -1 { return }
+                
+                let element_Index = professional_Skills.firstIndex(of: learning_Objective.goal_Short) ?? 0
+                expectation_Professional_Progress[element_Index] += learning_Objective.core_Rubric_Levels[path_Index] > learning_Objective.core_Rubric_Levels[0] ? Double(learning_Objective.core_Rubric_Levels[path_Index]) : Double(learning_Objective.core_Rubric_Levels[0])
+                professional_Progress_Quantity[element_Index] += 1
+                break
+                
+            case "Technical":
+                
+                if path_Index == -1 { return }
+                
+                let element_Index = tecnical_Skills.firstIndex(of: learning_Objective.goal_Short) ?? 0
+                expectation_Tecnical_Progress[element_Index] += learning_Objective.core_Rubric_Levels[path_Index] > learning_Objective.core_Rubric_Levels[0] ? Double(learning_Objective.core_Rubric_Levels[path_Index]) : Double(learning_Objective.core_Rubric_Levels[0])
+                tecnical_Progress_Quantity[element_Index] += 1
+                break
+                
+            case "Design":
+                
+                if path_Index == -1 { return }
+                
+                let element_Index = design_Skills.firstIndex(where: { $0.lowercased() == learning_Objective.goal_Short.lowercased()}) ?? 0
+                expectation_Design_Progress[element_Index] += learning_Objective.core_Rubric_Levels[path_Index] > learning_Objective.core_Rubric_Levels[0] ? Double(learning_Objective.core_Rubric_Levels[path_Index]) : Double(learning_Objective.core_Rubric_Levels[0])
+                design_Progress_Quantity[element_Index] += 1
+                break
+                
+            default:
+                break
+            }
+        }
+        
+        for index in 0 ..< process_Skills_Count {
+            if(process_Progress_Quantity[index] > 0){
+                expectation_Process_Progress[index] = (expectation_Process_Progress[index] / CGFloat(process_Progress_Quantity[index]))
+            }
+        }
+        for index in 0 ..< design_Skills_Count {
+            if(design_Progress_Quantity[index] > 0){
+                expectation_Design_Progress[index] = (expectation_Design_Progress[index] / CGFloat(design_Progress_Quantity[index]))
+            }
+        }
+        for index in 0 ..< professional_Skills_Count {
+            if(professional_Progress_Quantity[index] > 0){
+                expectation_Professional_Progress[index] = (expectation_Professional_Progress[index] / CGFloat(professional_Progress_Quantity[index]))
+            }
+        }
+        for index in 0 ..< tecnical_Skills_Count {
+            if(tecnical_Progress_Quantity[index] > 0){
+                expectation_Tecnical_Progress[index] = (expectation_Tecnical_Progress[index] / CGFloat(tecnical_Progress_Quantity[index]))
+            }
+        }
+        for index in 0 ..< business_Skills_Count {
+            if(business_Progress_Quantity[index] > 0){
+                expectation_Business_Progress[index] = (expectation_Business_Progress[index] / CGFloat(business_Progress_Quantity[index]))
             }
         }
     }
@@ -345,33 +469,33 @@ struct CompassView: View {
     func green_Light_Date() {
         data_Front_Array = [60,60,60,60,60]
         
-//        var data_Quantity = [0,0,0,0,0]
-//
-//        let filtered_Learning_Objective = learningObjectiveStore.learningObjectives.filter({$0.isCore})
-//
-//        for learning_Objective in filtered_Learning_Objective {
-//
-//            let temp_Strand_Index = fake_Strands.firstIndex(of: learning_Objective.strand) ?? 0
-//
-//            data_Front_Array[temp_Strand_Index] += CGFloat(learning_Objective.core_Rubric_Levels.first!)
-//            data_Quantity[temp_Strand_Index] += 1
-//
-//        }
-//
-//        for index in 0...data_Quantity.count-1 {
-//            if(data_Front_Array[index] > 0){
-//                data_Front_Array[index] = (data_Front_Array[index] / CGFloat(data_Quantity[index])) * 20
-//            }
-//
-//            if data_Front_Array[index] <= graph_Minimum_Dimension {
-//                data_Front_Array[index] = graph_Minimum_Dimension
-//            }
-//        }
+        //        var data_Quantity = [0,0,0,0,0]
+        //
+        //        let filtered_Learning_Objective = learningObjectiveStore.learningObjectives.filter({$0.isCore})
+        //
+        //        for learning_Objective in filtered_Learning_Objective {
+        //
+        //            let temp_Strand_Index = fake_Strands.firstIndex(of: learning_Objective.strand) ?? 0
+        //
+        //            data_Front_Array[temp_Strand_Index] += CGFloat(learning_Objective.core_Rubric_Levels.first!)
+        //            data_Quantity[temp_Strand_Index] += 1
+        //
+        //        }
+        //
+        //        for index in 0...data_Quantity.count-1 {
+        //            if(data_Front_Array[index] > 0){
+        //                data_Front_Array[index] = (data_Front_Array[index] / CGFloat(data_Quantity[index])) * 20
+        //            }
+        //
+        //            if data_Front_Array[index] <= graph_Minimum_Dimension {
+        //                data_Front_Array[index] = graph_Minimum_Dimension
+        //            }
+        //        }
         
     }
     
     func dark_Core_Datas() {
-
+        
         data_Back_Array = [0,0,0,0,0]
         
         var data_Quantity = [0,0,0,0,0]
@@ -433,7 +557,7 @@ struct CompassView: View {
                 let data_Filtered_Index = closestMatch(values: learning_Objective.eval_date, inputValue: selected_Date)
                 
                 if(data_Filtered_Index != -1){
-                
+                    
                     data_Path_Back_Array[temp_Strand_Index] += CGFloat(learning_Objective.eval_score.last ?? 0)
                     
                 }

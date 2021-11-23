@@ -29,11 +29,11 @@ struct LJMApp: App {
         WindowGroup {
                 StartView(isLoading: $isLoading)
                     .alert(isPresented: $showingAlertImport) {
-                        Alert(title: Text("Do you want to override your data with this file ?"), message: nil, primaryButton: .default(Text("Yes"), action: {
-                            self.isSavable = true
-                            dispatchGroup.leave()
-                        }), secondaryButton: .default(Text("No"), action: {
+                        Alert(title: Text("Do you want to overwrite your data or view the imported file?"), message: nil, primaryButton: .default(Text("Read"), action: {
                             self.isSavable = false
+                            dispatchGroup.leave()
+                        }), secondaryButton: .default(Text("Overwrite"), action: {
+                            self.isSavable = true
                             dispatchGroup.leave()
                         }))
                         }

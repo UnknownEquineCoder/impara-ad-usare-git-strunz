@@ -58,16 +58,6 @@ class LearningObjectivesStore: ObservableObject {
         
     }
     
-    func save_Status(){
-        if(isSavable) {
-            let evaluated_Object = learningObjectives.filter({$0.eval_score.count>0})
-            print(learningObjectives[0])
-            if let encoded = try? PropertyListEncoder().encode(evaluated_Object) {
-                UserDefaults.standard.set(encoded, forKey: "evaluated_Object")
-            }
-        }
-    }
-    
     func load_Status(objectives: FetchedResults<EvaluatedObject>){
         
         /// core data implementation
