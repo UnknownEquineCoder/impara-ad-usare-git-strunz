@@ -24,6 +24,7 @@ struct ProfileNameLabel: View {
                 .padding(.trailing, 95)
             
             TextField("Your name here", text: $name)
+                
                 .onChange(of: name) { newName in
                     if(newName != ""){
                         PersistenceController.shared.update_Profile(image: image_Data, name: newName)
@@ -36,7 +37,7 @@ struct ProfileNameLabel: View {
                 .multilineTextAlignment(.leading)
                 .fixedSize(horizontal: false, vertical: true)
                 .lineLimit(3)
-                
+            
             
         }
     }

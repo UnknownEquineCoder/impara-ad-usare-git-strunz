@@ -6,10 +6,11 @@
         <attribute name="id" optional="YES" attributeType="String"/>
     </entity>
     <entity name="Student" representedClassName="Student" syncable="YES" codeGenerationType="class">
+        <attribute name="image" optional="YES" attributeType="Transformable"/>
         <attribute name="name" attributeType="String" defaultValueString="Name"/>
     </entity>
     <elements>
         <element name="EvaluatedObject" positionX="18" positionY="81" width="128" height="74"/>
-        <element name="Student" positionX="-27" positionY="18" width="128" height="44"/>
+        <element name="Student" positionX="-27" positionY="18" width="128" height="59"/>
     </elements>
 </model>

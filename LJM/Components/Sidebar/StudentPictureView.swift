@@ -75,7 +75,11 @@ struct StudentPictureView: View {
                         if let first_Student = student.last{
                             PersistenceController.shared.fetched_Profile = student
                             
-                            if let image_Data = UserDefaults.standard.data(forKey: "Image_Saved"){
+//                            if let image_Data = UserDefaults.standard.data(forKey: "Image_Saved"){
+//                                imageData = image_Data
+//                            }
+                            
+                            if let image_Data = first_Student.image as? Data{
                                 imageData = image_Data
                             }
                             

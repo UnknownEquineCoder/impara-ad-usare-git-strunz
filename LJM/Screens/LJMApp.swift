@@ -20,6 +20,12 @@ struct LJMApp: App {
     @State var isSavable = false
     @State private var showingAlertImport = false
     
+    var dateFormatter : DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MMM/yyyy"
+        return dateFormatter
+    }()
+    
     //    let srtType = UTType(exportedAs: "com.company.srt-document", conformingTo: .commaSeparatedText)
     let srtType = UTType("com.exemple.LearningJourneyManager")!
     let semaphore = DispatchSemaphore(value: 1)
@@ -29,11 +35,11 @@ struct LJMApp: App {
         WindowGroup {
                 StartView(isLoading: $isLoading)
                     .alert(isPresented: $showingAlertImport) {
-                        Alert(title: Text("Do you want to override your data with this file ?"), message: nil, primaryButton: .default(Text("Yes"), action: {
-                            self.isSavable = true                            
-                            dispatchGroup.leave()
-                        }), secondaryButton: .default(Text("No"), action: {
+                        Alert(title: Text("Do you want to overwrite your data or view the imported file?"), message: nil, primaryButton: .default(Text("Read"), action: {
                             self.isSavable = false
+                            dispatchGroup.leave()
+                        }), secondaryButton: .default(Text("Overwrite"), action: {
+                            self.isSavable = true
                             dispatchGroup.leave()
                         }))
                     }
@@ -43,7 +49,7 @@ struct LJMApp: App {
                         isPresented: $exportFile,
                         document: document,
                         contentType: srtType,
-                        defaultFilename: "\(PersistenceController.shared.name) - \(Date())"
+                        defaultFilename: "LJM export - \(dateFormatter.string(from: Date()))"
                     ) { result in
                         if case .success = result {
                             // Handle success.
@@ -67,8 +73,8 @@ struct LJMApp: App {
                                     isLoading = true
                                     
                                     learningObjectiveStore.isSavable = self.isSavable
-                                    
                                     guard let selectedFile: URL = try result.get().first else { return }
+                                    
                                     guard let message = String(data: try Data(contentsOf: selectedFile), encoding: .utf8) else { return }
                                     var rows = message.components(separatedBy: "\n")
                                     let learning_Objectives = learningObjectiveStore.learningObjectives
