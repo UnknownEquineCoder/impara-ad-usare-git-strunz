@@ -79,11 +79,13 @@ struct CD_Evaluated_Object : Equatable{
 
 struct learning_Path: Hashable {
     var title : String
-    var learning_Objective_IDs : [String]
    
     init(raw : [String]){
         title = raw[0]
-        learning_Objective_IDs = raw[1].components(separatedBy: "-")
+    }
+    
+    init(title : String){
+        self.title = title
     }
 }
 

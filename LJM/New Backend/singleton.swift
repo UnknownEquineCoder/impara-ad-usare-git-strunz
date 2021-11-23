@@ -16,15 +16,14 @@ class singleton_Shared {
 
 class LearningObjectivesStore: ObservableObject {
     
+    // Published elements
     @Published var learningObjectives = [learning_Objective]()
     @Published var name : String = ""
     
+    // Decide if the data can be overriden or not
     var isSavable = true
     
-    func add_Evaluation(_ item: learning_Objective) {
-        learningObjectives.append(item)
-    }
-    
+    // this function will remove all the evaluation to a learning objective indicated by the index
     func remove_Evaluation(index : Int ) {
         
         PersistenceController.shared.delete(l_Objective: learningObjectives[index])
@@ -33,6 +32,15 @@ class LearningObjectivesStore: ObservableObject {
         learningObjectives[index].eval_date.removeAll()
     }
     
+    /// Will evaluate a learning objective in position index
+    ///
+    /// INPUT:
+    ///     index : Int = rapresent the index of the learning objective in the learning objectives
+    ///     evaluation : Int = rapresent the evaluation that have to be passed to the learning objective
+    ///     date : Date = rapresent the date of the evaluation that hav e to be added to the learning objective
+    ///
+    ///  OUTPUT:
+    ///         The evaluation was added to the learning objective in position index
     func evaluate_Object(index : Int, evaluation : Int, date : Date ){
         learningObjectives[index].eval_date.append(date)
         learningObjectives[index].eval_score.append(evaluation)
@@ -171,40 +179,6 @@ class LearningObjectivesStore: ObservableObject {
         return csvToStruct
     }
     
-    func load_Learning_Objective(){
-        var csvToStruct : [learning_Objective] = []
-        let rubric_Level = load_Learning_Rubric()
-        print("#######")
-        guard let filePath = Bundle.main.path(forResource: "Learning_Objectives", ofType: "csv") else {
-            return
-        }
-        
-        var data = ""
-        do {
-            data = try String(contentsOfFile: filePath)
-        } catch {
-            print(error)
-            return
-        }
-        
-        var rows = data.components(separatedBy: "\n")
-        
-        rows.removeFirst()
-        rows.removeLast()
-        
-        for row in rows {
-            
-            let csvColumns = row.components(separatedBy: ",")
-            
-            if let rubric_Specific_Level = rubric_Level.first(where: {$0.ID == csvColumns[7]}) {
-                let LOsStruct = learning_Objective.init(raw: csvColumns, rubric_Levels: rubric_Specific_Level.levels)
-                csvToStruct.append(LOsStruct)
-            }
-            
-        }
-        learningObjectives = csvToStruct
-    }
-    
     func load_Learning_Rubric() -> [rubric_Level]{
         
         var csvToStruct : [rubric_Level] = []
@@ -249,9 +223,8 @@ class LearningPathStore: ObservableObject {
     }
     
     func load_Learning_Path(){
-        var csvToStruct = [learning_Path]()
         
-        guard let filePath = Bundle.main.path(forResource: "Learning_Paths", ofType: "csv") else {
+        guard let filePath = Bundle.main.path(forResource: "ALL PATHS", ofType: "csv") else {
             learningPaths = []
             return
         }
@@ -265,19 +238,14 @@ class LearningPathStore: ObservableObject {
             return
         }
         
-        var rows = data.components(separatedBy: "\n")
+        let row = data.components(separatedBy: "\n").first!
         
-        rows.removeFirst()
-        rows.removeLast()
+        let csvColumns = row.components(separatedBy: ";")
         
-        for row in rows {
-            
-            let csvColumns = row.components(separatedBy: ",")
-            
-            let LOsStruct = learning_Path.init(raw: csvColumns)
-            csvToStruct.append(LOsStruct)
+        learningPaths.append(learning_Path(title: "None"))
+        for index in 5..<csvColumns.count {
+            learningPaths.append(learning_Path(title: csvColumns[index].replacingOccurrences(of: "Path", with: "").replacingOccurrences(of: "level", with: "")))
         }
-        learningPaths = csvToStruct
     }
 }
 

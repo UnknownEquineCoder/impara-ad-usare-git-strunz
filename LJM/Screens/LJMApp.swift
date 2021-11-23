@@ -20,6 +20,12 @@ struct LJMApp: App {
     @State var isSavable = false
     @State private var showingAlertImport = false
     
+    var dateFormatter : DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MMM/yyyy"
+        return dateFormatter
+    }()
+    
     //    let srtType = UTType(exportedAs: "com.company.srt-document", conformingTo: .commaSeparatedText)
     let srtType = UTType("com.exemple.LearningJourneyManager")!
     let semaphore = DispatchSemaphore(value: 1)
@@ -43,7 +49,7 @@ struct LJMApp: App {
                         isPresented: $exportFile,
                         document: document,
                         contentType: srtType,
-                        defaultFilename: "\(PersistenceController.shared.name) - \(Date())"
+                        defaultFilename: "LJM export - \(dateFormatter.string(from: Date()))"
                     ) { result in
                         if case .success = result {
                             // Handle success.
@@ -67,8 +73,8 @@ struct LJMApp: App {
                                     isLoading = true
                                     
                                     learningObjectiveStore.isSavable = self.isSavable
-                                    
                                     guard let selectedFile: URL = try result.get().first else { return }
+                                    
                                     guard let message = String(data: try Data(contentsOf: selectedFile), encoding: .utf8) else { return }
                                     var rows = message.components(separatedBy: "\n")
                                     let learning_Objectives = learningObjectiveStore.learningObjectives
