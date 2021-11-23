@@ -85,7 +85,7 @@ struct BarGraphFrame: View {
                                     
                                     ZStack{
                                         
-                                        ProgressBarGraph(progress: (animation_Trigger ? expectation_Progress[index] * 20 : 0 ) + 1, color: .gray)
+                                        ProgressBarGraph(progress: (animation_Trigger ? expectation_Progress[index] * 20 : 0 ) + 1, color: color.opacity(0.4))
                                             .frame(width: geo.size.width * 0.66, height: 16.toScreenSize())
                                             .padding(.trailing, 116.toScreenSize())
                                         

@@ -94,6 +94,7 @@ class PersistenceController {
     func update_Profile(image : Data?, name : String){
         let context = PersistenceController.shared.container.viewContext
 //        PersistenceController.container.viewContext
+        self.name = name
         
         do{
             let fetched_Data = try context.fetch(Student.get_Student_Request())

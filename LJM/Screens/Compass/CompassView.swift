@@ -70,19 +70,6 @@ struct CompassView: View {
                 VStack {
                     
                     //                    HStack{
-                    //                        Button {
-                    //                            for index in learningObjectiveStore.learningObjectives.indices {
-                    //                                learningObjectiveStore.learningObjectives[index].eval_date = []
-                    //                                learningObjectiveStore.learningObjectives[index].eval_score = []
-                    //
-                    //                                learningObjectiveStore.learningObjectives[index].eval_score.append(Int.random(in: 1...5))
-                    //                                learningObjectiveStore.learningObjectives[index].eval_date.append(Date())
-                    //                            }
-                    //                        } label: {
-                    //                            Text("Random Generate")
-                    //                        }
-                    //
-                    //                    }
                     
                     HStack {
                         TitleScreenView(title: "Compass")
@@ -97,6 +84,7 @@ struct CompassView: View {
                         DatePickerView(pickerDate: $selected_Date)
                             .padding(.top, 7.toScreenSize())
                             .onChange(of: selected_Date) { date in
+                                bars_For_Path_Selected()
                                 dark_Path_Datas()
                                 dark_Core_Datas()
                             }
@@ -251,44 +239,51 @@ struct CompassView: View {
         }
         
         for learning_Objective in learning_Objectives {
+            
+            let data_Filtered_Index = closestMatch(values: learning_Objective.eval_date, inputValue: selected_Date)
+            
+            if(data_Filtered_Index != -1){
+            
             switch learning_Objective.strand {
             case "App Business and Marketing":
                 
                 let element_Index = business_Skills.firstIndex(of: learning_Objective.goal_Short) ?? 0
-                business_Progress[element_Index] += Double(learning_Objective.eval_score.last ?? 0)
+                business_Progress[element_Index] += Double(learning_Objective.eval_score[data_Filtered_Index])
                 business_Progress_Quantity[element_Index] += 1
                 break
                 
             case "Process":
                 
                 let element_Index = process_Skills.firstIndex(of: learning_Objective.goal_Short) ?? 0
-                process_Progress[element_Index] += Double(learning_Objective.eval_score.last ?? 0)
+                process_Progress[element_Index] += Double(learning_Objective.eval_score[data_Filtered_Index])
                 process_Progress_Quantity[element_Index] += 1
                 break
                 
             case "Professional Skills":
                 
                 let element_Index = professional_Skills.firstIndex(of: learning_Objective.goal_Short) ?? 0
-                professional_Progress[element_Index] += Double(learning_Objective.eval_score.last ?? 0)
+                professional_Progress[element_Index] += Double(learning_Objective.eval_score[data_Filtered_Index])
                 professional_Progress_Quantity[element_Index] += 1
                 break
                 
             case "Technical":
                 
                 let element_Index = tecnical_Skills.firstIndex(of: learning_Objective.goal_Short) ?? 0
-                tecnical_Progress[element_Index] += Double(learning_Objective.eval_score.last ?? 0)
+                tecnical_Progress[element_Index] += Double(learning_Objective.eval_score[data_Filtered_Index])
                 tecnical_Progress_Quantity[element_Index] += 1
                 break
                 
             case "Design":
                 let element_Index = design_Skills.firstIndex(where: { $0.lowercased() == learning_Objective.goal_Short.lowercased()}) ?? 0
                 
-                design_Progress[element_Index] += Double(learning_Objective.eval_score.last ?? 0)
+                design_Progress[element_Index] += Double(learning_Objective.eval_score[data_Filtered_Index])
                 design_Progress_Quantity[element_Index] += 1
                 break
                 
             default:
                 break
+            }
+                
             }
         }
         
@@ -510,7 +505,7 @@ struct CompassView: View {
                 let data_Filtered_Index = closestMatch(values: learning_Objective.eval_date, inputValue: selected_Date)
                 
                 if(data_Filtered_Index != -1){
-                    var score = CGFloat(learning_Objective.eval_score.last ?? 0)
+                    var score = CGFloat(learning_Objective.eval_score[data_Filtered_Index])
                     
                     if score > 3 {
                         score = 3
@@ -558,7 +553,7 @@ struct CompassView: View {
                 
                 if(data_Filtered_Index != -1){
                     
-                    data_Path_Back_Array[temp_Strand_Index] += CGFloat(learning_Objective.eval_score.last ?? 0)
+                    data_Path_Back_Array[temp_Strand_Index] += CGFloat(learning_Objective.eval_score[data_Filtered_Index])
                     
                 }
             }
