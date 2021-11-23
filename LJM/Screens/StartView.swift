@@ -96,22 +96,22 @@ struct StartView: View {
                 learningPathsStore.load_Learning_Path()
                 strandsStore.setupStrandsOnNativeFilter(learningObjectives: learningObjectiveStore.learningObjectives)
                 
-                if learningObjectiveStore.learningObjectives.filter({$0.eval_score.count>0}).count == 0 {
-                    withAnimation {
-                        isLoading = true
-                    }
-                    
-                    timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true) { timer in
-                        update_Store()
-                        runCount+=1
-                        if runCount == 50 {
-                            withAnimation {
-                                isLoading = false
-                            }
-                            timer.invalidate()
-                        }
-                    }
-                }
+//                if learningObjectiveStore.learningObjectives.filter({$0.eval_score.count>0}).count == 0 {
+//                    withAnimation {
+//                        isLoading = true
+//                    }
+//
+////                    timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true) { timer in
+////                        update_Store()
+////                        runCount+=1
+////                        if runCount == 50 {
+////                            withAnimation {
+////                                isLoading = false
+////                            }
+////                            timer.invalidate()
+////                        }
+////                    }
+//                }
                 
                 
             }
@@ -123,7 +123,8 @@ struct StartView: View {
     
     func update_Store() {
         
-        let context = PersistenceController.container.newBackgroundContext()
+        let context = PersistenceController.shared.container.newBackgroundContext()
+//        PersistenceController.container.newBackgroundContext()
         var items : [EvaluatedObject] = []
         var usable_Items : [CD_Evaluated_Object] = []
         

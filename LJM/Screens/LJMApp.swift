@@ -37,7 +37,7 @@ struct LJMApp: App {
                             dispatchGroup.leave()
                         }))
                         }
-                    .environment(\.managedObjectContext, PersistenceController.container.viewContext)
+                    .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
                     .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight, alignment: .center)
                     .fileExporter(
                         isPresented: $exportFile,

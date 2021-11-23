@@ -31,37 +31,69 @@ extension Student{
 class PersistenceController {
     static var shared = PersistenceController()
     
+    //    var name = "Name"
+    
+    //    static var container: NSPersistentContainer = {
+    //
+    //        let container = NSPersistentContainer(name: "StudentData")
+    //
+    ////        guard let description = container.persistentStoreDescriptions.first else {
+    ////            fatalError("No Description found")
+    ////        }
+    ////        description.setOption(true as NSObject, forKey: NSPersistentStoreRemoteChangeNotificationPostOptionKey)
+    //
+    //        container.loadPersistentStores { description, error in
+    //            if let error = error {
+    //                fatalError("Unable to load persistent stores: \(error)")
+    //            }
+    //        }
+    //
+    ////        container.viewContext.automaticallyMergesChangesFromParent = true
+    ////        container.viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
+    //
+    //        return container
+    //    }()
+    //
+    //    var fetched_Learning_Objectives : FetchedResults<EvaluatedObject>? = nil
+    //    var fetched_Profile : FetchedResults<Student>? = nil
+    
     var name = "Name"
     
-    static var container: NSPersistentCloudKitContainer = {
-        
-        let container = NSPersistentCloudKitContainer(name: "StudentData")
-        
-        guard let description = container.persistentStoreDescriptions.first else {
-            fatalError("No Description found")
-        }
-        description.setOption(true as NSObject, forKey: NSPersistentStoreRemoteChangeNotificationPostOptionKey)
-        
-        container.loadPersistentStores { description, error in
-            if let error = error {
-                fatalError("Unable to load persistent stores: \(error)")
-            }
-        }
-        
-        container.viewContext.automaticallyMergesChangesFromParent = true
-        container.viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
-        
-        return container
-    }()
-
+    let container: NSPersistentCloudKitContainer
+    
     var fetched_Learning_Objectives : FetchedResults<EvaluatedObject>? = nil
     var fetched_Profile : FetchedResults<Student>? = nil
+    
+    init(inMemory: Bool = false) {
+        container = NSPersistentCloudKitContainer(name: "StudentData")
+        if inMemory {
+            container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
+        }
+        
+        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+            if let error = error as NSError? {
+                // Replace this implementation with code to handle the error appropriately.
+                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                
+                /*
+                 Typical reasons for an error here include:
+                 * The parent directory does not exist, cannot be created, or disallows writing.
+                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
+                 * The device is out of space.
+                 * The store could not be migrated to the current model version.
+                 Check the error message to determine what the actual problem was.
+                 */
+                fatalError("Unresolved error \(error), \(error.userInfo)")
+            }
+        })
+    }
     
     
     /// function for update the profile
     
     func update_Profile(image : Data?, name : String){
-        let context = PersistenceController.container.viewContext
+        let context = PersistenceController.shared.container.viewContext
+//        PersistenceController.container.viewContext
         
         do{
             let fetched_Data = try context.fetch(Student.get_Student_Request())
@@ -69,7 +101,7 @@ class PersistenceController {
             for objective in fetched_Data {
                 context.delete(objective)
             }
-             
+            
         } catch {
             fatalError("Unsolver Error during a fetch in evaluated learning objective function")
         }
@@ -97,18 +129,18 @@ class PersistenceController {
     
     func evalutate_Learning_Objective(l_Objective : learning_Objective){
         // create the correct context of the core data
-        let context = PersistenceController.container.viewContext
-         
+        let context = PersistenceController.shared.container.viewContext
+        
         do{
             let fetched_Data = try context.fetch(EvaluatedObject.get_Evaluated_Object_List_Request())
             
             for objective in fetched_Data {
-                 
+                
                 if objective.id == l_Objective.ID {
                     context.delete(objective)
                 }
             }
-             
+            
         } catch {
             fatalError("Unsolver Error during a fetch in evaluated learning objective function")
         }
@@ -166,7 +198,7 @@ class PersistenceController {
     
     func override_Data(rows : [String]){
         // create the correct context of the core data
-        let context = PersistenceController.container.viewContext
+        let context = PersistenceController.shared.container.viewContext
         
         // Delete all the learning Objectives that was saved before
         
@@ -178,7 +210,7 @@ class PersistenceController {
                 context.delete(objective)
                 
             }
-             
+            
         } catch {
             fatalError("Unsolver Error during a fetch in evaluated learning objective function")
         }
@@ -226,7 +258,7 @@ class PersistenceController {
     
     func delete(l_Objective : learning_Objective){
         // create the correct context of the core data
-        let context = PersistenceController.container.viewContext
+        let context = PersistenceController.shared.container.viewContext
         
         // check for objectives saved if this one was alredy evaluated, if it was alredy evaluated
         // it will delete the old evaluation
@@ -235,12 +267,12 @@ class PersistenceController {
             let fetched_Data = try context.fetch(EvaluatedObject.get_Evaluated_Object_List_Request())
             
             for objective in fetched_Data {
-                 
+                
                 if objective.id == l_Objective.ID {
                     context.delete(objective)
                 }
             }
-             
+            
         } catch {
             fatalError("Unsolver Error during a fetch in evaluated learning objective function")
         }
