@@ -169,26 +169,37 @@ struct LearningObjectiveJourneyCell: View {
                     Spacer().frame(height: 50)
                     
                     VStack {
-                        Button(action: {
-                            showingAlert = true
-                        }) {
-                            Image(systemName: "trash")
-                                .renderingMode(.original)
-                                .foregroundColor(Color.red)
-                                .isHidden(!(learningObj.eval_score.count > 0))
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                        .alert(isPresented:$showingAlert) {
-                            Alert(
-                                title: Text("Are you sure you want to delete this Learning Objective?"),
-                                message: Text("You can't undo this action"),
-                                primaryButton: .destructive(Text("Delete")) {
-                                    print("Deleting...")
+                        if #available(macOS 12.0, *) {
+                            Button(action: {
+                                showingAlert = true
+                            }) {
+                                Image(systemName: "trash")
+                                    .renderingMode(.original)
+                                    .foregroundColor(Color.red)
+                                    .isHidden(!(learningObj.eval_score.count > 0))
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            .alert("Are you sure you want to delete this Learning Objective ?", isPresented: $showingAlert) {
+                                Button("No", role: .cancel) {
+                                    
+                                }
+                                
+                                Button("Yes", role: .cancel) {
                                     let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObj.ID})!
-                                    learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
-                                },
-                                secondaryButton: .cancel()
-                            )
+                                    learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)                            }
+                            }
+                        } else {
+                            // Fallback on earlier versions
+                            Button(action: {
+                                let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObj.ID})!
+                                learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)  
+                            }) {
+                                Image(systemName: "trash")
+                                    .renderingMode(.original)
+                                    .foregroundColor(Color.red)
+                                    .isHidden(!(learningObj.eval_score.count > 0))
+                            }
+                            .buttonStyle(PlainButtonStyle())
                         }
                     }
                 }.frame(width: 260, height: 100, alignment: .center)

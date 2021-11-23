@@ -15,7 +15,6 @@ struct ContextMenuFilters: View {
     
     @Binding var selectedFilter: CoreEnum.RawValue
     @Binding var selectedPath : String?
-    @Binding var selectedPaths: [String]
     @Binding var selectedStrands : [String]
     @Binding var selectedEvaluatedOrNotFilter: EvaluatedOrNotEnum?
     
@@ -44,11 +43,7 @@ struct ContextMenuFilters: View {
                 ForEach(self.learningPathsStore.learningPaths, id: \.title) { learningPath in
                     if !fromMap {
                         Button {
-//                            if self.fromMap {
-//                                selectedFilter = learningPath.title
-//                            } else {
-                                selectedPath = learningPath.title
-//                            }
+                            selectedPath = learningPath.title
                             
                         } label: {
                             HStack {
@@ -60,7 +55,7 @@ struct ContextMenuFilters: View {
                     } else {
                         Button {
 //                            if self.fromMap {
-                               // selectedFilter = learningPath.title
+                                selectedFilter = learningPath.title
 //                            } else {
 //                                selectedPath = learningPath.title
 //                            }
@@ -71,11 +66,11 @@ struct ContextMenuFilters: View {
 //                                self.selectedStrands.remove(object: strand)
 //                            }
                                                         
-                            if !self.selectedPaths.contains(learningPath.title) {
-                                selectedPaths.append(learningPath.title)
-                            } else {
-                                selectedPaths.remove(object: learningPath.title)
-                            }
+//                            if !self.selectedPaths.contains(learningPath.title) {
+//                                selectedPaths.append(learningPath.title)
+//                            } else {
+//                                selectedPaths.remove(object: learningPath.title)
+//                            }
                             
                         } label: {
                             HStack {
@@ -111,22 +106,22 @@ struct ContextMenuFilters: View {
                 
                 if fromMap {
                     Button {
-                        selectedEvaluatedOrNotFilter = .evaluated
+                        selectedEvaluatedOrNotFilter = selectedEvaluatedOrNotFilter == .evaluated ? .all : .evaluated
                     } label: {
                         HStack {
                             Text("Evaluated")
                             Image(systemName: "checkmark")
-                                .isHidden(!(selectedEvaluatedOrNotFilter == .evaluated))
+                                .isHidden(!(selectedEvaluatedOrNotFilter == .evaluated) || (selectedEvaluatedOrNotFilter == .all))
                         }
                     }
                     
                     Button {
-                        selectedEvaluatedOrNotFilter = .notEvaluated
+                        selectedEvaluatedOrNotFilter = selectedEvaluatedOrNotFilter == .notEvaluated ? .all : .notEvaluated
                     } label: {
                         HStack {
                             Text("Not Evaluated")
                             Image(systemName: "checkmark")
-                                .isHidden(!(selectedEvaluatedOrNotFilter == .notEvaluated))
+                                .isHidden(!(selectedEvaluatedOrNotFilter == .notEvaluated) || (selectedEvaluatedOrNotFilter == .all))
                         }
                     }
                 }
@@ -134,12 +129,9 @@ struct ContextMenuFilters: View {
         } label: {
             HStack(spacing: 13) {
                 Image(systemName: "line.3.horizontal.decrease.circle")
-                //                    .resizable()
-                //                    .frame(width: 10, height: 10)
                     .foregroundColor(colorScheme == .dark ? Color(red: 160/255, green: 159/255, blue: 159/255) : Color(red: 87/255, green: 87/255, blue: 87/255))
                 
                 Text("Filters")
-                //                    .font(.system(size: 20, weight: .medium, design: .rounded))
                     .foregroundColor(colorScheme == .dark ? Color(red: 160/255, green: 159/255, blue: 159/255) : Color(red: 87/255, green: 87/255, blue: 87/255))
             }
             

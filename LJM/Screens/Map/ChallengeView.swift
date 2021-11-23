@@ -17,7 +17,6 @@ struct ChallengeView: View {
     @State var selectedFilterInsideButton = "All"
     @State private var searchText = ""
     @State var selectedStrands = [String]()
-    @State var selectedPaths = [String]()
     
     let shared : singleton_Shared = singleton_Shared()
     

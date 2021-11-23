@@ -123,6 +123,7 @@ enum CoreEnum: String {
 enum EvaluatedOrNotEnum {
     case evaluated
     case notEvaluated
+    case all
 }
 
 enum SortEnum: String {

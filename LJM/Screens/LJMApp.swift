@@ -30,13 +30,13 @@ struct LJMApp: App {
                 StartView(isLoading: $isLoading)
                     .alert(isPresented: $showingAlertImport) {
                         Alert(title: Text("Do you want to override your data with this file ?"), message: nil, primaryButton: .default(Text("Yes"), action: {
-                            self.isSavable = true
+                            self.isSavable = true                            
                             dispatchGroup.leave()
                         }), secondaryButton: .default(Text("No"), action: {
                             self.isSavable = false
                             dispatchGroup.leave()
                         }))
-                        }
+                    }
                     .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
                     .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight, alignment: .center)
                     .fileExporter(
