@@ -17,7 +17,7 @@ struct LJMApp: App {
     @State private var document: MessageDocument = MessageDocument(message: "Hello, World!")
     
     @State var isLoading = false
-    @State var isSavable = false
+    @State var isSavable = true
     @State private var showingAlertImport = false
     
     @State private var is_Import_Deleted = false
@@ -50,7 +50,7 @@ struct LJMApp: App {
                         })
                     )
                 }
-                .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight!, alignment: .center)
                 .fileExporter(
                     isPresented: $exportFile,
@@ -64,7 +64,7 @@ struct LJMApp: App {
                         // Handle failure.
                     }
                 }
-                .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight, alignment: .center)
                 .fileExporter(
                     isPresented: $exportFile,
@@ -96,7 +96,7 @@ struct LJMApp: App {
                             
                             do {
                                 isLoading = true
-                                
+                                print("@@@@@@@@@@@@ \(isSavable)")
                                 learningObjectiveStore.isSavable = self.isSavable
                                 guard let selectedFile: URL = try result.get().first else { return }
                                 

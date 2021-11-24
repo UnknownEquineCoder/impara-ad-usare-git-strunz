@@ -52,7 +52,9 @@ struct RatingView: View {
                                     self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.append(number)
                                     self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.append(new_Date)
                                     
+                                if learningObjectiveStore.isSavable {
                                     PersistenceController.shared.evalutate_Learning_Objective(l_Objective: self.learningObjectiveStore.learningObjectives[learningObjectiveIndex])
+                                }
                             }
                                 
                                 

@@ -15,6 +15,8 @@ struct ProfileNameLabel: View {
     
     @State var timer: Timer?
     
+    @StateObject var learningObjectiveStore = LearningObjectivesStore()
+    
     var body: some View {
         VStack(spacing: 5){
             Text("Hello,")
@@ -33,7 +35,10 @@ struct ProfileNameLabel: View {
                     }
                     timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { timer in
                         if(newName != ""){
-                            PersistenceController.shared.update_Profile(image: image_Data, name: newName)
+                            if learningObjectiveStore.isSavable {
+                                PersistenceController.shared.update_Profile(image: image_Data, name: newName)
+                            }
+                            
                         }
                     }
                     
