@@ -163,22 +163,3 @@ struct CoreRadarChart: View {
         }
     }
 }
-
-//extension Array where Element: LJMCodableData {
-//    mutating func updateAndRefresh(with value: Element, code: ()->()) {
-//        update(with: value)
-//        code()
-//    }
-//}
-
-//extension Array where Element == LearningObjective {
-//    mutating func updateAssessments(with assessment: Assessment, on objective: LearningObjective) {
-//
-//        var newObjective = objective
-//        newObjective.assessments?.append(assessment)
-//
-//        updateAndRefresh(with: objective) {
-//            #warning("Implement update")
-//        }
-//    }
-//}

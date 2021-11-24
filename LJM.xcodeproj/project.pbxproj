@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		5579EB75263E06920086A4BE /* URLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5579EB74263E06920086A4BE /* URLExtensions.swift */; };
 		55F4D7A8266188E10080E6A2 /* README-URGENT.txt in Resources */ = {isa = PBXBuildFile; fileRef = 55F4D7A7266188E10080E6A2 /* README-URGENT.txt */; };
-		941445EA26429894005BA5CB /* WebviewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 941445E926429894005BA5CB /* WebviewCoordinator.swift */; };
 		960451E725F0F46000F34D9A /* BarGraphFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960451E625F0F46000F34D9A /* BarGraphFrame.swift */; };
 		9609087F2604A10900EB4242 /* LearningGoalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9609087E2604A10900EB4242 /* LearningGoalsView.swift */; };
 		960A8B2125E7B9FA00492C3F /* RadarGraphFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 960A8B2025E7B9FA00492C3F /* RadarGraphFrame.swift */; };
@@ -47,7 +46,7 @@
 		96CE7BC625C4183A006C4CDA /* FilterChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CE7BC525C4183A006C4CDA /* FilterChoice.swift */; };
 		96E2DD852726EF170007D49B /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E2DD842726EF170007D49B /* SearchBar.swift */; };
 		E02DFE8A270AEC3F004FF8B7 /* newModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02DFE89270AEC3F004FF8B7 /* newModels.swift */; };
-		E02DFE8C270C41E5004FF8B7 /* singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02DFE8B270C41E5004FF8B7 /* singleton.swift */; };
+		E02DFE8C270C41E5004FF8B7 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02DFE8B270C41E5004FF8B7 /* Observable.swift */; };
 		E03211372716E89100262144 /* Rubric_Level.csv in Resources */ = {isa = PBXBuildFile; fileRef = E03211342716E89100262144 /* Rubric_Level.csv */; };
 		E03211382716E89100262144 /* Learning_Objectives.csv in Resources */ = {isa = PBXBuildFile; fileRef = E03211352716E89100262144 /* Learning_Objectives.csv */; };
 		E03211392716E89100262144 /* Learning_Paths.csv in Resources */ = {isa = PBXBuildFile; fileRef = E03211362716E89100262144 /* Learning_Paths.csv */; };
@@ -59,7 +58,6 @@
 		E0E87CD6272801C900FEF3D6 /* DocDemoDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E87CD5272801C900FEF3D6 /* DocDemoDocument.swift */; };
 		EA139BD42640910900E15E28 /* JWTDecode in Frameworks */ = {isa = PBXBuildFile; productRef = EA139BD32640910900E15E28 /* JWTDecode */; };
 		EA5B445D262E6F23002A97C7 /* MyJourneyMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5B445C262E6F23002A97C7 /* MyJourneyMainView.swift */; };
-		EA5B4463263027ED002A97C7 /* WebviewLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5B4462263027ED002A97C7 /* WebviewLogin.swift */; };
 		EA5B447826310DF7002A97C7 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = EA5B447726310DF7002A97C7 /* SwiftKeychainWrapper */; };
 		EA686EF9256EE4F300C121DC /* TopBarJourney.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA686EF8256EE4F300C121DC /* TopBarJourney.swift */; };
 		EA686F07256EF1F100C121DC /* MapMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA686F06256EF1F100C121DC /* MapMainView.swift */; };
@@ -120,7 +118,6 @@
 /* Begin PBXFileReference section */
 		5579EB74263E06920086A4BE /* URLExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtensions.swift; sourceTree = "<group>"; };
 		55F4D7A7266188E10080E6A2 /* README-URGENT.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "README-URGENT.txt"; sourceTree = "<group>"; };
-		941445E926429894005BA5CB /* WebviewCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebviewCoordinator.swift; sourceTree = "<group>"; };
 		960451E625F0F46000F34D9A /* BarGraphFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarGraphFrame.swift; sourceTree = "<group>"; };
 		9609087E2604A10900EB4242 /* LearningGoalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningGoalsView.swift; sourceTree = "<group>"; };
 		960A8B2025E7B9FA00492C3F /* RadarGraphFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadarGraphFrame.swift; sourceTree = "<group>"; };
@@ -165,7 +162,7 @@
 		96E2DD842726EF170007D49B /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		E000216D274BF0CB0059A1C9 /* LJM.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = LJM.entitlements; sourceTree = "<group>"; };
 		E02DFE89270AEC3F004FF8B7 /* newModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = newModels.swift; sourceTree = "<group>"; };
-		E02DFE8B270C41E5004FF8B7 /* singleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = singleton.swift; sourceTree = "<group>"; };
+		E02DFE8B270C41E5004FF8B7 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		E03211342716E89100262144 /* Rubric_Level.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Rubric_Level.csv; sourceTree = "<group>"; };
 		E03211352716E89100262144 /* Learning_Objectives.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Learning_Objectives.csv; sourceTree = "<group>"; };
 		E03211362716E89100262144 /* Learning_Paths.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Learning_Paths.csv; sourceTree = "<group>"; };
@@ -176,7 +173,6 @@
 		E0E87CD3272801BC00FEF3D6 /* ALL PATHS.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ALL PATHS.csv"; sourceTree = "<group>"; };
 		E0E87CD5272801C900FEF3D6 /* DocDemoDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocDemoDocument.swift; sourceTree = "<group>"; };
 		EA5B445C262E6F23002A97C7 /* MyJourneyMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyJourneyMainView.swift; sourceTree = "<group>"; };
-		EA5B4462263027ED002A97C7 /* WebviewLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebviewLogin.swift; sourceTree = "<group>"; };
 		EA686EF8256EE4F300C121DC /* TopBarJourney.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarJourney.swift; sourceTree = "<group>"; };
 		EA686F06256EF1F100C121DC /* MapMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMainView.swift; sourceTree = "<group>"; };
 		EA686F0F256EF67B00C121DC /* MyJourneyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyJourneyView.swift; sourceTree = "<group>"; };
@@ -288,7 +284,6 @@
 			children = (
 				E000216D274BF0CB0059A1C9 /* LJM.entitlements */,
 				E032112D2716E6F900262144 /* FakeData */,
-				EA5B446F26310AB9002A97C7 /* Auth */,
 				E02DFE8D270C41F4004FF8B7 /* New Backend */,
 				EACD024025D50299008D12FE /* Modifiers */,
 				EA686F2C256F25B100C121DC /* Extensions */,
@@ -385,7 +380,7 @@
 			children = (
 				E04251AA27295E00000A1D69 /* Models */,
 				E02DFE89270AEC3F004FF8B7 /* newModels.swift */,
-				E02DFE8B270C41E5004FF8B7 /* singleton.swift */,
+				E02DFE8B270C41E5004FF8B7 /* Observable.swift */,
 				E0E87CD5272801C900FEF3D6 /* DocDemoDocument.swift */,
 			);
 			path = "New Backend";
@@ -410,15 +405,6 @@
 				E04251AB27295F34000A1D69 /* StudentData.xcdatamodeld */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		EA5B446F26310AB9002A97C7 /* Auth */ = {
-			isa = PBXGroup;
-			children = (
-				EA5B4462263027ED002A97C7 /* WebviewLogin.swift */,
-				941445E926429894005BA5CB /* WebviewCoordinator.swift */,
-			);
-			path = Auth;
 			sourceTree = "<group>";
 		};
 		EA686EF7256EE48900C121DC /* Components */ = {
@@ -673,13 +659,11 @@
 				964B665E256E64FD006AB20E /* StudentPictureView.swift in Sources */,
 				EACD027125DE88AA008D12FE /* DropDownMenuSelectPath.swift in Sources */,
 				EA686F07256EF1F100C121DC /* MapMainView.swift in Sources */,
-				EA5B4463263027ED002A97C7 /* WebviewLogin.swift in Sources */,
 				EA7028D12579E32500E1B6EB /* ColorsExtension.swift in Sources */,
 				964C75A925EE5983002D8634 /* LegendView.swift in Sources */,
 				961962462726C49900ECA524 /* AddLOButton.swift in Sources */,
 				9672C8F425E3F46B005CC753 /* RadarChartView.swift in Sources */,
 				EA5B445D262E6F23002A97C7 /* MyJourneyMainView.swift in Sources */,
-				941445EA26429894005BA5CB /* WebviewCoordinator.swift in Sources */,
 				9696F9352726A764009614F4 /* ContextMenuFilters.swift in Sources */,
 				EA686EF9256EE4F300C121DC /* TopBarJourney.swift in Sources */,
 				96CC613F257A38FC00CE7ABD /* DropDownMenuFilters.swift in Sources */,
@@ -700,7 +684,7 @@
 				EAD2C81A257085CA008CDDA1 /* LearningObjectiveJourneyCell.swift in Sources */,
 				EACD023425D37CCB008D12FE /* DescriptionTitleScreenView.swift in Sources */,
 				EACD023925D382AD008D12FE /* NumberTotalLearningOjbectivesView.swift in Sources */,
-				E02DFE8C270C41E5004FF8B7 /* singleton.swift in Sources */,
+				E02DFE8C270C41E5004FF8B7 /* Observable.swift in Sources */,
 				5579EB75263E06920086A4BE /* URLExtensions.swift in Sources */,
 				96BE89D0257553BF00BE9E8F /* CountDownWrapper.swift in Sources */,
 				9696F9332726A13A009614F4 /* SortButtonMenu.swift in Sources */,

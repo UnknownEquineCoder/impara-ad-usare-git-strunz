@@ -61,9 +61,6 @@ class PersistenceController {
     
     let container: NSPersistentCloudKitContainer
     
-    var fetched_Learning_Objectives : FetchedResults<EvaluatedObject>? = nil
-    var fetched_Profile : FetchedResults<Student>? = nil
-    
     init(inMemory: Bool = false) {
         container = NSPersistentCloudKitContainer(name: "StudentData")
         if inMemory {

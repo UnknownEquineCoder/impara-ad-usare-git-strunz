@@ -206,12 +206,6 @@ struct CompassView: View {
     
     func bars_For_Path_Selected(){
         
-        process_Progress = [5,5,5,5,5,5,5,5,5,5,5,5]
-        design_Progress = [5,5,5,5,5,5,5,5,5,5,5,5]
-        professional_Progress = [5,5,5,5,5,5,5,5,5,5,5,5]
-        tecnical_Progress = [5,5,5,5,5,5,5,5,5,5,5,5]
-        business_Progress = [5,5,5,5,5,5,5,5,5,5,5,5]
-        
         let process_Skills_Count = process_Skills.count
         let design_Skills_Count = design_Skills.count
         let professional_Skills_Count = professional_Skills.count

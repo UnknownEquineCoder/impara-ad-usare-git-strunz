@@ -73,7 +73,6 @@ struct StudentPictureView: View {
                     .shadow(color: Color.black.opacity(0.36), radius: 5, x: 0, y: 5)
                     .onAppear {
                         if let first_Student = student.last{
-                            PersistenceController.shared.fetched_Profile = student
                             
 //                            if let image_Data = UserDefaults.standard.data(forKey: "Image_Saved"){
 //                                imageData = image_Data
