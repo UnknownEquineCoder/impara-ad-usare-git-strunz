@@ -12,7 +12,9 @@ struct BarGraphFrame: View {
     var title: String
     var skills: [String]
     let levels: [String] = ["Not Evaluated", "Beginning", "Progressing", "Proficient", "Exemplary"]
+    
     @Binding var progress : [Double]
+    @Binding var expectation_Progress : [Double]
     
     @Binding var targetLabel: String
     @Binding var showView: Bool
@@ -82,9 +84,21 @@ struct BarGraphFrame: View {
                                     
                                     Spacer()
                                     
-                                    ProgressBarGraph(progress: (animation_Trigger ? progress[index] * 20 : 0 ) + 1, color: color)
-                                        .frame(width: geo.size.width * 0.66, height: 16.toScreenSize())
-                                        .padding(.trailing, 116.toScreenSize())
+                                    ZStack{
+                                        
+                                        ProgressBarGraph(progress: (animation_Trigger ? expectation_Progress[index] * 20 : 0 ) + 1, color: color.opacity(0.4))
+                                            .frame(width: geo.size.width * 0.66, height: 16.toScreenSize())
+                                            .padding(.trailing, 116.toScreenSize())
+                                        
+                                        ProgressBarGraph(progress: (animation_Trigger ? progress[index] * 20 : 0 ) + 1, color: color)
+                                            .frame(width: geo.size.width * 0.66, height: 16.toScreenSize())
+                                            .padding(.trailing, 116.toScreenSize())
+                                        
+                                    }
+                                    
+//                                    ProgressBarGraph(progress: (animation_Trigger ? progress[index] * 20 : 0 ) + 1, color: color)
+//                                        .frame(width: geo.size.width * 0.66, height: 16.toScreenSize())
+//                                        .padding(.trailing, 116.toScreenSize())
                                 }
                             }
                         }

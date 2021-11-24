@@ -91,7 +91,6 @@ struct StartView: View {
             
             learningObjectiveStore.load_Test_Data() {
                 
-                PersistenceController.shared.fetched_Learning_Objectives = objectives
                 learningObjectiveStore.load_Status(objectives: objectives)
                 learningPathsStore.load_Learning_Path()
                 strandsStore.setupStrandsOnNativeFilter(learningObjectives: learningObjectiveStore.learningObjectives)

@@ -24,6 +24,7 @@ struct ProfileNameLabel: View {
                 .padding(.trailing, 95)
             
             TextField("Your name here", text: $name)
+                
                 .onChange(of: name) { newName in
                     if(newName != ""){
                         PersistenceController.shared.update_Profile(image: image_Data, name: newName)
@@ -36,36 +37,8 @@ struct ProfileNameLabel: View {
                 .multilineTextAlignment(.leading)
                 .fixedSize(horizontal: false, vertical: true)
                 .lineLimit(3)
-                
+            
             
         }
     }
 }
-
-//struct CustomTextEditor: View {
-//    let placeholder: String
-//    @Binding var text: String
-//    let internalPadding: CGFloat = 5
-//    var body: some View {
-//        ZStack(alignment: .topLeading) {
-//            if text.isEmpty  {
-//                Text(placeholder)
-//                    .foregroundColor(Color.primary.opacity(0.25))
-//                    .padding(EdgeInsets(top: 7, leading: 4, bottom: 0, trailing: 0))
-//                    .padding(internalPadding)
-//            }
-//            TextEditor(text: $text)
-//                .padding(internalPadding)
-//        }
-//    }
-//}
-
-//extension NSTextView {
-//    open override var frame: CGRect {
-//        didSet {
-//            backgroundColor = .clear //<<here clear
-//            drawsBackground = true
-//        }
-//
-//    }
-//}

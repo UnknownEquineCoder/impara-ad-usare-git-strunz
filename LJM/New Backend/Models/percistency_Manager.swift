@@ -61,9 +61,6 @@ class PersistenceController {
     
     let container: NSPersistentCloudKitContainer
     
-    var fetched_Learning_Objectives : FetchedResults<EvaluatedObject>? = nil
-    var fetched_Profile : FetchedResults<Student>? = nil
-    
     init(inMemory: Bool = false) {
         container = NSPersistentCloudKitContainer(name: "StudentData")
         if inMemory {
@@ -94,6 +91,7 @@ class PersistenceController {
     func update_Profile(image : Data?, name : String){
         let context = PersistenceController.shared.container.viewContext
 //        PersistenceController.container.viewContext
+        self.name = name
         
         do{
             let fetched_Data = try context.fetch(Student.get_Student_Request())
@@ -109,6 +107,10 @@ class PersistenceController {
         let new_Student = Student(context: context)
         
         new_Student.name = name
+        
+        if let image_To_Save = image {
+            new_Student.image = image_To_Save as NSObject
+        }
         
         do {
             // save the context with new element added

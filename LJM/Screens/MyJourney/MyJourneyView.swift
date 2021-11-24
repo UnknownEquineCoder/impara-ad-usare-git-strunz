@@ -12,7 +12,6 @@ struct MyJourneyView: View {
     @State var selectedFilter = "FULL MAP"
     @State var selectedFilterInsideButton = "All"
     @State var selectedStrands = [String]()
-    @State var selectedPaths = [String]()
     @State var selectedSort : SortEnum?
     @State var selectedEvaluatedOrNotFilter: EvaluatedOrNotEnum?
     
@@ -56,7 +55,7 @@ struct MyJourneyView: View {
             HStack {
                 
                 SortButtonMenu(selectedSort: $selectedSort)
-                ContextMenuFilters(fromMap: false, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedPaths: $selectedPaths, selectedStrands: $selectedStrands, selectedEvaluatedOrNotFilter: $selectedEvaluatedOrNotFilter)
+                ContextMenuFilters(fromMap: false, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedEvaluatedOrNotFilter: $selectedEvaluatedOrNotFilter)
 //                DropDownMenuSort()
 //                    .buttonStyle(PlainButtonStyle())
                 
@@ -78,7 +77,7 @@ struct MyJourneyView: View {
 //                    .frame(maxWidth: .infinity,  alignment: .trailing)
 //                    .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
                 
-                ListViewLearningObjectiveMyJourney(selectedFilter: $selectedFilter, txtSearchBar: $searchText, selectedPath: $selectedPath, selectedPaths: $selectedPaths, selectedStrands: $selectedStrands, selectedMenu: $selectedMenu, selectedSort: $selectedSort)
+                ListViewLearningObjectiveMyJourney(selectedFilter: $selectedFilter, txtSearchBar: $searchText, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedMenu: $selectedMenu, selectedSort: $selectedSort)
                     .padding(.top, 30)
                 
             }.frame(maxWidth: .infinity)
@@ -117,7 +116,6 @@ struct ListViewLearningObjectiveMyJourney: View {
     @Binding var selectedFilter: CoreEnum.RawValue
     @Binding var txtSearchBar : String
     @Binding var selectedPath : String?
-    @Binding var selectedPaths : [String]
     @Binding var selectedStrands : [String]
     @Binding var selectedMenu: OutlineMenu
     @Binding var selectedSort: SortEnum?
