@@ -244,6 +244,7 @@ class LearningPathStore: ObservableObject {
         
         learningPaths.append(learning_Path(title: "None"))
         for index in 5..<csvColumns.count {
+            print("\(csvColumns[index])")
             learningPaths.append(learning_Path(title: csvColumns[index].replacingOccurrences(of: "Path", with: "").replacingOccurrences(of: "level", with: "")))
         }
     }

@@ -136,7 +136,7 @@ enum SortEnum: String {
 }
 
 enum MapEnum: String {
-    case full = "FULL MAP"
+    case full = "ALL"
     case communal = "COMMUNAL"
 }
 

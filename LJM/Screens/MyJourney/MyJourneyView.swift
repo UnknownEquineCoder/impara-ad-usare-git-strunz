@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MyJourneyView: View {
     
-    @State var selectedFilter = "FULL MAP"
+    @State var selectedFilter = "ALL"
     @State var selectedFilterInsideButton = "All"
     @State var selectedStrands = [String]()
     @State var selectedSort : SortEnum?
@@ -55,7 +55,7 @@ struct MyJourneyView: View {
             HStack {
                 
                 SortButtonMenu(selectedSort: $selectedSort)
-                ContextMenuFilters(fromMap: false, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedEvaluatedOrNotFilter: $selectedEvaluatedOrNotFilter)
+                ContextMenuFilters(fromMap: false, fromCompass: false, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedEvaluatedOrNotFilter: $selectedEvaluatedOrNotFilter)
 //                DropDownMenuSort()
 //                    .buttonStyle(PlainButtonStyle())
                 
