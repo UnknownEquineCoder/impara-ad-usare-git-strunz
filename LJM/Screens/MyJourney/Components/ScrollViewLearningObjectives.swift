@@ -110,7 +110,9 @@ struct ScrollViewLearningObjectives: View {
     var isLearningGoalAdded: Bool?
     
     @Binding var textFromSearchBar: String
-
+    @State private var showingAlertImport = false
+    @State private var showingAlert = false
+    
     var selectedStrands: [String]
     
     var body: some View {
@@ -157,23 +159,25 @@ struct ScrollViewLearningObjectives: View {
                                 learningPathSelected: self.$learningPathSelected,
                                 learningObj: item)
                             
-                                .contextMenu {
-                                    if !isAddable {
-                                        Button {
-                                            // remove learning objective
-                                            let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == item.ID})!
-                                            //                                            self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.removeAll()
-                                            //                                            self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.removeAll()
-                                            
-                                            learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
-                                            
-                                            
-                                        } label: {
-                                            Text("Delete")
-                                        }
-                                    }
-                                }
-                            
+//                                .contextMenu {
+//                                    if !isAddable {
+//                                        Button {
+//                                            // remove learning objective
+////                                            let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == item.ID})!
+//                                            self.showingAlert = true
+//                                            //                                            self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.removeAll()
+//                                            //                                            self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.removeAll()
+//                                            
+////                                            learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
+//                                                
+//                                            
+//                                        } label: {
+//                                            Text("Delete")
+//                                        }
+//                                        
+//                                    }
+//                                }
+                                
                             
                         }
                     }
