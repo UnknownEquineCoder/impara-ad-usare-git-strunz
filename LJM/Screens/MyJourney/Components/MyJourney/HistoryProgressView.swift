@@ -53,7 +53,7 @@ struct HistoryProgressView: View {
 
                 }) {
                     Image(systemName: "xmark.circle.fill").foregroundColor(Color.customBlack)
-                }.buttonStyle(PlainButtonStyle())
+                }.buttonStyle(PlainButtonStyle()).cursor(.pointingHand)
             }
         }.frame(height: 30, alignment: .center)
             .padding(.leading, 10).padding(.trailing, 10)

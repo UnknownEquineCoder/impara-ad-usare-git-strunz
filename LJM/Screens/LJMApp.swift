@@ -48,6 +48,20 @@ struct LJMApp: App {
                         if(showSecondAlert){
                             self.isSavable = true
                             dispatchGroup.leave()
+                        }))
+                    }
+                    .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
+                    .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight!, alignment: .center)
+                    .fileExporter(
+                        isPresented: $exportFile,
+                        document: document,
+                        contentType: srtType,
+                        defaultFilename: "LJM export - \(dateFormatter.string(from: Date()))"
+                    ) { result in
+                        if case .success = result {
+                            // Handle success.
+                        } else {
+                            // Handle failure.
                         }
                     }))
                 }

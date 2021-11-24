@@ -26,7 +26,7 @@ struct ProfileNameLabel: View {
                 .padding(.trailing, 95)
             
             TextField("Your name here", text: $name)
-            
+                .cursor(.pointingHand)
                 .onChange(of: name) { newName in
                     if timer != nil{
                         timer!.invalidate()
@@ -45,6 +45,7 @@ struct ProfileNameLabel: View {
                 .multilineTextAlignment(.leading)
                 .fixedSize(horizontal: false, vertical: true)
                 .lineLimit(3)
+                .cursor(.pointingHand)
             
             
         }

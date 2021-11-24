@@ -35,6 +35,7 @@ struct SearchBarExpandableJourney: View {
                         }
                     }, label: {
                         Image(systemName: "xmark.circle.fill")
+                            .cursor(.pointingHand)
 //                            .foregroundColor(Color(red: 160/255, green: 159/255, blue: 159/255))
                             .foregroundColor(colorScheme == .dark ? Color(red: 160/255, green: 159/255, blue: 159/255) : Color(red: 87/255, green: 87/255, blue: 87/255))
 //                            .foregroundColor(.customBlack)
