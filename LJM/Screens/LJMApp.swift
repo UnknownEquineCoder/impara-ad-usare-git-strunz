@@ -48,7 +48,7 @@ struct LJMApp: App {
                         if(showSecondAlert){
                             self.isSavable = true
                             dispatchGroup.leave()
-                        }))
+                        }}))
                     }
                     .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
                     .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight!, alignment: .center)
@@ -63,8 +63,7 @@ struct LJMApp: App {
                         } else {
                             // Handle failure.
                         }
-                    }))
-                }
+                    }
                 .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
                 .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight, alignment: .center)
                 .fileExporter(
