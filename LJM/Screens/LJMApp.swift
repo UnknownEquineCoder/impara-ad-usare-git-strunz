@@ -39,7 +39,7 @@ struct LJMApp: App {
                 .alert(isPresented: $showingAlertImport) {
                     Alert(
                         title: isSavable ? Text("Importing this file will overwrite your old data. \n\n Do you want to proceed?") : Text("Importing this file will only display the new data. \n\n Any changes will not be saved."),
-                        message: Text("You can not undo this action."),
+                        message: isSavable ? Text("You can not undo this action.") : nil,
                         primaryButton: .default( Text("Import"), action: {
                             is_Import_Deleted = false
                             dispatchGroup.leave()
