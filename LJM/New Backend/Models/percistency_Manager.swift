@@ -89,6 +89,7 @@ class PersistenceController {
     /// function for update the profile
     
     func update_Profile(image : Data?, name : String){
+        
         let context = PersistenceController.shared.container.viewContext
 //        PersistenceController.container.viewContext
         self.name = name
@@ -260,6 +261,7 @@ class PersistenceController {
     
     func delete(l_Objective : learning_Objective){
         // create the correct context of the core data
+        
         let context = PersistenceController.shared.container.viewContext
         
         // check for objectives saved if this one was alredy evaluated, if it was alredy evaluated

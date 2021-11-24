@@ -27,6 +27,7 @@ struct DropDownMenuCompass: View{
             Text(selectedPath)
         }
         .frame(width: 156.toScreenSize())
+        .cursor(.pointingHand)
     }
 }
 

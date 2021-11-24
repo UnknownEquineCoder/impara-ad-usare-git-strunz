@@ -13,6 +13,10 @@ struct ProfileNameLabel: View {
     @Binding var name : String
     @Binding var image_Data : Data?
     
+    @State var timer: Timer?
+    
+    @StateObject var learningObjectiveStore = LearningObjectivesStore()
+    
     var body: some View {
         VStack(spacing: 5){
             Text("Hello,")
@@ -24,11 +28,20 @@ struct ProfileNameLabel: View {
                 .padding(.trailing, 95)
             
             TextField("Your name here", text: $name)
-                
+                .cursor(.pointingHand)
                 .onChange(of: name) { newName in
-                    if(newName != ""){
-                        PersistenceController.shared.update_Profile(image: image_Data, name: newName)
+                    if timer != nil{
+                        timer!.invalidate()
                     }
+                    timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { timer in
+                        if(newName != ""){
+                            if learningObjectiveStore.isSavable {
+                                PersistenceController.shared.update_Profile(image: image_Data, name: newName)
+                            }
+                            
+                        }
+                    }
+                    
                 }
                 .font(.system(size: 25.toFontSize()))
                 .textFieldStyle(PlainTextFieldStyle())
@@ -37,6 +50,7 @@ struct ProfileNameLabel: View {
                 .multilineTextAlignment(.leading)
                 .fixedSize(horizontal: false, vertical: true)
                 .lineLimit(3)
+                .cursor(.pointingHand)
             
             
         }

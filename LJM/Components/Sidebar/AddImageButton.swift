@@ -16,10 +16,12 @@ struct AddImageButton: View {
     @Binding var imageData : Data?
     @Binding var username : String
     
+    @StateObject var learningObjectiveStore = LearningObjectivesStore()
+    
     var body: some View {
         Button{
             let dialog = NSOpenPanel();
-
+            
             dialog.title                   = "Choose an image"
             dialog.showsResizeIndicator    = true
             dialog.showsHiddenFiles        = false
@@ -27,10 +29,10 @@ struct AddImageButton: View {
             dialog.canChooseFiles = true
             dialog.canChooseDirectories = true
             dialog.allowedFileTypes        = ["png", "jpg", "jpeg", "gif"]
-
+            
             if (dialog.runModal() ==  NSApplication.ModalResponse.OK) {
                 let result = dialog.url // Pathname of the file
-
+                
                 if let result = result {
                     let path: String = result.path
                     print(path)
@@ -40,9 +42,12 @@ struct AddImageButton: View {
                     let data = image.tiffRepresentation
                     
                     if let image_Data = data {
-                        PersistenceController.shared.update_Profile(image: image_Data, name: username)
+                        if learningObjectiveStore.isSavable {
+                            PersistenceController.shared.update_Profile(image: image_Data, name: username)
+                        }
+                        
                         imageData = image_Data
-//                        UserDefaults.standard.set(image_Data, forKey: "Image_Saved")
+                        //                        UserDefaults.standard.set(image_Data, forKey: "Image_Saved")
                     }
                     
                 }
@@ -64,6 +69,7 @@ struct AddImageButton: View {
         }
         .frame(width: buttonSize.toScreenSize(), height: buttonSize.toScreenSize(), alignment: .center)
         .buttonStyle(PlainButtonStyle())
+        .cursor(.pointingHand)
         
         
     }

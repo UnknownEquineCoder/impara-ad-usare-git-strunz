@@ -70,7 +70,7 @@ struct MapView: View {
 //                    DropDownMenuSort()
 //                        .buttonStyle(PlainButtonStyle())
 //                    SortButtonMenu(selectedSort: $selectedSort)
-                    ContextMenuFilters(fromMap: true, fromCompass: false, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedEvaluatedOrNotFilter: $selectedEvaluatedOrNotFilter)
+                    ContextMenuFilters(fromMap: true, fromCompass: false, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedEvaluatedOrNotFilter: $selectedEvaluatedOrNotFilter).cursor(.pointingHand)
 //                    DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: strandsStore.arrayStrandsFilter)
 //                        .buttonStyle(PlainButtonStyle())
                     
