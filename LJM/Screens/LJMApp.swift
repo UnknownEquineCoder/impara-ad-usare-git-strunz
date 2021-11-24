@@ -17,8 +17,10 @@ struct LJMApp: App {
     @State private var document: MessageDocument = MessageDocument(message: "Hello, World!")
     
     @State var isLoading = false
-    @State var isSavable = false
+    @State var isSavable = true
     @State private var showingAlertImport = false
+    
+    @State private var is_Import_Deleted = false
     
     var dateFormatter : DateFormatter = {
         let dateFormatter = DateFormatter()
@@ -33,110 +35,142 @@ struct LJMApp: App {
     
     var body: some Scene {
         WindowGroup {
-                StartView(isLoading: $isLoading)
-                    .alert(isPresented: $showingAlertImport) {
-                        Alert(title: Text("Do you want to overwrite your data or view the imported file?"), message: nil, primaryButton: .default(Text("Read"), action: {
-                            self.isSavable = false
+            StartView(isLoading: $isLoading)
+                .alert(isPresented: $showingAlertImport) {
+                    Alert(
+                        title: isSavable ? Text("Importing this file will overwrite your old data. \n\n Do you want to proceed?") : Text("Importing this file will only display the new data. \n\n Any changes will not be saved."),
+                        message: isSavable ? Text("You can not undo this action.") : nil,
+                        primaryButton: .default( Text("Import"), action: {
+                            is_Import_Deleted = false
                             dispatchGroup.leave()
-                        }), secondaryButton: .default(Text("Overwrite"), action: {
-                            self.isSavable = true
+                        }),
+                        secondaryButton: .default( Text("Cancel"), action: {
+                            is_Import_Deleted = true
                             dispatchGroup.leave()
-                        }))
+                        })
+                    )
+                }
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight!, alignment: .center)
+                .fileExporter(
+                    isPresented: $exportFile,
+                    document: document,
+                    contentType: srtType,
+                    defaultFilename: "LJM export - \(dateFormatter.string(from: Date()))"
+                ) { result in
+                    if case .success = result {
+                        // Handle success.
+                    } else {
+                        // Handle failure.
                     }
-                    .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
-                    .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight!, alignment: .center)
-                    .fileExporter(
-                        isPresented: $exportFile,
-                        document: document,
-                        contentType: srtType,
-                        defaultFilename: "LJM export - \(dateFormatter.string(from: Date()))"
-                    ) { result in
-                        if case .success = result {
-                            // Handle success.
-                        } else {
-                            // Handle failure.
-                        }
+                }
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight, alignment: .center)
+                .fileExporter(
+                    isPresented: $exportFile,
+                    document: document,
+                    contentType: srtType,
+                    defaultFilename: "LJM export - \(dateFormatter.string(from: Date()))"
+                ) { result in
+                    if case .success = result {
+                        // Handle success.
+                    } else {
+                        // Handle failure.
                     }
-                    .fileImporter(
-                        isPresented: $importFile,
-                        allowedContentTypes: [srtType],
-                        allowsMultipleSelection: false
-                    ) { result in
+                }
+                .fileImporter(
+                    isPresented: $importFile,
+                    allowedContentTypes: [srtType],
+                    allowsMultipleSelection: false
+                ) { result in
+                    
+                    if case .success = result {
+                        showingAlertImport.toggle()
+                        dispatchGroup.enter()
                         
-                        if case .success = result {
-                            showingAlertImport.toggle()
-                            dispatchGroup.enter()
+                        dispatchGroup.notify(queue: .main) {
                             
-                            dispatchGroup.notify(queue: .main) {
-                            
-                                do {
-                                    isLoading = true
-                                    
-                                    learningObjectiveStore.isSavable = self.isSavable
-                                    guard let selectedFile: URL = try result.get().first else { return }
-                                    
-                                    guard let message = String(data: try Data(contentsOf: selectedFile), encoding: .utf8) else { return }
-                                    var rows = message.components(separatedBy: "\n")
-                                    let learning_Objectives = learningObjectiveStore.learningObjectives
-                                    
-                                    rows.removeFirst()
-                                    rows.removeLast()
-                                    
-                                    learningObjectiveStore.reset_Evaluated {
-                                        
-                                        if isSavable {
-                                            // this part of the code will be lounched for override on cloudkit
-                                            persistenceController.override_Data(rows: rows)
-                                        }
-                                        
-                                        // this part of the code will put the datas visible in that moment
-                                        for row in rows {
-                                            
-                                            let row_Data = row.components(separatedBy: ",")
-                                            
-                                            let eval_Date_Row = row_Data[2].components(separatedBy: "-")
-                                            let eval_score_Row = row_Data[1].components(separatedBy: "-")
-                                            
-                                            var converted_Eval_Date : [Date] = []
-                                            var converted_Eval_Score : [Int] = []
-                                            
-                                            for index in 0..<eval_score_Row.count {
-                                                converted_Eval_Date.append(Date(timeIntervalSince1970: Double(eval_Date_Row[index])!))
-                                                converted_Eval_Score.append(Int(eval_score_Row[index])!)
-                                            }
-                                            
-                                            let index = learning_Objectives.firstIndex(where: {$0.ID == row_Data[0]}) ?? 0
-                                            
-                                            learningObjectiveStore.evaluate_Object(index: index, evaluations: converted_Eval_Score, dates: converted_Eval_Date)
-                                        }
-                                    }
-                                    
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.001) {
-                                        isLoading = false
-                                    }
-                                    
-                                } catch {
-                                    let nsError = error as NSError
-                                    fatalError("File Import Error \(nsError), \(nsError.userInfo)")
-                                }
+                            if is_Import_Deleted {
+                                return
                             }
                             
-                        } else {
-                            
-                            print("@@@@@ File Import Failed")
+                            do {
+                                isLoading = true
+                                print("@@@@@@@@@@@@ \(isSavable)")
+                                learningObjectiveStore.isSavable = self.isSavable
+                                guard let selectedFile: URL = try result.get().first else { return }
+                                
+                                guard let message = String(data: try Data(contentsOf: selectedFile), encoding: .utf8) else { return }
+                                var rows = message.components(separatedBy: "\n")
+                                let learning_Objectives = learningObjectiveStore.learningObjectives
+                                
+                                rows.removeFirst()
+                                rows.removeLast()
+                                
+                                learningObjectiveStore.reset_Evaluated {
+                                    
+                                    if isSavable {
+                                        // this part of the code will be lounched for override on cloudkit
+                                        persistenceController.override_Data(rows: rows)
+                                    }
+                                    
+                                    // this part of the code will put the datas visible in that moment
+                                    for row in rows {
+                                        
+                                        let row_Data = row.components(separatedBy: ",")
+                                        
+                                        let eval_Date_Row = row_Data[2].components(separatedBy: "-")
+                                        let eval_score_Row = row_Data[1].components(separatedBy: "-")
+                                        
+                                        var converted_Eval_Date : [Date] = []
+                                        var converted_Eval_Score : [Int] = []
+                                        
+                                        for index in 0..<eval_score_Row.count {
+                                            converted_Eval_Date.append(Date(timeIntervalSince1970: Double(eval_Date_Row[index])!))
+                                            converted_Eval_Score.append(Int(eval_score_Row[index])!)
+                                        }
+                                        
+                                        let index = learning_Objectives.firstIndex(where: {$0.ID == row_Data[0]}) ?? 0
+                                        
+                                        learningObjectiveStore.evaluate_Object(index: index, evaluations: converted_Eval_Score, dates: converted_Eval_Date)
+                                    }
+                                }
+                                
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.001) {
+                                    isLoading = false
+                                }
+                                
+                            } catch {
+                                let nsError = error as NSError
+                                fatalError("File Import Error \(nsError), \(nsError.userInfo)")
+                            }
                         }
+                        
+                    } else {
+                        
+                        print("@@@@@ File Import Failed")
                     }
-                    .environmentObject(learningObjectiveStore)
+                }
+                .environmentObject(learningObjectiveStore)
         }.handlesExternalEvents(matching: Set(arrayLiteral: "*"))
             .commands(content: {
                 CommandGroup(after: .importExport, addition: {
                     
                     // to import files
                     Button(action: {
+                        isSavable = true
                         importFile.toggle()
                     }) {
                         Text("Import File")
                     }
+                    
+                    Button {
+                        isSavable = false
+                        importFile.toggle()
+                    } label: {
+                        Text("Import File (Read Only)")
+                    }
+                    
                     
                     // to export files
                     Button(action: {
