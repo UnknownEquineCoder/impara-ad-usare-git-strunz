@@ -74,6 +74,7 @@ struct BarGraphFrame: View {
                                         .font(.system(size: 20.toFontSize()))
                                         .fontWeight(.light)
                                         .underline()
+                                        .cursor(.pointingHand)
                                         .onTapGesture {
                                             self.targetLabel = skills[index]
                                             self.showView = true
