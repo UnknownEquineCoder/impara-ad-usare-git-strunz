@@ -29,6 +29,7 @@
 		964B665E256E64FD006AB20E /* StudentPictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964B665D256E64FD006AB20E /* StudentPictureView.swift */; };
 		964C75A925EE5983002D8634 /* LegendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964C75A825EE5983002D8634 /* LegendView.swift */; };
 		96533794260C898400316B7C /* StackNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96533793260C898400316B7C /* StackNavigationView.swift */; };
+		965B5AA3274E45B4003420B2 /* CursorsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965B5AA2274E45B4003420B2 /* CursorsExtension.swift */; };
 		9670A966256E9FBA0043F227 /* ProfileNameLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9670A965256E9FBA0043F227 /* ProfileNameLabel.swift */; };
 		9670A96E256EAA330043F227 /* SidebarElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9670A96D256EAA330043F227 /* SidebarElements.swift */; };
 		9670A976257105290043F227 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9670A975257105290043F227 /* StartView.swift */; };
@@ -143,6 +144,7 @@
 		964B665D256E64FD006AB20E /* StudentPictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentPictureView.swift; sourceTree = "<group>"; };
 		964C75A825EE5983002D8634 /* LegendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegendView.swift; sourceTree = "<group>"; };
 		96533793260C898400316B7C /* StackNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackNavigationView.swift; sourceTree = "<group>"; };
+		965B5AA2274E45B4003420B2 /* CursorsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CursorsExtension.swift; sourceTree = "<group>"; };
 		9670A965256E9FBA0043F227 /* ProfileNameLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNameLabel.swift; sourceTree = "<group>"; };
 		9670A96D256EAA330043F227 /* SidebarElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarElements.swift; sourceTree = "<group>"; };
 		9670A975257105290043F227 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
@@ -441,6 +443,7 @@
 				EA7028D02579E32500E1B6EB /* ColorsExtension.swift */,
 				EACD024925D532A9008D12FE /* Webservices.swift */,
 				5579EB74263E06920086A4BE /* URLExtensions.swift */,
+				965B5AA2274E45B4003420B2 /* CursorsExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -668,6 +671,7 @@
 				EA686EF9256EE4F300C121DC /* TopBarJourney.swift in Sources */,
 				96CC613F257A38FC00CE7ABD /* DropDownMenuFilters.swift in Sources */,
 				9673746B2733EDAD00A0EC5A /* DeleteButton.swift in Sources */,
+				965B5AA3274E45B4003420B2 /* CursorsExtension.swift in Sources */,
 				EA686F2E256F25CF00C121DC /* Extensions.swift in Sources */,
 				EA686F25256EFBFA00C121DC /* SearchBarExpandableJourney.swift in Sources */,
 				9670A976257105290043F227 /* StartView.swift in Sources */,

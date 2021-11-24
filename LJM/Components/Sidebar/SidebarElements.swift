@@ -59,6 +59,7 @@ struct OutlineRow : View {
         .contentShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
         .padding()
         .padding(.leading, 25)
+        .cursor(.pointingHand)
         .onTapGesture {
             self.selectedMenu = self.item
         }
