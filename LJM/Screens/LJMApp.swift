@@ -19,7 +19,8 @@ struct LJMApp: App {
     @State var isLoading = false
     @State var isSavable = false
     @State private var showingAlertImport = false
-    @State private var showSecondAlert = false
+    
+    @State private var is_Import_Deleted = false
     
     var dateFormatter : DateFormatter = {
         let dateFormatter = DateFormatter()
@@ -36,34 +37,33 @@ struct LJMApp: App {
         WindowGroup {
             StartView(isLoading: $isLoading)
                 .alert(isPresented: $showingAlertImport) {
-                    Alert(title: !showSecondAlert ? Text("Do you want to overwrite your data or view the imported file?") : Text("Do you want to proceed?"), message: nil, primaryButton: .default(!showSecondAlert ? Text("Read") : Text("No"), action: {
-                        if(showSecondAlert){
-                            showSecondAlert.toggle()
-                        }
-                        self.isSavable = false
-                        dispatchGroup.leave()
-                        
-                    }), secondaryButton: .default(!showSecondAlert ? Text("Overwrite") : Text("Yes"), action: {
-                        showSecondAlert.toggle()
-                        if(showSecondAlert){
-                            self.isSavable = true
+                    Alert(
+                        title: isSavable ? Text("Importing this file will overwrite your old data. \n\n Do you want to proceed?") : Text("Importing this file will only display the new data. \n\n Any changes will not be saved."),
+                        message: Text("You can not undo this action."),
+                        primaryButton: .default( Text("Import"), action: {
+                            is_Import_Deleted = false
                             dispatchGroup.leave()
-                        }}))
+                        }),
+                        secondaryButton: .default( Text("Cancel"), action: {
+                            is_Import_Deleted = true
+                            dispatchGroup.leave()
+                        })
+                    )
+                }
+                .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
+                .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight!, alignment: .center)
+                .fileExporter(
+                    isPresented: $exportFile,
+                    document: document,
+                    contentType: srtType,
+                    defaultFilename: "LJM export - \(dateFormatter.string(from: Date()))"
+                ) { result in
+                    if case .success = result {
+                        // Handle success.
+                    } else {
+                        // Handle failure.
                     }
-                    .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
-                    .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight!, alignment: .center)
-                    .fileExporter(
-                        isPresented: $exportFile,
-                        document: document,
-                        contentType: srtType,
-                        defaultFilename: "LJM export - \(dateFormatter.string(from: Date()))"
-                    ) { result in
-                        if case .success = result {
-                            // Handle success.
-                        } else {
-                            // Handle failure.
-                        }
-                    }
+                }
                 .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
                 .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight, alignment: .center)
                 .fileExporter(
@@ -90,61 +90,59 @@ struct LJMApp: App {
                         
                         dispatchGroup.notify(queue: .main) {
                             
-                            showingAlertImport.toggle()
-                            dispatchGroup.enter()
+                            if is_Import_Deleted {
+                                return
+                            }
                             
-                            dispatchGroup.notify(queue: .main) {
+                            do {
+                                isLoading = true
                                 
-                                do {
-                                    isLoading = true
+                                learningObjectiveStore.isSavable = self.isSavable
+                                guard let selectedFile: URL = try result.get().first else { return }
+                                
+                                guard let message = String(data: try Data(contentsOf: selectedFile), encoding: .utf8) else { return }
+                                var rows = message.components(separatedBy: "\n")
+                                let learning_Objectives = learningObjectiveStore.learningObjectives
+                                
+                                rows.removeFirst()
+                                rows.removeLast()
+                                
+                                learningObjectiveStore.reset_Evaluated {
                                     
-                                    learningObjectiveStore.isSavable = self.isSavable
-                                    guard let selectedFile: URL = try result.get().first else { return }
-                                    
-                                    guard let message = String(data: try Data(contentsOf: selectedFile), encoding: .utf8) else { return }
-                                    var rows = message.components(separatedBy: "\n")
-                                    let learning_Objectives = learningObjectiveStore.learningObjectives
-                                    
-                                    rows.removeFirst()
-                                    rows.removeLast()
-                                    
-                                    learningObjectiveStore.reset_Evaluated {
-                                        
-                                        if isSavable {
-                                            // this part of the code will be lounched for override on cloudkit
-                                            persistenceController.override_Data(rows: rows)
-                                        }
-                                        
-                                        // this part of the code will put the datas visible in that moment
-                                        for row in rows {
-                                            
-                                            let row_Data = row.components(separatedBy: ",")
-                                            
-                                            let eval_Date_Row = row_Data[2].components(separatedBy: "-")
-                                            let eval_score_Row = row_Data[1].components(separatedBy: "-")
-                                            
-                                            var converted_Eval_Date : [Date] = []
-                                            var converted_Eval_Score : [Int] = []
-                                            
-                                            for index in 0..<eval_score_Row.count {
-                                                converted_Eval_Date.append(Date(timeIntervalSince1970: Double(eval_Date_Row[index])!))
-                                                converted_Eval_Score.append(Int(eval_score_Row[index])!)
-                                            }
-                                            
-                                            let index = learning_Objectives.firstIndex(where: {$0.ID == row_Data[0]}) ?? 0
-                                            
-                                            learningObjectiveStore.evaluate_Object(index: index, evaluations: converted_Eval_Score, dates: converted_Eval_Date)
-                                        }
+                                    if isSavable {
+                                        // this part of the code will be lounched for override on cloudkit
+                                        persistenceController.override_Data(rows: rows)
                                     }
                                     
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.001) {
-                                        isLoading = false
+                                    // this part of the code will put the datas visible in that moment
+                                    for row in rows {
+                                        
+                                        let row_Data = row.components(separatedBy: ",")
+                                        
+                                        let eval_Date_Row = row_Data[2].components(separatedBy: "-")
+                                        let eval_score_Row = row_Data[1].components(separatedBy: "-")
+                                        
+                                        var converted_Eval_Date : [Date] = []
+                                        var converted_Eval_Score : [Int] = []
+                                        
+                                        for index in 0..<eval_score_Row.count {
+                                            converted_Eval_Date.append(Date(timeIntervalSince1970: Double(eval_Date_Row[index])!))
+                                            converted_Eval_Score.append(Int(eval_score_Row[index])!)
+                                        }
+                                        
+                                        let index = learning_Objectives.firstIndex(where: {$0.ID == row_Data[0]}) ?? 0
+                                        
+                                        learningObjectiveStore.evaluate_Object(index: index, evaluations: converted_Eval_Score, dates: converted_Eval_Date)
                                     }
-                                    
-                                } catch {
-                                    let nsError = error as NSError
-                                    fatalError("File Import Error \(nsError), \(nsError.userInfo)")
                                 }
+                                
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.001) {
+                                    isLoading = false
+                                }
+                                
+                            } catch {
+                                let nsError = error as NSError
+                                fatalError("File Import Error \(nsError), \(nsError.userInfo)")
                             }
                         }
                         
@@ -160,10 +158,19 @@ struct LJMApp: App {
                     
                     // to import files
                     Button(action: {
+                        isSavable = true
                         importFile.toggle()
                     }) {
                         Text("Import File")
                     }
+                    
+                    Button {
+                        isSavable = false
+                        importFile.toggle()
+                    } label: {
+                        Text("Import File (Read Only)")
+                    }
+                    
                     
                     // to export files
                     Button(action: {
