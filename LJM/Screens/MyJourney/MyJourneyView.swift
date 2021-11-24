@@ -15,7 +15,7 @@ struct MyJourneyView: View {
     @State var selectedSort : SortEnum?
     @State var selectedEvaluatedOrNotFilter: EvaluatedOrNotEnum?
     
-    let arrayFilters = ["All", "Communal", "Elective", "Evaluated", "Not Evaluated"]
+    let arrayFilters = ["All", "Core", "Elective", "Evaluated", "Not Evaluated"]
     
     @State private var searchText = ""
     @State private var selectedPath : String?

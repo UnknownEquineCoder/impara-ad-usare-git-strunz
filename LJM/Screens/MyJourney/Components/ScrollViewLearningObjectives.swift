@@ -29,7 +29,7 @@ struct ScrollViewLearningObjectives: View {
         let objectives = self.learningObjectiveStore.learningObjectives
         
         switch filterCore {
-        case "COMMUNAL":
+        case "CORE":
             return objectives
                 .filter { $0.isCore && !$0.eval_score.isEmpty }
                 .sorted { $0.goal.lowercased() < $1.goal.lowercased() }
@@ -61,7 +61,7 @@ struct ScrollViewLearningObjectives: View {
                 
             }
             return objectives
-        case "COMMUNAL":
+        case "CORE":
             if let selected_Path = learningPathSelected {
                 let path_Index = learningPathStore.learningPaths.firstIndex(where: {$0.title == selected_Path})
                 
@@ -114,7 +114,7 @@ struct ScrollViewLearningObjectives: View {
     var filteredCompass: [learning_Objective] {
         switch filterCompass {
             
-        case "COMMUNAL":
+        case "CORE":
             return sortLearningObjectivesCompass(learningGoal: filterLearningGoal ?? "No Learning Goal")
                 .filter { $0.isCore }
                 .sorted { $0.goal.lowercased() < $1.goal.lowercased() }

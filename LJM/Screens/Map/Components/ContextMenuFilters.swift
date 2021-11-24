@@ -12,7 +12,7 @@ struct ContextMenuFilters: View {
     
     var fromMap = false
     var fromCompass = false
-    var arrayMainFilters = ["All", "Communal", "Elective"]
+    var arrayMainFilters = ["All", "Core", "Elective"]
     
     @Binding var selectedFilter: CoreEnum.RawValue
     @Binding var selectedPath : String?
@@ -56,22 +56,6 @@ struct ContextMenuFilters: View {
                 
                 Divider()
                 
-                ForEach(self.learningPathsStore.learningPaths.filter({$0.title != "None"}), id: \.title) { learningPath in
-                        Button {
-                            selectedPath = selectedPath == learningPath.title ? nil : learningPath.title
-                        } label: {
-                            HStack {
-                                Text(learningPath.title)
-                                Image(systemName: "checkmark")
-                                    .isHidden(!(selectedFilter == learningPath.title || selectedPath == learningPath.title))
-                            }
-                        }
-                }
-            }
-            
-            Divider()
-            
-            Group {
                 ForEach(self.strandsStore.arrayStrandsNativeFilter, id: \.self) { strand in
                     Button {
                         if !self.selectedStrands.contains(strand) {
@@ -87,6 +71,25 @@ struct ContextMenuFilters: View {
                         }
                     }
                 }
+            }
+            
+            Divider()
+            
+            Group {
+                
+                ForEach(self.learningPathsStore.learningPaths.filter({$0.title != "None"}), id: \.title) { learningPath in
+                        Button {
+                            selectedPath = selectedPath == learningPath.title ? nil : learningPath.title
+                        } label: {
+                            HStack {
+                                Text(learningPath.title)
+                                Image(systemName: "checkmark")
+                                    .isHidden(!(selectedFilter == learningPath.title || selectedPath == learningPath.title))
+                            }
+                        }
+                }
+                
+                
                 
                 Divider()
                 
