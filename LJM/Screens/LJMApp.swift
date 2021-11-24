@@ -42,7 +42,7 @@ struct LJMApp: App {
                             self.isSavable = true
                             dispatchGroup.leave()
                         }))
-                        }
+                    }
                     .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
                     .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight!*0.88, alignment: .center)
                     .fileExporter(

@@ -14,8 +14,8 @@ struct AddButton: View {
     
     @State var hovered = false
     @State private var showingPopup:Bool = false
-    @State private var showingAlert = false
-
+    @State var showingAlertImport = false
+    
     @Binding var rating: Int
     
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
@@ -43,9 +43,9 @@ struct AddButton: View {
                 ZStack {
                     Text("")
                         .padding(.bottom, 30)
-//                        .popover(isPresented: $hovered) {
-//                            PopoverView()
-//                        }
+                    //                        .popover(isPresented: $hovered) {
+                    //                            PopoverView()
+                    //                        }
                     
                     if learningObjectiveSelected.eval_score.isEmpty {
                         let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObjectiveSelected.ID})!
@@ -71,78 +71,99 @@ struct AddButton: View {
                                     self.didTap.toggle()
                                 }
                         } else {
+                            if #available(macOS 12.0, *) {
+                                Image(systemName: "checkmark.circle.fill")
+                                    .resizable()
+                                    .frame(width: 35, height: 35)
+                                    .foregroundColor(Color("customCyan"))
+                                    .onTapGesture {
+                                        // remove item from the learning objective list
+                                        if learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.count > 1 {
+                                            // pop up
+                                            
+                                            showingAlertImport = true
+                                        } else {
+                                            learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
+                                            
+                                            didTap = false
+                                            
+                                        }
+                                    }
+                                
+                                    .alert("Are you sure you want to delete this Learning Objective ?", isPresented: $showingAlertImport) {
+                                        Button("No", role: .cancel) {
+                                            
+                                        }
+                                        
+                                        Button("Yes", role: .cancel) {
+                                            learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
+                                            didTap = false
+                                        }
+                                    }
+                            } else {
+                                // Fallback on earlier versions
+                                
+                                Image(systemName: "checkmark.circle.fill")
+                                    .resizable()
+                                    .frame(width: 35, height: 35)
+                                    .foregroundColor(Color("customCyan"))
+                                    .onTapGesture {
+                                        // remove item from the learning objective list
+
+                                        learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
+                                        
+                                        didTap = false
+                                    }
+                                
+                            }                        }
+                    } else {
+                        let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObjectiveSelected.ID})!
+                        
+                        if #available(macOS 12.0, *) {
+                            Image(systemName: "checkmark.circle.fill")
+                                .resizable()
+                                .frame(width: 35, height: 35)
+                                .foregroundColor(Color("customCyan"))
+                                .onTapGesture {
+                                    
+                                    // remove item from learning objective list
+                                    
+                                    if learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.count > 1 {
+                                        
+                                        showingAlertImport = true
+                                    } else {
+                                        learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
+                                        
+                                        didTap = false
+                                    }
+                                    
+                                }
+                                .alert("Are you sure you want to delete this Learning Objective ?", isPresented: $showingAlertImport) {
+                                    Button("No", role: .cancel) {
+                                        
+                                    }
+                                    
+                                    Button("Yes", role: .cancel) {
+                                        
+                                        learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
+                                        didTap = false
+                                    }
+                                }
+                        } else {
+                            // Fallback on earlier versions
+                            
                             Image(systemName: "checkmark.circle.fill")
                                 .resizable()
                                 .frame(width: 35, height: 35)
                                 .foregroundColor(Color("customCyan"))
                                 .onTapGesture {
                                     // remove item from the learning objective list
-                                    if learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.count > 1 {
-                                        // pop up
-                                        
-                                        showingAlert = true
-                                        
-                                        didTap = false
 
-                                        
-                                    } else {
-                                        
-                                        learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
-                                        
-                                        didTap = false
-
-                                    }
-                                }
-                                .alert(isPresented:$showingAlert) {
-                                    Alert(
-                                        title: Text("Are you sure you want to delete this Learning Objective?"),
-                                        message: Text("You can't undo this action"),
-                                        primaryButton: .destructive(Text("Delete")) {
-                                            let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObjectiveSelected.ID})!
-
-                                            learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
-                                            print("Deleting...")
-                                        },
-                                        secondaryButton: .cancel()
-                                    )
+                                    learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
+                                    
+                                    didTap = false
                                 }
                         }
-                    } else {
-                        Image(systemName: "checkmark.circle.fill")
-                            .resizable()
-                            .frame(width: 35, height: 35)
-                            .foregroundColor(Color("customCyan"))
-                            .onTapGesture {
-                                
-                                // remove item from learning objective list
-                                let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObjectiveSelected.ID})!
-
-                                if learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.count > 1 {
-                                    
-                                    showingAlert = true
-                                    
-                                    didTap = false
-                                    
-                                } else {
-                                    
-                                    learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
-                                    didTap = false
-                                }
-                                
-                            }
-                            .alert(isPresented:$showingAlert) {
-                                Alert(
-                                    title: Text("Are you sure you want to delete this Learning Objective?"),
-                                    message: Text("You can't undo this action"),
-                                    primaryButton: .destructive(Text("Delete")) {
-                                        let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObjectiveSelected.ID})!
-
-                                        learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
-                                        print("Deleting...")
-                                    },
-                                    secondaryButton: .cancel()
-                                )
-                            }
                     }
                 }
             }
