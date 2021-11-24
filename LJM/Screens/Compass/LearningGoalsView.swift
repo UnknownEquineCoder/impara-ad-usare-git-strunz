@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LearningGoalsView: View {
     
-    @State var selectedFilter = "FULL MAP"
+    @State var selectedFilter = "ALL"
     @State var selectedFilterInsideButton = "All"
     @State private var searchText = ""
     @State private var selectedPath: String?
@@ -38,7 +38,7 @@ struct LearningGoalsView: View {
             
             HStack {
                 
-                ContextMenuFilters(fromMap: false, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedEvaluatedOrNotFilter: $selectedEvaluatedOrNotFilter)
+                ContextMenuFilters(fromMap: false, fromCompass: true, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedEvaluatedOrNotFilter: $selectedEvaluatedOrNotFilter)
                 
                 SearchBarExpandableJourney(txtSearchBar: $searchText)
                 
@@ -58,7 +58,7 @@ struct LearningGoalsView: View {
                     .padding(.top, 75)
                     .isHidden(self.totalNumberLearningObjectivesStore.total == 0 ? false : true)
                 
-                ScrollViewLearningObjectives(learningPathSelected: $selectedPath, filterCompass: selectedFilter, filterLearningGoal: titleView, isLearningGoalAdded: false, textFromSearchBar: $searchText, selectedStrands: selectedStrands)
+                ScrollViewLearningObjectives(learningPathSelected: $selectedPath, filterCompass: selectedFilter, filterLearningGoal: titleView, filterEvaluatedOrNot: selectedEvaluatedOrNotFilter, isLearningGoalAdded: false, textFromSearchBar: $searchText, selectedStrands: selectedStrands)
                     .padding(.top, 50)
                 
             }.frame(maxWidth: .infinity).padding(.top, 10)

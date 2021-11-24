@@ -11,7 +11,8 @@ import SwiftUI
 struct ContextMenuFilters: View {
     
     var fromMap = false
-    var arrayMainFilters = ["Full Map", "Communal", "Elective"]
+    var fromCompass = false
+    var arrayMainFilters = ["All", "Core", "Elective"]
     
     @Binding var selectedFilter: CoreEnum.RawValue
     @Binding var selectedPath : String?
@@ -26,66 +27,35 @@ struct ContextMenuFilters: View {
     var body: some View {
         Menu {
             Group {
+                
                 ForEach(arrayMainFilters, id: \.self) { mainFilter in
-                    Button {
-                        selectedFilter = mainFilter.uppercased()
-                    } label: {
-                        HStack {
-                            Text(mainFilter)
-                            Image(systemName: "checkmark")
-                                .isHidden(!(selectedFilter.lowercased() == mainFilter.lowercased()))
+                    if mainFilter == arrayMainFilters.first {
+                        Button {
+                            selectedFilter = mainFilter.uppercased()
+                        } label: {
+                            HStack {
+                                Text(mainFilter)
+                                Image(systemName: "checkmark")
+                                    .isHidden(!(selectedFilter.lowercased() == mainFilter.lowercased()))
+                            }
+                        }
+                        
+                        Divider()
+                    } else {
+                        Button {
+                            selectedFilter = mainFilter.uppercased()
+                        } label: {
+                            HStack {
+                                Text(mainFilter)
+                                Image(systemName: "checkmark")
+                                    .isHidden(!(selectedFilter.lowercased() == mainFilter.lowercased()))
+                            }
                         }
                     }
                 }
                 
                 Divider()
                 
-                ForEach(self.learningPathsStore.learningPaths, id: \.title) { learningPath in
-                    if !fromMap {
-                        Button {
-                            selectedPath = learningPath.title
-                            
-                        } label: {
-                            HStack {
-                                Text(learningPath.title)
-                                Image(systemName: "checkmark")
-                                    .isHidden(!(selectedFilter == learningPath.title || selectedPath == learningPath.title))
-                            }
-                        }
-                    } else {
-                        Button {
-//                            if self.fromMap {
-                                selectedFilter = learningPath.title
-//                            } else {
-//                                selectedPath = learningPath.title
-//                            }
-                            
-//                            if !self.selectedStrands.contains(strand) {
-//                                self.selectedStrands.append(strand)
-//                            } else {
-//                                self.selectedStrands.remove(object: strand)
-//                            }
-                                                        
-//                            if !self.selectedPaths.contains(learningPath.title) {
-//                                selectedPaths.append(learningPath.title)
-//                            } else {
-//                                selectedPaths.remove(object: learningPath.title)
-//                            }
-                            
-                        } label: {
-                            HStack {
-                                Text(learningPath.title)
-                                Image(systemName: "checkmark")
-                                    .isHidden(!(selectedFilter == learningPath.title || selectedPath == learningPath.title))
-                            }
-                        }
-                    }
-                }
-            }
-            
-            Divider()
-            
-            Group {
                 ForEach(self.strandsStore.arrayStrandsNativeFilter, id: \.self) { strand in
                     Button {
                         if !self.selectedStrands.contains(strand) {
@@ -101,10 +71,29 @@ struct ContextMenuFilters: View {
                         }
                     }
                 }
+            }
+            
+            Divider()
+            
+            Group {
+                
+                ForEach(self.learningPathsStore.learningPaths.filter({$0.title != "None"}), id: \.title) { learningPath in
+                        Button {
+                            selectedPath = selectedPath == learningPath.title ? nil : learningPath.title
+                        } label: {
+                            HStack {
+                                Text(learningPath.title)
+                                Image(systemName: "checkmark")
+                                    .isHidden(!(selectedFilter == learningPath.title || selectedPath == learningPath.title))
+                            }
+                        }
+                }
+                
+                
                 
                 Divider()
                 
-                if fromMap {
+                if fromMap || fromCompass {
                     Button {
                         selectedEvaluatedOrNotFilter = selectedEvaluatedOrNotFilter == .evaluated ? .all : .evaluated
                     } label: {

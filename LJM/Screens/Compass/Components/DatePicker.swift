@@ -22,7 +22,7 @@ struct DatePickerView: View{
             displayedComponents: .date,
             label: { EmptyView() }
         )
-            .id(pickerDate)
+//            .id(pickerDate)
             .padding(.horizontal, 20)
             .datePickerStyle(FieldDatePickerStyle())
             .frame(width: 80)
