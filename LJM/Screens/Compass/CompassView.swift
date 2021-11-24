@@ -589,14 +589,4 @@ struct CompassView: View {
     }
 }
 
-extension View {
-    public func cursor(_ cursor: NSCursor) -> some View {
-        self.onHover { inside in
-            if inside {
-                cursor.push()
-            } else {
-                NSCursor.pop()
-            }
-        }
-    }
-}
+

@@ -64,6 +64,7 @@ struct AddImageButton: View {
         }
         .frame(width: buttonSize.toScreenSize(), height: buttonSize.toScreenSize(), alignment: .center)
         .buttonStyle(PlainButtonStyle())
+        .cursor(.pointingHand)
         
         
     }

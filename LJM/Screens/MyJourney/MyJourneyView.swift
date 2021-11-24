@@ -54,8 +54,8 @@ struct MyJourneyView: View {
             
             HStack {
                 
-                SortButtonMenu(selectedSort: $selectedSort)
-                ContextMenuFilters(fromMap: false, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedEvaluatedOrNotFilter: $selectedEvaluatedOrNotFilter)
+                SortButtonMenu(selectedSort: $selectedSort).cursor(.pointingHand)
+                ContextMenuFilters(fromMap: false, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedEvaluatedOrNotFilter: $selectedEvaluatedOrNotFilter).cursor(.pointingHand)
 //                DropDownMenuSort()
 //                    .buttonStyle(PlainButtonStyle())
                 
@@ -99,14 +99,14 @@ struct ScrollViewFiltersJourney: View {
         HStack {
             ArrowButtonScrollView(vm: vm, direction: .left)
                 .buttonStyle(PlainButtonStyle())
-                .opacity(filterTabs.count > 8 ? 1 : 0)
+                .opacity(filterTabs.count > 8 ? 1 : 0).cursor(.pointingHand)
             
             ScrollViewFilters(filterTabs: filterTabs, selectedFilter: $selectedFilter, vm: vm)
-                .offset(x: filterTabs.count < 8 ? -35 : 0)
+                .offset(x: filterTabs.count < 8 ? -35 : 0).cursor(.pointingHand)
             
             ArrowButtonScrollView(vm: vm, direction: .right)
                 .buttonStyle(PlainButtonStyle())
-                .opacity(filterTabs.count > 8 ? 1 : 0)
+                .opacity(filterTabs.count > 8 ? 1 : 0).cursor(.pointingHand)
         }
     }
 }

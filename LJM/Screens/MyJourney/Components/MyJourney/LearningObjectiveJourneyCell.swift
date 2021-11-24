@@ -179,6 +179,7 @@ struct LearningObjectiveJourneyCell: View {
                                     .isHidden(!(learningObj.eval_score.count > 0))
                             }
                             .buttonStyle(PlainButtonStyle())
+                            .cursor(.pointingHand)
                             .alert("Are you sure you want to delete this Learning Objective ?", isPresented: $showingAlert) {
                                 Button("No", role: .cancel) {
                                     
@@ -200,6 +201,7 @@ struct LearningObjectiveJourneyCell: View {
                                     .isHidden(!(learningObj.eval_score.count > 0))
                             }
                             .buttonStyle(PlainButtonStyle())
+                            .cursor(.pointingHand)
                         }
                     }
                 }.frame(width: 260, height: 100, alignment: .center)
@@ -221,6 +223,7 @@ struct LearningObjectiveJourneyCell: View {
                     .foregroundColor(Color.customCyan)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
                     .padding(.bottom, 10)
+                    .cursor(.pointingHand)
             }
         }
         .background(colorScheme == .dark ? Color(red: 50/255, green: 50/255, blue: 50/255) : Color(red: 230/255, green: 230/255, blue: 230/255))
