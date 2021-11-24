@@ -19,6 +19,7 @@ struct LJMApp: App {
     @State var isLoading = false
     @State var isSavable = false
     @State private var showingAlertImport = false
+    @State private var showSecondAlert = false
     
     var dateFormatter : DateFormatter = {
         let dateFormatter = DateFormatter()
@@ -33,15 +34,21 @@ struct LJMApp: App {
     
     var body: some Scene {
         WindowGroup {
-                StartView(isLoading: $isLoading)
-                    .alert(isPresented: $showingAlertImport) {
-                        Alert(title: Text("Do you want to overwrite your data or view the imported file?"), message: nil, primaryButton: .default(Text("Read"), action: {
-                            self.isSavable = false
-                            dispatchGroup.leave()
-                        }), secondaryButton: .default(Text("Overwrite"), action: {
+            StartView(isLoading: $isLoading)
+                .alert(isPresented: $showingAlertImport) {
+                    Alert(title: !showSecondAlert ? Text("Do you want to overwrite your data or view the imported file?") : Text("Do you want to proceed?"), message: nil, primaryButton: .default(!showSecondAlert ? Text("Read") : Text("No"), action: {
+                        if(showSecondAlert){
+                            showSecondAlert.toggle()
+                        }
+                        self.isSavable = false
+                        dispatchGroup.leave()
+                        
+                    }), secondaryButton: .default(!showSecondAlert ? Text("Overwrite") : Text("Yes"), action: {
+                        showSecondAlert.toggle()
+                        if(showSecondAlert){
                             self.isSavable = true
                             dispatchGroup.leave()
-                        }))
+                        }}))
                     }
                     .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
                     .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight!, alignment: .center)
@@ -57,18 +64,37 @@ struct LJMApp: App {
                             // Handle failure.
                         }
                     }
-                    .fileImporter(
-                        isPresented: $importFile,
-                        allowedContentTypes: [srtType],
-                        allowsMultipleSelection: false
-                    ) { result in
+                .environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
+                .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight, alignment: .center)
+                .fileExporter(
+                    isPresented: $exportFile,
+                    document: document,
+                    contentType: srtType,
+                    defaultFilename: "LJM export - \(dateFormatter.string(from: Date()))"
+                ) { result in
+                    if case .success = result {
+                        // Handle success.
+                    } else {
+                        // Handle failure.
+                    }
+                }
+                .fileImporter(
+                    isPresented: $importFile,
+                    allowedContentTypes: [srtType],
+                    allowsMultipleSelection: false
+                ) { result in
+                    
+                    if case .success = result {
+                        showingAlertImport.toggle()
+                        dispatchGroup.enter()
                         
-                        if case .success = result {
+                        dispatchGroup.notify(queue: .main) {
+                            
                             showingAlertImport.toggle()
                             dispatchGroup.enter()
                             
                             dispatchGroup.notify(queue: .main) {
-                            
+                                
                                 do {
                                     isLoading = true
                                     
@@ -120,13 +146,14 @@ struct LJMApp: App {
                                     fatalError("File Import Error \(nsError), \(nsError.userInfo)")
                                 }
                             }
-                            
-                        } else {
-                            
-                            print("@@@@@ File Import Failed")
                         }
+                        
+                    } else {
+                        
+                        print("@@@@@ File Import Failed")
                     }
-                    .environmentObject(learningObjectiveStore)
+                }
+                .environmentObject(learningObjectiveStore)
         }.handlesExternalEvents(matching: Set(arrayLiteral: "*"))
             .commands(content: {
                 CommandGroup(after: .importExport, addition: {
