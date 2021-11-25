@@ -31,12 +31,21 @@ struct ContextMenuFilters: View {
                 ForEach(arrayMainFilters, id: \.self) { mainFilter in
                     if mainFilter == arrayMainFilters.first {
                         Button {
-                            selectedFilter = mainFilter.uppercased()
+                            
+                            selectedPath = nil
+                            selectedStrands = []
+                            selectedEvaluatedOrNotFilter = nil
+                            selectedFilter =  "nil"
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.001) {
+                                selectedFilter = mainFilter.uppercased()
+                            }
+                            
                         } label: {
                             HStack {
                                 Text(mainFilter)
                                 Image(systemName: "checkmark")
-                                    .isHidden(!(selectedFilter.lowercased() == mainFilter.lowercased()))
+                                    .isHidden((!(selectedFilter.lowercased() == "all") || ((selectedPath != nil) || (selectedStrands != []) || (selectedEvaluatedOrNotFilter != nil))))
                             }
                         }
                         
@@ -95,7 +104,7 @@ struct ContextMenuFilters: View {
                 
                 if fromMap || fromCompass {
                     Button {
-                        selectedEvaluatedOrNotFilter = selectedEvaluatedOrNotFilter == .evaluated ? .all : .evaluated
+                        selectedEvaluatedOrNotFilter = selectedEvaluatedOrNotFilter == .evaluated ? nil : .evaluated
                     } label: {
                         HStack {
                             Text("Evaluated")
@@ -105,7 +114,7 @@ struct ContextMenuFilters: View {
                     }
                     
                     Button {
-                        selectedEvaluatedOrNotFilter = selectedEvaluatedOrNotFilter == .notEvaluated ? .all : .notEvaluated
+                        selectedEvaluatedOrNotFilter = selectedEvaluatedOrNotFilter == .notEvaluated ? nil : .notEvaluated
                     } label: {
                         HStack {
                             Text("Not Evaluated")

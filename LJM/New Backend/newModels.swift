@@ -69,6 +69,39 @@ struct learning_Objective : Equatable, Encodable, Decodable {
         eval_score = []
         eval_date = []
     }
+    
+    init(learning_Objective_Raw : [String]){
+        
+        ID = learning_Objective_Raw[0]
+        strand = learning_Objective_Raw[1]
+        goal = learning_Objective_Raw[3]
+        goal_Short = learning_Objective_Raw[2]
+        description = learning_Objective_Raw[4]
+        
+        if(learning_Objective_Raw[5].isEmpty){
+            Keyword = learning_Objective_Raw[6].components(separatedBy: ",")
+        } else {
+            Keyword = learning_Objective_Raw[5].components(separatedBy: ",")
+        }
+        
+        isCore = learning_Objective_Raw[7].isEmpty ? false : true
+        
+        core_Rubric_Levels = []
+        
+        for rubric_Level_Index in 7..<learning_Objective_Raw.count {
+            
+            core_Rubric_Levels.append((rubric_Level_Types.firstIndex(of: learning_Objective_Raw[rubric_Level_Index].replacingOccurrences(of: "\r", with: "")) ?? -1) + 2)
+        }
+        
+        if ID == "TEC018" {
+            print("######## \(goal.debugDescription)")
+        }
+        
+        documentation = ""
+        
+        eval_score = []
+        eval_date = []
+    }
 }
 
 struct CD_Evaluated_Object : Equatable{
@@ -120,6 +153,7 @@ enum CoreEnum: String {
     case elective = "Elective"
     case evaluated = "Evaluated"
     case all = "All"
+    case nothing = "nil"
 }
 
 enum EvaluatedOrNotEnum {

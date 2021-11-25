@@ -29,10 +29,15 @@ struct LearningObjectiveJourneyCell: View {
                     Spacer()
                     
                     VStack {
-                        if expand && !isAddable {
+                        if expand && !isAddable && self.isLearningGoalAdded == nil {
                             Spacer().frame(height: 20)
                         } else {
-                            Spacer()
+                            if learningObj.eval_score.count > 0 {
+                                Spacer().frame(height: 20)
+                            } else {
+                                Spacer()
+                            }
+                            
                         }
                         
                         if self.isLearningGoalAdded != nil {

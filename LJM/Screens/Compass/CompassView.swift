@@ -248,6 +248,7 @@ struct CompassView: View {
                 
             case "Process":
                 
+                
                 let element_Index = process_Skills.firstIndex(of: learning_Objective.goal_Short) ?? 0
                 process_Progress[element_Index] += Double(learning_Objective.eval_score[data_Filtered_Index])
                 process_Progress_Quantity[element_Index] += 1
@@ -283,7 +284,7 @@ struct CompassView: View {
         
         for index in 0 ..< process_Skills_Count {
             if(process_Progress_Quantity[index] > 0){
-                business_Progress[index] = (business_Progress[index] / CGFloat(process_Progress_Quantity[index]))
+                process_Progress[index] = (process_Progress[index] / CGFloat(process_Progress_Quantity[index]))
             }
         }
         for index in 0 ..< design_Skills_Count {
@@ -434,11 +435,12 @@ struct CompassView: View {
         if path == "None" {
             return
         }
-        
+        print("########### peppe \(path_Index)")
         // filter for tonio cartonio
         let filtered_Objectives = learningObjectiveStore.learningObjectives.filter({ ($0.core_Rubric_Levels[path_Index] * $0.core_Rubric_Levels[0]) > 1})
         
         for learning_Objective in filtered_Objectives {
+            
             let temp_Strand_Index = fake_Strands.firstIndex(of: learning_Objective.strand) ?? 0
             data_Path_Front_Array[temp_Strand_Index] += (learning_Objective.core_Rubric_Levels[path_Index] > learning_Objective.core_Rubric_Levels[0]) ?  CGFloat(learning_Objective.core_Rubric_Levels[path_Index]) : CGFloat(learning_Objective.core_Rubric_Levels[0])
             data_Quantity[temp_Strand_Index] += 1
