@@ -87,6 +87,9 @@ struct StartView: View {
                 }
             }
         }
+        .onTapGesture {
+            NSApp.keyWindow?.makeFirstResponder(nil)
+        }
         .onAppear(perform: {
             
             learningObjectiveStore.load_Test_Data() {
