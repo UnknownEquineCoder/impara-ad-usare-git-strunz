@@ -26,7 +26,9 @@ class LearningObjectivesStore: ObservableObject {
     // this function will remove all the evaluation to a learning objective indicated by the index
     func remove_Evaluation(index : Int ) {
         
-        PersistenceController.shared.delete(l_Objective: learningObjectives[index])
+        if isSavable {
+            PersistenceController.shared.delete(l_Objective: learningObjectives[index])
+        }
         
         learningObjectives[index].eval_score.removeAll()
         learningObjectives[index].eval_date.removeAll()
@@ -42,10 +44,15 @@ class LearningObjectivesStore: ObservableObject {
     ///  OUTPUT:
     ///         The evaluation was added to the learning objective in position index
     func evaluate_Object(index : Int, evaluation : Int, date : Date ){
+        
         learningObjectives[index].eval_date.append(date)
         learningObjectives[index].eval_score.append(evaluation)
         
-        PersistenceController.shared.evalutate_Learning_Objective(l_Objective: learningObjectives[index])
+        if isSavable {
+            PersistenceController.shared.evalutate_Learning_Objective(l_Objective: learningObjectives[index])
+        }
+        
+        
     }
     
     func evaluate_Object(index : Int, evaluations : [Int], dates : [Date]){
@@ -244,6 +251,7 @@ class LearningPathStore: ObservableObject {
         
         learningPaths.append(learning_Path(title: "None"))
         for index in 5..<csvColumns.count {
+            print("\(csvColumns[index])")
             learningPaths.append(learning_Path(title: csvColumns[index].replacingOccurrences(of: "Path", with: "").replacingOccurrences(of: "level", with: "")))
         }
     }

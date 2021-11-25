@@ -29,7 +29,7 @@ struct ScrollViewLearningObjectives: View {
         let objectives = self.learningObjectiveStore.learningObjectives
         
         switch filterCore {
-        case "COMMUNAL":
+        case "CORE":
             return objectives
                 .filter { $0.isCore && !$0.eval_score.isEmpty }
                 .sorted { $0.goal.lowercased() < $1.goal.lowercased() }
@@ -38,7 +38,7 @@ struct ScrollViewLearningObjectives: View {
             return objectives
                 .filter { !$0.isCore && !$0.eval_score.isEmpty }
                 .sorted { $0.goal.lowercased() < $1.goal.lowercased() }
-        case "FULL MAP":
+        case "ALL":
             return objectives
                 .filter { !$0.eval_score.isEmpty }
                 .sorted { $0.goal.lowercased() < $1.goal.lowercased() }
@@ -50,22 +50,54 @@ struct ScrollViewLearningObjectives: View {
     var filteredLearningObjectivesMap: [learning_Objective] {
         let objectives = self.learningObjectiveStore.learningObjectives
         switch filteredMap {
-        case "FULL MAP":
+        case "ALL":
+            if let selected_Path = learningPathSelected {
+                let path_Index = learningPathStore.learningPaths.firstIndex(where: {$0.title == selected_Path})
+                
+                if let existing_Path_Index = path_Index {
+                    return objectives
+                        .filter { $0.core_Rubric_Levels[existing_Path_Index] * $0.core_Rubric_Levels[0] > 1 }
+                }
+                
+            }
             return objectives
-        case "COMMUNAL":
+        case "CORE":
+            if let selected_Path = learningPathSelected {
+                let path_Index = learningPathStore.learningPaths.firstIndex(where: {$0.title == selected_Path})
+                
+                if let existing_Path_Index = path_Index {
+                    return objectives
+                        .filter { $0.isCore }
+                        .filter { $0.core_Rubric_Levels[existing_Path_Index] * $0.core_Rubric_Levels[0] > 1 }
+                }
+                
+            }
             return objectives
                 .filter { $0.isCore }
         case "ELECTIVE":
+            if let selected_Path = learningPathSelected {
+                let path_Index = learningPathStore.learningPaths.firstIndex(where: {$0.title == selected_Path})
+                
+                if let existing_Path_Index = path_Index {
+                    return objectives
+                        .filter { !($0.isCore) }
+                        .filter { $0.core_Rubric_Levels[existing_Path_Index] * $0.core_Rubric_Levels[0] > 1 }
+                }
+                
+            }
             return objectives
                 .filter { !($0.isCore) }
-        case let filterPathsTab:
-            if filterPathsTab != nil {
-                return sortLearningObjectivesMap(learningPaths: learningPathStore.learningPaths, selectedPath: filterPathsTab!)
-            } else {
-                return filteredChallenges
-            }
+        default:
+            return filteredChallenges
+            
+//            if filterPathsTab != nil {
+//                return sortLearningObjectivesMap(learningPaths: learningPathStore.learningPaths, selectedPath: filterPathsTab!)
+//            } else {
+//                return filteredLearningPath
+//            }
         }
     }
+
     
     var filteredChallenges: [learning_Objective] {
         switch filterChallenge {
@@ -82,7 +114,7 @@ struct ScrollViewLearningObjectives: View {
     var filteredCompass: [learning_Objective] {
         switch filterCompass {
             
-        case "COMMUNAL":
+        case "CORE":
             return sortLearningObjectivesCompass(learningGoal: filterLearningGoal ?? "No Learning Goal")
                 .filter { $0.isCore }
                 .sorted { $0.goal.lowercased() < $1.goal.lowercased() }
@@ -98,7 +130,7 @@ struct ScrollViewLearningObjectives: View {
             return sortLearningObjectivesCompass(learningGoal: filterLearningGoal ?? "No Learning Goal")
                 .filter { $0.eval_score.isEmpty }
                 .sorted { $0.goal.lowercased() < $1.goal.lowercased() }
-        case "FULL MAP":
+        case "ALL":
             return sortLearningObjectivesCompass(learningGoal: filterLearningGoal ?? "No Learning Goal")
                 .sorted { $0.goal.lowercased() < $1.goal.lowercased() }
         default:
@@ -110,7 +142,9 @@ struct ScrollViewLearningObjectives: View {
     var isLearningGoalAdded: Bool?
     
     @Binding var textFromSearchBar: String
-
+    @State private var showingAlertImport = false
+    @State private var showingAlert = false
+    
     var selectedStrands: [String]
     
     var body: some View {
@@ -131,7 +165,7 @@ struct ScrollViewLearningObjectives: View {
                         return (first.eval_date.last ?? Date()) < (second.eval_date.last ?? Date())
                     }
                 })
-                            .filter({
+                .filter({
                     textFromSearchBar.isEmpty ||
                     $0.goal.lowercased().contains(textFromSearchBar.lowercased()) ||
                     $0.description.lowercased().contains(textFromSearchBar.lowercased()) ||
@@ -139,7 +173,8 @@ struct ScrollViewLearningObjectives: View {
                     $0.strand.lowercased().contains(textFromSearchBar.lowercased()) ||
                     $0.goal_Short.lowercased().contains(textFromSearchBar.lowercased()) ||
                     $0.ID.lowercased().contains(textFromSearchBar.lowercased())
-                }).filter({
+                })
+                .filter({
                     if filterEvaluatedOrNot == nil {
                         return true
                     } else {
@@ -157,23 +192,25 @@ struct ScrollViewLearningObjectives: View {
                                 learningPathSelected: self.$learningPathSelected,
                                 learningObj: item)
                             
-                                .contextMenu {
-                                    if !isAddable {
-                                        Button {
-                                            // remove learning objective
-                                            let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == item.ID})!
-                                            //                                            self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.removeAll()
-                                            //                                            self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.removeAll()
-                                            
-                                            learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
-                                            
-                                            
-                                        } label: {
-                                            Text("Delete")
-                                        }
-                                    }
-                                }
-                            
+//                                .contextMenu {
+//                                    if !isAddable {
+//                                        Button {
+//                                            // remove learning objective
+////                                            let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == item.ID})!
+//                                            self.showingAlert = true
+//                                            //                                            self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.removeAll()
+//                                            //                                            self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.removeAll()
+//                                            
+////                                            learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
+//                                                
+//                                            
+//                                        } label: {
+//                                            Text("Delete")
+//                                        }
+//                                        
+//                                    }
+//                                }
+                                
                             
                         }
                     }
@@ -184,6 +221,7 @@ struct ScrollViewLearningObjectives: View {
         //        .onChange(of: self.filteredLearningObjectivesMyJourney || self.textFromSearchBar || self.selectedStrands, perform: { _ in
         //
         //        })
+        
         .onChange(of: self.filteredLearningObjectivesMyJourney) { result in
             
             self.totalNumberLearningObjectivesStore.total = 0
@@ -310,16 +348,18 @@ struct ScrollViewLearningObjectives: View {
     
     func sortLearningObjectivesMap(learningPaths: [learning_Path], selectedPath: String) -> [learning_Objective] {
         
+        print("oijoshfezfoef -- \(selectedPath)")
+        
         var arrayOfLearningObjectives = [learning_Objective]()
         
-        if let learning_Path_Index = learningPaths.firstIndex(where: {$0.title == selectedPath}) {
-            arrayOfLearningObjectives = learningObjectiveStore.learningObjectives
-                .filter { learning_Objective in
-                    // algo whenever we have learning objectives related to learning paths
-                    //                learningPaths[learning_Path_Index].learning_Objective_IDs.contains(learning_Objective.ID)
-                    learning_Objective.core_Rubric_Levels[learning_Path_Index] > 1
-                }
-        }
+//        if let learning_Path_Index = learningPaths.firstIndex(where: {$0.title == selectedPath}) {
+//            arrayOfLearningObjectives = learningObjectiveStore.learningObjectives
+//                .filter { learning_Objective in
+//                    // algo whenever we have learning objectives related to learning paths
+//                    //                learningPaths[learning_Path_Index].learning_Objective_IDs.contains(learning_Objective.ID)
+//                    learning_Objective.core_Rubric_Levels[learning_Path_Index] > 1
+//                }
+//        }
         return arrayOfLearningObjectives
     }
     
