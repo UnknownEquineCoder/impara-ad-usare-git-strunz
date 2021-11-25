@@ -435,7 +435,7 @@ struct CompassView: View {
         if path == "None" {
             return
         }
-        print("########### peppe \(path_Index)")
+        
         // filter for tonio cartonio
         let filtered_Objectives = learningObjectiveStore.learningObjectives.filter({ ($0.core_Rubric_Levels[path_Index] * $0.core_Rubric_Levels[0]) > 1})
         

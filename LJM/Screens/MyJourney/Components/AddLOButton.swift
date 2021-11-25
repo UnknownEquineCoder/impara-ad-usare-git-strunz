@@ -15,7 +15,6 @@ struct AddLOButton: View {
     var body: some View {
 
         Button {
-            print("Button was tapped")
         } label: {
             Text("Add a Learning Objective")
                 .foregroundColor(.white)

@@ -96,7 +96,7 @@ struct LJMApp: App {
                             
                             do {
                                 isLoading = true
-                                print("@@@@@@@@@@@@ \(isSavable)")
+                                
                                 learningObjectiveStore.isSavable = self.isSavable
                                 guard let selectedFile: URL = try result.get().first else { return }
                                 

@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Illustration_EmptyState_Fixed.png",
+      "filename" : "Illustration_EmpyState_FinalIII.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Illustration_EmptyState_Fixed@2x.png",
+      "filename" : "Illustration_EmpyState_FinalIII@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Illustration_EmptyState_Fixed@3x.png",
+      "filename" : "Illustration_EmpyState_FinalIII@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
