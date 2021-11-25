@@ -1,0 +1,123 @@
+2021-11-24 15:46:35 +0000  Initial pipeline context: <IDEDistributionProcessingPipelineContext: 0x328fd60f0; archive(resolved)="<IDEArchive: 0x328fd00e0>", distributionTask(resolved)="2", distributionDestination(resolved)="1", distributionMethod(resolved)="<IDEDistributionMethodDevelopmentSignedMac: 0x2d44c8db0>", team(resolved)="<IDEProvisioningDisambiguatableBasicTeam: 0x2dc1a3290; teamID='QJTRTDLS6U', teamName='Imaginary Institute s.r.l.', teamType='Company', username='denyspashkov@yahoo.com', isFreeProvisioningTeam='0'>">
+	Chain (11, self inclusive):
+	<IDEDistributionProcessingPipelineContext: 0x328fd60f0; archive = "<IDEArchive: 0x328fd00e0>", distributionMethod="<IDEDistributionMethodDevelopmentSignedMac: 0x2d44c8db0>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x2dc1a3290; teamID='QJTRTDLS6U', teamName='Imaginary Institute s.r.l.', teamType='Company', username='denyspashkov@yahoo.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionProcessingPipelineContext: 0x328fffc70; archive = "<IDEArchive: 0x328fd00e0>", distributionMethod="<IDEDistributionMethodDevelopmentSignedMac: 0x2d44c8db0>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x2dc1a3290; teamID='QJTRTDLS6U', teamName='Imaginary Institute s.r.l.', teamType='Company', username='denyspashkov@yahoo.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x31a078eb0; archive = "<IDEArchive: 0x328fd00e0>", distributionMethod="<IDEDistributionMethodDevelopmentSignedMac: 0x2d44c8db0>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x2dc1a3290; teamID='QJTRTDLS6U', teamName='Imaginary Institute s.r.l.', teamType='Company', username='denyspashkov@yahoo.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x32cc43c50; archive = "<IDEArchive: 0x328fd00e0>", distributionMethod="<IDEDistributionMethodDevelopmentSignedMac: 0x2d44c8db0>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x2dc1a3290; teamID='QJTRTDLS6U', teamName='Imaginary Institute s.r.l.', teamType='Company', username='denyspashkov@yahoo.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x2bdfe39e0; archive = "<IDEArchive: 0x328fd00e0>", distributionMethod="<IDEDistributionMethodDevelopmentSignedMac: 0x2d44c8db0>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x2dc1a3290; teamID='QJTRTDLS6U', teamName='Imaginary Institute s.r.l.', teamType='Company', username='denyspashkov@yahoo.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x31c4dfd40; archive = "<IDEArchive: 0x328fd00e0>", distributionMethod="<IDEDistributionMethodDevelopmentSignedMac: 0x2d44c8db0>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x2dc1a3290; teamID='QJTRTDLS6U', teamName='Imaginary Institute s.r.l.', teamType='Company', username='denyspashkov@yahoo.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x31cc714f0; archive = "<IDEArchive: 0x328fd00e0>", distributionMethod="<IDEDistributionMethodDevelopmentSignedMac: 0x2d44c8db0>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x2dc1a3290; teamID='QJTRTDLS6U', teamName='Imaginary Institute s.r.l.', teamType='Company', username='denyspashkov@yahoo.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x31cc85cf0; archive = "<IDEArchive: 0x328fd00e0>", distributionMethod="<IDEDistributionMethodDevelopmentSignedMac: 0x2d44c8db0>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x2dc1a3290; teamID='QJTRTDLS6U', teamName='Imaginary Institute s.r.l.', teamType='Company', username='denyspashkov@yahoo.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x31cc92ed0; archive = "<IDEArchive: 0x328fd00e0>", distributionMethod="<IDEDistributionMethodDevelopmentSignedMac: 0x2d44c8db0>", team="(null)">
+	<IDEDistributionContext: 0x31d01e650; archive = "<IDEArchive: 0x328fd00e0>", distributionMethod="<IDEDistributionMethodDevelopmentSignedMac: 0x2d44c8db0>", team="(null)">
+	<IDEDistributionContext: 0x31d039c20; archive = "<IDEArchive: 0x328fd00e0>", distributionMethod="(null)", team="(null)">
+</IDEDistributionProcessingPipelineContext: 0x328fd60f0>
+2021-11-24 15:46:35 +0000  Processing step: IDEDistributionCreateDestRootStep
+2021-11-24 15:46:35 +0000  Processing step: IDEDistributionCopyItemStep
+2021-11-24 15:46:35 +0000  Running /usr/bin/ditto '-V' '/Users/denyspashkov/Library/Developer/Xcode/Archives/2021-11-24/LJM 24-11-21, 16.46.xcarchive/Products/Applications/LJM.app' '/var/folders/dp/2mk3xrm913x4wpxqvbv6hhqw0000gq/T/XcodeDistPipeline.~~~QeuVEM/Root/Applications/LJM.app'
+2021-11-24 15:46:35 +0000  >>> Copying /Users/denyspashkov/Library/Developer/Xcode/Archives/2021-11-24/LJM 24-11-21, 16.46.xcarchive/Products/Applications/LJM.app 
+2021-11-24 15:46:35 +0000  copying file ./Contents/_CodeSignature/CodeResources ... 
+2021-11-24 15:46:35 +0000  4638 bytes for ./Contents/_CodeSignature/CodeResources
+2021-11-24 15:46:35 +0000  copying file ./Contents/MacOS/LJM ... 
+2021-11-24 15:46:35 +0000  2366256 bytes for ./Contents/MacOS/LJM
+2021-11-24 15:46:35 +0000  copying file ./Contents/Resources/Learning_Paths.csv ... 
+158 bytes for ./Contents/Resources/Learning_Paths.csv
+2021-11-24 15:46:35 +0000  copying file ./Contents/Resources/StudentData.momd/VersionInfo.plist ... 
+2021-11-24 15:46:35 +0000  201 bytes for ./Contents/Resources/StudentData.momd/VersionInfo.plist
+2021-11-24 15:46:35 +0000  copying file ./Contents/Resources/StudentData.momd/profile.mom ... 
+2021-11-24 15:46:35 +0000  1725 bytes for ./Contents/Resources/StudentData.momd/profile.mom
+2021-11-24 15:46:35 +0000  copying file ./Contents/Resources/AppIcon.icns ... 
+2021-11-24 15:46:35 +0000  49198 bytes for ./Contents/Resources/AppIcon.icns
+2021-11-24 15:46:35 +0000  copying file ./Contents/Resources/Coders.csv ... 
+2021-11-24 15:46:35 +0000  101639 bytes for ./Contents/Resources/Coders.csv
+2021-11-24 15:46:35 +0000  copying file ./Contents/Resources/Assets.car ... 
+2021-11-24 15:46:35 +0000  3669888 bytes for ./Contents/Resources/Assets.car
+2021-11-24 15:46:35 +0000  copying file ./Contents/Resources/ALL PATHS.csv ... 
+2021-11-24 15:46:35 +0000  55372 bytes for ./Contents/Resources/ALL PATHS.csv
+2021-11-24 15:46:35 +0000  copying file ./Contents/Resources/Rubric_Level.csv ... 
+2021-11-24 15:46:35 +0000  216 bytes for ./Contents/Resources/Rubric_Level.csv
+2021-11-24 15:46:35 +0000  copying file ./Contents/Resources/Learning_Objectives.csv ... 
+2021-11-24 15:46:35 +0000  2112 bytes for ./Contents/Resources/Learning_Objectives.csv
+2021-11-24 15:46:35 +0000  copying file ./Contents/Resources/README-URGENT.txt ... 
+2021-11-24 15:46:35 +0000  64 bytes for ./Contents/Resources/README-URGENT.txt
+2021-11-24 15:46:35 +0000  copying file ./Contents/Info.plist ... 
+2021-11-24 15:46:35 +0000  3817 bytes for ./Contents/Info.plist
+2021-11-24 15:46:35 +0000  copying file ./Contents/PkgInfo ... 
+2021-11-24 15:46:35 +0000  8 bytes for ./Contents/PkgInfo
+2021-11-24 15:46:35 +0000  /usr/bin/ditto exited with 0
+2021-11-24 15:46:35 +0000  Processing step: IDEDistributionEmbedProfileStep
+2021-11-24 15:46:35 +0000  Skipping profile for item: <IDEDistributionItem: 0x30b1ed520; bundleID='institute.imaginary.ljm', path='<DVTFilePath:0x30ccd2720:'/Users/denyspashkov/Library/Developer/Xcode/Archives/2021-11-24/LJM 24-11-21, 16.46.xcarchive/Products/Applications/LJM.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x3308a3a10; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x30f127d00; name='Apple Development: Denys Pashkov (Q4QS326WU9)', hash='558C807C1F2BA007F98AD482E7C81345AF2B90EA', serialNumber='25A733B1E1F4E51E6B94F19A2E2246EB', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2021-11-17 10:05:53 +0000''>', entitlements='{
+    "com.apple.security.app-sandbox" = 1;
+    "com.apple.security.files.user-selected.read-write" = 1;
+    "com.apple.security.network.client" = 1;
+}', teamID='QJTRTDLS6U', identifier='institute.imaginary.ljm', executablePath='<DVTFilePath:0x31b7e34c0:'/Users/denyspashkov/Library/Developer/Xcode/Archives/2021-11-24/LJM 24-11-21, 16.46.xcarchive/Products/Applications/LJM.app/Contents/MacOS/LJM'>', hardenedRuntime='1'>'>
+2021-11-24 15:46:35 +0000  Processing step: IDEDistributionInfoPlistStep
+2021-11-24 15:46:35 +0000  Skipping step: IDEDistributionInfoPlistStep because it said so
+2021-11-24 15:46:35 +0000  Processing step: IDEDistributionAppThinningPlistStep
+2021-11-24 15:46:35 +0000  Processing step: IDEDistributionCompileBitcodeStep
+2021-11-24 15:46:35 +0000  Skipping step: IDEDistributionCompileBitcodeStep because it said so
+2021-11-24 15:46:35 +0000  Processing step: IDEDistributionCodeSlimmingStep
+2021-11-24 15:46:35 +0000  Processing step: IDEDistributionCopyBCSymbolMapsStep
+2021-11-24 15:46:35 +0000  Skipping step: IDEDistributionCopyBCSymbolMapsStep because it said so
+2021-11-24 15:46:35 +0000  Processing step: IDEDistributionSymbolsStep
+2021-11-24 15:46:35 +0000  Skipping step: IDEDistributionSymbolsStep because it said so
+2021-11-24 15:46:35 +0000  Processing step: IDEDistributionAppThinningStep
+2021-11-24 15:46:35 +0000  Skipping step: IDEDistributionAppThinningStep because it said so
+2021-11-24 15:46:35 +0000  Processing step: IDEDistributionArchThinningStep
+2021-11-24 15:46:35 +0000  Running /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/lipo '/var/folders/dp/2mk3xrm913x4wpxqvbv6hhqw0000gq/T/XcodeDistPipeline.~~~QeuVEM/Root/Applications/LJM.app/Contents/MacOS/LJM' '-verify_arch' 'arm64e'
+2021-11-24 15:46:35 +0000  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/lipo exited with 1
+2021-11-24 15:46:35 +0000  Skipping architecture thinning for item "LJM" because arch "arm64e" wasn't found
+2021-11-24 15:46:35 +0000  Processing step: IDEDistributionODRStep
+2021-11-24 15:46:35 +0000  Processing step: IDEDistributionStripXattrsStep
+2021-11-24 15:46:35 +0000  Running /usr/bin/xattr '-crs' '/var/folders/dp/2mk3xrm913x4wpxqvbv6hhqw0000gq/T/XcodeDistPipeline.~~~QeuVEM/Root/Applications/LJM.app'
+2021-11-24 15:46:35 +0000  /usr/bin/xattr exited with 0
+2021-11-24 15:46:35 +0000  Processing step: IDEDistributionCodesignStep
+2021-11-24 15:46:35 +0000  Entitlements for <IDEDistributionItem: 0x30b1ed520; bundleID='institute.imaginary.ljm', path='<DVTFilePath:0x30ccd2720:'/Users/denyspashkov/Library/Developer/Xcode/Archives/2021-11-24/LJM 24-11-21, 16.46.xcarchive/Products/Applications/LJM.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x3308a3a10; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x31b237450; name='Apple Development: Denys Pashkov (Q4QS326WU9)', hash='558C807C1F2BA007F98AD482E7C81345AF2B90EA', serialNumber='25A733B1E1F4E51E6B94F19A2E2246EB', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2021-11-17 10:05:53 +0000''>', entitlements='{
+    "com.apple.security.app-sandbox" = 1;
+    "com.apple.security.files.user-selected.read-write" = 1;
+    "com.apple.security.network.client" = 1;
+}', teamID='QJTRTDLS6U', identifier='institute.imaginary.ljm', executablePath='<DVTFilePath:0x31b7e34c0:'/Users/denyspashkov/Library/Developer/Xcode/Archives/2021-11-24/LJM 24-11-21, 16.46.xcarchive/Products/Applications/LJM.app/Contents/MacOS/LJM'>', hardenedRuntime='1'>'>: {
+    "com.apple.security.app-sandbox" = 1;
+    "com.apple.security.files.user-selected.read-write" = 1;
+    "com.apple.security.network.client" = 1;
+}
+2021-11-24 15:46:35 +0000  Entitlements for <IDEDistributionItem: 0x30b1ed520; bundleID='institute.imaginary.ljm', path='<DVTFilePath:0x30ccd2720:'/Users/denyspashkov/Library/Developer/Xcode/Archives/2021-11-24/LJM 24-11-21, 16.46.xcarchive/Products/Applications/LJM.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x3308a3a10; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x31e1c8020; name='Apple Development: Denys Pashkov (Q4QS326WU9)', hash='558C807C1F2BA007F98AD482E7C81345AF2B90EA', serialNumber='25A733B1E1F4E51E6B94F19A2E2246EB', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2021-11-17 10:05:53 +0000''>', entitlements='{
+    "com.apple.security.app-sandbox" = 1;
+    "com.apple.security.files.user-selected.read-write" = 1;
+    "com.apple.security.network.client" = 1;
+}', teamID='QJTRTDLS6U', identifier='institute.imaginary.ljm', executablePath='<DVTFilePath:0x31b7e34c0:'/Users/denyspashkov/Library/Developer/Xcode/Archives/2021-11-24/LJM 24-11-21, 16.46.xcarchive/Products/Applications/LJM.app/Contents/MacOS/LJM'>', hardenedRuntime='1'>'> are: {
+    "com.apple.security.app-sandbox" = 1;
+    "com.apple.security.files.user-selected.read-write" = 1;
+    "com.apple.security.network.client" = 1;
+}
+2021-11-24 15:46:35 +0000  Writing entitlements for <IDEDistributionItem: 0x30b1ed520; bundleID='institute.imaginary.ljm', path='<DVTFilePath:0x30ccd2720:'/Users/denyspashkov/Library/Developer/Xcode/Archives/2021-11-24/LJM 24-11-21, 16.46.xcarchive/Products/Applications/LJM.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x3308a3a10; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x32bdb89b0; name='Apple Development: Denys Pashkov (Q4QS326WU9)', hash='558C807C1F2BA007F98AD482E7C81345AF2B90EA', serialNumber='25A733B1E1F4E51E6B94F19A2E2246EB', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2021-11-17 10:05:53 +0000''>', entitlements='{
+    "com.apple.security.app-sandbox" = 1;
+    "com.apple.security.files.user-selected.read-write" = 1;
+    "com.apple.security.network.client" = 1;
+}', teamID='QJTRTDLS6U', identifier='institute.imaginary.ljm', executablePath='<DVTFilePath:0x31b7e34c0:'/Users/denyspashkov/Library/Developer/Xcode/Archives/2021-11-24/LJM 24-11-21, 16.46.xcarchive/Products/Applications/LJM.app/Contents/MacOS/LJM'>', hardenedRuntime='1'>'> to: /var/folders/dp/2mk3xrm913x4wpxqvbv6hhqw0000gq/T/XcodeDistPipeline.~~~QeuVEM/entitlements~~~Lx5gWJ
+2021-11-24 15:46:35 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '558C807C1F2BA007F98AD482E7C81345AF2B90EA' '--entitlements' '/var/folders/dp/2mk3xrm913x4wpxqvbv6hhqw0000gq/T/XcodeDistPipeline.~~~QeuVEM/entitlements~~~Lx5gWJ' '--generate-entitlement-der' '--preserve-metadata=identifier,flags,runtime' '/var/folders/dp/2mk3xrm913x4wpxqvbv6hhqw0000gq/T/XcodeDistPipeline.~~~QeuVEM/Root/Applications/LJM.app'
+2021-11-24 15:46:35 +0000  /var/folders/dp/2mk3xrm913x4wpxqvbv6hhqw0000gq/T/XcodeDistPipeline.~~~QeuVEM/Root/Applications/LJM.app: replacing existing signature
+2021-11-24 15:46:35 +0000  /var/folders/dp/2mk3xrm913x4wpxqvbv6hhqw0000gq/T/XcodeDistPipeline.~~~QeuVEM/Root/Applications/LJM.app: signed app bundle with Mach-O universal (x86_64 arm64) [institute.imaginary.ljm]
+2021-11-24 15:46:35 +0000  /usr/bin/codesign exited with 0
+2021-11-24 15:46:35 +0000  Processing step: IDEDistributionZipODRItemStep
+2021-11-24 15:46:35 +0000  Skipping step: IDEDistributionZipODRItemStep because it said so
+2021-11-24 15:46:35 +0000  Processing step: IDEDistributionSkipPackagingStep
+2021-11-24 15:46:35 +0000  Processing step: IDEDistributionAppStoreInformationStep
+2021-11-24 15:46:35 +0000  Skipping step: IDEDistributionAppStoreInformationStep because it said so
+2021-11-24 15:46:35 +0000  Processing step: IDEDistributionGenerateProcessedDistributionItems
+2021-11-24 15:46:35 +0000  IDEDistributionItem init <DVTFilePath:0x30e33b6b0:'/var/folders/dp/2mk3xrm913x4wpxqvbv6hhqw0000gq/T/XcodeDistPipeline.~~~QeuVEM/Root/Applications/LJM.app'>
+2021-11-24 15:46:35 +0000  [OPTIONAL] Didn't find embedded provisioning profile for <DVTFilePath:0x30e33b6b0:'/var/folders/dp/2mk3xrm913x4wpxqvbv6hhqw0000gq/T/XcodeDistPipeline.~~~QeuVEM/Root/Applications/LJM.app'>: Error Domain=NSCocoaErrorDomain Code=4 "No file at <DVTFilePath:0x31d0149f0:'/var/folders/dp/2mk3xrm913x4wpxqvbv6hhqw0000gq/T/XcodeDistPipeline.~~~QeuVEM/Root/Applications/LJM.app/Contents/embedded.provisionprofile'>" UserInfo={NSLocalizedDescription=No file at <DVTFilePath:0x31d0149f0:'/var/folders/dp/2mk3xrm913x4wpxqvbv6hhqw0000gq/T/XcodeDistPipeline.~~~QeuVEM/Root/Applications/LJM.app/Contents/embedded.provisionprofile'>}
+2021-11-24 15:46:35 +0000  Processing step: IDEDistributionCreateManifestStep
+2021-11-24 15:46:35 +0000  Skipping step: IDEDistributionCreateManifestStep because it said so
