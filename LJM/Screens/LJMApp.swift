@@ -36,6 +36,7 @@ struct LJMApp: App {
     var body: some Scene {
         WindowGroup {
             StartView(isLoading: $isLoading)
+                
                 .alert(isPresented: $showingAlertImport) {
                     Alert(
                         title: isSavable ? Text("Importing this file will overwrite your old data. \n\n Do you want to proceed?") : Text("Importing this file will only display the new data. \n\n Any changes will not be saved."),

@@ -23,7 +23,6 @@ struct CountDownWrapper<V: Vanishable>: View {
     @ObservedObject var counter = Counter() {
         didSet {
             if counter.value == 1 {
-                print("NULL")
             }
         }
     }

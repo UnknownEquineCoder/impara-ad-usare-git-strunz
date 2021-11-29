@@ -28,33 +28,49 @@ struct StartView: View {
     
     @ViewBuilder
     var body: some View {
-        HStack(spacing: 0) {
+        
+        
+        NavigationView {
+            
             VStack {
-                VStack {
-                    StudentPictureView(size: 85)
-                        .padding(.trailing)
-                    
-                    
-                    ScrollView(showsIndicators: false) {
-                        VStack(alignment: .leading) {
-                            ForEach(OutlineMenu.allCases) { menu in
-                                ZStack(alignment: .leading) {
-                                    OutlineRow(item: menu, selectedMenu: self.$selectedMenu)
-                                        .frame(height: 54).padding([.leading, .trailing], 10)
-                                    if menu == self.selectedMenu {
-                                        RoundedRectangle(cornerRadius: 8)
-                                            .foregroundColor(Color.secondary.opacity(0.1))
-                                            .frame(height: 54)
-                                            .padding([.leading, .trailing], 10)
-                                    }
+                StudentPictureView(size: 85)
+                    .padding(.trailing)
+                
+                    VStack(alignment: .leading) {
+                        ForEach(OutlineMenu.allCases) { menu in
+                            ZStack(alignment: .leading) {
+                                OutlineRow(item: menu, selectedMenu: self.$selectedMenu)
+                                    .frame(height: 54).padding([.leading, .trailing], 10)
+                                if menu == self.selectedMenu {
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .foregroundColor(Color.secondary.opacity(0.1))
+                                        .frame(height: 54)
+                                        .padding([.leading, .trailing], 10)
                                 }
                             }
                         }
-                        .padding(.top, 32)
-                        .frame(width: 300)
+                    }
+                    .padding(.top, 32)
+                
+                Spacer()
+            }
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button {
+                        
+                        // IT will switch the presence of the sidebar
+                        NSApp.sendAction(#selector(NSSplitViewController.toggleSidebar(_:)), to: nil, from: nil)
+                    } label: {
+                        Image(systemName: "sidebar.left")
                     }
                 }
-            }.background(Color.primary.opacity(0.1))
+            }
+                .moveDisabled(true)
+                    
+                    
+                    
+                
+            
             
             // View connected to the sidebar
             if isLoading {
