@@ -8,29 +8,44 @@
 import Foundation
 import SwiftUI
 
+
 struct learning_Objective : Equatable, Encodable, Decodable {
     
+    /** Primary Key */
     var ID : String
+    /** Category */
     var strand : String
-    var goal : String
+    /** SubCategory */
     var goal_Short : String
+    /** SubCategory description */
+    var goal : String
+    /** Description */
     var description : String
     var isCore : Bool
     var Keyword : [String]
-    var core_Rubric_Levels : [Int]
-    var documentation : String
     
+    /** Score history */
     var eval_score : [Int]
+    /** Date of score history */
     var eval_date : [Date]
     
+    /** UNUSED - documentation reference */
+    var documentation : String
+    
+    /** 1..5 values for each rubric_Level_Types */
+    var core_Rubric_Levels : [Int]
+    /** Evaluation types */
     private var rubric_Level_Types = ["Beginning","Progressing","Proficient","Exemplary"]
     
+    /**
+        Function to init the learning_Objective starting from CSV file
+     */
     init(learning_Objective_Raw : [String]){
         
         ID = learning_Objective_Raw[0]
         strand = learning_Objective_Raw[1]
-        goal = learning_Objective_Raw[3]
         goal_Short = learning_Objective_Raw[2]
+        goal = learning_Objective_Raw[3]
         description = learning_Objective_Raw[4]
         
         if(learning_Objective_Raw[5].isEmpty){
@@ -44,8 +59,9 @@ struct learning_Objective : Equatable, Encodable, Decodable {
         core_Rubric_Levels = []
         
         for rubric_Level_Index in 7..<learning_Objective_Raw.count {
-            
-            core_Rubric_Levels.append((rubric_Level_Types.firstIndex(of: learning_Objective_Raw[rubric_Level_Index].replacingOccurrences(of: "\r", with: "")) ?? -1) + 2)
+            let pathEvaluation = learning_Objective_Raw[rubric_Level_Index].replacingOccurrences(of: "\r", with: "")
+            let pathEvaluationIndex = rubric_Level_Types.firstIndex(of: pathEvaluation) ?? -1
+            core_Rubric_Levels.append(pathEvaluationIndex + 2)
         }
         
         documentation = ""
@@ -55,10 +71,16 @@ struct learning_Objective : Equatable, Encodable, Decodable {
     }
 }
 
-struct CD_Evaluated_Object : Equatable{
+/**
+ Core Data Evaluated Object
+ */
+struct CD_Evaluated_Object : Equatable {
+    /** Primary key */
     let id : String
-    let eval_Date : [Date]
-    let eval_Score : [Int]
+    /** Date of score history */
+    var eval_Date : [Date]
+    /** Score history */
+    var eval_Score : [Int]
 }
 
 struct learning_Path: Hashable {
