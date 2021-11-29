@@ -348,8 +348,6 @@ struct ScrollViewLearningObjectives: View {
     
     func sortLearningObjectivesMap(learningPaths: [learning_Path], selectedPath: String) -> [learning_Objective] {
         
-        print("oijoshfezfoef -- \(selectedPath)")
-        
         var arrayOfLearningObjectives = [learning_Objective]()
         
 //        if let learning_Path_Index = learningPaths.firstIndex(where: {$0.title == selectedPath}) {

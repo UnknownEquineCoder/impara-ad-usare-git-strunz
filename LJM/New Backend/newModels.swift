@@ -26,29 +26,12 @@ struct learning_Objective : Equatable, Encodable, Decodable {
     var core_Rubric_Levels : [Int]  // 1..5 values for each rubric_Level_Types
     private var rubric_Level_Types = ["Beginning","Progressing","Proficient","Exemplary"]   // Evaluation types
     
-    init(raw : [String], rubric_Levels : [Int]){
-        
-        
-        ID = raw[0]
-        strand = raw[1]
-        goal = raw[2]
-        goal_Short = raw[3]
-        description = raw[4]
-        isCore = raw[5] == "true" ? true : false
-        Keyword = raw[6].components(separatedBy: "-")
-        core_Rubric_Levels = rubric_Levels
-        documentation = raw[8]
-        
-        eval_score = []
-        eval_date = []
-    }
-    
-    init(learning_Objective_Raw : [String], rubric_Level_Raw : [String]){
+    init(learning_Objective_Raw : [String]){
         
         ID = learning_Objective_Raw[0]
         strand = learning_Objective_Raw[1]
-        goal = learning_Objective_Raw[2]
-        goal_Short = learning_Objective_Raw[3]
+        goal = learning_Objective_Raw[3]
+        goal_Short = learning_Objective_Raw[2]
         description = learning_Objective_Raw[4]
         
         if(learning_Objective_Raw[5].isEmpty){
@@ -57,12 +40,13 @@ struct learning_Objective : Equatable, Encodable, Decodable {
             Keyword = learning_Objective_Raw[5].components(separatedBy: ",")
         }
         
-        isCore = rubric_Level_Raw[4].isEmpty ? false : true
+        isCore = learning_Objective_Raw[7].isEmpty ? false : true
         
-        core_Rubric_Levels = [0,0,0,0,0,0]
+        core_Rubric_Levels = []
         
-        for rubric_Level_Index in 4..<rubric_Level_Raw.count {
-            core_Rubric_Levels[rubric_Level_Index-4] = (rubric_Level_Types.firstIndex(of: rubric_Level_Index == 9 ? String(rubric_Level_Raw[rubric_Level_Index].dropLast()) : rubric_Level_Raw[rubric_Level_Index]) ?? -1) + 2
+        for rubric_Level_Index in 7..<learning_Objective_Raw.count {
+            
+            core_Rubric_Levels.append((rubric_Level_Types.firstIndex(of: learning_Objective_Raw[rubric_Level_Index].replacingOccurrences(of: "\r", with: "")) ?? -1) + 2)
         }
         
         documentation = ""
@@ -121,6 +105,7 @@ enum CoreEnum: String {
     case elective = "Elective"
     case evaluated = "Evaluated"
     case all = "All"
+    case nothing = "nil"
 }
 
 enum EvaluatedOrNotEnum {

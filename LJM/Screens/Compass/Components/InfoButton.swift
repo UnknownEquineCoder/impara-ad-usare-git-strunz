@@ -50,7 +50,6 @@ struct CustomButtonStyle: ButtonStyle {
             content()
                 .onHover { over in
                     self.isOverButton = over
-                    print("isOverButton:", self.isOverButton, "over:", over)
                 }
                 .overlay(VStack {
                     if self.isOverButton {
