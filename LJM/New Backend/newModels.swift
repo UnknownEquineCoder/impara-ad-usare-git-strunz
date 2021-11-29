@@ -10,20 +10,21 @@ import SwiftUI
 
 struct learning_Objective : Equatable, Encodable, Decodable {
     
-    var ID : String
-    var strand : String
-    var goal : String
-    var goal_Short : String
-    var description : String
-    var isCore : Bool
-    var Keyword : [String]
-    var core_Rubric_Levels : [Int]
-    var documentation : String
+    var ID : String                 // Primary Key
+    var strand : String             // Category
+    var goal_Short : String         // SubCategory
+    var goal : String               // SubCategory description
+    var description : String        // Description
+    var isCore : Bool               //
+    var Keyword : [String]          //
     
-    var eval_score : [Int]
-    var eval_date : [Date]
+    var eval_score : [Int]          // Score history
+    var eval_date : [Date]          // Date of score history
     
-    private var rubric_Level_Types = ["Beginning","Progressing","Proficient","Exemplary"]
+    var documentation : String      // UNUSED - documentation reference
+    
+    var core_Rubric_Levels : [Int]  // 1..5 values for each rubric_Level_Types
+    private var rubric_Level_Types = ["Beginning","Progressing","Proficient","Exemplary"]   // Evaluation types
     
     init(raw : [String], rubric_Levels : [Int]){
         
