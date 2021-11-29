@@ -49,14 +49,9 @@
 		E02C351B274F8F6E00DD060C /* ALL PATHS-New.csv in Resources */ = {isa = PBXBuildFile; fileRef = E02C351A274F8F6E00DD060C /* ALL PATHS-New.csv */; };
 		E02DFE8A270AEC3F004FF8B7 /* newModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02DFE89270AEC3F004FF8B7 /* newModels.swift */; };
 		E02DFE8C270C41E5004FF8B7 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02DFE8B270C41E5004FF8B7 /* Observable.swift */; };
-		E03211372716E89100262144 /* Rubric_Level.csv in Resources */ = {isa = PBXBuildFile; fileRef = E03211342716E89100262144 /* Rubric_Level.csv */; };
-		E03211382716E89100262144 /* Learning_Objectives.csv in Resources */ = {isa = PBXBuildFile; fileRef = E03211352716E89100262144 /* Learning_Objectives.csv */; };
-		E03211392716E89100262144 /* Learning_Paths.csv in Resources */ = {isa = PBXBuildFile; fileRef = E03211362716E89100262144 /* Learning_Paths.csv */; };
 		E04251AD27295F34000A1D69 /* StudentData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E04251AB27295F34000A1D69 /* StudentData.xcdatamodeld */; };
 		E04251B3272AAABA000A1D69 /* percistency_Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04251B2272AAABA000A1D69 /* percistency_Manager.swift */; };
 		E04251B72733EACD000A1D69 /* CoreRadarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04251B62733EACD000A1D69 /* CoreRadarChartView.swift */; };
-		E0E87CCC27214EED00FEF3D6 /* Coders.csv in Resources */ = {isa = PBXBuildFile; fileRef = E0E87CCB27214EED00FEF3D6 /* Coders.csv */; };
-		E0E87CD4272801BD00FEF3D6 /* ALL PATHS.csv in Resources */ = {isa = PBXBuildFile; fileRef = E0E87CD3272801BC00FEF3D6 /* ALL PATHS.csv */; };
 		E0E87CD6272801C900FEF3D6 /* DocDemoDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E87CD5272801C900FEF3D6 /* DocDemoDocument.swift */; };
 		EA139BD42640910900E15E28 /* JWTDecode in Frameworks */ = {isa = PBXBuildFile; productRef = EA139BD32640910900E15E28 /* JWTDecode */; };
 		EA5B445D262E6F23002A97C7 /* MyJourneyMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5B445C262E6F23002A97C7 /* MyJourneyMainView.swift */; };
@@ -167,14 +162,9 @@
 		E02C351A274F8F6E00DD060C /* ALL PATHS-New.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ALL PATHS-New.csv"; sourceTree = "<group>"; };
 		E02DFE89270AEC3F004FF8B7 /* newModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = newModels.swift; sourceTree = "<group>"; };
 		E02DFE8B270C41E5004FF8B7 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
-		E03211342716E89100262144 /* Rubric_Level.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Rubric_Level.csv; sourceTree = "<group>"; };
-		E03211352716E89100262144 /* Learning_Objectives.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Learning_Objectives.csv; sourceTree = "<group>"; };
-		E03211362716E89100262144 /* Learning_Paths.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Learning_Paths.csv; sourceTree = "<group>"; };
 		E04251AC27295F34000A1D69 /* profile.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = profile.xcdatamodel; sourceTree = "<group>"; };
 		E04251B2272AAABA000A1D69 /* percistency_Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = percistency_Manager.swift; sourceTree = "<group>"; };
 		E04251B62733EACD000A1D69 /* CoreRadarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreRadarChartView.swift; sourceTree = "<group>"; };
-		E0E87CCB27214EED00FEF3D6 /* Coders.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Coders.csv; sourceTree = "<group>"; };
-		E0E87CD3272801BC00FEF3D6 /* ALL PATHS.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ALL PATHS.csv"; sourceTree = "<group>"; };
 		E0E87CD5272801C900FEF3D6 /* DocDemoDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocDemoDocument.swift; sourceTree = "<group>"; };
 		EA5B445C262E6F23002A97C7 /* MyJourneyMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyJourneyMainView.swift; sourceTree = "<group>"; };
 		EA686EF8256EE4F300C121DC /* TopBarJourney.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarJourney.swift; sourceTree = "<group>"; };
@@ -394,11 +384,6 @@
 			isa = PBXGroup;
 			children = (
 				E02C351A274F8F6E00DD060C /* ALL PATHS-New.csv */,
-				E03211352716E89100262144 /* Learning_Objectives.csv */,
-				E0E87CCB27214EED00FEF3D6 /* Coders.csv */,
-				E03211362716E89100262144 /* Learning_Paths.csv */,
-				E0E87CD3272801BC00FEF3D6 /* ALL PATHS.csv */,
-				E03211342716E89100262144 /* Rubric_Level.csv */,
 			);
 			path = FakeData;
 			sourceTree = "<group>";
@@ -611,14 +596,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E0E87CD4272801BD00FEF3D6 /* ALL PATHS.csv in Resources */,
-				E03211372716E89100262144 /* Rubric_Level.csv in Resources */,
-				E0E87CCC27214EED00FEF3D6 /* Coders.csv in Resources */,
 				E02C351B274F8F6E00DD060C /* ALL PATHS-New.csv in Resources */,
 				55F4D7A8266188E10080E6A2 /* README-URGENT.txt in Resources */,
-				E03211392716E89100262144 /* Learning_Paths.csv in Resources */,
 				964B6633256E6022006AB20E /* Preview Assets.xcassets in Resources */,
-				E03211382716E89100262144 /* Learning_Objectives.csv in Resources */,
 				964B6630256E6022006AB20E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

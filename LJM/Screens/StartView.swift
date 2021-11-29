@@ -136,52 +136,52 @@ struct StartView: View {
         })
     }
     
-    @State var temp_Array : [CD_Evaluated_Object] = []
-    @State var jumpedTime = 0
+//    @State var temp_Array : [CD_Evaluated_Object] = []
+//    @State var jumpedTime = 0
     
-    func update_Store() {
-        
-        let context = PersistenceController.shared.container.newBackgroundContext()
-//        PersistenceController.container.newBackgroundContext()
-        var items : [EvaluatedObject] = []
-        var usable_Items : [CD_Evaluated_Object] = []
-        
-        do{
-            try items = context.fetch(EvaluatedObject.get_Evaluated_Object_List_Request())
-        } catch {
-            print("error : \(error)")
-        }
-        
-        for item in items {
-            usable_Items.append(CD_Evaluated_Object(id: item.id ?? "ND", eval_Date: item.eval_Dates as! [Date], eval_Score: item.eval_Scores as! [Int]))
-        }
-        
-        for objective_To_Add in usable_Items {
-            let possible_Index = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == objective_To_Add.id})
-            
-            if let index = possible_Index{
-                learningObjectiveStore.learningObjectives[index].eval_date = objective_To_Add.eval_Date
-                learningObjectiveStore.learningObjectives[index].eval_score = objective_To_Add.eval_Score
-            }
-        }
-        
-        if temp_Array.count > 0 {
-            if temp_Array ==  usable_Items{
-                if jumpedTime == 3 {
-                    timer?.invalidate()
-                    isLoading = false
-                    // TODO implement the name update here
-                } else {
-                    jumpedTime+=1
-                }
-            } else {
-                jumpedTime = 0
-            }
-        }
-        
-        temp_Array = usable_Items
-        
-        //        }
-    }
+//    func update_Store() {
+//
+//        let context = PersistenceController.shared.container.newBackgroundContext()
+////        PersistenceController.container.newBackgroundContext()
+//        var items : [EvaluatedObject] = []
+//        var usable_Items : [CD_Evaluated_Object] = []
+//
+//        do{
+//            try items = context.fetch(EvaluatedObject.get_Evaluated_Object_List_Request())
+//        } catch {
+//            print("error : \(error)")
+//        }
+//
+//        for item in items {
+//            usable_Items.append(CD_Evaluated_Object(id: item.id ?? "ND", eval_Date: item.eval_Dates as! [Date], eval_Score: item.eval_Scores as! [Int]))
+//        }
+//
+//        for objective_To_Add in usable_Items {
+//            let possible_Index = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == objective_To_Add.id})
+//
+//            if let index = possible_Index{
+//                learningObjectiveStore.learningObjectives[index].eval_date = objective_To_Add.eval_Date
+//                learningObjectiveStore.learningObjectives[index].eval_score = objective_To_Add.eval_Score
+//            }
+//        }
+//
+//        if temp_Array.count > 0 {
+//            if temp_Array ==  usable_Items{
+//                if jumpedTime == 3 {
+//                    timer?.invalidate()
+//                    isLoading = false
+//                    // TODO implement the name update here
+//                } else {
+//                    jumpedTime+=1
+//                }
+//            } else {
+//                jumpedTime = 0
+//            }
+//        }
+//
+//        temp_Array = usable_Items
+//
+//        //        }
+//    }
     
 }

@@ -73,32 +73,6 @@ struct learning_Path: Hashable {
     }
 }
 
-struct rubric_Level {
-    var ID : String
-    var levels : [Int]
-    
-    init(raw : [String]){
-        ID = raw[0]
-        levels = [] 
-        for index in 1...raw.count-1 {
-            levels.append(Int(raw[index]) ?? 0)
-        }
-    }
-    
-    init(new_Raw : [String]){
-        ID = new_Raw[0]
-        levels = []
-        for index in 1...new_Raw.count-1 {
-            levels.append(Int(new_Raw[index]) ?? 0)
-        }
-    }
-}
-
-struct profile {
-    var name : String = "Name Surname"
-    var image : Image?
-}
-
 enum CoreEnum: String {
     case core = "Core"
     case elective = "Elective"
