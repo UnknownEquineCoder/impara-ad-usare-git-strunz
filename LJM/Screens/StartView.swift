@@ -54,10 +54,13 @@ struct StartView: View {
                 
                 Spacer()
             }
+            
+            .frame(minWidth: 300, idealWidth: nil, maxWidth: 350, minHeight: nil, idealHeight: nil, maxHeight: nil, alignment:.center)
+
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button {
-                        
+
                         // IT will switch the presence of the sidebar
                         NSApp.sendAction(#selector(NSSplitViewController.toggleSidebar(_:)), to: nil, from: nil)
                     } label: {
@@ -65,7 +68,7 @@ struct StartView: View {
                     }
                 }
             }
-                .moveDisabled(true)
+//                .moveDisabled(true)
                     
                     
                     
@@ -102,12 +105,22 @@ struct StartView: View {
                         .environmentObject(strandsStore)
                 }
             }
+                
         }
+        .navigationViewStyle(.automatic)
+
+//        .introspectSplitViewController { controller in
+//            // some examples
+//            controller.preferredSupplementaryColumnWidthFraction = 3
+//            controller.preferredPrimaryColumnWidth = 180
+//            controller.preferredDisplayMode = .twoBesideSecondary
+//            controller.presentsWithGesture = false
+//      }
         .onTapGesture {
             NSApp.keyWindow?.makeFirstResponder(nil)
         }
         .onAppear(perform: {
-            
+
             learningObjectiveStore.load_Test_Data() {
                 
                 learningObjectiveStore.load_Status(objectives: objectives)

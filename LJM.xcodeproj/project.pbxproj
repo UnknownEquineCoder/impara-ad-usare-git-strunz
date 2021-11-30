@@ -47,6 +47,8 @@
 		96CE7BC625C4183A006C4CDA /* FilterChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CE7BC525C4183A006C4CDA /* FilterChoice.swift */; };
 		96E2DD852726EF170007D49B /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E2DD842726EF170007D49B /* SearchBar.swift */; };
 		E02C351B274F8F6E00DD060C /* ALL PATHS-New.csv in Resources */ = {isa = PBXBuildFile; fileRef = E02C351A274F8F6E00DD060C /* ALL PATHS-New.csv */; };
+		E02C351E27561CBD00DD060C /* pie_Chart_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02C351D27561CBD00DD060C /* pie_Chart_View.swift */; };
+		E02C352027561CD500DD060C /* pie_Chart_Slice.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02C351F27561CD500DD060C /* pie_Chart_Slice.swift */; };
 		E02DFE8A270AEC3F004FF8B7 /* newModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02DFE89270AEC3F004FF8B7 /* newModels.swift */; };
 		E02DFE8C270C41E5004FF8B7 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02DFE8B270C41E5004FF8B7 /* Observable.swift */; };
 		E04251AD27295F34000A1D69 /* StudentData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E04251AB27295F34000A1D69 /* StudentData.xcdatamodeld */; };
@@ -160,6 +162,8 @@
 		96E2DD842726EF170007D49B /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		E000216D274BF0CB0059A1C9 /* LJM.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = LJM.entitlements; sourceTree = "<group>"; };
 		E02C351A274F8F6E00DD060C /* ALL PATHS-New.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ALL PATHS-New.csv"; sourceTree = "<group>"; };
+		E02C351D27561CBD00DD060C /* pie_Chart_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pie_Chart_View.swift; sourceTree = "<group>"; };
+		E02C351F27561CD500DD060C /* pie_Chart_Slice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pie_Chart_Slice.swift; sourceTree = "<group>"; };
 		E02DFE89270AEC3F004FF8B7 /* newModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = newModels.swift; sourceTree = "<group>"; };
 		E02DFE8B270C41E5004FF8B7 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		E04251AC27295F34000A1D69 /* profile.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = profile.xcdatamodel; sourceTree = "<group>"; };
@@ -369,6 +373,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E02C351C27561CA100DD060C /* Test Element */ = {
+			isa = PBXGroup;
+			children = (
+				E02C351D27561CBD00DD060C /* pie_Chart_View.swift */,
+				E02C351F27561CD500DD060C /* pie_Chart_Slice.swift */,
+			);
+			path = "Test Element";
+			sourceTree = "<group>";
+		};
 		E02DFE8D270C41F4004FF8B7 /* New Backend */ = {
 			isa = PBXGroup;
 			children = (
@@ -383,6 +396,7 @@
 		E032112D2716E6F900262144 /* FakeData */ = {
 			isa = PBXGroup;
 			children = (
+				E02C351C27561CA100DD060C /* Test Element */,
 				E02C351A274F8F6E00DD060C /* ALL PATHS-New.csv */,
 			);
 			path = FakeData;
@@ -664,6 +678,7 @@
 				E02DFE8A270AEC3F004FF8B7 /* newModels.swift in Sources */,
 				962F090E25E7C4F1001EAE85 /* ParticularCircle.swift in Sources */,
 				9641C4A525778F1D0088A0B6 /* SizesExtension.swift in Sources */,
+				E02C352027561CD500DD060C /* pie_Chart_Slice.swift in Sources */,
 				E04251AD27295F34000A1D69 /* StudentData.xcdatamodeld in Sources */,
 				964B662C256E6020006AB20E /* LJMApp.swift in Sources */,
 				EAF3703E257A2AC400C72707 /* ScrollViewLearningObjectives.swift in Sources */,
@@ -680,6 +695,7 @@
 				960A8B2125E7B9FA00492C3F /* RadarGraphFrame.swift in Sources */,
 				E04251B3272AAABA000A1D69 /* percistency_Manager.swift in Sources */,
 				967EE8CB256E722F008065C9 /* AddImageButton.swift in Sources */,
+				E02C351E27561CBD00DD060C /* pie_Chart_View.swift in Sources */,
 				EAF37039257A2A4900C72707 /* EmptyLearningObjectiveViewJourney.swift in Sources */,
 				EA686F18256EF69100C121DC /* MapView.swift in Sources */,
 				EACB5D8025C2D0A2006BA903 /* HistoryProgressView.swift in Sources */,
@@ -850,7 +866,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"LJM/Preview Content\"";
-				DEVELOPMENT_TEAM = GF68KA6N32;
+				DEVELOPMENT_TEAM = QJTRTDLS6U;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = LJM/Info.plist;
@@ -879,7 +895,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"LJM/Preview Content\"";
-				DEVELOPMENT_TEAM = GF68KA6N32;
+				DEVELOPMENT_TEAM = QJTRTDLS6U;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = LJM/Info.plist;
