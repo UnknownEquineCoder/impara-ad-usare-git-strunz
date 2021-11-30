@@ -35,11 +35,12 @@ struct StartView: View {
                         ForEach(OutlineMenu.allCases) { menu in
                             ZStack(alignment: .leading) {
                                 OutlineRow(item: menu, selectedMenu: self.$selectedMenu)
-                                    .frame(height: 54).padding([.leading, .trailing], 10)
+                                    .frame(height: 40)
+                                    .padding([.leading, .trailing], 10)
                                 if menu == self.selectedMenu {
                                     RoundedRectangle(cornerRadius: 8)
                                         .foregroundColor(Color.secondary.opacity(0.1))
-                                        .frame(height: 54)
+                                        .frame(height: 40)
                                         .padding([.leading, .trailing], 10)
                                 }
                             }
