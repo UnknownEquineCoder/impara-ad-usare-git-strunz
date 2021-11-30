@@ -42,23 +42,22 @@ struct OutlineRow : View {
     }
     
     var body: some View {
-        HStack(spacing: 30) {
+        HStack(spacing: 15) {
             Group {
                 Image(item.image)
-                    .frame(width: 2.0)
-                    .imageScale(.small)
+                    .resizable()
+                    .frame(width: 16, height: 16)
+                    //.imageScale(.small)
                     .foregroundColor(Color(red: 25/255, green: 144/255, blue: 135/255))
             }
-            .frame(width: 40)
             Text(item.title)
                 .foregroundColor(isSelected ? .customBlack : .primary)
-                .font(.system(size: 20, weight: .regular))
-                .frame(width: 150, alignment: .leading)
+                .font(.system(size: 18, weight: .regular))
         }
 //        .contentShape(Rectangle())
         .contentShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
         .padding()
-        .padding(.leading, 25)
+//        .padding(.leading, 10)
         .cursor(.pointingHand)
         .onTapGesture {
             self.selectedMenu = self.item

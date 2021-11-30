@@ -29,13 +29,8 @@ struct StartView: View {
     @ViewBuilder
     var body: some View {
         
-        
         NavigationView {
-            
-            VStack {
-                StudentPictureView(size: 85)
-                    .padding(.trailing)
-                
+            VStack(alignment: .leading) {
                     VStack(alignment: .leading) {
                         ForEach(OutlineMenu.allCases) { menu in
                             ZStack(alignment: .leading) {
@@ -50,14 +45,14 @@ struct StartView: View {
                             }
                         }
                     }
-                    .padding(.top, 32)
                 
                 Spacer()
+                StudentPictureView()
+                    .padding(.bottom, 50)
             }
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button {
-                        
                         // IT will switch the presence of the sidebar
                         NSApp.sendAction(#selector(NSSplitViewController.toggleSidebar(_:)), to: nil, from: nil)
                     } label: {
@@ -65,13 +60,7 @@ struct StartView: View {
                     }
                 }
             }
-                .moveDisabled(true)
                     
-                    
-                    
-                
-            
-            
             // View connected to the sidebar
             if isLoading {
                 HStack{

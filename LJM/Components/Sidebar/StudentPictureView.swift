@@ -44,7 +44,7 @@ struct StudentPictureView: View {
         animation: .default)
     private var student: FetchedResults<Student>
     
-    var size: CGFloat = 140
+    var size: CGFloat = 50
     @State var imageName: String = "UserPlaceholder"
     @State var imageData : Data?
     @State var username : String = "Name"
@@ -90,9 +90,9 @@ struct StudentPictureView: View {
                         }
                     }
                 
-                Circle()
-                    .strokeBorder(LinearGradient(gradient: Gradient(colors: [Color("Light green"), Color("Dark green")]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 3)
-                    .frame(width: size.toScreenSize(), height: size.toScreenSize(), alignment: .leading)
+//                Circle()
+//                    .strokeBorder(LinearGradient(gradient: Gradient(colors: [Color("Light green"), Color("Dark green")]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 3)
+//                    .frame(width: size.toScreenSize(), height: size.toScreenSize(), alignment: .leading)
                 AddImageButton(buttonSize: (size/4).toScreenSize(), imageName: $imageName, imageData: $imageData, username: $username)
                     .padding([.top, .leading], 0.66*size.toScreenSize())
                 
@@ -101,7 +101,6 @@ struct StudentPictureView: View {
             ProfileNameLabel(name: $username, image_Data: $imageData)
                 .frame(width: 150)
         }
-        .padding(.trailing)
     }
 }
 

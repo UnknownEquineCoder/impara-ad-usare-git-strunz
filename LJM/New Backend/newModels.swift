@@ -38,7 +38,7 @@ struct learning_Objective : Equatable, Encodable, Decodable {
     private var rubric_Level_Types = ["Beginning","Progressing","Proficient","Exemplary"]
     
     /**
-        Function to init the learning_Objective starting from CSV file
+        Function to init starting from CSV file
      */
     init(learning_Objective_Raw : [String]){
         

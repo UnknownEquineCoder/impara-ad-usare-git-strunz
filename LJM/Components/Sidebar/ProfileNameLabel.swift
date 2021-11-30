@@ -18,14 +18,14 @@ struct ProfileNameLabel: View {
     @StateObject var learningObjectiveStore = LearningObjectivesStore()
     
     var body: some View {
-        VStack(spacing: 5){
-            Text("Hello,")
-                .fontWeight(.regular)
-                .font(.system(size: 25.toFontSize()))
-                .scaledToFit()
-                .foregroundColor(colorScheme == .dark ? .white : Color(red: 70/255, green: 70/255, blue: 70/255))
-                .fixedSize(horizontal: false, vertical: true)
-                .padding(.trailing, 95)
+//        VStack(spacing: 5){
+//            Text("Hello,")
+//                .fontWeight(.regular)
+//                .font(.system(size: 25.toFontSize()))
+//                .scaledToFit()
+//                .foregroundColor(colorScheme == .dark ? .white : Color(red: 70/255, green: 70/255, blue: 70/255))
+//                .fixedSize(horizontal: false, vertical: true)
+//                .padding(.trailing, 95)
             
             TextField("Your name here", text: $name)
                 .cursor(.pointingHand)
@@ -43,7 +43,7 @@ struct ProfileNameLabel: View {
                     }
                     
                 }
-                .font(.system(size: 25.toFontSize()))
+                .font(.system(size: 18.toFontSize()))
                 .textFieldStyle(PlainTextFieldStyle())
                 .font(Font.headline.weight(.regular))
                 .foregroundColor(colorScheme == .dark ? .white : Color(red: 70/255, green: 70/255, blue: 70/255))
@@ -53,6 +53,6 @@ struct ProfileNameLabel: View {
                 .cursor(.pointingHand)
             
             
-        }
+//        }
     }
 }
