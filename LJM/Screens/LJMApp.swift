@@ -52,7 +52,7 @@ struct LJMApp: App {
                     )
                 }
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight!, alignment: .center)
+                .frame(minWidth: NSScreen.screenWidth! * 0.8, maxWidth: NSScreen.screenWidth!, minHeight: NSScreen.screenHeight! * 0.8, maxHeight: NSScreen.screenHeight!, alignment: .center)
                 .fileExporter(
                     isPresented: $exportFile,
                     document: document,
@@ -66,7 +66,6 @@ struct LJMApp: App {
                     }
                 }
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight, alignment: .center)
                 .fileExporter(
                     isPresented: $exportFile,
                     document: document,
