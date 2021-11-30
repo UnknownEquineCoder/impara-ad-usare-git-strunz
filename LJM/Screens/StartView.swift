@@ -48,7 +48,6 @@ struct StartView: View {
                 
                 Spacer()
                 StudentPictureView()
-                    .padding(.bottom, 50)
             }
             
             .frame(minWidth: 300, idealWidth: nil, maxWidth: 350, minHeight: nil, idealHeight: nil, maxHeight: nil, alignment:.center)
