@@ -21,12 +21,14 @@ struct learning_Objective : Equatable, Encodable, Decodable {
     var goal : String
     /** Description */
     var description : String
+    /** Boolean to distinguish from core and elective learning objectives */
     var isCore : Bool
+    /** Array to store the keywords of each learning objectives */
     var Keyword : [String]
     
-    /** Score history */
+    /** Store the score history */
     var eval_score : [Int]
-    /** Date of score history */
+    /** Date of each score history */
     var eval_date : [Date]
     
     /** UNUSED - documentation reference */
@@ -38,7 +40,7 @@ struct learning_Objective : Equatable, Encodable, Decodable {
     private var rubric_Level_Types = ["Beginning","Progressing","Proficient","Exemplary"]
     
     /**
-        Function to init starting from CSV file
+        Function to init starting from CSV file rapresented by an array of strings
      */
     init(learning_Objective_Raw : [String]){
         
