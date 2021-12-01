@@ -10,6 +10,8 @@ struct StartView: View {
     @State var timer: Timer?
     @State var runCount = 0
     
+    @State var dim : CGFloat = 0
+    
     //    @FetchRequest(
     //        sortDescriptors: [],
     //        animation: .default)
@@ -25,6 +27,17 @@ struct StartView: View {
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     
     @State var filter_Path = "None"
+    
+    func selectedView() -> AnyView {
+        switch selectedMenu {
+        case .compass:
+            return AnyView(CompassView(path: $filter_Path))
+        case .journey:
+            return AnyView(MyJourneyMainView(selectedMenu: $selectedMenu))
+        case .map:
+            return AnyView(MapMainView())
+        }
+    }
     
     @ViewBuilder
     var body: some View {
@@ -50,13 +63,10 @@ struct StartView: View {
                 Spacer()
                 StudentPictureView()
             }
-            
-            .frame(minWidth: 300, idealWidth: nil, maxWidth: 350, minHeight: nil, idealHeight: nil, maxHeight: nil, alignment:.center)
 
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button {
-
                         // IT will switch the presence of the sidebar
                         NSApp.sendAction(#selector(NSSplitViewController.toggleSidebar(_:)), to: nil, from: nil)
                     } label: {
@@ -64,8 +74,7 @@ struct StartView: View {
                     }
                 }
             }
-                    
-            // View connected to the sidebar
+            
             if isLoading {
                 HStack{
                     Spacer()
@@ -77,63 +86,29 @@ struct StartView: View {
                     Spacer()
                 }
             } else {
-                switch selectedMenu {
-                case .compass:
-                    CompassView(path: $filter_Path)
+                    
+                    selectedView()
                         .environmentObject(totalNumberLearningObjectivesStore)
                         .environmentObject(learningPathsStore)
                         .environmentObject(strandsStore)
-                case .journey:
-                    MyJourneyMainView(selectedMenu: $selectedMenu)
-                        .environmentObject(totalNumberLearningObjectivesStore)
-                        .environmentObject(learningPathsStore)
-                        .environmentObject(strandsStore)
-                case .map:
-                    MapMainView()
-                        .environmentObject(totalNumberLearningObjectivesStore)
-                        .environmentObject(learningPathsStore)
-                        .environmentObject(strandsStore)
-                }
+                        .frame(minWidth: NSScreen.screenWidth! - 403, idealWidth: nil, maxWidth: nil, minHeight: nil, idealHeight: nil, maxHeight: nil, alignment: .leading)
+                
+                    
             }
                 
         }
         .navigationViewStyle(.automatic)
-
-//        .introspectSplitViewController { controller in
-//            // some examples
-//            controller.preferredSupplementaryColumnWidthFraction = 3
-//            controller.preferredPrimaryColumnWidth = 180
-//            controller.preferredDisplayMode = .twoBesideSecondary
-//            controller.presentsWithGesture = false
-//      }
+        
         .onTapGesture {
             NSApp.keyWindow?.makeFirstResponder(nil)
         }
         .onAppear(perform: {
-
+//            NSToolbar().colo
             learningObjectiveStore.load_Test_Data() {
                 
                 learningObjectiveStore.load_Status(objectives: objectives)
                 learningPathsStore.load_Learning_Path()
                 strandsStore.setupStrandsOnNativeFilter(learningObjectives: learningObjectiveStore.learningObjectives)
-                
-//                if learningObjectiveStore.learningObjectives.filter({$0.eval_score.count>0}).count == 0 {
-//                    withAnimation {
-//                        isLoading = true
-//                    }
-//
-////                    timer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true) { timer in
-////                        update_Store()
-////                        runCount+=1
-////                        if runCount == 50 {
-////                            withAnimation {
-////                                isLoading = false
-////                            }
-////                            timer.invalidate()
-////                        }
-////                    }
-//                }
-                
                 
             }
         })
