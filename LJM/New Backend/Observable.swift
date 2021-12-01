@@ -10,7 +10,6 @@ import SwiftUI
 
 class singleton_Shared {
     static let shared = singleton_Shared()
-    var profile_data : profile = profile()
     var learning_Objectives : [learning_Objective] = []
 }
 
@@ -78,7 +77,8 @@ class LearningObjectivesStore: ObservableObject {
         /// core data implementation
         
         if isSavable {
-            let cd_Learned_Obectives = PersistenceController().load(objectives: objectives)
+            let cd_Learned_Obectives = PersistenceController()
+                .load(objectives: objectives)
             
             for evaluated_Ojectives in cd_Learned_Obectives {
                 

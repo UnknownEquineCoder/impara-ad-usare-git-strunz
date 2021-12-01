@@ -36,6 +36,7 @@ struct LJMApp: App {
     var body: some Scene {
         WindowGroup {
             StartView(isLoading: $isLoading)
+                
                 .alert(isPresented: $showingAlertImport) {
                     Alert(
                         title: isSavable ? Text("Importing this file will overwrite your old data. \n\n Do you want to proceed?") : Text("Importing this file will only display the new data. \n\n Any changes will not be saved."),
@@ -51,7 +52,7 @@ struct LJMApp: App {
                     )
                 }
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight!, alignment: .center)
+                .frame(minWidth: NSScreen.screenWidth! * 0.8, maxWidth: NSScreen.screenWidth!, minHeight: NSScreen.screenHeight! * 0.8, maxHeight: NSScreen.screenHeight!, alignment: .center)
                 .fileExporter(
                     isPresented: $exportFile,
                     document: document,
@@ -65,7 +66,6 @@ struct LJMApp: App {
                     }
                 }
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                .frame(width: NSScreen.screenWidth, height: NSScreen.screenHeight, alignment: .center)
                 .fileExporter(
                     isPresented: $exportFile,
                     document: document,
