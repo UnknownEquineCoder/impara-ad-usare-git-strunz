@@ -82,6 +82,7 @@ struct CompassView: View {
                     }
                     ScrollView(showsIndicators: false){
                         DatePickerView(pickerDate: $selected_Date)
+                            .environment(\.locale, Locale(identifier: "en"))
                             .padding(.top, 7.toScreenSize())
                             .onChange(of: selected_Date) { date in
                                 bars_For_Path_Selected()
