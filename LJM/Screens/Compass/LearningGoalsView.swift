@@ -69,4 +69,5 @@ struct LearningGoalsView: View {
         }.padding(.leading, 50).padding(.trailing, 50)
         
     }
+    
 }

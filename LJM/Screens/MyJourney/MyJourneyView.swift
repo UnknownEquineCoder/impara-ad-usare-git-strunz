@@ -33,6 +33,8 @@ struct MyJourneyView: View {
     
     // check if filter updating
     
+    @State var filtered_Learning_Objectives : [learning_Objective] = []
+    
     @State var isUpdated : Bool = false
     @State private var toggleFilters: Bool = false
     
@@ -80,6 +82,7 @@ struct MyJourneyView: View {
                 onFiltersChange: { filters in
                     print("Filters Updated")
                     print(filters)
+                    filtered_Learning_Objectives = filterLearningObjective(filters: filters)
                 })
                 .opacity(toggleFilters ? 1 : 0)
                 .frame(height: toggleFilters ? .none : 0)
@@ -106,6 +109,63 @@ struct MyJourneyView: View {
     func checkIfMyJourneyIsEmpty() -> Bool {
         let evaluated_Objectives = self.learningObjectiveStore.learningObjectives.filter({$0.eval_score.count > 0})
         return evaluated_Objectives.isEmpty
+    }
+    
+    func filterLearningObjective(filters : Dictionary<String, Array<String>>) -> [learning_Objective]{
+        
+        let return_Learning_Objectives = learningObjectiveStore.learningObjectives.filter({
+            var path_Index : Int? = nil
+            if let first_Strand = filters["Strands"]!.first {
+                path_Index = learningPathStore.learningPaths.firstIndex(where: {$0.title == first_Strand})
+            }
+             
+            // parentesis for not breaking anithing, if you delete the parentesis it does not work because false && false && true && true is a true and not a false
+            
+            return (
+                // check if the learning objective had been evaluated ( for the map view )
+//                !$0.eval_score.isEmpty
+                // filter for all/core/elective
+                
+                /// ["Main": [], "Sort by": [], "Path": [], "Strands": ["Design"]]
+                (
+                    (
+                        filters["Main"]!.contains("Core") ? $0.isCore :
+                        filters["Main"]!.contains("Elective") ? !$0.isCore :
+                        true
+                    )
+    //                // filter for the searchbar /// Not present now inside the filters
+//                    && (
+//                        searchText.isEmpty ||
+//                        $0.goal.lowercased().contains(searchText.lowercased()) ||
+//                        $0.description.lowercased().contains(searchText.lowercased()) ||
+//                        $0.Keyword.contains(where: {$0.lowercased().contains(searchText.lowercased())}) ||
+//                        $0.strand.lowercased().contains(searchText.lowercased()) ||
+//                        $0.goal_Short.lowercased().contains(searchText.lowercased()) ||
+//                        $0.ID.lowercased().contains(searchText.lowercased())
+//                    )
+                )
+                && (
+                    (
+                        // filter for strands
+                        filters["Strans"]!.count == 0 ? true : selectedStrands.contains($0.strand)
+    //
+                    )
+                    && (
+                        // filter for path
+                        (path_Index == nil) ? true : (($0.core_Rubric_Levels[path_Index ?? 0] * $0.core_Rubric_Levels[0] ) > 1)
+                    )
+                    && (
+                        // filter if an element was alredy evaluated or not
+                        filters["Main"]!.contains("Evaluated") ? $0.eval_score.count > 0 :
+                        filters["Main"]!.contains("Not Evaluated") ? $0.eval_score.isEmpty :
+                        true
+//                        selectedEvaluatedOrNotFilter == nil ? true : selectedEvaluatedOrNotFilter == .evaluated ? $0.eval_score.count > 0 : $0.eval_score.isEmpty
+                    )
+                )
+            )
+        })
+        
+        return return_Learning_Objectives
     }
 }
 
