@@ -22,7 +22,7 @@ struct MyJourneyView: View {
     
     @Binding var selectedMenu: OutlineMenu
     
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) var colorScheme1
     
     // new data flow
     
@@ -30,6 +30,10 @@ struct MyJourneyView: View {
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     @EnvironmentObject var strandsStore: StrandsStore
     @EnvironmentObject var totalNumberLearningObjectivesStore : TotalNumberOfLearningObjectivesStore
+    
+    // check if filter updating
+    
+    @State var isUpdated : Bool = false
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -43,27 +47,20 @@ struct MyJourneyView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.top, 50)
                 
-//                SortButtonMenu().padding(.top, 185)
-//                ContextMenuFilters().padding(.top, 185).padding(.leading, 90)
-//                ContextMenuFilters().padding(.top, 185).padding(.leading, 130)
-                
-//                ScrollViewFiltersJourney(filterTabs: arrayFilters, selectedFilter: $selectedFilter)
-//                    .padding(.top, 180)
-                
             }.frame(maxWidth: .infinity)
             
             HStack {
                 
                 SortButtonMenu(selectedSort: $selectedSort).cursor(.pointingHand)
-                ContextMenuFilters(fromMap: false, fromCompass: false, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedEvaluatedOrNotFilter: $selectedEvaluatedOrNotFilter).cursor(.pointingHand)
+                ContextMenuFilters(fromMap: false, fromCompass: false, isUpdated: $isUpdated, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedEvaluatedOrNotFilter: $selectedEvaluatedOrNotFilter).cursor(.pointingHand)
 //                DropDownMenuSort()
 //                    .buttonStyle(PlainButtonStyle())
                 
 //                DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: strandsStore.arrayStrandsFilter)
 //                    .buttonStyle(PlainButtonStyle())
                 
-                SearchBarExpandableJourney(txtSearchBar: $searchText)
-                    .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .red)
+                SearchBarExpandableJourney(txtSearchBar: $searchText, isUpdated: $isUpdated)
+//                    .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .red)
             }
             .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
             
@@ -124,7 +121,6 @@ struct ListViewLearningObjectiveMyJourney: View {
     @EnvironmentObject var totalNumberLearningObjectivesStore : TotalNumberOfLearningObjectivesStore
     
     var body: some View {
-        
         if !checkIfMyJourneyIsEmpty() {
             ZStack(alignment: .top) {
                 

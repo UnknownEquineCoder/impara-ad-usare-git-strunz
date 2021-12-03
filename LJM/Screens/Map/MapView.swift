@@ -27,6 +27,14 @@ struct MapView: View {
     @EnvironmentObject var strandsStore: StrandsStore
     @EnvironmentObject var totalNumberLearningObjectivesStore : TotalNumberOfLearningObjectivesStore
     
+    // check if the filters was updated
+    
+    @State var isUpdated : Bool = false
+    
+    // filtered learning objectives
+    
+    @State var filtered_Learning_Objectives : [learning_Objective] = []
+    
     
     var body: some View {
         
@@ -35,7 +43,6 @@ struct MapView: View {
                 
                 HStack {
                     TitleScreenView(title: "Map")
-                    
                     Spacer()
                 }
                 
@@ -43,39 +50,12 @@ struct MapView: View {
                     DescriptionTitleScreenView(desc: "The Map provides access to all the current Learning Objectives in the Academy Curriculum. The Communal Learning Objectives will be adressed during the Challenges and added to your Journey. You can also explore and add Elective Learning Objectives based on your interests and the profile of specific career paths.")
                 }
                 
-//                HStack {
-//                    Text("Views")
-//                        .fontWeight(.light)
-//                        .foregroundColor(Color.gray)
-//                        .font(.system(size: 20))
-//                    ScrollViewFilters(filterTabs: self.filterTabsMap, selectedFilter: $selectedFilter, vm: ScrollToModel())
-//                    //                            .padding(.top, 20)
-//                        .font(.system(size: 15, weight: .medium, design: .rounded))
-//                        .padding(.leading, 10)
-//                }
-                
-//                HStack{
-//
-//                    Text("Paths")
-//                        .fontWeight(.light)
-//                        .foregroundColor(Color.gray)
-//                        .font(.system(size: 20))
-//
-//                    ScrollViewFilters(filterTabs: getLearningPath(learningPaths: learningPathStore.learningPaths), selectedFilter: $selectedFilter, vm: ScrollToModel())
-//                        .padding(.leading, 10)
-//                        .font(.system(size: 15, weight: .medium, design: .rounded))
-//                }
                 
                 HStack {
-//                    DropDownMenuSort()
-//                        .buttonStyle(PlainButtonStyle())
-//                    SortButtonMenu(selectedSort: $selectedSort)
-                    ContextMenuFilters(fromMap: true, fromCompass: false, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedEvaluatedOrNotFilter: $selectedEvaluatedOrNotFilter).cursor(.pointingHand)
-//                    DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: strandsStore.arrayStrandsFilter)
-//                        .buttonStyle(PlainButtonStyle())
+                    ContextMenuFilters(fromMap: true, fromCompass: false, isUpdated: $isUpdated, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedEvaluatedOrNotFilter: $selectedEvaluatedOrNotFilter).cursor(.pointingHand)
                     
-                    SearchBarExpandableJourney(txtSearchBar: $searchText)
-//                        .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
+                    SearchBarExpandableJourney(txtSearchBar: $searchText, isUpdated: $isUpdated)
+                    
                 }
                 
                 ZStack(alignment: .top) {
@@ -95,6 +75,9 @@ struct MapView: View {
                 
                 Spacer()
             }
+            .onChange(of: isUpdated) { newValue in
+                    filterLearningObjective()
+            }
         }.padding(.leading, 50).padding(.trailing, 50)
     }
     
@@ -112,14 +95,50 @@ struct MapView: View {
         let evaluated_Objectives = self.learningObjectiveStore.learningObjectives.filter({$0.eval_score.count > 0})
         return evaluated_Objectives.isEmpty
     }
-}
-
-class ScrollToModel2: ObservableObject {
-    enum Action {
-        case left
-        case right
+    
+    func filterLearningObjective(){
+        
+        filtered_Learning_Objectives = learningObjectiveStore.learningObjectives.filter({
+            let path_Index = learningPathStore.learningPaths.firstIndex(where: {$0.title == selectedPath})
+            // parentesis for not breaking anithing, if you delete the parentesis it does not work because false && false && true && true is a true and not a false
+            return (
+                // check if the learning objective had been evaluated ( for the map view )
+//                !$0.eval_score.isEmpty
+                // filter for all/core/elective
+                (
+                    (
+                        selectedFilter == "CORE" ? $0.isCore :
+                        selectedFilter == "ELECTIVE" ? !$0.isCore :
+                        true
+                    )
+    //                // filter for the searchbar
+                    && (
+                        searchText.isEmpty ||
+                        $0.goal.lowercased().contains(searchText.lowercased()) ||
+                        $0.description.lowercased().contains(searchText.lowercased()) ||
+                        $0.Keyword.contains(where: {$0.lowercased().contains(searchText.lowercased())}) ||
+                        $0.strand.lowercased().contains(searchText.lowercased()) ||
+                        $0.goal_Short.lowercased().contains(searchText.lowercased()) ||
+                        $0.ID.lowercased().contains(searchText.lowercased())
+                    )
+                )
+                && (
+                    (
+                        // filter for strands
+                        selectedStrands.count == 0 ? true : selectedStrands.contains($0.strand)
+    //
+                    )
+                    && (
+                        // filter for path
+                        (path_Index == nil) ? true : (($0.core_Rubric_Levels[path_Index ?? 0] * $0.core_Rubric_Levels[0] ) > 1)
+                    )
+                    && (
+                        // filter if an element was alredy evaluated or not
+                        selectedEvaluatedOrNotFilter == nil ? true : selectedEvaluatedOrNotFilter == .evaluated ? $0.eval_score.count > 0 : $0.eval_score.isEmpty
+                    )
+                )
+            )
+        })
     }
-    @Published var direction: Action? = nil
 }
-
 

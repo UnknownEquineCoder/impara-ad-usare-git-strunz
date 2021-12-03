@@ -19,7 +19,6 @@ struct MyJourneyMainView: View {
     
     var body: some View {
         ZStack(alignment: .top) {
-            
             MyJourneyView(selectedMenu: $selectedMenu)
                 .modifier(PaddingMainSubViews())
             

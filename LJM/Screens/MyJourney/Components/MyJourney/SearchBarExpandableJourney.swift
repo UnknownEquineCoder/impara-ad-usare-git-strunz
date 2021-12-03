@@ -12,6 +12,8 @@ struct SearchBarExpandableJourney: View {
     @Binding var txtSearchBar : String
     @Environment(\.colorScheme) var colorScheme
     
+    @Binding var isUpdated : Bool
+    
     var body: some View {
         
         HStack {
@@ -28,6 +30,9 @@ struct SearchBarExpandableJourney: View {
                     TextField("Search", text: $txtSearchBar)
                         .foregroundColor(Color.customBlack)
                         .textFieldStyle(RoundedBorderTextFieldStyle.init())
+                        .onChange(of: txtSearchBar) { _ in
+                            isUpdated.toggle()
+                        }
                     
                     Button(action: {
                         withAnimation {
@@ -59,6 +64,6 @@ struct SearchBarExpandableJourney: View {
 
 struct SearchBarExpandableJourney_Previews: PreviewProvider {
     static var previews: some View {
-        SearchBarExpandableJourney(txtSearchBar: .constant("rrr"))
+        SearchBarExpandableJourney(txtSearchBar: .constant("rrr"), isUpdated: .constant(true))
     }
 }

@@ -14,6 +14,8 @@ struct ContextMenuFilters: View {
     var fromCompass = false
     var arrayMainFilters = ["All", "Core", "Elective"]
     
+    @Binding var isUpdated : Bool
+    
     @Binding var selectedFilter: CoreEnum.RawValue
     @Binding var selectedPath : String?
     @Binding var selectedStrands : [String]
@@ -35,11 +37,10 @@ struct ContextMenuFilters: View {
                             selectedPath = nil
                             selectedStrands = []
                             selectedEvaluatedOrNotFilter = nil
-                            selectedFilter =  "nil"
+                            selectedFilter = mainFilter.uppercased()
                             
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.001) {
-                                selectedFilter = mainFilter.uppercased()
-                            }
+                            isUpdated.toggle()
+                            
                             
                         } label: {
                             HStack {
@@ -53,6 +54,8 @@ struct ContextMenuFilters: View {
                     } else {
                         Button {
                             selectedFilter = mainFilter.uppercased()
+                            isUpdated.toggle()
+                            
                         } label: {
                             HStack {
                                 Text(mainFilter)
@@ -72,6 +75,9 @@ struct ContextMenuFilters: View {
                         } else {
                             self.selectedStrands.remove(object: strand)
                         }
+                        
+                        isUpdated.toggle()
+                        
                     } label: {
                         HStack {
                             Text(strand)
@@ -89,6 +95,8 @@ struct ContextMenuFilters: View {
                 ForEach(self.learningPathsStore.learningPaths.filter({$0.title != "None"}), id: \.title) { learningPath in
                         Button {
                             selectedPath = selectedPath == learningPath.title ? nil : learningPath.title
+                            isUpdated.toggle()
+                            
                         } label: {
                             HStack {
                                 Text(learningPath.title)
@@ -105,6 +113,8 @@ struct ContextMenuFilters: View {
                 if fromMap || fromCompass {
                     Button {
                         selectedEvaluatedOrNotFilter = selectedEvaluatedOrNotFilter == .evaluated ? nil : .evaluated
+                        isUpdated.toggle()
+                        
                     } label: {
                         HStack {
                             Text("Evaluated")
@@ -115,6 +125,8 @@ struct ContextMenuFilters: View {
                     
                     Button {
                         selectedEvaluatedOrNotFilter = selectedEvaluatedOrNotFilter == .notEvaluated ? nil : .notEvaluated
+                        isUpdated.toggle()
+                        
                     } label: {
                         HStack {
                             Text("Not Evaluated")
