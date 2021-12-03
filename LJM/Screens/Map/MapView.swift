@@ -26,6 +26,7 @@ struct MapView: View {
     @EnvironmentObject var strandsStore: StrandsStore
     @EnvironmentObject var totalNumberLearningObjectivesStore : TotalNumberOfLearningObjectivesStore
     
+    @State private var toggleFilters: Bool = false
     // check if the filters was updated
     
     @State var isUpdated : Bool = false
@@ -37,62 +38,62 @@ struct MapView: View {
     
     var body: some View {
         
-        VStack {
+        
             VStack(alignment: .leading) {
                 
-                ScrollView(showsIndicators: false) {
+                
+                TitleScreenView(title: "Map")
+               
+                DescriptionTitleScreenView(desc: "The Map provides access to all the current Learning Objectives in the Academy Curriculum. The Communal Learning Objectives will be adressed during the Challenges and added to your Journey. You can also explore and add Elective Learning Objectives based on your interests and the profile of specific career paths.")
+                
+                
+                HStack {
                     
-                    ZStack(alignment: .topLeading) {
-                        
-                        TitleScreenView(title: "Map")
-                        
-                        VStack(alignment: .leading) {
-                            DescriptionTitleScreenView(desc: "The Map provides access to all the current Learning Objectives in the Academy Curriculum. The Communal Learning Objectives will be adressed during the Challenges and added to your Journey. You can also explore and add Elective Learning Objectives based on your interests and the profile of specific career paths.")
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.top, 50)
-                        
-                    }.frame(maxWidth: .infinity)
-                        .padding(.top, 40)
-                    
-                    HStack {
-                        ContextMenuFilters(fromMap: true, fromCompass: false, isUpdated: $isUpdated, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedEvaluatedOrNotFilter: $selectedEvaluatedOrNotFilter).cursor(.pointingHand)
-                        
-                        SearchBarExpandableJourney(txtSearchBar: $searchText, isUpdated: $isUpdated)
-                        
-                    }
-                    
-                    ZStack(alignment: .top) {
-                        NumberTotalLearningOjbectivesView(totalLOs: self.totalNumberLearningObjectivesStore.total)
-                        
-                        Text("No learning objectives found ...")
-                            .font(.system(size: 25, weight: .semibold, design: .rounded))
-                            .multilineTextAlignment(.center)
-                            .foregroundColor(Color.customDarkGrey)
-                            .padding(.top, 75)
-                            .isHidden(self.totalNumberLearningObjectivesStore.total == 0 ? false : true)
-                        
-                        ScrollViewLearningObjectives(learningPathSelected: $selectedPath, filteredMap: selectedFilter, filterLearningGoal: nil, filterEvaluatedOrNot: selectedEvaluatedOrNotFilter, isAddable: true, isLearningGoalAdded: nil, textFromSearchBar: $searchText, selectedStrands: selectedStrands)
-                            .padding(.top, 30)
-                        
-                        GeometryReader { proxy in
-                            let offset = proxy.frame(in: .named("scroll")).minY
-                            Color.clear.preference(key: ViewOffsetKey.self, value: offset)
-                        }
-                        
-                    }.padding(.top, 10)
+                    SearchBarExpandableJourney(txtSearchBar: $searchText, isUpdated: $isUpdated)
                     
                     Spacer()
+                    HStack{
+                        Text("Filter").font(.system(size: 20))
+                        Image(systemName: toggleFilters ? "chevron.up" : "chevron.down")
+                            .font(.system(size: 20))
+                    }.onTapGesture {
+                        self.toggleFilters.toggle()
+                    }
                 }
-                .coordinateSpace(name: "scroll")
-                .onPreferenceChange(ViewOffsetKey.self) { print("offset >> \($0)") }
-
-                .onChange(of: isUpdated) { newValue in
+                
+                Filters(
+                    viewType: .map,
+                    onFiltersChange: { filters in
+                        print("Filters Updated")
+                        print(filters)
+                    })
+                    .opacity(toggleFilters ? 1 : 0)
+                    .frame(height: toggleFilters ? .none : 0)
+                    .clipped()
+                    .animation(.easeOut)
+                    .transition(.slide)
+                
+                ZStack(alignment: .top) {
+                    NumberTotalLearningOjbectivesView(totalLOs: self.totalNumberLearningObjectivesStore.total)
+                    
+                    Text("No learning objectives found ...")
+                        .font(.system(size: 25, weight: .semibold, design: .rounded))
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(Color.customDarkGrey)
+                        .padding(.top, 75)
+                        .isHidden(self.totalNumberLearningObjectivesStore.total == 0 ? false : true)
+                    
+                    ScrollViewLearningObjectives(learningPathSelected: $selectedPath, filteredMap: selectedFilter, filterLearningGoal: nil, filterEvaluatedOrNot: selectedEvaluatedOrNotFilter, isAddable: true, isLearningGoalAdded: nil, textFromSearchBar: $searchText, selectedStrands: selectedStrands)
+                        .padding(.top, 30)
+                    
+                }.padding(.top, 10)
+                
+            }
+            .onChange(of: isUpdated) { newValue in
                     filterLearningObjective()
                 }
             }
-        }.padding(.leading, 50).padding(.trailing, 50)
-        
+           .padding(.leading, 50).padding(.trailing, 50)
     }
     
     func getLearningPath(learningPaths: [learning_Path]) -> [String] {

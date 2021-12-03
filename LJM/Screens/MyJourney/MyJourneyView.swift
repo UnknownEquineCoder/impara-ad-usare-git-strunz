@@ -87,6 +87,31 @@ struct MyJourneyView: View {
                     
                 }.frame(maxWidth: .infinity)
             }
+            .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
+            
+            Filters(
+                viewType: .journey,
+                onFiltersChange: { filters in
+                    print("Filters Updated")
+                    print(filters)
+                })
+                .opacity(toggleFilters ? 1 : 0)
+                .frame(height: toggleFilters ? .none : 0)
+                .clipped()
+                .animation(.easeOut)
+                .transition(.slide)
+
+                
+                NumberTotalLearningOjbectivesView(totalLOs: self.totalNumberLearningObjectivesStore.total)
+                    .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
+
+//                DropDownMenuSelectPath(selectedPath: $selectedPath)
+//                    .frame(maxWidth: .infinity,  alignment: .trailing)
+//                    .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
+                
+                ListViewLearningObjectiveMyJourney(selectedFilter: $selectedFilter, txtSearchBar: $searchText, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedMenu: $selectedMenu, selectedSort: $selectedSort)
+                    .padding(.top, 30)
+                
         }.padding(.leading, 50).padding(.trailing, 50)
     }
     
