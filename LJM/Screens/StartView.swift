@@ -63,8 +63,11 @@ struct StartView: View {
                 Spacer()
                 StudentPictureView()
             }
-
+//            .toolbar(content: {
+//                Color.red.frame(width: NSScreen.screenWidth, height: 100, alignment: .center)
+//            })
             .toolbar {
+                
                 ToolbarItem(placement: .cancellationAction) {
                     Button {
                         // IT will switch the presence of the sidebar
@@ -103,6 +106,7 @@ struct StartView: View {
             NSApp.keyWindow?.makeFirstResponder(nil)
         }
         .onAppear(perform: {
+            
 //            NSToolbar().colo
             learningObjectiveStore.load_Test_Data() {
                 

@@ -192,35 +192,12 @@ struct ScrollViewLearningObjectives: View {
                                 learningPathSelected: self.$learningPathSelected,
                                 learningObj: item)
                             
-//                                .contextMenu {
-//                                    if !isAddable {
-//                                        Button {
-//                                            // remove learning objective
-////                                            let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == item.ID})!
-//                                            self.showingAlert = true
-//                                            //                                            self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.removeAll()
-//                                            //                                            self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.removeAll()
-//                                            
-////                                            learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
-//                                                
-//                                            
-//                                        } label: {
-//                                            Text("Delete")
-//                                        }
-//                                        
-//                                    }
-//                                }
-                                
-                            
                         }
                     }
                 }
             }
         }
         .padding(.bottom, 60)
-        //        .onChange(of: self.filteredLearningObjectivesMyJourney || self.textFromSearchBar || self.selectedStrands, perform: { _ in
-        //
-        //        })
         
         .onChange(of: self.filteredLearningObjectivesMyJourney) { result in
             

@@ -22,6 +22,10 @@ struct LearningGoalsView: View {
 
     @EnvironmentObject var totalNumberLearningObjectivesStore : TotalNumberOfLearningObjectivesStore
     
+    // check if filters was changed
+    
+    @State var isUpdated : Bool = false
+    
     var body: some View {
         
         VStack(alignment: .leading) {
@@ -38,9 +42,9 @@ struct LearningGoalsView: View {
             
             HStack {
                 
-                ContextMenuFilters(fromMap: false, fromCompass: true, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedEvaluatedOrNotFilter: $selectedEvaluatedOrNotFilter)
+                ContextMenuFilters(fromMap: false, fromCompass: true, isUpdated: $isUpdated, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedEvaluatedOrNotFilter: $selectedEvaluatedOrNotFilter)
                 
-                SearchBarExpandableJourney(txtSearchBar: $searchText)
+                SearchBarExpandableJourney(txtSearchBar: $searchText, isUpdated: $isUpdated)
                 
             }
             

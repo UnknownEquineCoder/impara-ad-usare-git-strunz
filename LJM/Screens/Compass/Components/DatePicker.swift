@@ -26,7 +26,7 @@ struct DatePickerView: View{
             .padding(.horizontal, 20)
             .datePickerStyle(CompactDatePickerStyle())
             .frame(width: 80)
-            .environment(\.locale, Locale(identifier: "en"))
+            
             .cursor(.pointingHand)
         }
     

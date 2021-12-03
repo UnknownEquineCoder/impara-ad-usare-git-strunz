@@ -37,7 +37,7 @@ struct ChallengeView: View {
             ZStack(alignment: .topLeading) {
                 NumberTotalLearningOjbectivesView(totalLOs: 10)
                 
-                SearchBarExpandableJourney(txtSearchBar: $searchText).background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
+                SearchBarExpandableJourney(txtSearchBar: $searchText, isUpdated: .constant(true)).background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
                     .padding(.trailing, 200)
                     .frame(maxWidth: .infinity,  alignment: .trailing)
                 

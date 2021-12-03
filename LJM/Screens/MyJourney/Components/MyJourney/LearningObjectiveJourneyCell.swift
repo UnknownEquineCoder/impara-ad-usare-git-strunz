@@ -26,15 +26,19 @@ struct LearningObjectiveJourneyCell: View {
                     Spacer()
                     
                     VStack {
-                        if expand && !isAddable && self.isLearningGoalAdded == nil {
+                        
+                        // it checks what's the dimension of the spaces should be
+                        
+                        if expand && !isAddable{
                             Spacer().frame(height: 20)
+                        } else if self.isLearningGoalAdded == nil{
+                            Spacer()
                         } else {
-                            if learningObj.eval_score.count > 0 {
+                            if isAddable {
                                 Spacer().frame(height: 20)
                             } else {
                                 Spacer()
                             }
-                            
                         }
                         
                         if self.isLearningGoalAdded != nil {
