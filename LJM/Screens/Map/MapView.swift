@@ -89,7 +89,6 @@ struct MapView: View {
                     
                 }.padding(.top, 10)
                 
-                Spacer()
             }
             .onChange(of: isUpdated) { newValue in
                     filterLearningObjective()
