@@ -16,9 +16,6 @@ struct LearningObjectiveJourneyCell: View {
     
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     
-    @State private var totalHeight = CGFloat.infinity
-    
-    
     var learningObj: learning_Objective
     
     var body: some View {
