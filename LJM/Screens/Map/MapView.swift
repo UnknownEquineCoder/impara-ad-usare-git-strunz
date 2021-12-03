@@ -82,7 +82,7 @@ struct MapView: View {
 //                    DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: strandsStore.arrayStrandsFilter)
 //                        .buttonStyle(PlainButtonStyle())
                     
-                    SearchBarExpandableJourney(txtSearchBar: $searchText)
+                    SearchBarExpandableJourney(txtSearchBar: $searchText, isUpdated: $isUpdated)
                     
                     Spacer()
                     HStack{
