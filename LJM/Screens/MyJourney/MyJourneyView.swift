@@ -22,7 +22,7 @@ struct MyJourneyView: View {
     
     @Binding var selectedMenu: OutlineMenu
     
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) var colorScheme1
     
     // new data flow
     
@@ -31,25 +31,25 @@ struct MyJourneyView: View {
     @EnvironmentObject var strandsStore: StrandsStore
     @EnvironmentObject var totalNumberLearningObjectivesStore : TotalNumberOfLearningObjectivesStore
     
+    // check if filter updating
+    
+    @State var isUpdated : Bool = false
     @State private var toggleFilters: Bool = false
     
     var body: some View {
         VStack(alignment: .leading) {
+            ZStack(alignment: .topLeading) {
                 
-            TitleScreenView(title: "Journey")
+                TitleScreenView(title: "Journey")
+                
+                VStack(alignment: .leading) {
+                    DescriptionTitleScreenView(desc: "During your Journey, you will encounter a series of Learning Objectives (LOs). The Communal LOs will be added to your Journey as they are addressed in the Challenges. Elective Objectives will appear here when you select them from the Map. You can compare your Journey to specific career paths to help with personal planning. The arrows indicate your current progress towards reaching the LO.")
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.top, 50)
+                
+            }.frame(maxWidth: .infinity)
             
-            VStack(alignment: .leading) {
-                DescriptionTitleScreenView(desc: "During your Journey, you will encounter a series of Learning Objectives (LOs). The Communal LOs will be added to your Journey as they are addressed in the Challenges. Elective Objectives will appear here when you select them from the Map. You can compare your Journey to specific career paths to help with personal planning. The arrows indicate your current progress towards reaching the LO.")
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            
-//                SortButtonMenu().padding(.top, 185)
-//                ContextMenuFilters().padding(.top, 185).padding(.leading, 90)
-//                ContextMenuFilters().padding(.top, 185).padding(.leading, 130)
-            
-//                ScrollViewFiltersJourney(filterTabs: arrayFilters, selectedFilter: $selectedFilter)
-//                    .padding(.top, 180)
-        
             HStack {
                 
 //                SortButtonMenu(selectedSort: $selectedSort).cursor(.pointingHand)
@@ -60,7 +60,8 @@ struct MyJourneyView: View {
 //                DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: strandsStore.arrayStrandsFilter)
 //                    .buttonStyle(PlainButtonStyle())
                 
-                SearchBarExpandableJourney(txtSearchBar: $searchText)
+                SearchBarExpandableJourney(txtSearchBar: $searchText, isUpdated: $isUpdated)
+//                    .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .red)
                 
                 Spacer()
                 HStack{
@@ -141,7 +142,6 @@ struct ListViewLearningObjectiveMyJourney: View {
     @EnvironmentObject var totalNumberLearningObjectivesStore : TotalNumberOfLearningObjectivesStore
     
     var body: some View {
-        
         if !checkIfMyJourneyIsEmpty() {
             ZStack(alignment: .top) {
                 

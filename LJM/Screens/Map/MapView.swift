@@ -28,6 +28,14 @@ struct MapView: View {
     @EnvironmentObject var totalNumberLearningObjectivesStore : TotalNumberOfLearningObjectivesStore
     
     @State private var toggleFilters: Bool = false
+    // check if the filters was updated
+    
+    @State var isUpdated : Bool = false
+    
+    // filtered learning objectives
+    
+    @State var filtered_Learning_Objectives : [learning_Objective] = []
+    
     
     var body: some View {
         
@@ -36,7 +44,6 @@ struct MapView: View {
                 
                 HStack {
                     TitleScreenView(title: "Map")
-                    
                     Spacer()
                 }
                 
@@ -116,6 +123,9 @@ struct MapView: View {
                 
                 Spacer()
             }
+            .onChange(of: isUpdated) { newValue in
+                    filterLearningObjective()
+            }
         }.padding(.leading, 50).padding(.trailing, 50)
     }
     
@@ -133,14 +143,50 @@ struct MapView: View {
         let evaluated_Objectives = self.learningObjectiveStore.learningObjectives.filter({$0.eval_score.count > 0})
         return evaluated_Objectives.isEmpty
     }
-}
-
-class ScrollToModel2: ObservableObject {
-    enum Action {
-        case left
-        case right
+    
+    func filterLearningObjective(){
+        
+        filtered_Learning_Objectives = learningObjectiveStore.learningObjectives.filter({
+            let path_Index = learningPathStore.learningPaths.firstIndex(where: {$0.title == selectedPath})
+            // parentesis for not breaking anithing, if you delete the parentesis it does not work because false && false && true && true is a true and not a false
+            return (
+                // check if the learning objective had been evaluated ( for the map view )
+//                !$0.eval_score.isEmpty
+                // filter for all/core/elective
+                (
+                    (
+                        selectedFilter == "CORE" ? $0.isCore :
+                        selectedFilter == "ELECTIVE" ? !$0.isCore :
+                        true
+                    )
+    //                // filter for the searchbar
+                    && (
+                        searchText.isEmpty ||
+                        $0.goal.lowercased().contains(searchText.lowercased()) ||
+                        $0.description.lowercased().contains(searchText.lowercased()) ||
+                        $0.Keyword.contains(where: {$0.lowercased().contains(searchText.lowercased())}) ||
+                        $0.strand.lowercased().contains(searchText.lowercased()) ||
+                        $0.goal_Short.lowercased().contains(searchText.lowercased()) ||
+                        $0.ID.lowercased().contains(searchText.lowercased())
+                    )
+                )
+                && (
+                    (
+                        // filter for strands
+                        selectedStrands.count == 0 ? true : selectedStrands.contains($0.strand)
+    //
+                    )
+                    && (
+                        // filter for path
+                        (path_Index == nil) ? true : (($0.core_Rubric_Levels[path_Index ?? 0] * $0.core_Rubric_Levels[0] ) > 1)
+                    )
+                    && (
+                        // filter if an element was alredy evaluated or not
+                        selectedEvaluatedOrNotFilter == nil ? true : selectedEvaluatedOrNotFilter == .evaluated ? $0.eval_score.count > 0 : $0.eval_score.isEmpty
+                    )
+                )
+            )
+        })
     }
-    @Published var direction: Action? = nil
 }
-
 
