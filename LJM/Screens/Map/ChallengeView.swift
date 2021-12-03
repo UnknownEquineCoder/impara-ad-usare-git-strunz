@@ -32,7 +32,7 @@ struct ChallengeView: View {
                 DescriptionTitleScreenView(desc: "Here you will find the Learning Objectives involved in each Challenge you will face during the Academy year.")
             }).frame(maxWidth: .infinity)
             
-            ScrollViewFilters(filterTabs: challengeTabs, selectedFilter: $selectedFilter, vm: ScrollToModel())
+            ScrollViewFilters(filterTabs: challengeTabs, selectedFilter: $selectedFilter)
             
             ZStack(alignment: .topLeading) {
                 NumberTotalLearningOjbectivesView(totalLOs: 10)

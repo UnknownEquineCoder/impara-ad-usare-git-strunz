@@ -69,18 +69,21 @@ struct CompassView: View {
                 
                 VStack {
                     
-                    //                    HStack{
-                    
-                    HStack {
-                        TitleScreenView(title: "Compass")
+                    ScrollView(showsIndicators: false) {
+                        
+                        ZStack(alignment: .topLeading) {
+                            
+                            TitleScreenView(title: "Compass")
+                            
+                            VStack(alignment: .leading) {
+                                DescriptionTitleScreenView(desc: "The Compass helps you to gauge your progress in meeting the Communal Learning Objectives and allows you to explore a variety of paths. Using this tool, you can plan your Learning Journey.")
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.top, 50)
+                            
+                        }.frame(maxWidth: .infinity)
                             .padding(.top, 40)
-                        Spacer()
-                    }
-                    
-                    VStack(alignment: .leading) {
-                        DescriptionTitleScreenView(desc: "The Compass helps you to gauge your progress in meeting the Communal Learning Objectives and allows you to explore a variety of paths. Using this tool, you can plan your Learning Journey.")
-                    }
-                    ScrollView(showsIndicators: false){
+                        
                         DatePickerView(pickerDate: $selected_Date)
                             .environment(\.locale, Locale(identifier: "en"))
                             .padding(.top, 7.toScreenSize())
@@ -92,7 +95,7 @@ struct CompassView: View {
                         
                         HStack{
                             InfoButton(title: "Spider Graphs: ", textBody: "The Communal graph shows progress based on the pathway all the students at the Academy have to take, while the Your Journey graph shows progress based on the specific pathway you decide to take, along with the Communal one.\n\nDepending on the Communal Expectation, the “Expectation” overlay shows you the basic progress level the Academy would like you to reach; “Your Progress”, instead, shows you the progress related to the path you decided to take.", heightCell: 241).cursor(.pointingHand)
-                                
+                            
                             Spacer()
                             //                            SliderView()
                             Spacer()
@@ -175,7 +178,7 @@ struct CompassView: View {
                         }.padding(.bottom, 20)
                         HStack{
                             InfoButtonBarGraph(title: "Bar Graphs: ", textBody: "The bar graphs below show your growth in detail, allowing you to examine every single Learning Goal, based on the Curriculum Strands. \n\nThe level of the bars is calculated according to the path selected in the dropdown menu above.", heightCell: 131).cursor(.pointingHand)
-
+                            
                             Spacer()
                         }
                         Spacer()
@@ -196,11 +199,9 @@ struct CompassView: View {
                                 .padding(.top, 50)
                                 .padding(.bottom, 100)
                         }
-                        
-                        
                     }
+                    .padding(.leading, 70).padding(.trailing, 50)
                 }
-                .padding(.leading, 70).padding(.trailing, 50)
             }
         }
     }
@@ -238,47 +239,47 @@ struct CompassView: View {
             let data_Filtered_Index = closestMatch(values: learning_Objective.eval_date, inputValue: selected_Date)
             
             if(data_Filtered_Index != -1){
-            
-            switch learning_Objective.strand {
-            case "App Business and Marketing":
                 
-                let element_Index = business_Skills.firstIndex(of: learning_Objective.goal_Short) ?? 0
-                business_Progress[element_Index] += Double(learning_Objective.eval_score[data_Filtered_Index])
-                business_Progress_Quantity[element_Index] += 1
-                break
-                
-            case "Process":
-                
-                
-                let element_Index = process_Skills.firstIndex(of: learning_Objective.goal_Short) ?? 0
-                process_Progress[element_Index] += Double(learning_Objective.eval_score[data_Filtered_Index])
-                process_Progress_Quantity[element_Index] += 1
-                break
-                
-            case "Professional Skills":
-                
-                let element_Index = professional_Skills.firstIndex(of: learning_Objective.goal_Short) ?? 0
-                professional_Progress[element_Index] += Double(learning_Objective.eval_score[data_Filtered_Index])
-                professional_Progress_Quantity[element_Index] += 1
-                break
-                
-            case "Technical":
-                
-                let element_Index = tecnical_Skills.firstIndex(of: learning_Objective.goal_Short) ?? 0
-                tecnical_Progress[element_Index] += Double(learning_Objective.eval_score[data_Filtered_Index])
-                tecnical_Progress_Quantity[element_Index] += 1
-                break
-                
-            case "Design":
-                let element_Index = design_Skills.firstIndex(where: { $0.lowercased() == learning_Objective.goal_Short.lowercased()}) ?? 0
-                
-                design_Progress[element_Index] += Double(learning_Objective.eval_score[data_Filtered_Index])
-                design_Progress_Quantity[element_Index] += 1
-                break
-                
-            default:
-                break
-            }
+                switch learning_Objective.strand {
+                case "App Business and Marketing":
+                    
+                    let element_Index = business_Skills.firstIndex(of: learning_Objective.goal_Short) ?? 0
+                    business_Progress[element_Index] += Double(learning_Objective.eval_score[data_Filtered_Index])
+                    business_Progress_Quantity[element_Index] += 1
+                    break
+                    
+                case "Process":
+                    
+                    
+                    let element_Index = process_Skills.firstIndex(of: learning_Objective.goal_Short) ?? 0
+                    process_Progress[element_Index] += Double(learning_Objective.eval_score[data_Filtered_Index])
+                    process_Progress_Quantity[element_Index] += 1
+                    break
+                    
+                case "Professional Skills":
+                    
+                    let element_Index = professional_Skills.firstIndex(of: learning_Objective.goal_Short) ?? 0
+                    professional_Progress[element_Index] += Double(learning_Objective.eval_score[data_Filtered_Index])
+                    professional_Progress_Quantity[element_Index] += 1
+                    break
+                    
+                case "Technical":
+                    
+                    let element_Index = tecnical_Skills.firstIndex(of: learning_Objective.goal_Short) ?? 0
+                    tecnical_Progress[element_Index] += Double(learning_Objective.eval_score[data_Filtered_Index])
+                    tecnical_Progress_Quantity[element_Index] += 1
+                    break
+                    
+                case "Design":
+                    let element_Index = design_Skills.firstIndex(where: { $0.lowercased() == learning_Objective.goal_Short.lowercased()}) ?? 0
+                    
+                    design_Progress[element_Index] += Double(learning_Objective.eval_score[data_Filtered_Index])
+                    design_Progress_Quantity[element_Index] += 1
+                    break
+                    
+                default:
+                    break
+                }
                 
             }
         }
@@ -591,5 +592,6 @@ struct CompassView: View {
         }
     }
 }
+
 
 

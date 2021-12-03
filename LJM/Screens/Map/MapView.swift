@@ -12,10 +12,9 @@ struct MapView: View {
     @State var selectedStrands = [String]()
     @State var expand: Bool = false
     @State private var searchText = ""
-//    @State var selectedSort: SortEnum?
     @State private var selectedPath : String?
     @State var selectedEvaluatedOrNotFilter: EvaluatedOrNotEnum?
-            
+    
     @Environment(\.colorScheme) var colorScheme
     
     @ObservedObject var selectedSegmentView : SelectedSegmentView
@@ -41,44 +40,59 @@ struct MapView: View {
         VStack {
             VStack(alignment: .leading) {
                 
-                HStack {
-                    TitleScreenView(title: "Map")
+                ScrollView(showsIndicators: false) {
+                    
+                    ZStack(alignment: .topLeading) {
+                        
+                        TitleScreenView(title: "Map")
+                        
+                        VStack(alignment: .leading) {
+                            DescriptionTitleScreenView(desc: "The Map provides access to all the current Learning Objectives in the Academy Curriculum. The Communal Learning Objectives will be adressed during the Challenges and added to your Journey. You can also explore and add Elective Learning Objectives based on your interests and the profile of specific career paths.")
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.top, 50)
+                        
+                    }.frame(maxWidth: .infinity)
+                        .padding(.top, 40)
+                    
+                    HStack {
+                        ContextMenuFilters(fromMap: true, fromCompass: false, isUpdated: $isUpdated, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedEvaluatedOrNotFilter: $selectedEvaluatedOrNotFilter).cursor(.pointingHand)
+                        
+                        SearchBarExpandableJourney(txtSearchBar: $searchText, isUpdated: $isUpdated)
+                        
+                    }
+                    
+                    ZStack(alignment: .top) {
+                        NumberTotalLearningOjbectivesView(totalLOs: self.totalNumberLearningObjectivesStore.total)
+                        
+                        Text("No learning objectives found ...")
+                            .font(.system(size: 25, weight: .semibold, design: .rounded))
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(Color.customDarkGrey)
+                            .padding(.top, 75)
+                            .isHidden(self.totalNumberLearningObjectivesStore.total == 0 ? false : true)
+                        
+                        ScrollViewLearningObjectives(learningPathSelected: $selectedPath, filteredMap: selectedFilter, filterLearningGoal: nil, filterEvaluatedOrNot: selectedEvaluatedOrNotFilter, isAddable: true, isLearningGoalAdded: nil, textFromSearchBar: $searchText, selectedStrands: selectedStrands)
+                            .padding(.top, 30)
+                        
+                        GeometryReader { proxy in
+                            let offset = proxy.frame(in: .named("scroll")).minY
+                            Color.clear.preference(key: ViewOffsetKey.self, value: offset)
+                        }
+                        
+                    }.padding(.top, 10)
+                    
                     Spacer()
                 }
-                
-                VStack(alignment: .leading) {
-                    DescriptionTitleScreenView(desc: "The Map provides access to all the current Learning Objectives in the Academy Curriculum. The Communal Learning Objectives will be adressed during the Challenges and added to your Journey. You can also explore and add Elective Learning Objectives based on your interests and the profile of specific career paths.")
-                }
-                
-                
-                HStack {
-                    ContextMenuFilters(fromMap: true, fromCompass: false, isUpdated: $isUpdated, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedEvaluatedOrNotFilter: $selectedEvaluatedOrNotFilter).cursor(.pointingHand)
-                    
-                    SearchBarExpandableJourney(txtSearchBar: $searchText, isUpdated: $isUpdated)
-                    
-                }
-                
-                ZStack(alignment: .top) {
-                    NumberTotalLearningOjbectivesView(totalLOs: self.totalNumberLearningObjectivesStore.total)
-                    
-                    Text("No learning objectives found ...")
-                        .font(.system(size: 25, weight: .semibold, design: .rounded))
-                        .multilineTextAlignment(.center)
-                        .foregroundColor(Color.customDarkGrey)
-                        .padding(.top, 75)
-                        .isHidden(self.totalNumberLearningObjectivesStore.total == 0 ? false : true)
-                    
-                    ScrollViewLearningObjectives(learningPathSelected: $selectedPath, filteredMap: selectedFilter, filterLearningGoal: nil, filterEvaluatedOrNot: selectedEvaluatedOrNotFilter, isAddable: true, isLearningGoalAdded: nil, textFromSearchBar: $searchText, selectedStrands: selectedStrands)
-                        .padding(.top, 30)
-                    
-                }.padding(.top, 10)
-                
-                Spacer()
-            }
-            .onChange(of: isUpdated) { newValue in
+                .coordinateSpace(name: "scroll")
+                .onPreferenceChange(ViewOffsetKey.self) { print("offset >> \($0)") }
+
+                .onChange(of: isUpdated) { newValue in
                     filterLearningObjective()
+                }
             }
         }.padding(.leading, 50).padding(.trailing, 50)
+        
     }
     
     func getLearningPath(learningPaths: [learning_Path]) -> [String] {
@@ -103,15 +117,15 @@ struct MapView: View {
             // parentesis for not breaking anithing, if you delete the parentesis it does not work because false && false && true && true is a true and not a false
             return (
                 // check if the learning objective had been evaluated ( for the map view )
-//                !$0.eval_score.isEmpty
+                //                !$0.eval_score.isEmpty
                 // filter for all/core/elective
                 (
                     (
                         selectedFilter == "CORE" ? $0.isCore :
-                        selectedFilter == "ELECTIVE" ? !$0.isCore :
-                        true
+                            selectedFilter == "ELECTIVE" ? !$0.isCore :
+                            true
                     )
-    //                // filter for the searchbar
+                    //                // filter for the searchbar
                     && (
                         searchText.isEmpty ||
                         $0.goal.lowercased().contains(searchText.lowercased()) ||
@@ -126,7 +140,7 @@ struct MapView: View {
                     (
                         // filter for strands
                         selectedStrands.count == 0 ? true : selectedStrands.contains($0.strand)
-    //
+                        //
                     )
                     && (
                         // filter for path
@@ -142,3 +156,10 @@ struct MapView: View {
     }
 }
 
+struct ViewOffsetKey: PreferenceKey {
+    typealias Value = CGFloat
+    static var defaultValue = CGFloat.zero
+    static func reduce(value: inout Value, nextValue: () -> Value) {
+        value += nextValue()
+    }
+}

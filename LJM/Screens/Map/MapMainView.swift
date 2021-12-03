@@ -13,8 +13,6 @@ struct MapMainView: View {
         
     @ObservedObject var selectedView = SelectedSegmentView()
     
-    // new data flow stuff
-    
     var body: some View {
         ZStack(alignment: .top) {
             
@@ -27,9 +25,3 @@ struct MapMainView: View {
         }.background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : Color(red: 245/255, green: 245/255, blue: 245/255) )
     }
 }
-
-//struct JourneyMainView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MapMainView()
-//    }
-//}

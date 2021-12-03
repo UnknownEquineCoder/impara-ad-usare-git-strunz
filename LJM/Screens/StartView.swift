@@ -34,6 +34,8 @@ struct StartView: View {
             return AnyView(CompassView(path: $filter_Path))
         case .journey:
             return AnyView(MyJourneyMainView(selectedMenu: $selectedMenu))
+//            return AnyView(CompassView(path: $filter_Path).background(Color.yellow))
+
         case .map:
             return AnyView(MapMainView())
         }
@@ -41,8 +43,9 @@ struct StartView: View {
     
     @ViewBuilder
     var body: some View {
-        
+
         NavigationView {
+            
             VStack(alignment: .leading) {
                     VStack(alignment: .leading) {
                         ForEach(OutlineMenu.allCases) { menu in
@@ -63,11 +66,7 @@ struct StartView: View {
                 Spacer()
                 StudentPictureView()
             }
-//            .toolbar(content: {
-//                Color.red.frame(width: NSScreen.screenWidth, height: 100, alignment: .center)
-//            })
             .toolbar {
-                
                 ToolbarItem(placement: .cancellationAction) {
                     Button {
                         // IT will switch the presence of the sidebar
@@ -96,9 +95,7 @@ struct StartView: View {
                         .environmentObject(strandsStore)
                         .frame(minWidth: NSScreen.screenWidth! - 403, idealWidth: nil, maxWidth: nil, minHeight: nil, idealHeight: nil, maxHeight: nil, alignment: .leading)
                 
-                    
             }
-                
         }
         .navigationViewStyle(.automatic)
         
@@ -107,7 +104,6 @@ struct StartView: View {
         }
         .onAppear(perform: {
             
-//            NSToolbar().colo
             learningObjectiveStore.load_Test_Data() {
                 
                 learningObjectiveStore.load_Status(objectives: objectives)

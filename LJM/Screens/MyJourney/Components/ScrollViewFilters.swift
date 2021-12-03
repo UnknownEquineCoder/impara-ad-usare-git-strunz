@@ -11,7 +11,6 @@ struct ScrollViewFilters : View {
     
     var filterTabs: [String]
     @Binding var selectedFilter : String
-    var vm: ScrollToModel
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
@@ -37,19 +36,8 @@ struct ScrollViewFilters : View {
                             .overlay(RoundedRectangle(cornerRadius: 12).stroke(lineWidth: 2).foregroundColor(selectedFilter == i ? .clear : .customDarkGrey))
                         }
                     }.padding([.leading, .trailing], 10)
-                }.onReceive(vm.$direction) { action in
-                    guard !filterTabs.isEmpty else { return }
-                    withAnimation {
-                        switch action {
-                        case .left:
-                            proxy.scrollTo(filterTabs.first!, anchor: .leading)
-                        case .right:
-                            proxy.scrollTo(filterTabs.last!, anchor: .trailing)
-                        default:
-                            return
-                        }
-                    }
-                }.frame(height: 60)
+                }
+                .frame(height: 60)
                 .padding(.top, 5).padding(.bottom, 5)
             }
         }

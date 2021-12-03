@@ -10,7 +10,7 @@ import SwiftUI
 struct PaddingMainSubViews: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .padding(.top, 20)
-            .padding([.top, .leading, .trailing], 20)
+            
+            .padding([.leading, .trailing], 20)
     }
 }
