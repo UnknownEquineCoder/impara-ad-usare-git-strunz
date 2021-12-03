@@ -60,8 +60,7 @@ struct MyJourneyView: View {
 //                DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: strandsStore.arrayStrandsFilter)
 //                    .buttonStyle(PlainButtonStyle())
                 
-                SearchBarExpandableJourney(txtSearchBar: $searchText)
-                    .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .red)
+                SearchBarExpandableJourney(txtSearchBar: $searchText, isUpdated: $isUpdated)
 //                    .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .red)
                 
                 Spacer()
