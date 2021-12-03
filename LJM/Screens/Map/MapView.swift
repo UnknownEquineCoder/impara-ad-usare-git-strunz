@@ -39,48 +39,16 @@ struct MapView: View {
     
     var body: some View {
         
-        VStack {
+        
             VStack(alignment: .leading) {
                 
-                HStack {
-                    TitleScreenView(title: "Map")
-                    Spacer()
-                }
                 
-                VStack(alignment: .leading) {
-                    DescriptionTitleScreenView(desc: "The Map provides access to all the current Learning Objectives in the Academy Curriculum. The Communal Learning Objectives will be adressed during the Challenges and added to your Journey. You can also explore and add Elective Learning Objectives based on your interests and the profile of specific career paths.")
-                }
+                TitleScreenView(title: "Map")
+               
+                DescriptionTitleScreenView(desc: "The Map provides access to all the current Learning Objectives in the Academy Curriculum. The Communal Learning Objectives will be adressed during the Challenges and added to your Journey. You can also explore and add Elective Learning Objectives based on your interests and the profile of specific career paths.")
                 
-//                HStack {
-//                    Text("Views")
-//                        .fontWeight(.light)
-//                        .foregroundColor(Color.gray)
-//                        .font(.system(size: 20))
-//                    ScrollViewFilters(filterTabs: self.filterTabsMap, selectedFilter: $selectedFilter, vm: ScrollToModel())
-//                    //                            .padding(.top, 20)
-//                        .font(.system(size: 15, weight: .medium, design: .rounded))
-//                        .padding(.leading, 10)
-//                }
-                
-//                HStack{
-//
-//                    Text("Paths")
-//                        .fontWeight(.light)
-//                        .foregroundColor(Color.gray)
-//                        .font(.system(size: 20))
-//
-//                    ScrollViewFilters(filterTabs: getLearningPath(learningPaths: learningPathStore.learningPaths), selectedFilter: $selectedFilter, vm: ScrollToModel())
-//                        .padding(.leading, 10)
-//                        .font(.system(size: 15, weight: .medium, design: .rounded))
-//                }
                 
                 HStack {
-//                    DropDownMenuSort()
-//                        .buttonStyle(PlainButtonStyle())
-//                    SortButtonMenu(selectedSort: $selectedSort)
-//                    ContextMenuFilters(fromMap: true, fromCompass: false, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedEvaluatedOrNotFilter: $selectedEvaluatedOrNotFilter).cursor(.pointingHand)
-//                    DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: strandsStore.arrayStrandsFilter)
-//                        .buttonStyle(PlainButtonStyle())
                     
                     SearchBarExpandableJourney(txtSearchBar: $searchText, isUpdated: $isUpdated)
                     
@@ -126,7 +94,7 @@ struct MapView: View {
             .onChange(of: isUpdated) { newValue in
                     filterLearningObjective()
             }
-        }.padding(.leading, 50).padding(.trailing, 50)
+           .padding(.leading, 50).padding(.trailing, 50)
     }
     
     func getLearningPath(learningPaths: [learning_Path]) -> [String] {

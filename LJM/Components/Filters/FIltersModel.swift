@@ -13,7 +13,6 @@ class FiltersModel: ObservableObject {
     var allFilters: [FiltersModelData]
     /** Stores the kinds that should be selectable only once*/
     let singleSelectionFilter: Array<String>
-    
     /** Filters are both available for journey and map view, this will change the behavior gor both*/
     var viewType: FiltersView
     
