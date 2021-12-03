@@ -65,6 +65,7 @@ struct MyJourneyView: View {
 //                    .buttonStyle(PlainButtonStyle())
                 
                 SearchBarExpandableJourney(txtSearchBar: $searchText)
+                    .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .red)
 //                    .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .red)
                 
                 Spacer()
