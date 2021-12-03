@@ -35,25 +35,21 @@ struct MyJourneyView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            ZStack(alignment: .topLeading) {
                 
-                TitleScreenView(title: "Journey")
-                
-                VStack(alignment: .leading) {
-                    DescriptionTitleScreenView(desc: "During your Journey, you will encounter a series of Learning Objectives (LOs). The Communal LOs will be added to your Journey as they are addressed in the Challenges. Elective Objectives will appear here when you select them from the Map. You can compare your Journey to specific career paths to help with personal planning. The arrows indicate your current progress towards reaching the LO.")
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.top, 50)
-                
+            TitleScreenView(title: "Journey")
+            
+            VStack(alignment: .leading) {
+                DescriptionTitleScreenView(desc: "During your Journey, you will encounter a series of Learning Objectives (LOs). The Communal LOs will be added to your Journey as they are addressed in the Challenges. Elective Objectives will appear here when you select them from the Map. You can compare your Journey to specific career paths to help with personal planning. The arrows indicate your current progress towards reaching the LO.")
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            
 //                SortButtonMenu().padding(.top, 185)
 //                ContextMenuFilters().padding(.top, 185).padding(.leading, 90)
 //                ContextMenuFilters().padding(.top, 185).padding(.leading, 130)
-                
+            
 //                ScrollViewFiltersJourney(filterTabs: arrayFilters, selectedFilter: $selectedFilter)
 //                    .padding(.top, 180)
-                
-            }.frame(maxWidth: .infinity)
-            
+        
             HStack {
                 
 //                SortButtonMenu(selectedSort: $selectedSort).cursor(.pointingHand)
@@ -65,8 +61,6 @@ struct MyJourneyView: View {
 //                    .buttonStyle(PlainButtonStyle())
                 
                 SearchBarExpandableJourney(txtSearchBar: $searchText)
-                    .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .red)
-//                    .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .red)
                 
                 Spacer()
                 HStack{
@@ -82,6 +76,7 @@ struct MyJourneyView: View {
             .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
             
             Filters(
+                viewType: .journey,
                 onFiltersChange: { filters in
                     print("Filters Updated")
                     print(filters)
@@ -92,7 +87,6 @@ struct MyJourneyView: View {
                 .animation(.easeOut)
                 .transition(.slide)
 
-            ZStack(alignment: .topLeading) {
                 
                 NumberTotalLearningOjbectivesView(totalLOs: self.totalNumberLearningObjectivesStore.total)
                     .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
@@ -104,7 +98,6 @@ struct MyJourneyView: View {
                 ListViewLearningObjectiveMyJourney(selectedFilter: $selectedFilter, txtSearchBar: $searchText, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedMenu: $selectedMenu, selectedSort: $selectedSort)
                     .padding(.top, 30)
                 
-            }.frame(maxWidth: .infinity)
         }.padding(.leading, 50).padding(.trailing, 50)
     }
     

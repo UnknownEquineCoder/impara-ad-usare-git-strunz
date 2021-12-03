@@ -27,6 +27,7 @@ struct MapView: View {
     @EnvironmentObject var strandsStore: StrandsStore
     @EnvironmentObject var totalNumberLearningObjectivesStore : TotalNumberOfLearningObjectivesStore
     
+    @State private var toggleFilters: Bool = false
     
     var body: some View {
         
@@ -70,13 +71,33 @@ struct MapView: View {
 //                    DropDownMenuSort()
 //                        .buttonStyle(PlainButtonStyle())
 //                    SortButtonMenu(selectedSort: $selectedSort)
-                    ContextMenuFilters(fromMap: true, fromCompass: false, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedEvaluatedOrNotFilter: $selectedEvaluatedOrNotFilter).cursor(.pointingHand)
+//                    ContextMenuFilters(fromMap: true, fromCompass: false, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedEvaluatedOrNotFilter: $selectedEvaluatedOrNotFilter).cursor(.pointingHand)
 //                    DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: strandsStore.arrayStrandsFilter)
 //                        .buttonStyle(PlainButtonStyle())
                     
                     SearchBarExpandableJourney(txtSearchBar: $searchText)
-//                        .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
+                    
+                    Spacer()
+                    HStack{
+                        Text("Filter").font(.system(size: 20))
+                        Image(systemName: toggleFilters ? "chevron.up" : "chevron.down")
+                            .font(.system(size: 20))
+                    }.onTapGesture {
+                        self.toggleFilters.toggle()
+                    }
                 }
+                
+                Filters(
+                    viewType: .map,
+                    onFiltersChange: { filters in
+                        print("Filters Updated")
+                        print(filters)
+                    })
+                    .opacity(toggleFilters ? 1 : 0)
+                    .frame(height: toggleFilters ? .none : 0)
+                    .clipped()
+                    .animation(.easeOut)
+                    .transition(.slide)
                 
                 ZStack(alignment: .top) {
                     NumberTotalLearningOjbectivesView(totalLOs: self.totalNumberLearningObjectivesStore.total)
