@@ -34,6 +34,7 @@ struct MyJourneyView: View {
     // check if filter updating
     
     @State var isUpdated : Bool = false
+    @State private var toggleFilters: Bool = false
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -51,19 +52,41 @@ struct MyJourneyView: View {
             
             HStack {
                 
-                SortButtonMenu(selectedSort: $selectedSort).cursor(.pointingHand)
-                ContextMenuFilters(fromMap: false, fromCompass: false, isUpdated: $isUpdated, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedEvaluatedOrNotFilter: $selectedEvaluatedOrNotFilter).cursor(.pointingHand)
+//                SortButtonMenu(selectedSort: $selectedSort).cursor(.pointingHand)
+//                ContextMenuFilters(fromMap: false, fromCompass: false, selectedFilter: $selectedFilter, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedEvaluatedOrNotFilter: $selectedEvaluatedOrNotFilter).cursor(.pointingHand)
 //                DropDownMenuSort()
 //                    .buttonStyle(PlainButtonStyle())
                 
 //                DropDownMenuFilters(selectedStrands: $selectedStrands, filterOptions: strandsStore.arrayStrandsFilter)
 //                    .buttonStyle(PlainButtonStyle())
                 
-                SearchBarExpandableJourney(txtSearchBar: $searchText, isUpdated: $isUpdated)
+                SearchBarExpandableJourney(txtSearchBar: $searchText)
+                    .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .red)
 //                    .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .red)
+                
+                Spacer()
+                HStack{
+                    Text("Filter").font(.system(size: 20))
+                    Image(systemName: toggleFilters ? "chevron.up" : "chevron.down")
+                        .font(.system(size: 20))
+                }.onTapGesture {
+                    self.toggleFilters.toggle()
+                }
+                
+                
             }
             .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
             
+            Filters(
+                onFiltersChange: { filters in
+                    print("Filters Updated")
+                    print(filters)
+                })
+                .opacity(toggleFilters ? 1 : 0)
+                .frame(height: toggleFilters ? .none : 0)
+                .clipped()
+                .animation(.easeOut)
+                .transition(.slide)
 
             ZStack(alignment: .topLeading) {
                 
