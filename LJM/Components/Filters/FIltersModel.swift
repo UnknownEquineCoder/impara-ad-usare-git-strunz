@@ -1,11 +1,11 @@
 //
-//  Filters.swift
+//  FIltersModel.swift
 //  LJM
 //
-//  Created by Marco Tammaro on 01/12/21.
+//  Created by Marco Tammaro on 03/12/21.
 //
 
-import SwiftUI
+import Foundation
 
 class FiltersModel: ObservableObject {
     
@@ -22,7 +22,13 @@ class FiltersModel: ObservableObject {
                 "Sort by" : [],
             ]
      */
-    @Published var selectedFilters: Dictionary<String, Array<String>>
+    
+    
+    /** Stores the kinds that should be selectable only once*/
+    let singleSelectionFilter: Array<String>
+    
+    /** Filters are both available for journey and map view, this will change the behavior gor both*/
+    var viewType: FiltersView
     
     struct FiltersModelData {
         var order: Int
@@ -30,13 +36,17 @@ class FiltersModel: ObservableObject {
         var types: [String]
     }
     
-    init(){
+    init(viewType: FiltersView){
+        self.viewType = viewType
+        
         // initializing allFilters
         self.allFilters = [
         
             FiltersModelData(order: 0,
                              kind: "Main",
-                             types: ["Core", "Elective", "Evaluated", "Not Evaluated"]),
+                             types: viewType == .journey
+                                ? ["Core", "Elective"]
+                                : ["Core", "Elective", "Evaluated", "Not Evaluated"]),
             
             FiltersModelData(order: 1,
                              kind: "Strands",
@@ -49,15 +59,14 @@ class FiltersModel: ObservableObject {
             
             FiltersModelData(order: 3,
                              kind: "Sort by",
-                             types: ["Date", "Name"])
+                             types: ["Date", "Name"])]
         
-        ]
         
-        // initializing selectedFilters
-        self.selectedFilters = [:]
-        for data in self.allFilters {
-            self.selectedFilters[data.kind] = []
-        }
+        
+        self.singleSelectionFilter = self.viewType == .journey
+            ? ["Main", "Path", "Sort by"]
+            : ["Main", "Sort by"]
+       
     }
     
     /** Return the FilterModelData.kinds sorted by FilterModelData.order */
@@ -76,62 +85,5 @@ class FiltersModel: ObservableObject {
         return self.allFilters.first { data in
             data.kind == kind
         }?.types ?? []
-    }
-}
-
-struct Filters: View {
-    
-    private let model = FiltersModel()
-    var onFiltersChange: (Dictionary<String, Array<String>>) -> ()
-    
-    var body: some View {
-        HStack(alignment: .top, spacing: 20){
-            
-            ForEach(model.sortedKinds, id: \.self) { kind in
-                
-                VStack(alignment: .leading){
-                    Text(kind).foregroundColor(.gray)
-                    Divider()
-                    ForEach(model.getTypesByKind(kind: kind), id: \.self) { filter in
-                        
-                        FiltersRow(text: filter, onTap: {
-                            model.selectedFilters[kind]?.append(filter)
-                            self.onFiltersChange(model.selectedFilters)
-                        })
-                        
-                    }
-                }
-            }
-        }
-    }
-}
-
-struct FiltersRow: View {
-    
-    var text: String
-    var onTap : () -> ()
-    @State var selected: Bool = false
-    
-    var body: some View {
-        HStack{
-            Text(text)
-            Spacer()
-            if self.selected {
-                Image(systemName: "checkmark")
-            }
-        }
-        .padding(.bottom, 5)
-        .padding(.top, 5)
-        .onTapGesture {
-            self.onTap()
-            self.selected.toggle()
-        }
-       
-    }
- }
-
-struct Filters_Previews: PreviewProvider {
-    static var previews: some View {
-        Filters(onFiltersChange: {_ in})
     }
 }

@@ -79,6 +79,7 @@ struct MyJourneyView: View {
             .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
             
             Filters(
+                viewType: .journey,
                 onFiltersChange: { filters in
                     print("Filters Updated")
                     print(filters)
@@ -90,7 +91,6 @@ struct MyJourneyView: View {
                 .animation(.easeOut)
                 .transition(.slide)
 
-            ZStack(alignment: .topLeading) {
                 
                 NumberTotalLearningOjbectivesView(totalLOs: self.totalNumberLearningObjectivesStore.total)
                     .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
@@ -102,7 +102,6 @@ struct MyJourneyView: View {
                 ListViewLearningObjectiveMyJourney(selectedFilter: $selectedFilter, txtSearchBar: $searchText, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedMenu: $selectedMenu, selectedSort: $selectedSort)
                     .padding(.top, 30)
                 
-            }.frame(maxWidth: .infinity)
         }.padding(.leading, 50).padding(.trailing, 50)
     }
     
