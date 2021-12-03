@@ -13,9 +13,30 @@ enum FiltersView {
 
 struct Filters: View {
     
+    /** Reference to filters model that stores the data */
     private let model: FiltersModel
     var viewType: FiltersView
+    /** Return the filters selected by the user
+        Return example:
+            [
+                "Main" : ["Core"],
+                "Strands" : [],
+                "Path"  :  ["Frontend", "Backend"],
+                "Sort by" : [],
+            ]
+     
+     */
     var onFiltersChange: (Dictionary<String, Array<String>>) -> ()
+    /** Dictionary where the key is the kind and the value is the types array, used to save the filters applaied by the user.
+     
+        Example:
+            [
+                "Main" : ["Core"],
+                "Strands" : [],
+                "Path"  :  ["Frontend", "Backend"],
+                "Sort by" : [],
+            ]
+     */
     @State private var selectedFilters: Dictionary<String, Array<String>> = [: ]
     
     init(viewType: FiltersView, onFiltersChange: @escaping (Dictionary<String, Array<String>>) -> ()) {
@@ -71,7 +92,6 @@ struct Filters: View {
             for data in self.model.allFilters {
                 self.selectedFilters[data.kind] = []
             }
-            print(self.selectedFilters)
         }
     }
 }

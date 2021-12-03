@@ -25,7 +25,6 @@ struct FiltersRow: View {
         .padding(.top, 5)
         .onTapGesture {
             self.selected = self.onTap()
-//            self.selected.toggle()
         }
        
     }
