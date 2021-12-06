@@ -67,15 +67,11 @@ struct StartView: View {
 //                Color.red.frame(width: NSScreen.screenWidth, height: 100, alignment: .center)
 //            })
             .toolbar {
-                
-                ToolbarItem(placement: .cancellationAction) {
-                    Button {
-                        // IT will switch the presence of the sidebar
+                Image(systemName: "sidebar.left")
+                    .onTapGesture {
+                        // It will switch the presence of the sidebar
                         NSApp.sendAction(#selector(NSSplitViewController.toggleSidebar(_:)), to: nil, from: nil)
-                    } label: {
-                        Image(systemName: "sidebar.left")
                     }
-                }
             }
             
             if isLoading {
