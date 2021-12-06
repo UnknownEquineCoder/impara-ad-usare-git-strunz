@@ -54,14 +54,15 @@ struct Filters: View {
                     Text(kind).foregroundColor(.gray)
                     Divider()
                     ForEach(model.getTypesByKind(kind: kind), id: \.self) { filter in
-                        
                         HStack{
+                            
                             Text(filter)
                             Spacer()
                             if self.selectedFilters[kind]?.contains(filter) ?? false {
                                 Image(systemName: "checkmark")
                             }
                         }
+                        .background(Color.customBlack.opacity(0.0001)) // hot fix to have the entire button clickable
                         .padding(.bottom, 5)
                         .padding(.top, 5)
                         .onTapGesture {

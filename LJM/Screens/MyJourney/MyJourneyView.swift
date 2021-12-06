@@ -65,7 +65,7 @@ struct MyJourneyView: View {
                 
                 Spacer()
                 HStack{
-                    Text("Filter").font(.system(size: 20))
+                    Text("Filters").font(.system(size: 20))
                     Image(systemName: toggleFilters ? "chevron.up" : "chevron.down")
                         .font(.system(size: 20))
                 }.onTapGesture {
