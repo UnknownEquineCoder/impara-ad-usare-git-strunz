@@ -95,11 +95,7 @@ struct MyJourneyView: View {
                 NumberTotalLearningOjbectivesView(totalLOs: self.totalNumberLearningObjectivesStore.total)
                     .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
 
-//                DropDownMenuSelectPath(selectedPath: $selectedPath)
-//                    .frame(maxWidth: .infinity,  alignment: .trailing)
-//                    .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
-                
-                ListViewLearningObjectiveMyJourney(selectedFilter: $selectedFilter, txtSearchBar: $searchText, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedMenu: $selectedMenu, selectedSort: $selectedSort)
+            ListViewLearningObjectiveMyJourney(txtSearchBar: $searchText, selectedMenu: $selectedMenu, filtered_Learning_Objectives: $filtered_Learning_Objectives, selectedPath: $selectedPath)
                     .padding(.top, 30)
                 
         }.padding(.leading, 50).padding(.trailing, 50)
@@ -191,12 +187,10 @@ struct ScrollViewFiltersJourney: View {
 
 struct ListViewLearningObjectiveMyJourney: View {
     
-    @Binding var selectedFilter: CoreEnum.RawValue
     @Binding var txtSearchBar : String
-    @Binding var selectedPath : String?
-    @Binding var selectedStrands : [String]
     @Binding var selectedMenu: OutlineMenu
-    @Binding var selectedSort: SortEnum?
+    @Binding var filtered_Learning_Objectives : [learning_Objective]
+    @Binding var selectedPath : String?
     
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     @EnvironmentObject var totalNumberLearningObjectivesStore : TotalNumberOfLearningObjectivesStore
@@ -212,7 +206,7 @@ struct ListViewLearningObjectiveMyJourney: View {
                     .padding(.top, 20)
                     .isHidden(self.totalNumberLearningObjectivesStore.total > 0 ? true : false)
                 
-                ScrollViewLearningObjectives(learningPathSelected: $selectedPath, filterCore: selectedFilter, filterSort: selectedSort, isAddable: false, isLearningGoalAdded: nil, textFromSearchBar: $txtSearchBar, selectedStrands: selectedStrands)
+                ScrollViewLearningObjectives(learningPathSelected: $selectedPath, filtered_Learning_Objectives: $filtered_Learning_Objectives, textFromSearchBar: $txtSearchBar)
                 
             }
         } else {
