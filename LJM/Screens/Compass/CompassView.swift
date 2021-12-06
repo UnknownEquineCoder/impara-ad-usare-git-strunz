@@ -571,7 +571,7 @@ struct CompassView: View {
     }
     
     private func subView(forLabel label: String) -> LearningGoalsView {
-        return LearningGoalsView(titleView: label)
+        return LearningGoalsView(titleView: label, filtered_Learning_Objectives: learningObjectiveStore.learningObjectives.filter({$0.goal_Short.lowercased() == label.lowercased()}))
     }
     
     private func showSubview(withLabel label: String) {

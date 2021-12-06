@@ -37,6 +37,8 @@ struct MyJourneyView: View {
     
     @State var isUpdated : Bool = false
     @State private var toggleFilters: Bool = false
+    @State var filters : Dictionary<String, Array<String>> = [:]
+
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -80,22 +82,31 @@ struct MyJourneyView: View {
             
             Filters(
                 viewType: .journey,
-                onFiltersChange: { filters in
-                    print("Filters Updated")
-                    print(filters)
-                    filtered_Learning_Objectives = filterLearningObjective(filters: filters)
+                onFiltersChange: { filter in
+                    filters = filter
+                    filtered_Learning_Objectives = filterLearningObjective(filters: filter)
                 })
                 .opacity(toggleFilters ? 1 : 0)
                 .frame(height: toggleFilters ? .none : 0)
                 .clipped()
                 .animation(.easeOut)
                 .transition(.slide)
-
                 
                 NumberTotalLearningOjbectivesView(totalLOs: self.totalNumberLearningObjectivesStore.total)
                     .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
 
-            ListViewLearningObjectiveMyJourney(txtSearchBar: $searchText, selectedMenu: $selectedMenu, filtered_Learning_Objectives: $filtered_Learning_Objectives, selectedPath: $selectedPath)
+//                DropDownMenuSelectPath(selectedPath: $selectedPath)
+//                    .frame(maxWidth: .infinity,  alignment: .trailing)
+//                    .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
+                
+            ListViewLearningObjectiveMyJourney(selectedFilter: $selectedFilter, txtSearchBar: $searchText, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedMenu: $selectedMenu, selectedSort: $selectedSort, filtered_Learning_Objectives: $filtered_Learning_Objectives)
+                .onAppear(perform: {
+                    filtered_Learning_Objectives = learningObjectiveStore.learningObjectives.filter({$0.eval_score.count > 0})
+                    self.totalNumberLearningObjectivesStore.total = filtered_Learning_Objectives.count
+                })
+                .onChange(of: learningObjectiveStore.learningObjectives) { learning_Objectives in
+                    filtered_Learning_Objectives = filterLearningObjective(filters: filters)
+                }
                     .padding(.top, 30)
                 
         }.padding(.leading, 50).padding(.trailing, 50)
@@ -108,57 +119,34 @@ struct MyJourneyView: View {
     
     func filterLearningObjective(filters : Dictionary<String, Array<String>>) -> [learning_Objective]{
         
-        let return_Learning_Objectives = learningObjectiveStore.learningObjectives.filter({
-            var path_Index : Int? = nil
-            if let first_Strand = filters["Strands"]!.first {
-                path_Index = learningPathStore.learningPaths.firstIndex(where: {$0.title == first_Strand})
-            }
-             
-            // parentesis for not breaking anithing, if you delete the parentesis it does not work because false && false && true && true is a true and not a false
-            
-            return (
-                // check if the learning objective had been evaluated ( for the map view )
-//                !$0.eval_score.isEmpty
-                // filter for all/core/elective
-                
-                /// ["Main": [], "Sort by": [], "Path": [], "Strands": ["Design"]]
-                (
-                    (
-                        filters["Main"]!.contains("Core") ? $0.isCore :
-                        filters["Main"]!.contains("Elective") ? !$0.isCore :
-                        true
-                    )
-    //                // filter for the searchbar /// Not present now inside the filters
-//                    && (
-//                        searchText.isEmpty ||
-//                        $0.goal.lowercased().contains(searchText.lowercased()) ||
-//                        $0.description.lowercased().contains(searchText.lowercased()) ||
-//                        $0.Keyword.contains(where: {$0.lowercased().contains(searchText.lowercased())}) ||
-//                        $0.strand.lowercased().contains(searchText.lowercased()) ||
-//                        $0.goal_Short.lowercased().contains(searchText.lowercased()) ||
-//                        $0.ID.lowercased().contains(searchText.lowercased())
-//                    )
-                )
-                && (
-                    (
-                        // filter for strands
-                        filters["Strans"]!.count == 0 ? true : selectedStrands.contains($0.strand)
-    //
-                    )
-                    && (
-                        // filter for path
-                        (path_Index == nil) ? true : (($0.core_Rubric_Levels[path_Index ?? 0] * $0.core_Rubric_Levels[0] ) > 1)
-                    )
-                    && (
-                        // filter if an element was alredy evaluated or not
-                        filters["Main"]!.contains("Evaluated") ? $0.eval_score.count > 0 :
-                        filters["Main"]!.contains("Not Evaluated") ? $0.eval_score.isEmpty :
-                        true
-//                        selectedEvaluatedOrNotFilter == nil ? true : selectedEvaluatedOrNotFilter == .evaluated ? $0.eval_score.count > 0 : $0.eval_score.isEmpty
-                    )
-                )
-            )
-        })
+        if filters.isEmpty {
+            return learningObjectiveStore.learningObjectives
+        }
+        
+        let return_Learning_Objectives = learningObjectiveStore.learningObjectives
+            .filter({
+                filters["Main"]!.contains("Core") ? $0.isCore :
+                filters["Main"]!.contains("Elective") ? !$0.isCore :
+                true
+            })
+            .filter ({
+                filters["Strands"]!.count == 0 ? true : filters["Strands"]!.contains($0.strand)
+            })
+            .filter({
+                if let first_Strand = filters["Path"]!.first {
+                    if let path_Index = learningPathStore.learningPaths.firstIndex(where: {$0.title == first_Strand}) {
+                        return (($0.core_Rubric_Levels[path_Index] * $0.core_Rubric_Levels[0] ) > 1)
+                    }
+                }
+                return true
+            })
+            .filter({
+                filters["Main"]!.contains("Evaluated") ? $0.eval_score.count > 0 :
+                filters["Main"]!.contains("Not Evaluated") ? $0.eval_score.isEmpty :
+                true
+            })
+        
+        self.totalNumberLearningObjectivesStore.total = return_Learning_Objectives.count
         
         return return_Learning_Objectives
     }
@@ -187,13 +175,17 @@ struct ScrollViewFiltersJourney: View {
 
 struct ListViewLearningObjectiveMyJourney: View {
     
+    @Binding var selectedFilter: CoreEnum.RawValue
     @Binding var txtSearchBar : String
-    @Binding var selectedMenu: OutlineMenu
-    @Binding var filtered_Learning_Objectives : [learning_Objective]
     @Binding var selectedPath : String?
+    @Binding var selectedStrands : [String]
+    @Binding var selectedMenu: OutlineMenu
+    @Binding var selectedSort: SortEnum?
     
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     @EnvironmentObject var totalNumberLearningObjectivesStore : TotalNumberOfLearningObjectivesStore
+    
+    @Binding var filtered_Learning_Objectives : [learning_Objective]
     
     var body: some View {
         if !checkIfMyJourneyIsEmpty() {
@@ -206,7 +198,9 @@ struct ListViewLearningObjectiveMyJourney: View {
                     .padding(.top, 20)
                     .isHidden(self.totalNumberLearningObjectivesStore.total > 0 ? true : false)
                 
-                ScrollViewLearningObjectives(learningPathSelected: $selectedPath, filtered_Learning_Objectives: $filtered_Learning_Objectives, textFromSearchBar: $txtSearchBar)
+                ScrollViewLearningObjectives(learningPathSelected: $selectedPath, isAddable: false, isLearningGoalAdded: nil, textFromSearchBar: $txtSearchBar, filtered_Learning_Objectives: $filtered_Learning_Objectives)
+                
+//                ScrollViewLearningObjectives(learningPathSelected: $selectedPath, textFromSearchBar: $txtSearchBar, filtered_Learning_Objectives: $filtered_Learning_Objectives)
                 
             }
         } else {
