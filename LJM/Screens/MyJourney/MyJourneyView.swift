@@ -33,8 +33,12 @@ struct MyJourneyView: View {
     
     // check if filter updating
     
+    @State var filtered_Learning_Objectives : [learning_Objective] = []
+    
     @State var isUpdated : Bool = false
     @State private var toggleFilters: Bool = false
+    @State var filters : Dictionary<String, Array<String>> = [:]
+
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -78,16 +82,15 @@ struct MyJourneyView: View {
             
             Filters(
                 viewType: .journey,
-                onFiltersChange: { filters in
-                    print("Filters Updated")
-                    print(filters)
+                onFiltersChange: { filter in
+                    filters = filter
+                    filtered_Learning_Objectives = filterLearningObjective(filters: filter)
                 })
                 .opacity(toggleFilters ? 1 : 0)
                 .frame(height: toggleFilters ? .none : 0)
                 .clipped()
                 .animation(.easeOut)
                 .transition(.slide)
-
                 
                 NumberTotalLearningOjbectivesView(totalLOs: self.totalNumberLearningObjectivesStore.total)
                     .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
@@ -96,7 +99,14 @@ struct MyJourneyView: View {
 //                    .frame(maxWidth: .infinity,  alignment: .trailing)
 //                    .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
                 
-                ListViewLearningObjectiveMyJourney(selectedFilter: $selectedFilter, txtSearchBar: $searchText, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedMenu: $selectedMenu, selectedSort: $selectedSort)
+            ListViewLearningObjectiveMyJourney(selectedFilter: $selectedFilter, txtSearchBar: $searchText, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedMenu: $selectedMenu, selectedSort: $selectedSort, filtered_Learning_Objectives: $filtered_Learning_Objectives)
+                .onAppear(perform: {
+                    filtered_Learning_Objectives = learningObjectiveStore.learningObjectives.filter({$0.eval_score.count > 0})
+                    self.totalNumberLearningObjectivesStore.total = filtered_Learning_Objectives.count
+                })
+                .onChange(of: learningObjectiveStore.learningObjectives) { learning_Objectives in
+                    filtered_Learning_Objectives = filterLearningObjective(filters: filters)
+                }
                     .padding(.top, 30)
                 
         }.padding(.leading, 50).padding(.trailing, 50)
@@ -105,6 +115,40 @@ struct MyJourneyView: View {
     func checkIfMyJourneyIsEmpty() -> Bool {
         let evaluated_Objectives = self.learningObjectiveStore.learningObjectives.filter({$0.eval_score.count > 0})
         return evaluated_Objectives.isEmpty
+    }
+    
+    func filterLearningObjective(filters : Dictionary<String, Array<String>>) -> [learning_Objective]{
+        
+        if filters.isEmpty {
+            return learningObjectiveStore.learningObjectives
+        }
+        
+        let return_Learning_Objectives = learningObjectiveStore.learningObjectives
+            .filter({
+                filters["Main"]!.contains("Core") ? $0.isCore :
+                filters["Main"]!.contains("Elective") ? !$0.isCore :
+                true
+            })
+            .filter ({
+                filters["Strands"]!.count == 0 ? true : filters["Strands"]!.contains($0.strand)
+            })
+            .filter({
+                if let first_Strand = filters["Path"]!.first {
+                    if let path_Index = learningPathStore.learningPaths.firstIndex(where: {$0.title == first_Strand}) {
+                        return (($0.core_Rubric_Levels[path_Index] * $0.core_Rubric_Levels[0] ) > 1)
+                    }
+                }
+                return true
+            })
+            .filter({
+                filters["Main"]!.contains("Evaluated") ? $0.eval_score.count > 0 :
+                filters["Main"]!.contains("Not Evaluated") ? $0.eval_score.isEmpty :
+                true
+            })
+        
+        self.totalNumberLearningObjectivesStore.total = return_Learning_Objectives.count
+        
+        return return_Learning_Objectives
     }
 }
 
@@ -141,6 +185,8 @@ struct ListViewLearningObjectiveMyJourney: View {
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     @EnvironmentObject var totalNumberLearningObjectivesStore : TotalNumberOfLearningObjectivesStore
     
+    @Binding var filtered_Learning_Objectives : [learning_Objective]
+    
     var body: some View {
         if !checkIfMyJourneyIsEmpty() {
             ZStack(alignment: .top) {
@@ -152,7 +198,9 @@ struct ListViewLearningObjectiveMyJourney: View {
                     .padding(.top, 20)
                     .isHidden(self.totalNumberLearningObjectivesStore.total > 0 ? true : false)
                 
-                ScrollViewLearningObjectives(learningPathSelected: $selectedPath, filterCore: selectedFilter, filterSort: selectedSort, isAddable: false, isLearningGoalAdded: nil, textFromSearchBar: $txtSearchBar, selectedStrands: selectedStrands)
+                ScrollViewLearningObjectives(learningPathSelected: $selectedPath, isAddable: false, isLearningGoalAdded: nil, textFromSearchBar: $txtSearchBar, filtered_Learning_Objectives: $filtered_Learning_Objectives)
+                
+//                ScrollViewLearningObjectives(learningPathSelected: $selectedPath, textFromSearchBar: $txtSearchBar, filtered_Learning_Objectives: $filtered_Learning_Objectives)
                 
             }
         } else {

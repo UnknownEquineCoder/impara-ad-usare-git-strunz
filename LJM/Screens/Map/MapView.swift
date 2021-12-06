@@ -35,7 +35,7 @@ struct MapView: View {
     // filtered learning objectives
     
     @State var filtered_Learning_Objectives : [learning_Objective] = []
-    
+    @State var filters : Dictionary<String, Array<String>> = [:]
     
     var body: some View {
         
@@ -64,9 +64,9 @@ struct MapView: View {
                 
                 Filters(
                     viewType: .map,
-                    onFiltersChange: { filters in
-                        print("Filters Updated")
-                        print(filters)
+                    onFiltersChange: { filter in
+                        filters = filter
+                        filtered_Learning_Objectives = filterLearningObjective(filters: filters)
                     })
                     .opacity(toggleFilters ? 1 : 0)
                     .frame(height: toggleFilters ? .none : 0)
@@ -84,16 +84,19 @@ struct MapView: View {
                         .padding(.top, 75)
                         .isHidden(self.totalNumberLearningObjectivesStore.total == 0 ? false : true)
                     
-                    ScrollViewLearningObjectives(learningPathSelected: $selectedPath, filteredMap: selectedFilter, filterLearningGoal: nil, filterEvaluatedOrNot: selectedEvaluatedOrNotFilter, isAddable: true, isLearningGoalAdded: nil, textFromSearchBar: $searchText, selectedStrands: selectedStrands)
+                    ScrollViewLearningObjectives(learningPathSelected: $selectedPath, isAddable: true, isLearningGoalAdded: nil, textFromSearchBar: $searchText, filtered_Learning_Objectives: $filtered_Learning_Objectives)
                         .padding(.top, 30)
+                        .onAppear {
+                            filtered_Learning_Objectives = self.learningObjectiveStore.learningObjectives
+                            self.totalNumberLearningObjectivesStore.total = filtered_Learning_Objectives.count
+                        }
+                        .onChange(of: learningObjectiveStore.learningObjectives) { learning_Objectives in
+                            filtered_Learning_Objectives = filterLearningObjective(filters: filters)
+                        }
                     
                 }.padding(.top, 10)
                 
-            }
-            .onChange(of: isUpdated) { newValue in
-                    filterLearningObjective()
-            }
-           .padding(.leading, 50).padding(.trailing, 50)
+        }.padding(.leading, 50).padding(.trailing, 50)
     }
     
     func getLearningPath(learningPaths: [learning_Path]) -> [String] {
@@ -107,53 +110,44 @@ struct MapView: View {
     }
     
     func checkIfMyJourneyIsEmpty() -> Bool {
-        let evaluated_Objectives = self.learningObjectiveStore.learningObjectives.filter({$0.eval_score.count > 0})
+        let evaluated_Objectives = self.learningObjectiveStore.learningObjectives
         return evaluated_Objectives.isEmpty
     }
     
-    func filterLearningObjective(){
+    func filterLearningObjective(filters : Dictionary<String, Array<String>>) -> [learning_Objective]{
         
-        filtered_Learning_Objectives = learningObjectiveStore.learningObjectives.filter({
-            let path_Index = learningPathStore.learningPaths.firstIndex(where: {$0.title == selectedPath})
-            // parentesis for not breaking anithing, if you delete the parentesis it does not work because false && false && true && true is a true and not a false
-            return (
-                // check if the learning objective had been evaluated ( for the map view )
-//                !$0.eval_score.isEmpty
-                // filter for all/core/elective
-                (
-                    (
-                        selectedFilter == "CORE" ? $0.isCore :
-                        selectedFilter == "ELECTIVE" ? !$0.isCore :
-                        true
-                    )
-    //                // filter for the searchbar
-                    && (
-                        searchText.isEmpty ||
-                        $0.goal.lowercased().contains(searchText.lowercased()) ||
-                        $0.description.lowercased().contains(searchText.lowercased()) ||
-                        $0.Keyword.contains(where: {$0.lowercased().contains(searchText.lowercased())}) ||
-                        $0.strand.lowercased().contains(searchText.lowercased()) ||
-                        $0.goal_Short.lowercased().contains(searchText.lowercased()) ||
-                        $0.ID.lowercased().contains(searchText.lowercased())
-                    )
-                )
-                && (
-                    (
-                        // filter for strands
-                        selectedStrands.count == 0 ? true : selectedStrands.contains($0.strand)
-    //
-                    )
-                    && (
-                        // filter for path
-                        (path_Index == nil) ? true : (($0.core_Rubric_Levels[path_Index ?? 0] * $0.core_Rubric_Levels[0] ) > 1)
-                    )
-                    && (
-                        // filter if an element was alredy evaluated or not
-                        selectedEvaluatedOrNotFilter == nil ? true : selectedEvaluatedOrNotFilter == .evaluated ? $0.eval_score.count > 0 : $0.eval_score.isEmpty
-                    )
-                )
-            )
-        })
+        if filters.isEmpty {
+            return learningObjectiveStore.learningObjectives
+        }
+        
+        
+        let return_Learning_Objectives = learningObjectiveStore.learningObjectives
+            .filter({
+                filters["Main"]!.contains("Core") ? $0.isCore :
+                filters["Main"]!.contains("Elective") ? !$0.isCore :
+                true
+            })
+            .filter ({
+                filters["Strands"]!.count == 0 ? true : filters["Strands"]!.contains($0.strand)
+            })
+            .filter({
+                if let first_Strand = filters["Path"]!.first {
+                    if let path_Index = learningPathStore.learningPaths.firstIndex(where: {$0.title == first_Strand}) {
+                        return (($0.core_Rubric_Levels[path_Index] * $0.core_Rubric_Levels[0] ) > 1)
+                    }
+                }
+                return true
+            })
+            .filter({
+                filters["Main"]!.contains("Evaluated") ? $0.eval_score.count > 0 :
+                filters["Main"]!.contains("Not Evaluated") ? $0.eval_score.isEmpty :
+                true
+            })
+        
+        self.totalNumberLearningObjectivesStore.total = return_Learning_Objectives.count
+        
+        return return_Learning_Objectives
     }
+    
 }
 
