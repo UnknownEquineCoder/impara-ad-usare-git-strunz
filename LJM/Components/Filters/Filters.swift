@@ -97,8 +97,8 @@ struct Filters: View {
             }
         }.onAppear {
             // initializing selectedFilters
-            for data in self.model.allFilters {
-                self.selectedFilters[data.kind] = []
+            for kind in self.model.sortedKinds {
+                self.selectedFilters[kind] = []
             }
         }
     }

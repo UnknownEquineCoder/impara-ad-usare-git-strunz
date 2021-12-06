@@ -10,11 +10,11 @@ import Foundation
 class FiltersModel: ObservableObject {
     
     /** Stores all the available filters by saving */
-    var allFilters: [FiltersModelData]
+    private var allFilters: [FiltersModelData]
     /** Filters are both available for journey and map view, this will change the behavior gor both*/
-    var viewType: FiltersView
+    private var viewType: FiltersView
     
-    struct FiltersModelData {
+    private struct FiltersModelData {
         /** Index of the order in the filers view */
         var order: Int
         /** The kind of filter that rapresent the group in whitch the types belongs to*/
