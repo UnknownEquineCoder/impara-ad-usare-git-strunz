@@ -37,7 +37,7 @@ struct Filters: View {
                 "Sort by" : [],
             ]
      */
-    @State private var selectedFilters: Dictionary<String, Array<String>> = [: ]
+    @State private var selectedFilters: Dictionary<String, Array<String>> = [:]
     
     init(viewType: FiltersView, onFiltersChange: @escaping (Dictionary<String, Array<String>>) -> ()) {
         self.viewType = viewType
@@ -51,11 +51,14 @@ struct Filters: View {
             ForEach(model.sortedKinds, id: \.self) { kind in
                 
                 VStack(alignment: .leading){
+                    
+                    // Filter section title
                     Text(kind).foregroundColor(.gray)
                     Divider()
                     ForEach(model.getTypesByKind(kind: kind), id: \.self) { filter in
+                        
+                        // Single filter row
                         HStack{
-                            
                             Text(filter)
                             Spacer()
                             if self.selectedFilters[kind]?.contains(filter) ?? false {
@@ -63,16 +66,18 @@ struct Filters: View {
                             }
                         }
                         .background(Color.customBlack.opacity(0.0001)) // hot fix to have the entire button clickable
-                        .padding(.bottom, 5)
-                        .padding(.top, 5)
+                        .padding([.bottom, .top], 5)
                         .onTapGesture {
                             
+                            // Remove if already selected
                             if self.selectedFilters[kind]?.contains(filter) ?? false {
                                 self.selectedFilters[kind]?.remove(object: filter)
                                 self.onFiltersChange(self.selectedFilters)
                                 return
                             }
                             
+                            // Remove all the previous selected if the tapped filter belongs to
+                            // a single selection kind and add the new filter to the selected one
                             if model.singleSelectionFilter.contains(kind) {
                                 self.selectedFilters[kind]?.removeAll()
                                 self.selectedFilters[kind]?.append(filter)
@@ -80,6 +85,8 @@ struct Filters: View {
                                 return
                             }
                            
+                            // Add the new filter to the selected one if the selected filer do
+                            // not exist and do not belongs to a single selection kind
                             self.selectedFilters[kind]?.append(filter)
                             self.onFiltersChange(self.selectedFilters)
                             return
