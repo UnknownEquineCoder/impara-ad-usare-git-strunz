@@ -19,10 +19,10 @@ class FiltersModel: ObservableObject {
         var order: Int
         /** The kind of filter that rapresent the group in whitch the types belongs to*/
         var kind: String
-        /** Stores all the available filters for the corresponding kind */
-        var types: [String]
         /** Stores true if this filter kind should be selectable only once*/
         var isSingleSelection: Bool
+        /** Stores all the available filters for the corresponding kind */
+        var types: [String]
     }
     
     init(viewType: FiltersView){
@@ -34,21 +34,21 @@ class FiltersModel: ObservableObject {
             
                 FiltersModelData(order: 0,
                                  kind: "Main",
-                                 types: ["Core", "Elective"],
-                                 isSingleSelection: true),
+                                 isSingleSelection: true,
+                                 types: ["Core", "Elective"]),
                 FiltersModelData(order: 1,
                                  kind: "Strands",
-                                 types: ["App Business and Marketing", "Design", "Process", "Professional Skills",               "Technical"],
-                                 isSingleSelection: false),
+                                 isSingleSelection: false,
+                                 types: ["App Business and Marketing", "Design", "Process", "Professional Skills",               "Technical"]),
                 FiltersModelData(order: 2,
                                  kind: "Path",
+                                 isSingleSelection: true,
                                  types: ["UI/UX", "Frontend", "Backend", "Game Design", "Game Development",
-                                         "Business/Entrepreneuship", "Project/Product Manager"],
-                                 isSingleSelection: true),
+                                         "Business/Entrepreneuship", "Project/Product Manager"]),
                 FiltersModelData(order: 3,
                                  kind: "Sort by",
-                                 types: ["Date", "Name"],
-                                 isSingleSelection: true)
+                                 isSingleSelection: true,
+                                 types: ["Date", "Name"])
             ]
         
         case .map:
@@ -56,21 +56,21 @@ class FiltersModel: ObservableObject {
             
                 FiltersModelData(order: 0,
                                  kind: "Main",
-                                 types: ["Core", "Elective", "Evaluated", "Not Evaluated"],
-                                 isSingleSelection: true),
+                                 isSingleSelection: true,
+                                 types: ["Core", "Elective", "Evaluated", "Not Evaluated"]),
                 FiltersModelData(order: 1,
                                  kind: "Strands",
-                                 types: ["App Business and Marketing", "Design", "Process", "Professional Skills", "Technical"],
-                                 isSingleSelection: false),
+                                 isSingleSelection: false,
+                                 types: ["App Business and Marketing", "Design", "Process", "Professional Skills", "Technical"]),
                 FiltersModelData(order: 2,
                                  kind: "Path",
+                                 isSingleSelection: false,
                                  types: ["UI/UX", "Frontend", "Backend", "Game Design", "Game Development",
-                                         "Business/Entrepreneuship", "Project/Product Manager"],
-                                 isSingleSelection: false),
+                                         "Business/Entrepreneuship", "Project/Product Manager"]),
                 FiltersModelData(order: 3,
                                  kind: "Sort by",
-                                 types: ["Date", "Name"],
-                                 isSingleSelection: true)
+                                 isSingleSelection: true,
+                                 types: ["Date", "Name"])
             ]
             
         }
