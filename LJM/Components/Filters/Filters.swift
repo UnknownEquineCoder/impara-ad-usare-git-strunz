@@ -78,7 +78,7 @@ struct Filters: View {
                             
                             // Remove all the previous selected if the tapped filter belongs to
                             // a single selection kind and add the new filter to the selected one
-                            if model.singleSelectionFilter.contains(kind) {
+                            if model.isSingleSelection(kind: kind) {
                                 self.selectedFilters[kind]?.removeAll()
                                 self.selectedFilters[kind]?.append(filter)
                                 self.onFiltersChange(self.selectedFilters)

@@ -11,15 +11,18 @@ class FiltersModel: ObservableObject {
     
     /** Stores all the available filters by saving */
     var allFilters: [FiltersModelData]
-    /** Stores the kinds that should be selectable only once*/
-    let singleSelectionFilter: Array<String>
     /** Filters are both available for journey and map view, this will change the behavior gor both*/
     var viewType: FiltersView
     
     struct FiltersModelData {
+        /** Index of the order in the filers view */
         var order: Int
+        /** The kind of filter that rapresent the group in whitch the types belongs to*/
         var kind: String
+        /** Stores all the available filters for the corresponding kind */
         var types: [String]
+        /** Stores true if this filter kind should be selectable only once*/
+        var isSingleSelection: Bool
     }
     
     init(viewType: FiltersView){
@@ -31,40 +34,45 @@ class FiltersModel: ObservableObject {
             
                 FiltersModelData(order: 0,
                                  kind: "Main",
-                                 types: ["Core", "Elective"]),
+                                 types: ["Core", "Elective"],
+                                 isSingleSelection: true),
                 FiltersModelData(order: 1,
                                  kind: "Strands",
-                                 types: ["App Business and Marketing", "Design", "Process", "Professional Skills", "Technical"]),
+                                 types: ["App Business and Marketing", "Design", "Process", "Professional Skills",               "Technical"],
+                                 isSingleSelection: false),
                 FiltersModelData(order: 2,
                                  kind: "Path",
                                  types: ["UI/UX", "Frontend", "Backend", "Game Design", "Game Development",
-                                         "Business/Entrepreneuship", "Project/Product Manager"]),
+                                         "Business/Entrepreneuship", "Project/Product Manager"],
+                                 isSingleSelection: true),
                 FiltersModelData(order: 3,
                                  kind: "Sort by",
-                                 types: ["Date", "Name"])]
-            
-            self.singleSelectionFilter = ["Main", "Path", "Sort by"]
+                                 types: ["Date", "Name"],
+                                 isSingleSelection: true)
+            ]
         
         case .map:
             self.allFilters = [
             
                 FiltersModelData(order: 0,
                                  kind: "Main",
-                                 types: ["Core", "Elective", "Evaluated", "Not Evaluated"]),
+                                 types: ["Core", "Elective", "Evaluated", "Not Evaluated"],
+                                 isSingleSelection: true),
                 FiltersModelData(order: 1,
                                  kind: "Strands",
-                                 types: ["App Business and Marketing", "Design", "Process", "Professional Skills", "Technical"]),
+                                 types: ["App Business and Marketing", "Design", "Process", "Professional Skills", "Technical"],
+                                 isSingleSelection: false),
                 FiltersModelData(order: 2,
                                  kind: "Path",
                                  types: ["UI/UX", "Frontend", "Backend", "Game Design", "Game Development",
-                                         "Business/Entrepreneuship", "Project/Product Manager"]),
+                                         "Business/Entrepreneuship", "Project/Product Manager"],
+                                 isSingleSelection: false),
                 FiltersModelData(order: 3,
                                  kind: "Sort by",
-                                 types: ["Date", "Name"])]
+                                 types: ["Date", "Name"],
+                                 isSingleSelection: true)
+            ]
             
-            
-            
-            self.singleSelectionFilter = ["Main", "Sort by"]
         }
        
     }
@@ -85,5 +93,12 @@ class FiltersModel: ObservableObject {
         return self.allFilters.first { data in
             data.kind == kind
         }?.types ?? []
+    }
+    
+    /** Return if the correponding kind is a single selection*/
+    func isSingleSelection(kind: String) -> Bool {
+        return self.allFilters.first { data in
+            data.kind == kind
+        }?.isSingleSelection ?? false
     }
 }
