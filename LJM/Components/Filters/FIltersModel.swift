@@ -15,8 +15,6 @@ class FiltersModel: ObservableObject {
     private var viewType: FiltersView
     
     private struct FiltersModelData {
-        /** Index of the order in the filers view */
-        var order: Int
         /** The kind of filter that rapresent the group in whitch the types belongs to*/
         var kind: String
         /** Stores true if this filter kind should be selectable only once*/
@@ -32,21 +30,17 @@ class FiltersModel: ObservableObject {
         case .journey:
             self.allFilters = [
             
-                FiltersModelData(order: 0,
-                                 kind: "Main",
+                FiltersModelData(kind: "Main",
                                  isSingleSelection: true,
                                  types: ["Core", "Elective"]),
-                FiltersModelData(order: 1,
-                                 kind: "Strands",
+                FiltersModelData(kind: "Strands",
                                  isSingleSelection: false,
-                                 types: ["App Business and Marketing", "Design", "Process", "Professional Skills",               "Technical"]),
-                FiltersModelData(order: 2,
-                                 kind: "Path",
+                                 types: ["App Business and Marketing", "Design", "Process", "Professional Skills", "Technical"]),
+                FiltersModelData(kind: "Path",
                                  isSingleSelection: true,
                                  types: ["UI/UX", "Frontend", "Backend", "Game Design", "Game Development",
                                          "Business/Entrepreneuship", "Project/Product Manager"]),
-                FiltersModelData(order: 3,
-                                 kind: "Sort by",
+                FiltersModelData(kind: "Sort by",
                                  isSingleSelection: true,
                                  types: ["Date", "Name"])
             ]
@@ -54,21 +48,17 @@ class FiltersModel: ObservableObject {
         case .map:
             self.allFilters = [
             
-                FiltersModelData(order: 0,
-                                 kind: "Main",
+                FiltersModelData(kind: "Main",
                                  isSingleSelection: true,
                                  types: ["Core", "Elective", "Evaluated", "Not Evaluated"]),
-                FiltersModelData(order: 1,
-                                 kind: "Strands",
+                FiltersModelData(kind: "Strands",
                                  isSingleSelection: false,
                                  types: ["App Business and Marketing", "Design", "Process", "Professional Skills", "Technical"]),
-                FiltersModelData(order: 2,
-                                 kind: "Path",
+                FiltersModelData(kind: "Path",
                                  isSingleSelection: false,
                                  types: ["UI/UX", "Frontend", "Backend", "Game Design", "Game Development",
                                          "Business/Entrepreneuship", "Project/Product Manager"]),
-                FiltersModelData(order: 3,
-                                 kind: "Sort by",
+                FiltersModelData(kind: "Sort by",
                                  isSingleSelection: true,
                                  types: ["Date", "Name"])
             ]
@@ -78,14 +68,8 @@ class FiltersModel: ObservableObject {
     }
     
     /** Return the FilterModelData.kinds sorted by FilterModelData.order */
-    var sortedKinds: [String] {
-        var allFiltersKind: [String] = []
-        for data in allFilters.sorted(by: { l, r in
-            return l.order < r.order
-        }) {
-            allFiltersKind.append(data.kind)
-        }
-        return allFiltersKind
+    var kinds: [String] {
+        return allFilters.map{ $0.kind }
     }
     
     /** Return the FilterModelData.types of the correponding kind */
