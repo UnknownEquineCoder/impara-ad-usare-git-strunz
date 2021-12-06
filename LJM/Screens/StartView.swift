@@ -6,26 +6,17 @@ struct StartView: View {
     @Binding var isLoading : Bool
     
     // core data elements
-    @Environment(\.managedObjectContext) private var viewContext
-    @State var timer: Timer?
-    @State var runCount = 0
-    
-    @State var dim : CGFloat = 0
-    
-    //    @FetchRequest(
-    //        sortDescriptors: [],
-    //        animation: .default)
+    @Environment(\.managedObjectContext)
+    private var viewContext
     @FetchRequest(fetchRequest: EvaluatedObject.get_Evaluated_Object_List_Request(), animation: .default)
     private var objectives: FetchedResults<EvaluatedObject>
-    
-    @State var selectedMenu: OutlineMenu = .compass
     
     @StateObject var totalNumberLearningObjectivesStore = TotalNumberOfLearningObjectivesStore()
     @StateObject var learningPathsStore = LearningPathStore()
     @StateObject var strandsStore = StrandsStore()
-    
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     
+    @State var selectedMenu: OutlineMenu = .compass
     @State var filter_Path = "None"
     
     func selectedView() -> AnyView {
@@ -41,41 +32,31 @@ struct StartView: View {
     
     @ViewBuilder
     var body: some View {
-        
         NavigationView {
             VStack(alignment: .leading) {
-                    VStack(alignment: .leading) {
-                        ForEach(OutlineMenu.allCases) { menu in
-                            ZStack(alignment: .leading) {
-                                OutlineRow(item: menu, selectedMenu: self.$selectedMenu)
-                                    .frame(height: 40)
-                                    .padding([.leading, .trailing], 10)
-                                if menu == self.selectedMenu {
-                                    RoundedRectangle(cornerRadius: 8)
-                                        .foregroundColor(Color.secondary.opacity(0.1))
-                                        .frame(height: 40)
-                                        .padding([.leading, .trailing], 10)
-                                }
-                            }
+                ForEach(OutlineMenu.allCases) { menu in
+                    ZStack(alignment: .leading) {
+                        OutlineRow(item: menu, selectedMenu: self.$selectedMenu)
+                            .frame(height: 40)
+                            .padding([.leading, .trailing], 10)
+                        if menu == self.selectedMenu {
+                            RoundedRectangle(cornerRadius: 8)
+                                .foregroundColor(Color.secondary.opacity(0.1))
+                                .frame(height: 40)
+                                .padding([.leading, .trailing], 10)
                         }
                     }
+                }
                 
                 Spacer()
                 StudentPictureView()
             }
-//            .toolbar(content: {
-//                Color.red.frame(width: NSScreen.screenWidth, height: 100, alignment: .center)
-//            })
             .toolbar {
-                
-                ToolbarItem(placement: .cancellationAction) {
-                    Button {
-                        // IT will switch the presence of the sidebar
+                Image(systemName: "sidebar.left")
+                    .onTapGesture {
+                        // It will switch the presence of the sidebar
                         NSApp.sendAction(#selector(NSSplitViewController.toggleSidebar(_:)), to: nil, from: nil)
-                    } label: {
-                        Image(systemName: "sidebar.left")
                     }
-                }
             }
             
             if isLoading {
@@ -89,27 +70,20 @@ struct StartView: View {
                     Spacer()
                 }
             } else {
-                    
-                    selectedView()
-                        .environmentObject(totalNumberLearningObjectivesStore)
-                        .environmentObject(learningPathsStore)
-                        .environmentObject(strandsStore)
-                        .frame(minWidth: NSScreen.screenWidth! - 403, idealWidth: nil, maxWidth: nil, minHeight: nil, idealHeight: nil, maxHeight: nil, alignment: .leading)
-                
-                    
+                selectedView()
+                    .environmentObject(totalNumberLearningObjectivesStore)
+                    .environmentObject(learningPathsStore)
+                    .environmentObject(strandsStore)
+                    .frame(minWidth: NSScreen.screenWidth! - 403, idealWidth: nil, maxWidth: nil, minHeight: nil, idealHeight: nil, maxHeight: nil, alignment: .leading)
             }
                 
         }
         .navigationViewStyle(.automatic)
-        
         .onTapGesture {
             NSApp.keyWindow?.makeFirstResponder(nil)
         }
         .onAppear(perform: {
-            
-//            NSToolbar().colo
             learningObjectiveStore.load_Test_Data() {
-                
                 learningObjectiveStore.load_Status(objectives: objectives)
                 learningPathsStore.load_Learning_Path()
                 strandsStore.setupStrandsOnNativeFilter(learningObjectives: learningObjectiveStore.learningObjectives)
@@ -117,53 +91,4 @@ struct StartView: View {
             }
         })
     }
-    
-//    @State var temp_Array : [CD_Evaluated_Object] = []
-//    @State var jumpedTime = 0
-    
-//    func update_Store() {
-//
-//        let context = PersistenceController.shared.container.newBackgroundContext()
-////        PersistenceController.container.newBackgroundContext()
-//        var items : [EvaluatedObject] = []
-//        var usable_Items : [CD_Evaluated_Object] = []
-//
-//        do{
-//            try items = context.fetch(EvaluatedObject.get_Evaluated_Object_List_Request())
-//        } catch {
-//            print("error : \(error)")
-//        }
-//
-//        for item in items {
-//            usable_Items.append(CD_Evaluated_Object(id: item.id ?? "ND", eval_Date: item.eval_Dates as! [Date], eval_Score: item.eval_Scores as! [Int]))
-//        }
-//
-//        for objective_To_Add in usable_Items {
-//            let possible_Index = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == objective_To_Add.id})
-//
-//            if let index = possible_Index{
-//                learningObjectiveStore.learningObjectives[index].eval_date = objective_To_Add.eval_Date
-//                learningObjectiveStore.learningObjectives[index].eval_score = objective_To_Add.eval_Score
-//            }
-//        }
-//
-//        if temp_Array.count > 0 {
-//            if temp_Array ==  usable_Items{
-//                if jumpedTime == 3 {
-//                    timer?.invalidate()
-//                    isLoading = false
-//                    // TODO implement the name update here
-//                } else {
-//                    jumpedTime+=1
-//                }
-//            } else {
-//                jumpedTime = 0
-//            }
-//        }
-//
-//        temp_Array = usable_Items
-//
-//        //        }
-//    }
-    
 }
