@@ -28,7 +28,6 @@ struct Filters: View {
      */
     var onFiltersChange: (Dictionary<String, Array<String>>) -> ()
     /** Dictionary where the key is the kind and the value is the types array, used to save the filters applaied by the user.
-     
         Example:
             [
                 "Main" : ["Core"],
@@ -48,7 +47,7 @@ struct Filters: View {
     var body: some View {
         HStack(alignment: .top, spacing: 20){
             
-            ForEach(model.sortedKinds, id: \.self) { kind in
+            ForEach(model.kinds, id: \.self) { kind in
                 
                 VStack(alignment: .leading){
                     
@@ -97,7 +96,7 @@ struct Filters: View {
             }
         }.onAppear {
             // initializing selectedFilters
-            for kind in self.model.sortedKinds {
+            for kind in self.model.kinds {
                 self.selectedFilters[kind] = []
             }
         }
