@@ -47,11 +47,8 @@
 		96CE7BC625C4183A006C4CDA /* FilterChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CE7BC525C4183A006C4CDA /* FilterChoice.swift */; };
 		96E2DD852726EF170007D49B /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E2DD842726EF170007D49B /* SearchBar.swift */; };
 		A018956F275789D60054B1E6 /* Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A018956E275789D60054B1E6 /* Filters.swift */; };
-		A0682D2A275A1CF50068BA60 /* FiltersRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0682D29275A1CF50068BA60 /* FiltersRow.swift */; };
 		A0682D2C275A1D180068BA60 /* FIltersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0682D2B275A1D180068BA60 /* FIltersModel.swift */; };
 		E02C351B274F8F6E00DD060C /* ALL PATHS-New.csv in Resources */ = {isa = PBXBuildFile; fileRef = E02C351A274F8F6E00DD060C /* ALL PATHS-New.csv */; };
-		E02C351E27561CBD00DD060C /* pie_Chart_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02C351D27561CBD00DD060C /* pie_Chart_View.swift */; };
-		E02C352027561CD500DD060C /* pie_Chart_Slice.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02C351F27561CD500DD060C /* pie_Chart_Slice.swift */; };
 		E02DFE8A270AEC3F004FF8B7 /* newModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02DFE89270AEC3F004FF8B7 /* newModels.swift */; };
 		E02DFE8C270C41E5004FF8B7 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02DFE8B270C41E5004FF8B7 /* Observable.swift */; };
 		E04251AD27295F34000A1D69 /* StudentData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E04251AB27295F34000A1D69 /* StudentData.xcdatamodeld */; };
@@ -164,7 +161,6 @@
 		96CE7BC525C4183A006C4CDA /* FilterChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterChoice.swift; sourceTree = "<group>"; };
 		96E2DD842726EF170007D49B /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		A018956E275789D60054B1E6 /* Filters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filters.swift; sourceTree = "<group>"; };
-		A0682D29275A1CF50068BA60 /* FiltersRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersRow.swift; sourceTree = "<group>"; };
 		A0682D2B275A1D180068BA60 /* FIltersModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIltersModel.swift; sourceTree = "<group>"; };
 		E000216D274BF0CB0059A1C9 /* LJM.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = LJM.entitlements; sourceTree = "<group>"; };
 		E02C351A274F8F6E00DD060C /* ALL PATHS-New.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ALL PATHS-New.csv"; sourceTree = "<group>"; };
@@ -383,18 +379,8 @@
 			children = (
 				A018956E275789D60054B1E6 /* Filters.swift */,
 				A0682D2B275A1D180068BA60 /* FIltersModel.swift */,
-				A0682D29275A1CF50068BA60 /* FiltersRow.swift */,
 			);
 			path = Filters;
-			sourceTree = "<group>";
-		};
-		E02C351C27561CA100DD060C /* Test Element */ = {
-			isa = PBXGroup;
-			children = (
-				E02C351D27561CBD00DD060C /* pie_Chart_View.swift */,
-				E02C351F27561CD500DD060C /* pie_Chart_Slice.swift */,
-			);
-			path = "Test Element";
 			sourceTree = "<group>";
 		};
 		E02DFE8D270C41F4004FF8B7 /* New Backend */ = {
@@ -716,7 +702,6 @@
 				96533794260C898400316B7C /* StackNavigationView.swift in Sources */,
 				EA7028B02579B29600E1B6EB /* ArrowButtonScrollView.swift in Sources */,
 				96BBAA85268325F000E9932E /* InfoButton.swift in Sources */,
-				A0682D2A275A1CF50068BA60 /* FiltersRow.swift in Sources */,
 				961DB4CE25E668410020E9F6 /* DatePicker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -936,7 +921,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = QJTRTDLS6U;
+				DEVELOPMENT_TEAM = GF68KA6N32;
 				INFOPLIST_FILE = LJMTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -959,7 +944,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = QJTRTDLS6U;
+				DEVELOPMENT_TEAM = GF68KA6N32;
 				INFOPLIST_FILE = LJMTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -981,7 +966,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = QJTRTDLS6U;
+				DEVELOPMENT_TEAM = GF68KA6N32;
 				INFOPLIST_FILE = LJMUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1003,7 +988,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = QJTRTDLS6U;
+				DEVELOPMENT_TEAM = GF68KA6N32;
 				INFOPLIST_FILE = LJMUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

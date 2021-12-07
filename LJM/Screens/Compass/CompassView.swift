@@ -32,10 +32,10 @@ struct CompassView: View {
     // This will be arrays for bars graphs
     let fake_Strands = ["App Business and Marketing","Process","Professional Skills","Technical","Design"]
     
-    let process_Skills = ["Act", "Engage", "Investigate ", "Ongoing Activities", "Project Management", "Scrum"]
+    let process_Skills = ["Act", "Engage", "Investigate", "Ongoing Activities", "Project Management", "Scrum"]
     let design_Skills = ["Accessibility", "Branding", "Design Fundamentals", "Game Design and Art Direction", "HIG Basic", "HIG Advanced", "Prototyping", "User Centered Design"]
     let professional_Skills = ["Creative Workflow", "Collaboration", "Communication", "Employability", "Personal Growth", "Presentations", "Storytelling"]
-    let tecnical_Skills = ["Developer Tools", "Interfaces Development", "Logic and Programming", "Media,  Animation and Games", "Networking and Backend", "Operating Systems", "Platform Functionalities", "Supporting Frameworks"]
+    let tecnical_Skills = ["Developer Tools", "Interfaces Development", "Logic and Programming", "Media, Animation and Games", "Networking and Backend", "Operating Systems", "Platform Functionalities", "Supporting Frameworks"]
     let business_Skills = ["App Business", "App Marketing", "Entrepreneurship", "Legal Guidelines", "Store Guidelines", "Store Presence", "User Engagement"]
     
     @State var process_Progress : [Double] = [5,5,5,5,5,5,5,5,5,5,5,5]
@@ -238,49 +238,54 @@ struct CompassView: View {
             
             let data_Filtered_Index = closestMatch(values: learning_Objective.eval_date, inputValue: selected_Date)
             
-            if(data_Filtered_Index != -1){
+            
+            switch learning_Objective.strand {
+            case "App Business and Marketing":
                 
-                switch learning_Objective.strand {
-                case "App Business and Marketing":
-                    
-                    let element_Index = business_Skills.firstIndex(of: learning_Objective.goal_Short) ?? 0
+                let element_Index = business_Skills.firstIndex(of: learning_Objective.goal_Short) ?? 0
+                business_Progress_Quantity[element_Index] += 1
+                if(data_Filtered_Index != -1){
                     business_Progress[element_Index] += Double(learning_Objective.eval_score[data_Filtered_Index])
-                    business_Progress_Quantity[element_Index] += 1
-                    break
-                    
-                case "Process":
-                    
-                    
-                    let element_Index = process_Skills.firstIndex(of: learning_Objective.goal_Short) ?? 0
-                    process_Progress[element_Index] += Double(learning_Objective.eval_score[data_Filtered_Index])
-                    process_Progress_Quantity[element_Index] += 1
-                    break
-                    
-                case "Professional Skills":
-                    
-                    let element_Index = professional_Skills.firstIndex(of: learning_Objective.goal_Short) ?? 0
-                    professional_Progress[element_Index] += Double(learning_Objective.eval_score[data_Filtered_Index])
-                    professional_Progress_Quantity[element_Index] += 1
-                    break
-                    
-                case "Technical":
-                    
-                    let element_Index = tecnical_Skills.firstIndex(of: learning_Objective.goal_Short) ?? 0
-                    tecnical_Progress[element_Index] += Double(learning_Objective.eval_score[data_Filtered_Index])
-                    tecnical_Progress_Quantity[element_Index] += 1
-                    break
-                    
-                case "Design":
-                    let element_Index = design_Skills.firstIndex(where: { $0.lowercased() == learning_Objective.goal_Short.lowercased()}) ?? 0
-                    
-                    design_Progress[element_Index] += Double(learning_Objective.eval_score[data_Filtered_Index])
-                    design_Progress_Quantity[element_Index] += 1
-                    break
-                    
-                default:
-                    break
                 }
+                break
                 
+            case "Process":
+                
+                let element_Index = process_Skills.firstIndex(of: learning_Objective.goal_Short) ?? 0
+                process_Progress_Quantity[element_Index] += 1
+                if(data_Filtered_Index != -1){
+                    process_Progress[element_Index] += Double(learning_Objective.eval_score[data_Filtered_Index])
+                }
+                break
+                
+            case "Professional Skills":
+                
+                let element_Index = professional_Skills.firstIndex(of: learning_Objective.goal_Short) ?? 0
+                professional_Progress_Quantity[element_Index] += 1
+                if(data_Filtered_Index != -1){
+                    professional_Progress[element_Index] += Double(learning_Objective.eval_score[data_Filtered_Index])
+                }
+                break
+                
+            case "Technical":
+                
+                let element_Index = tecnical_Skills.firstIndex(of: learning_Objective.goal_Short) ?? 0
+                tecnical_Progress_Quantity[element_Index] += 1
+                if(data_Filtered_Index != -1){
+                    tecnical_Progress[element_Index] += Double(learning_Objective.eval_score[data_Filtered_Index])
+                }
+                break
+                
+            case "Design":
+                let element_Index = design_Skills.firstIndex(where: { $0.lowercased() == learning_Objective.goal_Short.lowercased()}) ?? 0
+                design_Progress_Quantity[element_Index] += 1
+                if(data_Filtered_Index != -1){
+                    design_Progress[element_Index] += Double(learning_Objective.eval_score[data_Filtered_Index])
+                }
+                break
+                
+            default:
+                break
             }
         }
         
@@ -572,7 +577,7 @@ struct CompassView: View {
     }
     
     private func subView(forLabel label: String) -> LearningGoalsView {
-        return LearningGoalsView(titleView: label)
+        return LearningGoalsView(titleView: label, filtered_Learning_Objectives: learningObjectiveStore.learningObjectives.filter({$0.goal_Short.lowercased() == label.lowercased()}))
     }
     
     private func showSubview(withLabel label: String) {
