@@ -79,7 +79,7 @@ class LearningObjectivesStore: ObservableObject {
         if isSavable {
             let cd_Learned_Obectives = PersistenceController()
                 .load(objectives: objectives)
-            
+            print("@@@@@@@@ \(cd_Learned_Obectives.count)")
             for evaluated_Ojectives in cd_Learned_Obectives {
                 
                     let index = learningObjectives.firstIndex(where: {$0.ID == evaluated_Ojectives.id})

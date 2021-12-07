@@ -22,16 +22,7 @@ struct ScrollViewLearningObjectives: View {
     var body: some View {
         ScrollView {
             LazyVStack(spacing: 20) {
-                ForEach(filtered_Learning_Objectives
-                .filter({
-                    textFromSearchBar.isEmpty ||
-                    $0.goal.lowercased().contains(textFromSearchBar.lowercased()) ||
-                    $0.description.lowercased().contains(textFromSearchBar.lowercased()) ||
-                    $0.Keyword.contains(where: {$0.lowercased().contains(textFromSearchBar.lowercased())}) ||
-                    $0.strand.lowercased().contains(textFromSearchBar.lowercased()) ||
-                    $0.goal_Short.lowercased().contains(textFromSearchBar.lowercased()) ||
-                    $0.ID.lowercased().contains(textFromSearchBar.lowercased())
-                }), id: \.ID) { item in
+                ForEach(filtered_Learning_Objectives, id: \.ID) { item in
                             LearningObjectiveJourneyCell(
                                 rating: item.eval_score.last ?? 0,
                                 isRatingView: item.eval_score.count > 0,

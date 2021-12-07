@@ -36,6 +36,7 @@ struct MapView: View {
     
     @State var filtered_Learning_Objectives : [learning_Objective] = []
     @State var filters : Dictionary<String, Array<String>> = [:]
+    @State var filter_Text = ""
     
     var body: some View {
         
@@ -66,7 +67,7 @@ struct MapView: View {
                     viewType: .map,
                     onFiltersChange: { filter in
                         filters = filter
-                        filtered_Learning_Objectives = filterLearningObjective(filters: filters)
+                        filtered_Learning_Objectives = filterLearningObjective()
                     })
                     .opacity(toggleFilters ? 1 : 0)
                     .frame(height: toggleFilters ? .none : 0)
@@ -87,11 +88,14 @@ struct MapView: View {
                     ScrollViewLearningObjectives(learningPathSelected: $selectedPath, isAddable: true, isLearningGoalAdded: nil, textFromSearchBar: $searchText, filtered_Learning_Objectives: $filtered_Learning_Objectives)
                         .padding(.top, 30)
                         .onAppear {
-                            filtered_Learning_Objectives = self.learningObjectiveStore.learningObjectives
-                            self.totalNumberLearningObjectivesStore.total = filtered_Learning_Objectives.count
+                            filtered_Learning_Objectives = filterLearningObjective()
                         }
                         .onChange(of: learningObjectiveStore.learningObjectives) { learning_Objectives in
-                            filtered_Learning_Objectives = filterLearningObjective(filters: filters)
+                            filtered_Learning_Objectives = filterLearningObjective()
+                        }
+                        .onChange(of: searchText) { newValue in
+                            filter_Text = newValue
+                            filtered_Learning_Objectives = filterLearningObjective()
                         }
                     
                 }.padding(.top, 10)
@@ -114,12 +118,12 @@ struct MapView: View {
         return evaluated_Objectives.isEmpty
     }
     
-    func filterLearningObjective(filters : Dictionary<String, Array<String>>) -> [learning_Objective]{
+    func filterLearningObjective() -> [learning_Objective]{
         
         if filters.isEmpty {
+            self.totalNumberLearningObjectivesStore.total = learningObjectiveStore.learningObjectives.count
             return learningObjectiveStore.learningObjectives
         }
-        
         
         let return_Learning_Objectives = learningObjectiveStore.learningObjectives
             .filter({
@@ -142,6 +146,15 @@ struct MapView: View {
                 filters["Main"]!.contains("Evaluated") ? $0.eval_score.count > 0 :
                 filters["Main"]!.contains("Not Evaluated") ? $0.eval_score.isEmpty :
                 true
+            })
+            .filter({
+                filter_Text.isEmpty ||
+                $0.goal.lowercased().contains(filter_Text.lowercased()) ||
+                $0.description.lowercased().contains(filter_Text.lowercased()) ||
+                $0.Keyword.contains(where: {$0.lowercased().contains(filter_Text.lowercased())}) ||
+                $0.strand.lowercased().contains(filter_Text.lowercased()) ||
+                $0.goal_Short.lowercased().contains(filter_Text.lowercased()) ||
+                $0.ID.lowercased().contains(filter_Text.lowercased())
             })
         
         self.totalNumberLearningObjectivesStore.total = return_Learning_Objectives.count

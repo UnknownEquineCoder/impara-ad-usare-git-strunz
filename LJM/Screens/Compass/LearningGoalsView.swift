@@ -31,6 +31,7 @@ struct LearningGoalsView: View {
     @State var toggleFilters : Bool = false
     
     @State var filters : Dictionary<String, Array<String>> = [:]
+    @State var filter_Text = ""
     
     var body: some View {
         
@@ -64,7 +65,7 @@ struct LearningGoalsView: View {
                 viewType: .map,
                 onFiltersChange: { filter in
                     filters = filter
-                    filtered_Learning_Objectives2 = filterLearningObjective(filters: filter)
+                    filtered_Learning_Objectives2 = filterLearningObjective()
                 })
                 .opacity(toggleFilters ? 1 : 0)
                 .frame(height: toggleFilters ? .none : 0)
@@ -72,11 +73,15 @@ struct LearningGoalsView: View {
                 .animation(.easeOut)
                 .transition(.slide)
             .onAppear {
+                print("@@@@@@@@@ \(filtered_Learning_Objectives)")
                 filtered_Learning_Objectives2 = filtered_Learning_Objectives
                 self.totalNumberLearningObjectivesStore.total = filtered_Learning_Objectives2.count
             }
             .onChange(of: filtered_Learning_Objectives) { learning_Objectives in
-                filtered_Learning_Objectives2 = filterLearningObjective(filters: filters)
+                filtered_Learning_Objectives2 = filterLearningObjective()
+            }
+            .onChange(of: searchText) { newValue in
+                filter_Text = newValue
             }
             
             ZStack(alignment: .top) {
@@ -94,7 +99,7 @@ struct LearningGoalsView: View {
                     .isHidden(self.totalNumberLearningObjectivesStore.total == 0 ? false : true)
                 
                 // TODO
-                ScrollViewLearningObjectives(learningPathSelected: $selectedPath, isLearningGoalAdded: false, textFromSearchBar: $searchText, filtered_Learning_Objectives: .constant(filtered_Learning_Objectives))
+                ScrollViewLearningObjectives(learningPathSelected: $selectedPath, isLearningGoalAdded: false, textFromSearchBar: $searchText, filtered_Learning_Objectives: $filtered_Learning_Objectives2)
                     .padding(.top, 50)
                 
             }.frame(maxWidth: .infinity).padding(.top, 10)
@@ -102,7 +107,7 @@ struct LearningGoalsView: View {
         
     }
     
-    func filterLearningObjective(filters : Dictionary<String, Array<String>>) -> [learning_Objective]{
+    func filterLearningObjective() -> [learning_Objective]{
         
         if filters.isEmpty {
             return filtered_Learning_Objectives
@@ -129,6 +134,15 @@ struct LearningGoalsView: View {
                 filters["Main"]!.contains("Evaluated") ? $0.eval_score.count > 0 :
                 filters["Main"]!.contains("Not Evaluated") ? $0.eval_score.isEmpty :
                 true
+            })
+            .filter({
+                filter_Text.isEmpty ||
+                $0.goal.lowercased().contains(filter_Text.lowercased()) ||
+                $0.description.lowercased().contains(filter_Text.lowercased()) ||
+                $0.Keyword.contains(where: {$0.lowercased().contains(filter_Text.lowercased())}) ||
+                $0.strand.lowercased().contains(filter_Text.lowercased()) ||
+                $0.goal_Short.lowercased().contains(filter_Text.lowercased()) ||
+                $0.ID.lowercased().contains(filter_Text.lowercased())
             })
         
         self.totalNumberLearningObjectivesStore.total = return_Learning_Objectives.count

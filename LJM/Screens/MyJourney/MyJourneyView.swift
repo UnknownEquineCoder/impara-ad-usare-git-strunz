@@ -38,6 +38,7 @@ struct MyJourneyView: View {
     @State var isUpdated : Bool = false
     @State private var toggleFilters: Bool = false
     @State var filters : Dictionary<String, Array<String>> = [:]
+    @State var filter_Text = ""
 
     
     var body: some View {
@@ -84,7 +85,7 @@ struct MyJourneyView: View {
                 viewType: .journey,
                 onFiltersChange: { filter in
                     filters = filter
-                    filtered_Learning_Objectives = filterLearningObjective(filters: filter)
+                    filtered_Learning_Objectives = filterLearningObjective()
                 })
                 .opacity(toggleFilters ? 1 : 0)
                 .frame(height: toggleFilters ? .none : 0)
@@ -95,35 +96,40 @@ struct MyJourneyView: View {
                 NumberTotalLearningOjbectivesView(totalLOs: self.totalNumberLearningObjectivesStore.total)
                     .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
 
-//                DropDownMenuSelectPath(selectedPath: $selectedPath)
-//                    .frame(maxWidth: .infinity,  alignment: .trailing)
-//                    .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
-                
             ListViewLearningObjectiveMyJourney(selectedFilter: $selectedFilter, txtSearchBar: $searchText, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedMenu: $selectedMenu, selectedSort: $selectedSort, filtered_Learning_Objectives: $filtered_Learning_Objectives)
-                .onAppear(perform: {
-                    filtered_Learning_Objectives = learningObjectiveStore.learningObjectives.filter({$0.eval_score.count > 0})
-                    self.totalNumberLearningObjectivesStore.total = filtered_Learning_Objectives.count
-                })
-                .onChange(of: learningObjectiveStore.learningObjectives) { learning_Objectives in
-                    filtered_Learning_Objectives = filterLearningObjective(filters: filters)
+                .onAppear {
+                    filtered_Learning_Objectives = filterLearningObjective()
                 }
+                .onChange(of: learningObjectiveStore.learningObjectives) { learning_Objectives in
+                    filtered_Learning_Objectives = filterLearningObjective()
+                }
+                .onChange(of: searchText, perform: { newValue in
+                    filter_Text = newValue
+                    filtered_Learning_Objectives = filterLearningObjective()
+
+                })
                     .padding(.top, 30)
                 
         }.padding(.leading, 50).padding(.trailing, 50)
     }
     
     func checkIfMyJourneyIsEmpty() -> Bool {
-        let evaluated_Objectives = self.learningObjectiveStore.learningObjectives.filter({$0.eval_score.count > 0})
+        let evaluated_Objectives = self.learningObjectiveStore.learningObjectives.filter({!$0.eval_score.isEmpty})
         return evaluated_Objectives.isEmpty
     }
     
-    func filterLearningObjective(filters : Dictionary<String, Array<String>>) -> [learning_Objective]{
+    func filterLearningObjective() -> [learning_Objective]{
         
         if filters.isEmpty {
-            return learningObjectiveStore.learningObjectives
+            filtered_Learning_Objectives = learningObjectiveStore.learningObjectives.filter({!$0.eval_score.isEmpty})
+            self.totalNumberLearningObjectivesStore.total = filtered_Learning_Objectives.count
+            return filtered_Learning_Objectives
         }
         
         let return_Learning_Objectives = learningObjectiveStore.learningObjectives
+            .filter({
+                !$0.eval_score.isEmpty
+            })
             .filter({
                 filters["Main"]!.contains("Core") ? $0.isCore :
                 filters["Main"]!.contains("Elective") ? !$0.isCore :
@@ -141,9 +147,13 @@ struct MyJourneyView: View {
                 return true
             })
             .filter({
-                filters["Main"]!.contains("Evaluated") ? $0.eval_score.count > 0 :
-                filters["Main"]!.contains("Not Evaluated") ? $0.eval_score.isEmpty :
-                true
+                filter_Text.isEmpty ||
+                $0.goal.lowercased().contains(filter_Text.lowercased()) ||
+                $0.description.lowercased().contains(filter_Text.lowercased()) ||
+                $0.Keyword.contains(where: {$0.lowercased().contains(filter_Text.lowercased())}) ||
+                $0.strand.lowercased().contains(filter_Text.lowercased()) ||
+                $0.goal_Short.lowercased().contains(filter_Text.lowercased()) ||
+                $0.ID.lowercased().contains(filter_Text.lowercased())
             })
         
         self.totalNumberLearningObjectivesStore.total = return_Learning_Objectives.count
