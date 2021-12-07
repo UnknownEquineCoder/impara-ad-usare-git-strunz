@@ -51,7 +51,7 @@ class FiltersModel: ObservableObject {
             
                 FiltersModelData(kind: "Main",
                                  isSingleSelection: true,
-                                 types: ["Core", "Elective", "Evaluated", "Not Evaluated"]),
+                                 types: ["Core", "Elective"]),
                 FiltersModelData(kind: "Status",
                                  isSingleSelection: true,
                                  types: ["Evaluated", "Not Evaluated"]),
