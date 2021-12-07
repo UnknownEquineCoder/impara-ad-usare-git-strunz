@@ -107,23 +107,6 @@ struct MyJourneyView: View {
                         
                     }.frame(maxWidth: .infinity)
             
-            NumberTotalLearningOjbectivesView(totalLOs: self.totalNumberLearningObjectivesStore.total)
-                .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
-            
-            ListViewLearningObjectiveMyJourney(selectedFilter: $selectedFilter, txtSearchBar: $searchText, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedMenu: $selectedMenu, selectedSort: $selectedSort, filtered_Learning_Objectives: $filtered_Learning_Objectives)
-                .onAppear {
-                    filtered_Learning_Objectives = filterLearningObjective()
-                }
-                .onChange(of: learningObjectiveStore.learningObjectives) { learning_Objectives in
-                    filtered_Learning_Objectives = filterLearningObjective()
-                }
-                .onChange(of: searchText, perform: { newValue in
-                    filter_Text = newValue
-                    filtered_Learning_Objectives = filterLearningObjective()
-                    
-                })
-                .padding(.top, 30)
-            
         }
         .padding(.leading, 50).padding(.trailing, 50)
         .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
