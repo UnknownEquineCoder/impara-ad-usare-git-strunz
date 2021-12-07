@@ -73,7 +73,6 @@ struct LearningGoalsView: View {
                 .animation(.easeOut)
                 .transition(.slide)
             .onAppear {
-                print("@@@@@@@@@ \(filtered_Learning_Objectives)")
                 filtered_Learning_Objectives2 = filtered_Learning_Objectives
                 self.totalNumberLearningObjectivesStore.total = filtered_Learning_Objectives2.count
             }
@@ -110,7 +109,18 @@ struct LearningGoalsView: View {
     func filterLearningObjective() -> [learning_Objective]{
         
         if filters.isEmpty {
-            return filtered_Learning_Objectives
+            let return_Learning_Objectives = filtered_Learning_Objectives
+                .filter({
+                    filter_Text.isEmpty ||
+                    $0.goal.lowercased().contains(filter_Text.lowercased()) ||
+                    $0.description.lowercased().contains(filter_Text.lowercased()) ||
+                    $0.Keyword.contains(where: {$0.lowercased().contains(filter_Text.lowercased())}) ||
+                    $0.strand.lowercased().contains(filter_Text.lowercased()) ||
+                    $0.goal_Short.lowercased().contains(filter_Text.lowercased()) ||
+                    $0.ID.lowercased().contains(filter_Text.lowercased())
+                })
+            self.totalNumberLearningObjectivesStore.total = return_Learning_Objectives.count
+            return return_Learning_Objectives
         }
         
         let return_Learning_Objectives = filtered_Learning_Objectives
