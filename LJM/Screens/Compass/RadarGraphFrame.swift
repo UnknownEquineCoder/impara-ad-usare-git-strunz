@@ -19,7 +19,6 @@ struct RadarGraphFrame: View {
 
     let strandLabels: [String] = ["PROCESS", "PROFESSIONAL SKILLS", "TECHNICAL", "DESIGN", "BUSINESS"]
     
-    
     var body: some View{
         GeometryReader { geo in
             ZStack {
