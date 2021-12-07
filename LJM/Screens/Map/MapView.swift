@@ -40,12 +40,20 @@ struct MapView: View {
         
         
             VStack(alignment: .leading) {
+                ScrollView(showsIndicators: false) {
                 
-                
-                TitleScreenView(title: "Map")
-               
-                DescriptionTitleScreenView(desc: "The Map provides access to all the current Learning Objectives in the Academy Curriculum. The Communal Learning Objectives will be adressed during the Challenges and added to your Journey. You can also explore and add Elective Learning Objectives based on your interests and the profile of specific career paths.")
-                
+                ZStack(alignment: .topLeading) {
+                    
+                    TitleScreenView(title: "Journey")
+                    
+                    VStack(alignment: .leading) {
+                        DescriptionTitleScreenView(desc: "During your Journey, you will encounter a series of Learning Objectives (LOs). The Communal LOs will be added to your Journey as they are addressed in the Challenges. Elective Objectives will appear here when you select them from the Map. You can compare your Journey to specific career paths to help with personal planning. The arrows indicate your current progress towards reaching the LO.")
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.top, 50)
+                    
+                }.frame(maxWidth: .infinity)
+                .padding(.top, 40)
                 
                 HStack {
                     
@@ -93,7 +101,7 @@ struct MapView: View {
                     filterLearningObjective()
                 }
             }
-           .padding(.leading, 50).padding(.trailing, 50)
+//           .padding(.leading, 50).padding(.trailing, 50)
     }
     
     func getLearningPath(learningPaths: [learning_Path]) -> [String] {
