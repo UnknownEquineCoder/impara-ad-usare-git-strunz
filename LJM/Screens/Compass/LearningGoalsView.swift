@@ -141,8 +141,8 @@ struct LearningGoalsView: View {
                 return true
             })
             .filter({
-                filters["Main"]!.contains("Evaluated") ? $0.eval_score.count > 0 :
-                filters["Main"]!.contains("Not Evaluated") ? $0.eval_score.isEmpty :
+                filters["Status"]!.contains("Evaluated") ? $0.eval_score.count > 0 :
+                filters["Status"]!.contains("Not Evaluated") ? $0.eval_score.isEmpty :
                 true
             })
             .filter({
