@@ -28,7 +28,6 @@ struct Filters: View {
      */
     var onFiltersChange: (Dictionary<String, Array<String>>) -> ()
     /** Dictionary where the key is the kind and the value is the types array, used to save the filters applaied by the user.
-     
         Example:
             [
                 "Main" : ["Core"],

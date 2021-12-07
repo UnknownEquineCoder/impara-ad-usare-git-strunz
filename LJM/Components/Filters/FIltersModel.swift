@@ -14,6 +14,7 @@ class FiltersModel: ObservableObject {
     /** Filters are both available for journey and map view, this will change the behavior gor both*/
     private var viewType: FiltersView
     
+    /** Struct to store all the filters properties*/
     private struct FiltersModelData {
         /** The kind of filter that rapresent the group in whitch the types belongs to*/
         var kind: String
@@ -51,6 +52,9 @@ class FiltersModel: ObservableObject {
                 FiltersModelData(kind: "Main",
                                  isSingleSelection: true,
                                  types: ["Core", "Elective", "Evaluated", "Not Evaluated"]),
+                FiltersModelData(kind: "Status",
+                                 isSingleSelection: true,
+                                 types: ["Evaluated", "Not Evaluated"]),
                 FiltersModelData(kind: "Strands",
                                  isSingleSelection: false,
                                  types: ["App Business and Marketing", "Design", "Process", "Professional Skills", "Technical"]),
