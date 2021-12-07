@@ -39,9 +39,8 @@ struct MapView: View {
     
     var body: some View {
         
-        
-            VStack(alignment: .leading) {
-                ScrollView(showsIndicators: false) {
+        VStack(alignment: .leading) {
+            ScrollView(showsIndicators: false) {
                 
                 ZStack(alignment: .topLeading) {
                     
@@ -54,7 +53,7 @@ struct MapView: View {
                     .padding(.top, 50)
                     
                 }.frame(maxWidth: .infinity)
-                .padding(.top, 40)
+                    .padding(.top, 40)
                 
                 HStack {
                     
@@ -107,68 +106,68 @@ struct MapView: View {
                     
                 }.padding(.top, 10)
                 
-        }.padding(.leading, 50).padding(.trailing, 50)
+            }.padding(.leading, 50).padding(.trailing, 50)
+        }
     }
-    
-    func getLearningPath(learningPaths: [learning_Path]) -> [String] {
-        var arrayTitleLearningPath : [String] = [String]()
         
-        for learningPath in learningPaths {
-            arrayTitleLearningPath.append(learningPath.title)
+        func getLearningPath(learningPaths: [learning_Path]) -> [String] {
+            var arrayTitleLearningPath : [String] = [String]()
+            
+            for learningPath in learningPaths {
+                arrayTitleLearningPath.append(learningPath.title)
+            }
+            
+            return arrayTitleLearningPath
         }
         
-        return arrayTitleLearningPath
-    }
-    
-    func checkIfMyJourneyIsEmpty() -> Bool {
-        let evaluated_Objectives = self.learningObjectiveStore.learningObjectives
-        return evaluated_Objectives.isEmpty
-    }
-    
-    func filterLearningObjective() -> [learning_Objective]{
-        
-        if filters.isEmpty {
-            self.totalNumberLearningObjectivesStore.total = learningObjectiveStore.learningObjectives.count
-            return learningObjectiveStore.learningObjectives
+        func checkIfMyJourneyIsEmpty() -> Bool {
+            let evaluated_Objectives = self.learningObjectiveStore.learningObjectives
+            return evaluated_Objectives.isEmpty
         }
         
-        let return_Learning_Objectives = learningObjectiveStore.learningObjectives
-            .filter({
-                filters["Main"]!.contains("Core") ? $0.isCore :
-                filters["Main"]!.contains("Elective") ? !$0.isCore :
-                true
-            })
-            .filter ({
-                filters["Strands"]!.count == 0 ? true : filters["Strands"]!.contains($0.strand)
-            })
-            .filter({
-                if let first_Strand = filters["Path"]!.first {
-                    if let path_Index = learningPathStore.learningPaths.firstIndex(where: {$0.title == first_Strand}) {
-                        return (($0.core_Rubric_Levels[path_Index] * $0.core_Rubric_Levels[0] ) > 1)
+        func filterLearningObjective() -> [learning_Objective]{
+            
+            if filters.isEmpty {
+                self.totalNumberLearningObjectivesStore.total = learningObjectiveStore.learningObjectives.count
+                return learningObjectiveStore.learningObjectives
+            }
+            
+            let return_Learning_Objectives = learningObjectiveStore.learningObjectives
+                .filter({
+                    filters["Main"]!.contains("Core") ? $0.isCore :
+                    filters["Main"]!.contains("Elective") ? !$0.isCore :
+                    true
+                })
+                .filter ({
+                    filters["Strands"]!.count == 0 ? true : filters["Strands"]!.contains($0.strand)
+                })
+                .filter({
+                    if let first_Strand = filters["Path"]!.first {
+                        if let path_Index = learningPathStore.learningPaths.firstIndex(where: {$0.title == first_Strand}) {
+                            return (($0.core_Rubric_Levels[path_Index] * $0.core_Rubric_Levels[0] ) > 1)
+                        }
                     }
-                }
-                return true
-            })
-            .filter({
-                filters["Main"]!.contains("Evaluated") ? $0.eval_score.count > 0 :
-                filters["Main"]!.contains("Not Evaluated") ? $0.eval_score.isEmpty :
-                true
-            })
-            .filter({
-                filter_Text.isEmpty ||
-                $0.goal.lowercased().contains(filter_Text.lowercased()) ||
-                $0.description.lowercased().contains(filter_Text.lowercased()) ||
-                $0.Keyword.contains(where: {$0.lowercased().contains(filter_Text.lowercased())}) ||
-                $0.strand.lowercased().contains(filter_Text.lowercased()) ||
-                $0.goal_Short.lowercased().contains(filter_Text.lowercased()) ||
-                $0.ID.lowercased().contains(filter_Text.lowercased())
-            })
-        
-        self.totalNumberLearningObjectivesStore.total = return_Learning_Objectives.count
-        
-        return return_Learning_Objectives
-    }
-    
+                    return true
+                })
+                .filter({
+                    filters["Main"]!.contains("Evaluated") ? $0.eval_score.count > 0 :
+                    filters["Main"]!.contains("Not Evaluated") ? $0.eval_score.isEmpty :
+                    true
+                })
+                .filter({
+                    filter_Text.isEmpty ||
+                    $0.goal.lowercased().contains(filter_Text.lowercased()) ||
+                    $0.description.lowercased().contains(filter_Text.lowercased()) ||
+                    $0.Keyword.contains(where: {$0.lowercased().contains(filter_Text.lowercased())}) ||
+                    $0.strand.lowercased().contains(filter_Text.lowercased()) ||
+                    $0.goal_Short.lowercased().contains(filter_Text.lowercased()) ||
+                    $0.ID.lowercased().contains(filter_Text.lowercased())
+                })
+            
+            self.totalNumberLearningObjectivesStore.total = return_Learning_Objectives.count
+            
+            return return_Learning_Objectives
+        }
 }
 
 struct ViewOffsetKey: PreferenceKey {
