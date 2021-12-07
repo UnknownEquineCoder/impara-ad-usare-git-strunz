@@ -39,20 +39,15 @@ struct MapView: View {
     
     var body: some View {
         
-        VStack(alignment: .leading) {
-            ScrollView(showsIndicators: false) {
+        ScrollView(showsIndicators: false) {
+            
+            VStack(alignment: .leading) {
                 
-                ZStack(alignment: .topLeading) {
-                    
-                    TitleScreenView(title: "Map")
-                   
-                    DescriptionTitleScreenView(desc: "The Map provides access to all the current Learning Objectives in the Academy Curriculum. The Communal Learning Objectives will be adressed during the Challenges and added to your Journey. You can also explore and add Elective Learning Objectives based on your interests and the profile of specific career paths.")
+                TitleScreenView(title: "Map")
+                
+                DescriptionTitleScreenView(desc: "The Map provides access to all the current Learning Objectives in the Academy Curriculum. The Communal Learning Objectives will be adressed during the Challenges and added to your Journey. You can also explore and add Elective Learning Objectives based on your interests and the profile of specific career paths.")
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.top, 50)
-                    
-                }.frame(maxWidth: .infinity)
-                    .padding(.top, 40)
-                
+
                 HStack {
                     
                     SearchBarExpandableJourney(txtSearchBar: $searchText, isUpdated: $isUpdated)
@@ -103,9 +98,8 @@ struct MapView: View {
                         }
                     
                 }.padding(.top, 10)
-                
-            }.padding(.leading, 50).padding(.trailing, 50)
-        }
+            }
+        }.padding(.leading, 50).padding(.trailing, 50)
     }
     
     func filterLearningObjective() -> [learning_Objective]{
@@ -122,7 +116,7 @@ struct MapView: View {
             })
             self.totalNumberLearningObjectivesStore.total = return_Learning_Objectives.count
             return return_Learning_Objectives
-                
+            
         }
         
         let return_Learning_Objectives = learningObjectiveStore.learningObjectives

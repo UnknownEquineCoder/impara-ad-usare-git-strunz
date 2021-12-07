@@ -16,6 +16,7 @@ struct TitleScreenView: View {
             .fontWeight(.semibold)
             .foregroundColor(Color.customBlack)
             .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.bottom, 10)
     }
 }
 

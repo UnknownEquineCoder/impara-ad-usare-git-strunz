@@ -66,23 +66,17 @@ struct CompassView: View {
             ZStack {
                 
                 colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : Color(red: 245/255, green: 245/255, blue: 245/255)
-                
-                VStack {
-                    
+                                    
                     ScrollView(showsIndicators: false) {
                         
-                        ZStack(alignment: .topLeading) {
-                            
+                        VStack {
                             TitleScreenView(title: "Compass")
                             
                             VStack(alignment: .leading) {
                                 DescriptionTitleScreenView(desc: "The Compass helps you to gauge your progress in meeting the Communal Learning Objectives and allows you to explore a variety of paths. Using this tool, you can plan your Learning Journey.")
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.top, 50)
-                            
-                        }.frame(maxWidth: .infinity)
-                            .padding(.top, 40)
+                        }
                         
                         DatePickerView(pickerDate: $selected_Date)
                             .environment(\.locale, Locale(identifier: "en"))
@@ -101,7 +95,7 @@ struct CompassView: View {
                             Spacer()
                         }
                         
-                        HStack{
+                        HStack {
                             Spacer()
                             VStack{
                                 CoreRadarChartView(data_Front_Array: $data_Front_Array, data_Back_Array: $data_Back_Array, animation_Trigger: $animation_Trigger_Communal)
@@ -201,7 +195,7 @@ struct CompassView: View {
                         }
                     }
                     .padding(.leading, 70).padding(.trailing, 50)
-                }
+                
             }
         }
     }
