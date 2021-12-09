@@ -16,9 +16,6 @@ struct LearningObjectiveJourneyCell: View {
     
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     
-    @State private var totalHeight = CGFloat.infinity
-    
-    
     var learningObj: learning_Objective
     
     var body: some View {
@@ -372,18 +369,5 @@ struct LearningObjectiveJourneyCell: View {
             return Color.customCyan
             
         }
-    }
-}
-
-struct AnimatingCellHeight: AnimatableModifier {
-    var height: CGFloat = 0
-    
-    var animatableData: CGFloat {
-        get { height }
-        set { height = newValue }
-    }
-    
-    func body(content: Content) -> some View {
-        content.frame(height: height)
     }
 }

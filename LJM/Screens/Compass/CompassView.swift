@@ -66,21 +66,18 @@ struct CompassView: View {
             ZStack {
                 
                 colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : Color(red: 245/255, green: 245/255, blue: 245/255)
-                
-                VStack {
-                    
-                    //                    HStack{
-                    
-                    HStack {
-                        TitleScreenView(title: "Compass")
-                            .padding(.top, 40)
-                        Spacer()
-                    }
-                    
-                    VStack(alignment: .leading) {
-                        DescriptionTitleScreenView(desc: "The Compass helps you to gauge your progress in meeting the Communal Learning Objectives and allows you to explore a variety of paths. Using this tool, you can plan your Learning Journey.")
-                    }
-                    ScrollView(showsIndicators: false){
+                                    
+                    ScrollView(showsIndicators: false) {
+                        
+                        VStack {
+                            TitleScreenView(title: "Compass")
+                            
+                            VStack(alignment: .leading) {
+                                DescriptionTitleScreenView(desc: "The Compass helps you to gauge your progress in meeting the Communal Learning Objectives and allows you to explore a variety of paths. Using this tool, you can plan your Learning Journey.")
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                        
                         DatePickerView(pickerDate: $selected_Date)
                             .environment(\.locale, Locale(identifier: "en"))
                             .padding(.top, 7.toScreenSize())
@@ -92,13 +89,13 @@ struct CompassView: View {
                         
                         HStack{
                             InfoButton(title: "Spider Graphs: ", textBody: "The Communal graph shows progress based on the pathway all the students at the Academy have to take, while the Your Journey graph shows progress based on the specific pathway you decide to take, along with the Communal one.\n\nDepending on the Communal Expectation, the “Expectation” overlay shows you the basic progress level the Academy would like you to reach; “Your Progress”, instead, shows you the progress related to the path you decided to take.", heightCell: 241).cursor(.pointingHand)
-                                
+                            
                             Spacer()
                             //                            SliderView()
                             Spacer()
                         }
                         
-                        HStack{
+                        HStack {
                             Spacer()
                             VStack{
                                 CoreRadarChartView(data_Front_Array: $data_Front_Array, data_Back_Array: $data_Back_Array, animation_Trigger: $animation_Trigger_Communal)
@@ -175,7 +172,7 @@ struct CompassView: View {
                         }.padding(.bottom, 20)
                         HStack{
                             InfoButtonBarGraph(title: "Bar Graphs: ", textBody: "The bar graphs below show your growth in detail, allowing you to examine every single Learning Goal, based on the Curriculum Strands. \n\nThe level of the bars is calculated according to the path selected in the dropdown menu above.", heightCell: 131).cursor(.pointingHand)
-
+                            
                             Spacer()
                         }
                         Spacer()
@@ -196,11 +193,9 @@ struct CompassView: View {
                                 .padding(.top, 50)
                                 .padding(.bottom, 100)
                         }
-                        
-                        
                     }
-                }
-                .padding(.leading, 70).padding(.trailing, 50)
+                    .padding(.leading, 70).padding(.trailing, 50)
+                
             }
         }
     }
@@ -596,5 +591,6 @@ struct CompassView: View {
         }
     }
 }
+
 
 

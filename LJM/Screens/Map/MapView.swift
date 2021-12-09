@@ -12,10 +12,9 @@ struct MapView: View {
     @State var selectedStrands = [String]()
     @State var expand: Bool = false
     @State private var searchText = ""
-//    @State var selectedSort: SortEnum?
     @State private var selectedPath : String?
     @State var selectedEvaluatedOrNotFilter: EvaluatedOrNotEnum?
-            
+    
     @Environment(\.colorScheme) var colorScheme
     
     @ObservedObject var selectedSegmentView : SelectedSegmentView
@@ -40,15 +39,15 @@ struct MapView: View {
     
     var body: some View {
         
-        
+        ScrollView(showsIndicators: false) {
+            
             VStack(alignment: .leading) {
                 
-                
                 TitleScreenView(title: "Map")
-               
+                
                 DescriptionTitleScreenView(desc: "The Map provides access to all the current Learning Objectives in the Academy Curriculum. The Communal Learning Objectives will be adressed during the Challenges and added to your Journey. You can also explore and add Elective Learning Objectives based on your interests and the profile of specific career paths.")
-                
-                
+                    .frame(maxWidth: .infinity, alignment: .leading)
+
                 HStack {
                     
                     SearchBarExpandableJourney(txtSearchBar: $searchText, isUpdated: $isUpdated)
@@ -99,23 +98,8 @@ struct MapView: View {
                         }
                     
                 }.padding(.top, 10)
-                
+            }
         }.padding(.leading, 50).padding(.trailing, 50)
-    }
-    
-    func getLearningPath(learningPaths: [learning_Path]) -> [String] {
-        var arrayTitleLearningPath : [String] = [String]()
-        
-        for learningPath in learningPaths {
-            arrayTitleLearningPath.append(learningPath.title)
-        }
-        
-        return arrayTitleLearningPath
-    }
-    
-    func checkIfMyJourneyIsEmpty() -> Bool {
-        let evaluated_Objectives = self.learningObjectiveStore.learningObjectives
-        return evaluated_Objectives.isEmpty
     }
     
     func filterLearningObjective() -> [learning_Objective]{
@@ -131,7 +115,7 @@ struct MapView: View {
             })
             self.totalNumberLearningObjectivesStore.total = return_Learning_Objectives.count
             return return_Learning_Objectives
-                
+            
         }
         
         let return_Learning_Objectives = learningObjectiveStore.learningObjectives
@@ -173,3 +157,10 @@ struct MapView: View {
     
 }
 
+struct ViewOffsetKey: PreferenceKey {
+    typealias Value = CGFloat
+    static var defaultValue = CGFloat.zero
+    static func reduce(value: inout Value, nextValue: () -> Value) {
+        value += nextValue()
+    }
+}

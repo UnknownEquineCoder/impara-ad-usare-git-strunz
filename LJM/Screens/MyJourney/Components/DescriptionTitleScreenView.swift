@@ -15,7 +15,6 @@ struct DescriptionTitleScreenView: View {
         Text(desc)
             .font(.system(size: 20, weight: .regular))
             .foregroundColor(Color.customDarkGrey)
-            .padding(.top, 20)
             .padding(.trailing, 90)
         
         Rectangle().frame(height: 1).foregroundColor(Color.customDarkGrey)
