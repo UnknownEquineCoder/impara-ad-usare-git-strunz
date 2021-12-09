@@ -126,11 +126,11 @@ struct LearningGoalsView: View {
                         filtered_Learning_Objectives2 = filtered_Learning_Objectives
                         self.totalNumberLearningObjectivesStore.total = filtered_Learning_Objectives2.count
                     }
-                    .onChange(of: filtered_Learning_Objectives) { learning_Objectives in
+                    .onChange(of: filtered_Learning_Objectives) { _ in
                         filtered_Learning_Objectives2 = filterLearningObjective()
                     }
-                    .onChange(of: searchText) { newValue in
-                        filter_Text = newValue
+                    .onChange(of: searchText) { _ in
+                        filtered_Learning_Objectives2 = filterLearningObjective()
                     }
                 
                 ZStack(alignment: .top) {
