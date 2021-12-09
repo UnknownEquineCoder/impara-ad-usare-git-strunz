@@ -119,7 +119,6 @@ struct MapView: View {
     }
     
     func filterLearningObjective() -> [learning_Objective]{
-        print("@@@@@@@@@@@")
         if filters.isEmpty {
             let return_Learning_Objectives = learningObjectiveStore.learningObjectives.filter({
                 filter_Text.isEmpty ||

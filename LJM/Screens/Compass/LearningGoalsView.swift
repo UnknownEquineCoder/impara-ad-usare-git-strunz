@@ -31,7 +31,6 @@ struct LearningGoalsView: View {
     @State var toggleFilters : Bool = false
     
     @State var filters : Dictionary<String, Array<String>> = [:]
-    @State var filter_Text = ""
     
     var body: some View {
         
@@ -79,8 +78,8 @@ struct LearningGoalsView: View {
             .onChange(of: filtered_Learning_Objectives) { learning_Objectives in
                 filtered_Learning_Objectives2 = filterLearningObjective()
             }
-            .onChange(of: searchText) { newValue in
-                filter_Text = newValue
+            .onChange(of: searchText) { _ in
+                filtered_Learning_Objectives2 = filterLearningObjective()
             }
             
             ZStack(alignment: .top) {
@@ -111,13 +110,13 @@ struct LearningGoalsView: View {
         if filters.isEmpty {
             let return_Learning_Objectives = filtered_Learning_Objectives
                 .filter({
-                    filter_Text.isEmpty ||
-                    $0.goal.lowercased().contains(filter_Text.lowercased()) ||
-                    $0.description.lowercased().contains(filter_Text.lowercased()) ||
-                    $0.Keyword.contains(where: {$0.lowercased().contains(filter_Text.lowercased())}) ||
-                    $0.strand.lowercased().contains(filter_Text.lowercased()) ||
-                    $0.goal_Short.lowercased().contains(filter_Text.lowercased()) ||
-                    $0.ID.lowercased().contains(filter_Text.lowercased())
+                    searchText.isEmpty ||
+                    $0.goal.lowercased().contains(searchText.lowercased()) ||
+                    $0.description.lowercased().contains(searchText.lowercased()) ||
+                    $0.Keyword.contains(where: {$0.lowercased().contains(searchText.lowercased())}) ||
+                    $0.strand.lowercased().contains(searchText.lowercased()) ||
+                    $0.goal_Short.lowercased().contains(searchText.lowercased()) ||
+                    $0.ID.lowercased().contains(searchText.lowercased())
                 })
             self.totalNumberLearningObjectivesStore.total = return_Learning_Objectives.count
             return return_Learning_Objectives
@@ -146,13 +145,13 @@ struct LearningGoalsView: View {
                 true
             })
             .filter({
-                filter_Text.isEmpty ||
-                $0.goal.lowercased().contains(filter_Text.lowercased()) ||
-                $0.description.lowercased().contains(filter_Text.lowercased()) ||
-                $0.Keyword.contains(where: {$0.lowercased().contains(filter_Text.lowercased())}) ||
-                $0.strand.lowercased().contains(filter_Text.lowercased()) ||
-                $0.goal_Short.lowercased().contains(filter_Text.lowercased()) ||
-                $0.ID.lowercased().contains(filter_Text.lowercased())
+                searchText.isEmpty ||
+                $0.goal.lowercased().contains(searchText.lowercased()) ||
+                $0.description.lowercased().contains(searchText.lowercased()) ||
+                $0.Keyword.contains(where: {$0.lowercased().contains(searchText.lowercased())}) ||
+                $0.strand.lowercased().contains(searchText.lowercased()) ||
+                $0.goal_Short.lowercased().contains(searchText.lowercased()) ||
+                $0.ID.lowercased().contains(searchText.lowercased())
             })
         
         self.totalNumberLearningObjectivesStore.total = return_Learning_Objectives.count

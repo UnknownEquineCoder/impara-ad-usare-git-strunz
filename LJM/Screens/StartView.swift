@@ -83,13 +83,12 @@ struct StartView: View {
             NSApp.keyWindow?.makeFirstResponder(nil)
         }
         .onAppear(perform: {
-            
+            isLoading = true
             learningObjectiveStore.load_Test_Data() {
-                learningObjectiveStore.load_Status(objectives: objectives)
-                learningPathsStore.load_Learning_Path()
-                strandsStore.setupStrandsOnNativeFilter(learningObjectives: learningObjectiveStore.learningObjectives)
-                isLoading = true
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.001) {
+                DispatchQueue.main.async {
+                    learningObjectiveStore.load_Status(objectives: objectives)
+                    learningPathsStore.load_Learning_Path()
+                    strandsStore.setupStrandsOnNativeFilter(learningObjectives: learningObjectiveStore.learningObjectives)
                     isLoading = false
                 }
                 
