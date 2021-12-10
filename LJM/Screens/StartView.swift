@@ -25,8 +25,6 @@ struct StartView: View {
             return AnyView(CompassView(path: $filter_Path))
         case .journey:
             return AnyView(MyJourneyMainView(selectedMenu: $selectedMenu))
-//            return AnyView(CompassView(path: $filter_Path).background(Color.yellow))
-
         case .map:
             return AnyView(MapMainView())
         }
