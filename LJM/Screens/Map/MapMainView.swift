@@ -23,6 +23,6 @@ struct MapMainView: View {
 //                ChallengeView( selectedSegmentView: self.selectedView).modifier(PaddingMainSubViews())
             }
             
-        }.background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : Color(red: 245/255, green: 245/255, blue: 245/255) )
+        }.background(colorScheme == .dark ? Color.darkThemeBackgroundColor : Color.lightThemeBackgroundColor)
     }
 }

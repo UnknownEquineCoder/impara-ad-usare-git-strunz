@@ -25,7 +25,7 @@ struct TopBarJourney: View {
                             .frame(width: 120, height: 40, alignment: .center)
                             .font(.system(size: 24.toFontSize(), weight: .semibold))
                             .foregroundColor(self.selectedView.selectedView == i ? .customBlack : .customDarkGrey)
-                            .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255): .white)
+                            .background(colorScheme == .dark ? Color.darkThemeBackgroundColor : .white)
                     }).buttonStyle(PlainButtonStyle())
                     .allowsHitTesting(false)
 
@@ -35,7 +35,7 @@ struct TopBarJourney: View {
         }
         .frame(width: 400, height: 50, alignment: .leading)
         .padding(.leading, 20)
-        .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255): .white)
+        .background(colorScheme == .dark ? Color.darkThemeBackgroundColor : .white)
     }
 }
 

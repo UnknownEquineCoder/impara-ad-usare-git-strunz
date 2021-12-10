@@ -12,7 +12,7 @@ struct CoreRadarChartView: View {
     var body: some View {
         GeometryReader { geo in
             ZStack {
-                colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : Color(red: 245/255, green: 245/255, blue: 245/255)
+                colorScheme == .dark ? Color.darkThemeBackgroundColor : Color.lightThemeBackgroundColor
                 
                 CoreRadarChart(gridColor: Color.gray, data_Front_Array: $data_Front_Array, data_Back_Array: $data_Back_Array, animation_Trigger: $animation_Trigger)
                 

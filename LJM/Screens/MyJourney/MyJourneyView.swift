@@ -72,7 +72,6 @@ struct MyJourneyView: View {
                     
                     HStack {
                         SearchBarExpandableJourney(txtSearchBar: $searchText, isUpdated: $isUpdated)
-                        //                    .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .red)
                         
                         Spacer()
                         HStack {
@@ -96,6 +95,7 @@ struct MyJourneyView: View {
                         .opacity(toggleFilters ? 1 : 0)
                         .frame(height: toggleFilters ? .none : 0)
                         .clipped()
+                        .padding(.top, toggleFilters ? 5 : 0)
                         .animation(.easeOut)
                         .transition(.slide)
                     
@@ -119,7 +119,6 @@ struct MyJourneyView: View {
                             .padding(.top, 30)
                         
                     }.frame(maxWidth: .infinity)
-                    
                 }
                 .background(
                     GeometryReader {

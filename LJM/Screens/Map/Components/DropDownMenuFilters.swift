@@ -48,7 +48,7 @@ struct DropDownMenuFilters: View {
             }
             .frame(width: 132.toScreenSize(), height: 35.toScreenSize(), alignment: .center)
             .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color("customCyan")))
-            .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
+            .background(colorScheme == .dark ? Color.darkThemeBackgroundColor : .white)
             .menuStyle(BorderlessButtonMenuStyle(showsMenuIndicator: false))
     }
 }
@@ -86,7 +86,7 @@ struct DropDownMenuSort: View {
                     
                 }.frame(width: 132.toScreenSize(), height: 35.toScreenSize(), alignment: .center)
                     .overlay(RoundedRectangle(cornerRadius: 8).stroke(lineWidth: 1.5).foregroundColor(Color("customCyan")))
-                    .background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : .white)
+                    .background(colorScheme == .dark ? Color.darkThemeBackgroundColor : .white)
             }
             .popover(
                 isPresented: self.$showPopover,

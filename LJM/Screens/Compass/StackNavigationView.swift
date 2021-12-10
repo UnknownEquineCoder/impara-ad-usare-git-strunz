@@ -35,8 +35,7 @@ struct StackNavigationView<RootContent, SubviewContent>: View where RootContent:
                   // .transition(AnyTransition.move(edge: .trailing)).animation(.default)
                 }
             }
-        }.background(colorScheme == .dark ? Color(red: 30/255, green: 30/255, blue: 30/255) : Color(red: 245/255, green: 245/255, blue: 245/255))
-        
+        }.background(colorScheme == .dark ? Color.darkThemeBackgroundColor : Color.lightThemeBackgroundColor)
     }
     
     init(currentSubviewLabel: Binding<String>, showingSubview: Binding<Bool>, @ViewBuilder subviewByLabel: @escaping (String) -> SubviewContent, @ViewBuilder rootView: @escaping () -> RootContent) {

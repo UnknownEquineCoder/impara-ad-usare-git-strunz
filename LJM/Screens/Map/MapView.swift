@@ -10,7 +10,6 @@ import SwiftUI
 struct MapView: View {
     @State var selectedFilter = "ALL"
     @State var selectedStrands = [String]()
-    @State var expand: Bool = false
     @State private var searchText = ""
     @State private var selectedPath : String?
     @State var selectedEvaluatedOrNotFilter: EvaluatedOrNotEnum?
@@ -71,6 +70,7 @@ struct MapView: View {
                     .opacity(toggleFilters ? 1 : 0)
                     .frame(height: toggleFilters ? .none : 0)
                     .clipped()
+                    .padding(.top, toggleFilters ? 5 : 0)
                     .animation(.easeOut)
                     .transition(.slide)
                 
@@ -97,7 +97,7 @@ struct MapView: View {
                             filtered_Learning_Objectives = filterLearningObjective()
                         }
                     
-                }.padding(.top, 10)
+                }
             }
         }.padding(.leading, 50).padding(.trailing, 50)
     }
@@ -153,14 +153,5 @@ struct MapView: View {
         self.totalNumberLearningObjectivesStore.total = return_Learning_Objectives.count
         
         return return_Learning_Objectives
-    }
-    
-}
-
-struct ViewOffsetKey: PreferenceKey {
-    typealias Value = CGFloat
-    static var defaultValue = CGFloat.zero
-    static func reduce(value: inout Value, nextValue: () -> Value) {
-        value += nextValue()
     }
 }
