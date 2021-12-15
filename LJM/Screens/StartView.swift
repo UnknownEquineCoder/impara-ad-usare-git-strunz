@@ -1,5 +1,8 @@
 import Foundation
 import SwiftUI
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 struct StartView: View {
     
@@ -19,6 +22,10 @@ struct StartView: View {
     @State var selectedMenu: OutlineMenu = .compass
     @State var filter_Path = "None"
     
+    @State private var showingAlertTest = false
+    
+    @State var testDataServer : User?
+    
     func selectedView() -> AnyView {
         switch selectedMenu {
         case .compass:
@@ -32,7 +39,7 @@ struct StartView: View {
     
     @ViewBuilder
     var body: some View {
-
+        
         NavigationView {
             
             VStack(alignment: .leading) {
@@ -58,6 +65,51 @@ struct StartView: View {
                     .onTapGesture {
                         // It will switch the presence of the sidebar
                         NSApp.sendAction(#selector(NSSplitViewController.toggleSidebar(_:)), to: nil, from: nil)
+                    }
+                
+                Text("Test")
+                    .onTapGesture {
+                        var semaphore = DispatchSemaphore (value: 0)
+                        
+                        let parameters = "{\n    \"username\": \"pippozzo\",\n    \"email\": \"me@me.com\"\n}"
+                        let postData = parameters.data(using: .utf8)
+                        
+                        var request = URLRequest(url: URL(string: "http://10.20.48.36:8080/users")!,timeoutInterval: Double.infinity)
+                        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                        
+                        request.httpMethod = "POST"
+                        request.httpBody = postData
+                        
+                        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                            let decoder = JSONDecoder()
+                            guard let data = data, let userTest = try? decoder.decode(User.self, from: data) else {
+                                print(String(describing: error))
+                                semaphore.signal()
+
+                                return
+                            }
+                            showingAlertTest = true
+
+                            testDataServer = userTest
+                            
+                            print(String(data: data, encoding: .utf8)!)
+                            semaphore.signal()
+                        }
+                        
+                        task.resume()
+                        semaphore.wait()
+                    }
+                    .alert(isPresented: $showingAlertTest) {
+                        Alert(
+                            title: Text("User data"),
+                            message: Text("id : \(testDataServer!._id)\n email : \(testDataServer!.email)\n username: \(testDataServer!.username)"),
+                            primaryButton: .default( Text("Thanks"), action: {
+                                
+                            }),
+                            secondaryButton: .default( Text("Cancel"), action: {
+                                
+                            })
+                        )
                     }
             }
             
@@ -96,4 +148,10 @@ struct StartView: View {
             }
         })
     }
+}
+
+struct User : Codable {
+    let _id: String
+    let email: String
+    let username: String
 }
