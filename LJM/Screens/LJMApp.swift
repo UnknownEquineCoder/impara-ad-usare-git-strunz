@@ -152,7 +152,9 @@ struct LJMApp: App {
                 }
                 .environmentObject(learningObjectiveStore)
         }
+        
         .windowStyle(.hiddenTitleBar)
+        .windowStyle(HiddenTitleBarWindowStyle())
         .handlesExternalEvents(matching: Set(arrayLiteral: "*"))
             .commands(content: {
                 CommandGroup(after: .importExport, addition: {
