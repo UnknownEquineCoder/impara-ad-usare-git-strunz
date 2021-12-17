@@ -146,8 +146,7 @@ struct LJMApp: App {
                         }
                         
                     } else {
-                        
-                        print("@@@@@ File Import Failed")
+                        print("File Import Failed")
                     }
                 }
                 .environmentObject(learningObjectiveStore)

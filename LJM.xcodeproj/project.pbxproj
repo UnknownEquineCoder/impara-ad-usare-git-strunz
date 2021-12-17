@@ -66,7 +66,6 @@
 		EA686F25256EFBFA00C121DC /* SearchBarExpandableJourney.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA686F24256EFBFA00C121DC /* SearchBarExpandableJourney.swift */; };
 		EA686F2E256F25CF00C121DC /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA686F2D256F25CF00C121DC /* Extensions.swift */; };
 		EA7028902572FDD300E1B6EB /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA70288F2572FDD300E1B6EB /* RatingView.swift */; };
-		EA7028B02579B29600E1B6EB /* ArrowButtonScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7028AF2579B29600E1B6EB /* ArrowButtonScrollView.swift */; };
 		EA7028B52579B2CF00E1B6EB /* BackgroundImageReadingStudent.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7028B42579B2CF00E1B6EB /* BackgroundImageReadingStudent.swift */; };
 		EA7028BA2579C75000E1B6EB /* ScrollViewFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7028B92579C75000E1B6EB /* ScrollViewFilters.swift */; };
 		EA7028D12579E32500E1B6EB /* ColorsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA7028D02579E32500E1B6EB /* ColorsExtension.swift */; };
@@ -80,6 +79,8 @@
 		EACD026C25DE8781008D12FE /* CustomDropDownMenuSelectPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACD026B25DE8781008D12FE /* CustomDropDownMenuSelectPath.swift */; };
 		EACD027125DE88AA008D12FE /* DropDownMenuSelectPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACD027025DE88AA008D12FE /* DropDownMenuSelectPath.swift */; };
 		EAD2C81A257085CA008CDDA1 /* LearningObjectiveJourneyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD2C819257085CA008CDDA1 /* LearningObjectiveJourneyCell.swift */; };
+		EAE297A8276CDE49005BD594 /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE297A6276CDE49005BD594 /* Services.swift */; };
+		EAE297A9276CDE49005BD594 /* Server Structures.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE297A7276CDE49005BD594 /* Server Structures.swift */; };
 		EAF37039257A2A4900C72707 /* EmptyLearningObjectiveViewJourney.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF37038257A2A4900C72707 /* EmptyLearningObjectiveViewJourney.swift */; };
 		EAF3703E257A2AC400C72707 /* ScrollViewLearningObjectives.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF3703D257A2AC400C72707 /* ScrollViewLearningObjectives.swift */; };
 /* End PBXBuildFile section */
@@ -179,7 +180,6 @@
 		EA686F24256EFBFA00C121DC /* SearchBarExpandableJourney.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarExpandableJourney.swift; sourceTree = "<group>"; };
 		EA686F2D256F25CF00C121DC /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		EA70288F2572FDD300E1B6EB /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
-		EA7028AF2579B29600E1B6EB /* ArrowButtonScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowButtonScrollView.swift; sourceTree = "<group>"; };
 		EA7028B42579B2CF00E1B6EB /* BackgroundImageReadingStudent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundImageReadingStudent.swift; sourceTree = "<group>"; };
 		EA7028B92579C75000E1B6EB /* ScrollViewFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewFilters.swift; sourceTree = "<group>"; };
 		EA7028D02579E32500E1B6EB /* ColorsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsExtension.swift; sourceTree = "<group>"; };
@@ -192,6 +192,8 @@
 		EACD026B25DE8781008D12FE /* CustomDropDownMenuSelectPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDropDownMenuSelectPath.swift; sourceTree = "<group>"; };
 		EACD027025DE88AA008D12FE /* DropDownMenuSelectPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownMenuSelectPath.swift; sourceTree = "<group>"; };
 		EAD2C819257085CA008CDDA1 /* LearningObjectiveJourneyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningObjectiveJourneyCell.swift; sourceTree = "<group>"; };
+		EAE297A6276CDE49005BD594 /* Services.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
+		EAE297A7276CDE49005BD594 /* Server Structures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Server Structures.swift"; sourceTree = "<group>"; };
 		EAF37038257A2A4900C72707 /* EmptyLearningObjectiveViewJourney.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyLearningObjectiveViewJourney.swift; sourceTree = "<group>"; };
 		EAF3703D257A2AC400C72707 /* ScrollViewLearningObjectives.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewLearningObjectives.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -281,6 +283,7 @@
 			isa = PBXGroup;
 			children = (
 				E000216D274BF0CB0059A1C9 /* LJM.entitlements */,
+				EAE297A5276CDE49005BD594 /* Server Side */,
 				E032112D2716E6F900262144 /* FakeData */,
 				E02DFE8D270C41F4004FF8B7 /* New Backend */,
 				EACD024025D50299008D12FE /* Modifiers */,
@@ -458,7 +461,6 @@
 				EA686F24256EFBFA00C121DC /* SearchBarExpandableJourney.swift */,
 				EAD2C819257085CA008CDDA1 /* LearningObjectiveJourneyCell.swift */,
 				EA70288F2572FDD300E1B6EB /* RatingView.swift */,
-				EA7028AF2579B29600E1B6EB /* ArrowButtonScrollView.swift */,
 				EA7028B42579B2CF00E1B6EB /* BackgroundImageReadingStudent.swift */,
 				EAF37038257A2A4900C72707 /* EmptyLearningObjectiveViewJourney.swift */,
 				EACB5D7F25C2D0A2006BA903 /* HistoryProgressView.swift */,
@@ -481,6 +483,16 @@
 				EACD027025DE88AA008D12FE /* DropDownMenuSelectPath.swift */,
 			);
 			path = DropDownMenu;
+			sourceTree = "<group>";
+		};
+		EAE297A5276CDE49005BD594 /* Server Side */ = {
+			isa = PBXGroup;
+			children = (
+				EAE297A6276CDE49005BD594 /* Services.swift */,
+				EAE297A7276CDE49005BD594 /* Server Structures.swift */,
+			);
+			name = "Server Side";
+			path = "../../../Downloads/LearningJourneyManager-Frontend-main/LJM/Server Side";
 			sourceTree = "<group>";
 		};
 		EAE9E83F271453170032F50E /* Map */ = {
@@ -638,6 +650,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAE297A8276CDE49005BD594 /* Services.swift in Sources */,
 				96114BBC25EFA28C00FA119C /* DropDownMenuCompass.swift in Sources */,
 				96CE7BC625C4183A006C4CDA /* FilterChoice.swift in Sources */,
 				EA7028B52579B2CF00E1B6EB /* BackgroundImageReadingStudent.swift in Sources */,
@@ -648,6 +661,7 @@
 				EA686F10256EF67B00C121DC /* MyJourneyView.swift in Sources */,
 				9670A96E256EAA330043F227 /* SidebarElements.swift in Sources */,
 				969DEAE625DFDEBD00599D63 /* CompassView.swift in Sources */,
+				EAE297A9276CDE49005BD594 /* Server Structures.swift in Sources */,
 				96114BC125EFA92900FA119C /* ProgressBarGraph.swift in Sources */,
 				EA7028902572FDD300E1B6EB /* RatingView.swift in Sources */,
 				96A4105125726DD600ACA0DE /* AddButton.swift in Sources */,
@@ -700,7 +714,6 @@
 				EA686F18256EF69100C121DC /* MapView.swift in Sources */,
 				EACB5D8025C2D0A2006BA903 /* HistoryProgressView.swift in Sources */,
 				96533794260C898400316B7C /* StackNavigationView.swift in Sources */,
-				EA7028B02579B29600E1B6EB /* ArrowButtonScrollView.swift in Sources */,
 				96BBAA85268325F000E9932E /* InfoButton.swift in Sources */,
 				961DB4CE25E668410020E9F6 /* DatePicker.swift in Sources */,
 			);
@@ -866,7 +879,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"LJM/Preview Content\"";
-				DEVELOPMENT_TEAM = QJTRTDLS6U;
+				DEVELOPMENT_TEAM = KXZF72639J;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = LJM/Info.plist;
@@ -895,7 +908,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"LJM/Preview Content\"";
-				DEVELOPMENT_TEAM = QJTRTDLS6U;
+				DEVELOPMENT_TEAM = KXZF72639J;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = LJM/Info.plist;
@@ -921,7 +934,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = GF68KA6N32;
+				DEVELOPMENT_TEAM = KXZF72639J;
 				INFOPLIST_FILE = LJMTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -944,7 +957,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = GF68KA6N32;
+				DEVELOPMENT_TEAM = KXZF72639J;
 				INFOPLIST_FILE = LJMTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -966,7 +979,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = GF68KA6N32;
+				DEVELOPMENT_TEAM = KXZF72639J;
 				INFOPLIST_FILE = LJMUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -988,7 +1001,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = GF68KA6N32;
+				DEVELOPMENT_TEAM = KXZF72639J;
 				INFOPLIST_FILE = LJMUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
