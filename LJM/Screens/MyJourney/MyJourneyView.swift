@@ -47,18 +47,18 @@ struct MyJourneyView: View {
         
         ZStack{
             
-            VStack{
-                HStack{
-                    Spacer()
-                    Text("")
-                }
-                .padding(.vertical, 20)
-                .background(Color.black)
-                .padding(.horizontal, -20)
-                .ignoresSafeArea()
-                
-                Spacer()
-            }
+//            VStack{
+//                HStack{
+//                    Spacer()
+//                    Text("")
+//                }
+//                .padding(.vertical, 20)
+//                .background(Color.black)
+//                .padding(.horizontal, -20)
+//                .ignoresSafeArea()
+//                
+//                Spacer()
+//            }
             
             ScrollView(showsIndicators: false) {
                 

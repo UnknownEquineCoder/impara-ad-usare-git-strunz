@@ -71,6 +71,36 @@ struct learning_Objective : Equatable, Encodable, Decodable {
         eval_score = []
         eval_date = []
     }
+    
+    init(server_Learning_Objective : Learning_Objective_Server){
+        ID = server_Learning_Objective.id
+        strand = server_Learning_Objective.strand
+        goal_Short = server_Learning_Objective.goal_short_name
+        goal = server_Learning_Objective.goal
+        description = server_Learning_Objective.objective
+        
+        Keyword = server_Learning_Objective.keywords
+        
+        isCore = server_Learning_Objective.rubric_levels.core > 1
+        
+        core_Rubric_Levels = []
+        
+        core_Rubric_Levels = [
+            server_Learning_Objective.rubric_levels.core,
+            server_Learning_Objective.rubric_levels.uiux,
+            server_Learning_Objective.rubric_levels.frontend,
+            server_Learning_Objective.rubric_levels.backend,
+            server_Learning_Objective.rubric_levels.game_design,
+            server_Learning_Objective.rubric_levels.game_development,
+            server_Learning_Objective.rubric_levels.business,
+            server_Learning_Objective.rubric_levels.project
+        ]
+        
+        documentation = ""
+        
+        eval_score = []
+        eval_date = []
+    }
 }
 
 /**
