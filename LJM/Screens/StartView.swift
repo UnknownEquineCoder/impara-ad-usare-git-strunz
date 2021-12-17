@@ -60,7 +60,7 @@ struct StartView: View {
                 
                 Text("Test server response")
                     .onTapGesture {
-                        var semaphore = DispatchSemaphore (value: 0)
+                        let semaphore = DispatchSemaphore (value: 0)
 
                         let parameters = "{\n    \"username\": \"pippozzo\",\n    \"email\": \"me@me.com\"\n}"
                         let postData = parameters.data(using: .utf8)
