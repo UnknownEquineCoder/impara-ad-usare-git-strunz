@@ -18,7 +18,7 @@ struct StartView: View {
     @StateObject var learningPathsStore = LearningPathStore()
     @StateObject var strandsStore = StrandsStore()
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
-    
+    let blank = false
     @State var selectedMenu: OutlineMenu = .compass
     @State var filter_Path = "None"
     
