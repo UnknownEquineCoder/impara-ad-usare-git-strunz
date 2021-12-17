@@ -93,4 +93,171 @@ class Services{
         
         return student_Server
     }
+    
+    func student_Data_To_Json(student_Server : Student_Server) -> String?{
+        let jsonEncoder = JSONEncoder()
+        let jsonData = try! jsonEncoder.encode(student_Server)
+        let json = String(data: jsonData, encoding: String.Encoding.utf16)
+        
+        return json
+    }
+    
+    func server_To_Learning_Objectives_To_Json(learning_Objective_Server : Learning_Objective_Server) -> String?{
+        let jsonEncoder = JSONEncoder()
+        let jsonData = try! jsonEncoder.encode(learning_Objective_Server)
+        let json = String(data: jsonData, encoding: String.Encoding.utf16)
+        
+        return json
+    }
+    
+    //MARK: - Call refered to learning objectives
+    
+    func get_Learning_Objectives(completion:@escaping ([Learning_Objective_Server]) -> ()){
+        guard let url = URL(string: Endpoint + "/learning_objective/") else {
+            print("Invalid url...")
+            return
+        }
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            let server_Learning_Objective = try! JSONDecoder().decode([Learning_Objective_Server].self, from: data!)
+            print(server_Learning_Objective)
+            DispatchQueue.main.async {
+                completion(server_Learning_Objective)
+            }
+        }.resume()
+    }
+    
+    //MARK: - Call refered to the users
+    
+    /// GET requests
+
+    // [GET] /users/<id> => allow to get (in response) users data of the specified user
+    
+    func get_User_Data(completion:@escaping (Student_Server) -> ()){
+        guard let url = URL(string: Endpoint + "/users/" + "ID") else {
+            print("Invalid url...")
+            return
+        }
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            let server_Student_Data = try! JSONDecoder().decode(Student_Server.self, from: data!)
+            print(server_Student_Data)
+            DispatchQueue.main.async {
+                completion(server_Student_Data)
+            }
+        }.resume()
+    }
+
+    //[GET] /users => return all the users with all the data
+
+    func get_All_User_Data(completion:@escaping ([Student_Server]) -> ()){
+        guard let url = URL(string: Endpoint + "/users/") else {
+            print("Invalid url...")
+            return
+        }
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            let server_Student_Data = try! JSONDecoder().decode([Student_Server].self, from: data!)
+            print(server_Student_Data)
+            DispatchQueue.main.async {
+                completion(server_Student_Data)
+            }
+        }.resume()
+    }
+    
+    /// POST requests
+
+    //[PUT] /users/<id> => allow to update users data of the specified user in the response; return in response the updated data
+
+    func post_Update_Student_Data(student_Data : Student_Server) {
+            guard let url = URL(string: Endpoint + "/users/" + "ID") else { return }
+
+            let body: [String: Student_Server] = ["student_Data": student_Data]
+
+            let finalBody = try! JSONSerialization.data(withJSONObject: body)
+
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.httpBody = finalBody
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+            URLSession.shared.dataTask(with: request) { (data, response, error) in
+                guard let data = data else { return }
+                let resData = try! JSONDecoder().decode(Student_Server.self, from: data)
+                print(resData)
+//                if resData.res == "correct" {
+//                    DispatchQueue.main.async {
+//                        self.authenticated = true
+//                    }
+//                }
+            }.resume()
+        }
+    
+    //[POST] /users => will create and save a new user
+
+    func post_Create_Student_Data(student_Data : Student_Server) {
+            guard let url = URL(string: Endpoint + "/users/") else { return }
+
+            let body: [String: Student_Server] = ["student_Data": student_Data]
+
+            let finalBody = try! JSONSerialization.data(withJSONObject: body)
+
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.httpBody = finalBody
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+            URLSession.shared.dataTask(with: request) { (data, response, error) in
+                guard let data = data else { return }
+                let resData = try! JSONDecoder().decode(Student_Server.self, from: data)
+                print(resData)
+//                if resData.res == "correct" {
+//                    DispatchQueue.main.async {
+//                        self.authenticated = true
+//                    }
+//                }
+            }.resume()
+        }
+    
+    /// DELETE Request
+    
+    // [DELETE] /users/<id> => will remove all the specified user from the db
+
+    func delete_Student_Data(student_Data : Student_Server) {
+            guard let url = URL(string: Endpoint + "/users/") else { return }
+
+            let body: [String: Student_Server] = ["student_Data": student_Data]
+
+            let finalBody = try! JSONSerialization.data(withJSONObject: body)
+
+            var request = URLRequest(url: url)
+            request.httpMethod = "DELETE"
+            request.httpBody = finalBody
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+            URLSession.shared.dataTask(with: request) { (data, response, error) in
+                guard let data = data else { return }
+                let resData = try! JSONDecoder().decode(Student_Server.self, from: data)
+                print(resData)
+//                if resData.res == "correct" {
+//                    DispatchQueue.main.async {
+//                        self.authenticated = true
+//                    }
+//                }
+            }.resume()
+        }
+    
+    //MARK: - Call refered to the key
+    
+    // [GET] /learning_objective => return all the learning objectives
+    func get_Key(completion:@escaping (String) -> ()){
+        guard let url = URL(string: Endpoint + "/key/") else {
+            print("Invalid url...")
+            return
+        }
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            let key = try! JSONDecoder().decode(String.self, from: data!)
+            print(key)
+            DispatchQueue.main.async {
+                completion(key)
+            }
+        }.resume()
+    }
 }
