@@ -107,7 +107,6 @@ struct StartView: View {
                         )
                     }
                     .padding()
-                
                 Spacer()
                 StudentPictureView()
             }.frame(width: 250)

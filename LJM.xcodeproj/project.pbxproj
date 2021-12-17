@@ -54,6 +54,8 @@
 		E04251AD27295F34000A1D69 /* StudentData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E04251AB27295F34000A1D69 /* StudentData.xcdatamodeld */; };
 		E04251B3272AAABA000A1D69 /* percistency_Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04251B2272AAABA000A1D69 /* percistency_Manager.swift */; };
 		E04251B72733EACD000A1D69 /* CoreRadarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04251B62733EACD000A1D69 /* CoreRadarChartView.swift */; };
+		E0952800276B4DE5007AC788 /* Server Structures.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09527FF276B4DE5007AC788 /* Server Structures.swift */; };
+		E0952802276B5060007AC788 /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0952801276B5060007AC788 /* Services.swift */; };
 		E0E87CD6272801C900FEF3D6 /* DocDemoDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E87CD5272801C900FEF3D6 /* DocDemoDocument.swift */; };
 		EA139BD42640910900E15E28 /* JWTDecode in Frameworks */ = {isa = PBXBuildFile; productRef = EA139BD32640910900E15E28 /* JWTDecode */; };
 		EA5B445D262E6F23002A97C7 /* MyJourneyMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5B445C262E6F23002A97C7 /* MyJourneyMainView.swift */; };
@@ -79,8 +81,6 @@
 		EACD026C25DE8781008D12FE /* CustomDropDownMenuSelectPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACD026B25DE8781008D12FE /* CustomDropDownMenuSelectPath.swift */; };
 		EACD027125DE88AA008D12FE /* DropDownMenuSelectPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACD027025DE88AA008D12FE /* DropDownMenuSelectPath.swift */; };
 		EAD2C81A257085CA008CDDA1 /* LearningObjectiveJourneyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAD2C819257085CA008CDDA1 /* LearningObjectiveJourneyCell.swift */; };
-		EAE297A8276CDE49005BD594 /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE297A6276CDE49005BD594 /* Services.swift */; };
-		EAE297A9276CDE49005BD594 /* Server Structures.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE297A7276CDE49005BD594 /* Server Structures.swift */; };
 		EAF37039257A2A4900C72707 /* EmptyLearningObjectiveViewJourney.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF37038257A2A4900C72707 /* EmptyLearningObjectiveViewJourney.swift */; };
 		EAF3703E257A2AC400C72707 /* ScrollViewLearningObjectives.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF3703D257A2AC400C72707 /* ScrollViewLearningObjectives.swift */; };
 /* End PBXBuildFile section */
@@ -170,6 +170,8 @@
 		E04251AC27295F34000A1D69 /* profile.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = profile.xcdatamodel; sourceTree = "<group>"; };
 		E04251B2272AAABA000A1D69 /* percistency_Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = percistency_Manager.swift; sourceTree = "<group>"; };
 		E04251B62733EACD000A1D69 /* CoreRadarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreRadarChartView.swift; sourceTree = "<group>"; };
+		E09527FF276B4DE5007AC788 /* Server Structures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Server Structures.swift"; sourceTree = "<group>"; };
+		E0952801276B5060007AC788 /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
 		E0E87CD5272801C900FEF3D6 /* DocDemoDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocDemoDocument.swift; sourceTree = "<group>"; };
 		EA5B445C262E6F23002A97C7 /* MyJourneyMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyJourneyMainView.swift; sourceTree = "<group>"; };
 		EA686EF8256EE4F300C121DC /* TopBarJourney.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarJourney.swift; sourceTree = "<group>"; };
@@ -192,8 +194,6 @@
 		EACD026B25DE8781008D12FE /* CustomDropDownMenuSelectPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDropDownMenuSelectPath.swift; sourceTree = "<group>"; };
 		EACD027025DE88AA008D12FE /* DropDownMenuSelectPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownMenuSelectPath.swift; sourceTree = "<group>"; };
 		EAD2C819257085CA008CDDA1 /* LearningObjectiveJourneyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningObjectiveJourneyCell.swift; sourceTree = "<group>"; };
-		EAE297A6276CDE49005BD594 /* Services.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
-		EAE297A7276CDE49005BD594 /* Server Structures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Server Structures.swift"; sourceTree = "<group>"; };
 		EAF37038257A2A4900C72707 /* EmptyLearningObjectiveViewJourney.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyLearningObjectiveViewJourney.swift; sourceTree = "<group>"; };
 		EAF3703D257A2AC400C72707 /* ScrollViewLearningObjectives.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewLearningObjectives.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -282,8 +282,8 @@
 		964B662A256E6020006AB20E /* LJM */ = {
 			isa = PBXGroup;
 			children = (
+				E09527FE276B4DC0007AC788 /* Server Side */,
 				E000216D274BF0CB0059A1C9 /* LJM.entitlements */,
-				EAE297A5276CDE49005BD594 /* Server Side */,
 				E032112D2716E6F900262144 /* FakeData */,
 				E02DFE8D270C41F4004FF8B7 /* New Backend */,
 				EACD024025D50299008D12FE /* Modifiers */,
@@ -414,6 +414,15 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		E09527FE276B4DC0007AC788 /* Server Side */ = {
+			isa = PBXGroup;
+			children = (
+				E09527FF276B4DE5007AC788 /* Server Structures.swift */,
+				E0952801276B5060007AC788 /* Services.swift */,
+			);
+			path = "Server Side";
+			sourceTree = "<group>";
+		};
 		EA686EF7256EE48900C121DC /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -483,16 +492,6 @@
 				EACD027025DE88AA008D12FE /* DropDownMenuSelectPath.swift */,
 			);
 			path = DropDownMenu;
-			sourceTree = "<group>";
-		};
-		EAE297A5276CDE49005BD594 /* Server Side */ = {
-			isa = PBXGroup;
-			children = (
-				EAE297A6276CDE49005BD594 /* Services.swift */,
-				EAE297A7276CDE49005BD594 /* Server Structures.swift */,
-			);
-			name = "Server Side";
-			path = "../../../Downloads/LearningJourneyManager-Frontend-main/LJM/Server Side";
 			sourceTree = "<group>";
 		};
 		EAE9E83F271453170032F50E /* Map */ = {
@@ -650,7 +649,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EAE297A8276CDE49005BD594 /* Services.swift in Sources */,
 				96114BBC25EFA28C00FA119C /* DropDownMenuCompass.swift in Sources */,
 				96CE7BC625C4183A006C4CDA /* FilterChoice.swift in Sources */,
 				EA7028B52579B2CF00E1B6EB /* BackgroundImageReadingStudent.swift in Sources */,
@@ -660,8 +658,8 @@
 				EACD024A25D532A9008D12FE /* Webservices.swift in Sources */,
 				EA686F10256EF67B00C121DC /* MyJourneyView.swift in Sources */,
 				9670A96E256EAA330043F227 /* SidebarElements.swift in Sources */,
+				E0952800276B4DE5007AC788 /* Server Structures.swift in Sources */,
 				969DEAE625DFDEBD00599D63 /* CompassView.swift in Sources */,
-				EAE297A9276CDE49005BD594 /* Server Structures.swift in Sources */,
 				96114BC125EFA92900FA119C /* ProgressBarGraph.swift in Sources */,
 				EA7028902572FDD300E1B6EB /* RatingView.swift in Sources */,
 				96A4105125726DD600ACA0DE /* AddButton.swift in Sources */,
@@ -676,6 +674,7 @@
 				EACD027125DE88AA008D12FE /* DropDownMenuSelectPath.swift in Sources */,
 				EA686F07256EF1F100C121DC /* MapMainView.swift in Sources */,
 				EA7028D12579E32500E1B6EB /* ColorsExtension.swift in Sources */,
+				E0952802276B5060007AC788 /* Services.swift in Sources */,
 				964C75A925EE5983002D8634 /* LegendView.swift in Sources */,
 				961962462726C49900ECA524 /* AddLOButton.swift in Sources */,
 				9672C8F425E3F46B005CC753 /* RadarChartView.swift in Sources */,
