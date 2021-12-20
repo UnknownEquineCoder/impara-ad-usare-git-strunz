@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NumberTotalLearningOjbectivesView: View {
+struct NumberTotalLearningObjectivesView: View {
     
     var totalLOs : Int?
     
@@ -21,6 +21,6 @@ struct NumberTotalLearningOjbectivesView: View {
 
 struct NumberTotalLearningOjbectivesView_Previews: PreviewProvider {
     static var previews: some View {
-        NumberTotalLearningOjbectivesView()
+        NumberTotalLearningObjectivesView()
     }
 }

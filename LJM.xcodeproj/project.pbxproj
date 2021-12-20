@@ -74,7 +74,7 @@
 		EACB5D8025C2D0A2006BA903 /* HistoryProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACB5D7F25C2D0A2006BA903 /* HistoryProgressView.swift */; };
 		EACD022F25D37B15008D12FE /* TitleScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACD022E25D37B15008D12FE /* TitleScreenView.swift */; };
 		EACD023425D37CCB008D12FE /* DescriptionTitleScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACD023325D37CCB008D12FE /* DescriptionTitleScreenView.swift */; };
-		EACD023925D382AD008D12FE /* NumberTotalLearningOjbectivesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACD023825D382AD008D12FE /* NumberTotalLearningOjbectivesView.swift */; };
+		EACD023925D382AD008D12FE /* NumberTotalLearningObjectivesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACD023825D382AD008D12FE /* NumberTotalLearningObjectivesView.swift */; };
 		EACD024225D502AB008D12FE /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACD024125D502AB008D12FE /* Modifiers.swift */; };
 		EACD024A25D532A9008D12FE /* Webservices.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACD024925D532A9008D12FE /* Webservices.swift */; };
 		EACD026C25DE8781008D12FE /* CustomDropDownMenuSelectPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = EACD026B25DE8781008D12FE /* CustomDropDownMenuSelectPath.swift */; };
@@ -187,7 +187,7 @@
 		EACB5D7F25C2D0A2006BA903 /* HistoryProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryProgressView.swift; sourceTree = "<group>"; };
 		EACD022E25D37B15008D12FE /* TitleScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleScreenView.swift; sourceTree = "<group>"; };
 		EACD023325D37CCB008D12FE /* DescriptionTitleScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionTitleScreenView.swift; sourceTree = "<group>"; };
-		EACD023825D382AD008D12FE /* NumberTotalLearningOjbectivesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberTotalLearningOjbectivesView.swift; sourceTree = "<group>"; };
+		EACD023825D382AD008D12FE /* NumberTotalLearningObjectivesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberTotalLearningObjectivesView.swift; sourceTree = "<group>"; };
 		EACD024125D502AB008D12FE /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
 		EACD024925D532A9008D12FE /* Webservices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Webservices.swift; sourceTree = "<group>"; };
 		EACD026B25DE8781008D12FE /* CustomDropDownMenuSelectPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDropDownMenuSelectPath.swift; sourceTree = "<group>"; };
@@ -430,7 +430,7 @@
 				EAF3703D257A2AC400C72707 /* ScrollViewLearningObjectives.swift */,
 				EACD022E25D37B15008D12FE /* TitleScreenView.swift */,
 				EACD023325D37CCB008D12FE /* DescriptionTitleScreenView.swift */,
-				EACD023825D382AD008D12FE /* NumberTotalLearningOjbectivesView.swift */,
+				EACD023825D382AD008D12FE /* NumberTotalLearningObjectivesView.swift */,
 				961962452726C49900ECA524 /* AddLOButton.swift */,
 				96E2DD842726EF170007D49B /* SearchBar.swift */,
 				9673746A2733EDAD00A0EC5A /* DeleteButton.swift */,
@@ -708,7 +708,7 @@
 				EACD026C25DE8781008D12FE /* CustomDropDownMenuSelectPath.swift in Sources */,
 				EAD2C81A257085CA008CDDA1 /* LearningObjectiveJourneyCell.swift in Sources */,
 				EACD023425D37CCB008D12FE /* DescriptionTitleScreenView.swift in Sources */,
-				EACD023925D382AD008D12FE /* NumberTotalLearningOjbectivesView.swift in Sources */,
+				EACD023925D382AD008D12FE /* NumberTotalLearningObjectivesView.swift in Sources */,
 				E02DFE8C270C41E5004FF8B7 /* Observable.swift in Sources */,
 				5579EB75263E06920086A4BE /* URLExtensions.swift in Sources */,
 				96BE89D0257553BF00BE9E8F /* CountDownWrapper.swift in Sources */,
@@ -886,7 +886,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"LJM/Preview Content\"";
-				DEVELOPMENT_TEAM = QJTRTDLS6U;
+				DEVELOPMENT_TEAM = KXZF72639J;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = LJM/Info.plist;
@@ -915,7 +915,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"LJM/Preview Content\"";
-				DEVELOPMENT_TEAM = QJTRTDLS6U;
+				DEVELOPMENT_TEAM = KXZF72639J;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = LJM/Info.plist;

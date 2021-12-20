@@ -11,16 +11,12 @@ struct MyJourneyView: View {
     
     @State private var offset = CGFloat.zero
     
-    @State var selectedFilter = "ALL"
-    @State var selectedFilterInsideButton = "All"
-    @State var selectedStrands = [String]()
-    @State var selectedSort : SortEnum?
-    @State var selectedEvaluatedOrNotFilter: EvaluatedOrNotEnum?
-    
-    let arrayFilters = ["All", "Core", "Elective", "Evaluated", "Not Evaluated"]
-    
+    @State private var scrollTarget: Bool = false
+        
     @State private var searchText = ""
     @State private var selectedPath : String?
+    
+    @State private var selectedFilters: Dictionary<String, Array<String>> = [:]
     
     @Binding var selectedMenu: OutlineMenu
     
@@ -42,101 +38,97 @@ struct MyJourneyView: View {
     @State var filters : Dictionary<String, Array<String>> = [:]
     @State var filter_Text = ""
     
-    
     var body: some View {
         
         ZStack {
-            
-//            VStack{
-//                HStack{
-//                    Spacer()
-//                    Text("")
-//                }
-//                .padding(.vertical, 20)
-//                .background(Color.black)
-//                .padding(.horizontal, -20)
-//                .ignoresSafeArea()
-//                
-//                Spacer()
-//            }
-            
+                        
             ScrollView(showsIndicators: false) {
                 
-                VStack {
-                    TitleScreenView(title: "Journey")
+                ScrollViewReader { proxy in
                     
-                    VStack(alignment: .leading) {
-                        DescriptionTitleScreenView(desc: "During your Journey, you will encounter a series of Learning Objectives (LOs). The Communal LOs will be added to your Journey as they are addressed in the Challenges. Elective Objectives will appear here when you select them from the Map. You can compare your Journey to specific career paths to help with personal planning. The arrows indicate your current progress towards reaching the LO.")
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                    HStack {
-                        SearchBarExpandableJourney(txtSearchBar: $searchText, isUpdated: $isUpdated)
+                    VStack {
+                        TitleScreenView(title: "Journey")
                         
-                        Spacer()
-                        HStack {
-                            Text("Filters").font(.system(size: 20))
-                            Image(systemName: toggleFilters ? "chevron.up" : "chevron.down")
-                                .font(.system(size: 20))
-                        }.onTapGesture {
-                            self.toggleFilters.toggle()
+                        VStack(alignment: .leading) {
+                            DescriptionTitleScreenView(desc: "During your Journey, you will encounter a series of Learning Objectives (LOs). The Communal LOs will be added to your Journey as they are addressed in the Challenges. Elective Objectives will appear here when you select them from the Map. You can compare your Journey to specific career paths to help with personal planning. The arrows indicate your current progress towards reaching the LO.")
                         }
-                        .clipped()
-                        .animation(.easeOut)
-                        .transition(.slide)
-                    }
-                    
-                    Filters(
-                        viewType: .journey,
-                        onFiltersChange: { filter in
-                            filters = filter
-                            filtered_Learning_Objectives = filterLearningObjective()
-                        })
-                        .opacity(toggleFilters ? 1 : 0)
-                        .frame(height: toggleFilters ? .none : 0)
-                        .clipped()
-                        .padding(.top, toggleFilters ? 5 : 0)
-                        .animation(.easeOut)
-                        .transition(.slide)
-                    
-                    ZStack(alignment: .topLeading) {
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         
-                        NumberTotalLearningOjbectivesView(totalLOs: self.totalNumberLearningObjectivesStore.total)
-                            .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
+                        HStack {
+                            SearchBarExpandableJourney(txtSearchBar: $searchText, isUpdated: $isUpdated)
+                            
+                            Spacer()
+                            HStack {
+                                Text("Filters").font(.system(size: 20))
+                                Image(systemName: toggleFilters ? "chevron.up" : "chevron.down")
+                                    .font(.system(size: 20))
+                            }.onTapGesture {
+                                self.toggleFilters.toggle()
+                            }
+                            .clipped()
+                            .animation(.easeOut)
+                            .transition(.slide)
+                        }
                         
-                        ListViewLearningObjectiveMyJourney(selectedFilter: $selectedFilter, txtSearchBar: $searchText, selectedPath: $selectedPath, selectedStrands: $selectedStrands, selectedMenu: $selectedMenu, selectedSort: $selectedSort, filtered_Learning_Objectives: $filtered_Learning_Objectives)
-                            .onAppear {
+                        Filters(
+                            viewType: .journey,
+                            selectedFilters: $selectedFilters,
+                            onFiltersChange: { filter in
+                                filters = filter
                                 filtered_Learning_Objectives = filterLearningObjective()
-                            }
-                            .onChange(of: learningObjectiveStore.learningObjectives) { learning_Objectives in
-                                filtered_Learning_Objectives = filterLearningObjective()
-                            }
-                            .onChange(of: searchText, perform: { newValue in
-                                filter_Text = newValue
-                                filtered_Learning_Objectives = filterLearningObjective()
-                                
                             })
-                            .padding(.top, 30)
+                            .opacity(toggleFilters ? 1 : 0)
+                            .frame(height: toggleFilters ? .none : 0)
+                            .clipped()
+                            .padding(.top, toggleFilters ? 5 : 0)
+                            .animation(.easeOut)
+                            .transition(.slide)
                         
-                    }.frame(maxWidth: .infinity)
-                }
-                .background(
-                    GeometryReader {
-                        Color.clear.preference(key: ViewOffsetKey2.self,
-                            value: -$0.frame(in: .named("scroll")).origin.y)
+                        ZStack(alignment: .topLeading) {
+                            
+                            NumberTotalLearningObjectivesView(totalLOs: self.totalNumberLearningObjectivesStore.total)
+                                .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
+                            
+                            ListViewLearningObjectiveMyJourney(txtSearchBar: $searchText, selectedPath: $selectedPath, selectedMenu: $selectedMenu, filtered_Learning_Objectives: $filtered_Learning_Objectives)
+                                .onAppear {
+                                    filtered_Learning_Objectives = filterLearningObjective()
+                                }
+                                .onChange(of: scrollTarget) { target in
+                                    withAnimation {
+                                        proxy.scrollTo(0, anchor: .top)
+                                    }
+                                }
+                                .onChange(of: learningObjectiveStore.learningObjectives) { learning_Objectives in
+                                    filtered_Learning_Objectives = filterLearningObjective()
+                                }
+                                .onChange(of: searchText, perform: { newValue in
+                                    filter_Text = newValue
+                                    filtered_Learning_Objectives = filterLearningObjective()
+                                })
+                            
+                                .padding(.top, 30)
+                            
+                        }.frame(maxWidth: .infinity)
                     }
-                )
-                .onPreferenceChange(ViewOffsetKey2.self) { element in
-                    withAnimation {
-                        offset = element
+                    .id(0)
+                    .background(
+                        GeometryReader {
+                            Color.clear.preference(key: ViewOffsetKey2.self,
+                                                   value: -$0.frame(in: .named("scroll")).origin.y)
+                        }
+                    )
+                    .onPreferenceChange(ViewOffsetKey2.self) { element in
+                        withAnimation {
+                            offset = element
+                        }
                     }
+                    .padding(.leading, 50).padding(.trailing, 50)
+                    .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
                 }
-                .padding(.leading, 50).padding(.trailing, 50)
-                .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
             }
             
             if(toggleFilters ? offset > 475 : offset > 200) {
-                Topbar(title: "My Journey", filters: [""])
+                Topbar(title: "Journey", filters: selectedFilters, scrollTarget: $scrollTarget, toggleFilters: $toggleFilters)
             }
         }
     }
@@ -202,12 +194,9 @@ struct MyJourneyView: View {
 
 struct ListViewLearningObjectiveMyJourney: View {
     
-    @Binding var selectedFilter: CoreEnum.RawValue
     @Binding var txtSearchBar : String
     @Binding var selectedPath : String?
-    @Binding var selectedStrands : [String]
     @Binding var selectedMenu: OutlineMenu
-    @Binding var selectedSort: SortEnum?
     
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     @EnvironmentObject var totalNumberLearningObjectivesStore : TotalNumberOfLearningObjectivesStore
@@ -226,8 +215,6 @@ struct ListViewLearningObjectiveMyJourney: View {
                     .isHidden(self.totalNumberLearningObjectivesStore.total > 0 ? true : false)
                 
                 ScrollViewLearningObjectives(learningPathSelected: $selectedPath, isAddable: false, isLearningGoalAdded: nil, textFromSearchBar: $txtSearchBar, filtered_Learning_Objectives: $filtered_Learning_Objectives)
-                
-                //                ScrollViewLearningObjectives(learningPathSelected: $selectedPath, textFromSearchBar: $txtSearchBar, filtered_Learning_Objectives: $filtered_Learning_Objectives)
                 
             }
         } else {

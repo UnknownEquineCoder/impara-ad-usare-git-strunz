@@ -10,6 +10,8 @@ import SwiftUI
 struct CompassView: View {
     
     @State private var offset = CGFloat.zero
+    @State private var scrollTarget: Bool = false
+
     @State private var toggleFilters: Bool = false
     
     @Environment(\.colorScheme) var colorScheme
@@ -29,6 +31,8 @@ struct CompassView: View {
     @State var animation_Trigger_Communal = false
     
     @State var selected_Date : Date = Date()
+    
+    @State private var selectedFilters: Dictionary<String, Array<String>> = [:]
     
     let graph_Minimum_Dimension : CGFloat = 2
     
@@ -68,9 +72,7 @@ struct CompassView: View {
             }
         ){
             ZStack {
-                                
-                colorScheme == .dark ? Color.darkThemeBackgroundColor : Color.lightThemeBackgroundColor
-                                    
+                                                                    
                     ScrollView(showsIndicators: false) {
                         
                         VStack {
@@ -211,8 +213,8 @@ struct CompassView: View {
                     }
                     .padding(.leading, 70).padding(.trailing, 50)
                 
-                if(toggleFilters ? offset > 0 : offset > 0) {
-                    Topbar(title: "Compass", filters: [""])
+                if(toggleFilters ? offset > 475 : offset > 200) {
+                    Topbar(title: "Compass", filters: selectedFilters, fromCompass: true, scrollTarget: $scrollTarget, toggleFilters: $toggleFilters)
                 }
             }
         }

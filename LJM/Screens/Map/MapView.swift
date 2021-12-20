@@ -11,11 +11,12 @@ struct MapView: View {
     
     @State private var offset = CGFloat.zero
     
-    @State var selectedFilter = "ALL"
-    @State var selectedStrands = [String]()
+    @State private var scrollTarget: Bool = false
+    
     @State private var searchText = ""
     @State private var selectedPath : String?
-    @State var selectedEvaluatedOrNotFilter: EvaluatedOrNotEnum?
+    
+    @State private var selectedFilters: Dictionary<String, Array<String>> = [:]
     
     @Environment(\.colorScheme) var colorScheme
     
@@ -45,6 +46,8 @@ struct MapView: View {
             
             ScrollView(showsIndicators: false) {
                 
+                ScrollViewReader { proxy in
+                
                 VStack(alignment: .leading) {
                     
                     TitleScreenView(title: "Map")
@@ -68,6 +71,7 @@ struct MapView: View {
                     
                     Filters(
                         viewType: .map,
+                        selectedFilters: $selectedFilters,
                         onFiltersChange: { filter in
                             filters = filter
                             filtered_Learning_Objectives = filterLearningObjective()
@@ -80,7 +84,7 @@ struct MapView: View {
                         .transition(.slide)
                     
                     ZStack(alignment: .top) {
-                        NumberTotalLearningOjbectivesView(totalLOs: self.totalNumberLearningObjectivesStore.total)
+                        NumberTotalLearningObjectivesView(totalLOs: self.totalNumberLearningObjectivesStore.total)
                         
                         Text("No learning objectives found ...")
                             .font(.system(size: 25, weight: .semibold, design: .rounded))
@@ -94,6 +98,11 @@ struct MapView: View {
                             .onAppear {
                                 filtered_Learning_Objectives = filterLearningObjective()
                             }
+                            .onChange(of: scrollTarget) { target in
+                                withAnimation {
+                                    proxy.scrollTo(0, anchor: .top)
+                                }
+                            }
                             .onChange(of: learningObjectiveStore.learningObjectives) { learning_Objectives in
                                 filtered_Learning_Objectives = filterLearningObjective()
                             }
@@ -104,6 +113,7 @@ struct MapView: View {
                         
                     }
                 }
+                .id(0)
                 .background(
                     GeometryReader {
                         Color.clear.preference(key: ViewOffsetKey2.self,
@@ -111,16 +121,16 @@ struct MapView: View {
                     }
                 )
                 .onPreferenceChange(ViewOffsetKey2.self) { element in
-                        print("@@@@@@@@ \(element)")
                     withAnimation {
                         self.offset = element
                     }
                 }
                 .padding(.leading, 50).padding(.trailing, 50)
             }
+            }
             
-            if(toggleFilters ? offset > 0 : offset > 0) {
-                Topbar(title: "Map", filters: [""])
+            if(toggleFilters ? offset > 475 : offset > 200) {
+                Topbar(title: "Map", filters: selectedFilters, scrollTarget: $scrollTarget, toggleFilters: $toggleFilters)
             }
         }
     }

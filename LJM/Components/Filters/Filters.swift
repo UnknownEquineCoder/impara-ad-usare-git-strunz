@@ -36,10 +36,11 @@ struct Filters: View {
                 "Sort by" : [],
             ]
      */
-    @State private var selectedFilters: Dictionary<String, Array<String>> = [:]
+    @Binding private var selectedFilters: Dictionary<String, Array<String>>
     
-    init(viewType: FiltersView, onFiltersChange: @escaping (Dictionary<String, Array<String>>) -> ()) {
+    init(viewType: FiltersView, selectedFilters: Binding<Dictionary<String, Array<String>>>, onFiltersChange: @escaping (Dictionary<String, Array<String>>) -> ()) {
         self.viewType = viewType
+        self._selectedFilters = selectedFilters
         self.onFiltersChange = onFiltersChange
         self.model = FiltersModel(viewType: viewType)
     }
@@ -57,7 +58,7 @@ struct Filters: View {
                     ForEach(model.getTypesByKind(kind: kind), id: \.self) { filter in
                         
                         // Single filter row
-                        HStack{
+                        HStack {
                             Text(filter)
                             Spacer()
                             if self.selectedFilters[kind]?.contains(filter) ?? false {
@@ -67,7 +68,7 @@ struct Filters: View {
                         .background(Color.customBlack.opacity(0.0001)) // hot fix to have the entire button clickable
                         .padding([.bottom, .top], 5)
                         .onTapGesture {
-                            
+
                             // Remove if already selected
                             if self.selectedFilters[kind]?.contains(filter) ?? false {
                                 self.selectedFilters[kind]?.remove(object: filter)
@@ -100,12 +101,5 @@ struct Filters: View {
                 self.selectedFilters[kind] = []
             }
         }
-    }
-}
-
-
-struct Filters_Previews: PreviewProvider {
-    static var previews: some View {
-        Filters(viewType: .journey, onFiltersChange: {_ in})
     }
 }
