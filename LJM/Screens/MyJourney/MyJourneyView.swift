@@ -45,7 +45,7 @@ struct MyJourneyView: View {
     
     var body: some View {
         
-        ZStack{
+        ZStack {
             
 //            VStack{
 //                HStack{
@@ -127,7 +127,6 @@ struct MyJourneyView: View {
                     }
                 )
                 .onPreferenceChange(ViewOffsetKey2.self) { element in
-                        print("@@@@@@@@ \(element)")
                     withAnimation {
                         offset = element
                     }
@@ -136,29 +135,10 @@ struct MyJourneyView: View {
                 .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
             }
             
-            if( toggleFilters ? offset > 475 : offset > 200) {
-                VStack{
-                    HStack{
-                        Spacer()
-                        Button {
-                            print("@@@@ Peppe")
-                        } label: {
-                            Text("Peppe")
-                        }
-                    }
-                    .padding(.vertical, 20)
-                    .background(Color.red)
-                    .padding(.horizontal, -20)
-                    .ignoresSafeArea()
-                    
-                    Spacer()
-                }
-                .ignoresSafeArea()
+            if(toggleFilters ? offset > 475 : offset > 200) {
+                Topbar(title: "My Journey", filters: [""])
             }
-            
-            
         }
-        
     }
     
     func checkIfMyJourneyIsEmpty() -> Bool {

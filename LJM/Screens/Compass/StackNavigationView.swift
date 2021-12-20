@@ -18,9 +18,9 @@ struct StackNavigationView<RootContent, SubviewContent>: View where RootContent:
    
     
     var body: some View {
-        VStack {
+        ZStack {
             
-            VStack{
+            VStack {
                 if !showingSubview { // Root view
                     rootView()
                          .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -34,6 +34,7 @@ struct StackNavigationView<RootContent, SubviewContent>: View where RootContent:
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                   // .transition(AnyTransition.move(edge: .trailing)).animation(.default)
                 }
+
             }
         }.background(colorScheme == .dark ? Color.darkThemeBackgroundColor : Color.lightThemeBackgroundColor)
     }

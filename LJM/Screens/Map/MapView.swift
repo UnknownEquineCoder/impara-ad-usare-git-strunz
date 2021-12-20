@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct MapView: View {
+    
+    @State private var offset = CGFloat.zero
+    
     @State var selectedFilter = "ALL"
     @State var selectedStrands = [String]()
     @State private var searchText = ""
@@ -38,68 +41,88 @@ struct MapView: View {
     
     var body: some View {
         
-        ScrollView(showsIndicators: false) {
+        ZStack {
             
-            VStack(alignment: .leading) {
+            ScrollView(showsIndicators: false) {
                 
-                TitleScreenView(title: "Map")
-                
-                DescriptionTitleScreenView(desc: "The Map provides access to all the current Learning Objectives in the Academy Curriculum. The Communal Learning Objectives will be adressed during the Challenges and added to your Journey. You can also explore and add Elective Learning Objectives based on your interests and the profile of specific career paths.")
-                    .frame(maxWidth: .infinity, alignment: .leading)
-
-                HStack {
+                VStack(alignment: .leading) {
                     
-                    SearchBarExpandableJourney(txtSearchBar: $searchText, isUpdated: $isUpdated)
+                    TitleScreenView(title: "Map")
                     
-                    Spacer()
-                    HStack{
-                        Text("Filters").font(.system(size: 20))
-                        Image(systemName: toggleFilters ? "chevron.up" : "chevron.down")
-                            .font(.system(size: 20))
-                    }.onTapGesture {
-                        self.toggleFilters.toggle()
+                    DescriptionTitleScreenView(desc: "The Map provides access to all the current Learning Objectives in the Academy Curriculum. The Communal Learning Objectives will be adressed during the Challenges and added to your Journey. You can also explore and add Elective Learning Objectives based on your interests and the profile of specific career paths.")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    HStack {
+                        
+                        SearchBarExpandableJourney(txtSearchBar: $searchText, isUpdated: $isUpdated)
+                        
+                        Spacer()
+                        HStack{
+                            Text("Filters").font(.system(size: 20))
+                            Image(systemName: toggleFilters ? "chevron.up" : "chevron.down")
+                                .font(.system(size: 20))
+                        }.onTapGesture {
+                            self.toggleFilters.toggle()
+                        }
+                    }
+                    
+                    Filters(
+                        viewType: .map,
+                        onFiltersChange: { filter in
+                            filters = filter
+                            filtered_Learning_Objectives = filterLearningObjective()
+                        })
+                        .opacity(toggleFilters ? 1 : 0)
+                        .frame(height: toggleFilters ? .none : 0)
+                        .clipped()
+                        .padding(.top, toggleFilters ? 5 : 0)
+                        .animation(.easeOut)
+                        .transition(.slide)
+                    
+                    ZStack(alignment: .top) {
+                        NumberTotalLearningOjbectivesView(totalLOs: self.totalNumberLearningObjectivesStore.total)
+                        
+                        Text("No learning objectives found ...")
+                            .font(.system(size: 25, weight: .semibold, design: .rounded))
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(Color.customDarkGrey)
+                            .padding(.top, 75)
+                            .isHidden(self.totalNumberLearningObjectivesStore.total == 0 ? false : true)
+                        
+                        ScrollViewLearningObjectives(learningPathSelected: $selectedPath, isAddable: true, isLearningGoalAdded: nil, textFromSearchBar: $searchText, filtered_Learning_Objectives: $filtered_Learning_Objectives)
+                            .padding(.top, 30)
+                            .onAppear {
+                                filtered_Learning_Objectives = filterLearningObjective()
+                            }
+                            .onChange(of: learningObjectiveStore.learningObjectives) { learning_Objectives in
+                                filtered_Learning_Objectives = filterLearningObjective()
+                            }
+                            .onChange(of: searchText) { newValue in
+                                filter_Text = newValue
+                                filtered_Learning_Objectives = filterLearningObjective()
+                            }
+                        
                     }
                 }
-                
-                Filters(
-                    viewType: .map,
-                    onFiltersChange: { filter in
-                        filters = filter
-                        filtered_Learning_Objectives = filterLearningObjective()
-                    })
-                    .opacity(toggleFilters ? 1 : 0)
-                    .frame(height: toggleFilters ? .none : 0)
-                    .clipped()
-                    .padding(.top, toggleFilters ? 5 : 0)
-                    .animation(.easeOut)
-                    .transition(.slide)
-                
-                ZStack(alignment: .top) {
-                    NumberTotalLearningOjbectivesView(totalLOs: self.totalNumberLearningObjectivesStore.total)
-                    
-                    Text("No learning objectives found ...")
-                        .font(.system(size: 25, weight: .semibold, design: .rounded))
-                        .multilineTextAlignment(.center)
-                        .foregroundColor(Color.customDarkGrey)
-                        .padding(.top, 75)
-                        .isHidden(self.totalNumberLearningObjectivesStore.total == 0 ? false : true)
-                    
-                    ScrollViewLearningObjectives(learningPathSelected: $selectedPath, isAddable: true, isLearningGoalAdded: nil, textFromSearchBar: $searchText, filtered_Learning_Objectives: $filtered_Learning_Objectives)
-                        .padding(.top, 30)
-                        .onAppear {
-                            filtered_Learning_Objectives = filterLearningObjective()
-                        }
-                        .onChange(of: learningObjectiveStore.learningObjectives) { learning_Objectives in
-                            filtered_Learning_Objectives = filterLearningObjective()
-                        }
-                        .onChange(of: searchText) { newValue in
-                            filter_Text = newValue
-                            filtered_Learning_Objectives = filterLearningObjective()
-                        }
-                    
+                .background(
+                    GeometryReader {
+                        Color.clear.preference(key: ViewOffsetKey2.self,
+                            value: -$0.frame(in: .named("scroll")).origin.y)
+                    }
+                )
+                .onPreferenceChange(ViewOffsetKey2.self) { element in
+                        print("@@@@@@@@ \(element)")
+                    withAnimation {
+                        self.offset = element
+                    }
                 }
+                .padding(.leading, 50).padding(.trailing, 50)
             }
-        }.padding(.leading, 50).padding(.trailing, 50)
+            
+            if(toggleFilters ? offset > 0 : offset > 0) {
+                Topbar(title: "Map", filters: [""])
+            }
+        }
     }
     
     func filterLearningObjective() -> [learning_Objective]{
