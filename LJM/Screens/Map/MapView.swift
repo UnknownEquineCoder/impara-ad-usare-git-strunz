@@ -9,14 +9,14 @@ import SwiftUI
 
 struct MapView: View {
     
-    @State private var offset = CGFloat.zero
+    @Binding var offset : CGFloat
     
-    @State private var scrollTarget: Bool = false
+    @Binding var scrollTarget: Bool
     
     @State private var searchText = ""
     @State private var selectedPath : String?
     
-    @State private var selectedFilters: Dictionary<String, Array<String>> = [:]
+    @Binding var selectedFilters: Dictionary<String, Array<String>>
     
     @Environment(\.colorScheme) var colorScheme
     
@@ -29,7 +29,7 @@ struct MapView: View {
     @EnvironmentObject var strandsStore: StrandsStore
     @EnvironmentObject var totalNumberLearningObjectivesStore : TotalNumberOfLearningObjectivesStore
     
-    @State private var toggleFilters: Bool = false
+    @Binding var toggleFilters: Bool
     // check if the filters was updated
     
     @State var isUpdated : Bool = false
@@ -127,10 +127,6 @@ struct MapView: View {
                 }
                 .padding(.leading, 50).padding(.trailing, 50)
             }
-            }
-            
-            if(toggleFilters ? offset > 475 : offset > 200) {
-                Topbar(title: "Map", filters: selectedFilters, scrollTarget: $scrollTarget, toggleFilters: $toggleFilters)
             }
         }
     }

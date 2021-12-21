@@ -9,6 +9,12 @@ import Foundation
 import SwiftUI
 
 struct MapMainView: View {
+    
+    @State private var offset = CGFloat.zero
+    @State private var scrollTarget: Bool = false
+    @State private var toggleFilters: Bool = false
+    @State private var selectedFilters: Dictionary<String, Array<String>> = [:]
+
     @Environment(\.colorScheme) var colorScheme
         
     @ObservedObject var selectedView = SelectedSegmentView()
@@ -17,12 +23,18 @@ struct MapMainView: View {
         ZStack(alignment: .top) {
             
             if self.selectedView.selectedView == "Map" {
-                MapView(selectedSegmentView: self.selectedView).modifier(PaddingMainSubViews())
+                MapView(offset: $offset, scrollTarget: $scrollTarget, selectedFilters: $selectedFilters, selectedSegmentView: selectedView, toggleFilters: $toggleFilters)
+                    .modifier(PaddingMainSubViews())
+                
+                if(toggleFilters ? offset > 475 : offset > 200) {
+                    Topbar(title: "Map", filters: selectedFilters, scrollTarget: $scrollTarget, toggleFilters: $toggleFilters)
+                }
             } else {
                 EmptyView()
 //                ChallengeView( selectedSegmentView: self.selectedView).modifier(PaddingMainSubViews())
             }
             
-        }.background(colorScheme == .dark ? Color.darkThemeBackgroundColor : Color.lightThemeBackgroundColor)
+        }
+//        .background(colorScheme == .dark ? Color.darkThemeBackgroundColor : Color.lightThemeBackgroundColor)
     }
 }

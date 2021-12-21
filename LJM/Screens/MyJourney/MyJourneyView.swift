@@ -9,14 +9,14 @@ import SwiftUI
 
 struct MyJourneyView: View {
     
-    @State private var offset = CGFloat.zero
+    @Binding var offset: CGFloat
     
-    @State private var scrollTarget: Bool = false
+    @Binding var scrollTarget: Bool
         
     @State private var searchText = ""
     @State private var selectedPath : String?
     
-    @State private var selectedFilters: Dictionary<String, Array<String>> = [:]
+    @Binding var selectedFilters: Dictionary<String, Array<String>>
     
     @Binding var selectedMenu: OutlineMenu
     
@@ -34,7 +34,7 @@ struct MyJourneyView: View {
     @State var filtered_Learning_Objectives : [learning_Objective] = []
     
     @State var isUpdated : Bool = false
-    @State private var toggleFilters: Bool = false
+    @Binding var toggleFilters: Bool
     @State var filters : Dictionary<String, Array<String>> = [:]
     @State var filter_Text = ""
     
@@ -125,10 +125,6 @@ struct MyJourneyView: View {
                     .padding(.leading, 50).padding(.trailing, 50)
                     .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
                 }
-            }
-            
-            if(toggleFilters ? offset > 475 : offset > 200) {
-                Topbar(title: "Journey", filters: selectedFilters, scrollTarget: $scrollTarget, toggleFilters: $toggleFilters)
             }
         }
     }
