@@ -66,8 +66,6 @@ struct MyJourneyView: View {
                                 self.toggleFilters.toggle()
                             }
                             .clipped()
-                            .animation(.easeOut)
-                            .transition(.slide)
                         }
                         
                         Filters(
