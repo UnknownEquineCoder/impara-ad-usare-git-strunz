@@ -109,7 +109,10 @@ struct StartView: View {
                     .padding()
                 Spacer()
                 StudentPictureView()
-            }.frame(width: 250)
+            }
+            .padding(.top, 20)
+            .frame(width: 250)
+            
             
             if isLoading {
                 HStack{

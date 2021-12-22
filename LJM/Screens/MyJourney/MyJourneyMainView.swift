@@ -15,9 +15,7 @@ struct MyJourneyMainView: View {
     @State private var selectedFilters: Dictionary<String, Array<String>> = [:]
     
     @Environment(\.colorScheme) var colorScheme
-    
-    @State private var showSearchBarSideBar = true
-    
+        
     @Binding var selectedMenu: OutlineMenu
     
     var body: some View {
