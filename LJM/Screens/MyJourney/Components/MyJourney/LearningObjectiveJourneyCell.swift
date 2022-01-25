@@ -81,7 +81,7 @@ struct LearningObjectiveJourneyCell: View {
                             Text(learningObj.goal_Short.uppercased())
                                 .foregroundColor(colorScheme == .dark ? Color(red: 255/255, green: 255/255, blue: 255/255) : Color.customDarkGrey)
                                 .font(.system(size: 22.toFontSize(), weight: .regular))
-                                .lineLimit(2)
+                                .lineLimit(3)
                             Text(learningObj.isCore ? "CORE" : "ELECTIVE")
                                 .foregroundColor(colorScheme == .dark ? Color(red: 255/255, green: 255/255, blue: 255/255) : Color.customDarkGrey)
                                 .font(.system(size: 22.toFontSize(), weight: .light))
