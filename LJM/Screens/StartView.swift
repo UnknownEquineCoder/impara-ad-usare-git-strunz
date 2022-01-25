@@ -43,8 +43,10 @@ struct StartView: View {
         HSplitView {
             ZStack{
                 Color.clear
+                    .ignoresSafeArea()
                     .visualEffect(material: .sidebar)
-                    .ignoresSafeArea() 
+                    .padding(.top, -50)
+                    
                 VStack(alignment: .leading) {
                     ForEach(OutlineMenu.allCases) { menu in
                         ZStack(alignment: .leading) {
