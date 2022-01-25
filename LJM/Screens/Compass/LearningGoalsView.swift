@@ -10,13 +10,11 @@ import AppKit
 
 struct LearningGoalsView: View {
     
-    @State var selectedFilter = "ALL"
-    @State var selectedFilterInsideButton = "All"
     @State private var searchText = ""
     @State private var selectedPath: String?
     @State private var added = false
-    @State var selectedStrands = [String]()
-    @State var selectedEvaluatedOrNotFilter: EvaluatedOrNotEnum?
+    
+    @State private var selectedFilters: Dictionary<String, Array<String>> = [:]
     
     @Environment(\.colorScheme) var colorScheme
     var titleView: String
@@ -65,6 +63,7 @@ struct LearningGoalsView: View {
                 
                 Filters(
                     viewType: .map,
+                    selectedFilters: $selectedFilters,
                     onFiltersChange: { filter in
                         filters = filter
                         filtered_Learning_Objectives2 = filterLearningObjective()

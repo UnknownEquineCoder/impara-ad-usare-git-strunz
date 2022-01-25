@@ -8,6 +8,12 @@
 import SwiftUI
 
 struct CompassView: View {
+    
+    @State private var offset = CGFloat.zero
+    @State private var scrollTarget: Bool = false
+
+    @State private var toggleFilters: Bool = false
+    
     @Environment(\.colorScheme) var colorScheme
     @Binding var path : String
     @State var progressValue: Float = 10
@@ -25,6 +31,8 @@ struct CompassView: View {
     @State var animation_Trigger_Communal = false
     
     @State var selected_Date : Date = Date()
+    
+    @State private var selectedFilters: Dictionary<String, Array<String>> = [:]
     
     let graph_Minimum_Dimension : CGFloat = 2
     
@@ -64,9 +72,7 @@ struct CompassView: View {
             }
         ){
             ZStack {
-                
-                colorScheme == .dark ? Color.darkThemeBackgroundColor : Color.lightThemeBackgroundColor
-                                    
+                                                                    
                     ScrollView(showsIndicators: false) {
                         
                         VStack {
@@ -76,6 +82,17 @@ struct CompassView: View {
                                 DescriptionTitleScreenView(desc: "The Compass helps you to gauge your progress in meeting the Communal Learning Objectives and allows you to explore a variety of paths. Using this tool, you can plan your Learning Journey.")
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                        .background(
+                            GeometryReader {
+                                Color.clear.preference(key: ViewOffsetKey2.self,
+                                    value: -$0.frame(in: .named("scroll")).origin.y)
+                            }
+                        )
+                        .onPreferenceChange(ViewOffsetKey2.self) { element in
+                            withAnimation {
+                                self.offset = element
+                            }
                         }
                         
                         DatePickerView(pickerDate: $selected_Date)
@@ -196,6 +213,9 @@ struct CompassView: View {
                     }
                     .padding(.leading, 70).padding(.trailing, 50)
                 
+                if(toggleFilters ? offset > 475 : offset > 200) {
+                    Topbar(title: "Compass", filters: selectedFilters, fromCompass: true, scrollTarget: $scrollTarget, toggleFilters: $toggleFilters)
+                }
             }
         }
     }

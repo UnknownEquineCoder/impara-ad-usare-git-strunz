@@ -9,17 +9,23 @@ import SwiftUI
 
 struct MyJourneyMainView: View {
     
+    @State private var offset = CGFloat.zero
+    @State private var scrollTarget: Bool = false
+    @State private var toggleFilters: Bool = false
+    @State private var selectedFilters: Dictionary<String, Array<String>> = [:]
+    
     @Environment(\.colorScheme) var colorScheme
-    
-    @State private var showSearchBarSideBar = true
-    
+        
     @Binding var selectedMenu: OutlineMenu
-            
+    
     var body: some View {
         ZStack(alignment: .top) {
-            MyJourneyView(selectedMenu: $selectedMenu)
+            MyJourneyView(offset: $offset, scrollTarget: $scrollTarget, selectedFilters: $selectedFilters, selectedMenu: $selectedMenu, toggleFilters: $toggleFilters)
                 .modifier(PaddingMainSubViews())
             
+            if(toggleFilters ? offset > 475 : offset > 200) {
+                Topbar(title: "Journey", filters: selectedFilters, scrollTarget: $scrollTarget, toggleFilters: $toggleFilters)
+            }
         }
         .background(Color.clear)
     }
