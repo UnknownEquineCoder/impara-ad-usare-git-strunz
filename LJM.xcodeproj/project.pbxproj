@@ -47,6 +47,7 @@
 		96E2DD852726EF170007D49B /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E2DD842726EF170007D49B /* SearchBar.swift */; };
 		A018956F275789D60054B1E6 /* Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A018956E275789D60054B1E6 /* Filters.swift */; };
 		A0682D2C275A1D180068BA60 /* FIltersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0682D2B275A1D180068BA60 /* FIltersModel.swift */; };
+		A08AA80627A14C9400F5FA63 /* DropboxManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08AA80527A14C9400F5FA63 /* DropboxManager.swift */; };
 		E02C351B274F8F6E00DD060C /* ALL PATHS-New.csv in Resources */ = {isa = PBXBuildFile; fileRef = E02C351A274F8F6E00DD060C /* ALL PATHS-New.csv */; };
 		E02DFE8A270AEC3F004FF8B7 /* newModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02DFE89270AEC3F004FF8B7 /* newModels.swift */; };
 		E02DFE8C270C41E5004FF8B7 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02DFE8B270C41E5004FF8B7 /* Observable.swift */; };
@@ -162,6 +163,7 @@
 		96E2DD842726EF170007D49B /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		A018956E275789D60054B1E6 /* Filters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filters.swift; sourceTree = "<group>"; };
 		A0682D2B275A1D180068BA60 /* FIltersModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIltersModel.swift; sourceTree = "<group>"; };
+		A08AA80527A14C9400F5FA63 /* DropboxManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropboxManager.swift; sourceTree = "<group>"; };
 		E000216D274BF0CB0059A1C9 /* LJM.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = LJM.entitlements; sourceTree = "<group>"; };
 		E02C351A274F8F6E00DD060C /* ALL PATHS-New.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ALL PATHS-New.csv"; sourceTree = "<group>"; };
 		E02DFE89270AEC3F004FF8B7 /* newModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = newModels.swift; sourceTree = "<group>"; };
@@ -392,6 +394,7 @@
 				E04251AA27295E00000A1D69 /* Models */,
 				E02DFE89270AEC3F004FF8B7 /* newModels.swift */,
 				E02DFE8B270C41E5004FF8B7 /* Observable.swift */,
+				A08AA80527A14C9400F5FA63 /* DropboxManager.swift */,
 				E0E87CD5272801C900FEF3D6 /* DocDemoDocument.swift */,
 			);
 			path = "New Backend";
@@ -666,6 +669,7 @@
 				EA686F10256EF67B00C121DC /* MyJourneyView.swift in Sources */,
 				9670A96E256EAA330043F227 /* SidebarElements.swift in Sources */,
 				E0952800276B4DE5007AC788 /* Server Structures.swift in Sources */,
+				A08AA80627A14C9400F5FA63 /* DropboxManager.swift in Sources */,
 				969DEAE625DFDEBD00599D63 /* CompassView.swift in Sources */,
 				96114BC125EFA92900FA119C /* ProgressBarGraph.swift in Sources */,
 				EA7028902572FDD300E1B6EB /* RatingView.swift in Sources */,
