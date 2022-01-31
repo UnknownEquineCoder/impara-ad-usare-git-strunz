@@ -50,16 +50,14 @@ struct StartView: View {
                 VStack(alignment: .leading) {
                     ForEach(OutlineMenu.allCases) { menu in
                         ZStack(alignment: .leading) {
+                            
                             OutlineRow(item: menu, selectedMenu: self.$selectedMenu)
                                 .frame(height: 40)
                                 .padding([.leading, .trailing], 10)
-                            if menu == self.selectedMenu {
-                                RoundedRectangle(cornerRadius: 8)
-                                    .foregroundColor(Color.secondary.opacity(0.1))
-                                    .frame(height: 40)
-                                    .padding([.leading, .trailing], 10)
-                            }
+                            
                         }
+//                        .cursor(.pointingHand)
+                        
                     }
                     Spacer()
                     
@@ -114,10 +112,12 @@ struct StartView: View {
 //                        .padding()
                     Spacer()
                     StudentPictureView()
+                        .padding(.trailing,-15)
                 }
             }
             .padding(.top, 20)
-            .frame(width: 250)
+//            .frame(minWidth: 220)
+            .frame(width: 260)
             
             
             if isLoading {

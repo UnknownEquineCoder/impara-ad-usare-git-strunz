@@ -72,6 +72,9 @@ struct CompassView: View {
             }
         ){
             ZStack {
+                
+                Color.init(red: 34/255, green: 29/255, blue: 40/255)
+                    .padding(.top, -50)
                                                                     
                     ScrollView(showsIndicators: false) {
                         

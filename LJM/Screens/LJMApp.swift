@@ -51,7 +51,7 @@ struct LJMApp: App {
                     )
                 }
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                .frame(minWidth: NSScreen.screenWidth! * 0.9, maxWidth: nil, minHeight: NSScreen.screenHeight! * 0.8, maxHeight: nil, alignment: .center)
+                .frame(minWidth: (NSScreen.screenWidth! * 0.9) > 1279 ? NSScreen.screenWidth! * 0.9 : 1279 , maxWidth: nil, minHeight: NSScreen.screenHeight! * 0.8, maxHeight: nil, alignment: .center)
                 .fileExporter(
                     isPresented: $exportFile,
                     document: document,

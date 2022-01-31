@@ -42,23 +42,34 @@ struct OutlineRow : View {
     }
     
     var body: some View {
-        HStack(spacing: 15) {
-            Group {
-                Image(item.image)
-                    .resizable()
-                    .frame(width: 16, height: 16)
-                    //.imageScale(.small)
-                    .foregroundColor(Color(red: 25/255, green: 144/255, blue: 135/255))
+        ZStack(alignment: .trailing){
+            if isSelected {
+                RoundedRectangle(cornerRadius: 8)
+                    .foregroundColor(Color.secondary.opacity(0.1))
+                    .padding([.leading, .trailing], -10)
+            } else {
+                RoundedRectangle(cornerRadius: 8)
+                    .foregroundColor(Color.gray.opacity(0.0001))
+                    .padding([.leading, .trailing], -10)
             }
-            Text(item.title)
-                .foregroundColor(isSelected ? .customBlack : .primary)
-                .font(.system(size: 18, weight: .regular))
+            
+            HStack(spacing: 15) {
+                Group {
+                    Image(item.image)
+                        .resizable()
+                        .frame(width: 16, height: 16)
+                        .foregroundColor(Color(red: 25/255, green: 144/255, blue: 135/255))
+                }
+                Text(item.title)
+                    .foregroundColor(isSelected ? .customBlack : .primary)
+                    .font(.system(size: 18, weight: .regular))
+                Spacer()
+            }
+            
         }
-//        .contentShape(Rectangle())
+        .frame(height: 40)
         .contentShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
         .padding()
-//        .padding(.leading, 10)
-        .cursor(.pointingHand)
         .onTapGesture {
             self.selectedMenu = self.item
         }
