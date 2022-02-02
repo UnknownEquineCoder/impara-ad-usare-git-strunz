@@ -20,18 +20,36 @@ struct ScrollViewLearningObjectives: View {
     @Binding var filtered_Learning_Objectives : [learning_Objective]
     
     var body: some View {
-        //        ScrollView {
-        LazyVStack(spacing: 20) {
-            ForEach(filtered_Learning_Objectives, id: \.ID) { item in
-                LearningObjectiveJourneyCell(
-                    rating: item.eval_score.last ?? 0,
-                    isRatingView: item.eval_score.count > 0,
-                    filter_Text: $textFromSearchBar,
-                    isAddable: isAddable,
-                    isLearningGoalAdded: isLearningGoalAdded == nil ? nil : (isLearningGoalAdded ?? false && item.eval_score.count > 0),
-                    learningPathSelected: self.$learningPathSelected,
-                    learningObj: item)
-                
+        if #available(macOS 12, *) {
+            LazyVStack(spacing: 20) {
+                ForEach(filtered_Learning_Objectives, id: \.ID) { item in
+                    LearningObjectiveJourneyCell(
+                        rating: item.eval_score.last ?? 0,
+                        isRatingView: item.eval_score.count > 0,
+                        filter_Text: $textFromSearchBar,
+                        isAddable: isAddable,
+                        isLearningGoalAdded: isLearningGoalAdded == nil ? nil : (isLearningGoalAdded ?? false && item.eval_score.count > 0),
+                        learningPathSelected: self.$learningPathSelected,
+                        learningObj: item)
+                    
+                }
+            }
+        } else {
+            // FOR BIG SUR AT LEAST
+            
+            VStack {
+                List(filtered_Learning_Objectives, id: \.ID) {
+                    item in
+                    LearningObjectiveJourneyCell(
+                        rating: item.eval_score.last ?? 0,
+                        isRatingView: item.eval_score.count > 0,
+                        filter_Text: $textFromSearchBar,
+                        isAddable: isAddable,
+                        isLearningGoalAdded: isLearningGoalAdded == nil ? nil : (isLearningGoalAdded ?? false && item.eval_score.count > 0),
+                        learningPathSelected: self.$learningPathSelected,
+                        learningObj: item)
+                }
+                .frame(minHeight: 600, maxHeight: .infinity)
             }
         }
     }
