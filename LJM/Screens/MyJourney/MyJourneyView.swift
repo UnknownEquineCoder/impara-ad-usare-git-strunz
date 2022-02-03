@@ -164,6 +164,11 @@ struct MyJourneyView: View {
                 true
             })
             .filter ({
+                
+                if filters["Main"]!.contains("Any") {
+                    return true
+                }
+                
                 filters["Strands"]!.count == 0 ? true : filters["Strands"]!.contains($0.strand)
             })
             .filter({
