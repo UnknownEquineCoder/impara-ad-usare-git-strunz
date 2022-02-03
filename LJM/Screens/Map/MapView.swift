@@ -128,6 +128,7 @@ struct MapView: View {
                 .padding(.leading, 50).padding(.trailing, 50)
             }
             }
+            .padding(.top,50)
         }
     }
     

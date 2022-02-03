@@ -114,6 +114,7 @@ struct StartView: View {
                     StudentPictureView()
                         .padding(.trailing,-15)
                 }
+                .padding(.top,50)
             }
             .padding(.top, 20)
 //            .frame(minWidth: 220)
