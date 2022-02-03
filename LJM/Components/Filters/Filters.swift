@@ -69,8 +69,9 @@ struct Filters: View {
                         .padding([.bottom, .top], 5)
                         .onTapGesture {
 
-                            // Remove if already selected
+                            // Remove if already selected and there are others selected
                             if self.selectedFilters[kind]?.contains(filter) ?? false {
+                                if self.selectedFilters[kind]?.count == 1 { return }
                                 self.selectedFilters[kind]?.remove(object: filter)
                                 self.onFiltersChange(self.selectedFilters)
                                 return

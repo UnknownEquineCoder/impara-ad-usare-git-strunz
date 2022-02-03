@@ -74,6 +74,7 @@ struct MapView: View {
                         selectedFilters: $selectedFilters,
                         onFiltersChange: { filter in
                             filters = filter
+                            selectedFilters = filter
                             filtered_Learning_Objectives = filterLearningObjective()
                         })
                         .opacity(toggleFilters ? 1 : 0)
@@ -82,6 +83,11 @@ struct MapView: View {
                         .padding(.top, toggleFilters ? 5 : 0)
                         .animation(.easeOut)
                         .transition(.slide)
+                        .onAppear {
+                            selectedFilters = FiltersModel(viewType: .map).defaultFilters()
+                            filters = selectedFilters
+                            filtered_Learning_Objectives = filterLearningObjective()
+                        }
                     
                     ZStack(alignment: .top) {
                         NumberTotalLearningObjectivesView(totalLOs: self.totalNumberLearningObjectivesStore.total)

@@ -15,7 +15,7 @@ import FoundationNetworking
 class DropboxManager {
     
     // API Access token
-    private let TOKEN = "<PUT TOKEN HERE>"
+    private let TOKEN = "sl.BBXhZnlfF_yJH8ZdWjLZRCUMt3BrWL2QAYEJbzresljQMV7X--eGeZAOT4eAH3IOA4_ljNyfjPg6h9QbxEa5wdtiX4CF82CbJH4BnKqMmVmcRh90pnsZfhEPKqZL3qo6DriEtV_C--WQ"
     
     /*
      This function upload data on Dropbox in order to have user statistics
