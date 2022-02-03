@@ -6,8 +6,6 @@
 //
 
 import Foundation
-//import SwiftyDropbox
-import Foundation
 #if canImport(FoundationNetworking)
 import FoundationNetworking
 #endif
@@ -22,7 +20,10 @@ class DropboxManager {
      @Parameter data: is the content of the file
      @Parameter filename: should be unique for each user and should not change between two different uploads
      */
-    func uploadUserData(data: String, filename: String) {
+    func uploadUserData() {
+        
+        let filename = getDataFilename()
+        let data = getData()
 
         var request = URLRequest(url: URL(string: "https://content.dropboxapi.com/2/files/upload")!,timeoutInterval: Double.infinity)
         
@@ -43,6 +44,59 @@ class DropboxManager {
 
         task.resume()
 
+    }
+    
+    /*
+     Function to collect the data fron the user that are going to be saved on dropbox
+     */
+    func getData() -> String {
+        // TODO
+        return "TODO"
+    }
+    
+    /*
+     This function will generate a unique id that is going to be used as filename of the file collecting user information
+     The generated filename is going to be saved into the keychain in sync with iCloud
+     */
+    func getDataFilename() -> String{
+        
+        // Retriving unique id from keychain
+        
+        let service = "Dropbox"
+        let account = ""
+        
+        let query = [
+            kSecAttrService: service,
+            kSecAttrAccount: account,
+            kSecClass: kSecClassGenericPassword,
+            kSecReturnData: true
+        ] as CFDictionary
+        
+        var result: AnyObject?
+        SecItemCopyMatching(query, &result)
+        let resultData = result as? Data
+        
+        if resultData != nil {
+            return String(data: resultData!, encoding: .utf8)!
+        }
+        
+        // Creating a unique id and saving it into keychain
+        
+        let filename = UUID().uuidString
+        let dataToSave = Data(filename.utf8)
+        
+        let saveQuery = [
+            kSecValueData: dataToSave,
+            kSecAttrService: service,
+            kSecAttrAccount: account,
+            kSecAttrSynchronizable: kCFBooleanTrue!,
+            kSecClass: kSecClassGenericPassword
+        ] as CFDictionary
+
+        // Add data in query to keychain
+        SecItemAdd(saveQuery, nil)
+        return filename
+        
     }
     
 }
