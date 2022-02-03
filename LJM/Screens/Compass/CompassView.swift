@@ -9,6 +9,8 @@ import SwiftUI
 
 struct CompassView: View {
     
+    @AppStorage("fullScreen") var fullScreen: Bool = FullScreenSettings.fullScreen
+    
     @State private var offset = CGFloat.zero
     @State private var scrollTarget: Bool = false
 
@@ -86,6 +88,8 @@ struct CompassView: View {
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
                         }
+                        .padding(.top, fullScreen == true ? 60 : 0)
+
                         .background(
                             GeometryReader {
                                 Color.clear.preference(key: ViewOffsetKey2.self,

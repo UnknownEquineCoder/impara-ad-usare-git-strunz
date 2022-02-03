@@ -6,6 +6,8 @@ import FoundationNetworking
 
 struct StartView: View {
     
+    @AppStorage("fullScreen") var fullScreen: Bool = FullScreenSettings.fullScreen
+    
     @Binding var isLoading : Bool
     
     // core data elements
@@ -45,7 +47,7 @@ struct StartView: View {
                 Color.clear
                     .ignoresSafeArea()
                     .visualEffect(material: .sidebar)
-                    .padding(.top, -50)
+                    .padding(.top, -70)
                     
                 VStack(alignment: .leading) {
                     ForEach(OutlineMenu.allCases) { menu in
@@ -59,6 +61,7 @@ struct StartView: View {
 //                        .cursor(.pointingHand)
                         
                     }
+                    
                     Spacer()
                     
 //                    Text("Test server response")
@@ -115,10 +118,8 @@ struct StartView: View {
                         .padding(.trailing,-15)
                 }
             }
-            .padding(.top, 20)
-//            .frame(minWidth: 220)
+            .padding(.top, fullScreen == true ? 70 : 20)
             .frame(width: 260)
-            
             
             if isLoading {
                 HStack{

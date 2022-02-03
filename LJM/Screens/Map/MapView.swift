@@ -9,6 +9,8 @@ import SwiftUI
 
 struct MapView: View {
     
+    @AppStorage("fullScreen") var fullScreen: Bool = FullScreenSettings.fullScreen
+    
     @Binding var offset : CGFloat
     
     @Binding var scrollTarget: Bool
@@ -113,6 +115,7 @@ struct MapView: View {
                         
                     }
                 }
+                .padding(.top, fullScreen == true ? 60 : 0)
                 .id(0)
                 .background(
                     GeometryReader {
