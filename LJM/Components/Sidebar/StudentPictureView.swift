@@ -63,13 +63,12 @@ struct StudentPictureView: View {
     
     
     var body: some View {
-        HStack{
+        HStack(spacing: 10){
             ProfileImage( imageData: $imageData).body
                 .resizable()
                 .aspectRatio(contentMode: .fill)
-                .frame(width: size.toScreenSize(), height: size.toScreenSize(), alignment: .leading)
+                .frame(width: size.toScreenSize(), height: size.toScreenSize())
                 .cornerRadius(250)
-                .padding([.leading, .bottom])
                 .shadow(color: Color.black.opacity(0.36), radius: 5, x: 0, y: 5)
                 .onAppear {
                     if let first_Student = student.last{
@@ -93,11 +92,11 @@ struct StudentPictureView: View {
                 .font(.system(size: 18.toFontSize()))
                 .foregroundColor(colorScheme == .dark ? .white : Color(red: 70/255, green: 70/255, blue: 70/255))
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding([.bottom])
-                .padding(.leading, 5)
                 .lineLimit(1)
             
         }
+        .padding([.leading, .bottom, .trailing])
+        
     }
     
     func openImagePicker() {
