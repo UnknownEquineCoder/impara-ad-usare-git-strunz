@@ -9,6 +9,8 @@ import SwiftUI
 
 struct MyJourneyView: View {
     
+    @AppStorage("fullScreen") var fullScreen: Bool = FullScreenSettings.fullScreen
+    
     @Binding var offset: CGFloat
     
     @Binding var scrollTarget: Bool
@@ -115,6 +117,7 @@ struct MyJourneyView: View {
                             
                         }.frame(maxWidth: .infinity)
                     }
+                    .padding(.top, fullScreen == true ? 60 : 0)
                     .id(0)
                     .background(
                         GeometryReader {
@@ -128,6 +131,7 @@ struct MyJourneyView: View {
                         }
                     }
                     .padding(.leading, 50).padding(.trailing, 50)
+//                    .padding(.top, window.styleMask & NSFullScreenWindowMask != 0 ? 10 : 0)
                     .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
                 }
             }
@@ -167,6 +171,11 @@ struct MyJourneyView: View {
                 true
             })
             .filter ({
+                
+                if filters["Main"]!.contains("Any") {
+                    return true
+                }
+                
                 filters["Strands"]!.count == 0 ? true : filters["Strands"]!.contains($0.strand)
             })
             .filter({

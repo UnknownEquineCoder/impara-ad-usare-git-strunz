@@ -8,8 +8,8 @@ struct LearningObjectiveJourneyCell: View {
     @Environment(\.colorScheme) var colorScheme
     @Binding var filter_Text : String
     
-    var isAddable = false
-    var isLearningGoalAdded: Bool?
+    @State var isAddable = false
+    @State var isLearningGoalAdded: Bool?
     @Binding var learningPathSelected : String?
     
     @State private var showingAlert = false
@@ -42,14 +42,14 @@ struct LearningObjectiveJourneyCell: View {
                         }
                         
                         if self.isLearningGoalAdded != nil {
-                            if learningObj.eval_score.count > 0 {
+                            if rating > 0 {
                                 RatingView(learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
                                     .padding(.trailing, 30).padding(.leading, 20)
                                     .onAppear(perform: {
                                         self.isRatingView.toggle()
                                     })
                             } else {
-                                AddButton(learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27).padding(.trailing, 60)
+                                AddButton(learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27).padding(.trailing, 70)
                                     .padding(.bottom, 20)
                             }
                         } else {
@@ -60,11 +60,19 @@ struct LearningObjectiveJourneyCell: View {
                                         self.isRatingView.toggle()
                                     })
                             } else {
-                                AddButton(learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27).padding(.trailing, 60)
+                                AddButton(learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27).padding(.trailing, 70)
                                     .padding(.bottom, 20)
+                                
                             }
                         }
                         Spacer()
+                    }
+                    .onChange(of: rating) { newValue in
+                        let temp = filter_Text
+                        filter_Text = " "
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.0001) {
+                            filter_Text = temp
+                        }
                     }
                 }
                 
@@ -179,6 +187,7 @@ struct LearningObjectiveJourneyCell: View {
                         if #available(macOS 12.0, *) {
                             Button(action: {
                                 showingAlert = true
+                                
                             }) {
                                 Image(systemName: "trash")
                                     .renderingMode(.original)
@@ -194,13 +203,16 @@ struct LearningObjectiveJourneyCell: View {
                                 
                                 Button("Yes", role: .cancel) {
                                     let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObj.ID})!
-                                    learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)                            }
+                                    learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
+                                    rating = 0
+                                }
                             }
                         } else {
                             // Fallback on earlier versions
                             Button(action: {
                                 let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObj.ID})!
-                                learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)  
+                                learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
+                                rating = 0
                             }) {
                                 Image(systemName: "trash")
                                     .renderingMode(.original)

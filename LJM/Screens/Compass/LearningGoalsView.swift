@@ -10,6 +10,8 @@ import AppKit
 
 struct LearningGoalsView: View {
     
+    @AppStorage("fullScreen") var fullScreen: Bool = FullScreenSettings.fullScreen
+    
     @State private var searchText = ""
     @State private var selectedPath: String?
     @State private var added = false

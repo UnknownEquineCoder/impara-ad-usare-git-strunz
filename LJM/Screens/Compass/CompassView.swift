@@ -9,6 +9,8 @@ import SwiftUI
 
 struct CompassView: View {
     
+    @AppStorage("fullScreen") var fullScreen: Bool = FullScreenSettings.fullScreen
+    
     @State private var offset = CGFloat.zero
     @State private var scrollTarget: Bool = false
 
@@ -31,6 +33,8 @@ struct CompassView: View {
     @State var animation_Trigger_Communal = false
     
     @State var selected_Date : Date = Date()
+    
+    @State var show_Graphs : Bool = false
     
     @State private var selectedFilters: Dictionary<String, Array<String>> = [:]
     
@@ -86,6 +90,8 @@ struct CompassView: View {
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
                         }
+                        .padding(.top, fullScreen == true ? 60 : 0)
+
                         .background(
                             GeometryReader {
                                 Color.clear.preference(key: ViewOffsetKey2.self,
@@ -130,7 +136,10 @@ struct CompassView: View {
                                         animation_Trigger_Communal = true
                                         bars_For_Path_Selected()
                                         bars_For_expectation()
+                                        
+                                            show_Graphs = true
                                     }
+                                    .scaleEffect(x: show_Graphs ? 1 : 0.001, y: show_Graphs ? 1 : 0.001)
                                 
                                 Text("Communal")
                                     .fontWeight(.medium)
@@ -150,6 +159,7 @@ struct CompassView: View {
                                     .padding(.leading, 45)
                                     .padding(.trailing, 45)
                                     .onAppear(perform: green_Light_Path_Graph_Data)
+                                    .scaleEffect(x: show_Graphs ? 1 : 0.001, y: show_Graphs ? 1 : 0.001)
                                 
                                 Text("Paths")
                                     .fontWeight(.medium)
@@ -214,6 +224,7 @@ struct CompassView: View {
                                 .padding(.bottom, 100)
                         }
                     }
+                    
                     .padding(.leading, 70).padding(.trailing, 50)
                 
                 if(toggleFilters ? offset > 475 : offset > 200) {

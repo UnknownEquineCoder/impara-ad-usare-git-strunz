@@ -43,9 +43,6 @@ struct AddButton: View {
                 ZStack {
                     Text("")
                         .padding(.bottom, 30)
-                    //                        .popover(isPresented: $hovered) {
-                    //                            PopoverView()
-                    //                        }
                     
                     if learningObjectiveSelected.eval_score.isEmpty {
                         let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObjectiveSelected.ID})!

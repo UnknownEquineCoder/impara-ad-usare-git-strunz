@@ -233,9 +233,24 @@ struct Doc : FileDocument {
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     
+    @AppStorage("fullScreen") var fullScreen: Bool = FullScreenSettings.fullScreen
+        
     func applicationDidFinishLaunching(_ notification: Notification) {
         print("Info from `applicationDidFinishLaunching(_:): Finished launching…")
         let _ = NSApplication.shared.windows.map { $0.tabbingMode = .disallowed }
         
+        NotificationCenter.default.addObserver(forName: NSWindow.willEnterFullScreenNotification, object: nil, queue: OperationQueue.main, using: { note in
+            print("Entered Fullscreen")
+            self.fullScreen = true
+        })
+
+        NotificationCenter.default.addObserver(forName: NSWindow.willExitFullScreenNotification, object: nil, queue: OperationQueue.main, using: { note in
+            print("Exited Fullscreen")
+            self.fullScreen = false
+        })
     }
+}
+
+enum FullScreenSettings {
+    static let fullScreen = false
 }
