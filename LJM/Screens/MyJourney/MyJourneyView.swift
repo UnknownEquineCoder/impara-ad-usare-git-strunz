@@ -128,6 +128,7 @@ struct MyJourneyView: View {
                     .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
                 }
             }
+            .padding(.top,50)
         }
     }
     

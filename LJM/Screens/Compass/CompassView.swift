@@ -34,6 +34,8 @@ struct CompassView: View {
     
     @State var selected_Date : Date = Date()
     
+    @State var show_Graphs : Bool = false
+    
     @State private var selectedFilters: Dictionary<String, Array<String>> = [:]
     
     let graph_Minimum_Dimension : CGFloat = 2
@@ -134,7 +136,14 @@ struct CompassView: View {
                                         animation_Trigger_Communal = true
                                         bars_For_Path_Selected()
                                         bars_For_expectation()
+                                        
+                                            show_Graphs = true
+//                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+//                                            withAnimation {
+//                                            }
+//                                        }
                                     }
+                                    .scaleEffect(x: show_Graphs ? 1 : 0.001, y: show_Graphs ? 1 : 0.001)
                                 
                                 Text("Communal")
                                     .fontWeight(.medium)
@@ -154,6 +163,7 @@ struct CompassView: View {
                                     .padding(.leading, 45)
                                     .padding(.trailing, 45)
                                     .onAppear(perform: green_Light_Path_Graph_Data)
+                                    .scaleEffect(x: show_Graphs ? 1 : 0.001, y: show_Graphs ? 1 : 0.001)
                                 
                                 Text("Paths")
                                     .fontWeight(.medium)
@@ -218,6 +228,7 @@ struct CompassView: View {
                                 .padding(.bottom, 100)
                         }
                     }
+                    .padding(.top,50)
                     .padding(.leading, 70).padding(.trailing, 50)
                 
                 if(toggleFilters ? offset > 475 : offset > 200) {
