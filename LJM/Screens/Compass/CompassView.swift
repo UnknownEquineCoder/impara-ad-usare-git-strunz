@@ -228,7 +228,7 @@ struct CompassView: View {
                                 .padding(.bottom, 100)
                         }
                     }
-                    .padding(.top,50)
+                    
                     .padding(.leading, 70).padding(.trailing, 50)
                 
                 if(toggleFilters ? offset > 475 : offset > 200) {
