@@ -15,6 +15,7 @@ class DropboxManager {
     // API Access token
     private let TOKEN = "sl.BBXhZnlfF_yJH8ZdWjLZRCUMt3BrWL2QAYEJbzresljQMV7X--eGeZAOT4eAH3IOA4_ljNyfjPg6h9QbxEa5wdtiX4CF82CbJH4BnKqMmVmcRh90pnsZfhEPKqZL3qo6DriEtV_C--WQ"
     
+    // Singleton pattern
     static let instance = DropboxManager()
     private init() {}
     
