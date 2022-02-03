@@ -172,11 +172,11 @@ struct MyJourneyView: View {
             })
             .filter ({
                 
-                if filters["Main"]!.contains("Any") {
+                if filters["Strands"]!.contains("Any") {
                     return true
                 }
                 
-                filters["Strands"]!.count == 0 ? true : filters["Strands"]!.contains($0.strand)
+                return filters["Strands"]!.count == 0 ? true : filters["Strands"]!.contains($0.strand)
             })
             .filter({
                 if let first_Strand = filters["Path"]!.first {
