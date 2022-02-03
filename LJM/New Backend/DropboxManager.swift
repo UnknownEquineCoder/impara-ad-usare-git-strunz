@@ -18,7 +18,9 @@ class DropboxManager {
     static let instance = DropboxManager()
     private init() {}
     
-    
+    /*
+     Function to upload data on Dropbox once in a month
+     */
     func checkForUploadUserData(){
         
         let userDefaultsKey = "checkForUploadUserDataDate"
