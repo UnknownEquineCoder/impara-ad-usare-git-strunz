@@ -15,12 +15,43 @@ class DropboxManager {
     // API Access token
     private let TOKEN = "sl.BBXhZnlfF_yJH8ZdWjLZRCUMt3BrWL2QAYEJbzresljQMV7X--eGeZAOT4eAH3IOA4_ljNyfjPg6h9QbxEa5wdtiX4CF82CbJH4BnKqMmVmcRh90pnsZfhEPKqZL3qo6DriEtV_C--WQ"
     
+    static let instance = DropboxManager()
+    private init() {}
+    
+    
+    func checkForUploadUserData(){
+        
+        let userDefaultsKey = "checkForUploadUserDataDate"
+        
+        var date = UserDefaults.standard.object(forKey: userDefaultsKey) as? Date
+        if date == nil {
+            date = Date()
+            UserDefaults.standard.set(date, forKey: userDefaultsKey)
+        }
+        
+        let now = Date()
+        let diff = date!.distance(to: now)
+        let oneMonthInSeconds: Double = 60*60*24*30
+        
+        if diff > oneMonthInSeconds {
+            UserDefaults.standard.set(now, forKey: userDefaultsKey)
+            uploadUserData()
+            return
+        }
+            
+        // Data update not needed
+        let remainingTime = Int(oneMonthInSeconds - diff)
+        print("Updating Dropbox data in \(remainingTime) seconds")
+        return
+        
+    }
+    
     /*
      This function upload data on Dropbox in order to have user statistics
      @Parameter data: is the content of the file
      @Parameter filename: should be unique for each user and should not change between two different uploads
      */
-    func uploadUserData() {
+    private func uploadUserData() {
         
         let filename = getDataFilename()
         let data = getData()
@@ -49,7 +80,7 @@ class DropboxManager {
     /*
      Function to collect the data fron the user that are going to be saved on dropbox
      */
-    func getData() -> String {
+    private func getData() -> String {
         // TODO
         return "TODO"
     }
@@ -58,7 +89,7 @@ class DropboxManager {
      This function will generate a unique id that is going to be used as filename of the file collecting user information
      The generated filename is going to be saved into the keychain in sync with iCloud
      */
-    func getDataFilename() -> String{
+    private func getDataFilename() -> String{
         
         // Retriving unique id from keychain
         

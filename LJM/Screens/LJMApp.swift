@@ -151,7 +151,6 @@ struct LJMApp: App {
                 }
                 .environmentObject(learningObjectiveStore)
         }
-        
         .windowStyle(.hiddenTitleBar)
         .windowStyle(HiddenTitleBarWindowStyle())
         .handlesExternalEvents(matching: Set(arrayLiteral: "*"))
@@ -248,6 +247,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             print("Exited Fullscreen")
             self.fullScreen = false
         })
+        
+        
+        DispatchQueue.global(qos: .background).async {
+            DropboxManager.instance.checkForUploadUserData()
+        }
     }
 }
 
