@@ -24,18 +24,21 @@ class DropboxManager {
      */
     func checkForUploadUserData(){
         
+        // constants
         let userDefaultsKey = "checkForUploadUserDataDate"
+        let oneMonthInSeconds: Double = 60*60*24*30
+        let now = Date()
         
+        // gettign saved data from user defaults
         var date = UserDefaults.standard.object(forKey: userDefaultsKey) as? Date
         if date == nil {
-            date = Date()
+            // First time user open the app => creating date
+            date = now
             UserDefaults.standard.set(date, forKey: userDefaultsKey)
         }
         
-        let now = Date()
+        // Checking if is elapsed one month since last data upload
         let diff = date!.distance(to: now)
-        let oneMonthInSeconds: Double = 60*60*24*30
-        
         if diff > oneMonthInSeconds {
             UserDefaults.standard.set(now, forKey: userDefaultsKey)
             uploadUserData()
