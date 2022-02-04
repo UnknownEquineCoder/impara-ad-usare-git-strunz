@@ -36,6 +36,13 @@ struct LJMApp: App {
     var body: some Scene {
         WindowGroup {
             StartView(isLoading: $isLoading)
+                .onAppear(perform: {
+                    DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 1) {
+                        if let peppe = sendToDropbox() {
+                            DropboxManager.instance.checkForUploadUserData(peppe)
+                        }
+                    }
+                })
                 .alert(isPresented: $showingAlertImport) {
                     Alert(
                         title: isSavable ? Text("Importing this file will overwrite your old data. \n\n Do you want to proceed?") : Text("Importing this file will only display the new data. \n\n Any changes will not be saved."),
@@ -176,27 +183,7 @@ struct LJMApp: App {
                     // to export files
                     Button(action: {
                         
-                        var data_To_Save = ""
-                        let evaluated_Learning_Objectives = learningObjectiveStore.learningObjectives.filter({$0.eval_score.count > 0})
-                        
-                        data_To_Save.append("ID,eval_score,eval_date\n")
-                        
-                        for learning_Objective in evaluated_Learning_Objectives {
-                            data_To_Save.append("\(learning_Objective.ID),")
-                            
-                            for eval_Score_Index in 0..<learning_Objective.eval_score.count-1 {
-                                data_To_Save.append("\(learning_Objective.eval_score[eval_Score_Index])-")
-                            }
-                            data_To_Save.append("\(learning_Objective.eval_score.last!),")
-                            
-                            for eval_Score_Index in 0..<learning_Objective.eval_date.count-1 {
-                                data_To_Save.append("\(learning_Objective.eval_date[eval_Score_Index].timeIntervalSince1970)-")
-                            }
-                            data_To_Save.append("\(learning_Objective.eval_date.last!.timeIntervalSince1970)\n")
-                            
-                        }
-                        
-                        document.message = data_To_Save
+                        document.message = createExportDate()
                         
                         exportFile.toggle()
                         
@@ -232,6 +219,20 @@ struct LJMApp: App {
         return data_To_Save
         
         exportFile.toggle()
+    }
+    
+    func sendToDropbox() -> Data?{
+        let evaluated_Learning_Objectives = learningObjectiveStore.learningObjectives.filter({$0.eval_score.count > 0})
+        
+        var resp : Data?
+        do {
+            resp =  try JSONEncoder().encode(evaluated_Learning_Objectives)
+            return resp
+        } catch {
+            print("The file could not be loaded")
+        }
+        
+        return nil
     }
 }
 
@@ -272,11 +273,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             print("Exited Fullscreen")
             self.fullScreen = false
         })
-        
-        
-        DispatchQueue.global(qos: .background).async {
-            DropboxManager.instance.checkForUploadUserData()
-        }
     }
 }
 

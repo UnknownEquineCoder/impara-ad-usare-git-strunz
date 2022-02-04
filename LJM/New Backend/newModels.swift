@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 
-struct learning_Objective : Equatable, Encodable, Decodable {
+struct learning_Objective : Equatable, Codable {
     
     /** Primary Key */
     var ID : String

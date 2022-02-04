@@ -13,7 +13,7 @@ import FoundationNetworking
 class DropboxManager {
     
     // API Access token
-    private let TOKEN = "sl.BBXhZnlfF_yJH8ZdWjLZRCUMt3BrWL2QAYEJbzresljQMV7X--eGeZAOT4eAH3IOA4_ljNyfjPg6h9QbxEa5wdtiX4CF82CbJH4BnKqMmVmcRh90pnsZfhEPKqZL3qo6DriEtV_C--WQ"
+    private let TOKEN = "sl.BBY6TQJjz-cgLww98aI0vNvmijCbq5ZR6nOuh4cIban1jTK8pq4Up2PL___Vlc4T1Py5WNVt7-0eGijbb7abdzh77hO8VcUYbXQO1UQ4P9QiQ-3MbM_-QxkE-lwEeT0bECPeoAk12odD"
     
     // Singleton pattern
     static let instance = DropboxManager()
@@ -22,11 +22,11 @@ class DropboxManager {
     /*
      Function to upload data on Dropbox once in a month
      */
-    func checkForUploadUserData(){
+    func checkForUploadUserData(_ data : Data){
         
         // constants
         let userDefaultsKey = "checkForUploadUserDataDate"
-        let oneMonthInSeconds: Double = 60*60*24*30
+        let oneMonthInSeconds: Double = 60 * 60 * 24 * 30
         let now = Date()
         
         // gettign saved data from user defaults
@@ -41,7 +41,7 @@ class DropboxManager {
         let diff = date!.distance(to: now)
         if diff > oneMonthInSeconds {
             UserDefaults.standard.set(now, forKey: userDefaultsKey)
-            uploadUserData()
+            uploadUserData(data)
             return
         }
             
@@ -57,19 +57,18 @@ class DropboxManager {
      @Parameter data: is the content of the file
      @Parameter filename: should be unique for each user and should not change between two different uploads
      */
-    private func uploadUserData() {
+    private func uploadUserData(_ data : Data) {
         
         let filename = getDataFilename()
-        let data = getData()
 
         var request = URLRequest(url: URL(string: "https://content.dropboxapi.com/2/files/upload")!,timeoutInterval: Double.infinity)
         
         request.addValue("Bearer \(TOKEN)", forHTTPHeaderField: "Authorization")
-        request.addValue("{\"path\": \"/\(filename).txt\",\"mode\": \"overwrite\",\"autorename\": false,\"mute\": false,\"strict_conflict\": false}", forHTTPHeaderField: "Dropbox-API-Arg")
+        request.addValue("{\"path\": \"/\(filename).json\",\"mode\": \"overwrite\",\"autorename\": false,\"mute\": false,\"strict_conflict\": false}", forHTTPHeaderField: "Dropbox-API-Arg")
         request.addValue("application/octet-stream", forHTTPHeaderField: "Content-Type")
 
         request.httpMethod = "POST"
-        request.httpBody = data.data(using: .utf8)
+        request.httpBody = data
 
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
           guard let data = data else {
@@ -81,14 +80,6 @@ class DropboxManager {
 
         task.resume()
 
-    }
-    
-    /*
-     Function to collect the data fron the user that are going to be saved on dropbox
-     */
-    private func getData() -> String {
-        // TODO
-        return "TODO"
     }
     
     /*
