@@ -163,7 +163,10 @@ struct MapView: View {
                 true
             })
             .filter ({
-                filters["Strands"]!.count == 0 ? true : filters["Strands"]!.contains($0.strand)
+                if filters["Strand"]!.contains("Any") {
+                    return true
+                }
+                return filters["Strand"]!.count == 0 ? true : filters["Strand"]!.contains($0.strand)
             })
             .filter({
                 if let first_Strand = filters["Path"]!.first {
