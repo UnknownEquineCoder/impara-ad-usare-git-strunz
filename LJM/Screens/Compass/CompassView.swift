@@ -138,10 +138,6 @@ struct CompassView: View {
                                         bars_For_expectation()
                                         
                                             show_Graphs = true
-//                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-//                                            withAnimation {
-//                                            }
-//                                        }
                                     }
                                     .scaleEffect(x: show_Graphs ? 1 : 0.001, y: show_Graphs ? 1 : 0.001)
                                 

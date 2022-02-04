@@ -20,8 +20,15 @@ struct ProfileImage: View {
     
     var imageBody: Image {
         if imageData != nil {
-            defer { self.toToggle.toggle() }
-            return Image(nsImage: NSImage(data: imageData!)!)
+            if let _imageData = imageData {
+                if let nsImageData = NSImage(data: _imageData) {
+                    defer { self.toToggle.toggle() }
+                    return Image(nsImage: nsImageData)
+                }
+            }
+            
+            return Image("UserPlaceholder")
+            
         } else if let nsImage = NSImage(data: data) {
             defer { self.toToggle.toggle() }
             return Image(nsImage: nsImage)
@@ -35,6 +42,7 @@ struct ProfileImage: View {
 struct StudentPictureView: View {
     
     @StateObject var learningObjectiveStore = LearningObjectivesStore()
+    @Environment(\.colorScheme) var colorScheme
     
     // core data elements
     @Environment(\.managedObjectContext) private var viewContext
@@ -52,55 +60,89 @@ struct StudentPictureView: View {
     
     var profileImage: Image {
         get {
-            if imageData != nil {
-                return Image(nsImage: NSImage(data: imageData!)!)
+            if let _imageData = imageData{
+                if let _nsImageData = NSImage(data: _imageData){
+                    return Image(nsImage: _nsImageData)
+                }
+                
             } else {
                 return Image(imageName)
             }
+            
+            return Image("UserPlaceholder")
         }
     }
     
     
     var body: some View {
-        HStack{
-            ZStack{
-                ProfileImage( imageData: $imageData).body
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: size.toScreenSize(), height: size.toScreenSize(), alignment: .leading)
-                    .cornerRadius(250)
-                    .padding()
-                    .shadow(color: Color.black.opacity(0.36), radius: 5, x: 0, y: 5)
-                    .onAppear {
-                        if let first_Student = student.last{
-                            
-//                            if let image_Data = UserDefaults.standard.data(forKey: "Image_Saved"){
-//                                imageData = image_Data
-//                            }
-                            
-                            if let image_Data = first_Student.image as? Data{
-                                imageData = image_Data
-                            }
-                            
-                            
-                            if let student_Name = first_Student.name {
-                                username = student_Name
-                                PersistenceController.shared.name = student_Name
-                            }
+        HStack(spacing: 10){
+            ProfileImage( imageData: $imageData).body
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: size.toScreenSize(), height: size.toScreenSize())
+                .cornerRadius(250)
+                .shadow(color: Color.black.opacity(0.36), radius: 5, x: 0, y: 5)
+                .onAppear {
+                    if let first_Student = student.last{
+                        
+                        if let image_Data = first_Student.image as? Data{
+                            imageData = image_Data
+                        }
+                        
+                        
+                        if let student_Name = first_Student.name {
+                            username = student_Name
+                            PersistenceController.shared.name = student_Name
                         }
                     }
+                }
+                .onTapGesture {
+                    openImagePicker()
+                }
+            
+            Text(NSFullUserName())
+                .font(.system(size: 18.toFontSize()))
+                .foregroundColor(colorScheme == .dark ? .white : Color(red: 70/255, green: 70/255, blue: 70/255))
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .lineLimit(1)
+            
+        }
+        .padding([.leading, .bottom, .trailing])
+        
+    }
+    
+    func openImagePicker() {
+        let dialog = NSOpenPanel();
+        
+        dialog.title                   = "Choose an image"
+        dialog.showsResizeIndicator    = true
+        dialog.showsHiddenFiles        = false
+        dialog.allowsMultipleSelection = false
+        dialog.canChooseFiles = true
+        dialog.canChooseDirectories = false
+        dialog.allowedFileTypes        = ["png", "jpg", "jpeg", "gif"]
+        
+        if (dialog.runModal() ==  NSApplication.ModalResponse.OK) {
+            let result = dialog.url // Pathname of the file
+            
+            if let result = result {
+                let path: String = result.path
+                print(path)
+                self.imageName = path
                 
-//                Circle()
-//                    .strokeBorder(LinearGradient(gradient: Gradient(colors: [Color("Light green"), Color("Dark green")]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 3)
-//                    .frame(width: size.toScreenSize(), height: size.toScreenSize(), alignment: .leading)
-                AddImageButton(buttonSize: (size/4).toScreenSize(), imageName: $imageName, imageData: $imageData, username: $username)
-                    .padding([.top, .leading], 0.66*size.toScreenSize())
+                let image = NSImage(byReferencingFile: path)!
+                let data = image.tiffRepresentation
+                
+                if let image_Data = data {
+                    if learningObjectiveStore.isSavable {
+                        PersistenceController.shared.update_Profile(image: image_Data, name: username)
+                    }
+                    
+                    imageData = image_Data
+                }
                 
             }
-            
-            ProfileNameLabel(name: $username, image_Data: $imageData)
-                .frame(width: 150)
-        }
+    }
     }
 }
 

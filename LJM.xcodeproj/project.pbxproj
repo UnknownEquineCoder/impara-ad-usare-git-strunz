@@ -29,12 +29,10 @@
 		964C75A925EE5983002D8634 /* LegendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964C75A825EE5983002D8634 /* LegendView.swift */; };
 		96533794260C898400316B7C /* StackNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96533793260C898400316B7C /* StackNavigationView.swift */; };
 		965B5AA3274E45B4003420B2 /* CursorsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965B5AA2274E45B4003420B2 /* CursorsExtension.swift */; };
-		9670A966256E9FBA0043F227 /* ProfileNameLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9670A965256E9FBA0043F227 /* ProfileNameLabel.swift */; };
 		9670A96E256EAA330043F227 /* SidebarElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9670A96D256EAA330043F227 /* SidebarElements.swift */; };
 		9670A976257105290043F227 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9670A975257105290043F227 /* StartView.swift */; };
 		9672C8F425E3F46B005CC753 /* RadarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9672C8F325E3F46B005CC753 /* RadarChartView.swift */; };
 		9673746B2733EDAD00A0EC5A /* DeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9673746A2733EDAD00A0EC5A /* DeleteButton.swift */; };
-		967EE8CB256E722F008065C9 /* AddImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 967EE8CA256E722F008065C9 /* AddImageButton.swift */; };
 		968BFD3027298BF70025108D /* InfoButtonBarGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 968BFD2F27298BF70025108D /* InfoButtonBarGraph.swift */; };
 		9696F9332726A13A009614F4 /* SortButtonMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9696F9322726A13A009614F4 /* SortButtonMenu.swift */; };
 		9696F9352726A764009614F4 /* ContextMenuFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9696F9342726A764009614F4 /* ContextMenuFilters.swift */; };
@@ -144,12 +142,10 @@
 		964C75A825EE5983002D8634 /* LegendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegendView.swift; sourceTree = "<group>"; };
 		96533793260C898400316B7C /* StackNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackNavigationView.swift; sourceTree = "<group>"; };
 		965B5AA2274E45B4003420B2 /* CursorsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CursorsExtension.swift; sourceTree = "<group>"; };
-		9670A965256E9FBA0043F227 /* ProfileNameLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNameLabel.swift; sourceTree = "<group>"; };
 		9670A96D256EAA330043F227 /* SidebarElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarElements.swift; sourceTree = "<group>"; };
 		9670A975257105290043F227 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		9672C8F325E3F46B005CC753 /* RadarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadarChartView.swift; sourceTree = "<group>"; };
 		9673746A2733EDAD00A0EC5A /* DeleteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteButton.swift; sourceTree = "<group>"; };
-		967EE8CA256E722F008065C9 /* AddImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddImageButton.swift; sourceTree = "<group>"; };
 		968BFD2F27298BF70025108D /* InfoButtonBarGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoButtonBarGraph.swift; sourceTree = "<group>"; };
 		9696F9322726A13A009614F4 /* SortButtonMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortButtonMenu.swift; sourceTree = "<group>"; };
 		9696F9342726A764009614F4 /* ContextMenuFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenuFilters.swift; sourceTree = "<group>"; };
@@ -351,8 +347,6 @@
 			isa = PBXGroup;
 			children = (
 				964B665D256E64FD006AB20E /* StudentPictureView.swift */,
-				967EE8CA256E722F008065C9 /* AddImageButton.swift */,
-				9670A965256E9FBA0043F227 /* ProfileNameLabel.swift */,
 				9670A96D256EAA330043F227 /* SidebarElements.swift */,
 			);
 			path = Sidebar;
@@ -678,7 +672,6 @@
 				E0E87CD6272801C900FEF3D6 /* DocDemoDocument.swift in Sources */,
 				A018956F275789D60054B1E6 /* Filters.swift in Sources */,
 				9609087F2604A10900EB4242 /* LearningGoalsView.swift in Sources */,
-				9670A966256E9FBA0043F227 /* ProfileNameLabel.swift in Sources */,
 				968BFD3027298BF70025108D /* InfoButtonBarGraph.swift in Sources */,
 				96E2DD852726EF170007D49B /* SearchBar.swift in Sources */,
 				964B665E256E64FD006AB20E /* StudentPictureView.swift in Sources */,
@@ -720,7 +713,6 @@
 				9622DCE525DE80DA009ECCB4 /* CompassPopover.swift in Sources */,
 				960A8B2125E7B9FA00492C3F /* RadarGraphFrame.swift in Sources */,
 				E04251B3272AAABA000A1D69 /* percistency_Manager.swift in Sources */,
-				967EE8CB256E722F008065C9 /* AddImageButton.swift in Sources */,
 				EAF37039257A2A4900C72707 /* EmptyLearningObjectiveViewJourney.swift in Sources */,
 				EA686F18256EF69100C121DC /* MapView.swift in Sources */,
 				EACB5D8025C2D0A2006BA903 /* HistoryProgressView.swift in Sources */,
@@ -888,7 +880,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"LJM/Preview Content\"";
 				DEVELOPMENT_TEAM = QJTRTDLS6U;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -917,7 +909,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"LJM/Preview Content\"";
 				DEVELOPMENT_TEAM = QJTRTDLS6U;
 				ENABLE_HARDENED_RUNTIME = YES;

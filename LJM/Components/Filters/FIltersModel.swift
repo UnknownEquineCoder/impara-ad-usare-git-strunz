@@ -20,6 +20,8 @@ class FiltersModel: ObservableObject {
         var kind: String
         /** Stores true if this filter kind should be selectable only once*/
         var isSingleSelection: Bool
+        /** Value that rapresent the default selected filter */
+        var initialSelectedFilter: Int
         /** Stores all the available filters for the corresponding kind */
         var types: [String]
     }
@@ -33,17 +35,21 @@ class FiltersModel: ObservableObject {
             
                 FiltersModelData(kind: "Main",
                                  isSingleSelection: true,
-                                 types: ["Core", "Elective"]),
-                FiltersModelData(kind: "Strands",
-                                 isSingleSelection: false,
-                                 types: ["App Business and Marketing", "Design", "Process", "Professional Skills", "Technical"]),
+                                 initialSelectedFilter: 0,
+                                 types: ["Any", "Core", "Elective"]),
+                FiltersModelData(kind: "Strand",
+                                 isSingleSelection: true,
+                                 initialSelectedFilter: 0,
+                                 types: ["Any", "App Business and Marketing", "Design", "Process", "Professional Skills", "Technical"]),
                 FiltersModelData(kind: "Path",
                                  isSingleSelection: true,
-                                 types: ["UI/UX", "Frontend", "Backend", "Game Design", "Game Development",
+                                 initialSelectedFilter: 0,
+                                 types: ["Any", "UI/UX", "Frontend", "Backend", "Game Design", "Game Development",
                                          "Business/Entrepreneuship", "Project/Product Manager"]),
-                FiltersModelData(kind: "Sort by",
+                FiltersModelData(kind: "Sort By",
                                  isSingleSelection: true,
-                                 types: ["Date", "Name"])
+                                 initialSelectedFilter: 0,
+                                 types: ["Name", "Date"])
             ]
         
         case .map:
@@ -51,20 +57,25 @@ class FiltersModel: ObservableObject {
             
                 FiltersModelData(kind: "Main",
                                  isSingleSelection: true,
-                                 types: ["Core", "Elective"]),
+                                 initialSelectedFilter: 0,
+                                 types: ["Any", "Core", "Elective"]),
                 FiltersModelData(kind: "Status",
                                  isSingleSelection: true,
-                                 types: ["Evaluated", "Not Evaluated"]),
-                FiltersModelData(kind: "Strands",
-                                 isSingleSelection: false,
-                                 types: ["App Business and Marketing", "Design", "Process", "Professional Skills", "Technical"]),
-                FiltersModelData(kind: "Path",
-                                 isSingleSelection: false,
-                                 types: ["UI/UX", "Frontend", "Backend", "Game Design", "Game Development",
-                                         "Business/Entrepreneuship", "Project/Product Manager"]),
-                FiltersModelData(kind: "Sort by",
+                                 initialSelectedFilter: 0,
+                                 types: ["Any", "Evaluated", "Not Evaluated"]),
+                FiltersModelData(kind: "Strand",
                                  isSingleSelection: true,
-                                 types: ["Date", "Name"])
+                                 initialSelectedFilter: 0,
+                                 types: ["Any", "App Business and Marketing", "Design", "Process", "Professional Skills", "Technical"]),
+                FiltersModelData(kind: "Path",
+                                 isSingleSelection: true,
+                                 initialSelectedFilter: 0,
+                                 types: ["Any", "UI/UX", "Frontend", "Backend", "Game Design", "Game Development",
+                                         "Business/Entrepreneuship", "Project/Product Manager"]),
+                FiltersModelData(kind: "Sort By",
+                                 isSingleSelection: true,
+                                 initialSelectedFilter: 0,
+                                 types: ["Name", "Date"])
             ]
             
         }
@@ -83,10 +94,19 @@ class FiltersModel: ObservableObject {
         }?.types ?? []
     }
     
-    /** Return if the correponding kind is a single selection*/
+    /** Return if the correponding kind is a single selection */
     func isSingleSelection(kind: String) -> Bool {
         return self.allFilters.first { data in
             data.kind == kind
         }?.isSingleSelection ?? false
+    }
+    
+    /** Return the default filters */
+    func defaultFilters() -> Dictionary<String, Array<String>> {
+        var data = Dictionary<String, Array<String>>()
+        for filter in allFilters{
+            data[filter.kind] = [filter.types[filter.initialSelectedFilter]]
+        }
+        return data
     }
 }

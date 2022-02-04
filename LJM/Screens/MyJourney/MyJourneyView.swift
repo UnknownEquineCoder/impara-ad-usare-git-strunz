@@ -43,7 +43,7 @@ struct MyJourneyView: View {
     var body: some View {
         
         ZStack {
-                        
+            
             ScrollView(showsIndicators: false) {
                 
                 ScrollViewReader { proxy in
@@ -75,6 +75,7 @@ struct MyJourneyView: View {
                             selectedFilters: $selectedFilters,
                             onFiltersChange: { filter in
                                 filters = filter
+                                selectedFilters = filter
                                 filtered_Learning_Objectives = filterLearningObjective()
                             })
                             .opacity(toggleFilters ? 1 : 0)
@@ -83,6 +84,12 @@ struct MyJourneyView: View {
                             .padding(.top, toggleFilters ? 5 : 0)
                             .animation(.easeOut)
                             .transition(.slide)
+                            .onAppear {
+                                selectedFilters = FiltersModel(viewType: .journey).defaultFilters()
+                                filters = selectedFilters
+                                filtered_Learning_Objectives = filterLearningObjective()
+                            }
+                        
                         
                         ZStack(alignment: .topLeading) {
                             
@@ -164,7 +171,11 @@ struct MyJourneyView: View {
                 true
             })
             .filter ({
-                filters["Strands"]!.count == 0 ? true : filters["Strands"]!.contains($0.strand)
+                if filters["Strand"]!.contains("Any") {
+                    return true
+                }
+                
+                return filters["Strand"]!.count == 0 ? true : filters["Strand"]!.contains($0.strand)
             })
             .filter({
                 if let first_Strand = filters["Path"]!.first {
