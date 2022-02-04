@@ -43,7 +43,7 @@ struct MyJourneyView: View {
     var body: some View {
         
         ZStack {
-                        
+            
             ScrollView(showsIndicators: false) {
                 
                 ScrollViewReader { proxy in
@@ -171,12 +171,11 @@ struct MyJourneyView: View {
                 true
             })
             .filter ({
-                
-                if filters["Strands"]!.contains("Any") {
+                if filters["Strand"]!.contains("Any") {
                     return true
                 }
                 
-                return filters["Strands"]!.count == 0 ? true : filters["Strands"]!.contains($0.strand)
+                return filters["Strand"]!.count == 0 ? true : filters["Strand"]!.contains($0.strand)
             })
             .filter({
                 if let first_Strand = filters["Path"]!.first {
