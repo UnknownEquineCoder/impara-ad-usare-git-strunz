@@ -20,8 +20,15 @@ struct ProfileImage: View {
     
     var imageBody: Image {
         if imageData != nil {
-            defer { self.toToggle.toggle() }
-            return Image(nsImage: NSImage(data: imageData!)!)
+            if let _imageData = imageData {
+                if let nsImageData = NSImage(data: _imageData) {
+                    defer { self.toToggle.toggle() }
+                    return Image(nsImage: nsImageData)
+                }
+            }
+            
+            return Image("UserPlaceholder")
+            
         } else if let nsImage = NSImage(data: data) {
             defer { self.toToggle.toggle() }
             return Image(nsImage: nsImage)
@@ -53,11 +60,16 @@ struct StudentPictureView: View {
     
     var profileImage: Image {
         get {
-            if imageData != nil {
-                return Image(nsImage: NSImage(data: imageData!)!)
+            if let _imageData = imageData{
+                if let _nsImageData = NSImage(data: _imageData){
+                    return Image(nsImage: _nsImageData)
+                }
+                
             } else {
                 return Image(imageName)
             }
+            
+            return Image("UserPlaceholder")
         }
     }
     
@@ -107,7 +119,7 @@ struct StudentPictureView: View {
         dialog.showsHiddenFiles        = false
         dialog.allowsMultipleSelection = false
         dialog.canChooseFiles = true
-        dialog.canChooseDirectories = true
+        dialog.canChooseDirectories = false
         dialog.allowedFileTypes        = ["png", "jpg", "jpeg", "gif"]
         
         if (dialog.runModal() ==  NSApplication.ModalResponse.OK) {

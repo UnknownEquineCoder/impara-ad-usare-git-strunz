@@ -208,6 +208,31 @@ struct LJMApp: App {
             })
     }
     
+    func createExportDate() -> String {
+        var data_To_Save = ""
+        let evaluated_Learning_Objectives = learningObjectiveStore.learningObjectives.filter({$0.eval_score.count > 0})
+        
+        data_To_Save.append("ID,eval_score,eval_date\n")
+        
+        for learning_Objective in evaluated_Learning_Objectives {
+            data_To_Save.append("\(learning_Objective.ID),")
+            
+            for eval_Score_Index in 0..<learning_Objective.eval_score.count-1 {
+                data_To_Save.append("\(learning_Objective.eval_score[eval_Score_Index])-")
+            }
+            data_To_Save.append("\(learning_Objective.eval_score.last!),")
+            
+            for eval_Score_Index in 0..<learning_Objective.eval_date.count-1 {
+                data_To_Save.append("\(learning_Objective.eval_date[eval_Score_Index].timeIntervalSince1970)-")
+            }
+            data_To_Save.append("\(learning_Objective.eval_date.last!.timeIntervalSince1970)\n")
+            
+        }
+        
+        return data_To_Save
+        
+        exportFile.toggle()
+    }
 }
 
 struct Doc : FileDocument {
