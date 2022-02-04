@@ -142,6 +142,7 @@ struct StartView: View {
             NSApp.keyWindow?.makeFirstResponder(nil)
         }
         .onAppear(perform: {
+            
             isLoading = true
             learningObjectiveStore.load_Test_Data() {
                 DispatchQueue.main.async {
