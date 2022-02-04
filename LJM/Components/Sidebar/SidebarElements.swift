@@ -58,14 +58,13 @@ struct OutlineRow : View {
                     Image(item.image)
                         .resizable()
                         .frame(width: 16, height: 16)
-                        .foregroundColor(Color(red: 25/255, green: 144/255, blue: 135/255))
+                        .foregroundColor(Color.defaultColor)
                 }
                 Text(item.title)
                     .foregroundColor(isSelected ? .customBlack : .primary)
                     .font(.system(size: 18, weight: .regular))
                 Spacer()
             }
-            
         }
         .frame(height: 40)
         .contentShape(RoundedRectangle(cornerRadius: 8, style: .continuous))

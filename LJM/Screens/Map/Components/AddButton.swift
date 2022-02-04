@@ -10,6 +10,9 @@ import SwiftUI
 import Combine
 
 struct AddButton: View {
+    
+    var strandColor: Color
+
     var learningObjectiveSelected: learning_Objective
     
     @State var hovered = false
@@ -51,7 +54,7 @@ struct AddButton: View {
                             Image(systemName: "plus.circle")
                                 .resizable()
                                 .frame(width: 35, height: 35)
-                                .foregroundColor(Color("customCyan"))
+                                .foregroundColor(strandColor)
                                 .onHover(perform: { hover in
                                     if hover {
                                         self.hovered = true
@@ -72,7 +75,7 @@ struct AddButton: View {
                                 Image(systemName: "checkmark.circle.fill")
                                     .resizable()
                                     .frame(width: 35, height: 35)
-                                    .foregroundColor(Color("customCyan"))
+                                    .foregroundColor(strandColor)
                                     .onTapGesture {
                                         // remove item from the learning objective list
                                         if learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.count > 1 {
@@ -103,7 +106,7 @@ struct AddButton: View {
                                 Image(systemName: "checkmark.circle.fill")
                                     .resizable()
                                     .frame(width: 35, height: 35)
-                                    .foregroundColor(Color("customCyan"))
+                                    .foregroundColor(strandColor)
                                     .onTapGesture {
                                         // remove item from the learning objective list
 
@@ -120,7 +123,7 @@ struct AddButton: View {
                             Image(systemName: "checkmark.circle.fill")
                                 .resizable()
                                 .frame(width: 35, height: 35)
-                                .foregroundColor(Color("customCyan"))
+                                .foregroundColor(strandColor)
                                 .onTapGesture {
                                     
                                     // remove item from learning objective list
@@ -152,7 +155,7 @@ struct AddButton: View {
                             Image(systemName: "checkmark.circle.fill")
                                 .resizable()
                                 .frame(width: 35, height: 35)
-                                .foregroundColor(Color("customCyan"))
+                                .foregroundColor(strandColor)
                                 .onTapGesture {
                                     // remove item from the learning objective list
 
@@ -175,7 +178,7 @@ struct AddLabelView: Vanishable {
     
     var body: some View{
         Text("Added to Journey!")
-            .foregroundColor(Color("customCyan"))
+            .foregroundColor(Color.accentColor)
     }
 }
 
@@ -185,7 +188,7 @@ struct UndoView: Vanishable {
     var body: some View {
         HStack {
             Text("\(counter.value)")
-                .foregroundColor(Color("customCyan"))
+                .foregroundColor(Color.accentColor)
                 .frame(width: 16, height: 16)
                 .overlay(Circle().stroke().foregroundColor(Color.gray))
             Button {

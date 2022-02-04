@@ -59,11 +59,11 @@ struct StackNavigationView<RootContent, SubviewContent>: View where RootContent:
                         self.isVisible = false
                     }) {
                         HStack {
-                            Image(systemName: "chevron.backward").foregroundColor(Color.customCyan)
+                            Image(systemName: "chevron.backward").foregroundColor(Color.defaultColor)
                                 .scaleEffect(CGSize(width: 1.26, height: 1.26))
                             Text("Compass")
                                 .foregroundColor(colorScheme == .dark ? Color(red: 255/255, green: 255/255, blue: 255/255, opacity: 0.9) : Color(red: 70/255, green: 70/255, blue: 70/255))
-                                .underline(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/, color: Color.customCyan)
+                                .underline(/*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/, color: Color.defaultColor)
                                 .font(.system(size: 24.toFontSize()))
                         }.padding(.leading, 20.toScreenSize())
                     }.buttonStyle(BorderlessButtonStyle())

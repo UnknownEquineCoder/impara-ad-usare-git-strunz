@@ -28,10 +28,10 @@ struct ScrollViewFilters : View {
                                     .font(.system(size: 15, weight: .semibold, design: .rounded))
                                     .foregroundColor(selectedFilter == i ? .white : .customDarkGrey)
                                     .frame(width: 150, height: 40)
-                                    .background(selectedFilter == i ? Color.customCyan : colorScheme == .dark ? Color.darkThemeBackgroundColor : .white)
+                                    .background(selectedFilter == i ? Color.defaultColor : colorScheme == .dark ? Color.darkThemeBackgroundColor : .white)
                             }.buttonStyle(PlainButtonStyle())
                             .frame(width: 150, height: 40)
-                            .background(selectedFilter == i ? Color.customCyan : colorScheme == .dark ? .white : Color.darkThemeBackgroundColor)
+                            .background(selectedFilter == i ? Color.defaultColor : colorScheme == .dark ? .white : Color.darkThemeBackgroundColor)
                             .cornerRadius(12)
                             .overlay(RoundedRectangle(cornerRadius: 12).stroke(lineWidth: 2).foregroundColor(selectedFilter == i ? .clear : .customDarkGrey))
                         }
