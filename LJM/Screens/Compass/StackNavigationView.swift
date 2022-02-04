@@ -34,9 +34,9 @@ struct StackNavigationView<RootContent, SubviewContent>: View where RootContent:
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                   // .transition(AnyTransition.move(edge: .trailing)).animation(.default)
                 }
-
             }
-        }.background(colorScheme == .dark ? Color.darkThemeBackgroundColor : Color.lightThemeBackgroundColor)
+        }.background(Color.init(red: colorScheme == .dark ? 34/255 : 240/255, green: colorScheme == .dark ? 29/255 : 236/255, blue: colorScheme == .dark ? 40/255 : 242/255)
+)
     }
     
     init(currentSubviewLabel: Binding<String>, showingSubview: Binding<Bool>, @ViewBuilder subviewByLabel: @escaping (String) -> SubviewContent, @ViewBuilder rootView: @escaping () -> RootContent) {
