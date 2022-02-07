@@ -8,7 +8,7 @@
 import SwiftUI
 
 extension Color {
-    public static let customCyan = Color("customCyan")
+    public static let defaultColor = Color.accentColor
     public static let customLightGrey = Color("customLightGrey")
     public static let customBlack = Color("customBlack")
     public static let customDarkGrey = Color("customDarkGrey")
@@ -22,3 +22,4 @@ extension Color {
     public static let darkThemeBackgroundColor = Color(red: 30/255, green: 30/255, blue: 30/255)
     public static let lightThemeBackgroundColor = Color(red: 245/255, green: 245/255, blue: 245/255)
 }
+

@@ -43,24 +43,24 @@ struct LearningObjectiveJourneyCell: View {
                         
                         if self.isLearningGoalAdded != nil {
                             if rating > 0 {
-                                RatingView(learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
+                                RatingView(strandColor: setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand), learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
                                     .padding(.trailing, 30).padding(.leading, 20)
                                     .onAppear(perform: {
                                         self.isRatingView.toggle()
                                     })
                             } else {
-                                AddButton(learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27).padding(.trailing, 70)
+                                AddButton(strandColor: setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand), learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27).padding(.trailing, 70)
                                     .padding(.bottom, 20)
                             }
                         } else {
                             if !isAddable {
-                                RatingView(learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
+                                RatingView(strandColor: setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand), learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
                                     .padding(.trailing, 30)
                                     .onAppear(perform: {
                                         self.isRatingView.toggle()
                                     })
                             } else {
-                                AddButton(learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27).padding(.trailing, 70)
+                                AddButton(strandColor: setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand), learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27).padding(.trailing, 70)
                                     .padding(.bottom, 20)
                                 
                             }
@@ -171,7 +171,7 @@ struct LearningObjectiveJourneyCell: View {
                     Spacer().frame(height: 300)
                     Text(setupTitleProgressRubric(value: learningObj.eval_score.last ?? 0))
                         .font(.system(size: 16, weight: .medium))
-                        .foregroundColor(Color.customCyan)
+                        .foregroundColor(setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand))
                     Text(setupDescProgressOnRubric(value: learningObj.eval_score.last ?? 0))
                         .font(.system(size: 14, weight: .regular))
                         .foregroundColor(Color.customDarkGrey)
@@ -239,7 +239,7 @@ struct LearningObjectiveJourneyCell: View {
                 
                 Image(systemName: self.expand ? "chevron.up" : "chevron.down")
                     .font(.system(size: 20, weight: .bold))
-                    .foregroundColor(Color.customCyan)
+                    .foregroundColor(setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand))
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
                     .padding(.bottom, 10)
                     .cursor(.pointingHand)
@@ -378,7 +378,7 @@ struct LearningObjectiveJourneyCell: View {
             return .customBlue
             
         default:
-            return Color.customCyan
+            return Color.defaultColor
             
         }
     }

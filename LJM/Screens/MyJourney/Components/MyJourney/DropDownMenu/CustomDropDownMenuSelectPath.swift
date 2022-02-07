@@ -29,7 +29,7 @@ struct DropDownSelectPathView: View {
                 Image(systemName: expand ? "chevron.up.circle" : "chevron.down.circle")
                     .resizable()
                     .frame(width: 18, height: 18)
-                    .foregroundColor(Color.customCyan)
+                    .foregroundColor(Color.defaultColor)
                 
             }.onTapGesture {
                 self.selectedPath = "None"

@@ -9,7 +9,8 @@ import SwiftUI
 
 struct RatingView: View {
 
-    @State var learningObj: learning_Objective
+    var strandColor: Color
+    var learningObj: learning_Objective
     @Environment(\.colorScheme) var colorScheme
     
     @Binding var rating: Int
@@ -26,12 +27,12 @@ struct RatingView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 15, height: 15, alignment: .center)
-                .foregroundColor(learningPathSelected != nil ? .customCyan : .clear)
+                .foregroundColor(learningPathSelected != nil ? strandColor : .clear)
                 .offset(x: setupGoalRating())
             
             HStack {
                 ForEach(1..<maximumRating + 1, id: \.self) { number in
-                    CircleView( number: number, rating: rating)
+                    CircleView(strandColor: strandColor, learningObj: learningObj, number: number, rating: rating)
                         .onTapGesture {
                             withAnimation {
                                 self.rating = number
@@ -88,13 +89,17 @@ struct RatingView: View {
         
         return CGFloat((44 * (core_Rubric_Level)) - 132 - (core_Rubric_Level == 5 ? 3 : 0))
     }
-    
-    
 }
 
 struct CircleView: View {
+    
+    var strandColor: Color
+    
     @State var hovered = false
     @State private var showingPopup:Bool = false
+    
+    @State var learningObj: learning_Objective
+    
     @Environment(\.colorScheme) var colorScheme
     
     var number = 1
@@ -105,12 +110,12 @@ struct CircleView: View {
             Text("")
                 .padding(.bottom, 30)
                 .popover(isPresented: $hovered) {
-                    PopOverViewRating(status: setupTitleProgressRubric(value: number), desc: setupDescProgressOnRubric(value: number))
+                    PopOverViewRating(strandColor: strandColor, status: setupTitleProgressRubric(value: number), desc: setupDescProgressOnRubric(value: number))
                 }
-                        
+                
             Circle()
-                .strokeBorder(number > rating ? (hovered ? Color.customCyan : colorScheme == .dark ? Color(red: 154/255, green: 154/255, blue: 154/255) : Color.customDarkGrey) : Color.clear, lineWidth: 2)
-                .background(Circle().foregroundColor(number > rating ? colorScheme == .dark ? Color(red: 73/255, green: 73/255, blue: 73/255) : Color.customLightGrey : Color.customCyan))
+                .strokeBorder(number > rating ? (hovered ? Color.defaultColor : colorScheme == .dark ? Color(red: 154/255, green: 154/255, blue: 154/255) : Color.customDarkGrey) : Color.clear, lineWidth: 2)
+                .background(Circle().foregroundColor(number > rating ? colorScheme == .dark ? Color(red: 73/255, green: 73/255, blue: 73/255) : Color.customLightGrey : strandColor))
                 .frame(width: 40, height: 40)
                 .onHover { hover in
                     if hover {
@@ -185,6 +190,7 @@ struct CircleView: View {
 }
 
 struct PopOverViewRating: View {
+    var strandColor: Color
     var status = "Progressing"
     var desc = "You can understand and apply concepts with assistance."
     
@@ -192,7 +198,7 @@ struct PopOverViewRating: View {
         VStack(alignment: .center, spacing: 5) {
             Text(status.uppercased())
                 .font(.system(size: 13, weight: .medium))
-                .foregroundColor(Color.customCyan)
+                .foregroundColor(strandColor)
             Text(desc)
                 .font(.system(size: 11, weight: .regular))
                 .foregroundColor(Color.customDarkGrey)
