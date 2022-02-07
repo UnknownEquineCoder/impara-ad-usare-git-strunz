@@ -67,13 +67,16 @@ struct CompassView: View {
     @EnvironmentObject var strandsStore: StrandsStore
     
     var body: some View {
-        
         StackNavigationView(
             currentSubviewLabel: self.$currentSubviewLabel,
             showingSubview: self.$showingSubview,
             subviewByLabel: { label in
                 self.subView(forLabel: label)
-            }
+            },
+            scrollTarget: .constant(false), //TODO
+            toggleFilters: .constant(false), //TODO
+            isFiltersShowed: .constant(false), //TODO
+            filters: [:] //TODO
         ){
             ZStack {
                 
