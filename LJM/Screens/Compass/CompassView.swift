@@ -79,8 +79,7 @@ struct CompassView: View {
             filters: [:] //TODO
         ){
             ZStack {
-                
-                Color.init(red: colorScheme == .dark ? 34/255 : 240/255, green: colorScheme == .dark ? 29/255 : 236/255, blue: colorScheme == .dark ? 40/255 : 242/255)
+                Color.backgroundColor
                     .padding(.top, -50)
                                                                                   
                     ScrollView(showsIndicators: false) {
@@ -227,7 +226,6 @@ struct CompassView: View {
                                 .padding(.bottom, 100)
                         }
                     }
-                    
                     .padding(.leading, 70).padding(.trailing, 50)
                 
                 if(toggleFilters ? offset > 475 : offset > 200) {
