@@ -16,6 +16,7 @@ struct LearningGoalsView: View {
     @State private var selectedPath: String?
     @State private var added = false
     
+    
     @State private var selectedFilters: Dictionary<String, Array<String>> = [:]
     
     @Environment(\.colorScheme) var colorScheme
@@ -50,6 +51,7 @@ struct LearningGoalsView: View {
                             DescriptionTitleScreenView(desc: "Here you can take a look at all the Learning Objectives related to the Learning Goal you're looking at. Adding a Learning Objective to evaluate it will automatically add it to 'Journey' and mark it as checked in 'Map' as well.")
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.top, 20)
                         
                     }.frame(maxWidth: .infinity)
                     

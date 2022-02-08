@@ -67,19 +67,22 @@ struct CompassView: View {
     @EnvironmentObject var strandsStore: StrandsStore
     
     var body: some View {
-        
         StackNavigationView(
             currentSubviewLabel: self.$currentSubviewLabel,
             showingSubview: self.$showingSubview,
             subviewByLabel: { label in
                 self.subView(forLabel: label)
-            }
+            },
+            scrollTarget: .constant(false), //TODO
+            toggleFilters: .constant(false), //TODO
+            isFiltersShowed: .constant(false), //TODO
+            filters: [:] //TODO
         ){
             ZStack {
                 
-                Color.init(red: 34/255, green: 29/255, blue: 40/255)
+                Color.init(red: colorScheme == .dark ? 34/255 : 240/255, green: colorScheme == .dark ? 29/255 : 236/255, blue: colorScheme == .dark ? 40/255 : 242/255)
                     .padding(.top, -50)
-                                                                    
+                                                                                  
                     ScrollView(showsIndicators: false) {
                         
                         VStack {

@@ -29,7 +29,7 @@ struct TopBarJourney: View {
                     }).buttonStyle(PlainButtonStyle())
                     .allowsHitTesting(false)
 
-                    TopBarJourneySelectedBottomView(color: self.selectedView.selectedView == i ? Color.customCyan : .clear)
+                    TopBarJourneySelectedBottomView(color: self.selectedView.selectedView == i ? Color.defaultColor : .clear)
                 }
             }
         }
