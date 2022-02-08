@@ -117,7 +117,7 @@ class DropboxManager {
             kSecValueData: dataToSave,
             kSecAttrService: service,
             kSecAttrAccount: account,
-            kSecAttrSynchronizable: kCFBooleanTrue!,
+//            kSecAttrSynchronizable: kCFBooleanTrue!,
             kSecClass: kSecClassGenericPassword
         ] as CFDictionary
 
