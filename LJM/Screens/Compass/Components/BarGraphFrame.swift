@@ -16,8 +16,7 @@ struct BarGraphFrame: View {
     @Binding var progress : [Double]
     @Binding var expectation_Progress : [Double]
     
-    @Binding var targetLabel: String
-    @Binding var showView: Bool
+    @Binding var targetLabel: String?
     @Binding var animation_Trigger : Bool
     
     var body: some View {
@@ -79,7 +78,6 @@ struct BarGraphFrame: View {
                                         .cursor(.pointingHand)
                                         .onTapGesture {
                                             self.targetLabel = skills[index]
-                                            self.showView = true
                                         }.padding(.leading, 51.toScreenSize())
                                     
                                     Spacer()
@@ -96,53 +94,10 @@ struct BarGraphFrame: View {
                                         
                                     }
                                     
-//                                    ProgressBarGraph(progress: (animation_Trigger ? progress[index] * 20 : 0 ) + 1, color: color)
-//                                        .frame(width: geo.size.width * 0.66, height: 16.toScreenSize())
-//                                        .padding(.trailing, 116.toScreenSize())
                                 }
                             }
                         }
-                        
-                        
-                        //                        VStack(alignment: .leading, spacing: 49.toScreenSize()) {
-                        //                        ForEach(skills, id: \.self) { skill in
-                        //                            Text(skill)
-                        //                                .foregroundColor(color)
-                        //                                .font(.system(size: 20.toFontSize()))
-                        //                                .fontWeight(.light)
-                        //                                .underline()
-                        //                                .onTapGesture {
-                        //                                    self.targetLabel = skill
-                        //                                    self.showView = true
-                        //                                }
-                        //
-                        //                        }
-                        //
-                        //                        }.padding(.leading, 51.toScreenSize())
-                        
-                        
-                        
-                        //                        Spacer()
-                        //                        VStack(spacing: 51.toScreenSize()){
-                        //                            ForEach(0..<skills.count) { index in
-                        //                                ProgressBarGraph(progress: (progress[index] * 20) + 1, color: color)
-                        //                                    .padding(.bottom, 10)
-                        //                                    .padding(.top, -10)
-                        //                                    .frame(width: geo.size.width * 0.66, height: 16.toScreenSize())
-                        //                                    .padding(.trailing, 116.toScreenSize())
-                        //                            }
-                        ////                            for index in 0..<skills.count {
-                        ////                                ProgressBarGraph(progress: progress[index], color: color)
-                        ////                                    .frame(width: geo.size.width * 0.66, height: 16.toScreenSize())
-                        ////                                    .padding(.trailing, 116.toScreenSize())
-                        ////                            }
-                        //                        }
-                        
-                        
                     }
-                    /*
-                     ProgressBarGraph(progress: 45, color: color)
-                     .frame(width: geo.size.width * 0.8, height: 16.toScreenSize())             **/
                 }
                 .padding(.top, 30)
                 .padding(.bottom, 30)
@@ -154,7 +109,6 @@ struct BarGraphFrame: View {
 
 struct BarGraphFrame_Previews: PreviewProvider {
     static var previews: some View {
-        //BarGraphFrame(color: .red, title: "PROCESS", skills: ["Aldo","Giovanni","Giacomo"])
         EmptyView()
     }
 }

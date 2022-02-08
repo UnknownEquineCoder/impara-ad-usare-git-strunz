@@ -9,19 +9,16 @@ import SwiftUI
 
 struct CompassView: View {
     
-    @AppStorage("fullScreen") var fullScreen: Bool = FullScreenSettings.fullScreen
-    
     @State private var offset = CGFloat.zero
     @State private var scrollTarget: Bool = false
-
+    
     @State private var toggleFilters: Bool = false
     
     @Environment(\.colorScheme) var colorScheme
     @Binding var path : String
     @State var progressValue: Float = 10
     
-    @State private var currentSubviewLabel = ""
-    @State private var showingSubview = false
+    @Binding var currentSubviewLabel : String?
     
     @State var data_Front_Array : [CGFloat] = [5,5,5,5,5]
     @State var data_Back_Array : [CGFloat] = [5,5,5,5,5]
@@ -67,171 +64,161 @@ struct CompassView: View {
     @EnvironmentObject var strandsStore: StrandsStore
     
     var body: some View {
-        StackNavigationView(
-            currentSubviewLabel: self.$currentSubviewLabel,
-            showingSubview: self.$showingSubview,
-            subviewByLabel: { label in
-                self.subView(forLabel: label)
-            },
-            scrollTarget: .constant(false), //TODO
-            toggleFilters: .constant(false), //TODO
-            isFiltersShowed: .constant(false), //TODO
-            filters: [:] //TODO
-        ){
-            ZStack {
-                Color.backgroundColor
-                    .padding(.top, -50)
-                                                                                  
-                    ScrollView(showsIndicators: false) {
-                        
-                        VStack {
-                            TitleScreenView(title: "Compass")
-                            
-                            VStack(alignment: .leading) {
-                                DescriptionTitleScreenView(desc: "The Compass helps you to gauge your progress in meeting the Communal Learning Objectives and allows you to explore a variety of paths. Using this tool, you can plan your Learning Journey.")
-                            }
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        }
-                        .padding(.top, fullScreen == true ? 60 : 0)
-
-                        .background(
-                            GeometryReader {
-                                Color.clear.preference(key: ViewOffsetKey2.self,
-                                    value: -$0.frame(in: .named("scroll")).origin.y)
-                            }
-                        )
-                        .onPreferenceChange(ViewOffsetKey2.self) { element in
-                            withAnimation {
-                                self.offset = element
-                            }
-                        }
-                        
-                        DatePickerView(pickerDate: $selected_Date)
-                            .environment(\.locale, Locale(identifier: "en"))
-                            .padding(.top, 7.toScreenSize())
-                            .onChange(of: selected_Date) { date in
-                                bars_For_Path_Selected()
-                                dark_Path_Datas()
-                                dark_Core_Datas()
-                            }
-                        
-                        HStack{
-                            InfoButton(title: "Spider Graphs: ", textBody: "The Communal graph shows progress based on the pathway all the students at the Academy have to take, while the Your Journey graph shows progress based on the specific pathway you decide to take, along with the Communal one.\n\nDepending on the Communal Expectation, the “Expectation” overlay shows you the basic progress level the Academy would like you to reach; “Your Progress”, instead, shows you the progress related to the path you decided to take.", heightCell: 241).cursor(.pointingHand)
-                            
-                            Spacer()
-                            //                            SliderView()
-                            Spacer()
-                        }
-                        
-                        HStack {
-                            Spacer()
-                            VStack{
-                                CoreRadarChartView(data_Front_Array: $data_Front_Array, data_Back_Array: $data_Back_Array, animation_Trigger: $animation_Trigger_Communal)
-                                    .frame(width: (NSScreen.screenWidth ?? 1200) / 3.8, height: (NSScreen.screenWidth ?? 1200) / 3.8)
-                                    .padding(.all, 45)
-                                    .padding(.bottom, 9)
-                                    .onAppear {
-                                        dark_Core_Datas()
-                                        dark_Path_Datas()
-                                        green_Light_Date()
-                                        animation_Trigger = true
-                                        animation_Trigger_Communal = true
-                                        bars_For_Path_Selected()
-                                        bars_For_expectation()
-                                        
-                                            show_Graphs = true
-                                    }
-                                    .scaleEffect(x: show_Graphs ? 1 : 0.001, y: show_Graphs ? 1 : 0.001)
-                                
-                                Text("Communal")
-                                    .fontWeight(.medium)
-                                    .multilineTextAlignment(.center)
-                                    .font(.system(size: 25.toFontSize()))
-                                    .foregroundColor(colorScheme == .dark ? Color(red: 221/255, green: 221/255, blue: 221/255) : Color(red: 129/255, green: 129/255, blue: 129/255))
-                                    .offset(y: -50)
-                            }
-                            
-                            Spacer()
-                            Spacer()
-                            
-                            VStack{
-                                GraphWithOverlay(data_Front_Array: $data_Path_Front_Array, data_Back_Array: $data_Path_Back_Array, animation_Trigger: $animation_Trigger)
-                                    .frame(width: (NSScreen.screenWidth ?? 1200) / 3.8, height: (NSScreen.screenWidth ?? 1200) / 3.8)
-                                    .padding(.top, 25)
-                                    .padding(.leading, 45)
-                                    .padding(.trailing, 45)
-                                    .onAppear(perform: green_Light_Path_Graph_Data)
-                                    .scaleEffect(x: show_Graphs ? 1 : 0.001, y: show_Graphs ? 1 : 0.001)
-                                
-                                Text("Paths")
-                                    .fontWeight(.medium)
-                                    .multilineTextAlignment(.center)
-                                    .font(.system(size: 25.toFontSize()))
-                                    .foregroundColor(colorScheme == .dark ? Color(red: 221/255, green: 221/255, blue: 221/255) : Color(red: 129/255, green: 129/255, blue: 129/255))
-                                
-                                DropDownMenuCompass(selectedPath: $path)
-                                    .onChange(of: path) { _ in
-                                        
-                                        DispatchQueue.main.asyncAfter(deadline: .now()) {
-                                            withAnimation {
-                                                animation_Trigger = false
-                                            }
-                                        }
-                                        
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                            green_Light_Path_Graph_Data()
-                                            dark_Path_Datas()
-                                            bars_For_Path_Selected()
-                                            bars_For_expectation()
-                                        }
-                                        
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                            withAnimation {
-                                                animation_Trigger = true
-                                            }
-                                        }
-                                    }
-                                
-                                
-                            }
-                            Spacer()
-                        }
-                        HStack{
-                            
-                            Spacer()
-                            LegendView()
-                            Spacer()
-                        }.padding(.bottom, 20)
-                        HStack{
-                            InfoButtonBarGraph(title: "Bar Graphs: ", textBody: "The bar graphs below show your growth in detail, allowing you to examine every single Learning Goal, based on the Curriculum Strands. \n\nThe level of the bars is calculated according to the path selected in the dropdown menu above.", heightCell: 131).cursor(.pointingHand)
-                            
-                            Spacer()
-                        }
-                        Spacer()
-                        
-                        Group{
-                            BarGraphFrame(color: Color.customOrange, title: "Process", skills: process_Skills, progress: $process_Progress, expectation_Progress: $expectation_Process_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview, animation_Trigger: $animation_Trigger)
-                            
-                            BarGraphFrame(color: Color.customGreen, title: "Design", skills: design_Skills, progress: $design_Progress, expectation_Progress: $expectation_Design_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview, animation_Trigger: $animation_Trigger)
-                                .padding(.top, 50)
-                            
-                            BarGraphFrame(color: Color.customYellow, title: "Professional Skills", skills: professional_Skills, progress: $professional_Progress, expectation_Progress: $expectation_Professional_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview, animation_Trigger: $animation_Trigger)
-                                .padding(.top, 50)
-                            
-                            BarGraphFrame(color: Color.customBlue, title: "Technical", skills: tecnical_Skills, progress: $tecnical_Progress, expectation_Progress: $expectation_Tecnical_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview, animation_Trigger: $animation_Trigger)
-                                .padding(.top, 50)
-                            
-                            BarGraphFrame(color: Color.customPurple, title: "Business", skills: business_Skills, progress: $business_Progress, expectation_Progress: $expectation_Business_Progress, targetLabel: $currentSubviewLabel, showView: $showingSubview, animation_Trigger: $animation_Trigger)
-                                .padding(.top, 50)
-                                .padding(.bottom, 100)
-                        }
-                    }
-                    .padding(.leading, 70).padding(.trailing, 50)
+        ZStack {
+            Color.backgroundColor
+                .padding(.top, -50)
+            
+            ScrollView(showsIndicators: false) {
                 
-                if(toggleFilters ? offset > 475 : offset > 200) {
-                    Topbar(title: "Compass", filters: selectedFilters, fromCompass: true, scrollTarget: $scrollTarget, toggleFilters: $toggleFilters)
+                VStack {
+                    TitleScreenView(title: "Compass")
+                    
+                    VStack(alignment: .leading) {
+                        DescriptionTitleScreenView(desc: "The Compass helps you to gauge your progress in meeting the Communal Learning Objectives and allows you to explore a variety of paths. Using this tool, you can plan your Learning Journey.")
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                
+                .background(
+                    GeometryReader {
+                        Color.clear.preference(key: ViewOffsetKey2.self,
+                                               value: -$0.frame(in: .named("scroll")).origin.y)
+                    }
+                )
+                .onPreferenceChange(ViewOffsetKey2.self) { element in
+                    withAnimation {
+                        self.offset = element
+                    }
+                }
+                
+                DatePickerView(pickerDate: $selected_Date)
+                    .environment(\.locale, Locale(identifier: "en"))
+                    .padding(.top, 7.toScreenSize())
+                    .onChange(of: selected_Date) { date in
+                        bars_For_Path_Selected()
+                        dark_Path_Datas()
+                        dark_Core_Datas()
+                    }
+                
+                HStack{
+                    InfoButton(title: "Spider Graphs: ", textBody: "The Communal graph shows progress based on the pathway all the students at the Academy have to take, while the Your Journey graph shows progress based on the specific pathway you decide to take, along with the Communal one.\n\nDepending on the Communal Expectation, the “Expectation” overlay shows you the basic progress level the Academy would like you to reach; “Your Progress”, instead, shows you the progress related to the path you decided to take.", heightCell: 241).cursor(.pointingHand)
+                    
+                    Spacer()
+                    //                            SliderView()
+                    Spacer()
+                }
+                
+                HStack {
+                    Spacer()
+                    VStack{
+                        CoreRadarChartView(data_Front_Array: $data_Front_Array, data_Back_Array: $data_Back_Array, animation_Trigger: $animation_Trigger_Communal)
+                            .frame(width: (NSScreen.screenWidth ?? 1200) / 3.8, height: (NSScreen.screenWidth ?? 1200) / 3.8)
+                            .padding(.all, 45)
+                            .padding(.bottom, 9)
+                            .onAppear {
+                                dark_Core_Datas()
+                                dark_Path_Datas()
+                                green_Light_Date()
+                                animation_Trigger = true
+                                animation_Trigger_Communal = true
+                                bars_For_Path_Selected()
+                                bars_For_expectation()
+                                
+                                show_Graphs = true
+                            }
+                            .scaleEffect(x: show_Graphs ? 1 : 0.001, y: show_Graphs ? 1 : 0.001)
+                        
+                        Text("Communal")
+                            .fontWeight(.medium)
+                            .multilineTextAlignment(.center)
+                            .font(.system(size: 25.toFontSize()))
+                            .foregroundColor(colorScheme == .dark ? Color(red: 221/255, green: 221/255, blue: 221/255) : Color(red: 129/255, green: 129/255, blue: 129/255))
+                            .offset(y: -50)
+                    }
+                    
+                    Spacer()
+                    Spacer()
+                    
+                    VStack{
+                        GraphWithOverlay(data_Front_Array: $data_Path_Front_Array, data_Back_Array: $data_Path_Back_Array, animation_Trigger: $animation_Trigger)
+                            .frame(width: (NSScreen.screenWidth ?? 1200) / 3.8, height: (NSScreen.screenWidth ?? 1200) / 3.8)
+                            .padding(.top, 25)
+                            .padding(.leading, 45)
+                            .padding(.trailing, 45)
+                            .onAppear(perform: green_Light_Path_Graph_Data)
+                            .scaleEffect(x: show_Graphs ? 1 : 0.001, y: show_Graphs ? 1 : 0.001)
+                        
+                        Text("Paths")
+                            .fontWeight(.medium)
+                            .multilineTextAlignment(.center)
+                            .font(.system(size: 25.toFontSize()))
+                            .foregroundColor(colorScheme == .dark ? Color(red: 221/255, green: 221/255, blue: 221/255) : Color(red: 129/255, green: 129/255, blue: 129/255))
+                        
+                        DropDownMenuCompass(selectedPath: $path)
+                            .onChange(of: path) { _ in
+                                
+                                DispatchQueue.main.asyncAfter(deadline: .now()) {
+                                    withAnimation {
+                                        animation_Trigger = false
+                                    }
+                                }
+                                
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                    green_Light_Path_Graph_Data()
+                                    dark_Path_Datas()
+                                    bars_For_Path_Selected()
+                                    bars_For_expectation()
+                                }
+                                
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                    withAnimation {
+                                        animation_Trigger = true
+                                    }
+                                }
+                            }
+                        
+                        
+                    }
+                    Spacer()
+                }
+                HStack{
+                    
+                    Spacer()
+                    LegendView()
+                    Spacer()
+                }.padding(.bottom, 20)
+                HStack{
+                    InfoButtonBarGraph(title: "Bar Graphs: ", textBody: "The bar graphs below show your growth in detail, allowing you to examine every single Learning Goal, based on the Curriculum Strands. \n\nThe level of the bars is calculated according to the path selected in the dropdown menu above.", heightCell: 131).cursor(.pointingHand)
+                    
+                    Spacer()
+                }
+                Spacer()
+                
+                Group{
+                    BarGraphFrame(color: Color.customOrange, title: "Process", skills: process_Skills, progress: $process_Progress, expectation_Progress: $expectation_Process_Progress, targetLabel: $currentSubviewLabel, animation_Trigger: $animation_Trigger)
+                    
+                    BarGraphFrame(color: Color.customGreen, title: "Design", skills: design_Skills, progress: $design_Progress, expectation_Progress: $expectation_Design_Progress, targetLabel: $currentSubviewLabel, animation_Trigger: $animation_Trigger)
+                        .padding(.top, 50)
+                    
+                    BarGraphFrame(color: Color.customYellow, title: "Professional Skills", skills: professional_Skills, progress: $professional_Progress, expectation_Progress: $expectation_Professional_Progress, targetLabel: $currentSubviewLabel, animation_Trigger: $animation_Trigger)
+                        .padding(.top, 50)
+                    
+                    BarGraphFrame(color: Color.customBlue, title: "Technical", skills: tecnical_Skills, progress: $tecnical_Progress, expectation_Progress: $expectation_Tecnical_Progress, targetLabel: $currentSubviewLabel, animation_Trigger: $animation_Trigger)
+                        .padding(.top, 50)
+                    
+                    BarGraphFrame(color: Color.customPurple, title: "Business", skills: business_Skills, progress: $business_Progress, expectation_Progress: $expectation_Business_Progress, targetLabel: $currentSubviewLabel, animation_Trigger: $animation_Trigger)
+                        .padding(.top, 50)
+                        .padding(.bottom, 100)
                 }
             }
+            .padding(.leading, 70).padding(.trailing, 50)
+            
+            if(toggleFilters ? offset > 475 : offset > 200) {
+                Topbar(title: "Compass", filters: selectedFilters, fromCompass: true, scrollTarget: $scrollTarget, toggleFilters: $toggleFilters)
+            }
+            
+            
+            
         }
     }
     
@@ -603,15 +590,6 @@ struct CompassView: View {
                 data_Path_Back_Array[index] = graph_Minimum_Dimension
             }
         }
-    }
-    
-    private func subView(forLabel label: String) -> LearningGoalsView {
-        return LearningGoalsView(titleView: label, filtered_Learning_Objectives: learningObjectiveStore.learningObjectives.filter({$0.goal_Short.lowercased() == label.lowercased()}))
-    }
-    
-    private func showSubview(withLabel label: String) {
-        currentSubviewLabel = label
-        showingSubview = true
     }
     
     func closestMatch(values: [Date], inputValue: Date) -> Int {

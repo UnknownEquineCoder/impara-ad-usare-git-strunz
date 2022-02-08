@@ -9,21 +9,18 @@ import AppKit
 import SwiftUI
 
 struct TopbarWithBack: View {
-    var title: String
-    @Binding var isButtonPressed: Bool
+    @Binding var title: String?
     
-    var filters: Dictionary<String, Array<String>>
+    var filterNumber : Int
     @Binding var scrollTarget: Bool
     @Binding var toggleFilters: Bool
-    @Binding var isFiltersShowed: Bool
     
     var body: some View {
         VStack {
             if #available(macOS 12.0, *) {
                     HStack {
                         Button {
-                            // scroll view index to 1
-                            isButtonPressed.toggle()
+                            title = ""
                         } label: {
                             Image(systemName: "chevron.left")
                                 .font(.system(size: 10))
@@ -34,7 +31,7 @@ struct TopbarWithBack: View {
                         .padding(.leading, 20)
                         
                         Spacer()
-                        Text(title)
+                        Text(title ?? "")
                             .font(.system(size: 17))
                             .fontWeight(.semibold)
                         Spacer()
@@ -43,12 +40,11 @@ struct TopbarWithBack: View {
                         Button {
                             // scroll view index to 1
                             scrollTarget.toggle()
-                            toggleFilters = true
                             
                         } label: {
                             HStack {
                                 
-                                Text("Filters \(getNumberOfFilters(filters: filters))")
+                                Text("Filters \(filterNumber > 0 ? "( \(filterNumber) )" : "")")
                                 
                                 Image(systemName: "chevron.up")
                                     .font(.system(size: 10))
@@ -67,8 +63,7 @@ struct TopbarWithBack: View {
             } else {
                 HStack {
                     Button {
-                        // scroll view index to 1
-                        isButtonPressed.toggle()
+                        title = ""
                     } label: {
                         Image(systemName: "chevron.left")
                             .font(.system(size: 10))
@@ -79,7 +74,7 @@ struct TopbarWithBack: View {
                     .padding(.leading, 20)
                     
                     Spacer()
-                    Text(title)
+                    Text(title ?? "")
                         .font(.system(size: 17))
                         .fontWeight(.semibold)
                     Spacer()
@@ -88,12 +83,11 @@ struct TopbarWithBack: View {
                     Button {
                         // scroll view index to 1
                         scrollTarget.toggle()
-                        toggleFilters = true
                         
                     } label: {
                         HStack {
                             
-                            Text("Filters \(getNumberOfFilters(filters: filters))")
+                            Text("Filters \(filterNumber > 0 ? "( \(filterNumber) )" : "")")
                             
                             Image(systemName: "chevron.up")
                                 .font(.system(size: 10))
@@ -111,23 +105,6 @@ struct TopbarWithBack: View {
             }
         }
         .ignoresSafeArea()
-    }
-    
-    func getNumberOfFilters(filters: Dictionary<String, Array<String>>) -> String {
-        
-        let values = filters.map {$0.value}
-        var arrayValues = [String]()
-        
-        for value in values {
-            arrayValues.append(contentsOf: value)
-        }
-                
-        if arrayValues.count == 0 {
-            return ""
-        }
-        
-        return "(" + String(arrayValues.count) + ")"
-        
     }
 
 }

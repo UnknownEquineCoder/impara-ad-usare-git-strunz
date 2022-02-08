@@ -31,7 +31,7 @@ struct StartView: View {
     func selectedView() -> AnyView {
         switch selectedMenu {
         case .compass:
-            return AnyView(CompassView(path: $filter_Path))
+            return AnyView(MainCompassView( filter_Path: $filter_Path))
         case .journey:
             return AnyView(MyJourneyMainView(selectedMenu: $selectedMenu))
         case .map:

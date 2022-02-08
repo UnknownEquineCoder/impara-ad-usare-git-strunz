@@ -55,6 +55,7 @@
 		E04251B72733EACD000A1D69 /* CoreRadarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04251B62733EACD000A1D69 /* CoreRadarChartView.swift */; };
 		E0952800276B4DE5007AC788 /* Server Structures.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09527FF276B4DE5007AC788 /* Server Structures.swift */; };
 		E0952802276B5060007AC788 /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0952801276B5060007AC788 /* Services.swift */; };
+		E0BFADFB27B26DCD008FCAE6 /* MainCompassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BFADFA27B26DCD008FCAE6 /* MainCompassView.swift */; };
 		E0E87CD6272801C900FEF3D6 /* DocDemoDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E87CD5272801C900FEF3D6 /* DocDemoDocument.swift */; };
 		EA139BD42640910900E15E28 /* JWTDecode in Frameworks */ = {isa = PBXBuildFile; productRef = EA139BD32640910900E15E28 /* JWTDecode */; };
 		EA5B445D262E6F23002A97C7 /* MyJourneyMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5B445C262E6F23002A97C7 /* MyJourneyMainView.swift */; };
@@ -171,6 +172,7 @@
 		E04251B62733EACD000A1D69 /* CoreRadarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreRadarChartView.swift; sourceTree = "<group>"; };
 		E09527FF276B4DE5007AC788 /* Server Structures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Server Structures.swift"; sourceTree = "<group>"; };
 		E0952801276B5060007AC788 /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
+		E0BFADFA27B26DCD008FCAE6 /* MainCompassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCompassView.swift; sourceTree = "<group>"; };
 		E0E87CD5272801C900FEF3D6 /* DocDemoDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocDemoDocument.swift; sourceTree = "<group>"; };
 		EA5B445C262E6F23002A97C7 /* MyJourneyMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyJourneyMainView.swift; sourceTree = "<group>"; };
 		EA686EF8256EE4F300C121DC /* TopBarJourney.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarJourney.swift; sourceTree = "<group>"; };
@@ -247,6 +249,7 @@
 			isa = PBXGroup;
 			children = (
 				96114BBF25EFA8F300FA119C /* Components */,
+				E0BFADFA27B26DCD008FCAE6 /* MainCompassView.swift */,
 				969DEAE525DFDEBD00599D63 /* CompassView.swift */,
 				9672C8F325E3F46B005CC753 /* RadarChartView.swift */,
 				960A8B2025E7B9FA00492C3F /* RadarGraphFrame.swift */,
@@ -718,6 +721,7 @@
 				960A8B2125E7B9FA00492C3F /* RadarGraphFrame.swift in Sources */,
 				E04251B3272AAABA000A1D69 /* percistency_Manager.swift in Sources */,
 				EAF37039257A2A4900C72707 /* EmptyLearningObjectiveViewJourney.swift in Sources */,
+				E0BFADFB27B26DCD008FCAE6 /* MainCompassView.swift in Sources */,
 				EA686F18256EF69100C121DC /* MapView.swift in Sources */,
 				EACB5D8025C2D0A2006BA903 /* HistoryProgressView.swift in Sources */,
 				96533794260C898400316B7C /* StackNavigationView.swift in Sources */,

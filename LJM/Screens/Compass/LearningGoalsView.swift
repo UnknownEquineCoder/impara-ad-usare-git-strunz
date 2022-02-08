@@ -10,20 +10,16 @@ import AppKit
 
 struct LearningGoalsView: View {
     
-    @AppStorage("fullScreen") var fullScreen: Bool = FullScreenSettings.fullScreen
-    
     @State private var searchText = ""
-    @State private var selectedPath: String?
-    @State private var added = false
-    
-    
     @State private var selectedFilters: Dictionary<String, Array<String>> = [:]
+    @State var offset : CGFloat = 0
     
     @Environment(\.colorScheme) var colorScheme
-    var titleView: String
+    @Binding var titleView: String?
     
     @EnvironmentObject var totalNumberLearningObjectivesStore : TotalNumberOfLearningObjectivesStore
     @EnvironmentObject var learningPathStore : LearningPathStore
+    
     
     // check if filters was changed
     
@@ -34,88 +30,111 @@ struct LearningGoalsView: View {
     
     @State var filters : Dictionary<String, Array<String>> = [:]
     
+    @State var isFilterShown : Bool = false
+    @State var isForceScrollUp : Bool = false
+    
     var body: some View {
         ZStack{
             
-            Color.init(red: 34/255, green: 29/255, blue: 40/255)
+            Color.backgroundColor
                 .padding(.top, -50)
             
             ScrollView(showsIndicators: false) {
-                
-                VStack(alignment: .leading) {
+                ScrollViewReader { proxy in
+                    
                     VStack(alignment: .leading) {
-                        
-                        TitleScreenView(title: titleView)
-                        
                         VStack(alignment: .leading) {
-                            DescriptionTitleScreenView(desc: "Here you can take a look at all the Learning Objectives related to the Learning Goal you're looking at. Adding a Learning Objective to evaluate it will automatically add it to 'Journey' and mark it as checked in 'Map' as well.")
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.top, 20)
-                        
-                    }.frame(maxWidth: .infinity)
-                    
-                    HStack {
-                        
-                        SearchBarExpandableJourney(txtSearchBar: $searchText, isUpdated: $isUpdated)
-                        
-                        Spacer()
-                        HStack{
-                            Text("Filter").font(.system(size: 20))
-                            Image(systemName: toggleFilters ? "chevron.up" : "chevron.down")
-                                .font(.system(size: 20))
-                        }.onTapGesture {
-                            self.toggleFilters.toggle()
-                        }
-                    }
-                    
-                    Filters(
-                        viewType: .map,
-                        selectedFilters: $selectedFilters,
-                        onFiltersChange: { filter in
-                            filters = filter
-                            filtered_Learning_Objectives2 = filterLearningObjective()
-                        })
-                        .opacity(toggleFilters ? 1 : 0)
-                        .frame(height: toggleFilters ? .none : 0)
-                        .clipped()
-                        .padding(.top, toggleFilters ? 5 : 0)
-                        .animation(.easeOut)
-                        .transition(.slide)
-                        .onAppear {
-                            filtered_Learning_Objectives2 = filtered_Learning_Objectives
-                            self.totalNumberLearningObjectivesStore.total = filtered_Learning_Objectives2.count
-                        }
-                        .onChange(of: filtered_Learning_Objectives) { learning_Objectives in
-                            filtered_Learning_Objectives2 = filterLearningObjective()
-                        }
-                        .onChange(of: searchText) { _ in
-                            filtered_Learning_Objectives2 = filterLearningObjective()
-                        }
-                    
-                    ZStack(alignment: .top) {
-                        
-                        Text("\(self.totalNumberLearningObjectivesStore.total) Learning Objectives:")
-                            .foregroundColor(Color.customDarkGrey)
-                            .font(.system(size: 15, weight: .medium, design: .rounded))
+                            
+                            VStack(alignment: .leading) {
+                                DescriptionTitleScreenView(desc: "Here you can take a look at all the Learning Objectives related to the Learning Goal you're looking at. Adding a Learning Objective to evaluate it will automatically add it to 'Journey' and mark it as checked in 'Map' as well.")
+                                    .padding(.top,20)
+                            }
                             .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.top, 20)
+                            .onChange(of: isForceScrollUp) { target in
+                                withAnimation {
+                                    proxy.scrollTo(0, anchor: .top)
+                                }
+                            }
+                            
+                        }.frame(maxWidth: .infinity)
                         
-                        Text("No learning objectives found ...")
-                            .font(.system(size: 25, weight: .semibold, design: .rounded))
-                            .multilineTextAlignment(.center)
-                            .foregroundColor(Color.customDarkGrey)
-                            .padding(.top, 75)
-                            .isHidden(self.totalNumberLearningObjectivesStore.total == 0 ? false : true)
+                        HStack {
+                            
+                            SearchBarExpandableJourney(txtSearchBar: $searchText, isUpdated: $isUpdated)
+                            
+                            Spacer()
+                            HStack{
+                                Text("Filter").font(.system(size: 20))
+                                Image(systemName: toggleFilters ? "chevron.up" : "chevron.down")
+                                    .font(.system(size: 20))
+                            }.onTapGesture {
+                                self.toggleFilters.toggle()
+                            }
+                        }
                         
-                        // TODO
-                        ScrollViewLearningObjectives(learningPathSelected: $selectedPath, isLearningGoalAdded: false, textFromSearchBar: $searchText, filtered_Learning_Objectives: $filtered_Learning_Objectives2)
-                            .padding(.top, 30)
+                        Filters(
+                            viewType: .map,
+                            selectedFilters: $selectedFilters,
+                            onFiltersChange: { filter in
+                                filters = filter
+                                filtered_Learning_Objectives2 = filterLearningObjective()
+                            })
+                            .opacity(toggleFilters ? 1 : 0)
+                            .frame(height: toggleFilters ? .none : 0)
+                            .clipped()
+                            .padding(.top, toggleFilters ? 5 : 0)
+                            .animation(.easeOut)
+                            .transition(.slide)
+                            .onAppear {
+                                filtered_Learning_Objectives2 = filtered_Learning_Objectives
+                                self.totalNumberLearningObjectivesStore.total = filtered_Learning_Objectives2.count
+                            }
+                            .onChange(of: filtered_Learning_Objectives) { learning_Objectives in
+                                filtered_Learning_Objectives2 = filterLearningObjective()
+                            }
+                            .onChange(of: searchText) { _ in
+                                filtered_Learning_Objectives2 = filterLearningObjective()
+                            }
                         
+                        ZStack(alignment: .top) {
+                            
+                            Text("\(self.totalNumberLearningObjectivesStore.total) Learning Objectives:")
+                                .foregroundColor(Color.customDarkGrey)
+                                .font(.system(size: 15, weight: .medium, design: .rounded))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            
+                            Text("No learning objectives found ...")
+                                .font(.system(size: 25, weight: .semibold, design: .rounded))
+                                .multilineTextAlignment(.center)
+                                .foregroundColor(Color.customDarkGrey)
+                                .padding(.top, 75)
+                                .isHidden(self.totalNumberLearningObjectivesStore.total == 0 ? false : true)
+                            
+                            ScrollViewLearningObjectives(learningPathSelected: $titleView, isLearningGoalAdded: false, textFromSearchBar: $searchText, filtered_Learning_Objectives: $filtered_Learning_Objectives2)
+                            //                            .padding(.top, 30)
+                            
+                        }.frame(maxWidth: .infinity)
                     }.frame(maxWidth: .infinity)
-                    
+                        .background(
+                            GeometryReader {
+                                Color.clear.preference(key: ViewOffsetKey2.self,
+                                                       value: -$0.frame(in: .named("scroll")).origin.y)
+                            }
+                        )
+                        .onPreferenceChange(ViewOffsetKey2.self) { element in
+                            withAnimation {
+                                self.offset = element
+                                isFilterShown = element >= 175
+                            }
+                        }
                 }.padding(.leading, 50).padding(.trailing, 50)
-            }.frame(maxWidth: .infinity)
+            }
+        }
+        VStack{
+            TopbarWithBack(title: $titleView, filterNumber: selectedFilters.count, scrollTarget: $isForceScrollUp, toggleFilters: $isFilterShown)
             
+            Spacer()
         }
         
         
@@ -175,4 +194,10 @@ struct LearningGoalsView: View {
         return return_Learning_Objectives
     }
     
+}
+
+struct LearningGoalsView_Previews: PreviewProvider {
+    static var previews: some View {
+        LearningGoalsView(titleView: .constant("ASD"), filtered_Learning_Objectives: [])
+    }
 }
