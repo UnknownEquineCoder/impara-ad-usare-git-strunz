@@ -8,13 +8,13 @@ struct RadarGraphFrame: View {
     let categories = 5
     let divisions = 5
     
-    let ballsColors: [ColorData] =
+    let ballsColors: [Color] =
     [
-        ColorData(212, 69, 27),
-        ColorData(255, 171, 7),
-        ColorData(59, 100, 244),
-        ColorData(102, 175, 45),
-        ColorData(144, 28, 146)
+        Color.customOrange,
+        Color.customYellow,
+        Color.customBlue,
+        Color.customGreen,
+        Color.customPurple
     ]
 
     let strandLabels: [String] = ["PROCESS", "PROFESSIONAL SKILLS", "TECHNICAL", "DESIGN", "BUSINESS"]
@@ -25,7 +25,7 @@ struct RadarGraphFrame: View {
                 ForEach(getPointCenters(rect: geo.size),
                         id: \.self) { data in
                     CircleAroundAPoint().path(around: data.toCG(), with: CGSize(width: 12, height: 12))
-                        .foregroundColor(Color(from: data.cData))
+                        .foregroundColor(data.cData)
                 }
                 
                 ForEach(0..<getLabel(rect: geo.size).count,
@@ -33,7 +33,7 @@ struct RadarGraphFrame: View {
                     let point = getLabel(rect: geo.size)[data]
                     Text(strandLabels[data])
                         .position(x: point.x, y: point.y)
-                        .foregroundColor(Color(from: point.cData))
+                        .foregroundColor(point.cData)
                         .font(.system(size: 14.toFontSize(), weight: .light))
                 }
             }
@@ -87,32 +87,12 @@ struct RadarGraphFrame: View {
     }
 }
 
-struct ColorData: Hashable, Codable {
-    typealias N = Double
-    
-    var R: N
-    var G: N
-    var B: N
-    
-    init(_ R: N, _ G: N, _ B: N) {
-        self.R = R
-        self.G = G
-        self.B = B
-    }
-}
-
-extension Color {
-    init(from Data: ColorData) {
-        self.init(red: Data.R/255, green: Data.G/255, blue: Data.B/255)
-    }
-}
-
 
 
 struct APoint: Hashable {
     var x: CGFloat
     var y: CGFloat
-    var cData: ColorData
+    var cData: Color
     
     func toCG() -> CGPoint {
         return CGPoint(x: x, y: y)

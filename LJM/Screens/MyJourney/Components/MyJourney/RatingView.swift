@@ -30,13 +30,12 @@ struct RatingView: View {
                 .foregroundColor(learningPathSelected != nil ? strandColor : .clear)
                 .offset(x: setupGoalRating())
             
-            HStack {
+            HStack(spacing:5) {
                 ForEach(1..<maximumRating + 1, id: \.self) { number in
                     CircleView(strandColor: strandColor, learningObj: learningObj, number: number, rating: rating)
                         .onTapGesture {
                             withAnimation {
                                 self.rating = number
-                                //                        self.hover = false
                                 
                                 // Add assessment
                                 let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObj.ID})!
@@ -61,7 +60,7 @@ struct RatingView: View {
                                 
                             
                         }
-                        .frame(width: 35, height: 35, alignment: .center)
+                        .frame(width: 30, height: 30, alignment: .center)
                 }
             }
             
@@ -114,9 +113,9 @@ struct CircleView: View {
                 }
                 
             Circle()
-                .strokeBorder(number > rating ? (hovered ? Color.defaultColor : colorScheme == .dark ? Color(red: 154/255, green: 154/255, blue: 154/255) : Color.customDarkGrey) : Color.clear, lineWidth: 2)
-                .background(Circle().foregroundColor(number > rating ? colorScheme == .dark ? Color(red: 73/255, green: 73/255, blue: 73/255) : Color.customLightGrey : strandColor))
-                .frame(width: 40, height: 40)
+                .strokeBorder(number > rating ? (hovered ? Color.defaultColor : Color.circleStrokeColor) : Color.clear, lineWidth: 2)
+                .background(Circle().foregroundColor(number > rating ? Color.cellBackgroundColor : strandColor))
+                .frame(width: 30, height: 30)
                 .onHover { hover in
                     if hover {
                         self.hovered = true
@@ -125,22 +124,7 @@ struct CircleView: View {
                         self.hovered = false
                         self.showingPopup = false
                     }
-                    
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-//                        if hovered {
-//                            if hover {
-//                                self.showingPopup = true
-//                            } else {
-//                                self.showingPopup = false
-//                            }
-//                        } else {
-//                            self.showingPopup = false
-//                        }
-//                    }
                 }
-            //            .popover(isPresented: self.$showingPopup) {
-            //                PopOverViewRating(showingPopup: $showingPopup, status: setupTitleProgressRubric(value: number), desc: setupDescProgressOnRubric(value: number))
-            //            }
         }
     }
     

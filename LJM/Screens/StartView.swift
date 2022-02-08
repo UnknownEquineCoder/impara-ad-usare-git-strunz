@@ -58,61 +58,10 @@ struct StartView: View {
                                 .padding([.leading, .trailing], 10)
                             
                         }
-//                        .cursor(.pointingHand)
-                        
                     }
                     
                     Spacer()
                     
-//                    Text("Test server response")
-//                        .onTapGesture {
-//                            let semaphore = DispatchSemaphore (value: 0)
-//
-//                            let parameters = "{\n    \"username\": \"pippozzo\",\n    \"email\": \"me@me.com\"\n}"
-//                            let postData = parameters.data(using: .utf8)
-//
-//                            var request = URLRequest(url: URL(string: "http://10.20.48.36:8080/users")!,timeoutInterval: Double.infinity)
-//                            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-//
-//                            request.httpMethod = "POST"
-//                            request.httpBody = postData
-//
-//                            let task = URLSession.shared.dataTask(with: request) { data, response, error in
-//
-//                                let decoder = JSONDecoder()
-//
-//                                guard let data = data, let userTest = try? decoder.decode(User.self, from: data) else {
-//
-//                                    print(String(describing: error))
-//                                    semaphore.signal()
-//
-//                                    return
-//                                }
-//
-//                                showingAlertTest = true
-//
-//                                testDataServer = userTest
-//
-//                                print(String(data: data, encoding: .utf8)!)
-//                                semaphore.signal()
-//                            }
-//
-//                            task.resume()
-//                            semaphore.wait()
-//                        }
-//                        .alert(isPresented: $showingAlertTest) {
-//                            Alert(
-//                                title: Text("User data"),
-//                                message: Text("id : \(testDataServer!._id)\n email : \(testDataServer!.email)\n username: \(testDataServer!.username)"),
-//                                primaryButton: .default( Text("Thanks"), action: {
-//
-//                                }),
-//                                secondaryButton: .default( Text("Cancel"), action: {
-//
-//                                })
-//                            )
-//                        }
-//                        .padding()
                     Spacer()
                     StudentPictureView()
                         .padding(.trailing,-15)

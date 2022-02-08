@@ -14,6 +14,7 @@ struct TopbarWithBack: View {
     var filterNumber : Int
     @Binding var scrollTarget: Bool
     @Binding var toggleFilters: Bool
+    @Binding var isFilterShown : Bool
     
     var body: some View {
         VStack {
@@ -40,7 +41,7 @@ struct TopbarWithBack: View {
                         Button {
                             // scroll view index to 1
                             scrollTarget.toggle()
-                            
+                            toggleFilters = true
                         } label: {
                             HStack {
                                 
@@ -52,7 +53,7 @@ struct TopbarWithBack: View {
                         }
                         .buttonStyle(PlainButtonStyle())
                         .padding(.trailing, 20)
-                        .isHidden(!self.toggleFilters)
+                        .isHidden(!self.isFilterShown)
                         
                     }
                     
@@ -83,7 +84,7 @@ struct TopbarWithBack: View {
                     Button {
                         // scroll view index to 1
                         scrollTarget.toggle()
-                        
+                        toggleFilters = true
                     } label: {
                         HStack {
                             
@@ -95,7 +96,7 @@ struct TopbarWithBack: View {
                     }
                     .buttonStyle(PlainButtonStyle())
                     .padding(.trailing, 20)
-                    .isHidden(!self.toggleFilters)
+                    .isHidden(!self.isFilterShown)
                     
                 }
                 

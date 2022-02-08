@@ -14,6 +14,7 @@ struct CompassView: View {
     
     @State private var toggleFilters: Bool = false
     
+    @AppStorage("fullScreen") var fullScreen: Bool = FullScreenSettings.fullScreen
     @Environment(\.colorScheme) var colorScheme
     @Binding var path : String
     @State var progressValue: Float = 10
@@ -211,6 +212,7 @@ struct CompassView: View {
                         .padding(.bottom, 100)
                 }
             }
+            .padding(.top, fullScreen == true ? 60 : 0)
             .padding(.leading, 70).padding(.trailing, 50)
             
             if(toggleFilters ? offset > 475 : offset > 200) {

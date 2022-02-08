@@ -11,21 +11,19 @@ struct MainCompassView: View {
     @State var currentSubviewLabel : String? = ""
     @Binding var filter_Path : String
     
-    @AppStorage("fullScreen") var fullScreen: Bool = FullScreenSettings.fullScreen
-    
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     
     var body: some View {
         ZStack{
-            if currentSubviewLabel == ""{
-                CompassView(path: $filter_Path, currentSubviewLabel: $currentSubviewLabel)
-            } else {
+            CompassView(path: $filter_Path, currentSubviewLabel: $currentSubviewLabel)
+                .opacity(currentSubviewLabel == "" ? 1 : 0.00001)
+            if currentSubviewLabel != "" {
                 LearningGoalsView(
                     titleView: $currentSubviewLabel,
                     filtered_Learning_Objectives: learningObjectiveStore.learningObjectives.filter({$0.goal_Short.lowercased() == currentSubviewLabel!.lowercased()}))
             }
         }
-        .padding(.top, fullScreen == true ? 60 : 0)
+        
     }
 }
 

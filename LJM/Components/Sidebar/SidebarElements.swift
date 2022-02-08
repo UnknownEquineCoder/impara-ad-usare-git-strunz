@@ -43,26 +43,20 @@ struct OutlineRow : View {
     
     var body: some View {
         ZStack(alignment: .trailing){
-            if isSelected {
-                RoundedRectangle(cornerRadius: 8)
-                    .foregroundColor(Color.secondary.opacity(0.1))
-                    .padding([.leading, .trailing], -10)
-            } else {
-                RoundedRectangle(cornerRadius: 8)
-                    .foregroundColor(Color.gray.opacity(0.0001))
-                    .padding([.leading, .trailing], -10)
-            }
+            RoundedRectangle(cornerRadius: 8)
+                .foregroundColor( isSelected ? Color.defaultColor.opacity(0.5) : Color.gray.opacity(0.0001))
+                .padding([.leading, .trailing], -10)
             
-            HStack(spacing: 15) {
+            HStack(spacing: 8) {
                 Group {
                     Image(item.image)
                         .resizable()
                         .frame(width: 16, height: 16)
-                        .foregroundColor(Color.defaultColor)
+                        .foregroundColor( isSelected ? .sidebarTextColor : Color.defaultColor )
                 }
                 Text(item.title)
-                    .foregroundColor(isSelected ? .customBlack : .primary)
-                    .font(.system(size: 18, weight: .regular))
+                    .foregroundColor(.sidebarTextColor)
+                    .font(.system(size: 13, weight: .regular ))
                 Spacer()
             }
         }

@@ -31,9 +31,8 @@ struct ScrollViewLearningObjectives: View {
                         isLearningGoalAdded: isLearningGoalAdded == nil ? nil : (isLearningGoalAdded ?? false && item.eval_score.count > 0),
                         learningPathSelected: self.$learningPathSelected,
                         learningObj: item)
-                    
                 }
-            }
+            }.padding(.vertical, 20)
         } else {
             // FOR BIG SUR AT LEAST
             
@@ -51,6 +50,7 @@ struct ScrollViewLearningObjectives: View {
                 }
                 .frame(minHeight: 600, maxHeight: .infinity)
             }
+            .padding(.vertical, 20)
         }
     }
 }

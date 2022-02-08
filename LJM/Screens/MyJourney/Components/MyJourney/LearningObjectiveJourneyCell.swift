@@ -84,15 +84,15 @@ struct LearningObjectiveJourneyCell: View {
                         VStack(alignment: .leading, spacing: 8) {
                             Text(learningObj.strand.uppercased())
                                 .foregroundColor(setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand))
-                                .font(.system(size: learningObj.strand.count > 15 ? 15 : 20, weight: .bold, design: .rounded))
+                                .font(.system(size: 17, weight: .bold, design: .rounded))
                                 .lineLimit(2)
                             Text(learningObj.goal_Short.uppercased())
-                                .foregroundColor(colorScheme == .dark ? Color(red: 255/255, green: 255/255, blue: 255/255) : Color.customDarkGrey)
-                                .font(.system(size: 22.toFontSize(), weight: .regular))
+                                .foregroundColor(Color.cellDetailColor)
+                                .font(.system(size: 13, weight: .heavy))
                                 .lineLimit(3)
                             Text(learningObj.isCore ? "CORE" : "ELECTIVE")
-                                .foregroundColor(colorScheme == .dark ? Color(red: 255/255, green: 255/255, blue: 255/255) : Color.customDarkGrey)
-                                .font(.system(size: 22.toFontSize(), weight: .light))
+                                .foregroundColor(Color.cellDetailColor)
+                                .font(.system(size: 13, weight: Font.Weight.medium))
                                 .lineLimit(2)
                         }
                         .frame(width: 150, alignment: .leading)
@@ -102,14 +102,15 @@ struct LearningObjectiveJourneyCell: View {
                         Spacer().frame(width: 50)
                         
                         Text("\(learningObj.ID) - \(learningObj.description)")
-                            .foregroundColor(colorScheme == .dark ? Color(red: 224/255, green: 224/255, blue: 224/255) : Color.customLightBlack)
-                            .font(.system(size: 24.toFontSize(), weight: .regular))
+                            .foregroundColor(Color.descriptionTextColor)
+                            .font(.system(size: 13, weight: .regular))
+                            .lineSpacing(8)
                             .padding(.trailing, 30)
                             .lineLimit(self.expand ? nil : 4)
-                            .padding()
+                            .padding(.vertical,20)
                             .padding(.trailing, 20)
                         
-                        Spacer().frame(width: 230)
+                        Spacer().frame(width: 170)
                         
                     }
                     .padding(.leading, 20)
@@ -228,14 +229,6 @@ struct LearningObjectiveJourneyCell: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
                     .isHidden(self.expand ? false : true)
                 
-                HStack {
-                    Divider()
-                        .background(Color(red: 70/255, green: 70/255, blue: 70/255)).padding(.top, 20).padding(.bottom, 20).padding(.trailing, 250)
-                        .padding(.trailing, !isAddable ? 25 : 0)
-                    
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .trailing)
-                .zIndex(1)
                 
                 Image(systemName: self.expand ? "chevron.up" : "chevron.down")
                     .font(.system(size: 20, weight: .bold))
@@ -246,7 +239,7 @@ struct LearningObjectiveJourneyCell: View {
             }
             
         }
-        .background(colorScheme == .dark ? Color(red: 50/255, green: 50/255, blue: 50/255) : Color(red: 230/255, green: 230/255, blue: 230/255))
+        .background(Color.cellBackgroundColor)
         .cornerRadius(14)
         .onTapGesture {
             withAnimation {

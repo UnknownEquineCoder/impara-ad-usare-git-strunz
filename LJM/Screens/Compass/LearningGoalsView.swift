@@ -14,6 +14,7 @@ struct LearningGoalsView: View {
     @State private var selectedFilters: Dictionary<String, Array<String>> = [:]
     @State var offset : CGFloat = 0
     
+    @AppStorage("fullScreen") var fullScreen: Bool = FullScreenSettings.fullScreen
     @Environment(\.colorScheme) var colorScheme
     @Binding var titleView: String?
     
@@ -30,7 +31,7 @@ struct LearningGoalsView: View {
     
     @State var filters : Dictionary<String, Array<String>> = [:]
     
-    @State var isFilterShown : Bool = false
+    @State var isFilterShown : Bool = true
     @State var isForceScrollUp : Bool = false
     
     var body: some View {
@@ -87,6 +88,7 @@ struct LearningGoalsView: View {
                             .animation(.easeOut)
                             .transition(.slide)
                             .onAppear {
+                                selectedFilters = FiltersModel(viewType: .map).defaultFilters()
                                 filtered_Learning_Objectives2 = filtered_Learning_Objectives
                                 self.totalNumberLearningObjectivesStore.total = filtered_Learning_Objectives2.count
                             }
@@ -112,10 +114,12 @@ struct LearningGoalsView: View {
                                 .isHidden(self.totalNumberLearningObjectivesStore.total == 0 ? false : true)
                             
                             ScrollViewLearningObjectives(learningPathSelected: $titleView, isLearningGoalAdded: false, textFromSearchBar: $searchText, filtered_Learning_Objectives: $filtered_Learning_Objectives2)
-                            //                            .padding(.top, 30)
                             
                         }.frame(maxWidth: .infinity)
-                    }.frame(maxWidth: .infinity)
+                    }
+                    .padding(.top,20)
+                    .id(0)
+                    .frame(maxWidth: .infinity)
                         .background(
                             GeometryReader {
                                 Color.clear.preference(key: ViewOffsetKey2.self,
@@ -130,9 +134,10 @@ struct LearningGoalsView: View {
                         }
                 }.padding(.leading, 50).padding(.trailing, 50)
             }
+            .padding(.top, fullScreen == true ? 60 : 0)
         }
         VStack{
-            TopbarWithBack(title: $titleView, filterNumber: selectedFilters.count, scrollTarget: $isForceScrollUp, toggleFilters: $isFilterShown)
+            TopbarWithBack(title: $titleView, filterNumber: selectedFilters.filter{$0.value != ["Any"] && $0.value != ["Name"]}.count, scrollTarget: $isForceScrollUp, toggleFilters: $toggleFilters, isFilterShown: $isFilterShown)
             
             Spacer()
         }
@@ -164,7 +169,10 @@ struct LearningGoalsView: View {
                 true
             })
             .filter ({
-                filters["Strands"]!.count == 0 ? true : filters["Strands"]!.contains($0.strand)
+                if filters["Strand"]!.contains("Any") {
+                    return true
+                }
+                return filters["Strand"]!.count == 0 ? true : filters["Strand"]!.contains($0.strand)
             })
             .filter({
                 if let first_Strand = filters["Path"]!.first {

@@ -23,5 +23,16 @@ extension Color {
     public static let lightThemeBackgroundColor = Color(red: 245/255, green: 245/255, blue: 245/255)
     
     public static let backgroundColor = Color("backgroundColor")
+    public static let cellBackgroundColor = Color("cellBackgroundColor")
+    public static let circleStrokeColor = Color("circleStrokeColor")
+    public static let descriptionTextColor = Color("descriptionTextColor")
+    public static let cellDetailColor = Color("cellDetailColor")
+    public static let customBrown = Color("customBrown")
+    public static let customIndigo = Color("customIndigo")
+    public static let customMint = Color("customMint")
+    public static let customRed = Color("customRed")
+    public static let customTeal = Color("customTeal")
+    public static let customPink = Color("customPink")
+    public static let sidebarTextColor = Color("sidebarTextColor")
 }
 

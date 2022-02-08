@@ -101,8 +101,8 @@ struct StudentPictureView: View {
                 }
             
             Text(NSFullUserName())
-                .font(.system(size: 18.toFontSize()))
-                .foregroundColor(colorScheme == .dark ? .white : Color(red: 70/255, green: 70/255, blue: 70/255))
+                .font(.system(size: 13))
+                .foregroundColor(Color.sidebarTextColor)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .lineLimit(1)
             

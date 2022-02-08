@@ -38,7 +38,7 @@ struct Topbar: View {
                             
                         } label: {
                             HStack {
-                                Text("Filters \(getNumberOfFilters(filters: filters).count == nil || getNumberOfFilters(filters: filters).count == 0 ? "" : "(\(getNumberOfFilters(filters: filters).count != 1 ? ("\(getNumberOfFilters(filters: filters).count)") : "\(getNumberOfFilters(filters: filters).first ?? "")"))")")
+                                Text("Filters \(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == nil || getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == 0 ? "" : "(\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count != 1 ? ("\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count)") : "\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).first ?? "")"))")")
                                 
                                 Image(systemName: "chevron.up")
                                     .font(.system(size: 10))
@@ -75,7 +75,7 @@ struct Topbar: View {
                             
                         } label: {
                             HStack {
-                                Text("Filters \(getNumberOfFilters(filters: filters).count == nil || getNumberOfFilters(filters: filters).count == 0 ? "" : "(\(getNumberOfFilters(filters: filters).count != 1 ? ("\(getNumberOfFilters(filters: filters).count)") : "\(getNumberOfFilters(filters: filters).first ?? "")"))")")
+                                Text("Filters \(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == nil || getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == 0 ? "" : "(\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count != 1 ? ("\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count)") : "\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).first ?? "")"))")")
                                 
                                 Image(systemName: "chevron.up")
                                     .font(.system(size: 10))
