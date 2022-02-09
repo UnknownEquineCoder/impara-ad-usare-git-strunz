@@ -11,7 +11,7 @@ import SwiftUI
 struct TopbarWithBack: View {
     @Binding var title: String?
     
-    var filterNumber : Int
+    var filters: Dictionary<String, Array<String>>
     @Binding var scrollTarget: Bool
     @Binding var toggleFilters: Bool
     @Binding var isFilterShown : Bool
@@ -45,7 +45,7 @@ struct TopbarWithBack: View {
                         } label: {
                             HStack {
                                 
-                                Text("Filters \(filterNumber > 0 ? "( \(filterNumber) )" : "")")
+                                Text("Filters \(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == nil || getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == 0 ? "" : "(\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count != 1 ? ("\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count)") : "\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).first ?? "")"))")")
                                 
                                 Image(systemName: "chevron.up")
                                     .font(.system(size: 10))
@@ -87,7 +87,7 @@ struct TopbarWithBack: View {
                     } label: {
                         HStack {
                             
-                            Text("Filters \(filterNumber > 0 ? "( \(filterNumber) )" : "")")
+                            Text("Filters \(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == nil || getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == 0 ? "" : "(\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count != 1 ? ("\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count)") : "\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).first ?? "")"))")")
                             
                             Image(systemName: "chevron.up")
                                 .font(.system(size: 10))
@@ -105,6 +105,18 @@ struct TopbarWithBack: View {
             }
         }
         .ignoresSafeArea()
+    }
+    
+    func getNumberOfFilters(filters: Dictionary<String, Array<String>>) -> [String] {
+        
+        let values = filters.map {$0.value}
+        var arrayValues = [String]()
+        
+        for value in values {
+            arrayValues.append(contentsOf: value)
+        }
+                
+        return arrayValues
     }
 
 }

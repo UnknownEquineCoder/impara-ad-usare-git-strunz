@@ -49,15 +49,15 @@ struct StartView: View {
                     .visualEffect(material: .sidebar)
                     .padding(.top, -70)
                     
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 0) {
                     ForEach(OutlineMenu.allCases) { menu in
-                        ZStack(alignment: .leading) {
+//                        ZStack(alignment: .leading) {
                             
                             OutlineRow(item: menu, selectedMenu: self.$selectedMenu)
-                                .frame(height: 40)
-                                .padding([.leading, .trailing], 10)
-                            
-                        }
+                                .frame(height: 28)
+                                .padding([.leading, .trailing], 4)
+//
+//                        }
                     }
                     
                     Spacer()
@@ -68,7 +68,7 @@ struct StartView: View {
                 } 
             }
             .padding(.top, fullScreen == true ? 70 : 20)
-            .frame(width: 260)
+            .frame(width: 200)
             
             if isLoading {
                 HStack{

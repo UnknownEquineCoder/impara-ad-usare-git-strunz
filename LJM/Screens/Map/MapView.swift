@@ -98,6 +98,7 @@ struct MapView: View {
                     
                     ZStack(alignment: .top) {
                         NumberTotalLearningObjectivesView(totalLOs: self.totalNumberLearningObjectivesStore.total)
+                            .padding(.top, -10)
                         
                         Text("No learning objectives found ...")
                             .font(.system(size: 25, weight: .semibold, design: .rounded))
