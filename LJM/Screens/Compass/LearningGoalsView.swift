@@ -135,12 +135,15 @@ struct LearningGoalsView: View {
                 }.padding(.leading, 50).padding(.trailing, 50)
             }
             .padding(.top, fullScreen == true ? 60 : 0)
-        }
-        VStack{
-            TopbarWithBack(title: $titleView, filterNumber: selectedFilters.filter{$0.value != ["Any"] && $0.value != ["Name"]}.count, scrollTarget: $isForceScrollUp, toggleFilters: $toggleFilters, isFilterShown: $isFilterShown)
             
-            Spacer()
+            
+            VStack{
+                TopbarWithBack(title: $titleView, filterNumber: selectedFilters.filter{$0.value != ["Any"] && $0.value != ["Name"]}.count, scrollTarget: $isForceScrollUp, toggleFilters: $toggleFilters, isFilterShown: $isFilterShown)
+                
+                Spacer()
+            }
         }
+        
         
         
     }

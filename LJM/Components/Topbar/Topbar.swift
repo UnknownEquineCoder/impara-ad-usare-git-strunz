@@ -19,6 +19,7 @@ struct Topbar: View {
     var body: some View {
         VStack {
             if #available(macOS 12.0, *) {
+                
                 ZStack {
                     HStack {
                         Spacer()

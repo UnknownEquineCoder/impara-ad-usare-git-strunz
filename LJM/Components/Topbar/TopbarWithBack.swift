@@ -56,7 +56,6 @@ struct TopbarWithBack: View {
                         .isHidden(!self.isFilterShown)
                         
                     }
-                    
                 .padding(.vertical, 20)
                 .padding(.horizontal, -20)
                 .background(.ultraThinMaterial)
