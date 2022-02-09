@@ -100,6 +100,7 @@ struct MyJourneyView: View {
                             
                             NumberTotalLearningObjectivesView(totalLOs: self.totalNumberLearningObjectivesStore.total)
                                 .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
+                                .padding(.top, -10)
                             
                             ListViewLearningObjectiveMyJourney(txtSearchBar: $searchText, selectedPath: $selectedPath, selectedMenu: $selectedMenu, filtered_Learning_Objectives: $filtered_Learning_Objectives)
                                 .onAppear {

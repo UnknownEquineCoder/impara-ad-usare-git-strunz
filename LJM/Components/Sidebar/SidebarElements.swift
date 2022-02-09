@@ -43,7 +43,7 @@ struct OutlineRow : View {
     
     var body: some View {
         ZStack(alignment: .trailing){
-            RoundedRectangle(cornerRadius: 8)
+            RoundedRectangle(cornerRadius: 5)
                 .foregroundColor( isSelected ? Color.defaultColor.opacity(0.5) : Color.gray.opacity(0.0001))
                 .padding([.leading, .trailing], -10)
             
@@ -51,7 +51,7 @@ struct OutlineRow : View {
                 Group {
                     Image(item.image)
                         .resizable()
-                        .frame(width: 16, height: 16)
+                        .frame(width: 14, height: 14)
                         .foregroundColor( isSelected ? .sidebarTextColor : Color.defaultColor )
                 }
                 Text(item.title)
@@ -60,8 +60,8 @@ struct OutlineRow : View {
                 Spacer()
             }
         }
-        .frame(height: 40)
-        .contentShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+        .frame(height: 28)
+        .contentShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
         .padding()
         .onTapGesture {
             self.selectedMenu = self.item

@@ -32,7 +32,9 @@ struct ScrollViewLearningObjectives: View {
                         learningPathSelected: self.$learningPathSelected,
                         learningObj: item)
                 }
-            }.padding(.vertical, 20)
+            }
+            .padding(.top, 20)
+            .padding(.bottom, 20)
         } else {
             // FOR BIG SUR AT LEAST
             
@@ -50,7 +52,8 @@ struct ScrollViewLearningObjectives: View {
                 }
                 .frame(minHeight: 600, maxHeight: .infinity)
             }
-            .padding(.vertical, 20)
+            .padding(.top, 20)
+            .padding(.bottom, 20)
         }
     }
 }

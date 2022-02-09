@@ -105,6 +105,7 @@ struct LearningGoalsView: View {
                                 .foregroundColor(Color.customDarkGrey)
                                 .font(.system(size: 15, weight: .medium, design: .rounded))
                                 .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.top, -10)
                             
                             Text("No learning objectives found ...")
                                 .font(.system(size: 25, weight: .semibold, design: .rounded))
@@ -138,7 +139,7 @@ struct LearningGoalsView: View {
             
             
             VStack{
-                TopbarWithBack(title: $titleView, filterNumber: selectedFilters.filter{$0.value != ["Any"] && $0.value != ["Name"]}.count, scrollTarget: $isForceScrollUp, toggleFilters: $toggleFilters, isFilterShown: $isFilterShown)
+                TopbarWithBack(title: $titleView, filters: selectedFilters, scrollTarget: $isForceScrollUp, toggleFilters: $toggleFilters, isFilterShown: $isFilterShown)
                 
                 Spacer()
             }
