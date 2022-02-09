@@ -84,7 +84,7 @@ struct LearningObjectiveJourneyCell: View {
                         VStack(alignment: .leading, spacing: 8) {
                             Text(learningObj.strand.uppercased())
                                 .foregroundColor(setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand))
-                                .font(.system(size: 17, weight: .bold, design: .rounded))
+                                .font(.system(size: 17, weight: .bold))
                                 .lineLimit(2)
                             Text(learningObj.goal_Short.uppercased())
                                 .foregroundColor(Color.cellDetailColor)
