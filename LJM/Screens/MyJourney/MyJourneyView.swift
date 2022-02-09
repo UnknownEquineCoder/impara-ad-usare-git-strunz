@@ -136,7 +136,7 @@ struct MyJourneyView: View {
                     }
                     .padding(.leading, 50).padding(.trailing, 50)
 //                    .padding(.top, window.styleMask & NSFullScreenWindowMask != 0 ? 10 : 0)
-                    .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
+                   
                 }
             }
         }
@@ -231,7 +231,12 @@ struct ListViewLearningObjectiveMyJourney: View {
                 
             }
         } else {
-            EmptyLearningObjectiveViewJourney(selectedMenu: $selectedMenu)
+            VStack{
+//                EmptyLearningObjectiveViewJourney(selectedMenu: $selectedMenu)
+//                    .padding(.top, 150)
+
+            }
+            
         }
     }
     
