@@ -34,6 +34,9 @@ struct CompassView: View {
     
     @State var show_Graphs : Bool = false
     
+    var _colors = ["Red", "Green", "Blue", "Tartan","Tartan2","Tartan3","Tartan4"]
+    @State private var selectedColor = "Red"
+    
     @State private var selectedFilters: Dictionary<String, Array<String>> = [:]
     
     let graph_Minimum_Dimension : CGFloat = 2
@@ -91,6 +94,14 @@ struct CompassView: View {
                         self.offset = element
                     }
                 }
+                
+                Picker("", selection: $selectedColor) {
+                        ForEach(_colors, id: \.self) {
+                            Text($0)
+                        }
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    .frame(width:400)
                 
                 DatePickerView(pickerDate: $selected_Date)
                     .environment(\.locale, Locale(identifier: "en"))
