@@ -216,9 +216,9 @@ struct LJMApp: App {
             
         }
         
-        return data_To_Save
-        
         exportFile.toggle()
+        
+        return data_To_Save
     }
     
     func sendToDropbox() -> Data?{

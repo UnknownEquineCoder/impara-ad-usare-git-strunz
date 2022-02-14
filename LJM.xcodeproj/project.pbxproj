@@ -47,6 +47,9 @@
 		A032CC6A27B1325B00D7E25B /* TopbarWithBack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A032CC6927B1325B00D7E25B /* TopbarWithBack.swift */; };
 		A0682D2C275A1D180068BA60 /* FIltersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0682D2B275A1D180068BA60 /* FIltersModel.swift */; };
 		A08AA80627A14C9400F5FA63 /* DropboxManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08AA80527A14C9400F5FA63 /* DropboxManager.swift */; };
+		E0267EFE27BA5DF40094DA17 /* ChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0267EFD27BA5DF40094DA17 /* ChallengeView.swift */; };
+		E0267F0027BA5E100094DA17 /* MainChallenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0267EFF27BA5E100094DA17 /* MainChallenge.swift */; };
+		E0267F0227BA5E1E0094DA17 /* OtherChallenges.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0267F0127BA5E1E0094DA17 /* OtherChallenges.swift */; };
 		E02C351B274F8F6E00DD060C /* ALL PATHS-New.csv in Resources */ = {isa = PBXBuildFile; fileRef = E02C351A274F8F6E00DD060C /* ALL PATHS-New.csv */; };
 		E02DFE8A270AEC3F004FF8B7 /* newModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02DFE89270AEC3F004FF8B7 /* newModels.swift */; };
 		E02DFE8C270C41E5004FF8B7 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02DFE8B270C41E5004FF8B7 /* Observable.swift */; };
@@ -64,7 +67,6 @@
 		EA686F07256EF1F100C121DC /* MapMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA686F06256EF1F100C121DC /* MapMainView.swift */; };
 		EA686F10256EF67B00C121DC /* MyJourneyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA686F0F256EF67B00C121DC /* MyJourneyView.swift */; };
 		EA686F18256EF69100C121DC /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA686F17256EF69100C121DC /* MapView.swift */; };
-		EA686F1D256EF69C00C121DC /* ChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA686F1C256EF69C00C121DC /* ChallengeView.swift */; };
 		EA686F25256EFBFA00C121DC /* SearchBarExpandableJourney.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA686F24256EFBFA00C121DC /* SearchBarExpandableJourney.swift */; };
 		EA686F2E256F25CF00C121DC /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA686F2D256F25CF00C121DC /* Extensions.swift */; };
 		EA7028902572FDD300E1B6EB /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA70288F2572FDD300E1B6EB /* RatingView.swift */; };
@@ -164,6 +166,9 @@
 		A0682D2B275A1D180068BA60 /* FIltersModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIltersModel.swift; sourceTree = "<group>"; };
 		A08AA80527A14C9400F5FA63 /* DropboxManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropboxManager.swift; sourceTree = "<group>"; };
 		E000216D274BF0CB0059A1C9 /* LJM.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = LJM.entitlements; sourceTree = "<group>"; };
+		E0267EFD27BA5DF40094DA17 /* ChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeView.swift; sourceTree = "<group>"; };
+		E0267EFF27BA5E100094DA17 /* MainChallenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainChallenge.swift; sourceTree = "<group>"; };
+		E0267F0127BA5E1E0094DA17 /* OtherChallenges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherChallenges.swift; sourceTree = "<group>"; };
 		E02C351A274F8F6E00DD060C /* ALL PATHS-New.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ALL PATHS-New.csv"; sourceTree = "<group>"; };
 		E02DFE89270AEC3F004FF8B7 /* newModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = newModels.swift; sourceTree = "<group>"; };
 		E02DFE8B270C41E5004FF8B7 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
@@ -179,7 +184,6 @@
 		EA686F06256EF1F100C121DC /* MapMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapMainView.swift; sourceTree = "<group>"; };
 		EA686F0F256EF67B00C121DC /* MyJourneyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyJourneyView.swift; sourceTree = "<group>"; };
 		EA686F17256EF69100C121DC /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
-		EA686F1C256EF69C00C121DC /* ChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeView.swift; sourceTree = "<group>"; };
 		EA686F24256EFBFA00C121DC /* SearchBarExpandableJourney.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarExpandableJourney.swift; sourceTree = "<group>"; };
 		EA686F2D256F25CF00C121DC /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		EA70288F2572FDD300E1B6EB /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
@@ -344,6 +348,7 @@
 				9622DCE325DE80B5009ECCB4 /* Compass */,
 				EA686F0E256EF63900C121DC /* MyJourney */,
 				EAE9E83F271453170032F50E /* Map */,
+				E0267EFC27BA5DD60094DA17 /* Challenge */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -385,6 +390,16 @@
 				A0682D2B275A1D180068BA60 /* FIltersModel.swift */,
 			);
 			path = Filters;
+			sourceTree = "<group>";
+		};
+		E0267EFC27BA5DD60094DA17 /* Challenge */ = {
+			isa = PBXGroup;
+			children = (
+				E0267EFD27BA5DF40094DA17 /* ChallengeView.swift */,
+				E0267EFF27BA5E100094DA17 /* MainChallenge.swift */,
+				E0267F0127BA5E1E0094DA17 /* OtherChallenges.swift */,
+			);
+			path = Challenge;
 			sourceTree = "<group>";
 		};
 		E02DFE8D270C41F4004FF8B7 /* New Backend */ = {
@@ -510,7 +525,6 @@
 			children = (
 				EA686F06256EF1F100C121DC /* MapMainView.swift */,
 				EA686F17256EF69100C121DC /* MapView.swift */,
-				EA686F1C256EF69C00C121DC /* ChallengeView.swift */,
 				96A410402572673800ACA0DE /* Components */,
 			);
 			path = Map;
@@ -673,8 +687,8 @@
 				969DEAE625DFDEBD00599D63 /* CompassView.swift in Sources */,
 				96114BC125EFA92900FA119C /* ProgressBarGraph.swift in Sources */,
 				EA7028902572FDD300E1B6EB /* RatingView.swift in Sources */,
+				E0267EFE27BA5DF40094DA17 /* ChallengeView.swift in Sources */,
 				96A4105125726DD600ACA0DE /* AddButton.swift in Sources */,
-				EA686F1D256EF69C00C121DC /* ChallengeView.swift in Sources */,
 				E0E87CD6272801C900FEF3D6 /* DocDemoDocument.swift in Sources */,
 				A018956F275789D60054B1E6 /* Filters.swift in Sources */,
 				9609087F2604A10900EB4242 /* LearningGoalsView.swift in Sources */,
@@ -704,6 +718,8 @@
 				E04251B72733EACD000A1D69 /* CoreRadarChartView.swift in Sources */,
 				E02DFE8A270AEC3F004FF8B7 /* newModels.swift in Sources */,
 				962F090E25E7C4F1001EAE85 /* ParticularCircle.swift in Sources */,
+				E0267F0227BA5E1E0094DA17 /* OtherChallenges.swift in Sources */,
+				E0267F0027BA5E100094DA17 /* MainChallenge.swift in Sources */,
 				9641C4A525778F1D0088A0B6 /* SizesExtension.swift in Sources */,
 				E04251AD27295F34000A1D69 /* StudentData.xcdatamodeld in Sources */,
 				964B662C256E6020006AB20E /* LJMApp.swift in Sources */,
