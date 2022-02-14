@@ -103,8 +103,8 @@ struct LearningObjectiveJourneyCell: View {
                         
                         Text("\(learningObj.ID) - \(learningObj.description)")
                             .foregroundColor(Color.descriptionTextColor)
-                            .font(.system(size: 13, weight: .regular))
-                            .lineSpacing(8)
+                            .font(.system(size: 16, weight: .medium))
+                            .lineSpacing(1)
                             .padding(.trailing, 30)
                             .lineLimit(self.expand ? nil : 4)
                             .padding(.vertical,20)
