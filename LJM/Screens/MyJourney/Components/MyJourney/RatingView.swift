@@ -64,7 +64,6 @@ struct RatingView: View {
                 }
             }
             
-            
             Image(systemName: "arrowtriangle.up")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
