@@ -154,7 +154,6 @@ struct LearningObjectiveJourneyCell: View {
                                         }
                                         ForEach(learningObj.eval_score.indices, id: \.self) { index in
                                             HistoryProgressView(rating: $rating, learning_Score: learningObj.eval_score[index], learning_Date: learningObj.eval_date[index], learning_ID: learningObj.ID, index: index)
-                                            
                                         }
                                     }
                                 }

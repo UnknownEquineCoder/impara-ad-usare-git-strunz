@@ -35,6 +35,7 @@ struct LJMApp: App {
     
     var body: some Scene {
         WindowGroup {
+//            ChallengeView()
             StartView(isLoading: $isLoading)
                 .onAppear(perform: {
                     DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 1) {
@@ -196,6 +197,7 @@ struct LJMApp: App {
     }
     
     func createExportDate() -> String {
+        print("@@@@@@@@@@")
         var data_To_Save = ""
         let evaluated_Learning_Objectives = learningObjectiveStore.learningObjectives.filter({$0.eval_score.count > 0})
         
@@ -222,11 +224,17 @@ struct LJMApp: App {
     }
     
     func sendToDropbox() -> Data?{
-        let evaluated_Learning_Objectives = learningObjectiveStore.learningObjectives.filter({$0.eval_score.count > 0})
+        var evaluated_Learning_Objectives : [learning_ObjectiveForJSON] = []
+        for LO in learningObjectiveStore.learningObjectives.filter({$0.eval_score.count > 0}) {
+            let temp = learning_ObjectiveForJSON(learningObjective: LO)
+            evaluated_Learning_Objectives.append(temp)
+        }
         
         var resp : Data?
         do {
             resp =  try JSONEncoder().encode(evaluated_Learning_Objectives)
+            
+            print("@@@@@@@@@@@@@@ \(evaluated_Learning_Objectives)")
             return resp
         } catch {
             print("The file could not be loaded")

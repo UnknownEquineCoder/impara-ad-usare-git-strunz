@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ChallengeView: View {
+    
+    @AppStorage("fullScreen") var fullScreen: Bool = FullScreenSettings.fullScreen
+    
     var body: some View {
         VStack(spacing: 10){
             MainChallenge()
