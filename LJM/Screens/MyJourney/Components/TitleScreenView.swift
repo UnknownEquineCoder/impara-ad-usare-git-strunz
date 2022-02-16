@@ -12,8 +12,8 @@ struct TitleScreenView: View {
     
     var body: some View {
         Text(title)
-            .font(.system(size: 40, weight: .medium))
-            .fontWeight(.semibold)
+            .font(.system(size: 26, weight: .bold))
+//            .fontWeight(.semibold)
             .foregroundColor(Color.customBlack)
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.bottom, 10)

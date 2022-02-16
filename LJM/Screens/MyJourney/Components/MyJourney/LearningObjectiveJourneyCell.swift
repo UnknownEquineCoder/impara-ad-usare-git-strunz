@@ -44,7 +44,7 @@ struct LearningObjectiveJourneyCell: View {
                         if self.isLearningGoalAdded != nil {
                             if rating > 0 {
                                 RatingView(strandColor: setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand), learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
-                                    .padding(.trailing, 30).padding(.leading, 20)
+                                    .padding(.trailing, 30)
                                     .onAppear(perform: {
                                         self.isRatingView.toggle()
                                     })
@@ -65,7 +65,7 @@ struct LearningObjectiveJourneyCell: View {
                                 
                             }
                         }
-                        Spacer()
+                        Spacer().frame(width: 235)
                     }
                     .onChange(of: rating) { newValue in
                         let temp = filter_Text
@@ -110,7 +110,7 @@ struct LearningObjectiveJourneyCell: View {
                             .padding(.vertical,20)
                             .padding(.trailing, 20)
                         
-                        Spacer().frame(width: 170)
+                        Spacer().frame(width: 250)
                         
                     }
                     .padding(.leading, 20)
@@ -125,7 +125,7 @@ struct LearningObjectiveJourneyCell: View {
                                     .font(.system(size: 17, weight: .light))
                                     .frame(width: 170, alignment: .leading)
                                 
-                                Spacer().frame(width: 50)
+                                Spacer().frame(width: 30)
                                 
                                 GeometryReader { geometry in
                                     generateContent(in: geometry)
@@ -143,7 +143,7 @@ struct LearningObjectiveJourneyCell: View {
                             
                             HStack {
                                 Text("LAST ASSESSMENTS").foregroundColor(Color.customDarkGrey).font(.system(size: 17, weight: .light)).frame(width: 170, alignment: .leading)
-                                Spacer().frame(width: 50)
+                                Spacer().frame(width: 30)
                                 
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     HStack(spacing: 10) {
