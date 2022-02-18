@@ -164,3 +164,65 @@ enum CompassEnum: String {
     case added = "Added"
     case notAdded = "Not Added"
 }
+
+
+struct Challenge {
+    let name : String
+    let description : String
+    let ID : String
+    let start_Date : String
+    let end_Date : String
+    let LO_IDs : [String] // ?
+}
+
+struct learning_ObjectiveForJSON : Equatable, Codable {
+    
+    /** Primary Key */
+    var ID : String
+    /** Category */
+    var strand : String
+    /** SubCategory */
+    var goal_Short : String
+    /** SubCategory description */
+    var goal : String
+    /** Description */
+    var description : String
+    /** Boolean to distinguish from core and elective learning objectives */
+    var isCore : Bool
+    /** Array to store the keywords of each learning objectives */
+    var Keyword : [String]
+    
+    /** Store the score history */
+    var eval_score : [Int]
+    /** Date of each score history */
+    var eval_date : [Int]
+    
+    /** UNUSED - documentation reference */
+    var documentation : String
+    
+    /** 1..5 values for each rubric_Level_Types */
+    var core_Rubric_Levels : [Int]
+    /** Evaluation types */
+    private var rubric_Level_Types = ["Beginning","Progressing","Proficient","Exemplary"]
+    
+    
+    init(learningObjective : learning_Objective){
+        ID = learningObjective.ID
+        strand = learningObjective.strand
+        goal_Short = learningObjective.goal_Short
+        goal = learningObjective.goal
+        description = learningObjective.description
+        isCore = learningObjective.isCore
+        Keyword = learningObjective.Keyword
+        eval_score = learningObjective.eval_score
+        var temp : [Int] = []
+        for elem in learningObjective.eval_date {
+            temp.append(Int(elem.timeIntervalSince1970))
+        }
+        eval_date = temp
+        
+        documentation = learningObjective.documentation
+        core_Rubric_Levels = learningObjective.core_Rubric_Levels
+        
+    }
+}

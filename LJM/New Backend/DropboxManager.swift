@@ -13,7 +13,7 @@ import FoundationNetworking
 class DropboxManager {
     
     // API Access token
-    private let TOKEN = "sl.BBY6TQJjz-cgLww98aI0vNvmijCbq5ZR6nOuh4cIban1jTK8pq4Up2PL___Vlc4T1Py5WNVt7-0eGijbb7abdzh77hO8VcUYbXQO1UQ4P9QiQ-3MbM_-QxkE-lwEeT0bECPeoAk12odD"
+    private let TOKEN = "AgGZQ4QvkHsAAAAAAAAAAUElilkJdjDb_Q71yuGcIQX5IJNh76YIxtgEh8uObZ6e"
     
     // Singleton pattern
     static let instance = DropboxManager()
@@ -29,7 +29,7 @@ class DropboxManager {
         let oneMonthInSeconds: Double = 60 * 60 * 24 * 30
         let now = Date()
         
-        // gettign saved data from user defaults
+        // getting saved data from user defaults
         var date = UserDefaults.standard.object(forKey: userDefaultsKey) as? Date
         if date == nil {
             // First time user open the app => creating date

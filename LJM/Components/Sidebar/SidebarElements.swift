@@ -14,21 +14,23 @@ enum OutlineMenu: Int, CaseIterable, Identifiable {
         return self.rawValue
     }
     
-    case compass, journey, map
+    case compass, journey, map, challenge
     
     var title: String {
         switch self {
-        case .compass:     return "Compass"
-        case .journey:     return "Journey"
-        case .map:         return "Map"
+        case .compass:      return "Compass"
+        case .journey:      return "Journey"
+        case .map:          return "Map"
+        case .challenge:    return "Challenge"
         }
     }
     
     var image: String {
         switch self {
-        case .compass:     return "sidebar_compass"
-        case .journey:     return "sidebar_journey"
-        case .map:         return "sidebar_map"
+        case .compass:      return "sidebar_compass"
+        case .journey:      return "sidebar_journey"
+        case .map:          return "sidebar_map"
+        case .challenge:    return "sidebar_map"
         }
     }
 }
@@ -55,8 +57,9 @@ struct OutlineRow : View {
                         .foregroundColor( isSelected ? .sidebarTextColor : Color.defaultColor )
                 }
                 Text(item.title)
+                    .font(.body)
                     .foregroundColor(.sidebarTextColor)
-                    .font(.system(size: 13, weight: .regular))
+//                    .font(.system(size: 13, weight: .regular ))
                 Spacer()
             }
         }

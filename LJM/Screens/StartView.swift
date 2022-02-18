@@ -36,6 +36,8 @@ struct StartView: View {
             return AnyView(MyJourneyMainView(selectedMenu: $selectedMenu))
         case .map:
             return AnyView(MapMainView())
+        case .challenge:
+            return AnyView(ChallengeMainView())
         }
     }
     

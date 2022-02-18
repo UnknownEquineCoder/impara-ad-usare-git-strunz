@@ -16,12 +16,15 @@ struct TopbarWithBack: View {
     @Binding var toggleFilters: Bool
     @Binding var isFilterShown : Bool
     
+    @Binding var isViewSelected : Bool
+    
     var body: some View {
         VStack {
             if #available(macOS 12.0, *) {
                     HStack {
                         Button {
                             title = ""
+                            isViewSelected = false
                         } label: {
                             Image(systemName: "chevron.left")
                                 .font(.system(size: 10))
