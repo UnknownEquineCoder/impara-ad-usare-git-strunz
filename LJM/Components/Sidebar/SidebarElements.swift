@@ -57,8 +57,9 @@ struct OutlineRow : View {
                         .foregroundColor( isSelected ? .sidebarTextColor : Color.defaultColor )
                 }
                 Text(item.title)
+                    .font(.body)
                     .foregroundColor(.sidebarTextColor)
-                    .font(.system(size: 13, weight: .regular ))
+//                    .font(.system(size: 13, weight: .regular ))
                 Spacer()
             }
         }

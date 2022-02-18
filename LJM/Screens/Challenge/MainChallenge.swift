@@ -18,21 +18,24 @@ struct MainChallenge: View {
         HStack(alignment:.top){
             VStack(alignment:.leading,spacing: 0){
                 Text(challenge.ID)
+                    .fontWeight(.heavy)
                     .foregroundColor(Color.white)
-                    .font(.system(size: 13, weight: .heavy))
+                    .font(.headline)
                     .padding(.bottom, 20)
                     
                 Text(challenge.name)
+                    .fontWeight(.bold)
                     .foregroundColor(Color.white)
-                    .font(.system(size: 26, weight: .bold))
+                    .font(.largeTitle)
                     .padding(.bottom, 6)
                 Text("\(challenge.start_Date) - \(challenge.end_Date)")
+                    .fontWeight(.semibold)
                     .foregroundColor(Color.descriptionTextColor)
-                    .font(.system(size: 11, weight: .semibold))
+                    .font(.subheadline)
                     .padding(.bottom, 10)
                 Text(challenge.description)
                     .foregroundColor(Color.descriptionTextColor)
-                    .font(.system(size: 13, weight: .regular))
+                    .font(.body)
             }
             .frame(width: 288)
             .padding(.top, 86)
