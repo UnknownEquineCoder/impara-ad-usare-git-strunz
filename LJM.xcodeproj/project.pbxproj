@@ -56,6 +56,8 @@
 		E04251AD27295F34000A1D69 /* StudentData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E04251AB27295F34000A1D69 /* StudentData.xcdatamodeld */; };
 		E04251B3272AAABA000A1D69 /* percistency_Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04251B2272AAABA000A1D69 /* percistency_Manager.swift */; };
 		E04251B72733EACD000A1D69 /* CoreRadarChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E04251B62733EACD000A1D69 /* CoreRadarChartView.swift */; };
+		E052188F27BD31C6008CBA14 /* ChallengeMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E052188E27BD31C6008CBA14 /* ChallengeMainView.swift */; };
+		E052189127BD38EC008CBA14 /* SpecificChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E052189027BD38EC008CBA14 /* SpecificChallengeView.swift */; };
 		E0952800276B4DE5007AC788 /* Server Structures.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09527FF276B4DE5007AC788 /* Server Structures.swift */; };
 		E0952802276B5060007AC788 /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0952801276B5060007AC788 /* Services.swift */; };
 		E0BFADFB27B26DCD008FCAE6 /* MainCompassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BFADFA27B26DCD008FCAE6 /* MainCompassView.swift */; };
@@ -175,6 +177,8 @@
 		E04251AC27295F34000A1D69 /* profile.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = profile.xcdatamodel; sourceTree = "<group>"; };
 		E04251B2272AAABA000A1D69 /* percistency_Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = percistency_Manager.swift; sourceTree = "<group>"; };
 		E04251B62733EACD000A1D69 /* CoreRadarChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreRadarChartView.swift; sourceTree = "<group>"; };
+		E052188E27BD31C6008CBA14 /* ChallengeMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeMainView.swift; sourceTree = "<group>"; };
+		E052189027BD38EC008CBA14 /* SpecificChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecificChallengeView.swift; sourceTree = "<group>"; };
 		E09527FF276B4DE5007AC788 /* Server Structures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Server Structures.swift"; sourceTree = "<group>"; };
 		E0952801276B5060007AC788 /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
 		E0BFADFA27B26DCD008FCAE6 /* MainCompassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCompassView.swift; sourceTree = "<group>"; };
@@ -398,6 +402,8 @@
 				E0267EFD27BA5DF40094DA17 /* ChallengeView.swift */,
 				E0267EFF27BA5E100094DA17 /* MainChallenge.swift */,
 				E0267F0127BA5E1E0094DA17 /* OtherChallenges.swift */,
+				E052188E27BD31C6008CBA14 /* ChallengeMainView.swift */,
+				E052189027BD38EC008CBA14 /* SpecificChallengeView.swift */,
 			);
 			path = Challenge;
 			sourceTree = "<group>";
@@ -673,6 +679,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E052188F27BD31C6008CBA14 /* ChallengeMainView.swift in Sources */,
 				96114BBC25EFA28C00FA119C /* DropDownMenuCompass.swift in Sources */,
 				96CE7BC625C4183A006C4CDA /* FilterChoice.swift in Sources */,
 				EA7028B52579B2CF00E1B6EB /* BackgroundImageReadingStudent.swift in Sources */,
@@ -714,6 +721,7 @@
 				A0682D2C275A1D180068BA60 /* FIltersModel.swift in Sources */,
 				9670A976257105290043F227 /* StartView.swift in Sources */,
 				EAE297AC2770A402005BD594 /* Topbar.swift in Sources */,
+				E052189127BD38EC008CBA14 /* SpecificChallengeView.swift in Sources */,
 				EACD022F25D37B15008D12FE /* TitleScreenView.swift in Sources */,
 				E04251B72733EACD000A1D69 /* CoreRadarChartView.swift in Sources */,
 				E02DFE8A270AEC3F004FF8B7 /* newModels.swift in Sources */,

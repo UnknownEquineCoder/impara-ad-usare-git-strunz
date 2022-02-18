@@ -26,11 +26,10 @@ class DropboxManager {
         
         // constants
         let userDefaultsKey = "checkForUploadUserDataDate"
-        let oneMonthInSeconds: Double = 1
-//        60 * 60 * 24 * 30
+        let oneMonthInSeconds: Double = 60 * 60 * 24 * 30
         let now = Date()
         
-        // gettign saved data from user defaults
+        // getting saved data from user defaults
         var date = UserDefaults.standard.object(forKey: userDefaultsKey) as? Date
         if date == nil {
             // First time user open the app => creating date

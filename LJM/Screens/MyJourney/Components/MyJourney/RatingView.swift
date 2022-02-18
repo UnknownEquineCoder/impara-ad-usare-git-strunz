@@ -75,7 +75,10 @@ struct RatingView: View {
     
     func setupGoalRating() -> CGFloat {
         
-        let learningPathIndex = learningPathStore.learningPaths.firstIndex(where: { $0.title.lowercased() == learningPathSelected?.lowercased() }) ?? 0
+        let learningPathIndex = learningPathStore.learningPaths.firstIndex(where: {
+            return $0.title.lowercased() == learningPathSelected?.lowercased()
+            
+        }) ?? 0
         
         //        Design,Front,Back,Game,Business
         
@@ -85,7 +88,7 @@ struct RatingView: View {
             return -88
         }
         
-        return CGFloat((44 * (core_Rubric_Level)) - 132 - (core_Rubric_Level == 5 ? 3 : 0))
+        return CGFloat((35 * (core_Rubric_Level)) - 105 - (core_Rubric_Level == 5 ? 3 : 0))
     }
 }
 

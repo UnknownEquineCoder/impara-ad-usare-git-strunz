@@ -21,20 +21,12 @@ struct MapMainView: View {
     
     var body: some View {
         ZStack(alignment: .top) {
+            MapView(offset: $offset, scrollTarget: $scrollTarget, selectedFilters: $selectedFilters, selectedSegmentView: selectedView, toggleFilters: $toggleFilters)
+                .modifier(PaddingMainSubViews())
             
-            if self.selectedView.selectedView == "Map" {
-                MapView(offset: $offset, scrollTarget: $scrollTarget, selectedFilters: $selectedFilters, selectedSegmentView: selectedView, toggleFilters: $toggleFilters)
-                    .modifier(PaddingMainSubViews())
-                
-                if(toggleFilters ? offset > 475 : offset > 200) {
-                    Topbar(title: "Map", filters: selectedFilters, scrollTarget: $scrollTarget, toggleFilters: $toggleFilters)
-                }
-            } else {
-                EmptyView()
-//                ChallengeView( selectedSegmentView: self.selectedView).modifier(PaddingMainSubViews())
+            if(toggleFilters ? offset > 475 : offset > 200) {
+                Topbar(title: "Map", filters: selectedFilters, scrollTarget: $scrollTarget, toggleFilters: $toggleFilters)
             }
-            
         }
-//        .background(colorScheme == .dark ? Color.darkThemeBackgroundColor : Color.lightThemeBackgroundColor)
     }
 }

@@ -1,27 +1,26 @@
 //
-//  LearningGoalsView.swift
+//  SpecificChallengeView.swift
 //  LJM
 //
-//  Created by Laura Benetti on 19/03/21.
+//  Created by denys pashkov on 16/02/22.
 //
 
 import SwiftUI
-import AppKit
 
-struct LearningGoalsView: View {
+struct SpecificChallengeView: View {
     
     @State private var searchText = ""
     @State private var selectedFilters: Dictionary<String, Array<String>> = [:]
     @State var offset : CGFloat = 0
     
+    let challenge : Challenge
+    @Binding var isViewSelected : Bool
+    
     @AppStorage("fullScreen") var fullScreen: Bool = FullScreenSettings.fullScreen
     @Environment(\.colorScheme) var colorScheme
-    @Binding var titleView: String?
     
     @EnvironmentObject var totalNumberLearningObjectivesStore : TotalNumberOfLearningObjectivesStore
     @EnvironmentObject var learningPathStore : LearningPathStore
-    
-    @Binding var filter_Path : String?
     
     
     // check if filters was changed
@@ -49,7 +48,7 @@ struct LearningGoalsView: View {
                         VStack(alignment: .leading) {
                             
                             VStack(alignment: .leading) {
-                                DescriptionTitleScreenView(desc: "Here you can take a look at all the Learning Objectives related to the Learning Goal you're looking at. Adding a Learning Objective to evaluate it will automatically add it to 'Journey' and mark it as checked in 'Map' as well.")
+                                DescriptionTitleScreenView(desc: challenge.description)
                                     .padding(.top,20)
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -116,7 +115,7 @@ struct LearningGoalsView: View {
                                 .padding(.top, 75)
                                 .isHidden(self.totalNumberLearningObjectivesStore.total == 0 ? false : true)
                             
-                            ScrollViewLearningObjectives(learningPathSelected: $filter_Path, isLearningGoalAdded: false, textFromSearchBar: $searchText, filtered_Learning_Objectives: $filtered_Learning_Objectives2)
+                            ScrollViewLearningObjectives(learningPathSelected:.constant(challenge.name), isLearningGoalAdded: false, textFromSearchBar: $searchText, filtered_Learning_Objectives: $filtered_Learning_Objectives2)
                             
                         }.frame(maxWidth: .infinity)
                     }
@@ -141,7 +140,7 @@ struct LearningGoalsView: View {
             
             
             VStack{
-                TopbarWithBack(title: $titleView, filters: selectedFilters, scrollTarget: $isForceScrollUp, toggleFilters: $toggleFilters, isFilterShown: $isFilterShown, isViewSelected: .constant(false))
+                TopbarWithBack(title: .constant(challenge.name), filters: selectedFilters, scrollTarget: $isForceScrollUp, toggleFilters: $toggleFilters, isFilterShown: $isFilterShown, isViewSelected: $isViewSelected)
                 
                 Spacer()
             }
@@ -169,6 +168,9 @@ struct LearningGoalsView: View {
         }
         
         let return_Learning_Objectives = filtered_Learning_Objectives
+            .filter({
+                challenge.LO_IDs.contains($0.ID)
+            })
             .filter({
                 filters["Main"]!.contains("Core") ? $0.isCore :
                 filters["Main"]!.contains("Elective") ? !$0.isCore :
@@ -210,8 +212,17 @@ struct LearningGoalsView: View {
     
 }
 
-struct LearningGoalsView_Previews: PreviewProvider {
+struct SpecificChallengeView_Previews: PreviewProvider {
+    
     static var previews: some View {
-        LearningGoalsView(titleView: .constant("ASD"), filter_Path: .constant(""), filtered_Learning_Objectives: [])
+        
+            SpecificChallengeView(challenge: Challenge(name: "ASD",
+                                    description: "wevnskduvbwkdeh",
+                                    ID: "NS1",
+                                    start_Date: "11/12",
+                                    end_Date: "12/12",
+                                    LO_IDs: ["BUS06"]),
+                                    isViewSelected: .constant(false),
+                                    filtered_Learning_Objectives: [])
     }
 }

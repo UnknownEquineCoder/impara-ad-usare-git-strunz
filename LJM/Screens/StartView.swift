@@ -37,7 +37,7 @@ struct StartView: View {
         case .map:
             return AnyView(MapMainView())
         case .challenge:
-            return AnyView(ChallengeView())
+            return AnyView(ChallengeMainView())
         }
     }
     

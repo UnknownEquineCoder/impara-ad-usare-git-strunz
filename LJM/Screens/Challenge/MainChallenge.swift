@@ -11,7 +11,7 @@ struct MainChallenge: View {
     
     let backgroundColor : Color = .red
     
-    let challenge : Challenge = Challenge.init(name: "Peppe", description: "Lorem ipsum dolor sit amet, consectetur adipisci elit, sed do eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem ullamco laboriosam, nisi ut aliquid ex ea commodi consequatur.", ID: "MC22", start_Date: "22/05", end_Date: "22/06", LO_IDs: [])
+    let challenge : Challenge
     
     var body: some View {
         
@@ -57,6 +57,10 @@ struct MainChallenge: View {
 
 struct MainChallenge_Previews: PreviewProvider {
     static var previews: some View {
-        MainChallenge()
+        let tempChallenge = Challenge(name: "ASD", description: "wevnskduvbwkdeh", ID: "NS1",
+                                                                  start_Date: "11/12",
+                                                                  end_Date: "12/12",
+                                                                  LO_IDs: ["BUS06","BUS07","BUS08","BUS09","BUS10","BUS11","BUS12","BUS13","BUS14","BUS015","BUS16","BUS17","BUS18","BUS19","BUS20","BUS21","BUS22","BUS23","BUS24","BUS25","BUS26","BUS27","BUS28","BUS29","BUS30","BUS31","BUS32","BUS33"])
+        MainChallenge(challenge: tempChallenge)
     }
 }

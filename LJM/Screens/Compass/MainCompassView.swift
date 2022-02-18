@@ -10,6 +10,7 @@ import SwiftUI
 struct MainCompassView: View {
     @State var currentSubviewLabel : String? = ""
     @Binding var filter_Path : String
+    @State var filter_Selected : String?
     
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     
@@ -20,9 +21,14 @@ struct MainCompassView: View {
             if currentSubviewLabel != "" {
                 LearningGoalsView(
                     titleView: $currentSubviewLabel,
-                    filtered_Learning_Objectives: learningObjectiveStore.learningObjectives.filter({$0.goal_Short.lowercased() == currentSubviewLabel!.lowercased()})
+                    filter_Path: $filter_Selected, filtered_Learning_Objectives: learningObjectiveStore.learningObjectives.filter({$0.goal_Short.lowercased() == currentSubviewLabel!.lowercased()})
                 )
             }
+        }
+        .onAppear {
+            filter_Selected = filter_Path
+        }.onChange(of: filter_Path) { newValue in
+            filter_Selected = filter_Path
         }
         
     }
