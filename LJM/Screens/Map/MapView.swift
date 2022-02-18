@@ -59,13 +59,6 @@ struct MapView: View {
                         
                         TitleScreenView(title: "Map")
                         
-                        Button {
-                            randomizeNewData()
-                        } label: {
-                            Text("Randomize stuff")
-                        }
-
-                        
                         DescriptionTitleScreenView(desc: "The Map provides access to all the current Learning Objectives in the Academy Curriculum. The Communal Learning Objectives will be adressed during the Challenges and added to your Journey. You can also explore and add Elective Learning Objectives based on your interests and the profile of specific career paths.")
                             .frame(maxWidth: .infinity, alignment: .leading)
                         
@@ -208,21 +201,21 @@ struct MapView: View {
         return return_Learning_Objectives
     }
     
-    func randomizeNewData(){
-        
-        learningObjectiveStore.reset_Evaluated {
-            print("done")
-        }
-        let tempdate1 = Date.parse("2021-01-01")
-        let tempdate2 = Date.parse("2022-01-01")
-        let date1 = Calendar.current.date(bySettingHour: 0, minute: 1, second: 0, of: tempdate1)!
-        let date2 = Calendar.current.date(bySettingHour: 0, minute: 1, second: 0, of: tempdate2)!
-        for _ in Range(0...30) {
-            for LO_Index in learningObjectiveStore.learningObjectives.indices {
-                learningObjectiveStore.evaluate_Object(index: LO_Index, evaluation: Int.random(in: Range(1...5)), date: Date.randomBetween(start: date1, end: date2))
-            }
-        }
-    }
+//    func randomizeNewData(){
+//        
+//        learningObjectiveStore.reset_Evaluated {
+//            print("done")
+//        }
+//        let tempdate1 = Date.parse("2021-01-01")
+//        let tempdate2 = Date.parse("2022-01-01")
+//        let date1 = Calendar.current.date(bySettingHour: 0, minute: 1, second: 0, of: tempdate1)!
+//        let date2 = Calendar.current.date(bySettingHour: 0, minute: 1, second: 0, of: tempdate2)!
+//        for _ in Range(0...30) {
+//            for LO_Index in learningObjectiveStore.learningObjectives.indices {
+//                learningObjectiveStore.evaluate_Object(index: LO_Index, evaluation: Int.random(in: Range(1...5)), date: Date.randomBetween(start: date1, end: date2))
+//            }
+//        }
+//    }
 }
                                                    
                                                    extension Date {
