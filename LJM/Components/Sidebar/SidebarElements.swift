@@ -56,7 +56,7 @@ struct OutlineRow : View {
                 }
                 Text(item.title)
                     .foregroundColor(.sidebarTextColor)
-                    .font(.system(size: 13, weight: .regular ))
+                    .font(.system(size: 13, weight: .regular))
                 Spacer()
             }
         }
