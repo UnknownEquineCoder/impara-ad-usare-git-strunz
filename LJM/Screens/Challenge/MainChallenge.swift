@@ -54,7 +54,7 @@ struct MainChallenge: View {
                     }
                     
                 }
-            })
+            }).cornerRadius(9)
     }
 }
 
