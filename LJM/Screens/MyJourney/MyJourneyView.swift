@@ -44,11 +44,6 @@ struct MyJourneyView: View {
         
         ZStack {
             
-//            Color.backgroundColor
-//                .padding(.top, -50)
-//                .padding(.leading, -50)
-//                .padding(.trailing, -50)
-            
             ScrollView(showsIndicators: false) {
                 
                 ScrollViewReader { proxy in

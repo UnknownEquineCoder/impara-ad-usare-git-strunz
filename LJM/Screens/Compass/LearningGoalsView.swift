@@ -46,21 +46,6 @@ struct LearningGoalsView: View {
                 ScrollViewReader { proxy in
                     
                     VStack(alignment: .leading) {
-                        VStack(alignment: .leading) {
-                            
-                            VStack(alignment: .leading) {
-                                DescriptionTitleScreenView(desc: "Here you can take a look at all the Learning Objectives related to the Learning Goal you're looking at. Adding a Learning Objective to evaluate it will automatically add it to 'Journey' and mark it as checked in 'Map' as well.")
-                                    .padding(.top,20)
-                            }
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.top, 20)
-                            .onChange(of: isForceScrollUp) { target in
-                                withAnimation {
-                                    proxy.scrollTo(0, anchor: .top)
-                                }
-                            }
-                            
-                        }.frame(maxWidth: .infinity)
                         
                         HStack {
                             
@@ -75,6 +60,7 @@ struct LearningGoalsView: View {
                                 self.toggleFilters.toggle()
                             }
                         }
+                        .padding(.top,25)
                         
                         Filters(
                             viewType: .map,
