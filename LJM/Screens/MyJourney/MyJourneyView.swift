@@ -55,6 +55,7 @@ struct MyJourneyView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     
                     HStack {
+                        
                         SearchBarExpandableJourney(txtSearchBar: $searchText, isUpdated: $isUpdated)
                         
                         Spacer()
@@ -128,10 +129,7 @@ struct MyJourneyView: View {
                     }
                 }
                 .padding(.leading, 50).padding(.trailing, 50)
-                //                    .padding(.top, window.styleMask & NSFullScreenWindowMask != 0 ? 10 : 0)
-                
             }
-            
         }
     }
     
