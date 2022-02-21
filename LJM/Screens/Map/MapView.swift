@@ -44,13 +44,6 @@ struct MapView: View {
     
     var body: some View {
         
-        ZStack {
-            
-            Color.backgroundColor
-                .padding(.top, -50)
-                .padding(.leading, -50)
-                .padding(.trailing, -50)
-            
             ScrollView(showsIndicators: false) {
                 
                 ScrollViewReader { proxy in
@@ -142,7 +135,6 @@ struct MapView: View {
                     .padding(.leading, 50).padding(.trailing, 50)
                 }
             }
-        }
     }
     
     func filterLearningObjective() -> [learning_Objective]{

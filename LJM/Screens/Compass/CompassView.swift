@@ -65,10 +65,6 @@ struct CompassView: View {
     @EnvironmentObject var strandsStore: StrandsStore
     
     var body: some View {
-        ZStack {
-            Color.backgroundColor
-                .padding(.top, -50)
-            
             ScrollView(showsIndicators: false) {
                 
                 VStack {
@@ -219,9 +215,6 @@ struct CompassView: View {
                 Topbar(title: "Compass", filters: selectedFilters, fromCompass: true, scrollTarget: $scrollTarget, toggleFilters: $toggleFilters)
             }
             
-            
-            
-        }
     }
     
     func bars_For_Path_Selected(){
