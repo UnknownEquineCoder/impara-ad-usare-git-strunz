@@ -26,13 +26,20 @@ struct TopbarWithBack: View {
                             title = ""
                             isViewSelected = false
                         } label: {
-                            Image(systemName: "chevron.left")
-                                .font(.system(size: 10))
-                                .padding(.leading, 20)
-                            Text("Back")
+                            HStack{
+                                Image(systemName: "chevron.left")
+                                    .font(.system(size: 10))
+                                    .padding(.leading, 20)
+                                Text("Back")
+                            }
+                            .padding(.leading, 20)
+                            .background {
+                                Color.gray.opacity(0.001)
+                            }
+                           
                         }
                         .buttonStyle(PlainButtonStyle())
-                        .padding(.leading, 20)
+                        
                         
                         Spacer()
                         Text(title ?? "")
@@ -75,6 +82,7 @@ struct TopbarWithBack: View {
                     }
                     .buttonStyle(PlainButtonStyle())
                     .padding(.leading, 20)
+                    .background (Color.gray.opacity(0.00001))
                     
                     Spacer()
                     Text(title ?? "")

@@ -44,13 +44,6 @@ struct MapView: View {
     
     var body: some View {
         
-        ZStack {
-            
-            Color.backgroundColor
-                .padding(.top, -50)
-                .padding(.leading, -50)
-                .padding(.trailing, -50)
-            
             ScrollView(showsIndicators: false) {
                 
                 ScrollViewReader { proxy in
@@ -71,7 +64,9 @@ struct MapView: View {
                                 Text("Filters").font(.system(size: 20))
                                 Image(systemName: toggleFilters ? "chevron.up" : "chevron.down")
                                     .font(.system(size: 20))
-                            }.onTapGesture {
+                            }
+                            .background(Color.gray.opacity(0.001))
+                            .onTapGesture {
                                 self.toggleFilters.toggle()
                             }
                         }
@@ -142,7 +137,6 @@ struct MapView: View {
                     .padding(.leading, 50).padding(.trailing, 50)
                 }
             }
-        }
     }
     
     func filterLearningObjective() -> [learning_Objective]{
