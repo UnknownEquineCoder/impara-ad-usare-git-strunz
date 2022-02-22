@@ -63,10 +63,13 @@ struct MyJourneyView: View {
                             Text("Filters").font(.system(size: 20))
                             Image(systemName: toggleFilters ? "chevron.up" : "chevron.down")
                                 .font(.system(size: 20))
-                        }.onTapGesture {
+                        }
+                        .background(Color.gray.opacity(0.001))
+                        .onTapGesture {
                             self.toggleFilters.toggle()
                         }
                         .clipped()
+                        
                     }
                     
                     Filters(

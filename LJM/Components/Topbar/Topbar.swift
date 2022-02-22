@@ -44,6 +44,9 @@ struct Topbar: View {
                                 Image(systemName: "chevron.up")
                                     .font(.system(size: 10))
                             }.padding(.trailing, 20)
+                                .background {
+                                    Color.gray.opacity(0.0001)
+                                }
                         }
                         .buttonStyle(PlainButtonStyle())
                         .padding(.trailing, 20)
