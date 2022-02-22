@@ -27,10 +27,10 @@ enum OutlineMenu: Int, CaseIterable, Identifiable {
     
     var image: String {
         switch self {
-        case .compass:      return "sidebar_compass"
-        case .journey:      return "sidebar_journey"
-        case .map:          return "sidebar_map"
-        case .challenge:    return "sidebar_map"
+        case .compass:      return "safari"
+        case .journey:      return "suitcase"
+        case .map:          return "map"
+        case .challenge:    return "sparkles"
         }
     }
 }
@@ -51,14 +51,17 @@ struct OutlineRow : View {
             
             HStack(spacing: 8) {
                 Group {
-                    Image(item.image)
+                    Image(systemName: item.image)
                         .resizable()
-                        .frame(width: 14, height: 14)
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width:16,height: 16)
                         .foregroundColor( isSelected ? .sidebarTextColor : Color.defaultColor )
+                        .scaleEffect(x: item.image == "puzzlepiece.extension" ? 1 : -1, y: 1, anchor: .center)
                 }
                 Text(item.title)
                     .font(.body)
                     .foregroundColor(.sidebarTextColor)
+                    .padding(.leading, -1)
 //                    .font(.system(size: 13, weight: .regular ))
                 Spacer()
             }
