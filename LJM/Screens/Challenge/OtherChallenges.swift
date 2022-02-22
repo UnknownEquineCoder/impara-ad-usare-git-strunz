@@ -46,9 +46,14 @@ struct OtherChallenges: View {
         .background(
             GeometryReader { geometry in
                 ZStack{
-                    backgroundColor
+                    Image("Placeholder-Daiquiri")
+                                        .resizable()
+                                        .scaledToFill()
+                                        .edgesIgnoringSafeArea(.all)
+                                        .clipped()
+//                    backgroundColor
                     HStack{
-                        Color.init(red: 60/255, green: 60/255, blue: 67/255).opacity(0.4).blur(radius: 0).frame(width: (geometry.size.width)/2,alignment:.leading)
+                        Color.init(red: 60/255, green: 60/255, blue: 67/255).opacity(0.6).blur(radius: 0).frame(width: (geometry.size.width)/2,alignment:.leading)
                         Spacer()
                     }
                     
