@@ -12,7 +12,6 @@ struct GraphWithOverlay: View {
     var body: some View {
         GeometryReader { geo in
             ZStack {
-                Color.backgroundColor
                 RadarChart(gridColor: Color.gray, data_Front_Array: $data_Front_Array, data_Back_Array: $data_Back_Array, animation_Trigger: $animation_Trigger)
                 
                 RadarGraphFrame()

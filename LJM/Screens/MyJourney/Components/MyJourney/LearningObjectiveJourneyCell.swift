@@ -130,7 +130,8 @@ struct LearningObjectiveJourneyCell: View {
                                 GeometryReader { geometry in
                                     generateContent(in: geometry)
                                 }
-                                .frame( height: learningObj.Keyword.count > 6 ? 105 : 50)
+//                                .frame(height: learningObj.Keyword.count > 6 ? 105 : 50)
+                                .frame(height: generateCellHeight(keywords: learningObj.Keyword.count))
                                 .foregroundColor(Color.customLightBlack)
                                 .font(.system(size: 16, weight: .medium))
 //                                .padding(.leading, 10)
@@ -162,7 +163,7 @@ struct LearningObjectiveJourneyCell: View {
                             }
                         }.padding(.leading, 40).padding(.bottom, 50)
                     }
-                    .frame(maxWidth: 1402.toScreenSize(), maxHeight: self.expand ? 250 : 0, alignment: .topLeading)
+                    .frame(maxWidth: 1402.toScreenSize(), maxHeight: self.expand ? 500 : 0, alignment: .topLeading)
                     .padding(.trailing, 250)
                     .isHidden(self.expand ? false : true)
                 }
@@ -255,6 +256,24 @@ struct LearningObjectiveJourneyCell: View {
             }
                 
                 
+            
+        }
+    }
+    
+    private func generateCellHeight(keywords: Int) -> CGFloat {
+        switch keywords {
+        case 0...4:
+            return 50
+        case 5...11:
+            return 105
+        case 12...15:
+            return 145
+        case 16...17:
+            return 180
+        case 18...30:
+            return 250
+        default:
+            return 50
             
         }
     }
