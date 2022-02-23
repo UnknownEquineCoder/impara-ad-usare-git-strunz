@@ -18,6 +18,12 @@ struct LearningObjectiveJourneyCell: View {
     
     var learningObj: learning_Objective
     
+//    let data = (1...30).map { "Item \($0)" }
+
+    let columns = [
+        GridItem(.adaptive(minimum: 140))
+    ]
+    
     var body: some View {
         VStack {
             ZStack(alignment: .topLeading) {
@@ -143,15 +149,29 @@ struct LearningObjectiveJourneyCell: View {
                                 
                                 Spacer().frame(width: 30)
                                 
-                                GeometryReader { geometry in
-                                    generateContent(in: geometry)
+                                let data = learningObj.Keyword.map { "#\($0)" }
+                                
+                                LazyVGrid(columns: [GridItem(),GridItem(),GridItem()]) {
+                                    ForEach(data, id: \.self) { item in
+                                        Text(item)
+                                    }
                                 }
-//                                .frame(height: learningObj.Keyword.count > 6 ? 105 : 50)
-                                .frame(height: generateCellHeight(keywords: learningObj.Keyword.count))
-                                .foregroundColor(Color.customLightBlack)
-                                .font(.system(size: 16, weight: .medium))
-//                                .padding(.leading, 10)
-                                .padding(.trailing, 50)
+                                
+//                                LazyVGrid(columns: columns, spacing: 20) {
+//                                    ForEach(data, id: \.self) { item in
+//                                        Text(item).fixedSize()
+//                                    }
+//                                }
+                                
+//                                GeometryReader { geometry in
+//                                    generateContent(in: geometry)
+//                                }
+////                                .frame(height: learningObj.Keyword.count > 6 ? 105 : 50)
+//                                .frame(height: generateCellHeight(keywords: learningObj.Keyword.count))
+//                                .foregroundColor(Color.customLightBlack)
+//                                .font(.system(size: 16, weight: .medium))
+////                                .padding(.leading, 10)
+//                                .padding(.trailing, 50)
                                 
                                 Spacer()
                             }
