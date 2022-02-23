@@ -66,23 +66,23 @@ struct LearningObjectiveJourneyCell: View {
                         if self.isLearningGoalAdded != nil {
                             if rating > 0 {
                                 RatingView(strandColor: setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand), learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
-                                    .padding(.trailing, 30)
+                                    .padding(.trailing, 10)
                                     .onAppear(perform: {
                                         self.isRatingView = true
                                     })
                             } else {
-                                AddButton(strandColor: setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand), learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27).padding(.trailing, 70)
+                                AddButton(strandColor: setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand), learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27).padding(.trailing, 10)
                                     .padding(.bottom, 20)
                             }
                         } else {
                             if !isAddable {
                                 RatingView(strandColor: setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand), learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
-                                    .padding(.trailing, 30)
+                                    .padding(.trailing, 10)
                                     .onAppear(perform: {
                                         self.isRatingView = true
                                     })
                             } else {
-                                AddButton(strandColor: setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand), learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27).padding(.trailing, 70)
+                                AddButton(strandColor: setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand), learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27).padding(.trailing, 10)
                                     .padding(.bottom, 20)
                                 
                             }
@@ -287,7 +287,7 @@ struct LearningObjectiveJourneyCell: View {
                 Button {
                     self.showingAlert = true
                 } label: {
-                    Text("Delete")
+                    Text("Remove")
                 }
             }
                 
