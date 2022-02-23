@@ -35,16 +35,32 @@ struct LearningObjectiveJourneyCell: View {
                         
                         // it checks what's the dimension of the spaces should be
                         
-                        if expand && !isAddable{
-                            Spacer().frame(height: 20)
-                        } else if self.isLearningGoalAdded == nil{
-                            Spacer()
-                        } else {
+                        // BUGED code making a shift on right component inside the LO cell
+                        
+//                        if expand && !isAddable {
+//                            Spacer().frame(height: 20)
+//                        } else if self.isLearningGoalAdded == nil{
+//                            Spacer()
+//                        } else {
+//                            if isAddable {
+//                                Spacer().frame(height: 20)
+//                            } else {
+//                                Spacer()
+//                            }
+//                        }
+                        
+                        if expand {
                             if isAddable {
-                                Spacer().frame(height: 20)
+                                Spacer().frame(height: 100)
                             } else {
-                                Spacer()
+                                if isRatingView {
+                                    Spacer()
+                                } else {
+                                    Spacer().frame(height: 100)
+                                }
                             }
+                        } else {
+                            Spacer()
                         }
                         
                         if self.isLearningGoalAdded != nil {
@@ -52,7 +68,7 @@ struct LearningObjectiveJourneyCell: View {
                                 RatingView(strandColor: setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand), learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
                                     .padding(.trailing, 30)
                                     .onAppear(perform: {
-                                        self.isRatingView.toggle()
+                                        self.isRatingView = true
                                     })
                             } else {
                                 AddButton(strandColor: setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand), learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27).padding(.trailing, 70)
@@ -63,7 +79,7 @@ struct LearningObjectiveJourneyCell: View {
                                 RatingView(strandColor: setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand), learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
                                     .padding(.trailing, 30)
                                     .onAppear(perform: {
-                                        self.isRatingView.toggle()
+                                        self.isRatingView = true
                                     })
                             } else {
                                 AddButton(strandColor: setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand), learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27).padding(.trailing, 70)
