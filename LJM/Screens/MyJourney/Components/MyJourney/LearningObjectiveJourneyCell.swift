@@ -18,6 +18,12 @@ struct LearningObjectiveJourneyCell: View {
     
     var learningObj: learning_Objective
     
+//    let data = (1...30).map { "Item \($0)" }
+
+    let columns = [
+        GridItem(.adaptive(minimum: 140))
+    ]
+    
     var body: some View {
         VStack {
             ZStack(alignment: .topLeading) {
@@ -29,38 +35,54 @@ struct LearningObjectiveJourneyCell: View {
                         
                         // it checks what's the dimension of the spaces should be
                         
-                        if expand && !isAddable{
-                            Spacer().frame(height: 20)
-                        } else if self.isLearningGoalAdded == nil{
-                            Spacer()
-                        } else {
+                        // BUGED code making a shift on right component inside the LO cell
+                        
+//                        if expand && !isAddable {
+//                            Spacer().frame(height: 20)
+//                        } else if self.isLearningGoalAdded == nil{
+//                            Spacer()
+//                        } else {
+//                            if isAddable {
+//                                Spacer().frame(height: 20)
+//                            } else {
+//                                Spacer()
+//                            }
+//                        }
+                        
+                        if expand {
                             if isAddable {
-                                Spacer().frame(height: 20)
+                                Spacer().frame(height: 100)
                             } else {
-                                Spacer()
+                                if isRatingView {
+                                    Spacer()
+                                } else {
+                                    Spacer().frame(height: 100)
+                                }
                             }
+                        } else {
+                            Spacer()
                         }
                         
                         if self.isLearningGoalAdded != nil {
                             if rating > 0 {
                                 RatingView(strandColor: setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand), learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
-                                    .padding(.trailing, 30)
+                                    .padding(.trailing, 10)
                                     .onAppear(perform: {
-                                        self.isRatingView.toggle()
+                                        self.isRatingView = true
                                     })
                             } else {
-                                AddButton(strandColor: setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand), learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27).padding(.trailing, 70)
+                                AddButton(strandColor: setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand), learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27).padding(.trailing, 10)
                                     .padding(.bottom, 20)
                             }
                         } else {
                             if !isAddable {
                                 RatingView(strandColor: setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand), learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
-                                    .padding(.trailing, 30)
+                                    .padding(.trailing, 10)
                                     .onAppear(perform: {
-                                        self.isRatingView.toggle()
+                                        self.isRatingView = true
                                     })
                             } else {
-                                AddButton(strandColor: setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand), learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27).padding(.trailing, 70)
+                                AddButton(strandColor: setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand), learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27).padding(.trailing, 10)
                                     .padding(.bottom, 20)
                                 
                             }
@@ -127,15 +149,29 @@ struct LearningObjectiveJourneyCell: View {
                                 
                                 Spacer().frame(width: 30)
                                 
-                                GeometryReader { geometry in
-                                    generateContent(in: geometry)
+                                let data = learningObj.Keyword.map { "#\($0)" }
+                                
+                                LazyVGrid(columns: [GridItem(),GridItem(),GridItem()]) {
+                                    ForEach(data, id: \.self) { item in
+                                        Text(item)
+                                    }
                                 }
-//                                .frame(height: learningObj.Keyword.count > 6 ? 105 : 50)
-                                .frame(height: generateCellHeight(keywords: learningObj.Keyword.count))
-                                .foregroundColor(Color.customLightBlack)
-                                .font(.system(size: 16, weight: .medium))
-//                                .padding(.leading, 10)
-                                .padding(.trailing, 50)
+                                
+//                                LazyVGrid(columns: columns, spacing: 20) {
+//                                    ForEach(data, id: \.self) { item in
+//                                        Text(item).fixedSize()
+//                                    }
+//                                }
+                                
+//                                GeometryReader { geometry in
+//                                    generateContent(in: geometry)
+//                                }
+////                                .frame(height: learningObj.Keyword.count > 6 ? 105 : 50)
+//                                .frame(height: generateCellHeight(keywords: learningObj.Keyword.count))
+//                                .foregroundColor(Color.customLightBlack)
+//                                .font(.system(size: 16, weight: .medium))
+////                                .padding(.leading, 10)
+//                                .padding(.trailing, 50)
                                 
                                 Spacer()
                             }
@@ -251,7 +287,7 @@ struct LearningObjectiveJourneyCell: View {
                 Button {
                     self.showingAlert = true
                 } label: {
-                    Text("Delete")
+                    Text("Remove")
                 }
             }
                 
