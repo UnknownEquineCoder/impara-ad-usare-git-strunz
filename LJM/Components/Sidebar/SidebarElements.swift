@@ -30,7 +30,7 @@ enum OutlineMenu: Int, CaseIterable, Identifiable {
         case .compass:      return "safari"
         case .journey:      return "suitcase"
         case .map:          return "map"
-        case .challenge:    return "sparkles"
+        case .challenge:    return "puzzlepiece.extension"
         }
     }
 }
