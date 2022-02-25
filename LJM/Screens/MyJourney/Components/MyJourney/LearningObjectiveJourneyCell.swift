@@ -66,7 +66,7 @@ struct LearningObjectiveJourneyCell: View {
                         if self.isLearningGoalAdded != nil {
                             if rating > 0 {
                                 RatingView(strandColor: setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand), learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
-                                    .padding(.trailing, 10)
+                                    .padding(.trailing, 30)
                                     .onAppear(perform: {
                                         self.isRatingView = true
                                     })
@@ -77,7 +77,7 @@ struct LearningObjectiveJourneyCell: View {
                         } else {
                             if !isAddable {
                                 RatingView(strandColor: setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand), learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
-                                    .padding(.trailing, 10)
+                                    .padding(.trailing, 30)
                                     .onAppear(perform: {
                                         self.isRatingView = true
                                     })
