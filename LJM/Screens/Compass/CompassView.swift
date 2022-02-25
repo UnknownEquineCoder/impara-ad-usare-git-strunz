@@ -87,7 +87,7 @@ struct CompassView: View {
                         self.offset = element
                     }
                 }
-                
+                SegmentedControl()
                 DatePickerView(pickerDate: $selected_Date)
                     .environment(\.locale, Locale(identifier: "en"))
                     .padding(.top, 7.toScreenSize())
