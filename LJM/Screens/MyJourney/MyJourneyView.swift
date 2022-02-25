@@ -159,7 +159,7 @@ struct MyJourneyView: View {
             return filtered_Learning_Objectives
         }
         
-        let return_Learning_Objectives = learningObjectiveStore.learningObjectives
+        var return_Learning_Objectives = learningObjectiveStore.learningObjectives
             .filter({
                 !$0.eval_score.isEmpty
             })
@@ -192,6 +192,20 @@ struct MyJourneyView: View {
                 $0.goal_Short.lowercased().contains(filter_Text.lowercased()) ||
                 $0.ID.lowercased().contains(filter_Text.lowercased())
             })
+        
+        return_Learning_Objectives.sort(by: {
+            if let filters_Array = filters["Sort By"] {
+                if let lastFilter = filters_Array.last{
+                    if lastFilter == "Name" {
+                        return $0.ID > $1.ID
+                    } else {
+                        return  $0.eval_date.last! > $1.eval_date.last!
+                    }
+                }
+            }
+            
+            return  true
+        })
         
         self.totalNumberLearningObjectivesStore.total = return_Learning_Objectives.count
         
