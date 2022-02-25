@@ -19,6 +19,7 @@ struct MyJourneyMainView: View {
     @Binding var selectedMenu: OutlineMenu
     
     var body: some View {
+        
         ZStack(alignment: .top) {
             MyJourneyView(offset: $offset, scrollTarget: $scrollTarget, selectedFilters: $selectedFilters, selectedMenu: $selectedMenu, toggleFilters: $toggleFilters)
                 .modifier(PaddingMainSubViews())
