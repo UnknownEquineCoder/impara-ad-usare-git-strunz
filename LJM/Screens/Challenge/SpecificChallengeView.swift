@@ -38,8 +38,8 @@ struct SpecificChallengeView: View {
     var body: some View {
         ZStack{
             
-            Color.backgroundColor
-                .padding(.top, -50)
+//            Color.backgroundColor
+//                .padding(.top, -50)
             
             ScrollView(showsIndicators: false) {
                 ScrollViewReader { proxy in
@@ -74,7 +74,7 @@ struct SpecificChallengeView: View {
                                 .onTapGesture {
                                 self.toggleFilters.toggle()
                             }
-                        }
+                        }.padding(.top, 10)
                         
                         Filters(
                             viewType: .map,
@@ -116,7 +116,7 @@ struct SpecificChallengeView: View {
                                 .padding(.top, 75)
                                 .isHidden(self.totalNumberLearningObjectivesStore.total == 0 ? false : true)
                             
-                            ScrollViewLearningObjectives(learningPathSelected:.constant(challenge.name), isLearningGoalAdded: false, textFromSearchBar: $searchText, filtered_Learning_Objectives: $filtered_Learning_Objectives2)
+                            ScrollViewLearningObjectives(learningPathSelected:.constant(nil), isLearningGoalAdded: false, textFromSearchBar: $searchText, filtered_Learning_Objectives: $filtered_Learning_Objectives2)
                             
                         }.frame(maxWidth: .infinity)
                     }

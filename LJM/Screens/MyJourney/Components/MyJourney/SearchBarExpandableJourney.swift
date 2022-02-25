@@ -13,7 +13,7 @@ struct SearchBarExpandableJourney: View {
     @Environment(\.colorScheme) var colorScheme
     
     @Binding var isUpdated : Bool
-    
+        
     var body: some View {
         
         HStack {
@@ -24,7 +24,7 @@ struct SearchBarExpandableJourney: View {
                 .onChange(of: txtSearchBar) { _ in
                     isUpdated.toggle()
                 }
-            
+                        
             Button(action: {
                 withAnimation {
                     self.txtSearchBar = ""
@@ -35,7 +35,6 @@ struct SearchBarExpandableJourney: View {
                     .foregroundColor(colorScheme == .dark ? Color(red: 160/255, green: 159/255, blue: 159/255) : Color(red: 87/255, green: 87/255, blue: 87/255))
             }).buttonStyle(PlainButtonStyle())
                 .zIndex(1)
-            
         }
         .frame(width:300)
         .overlay(

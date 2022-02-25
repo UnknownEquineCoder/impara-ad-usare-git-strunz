@@ -27,11 +27,7 @@ struct ChallengeMainView: View {
     var body: some View {
         ZStack{
             
-            ChallengeView(offset: $offset, isViewSelected: $isViewSelected)
             
-            if(offset > 400) {
-                Topbar(title: "Challenge", filters: selectedFilters, fromCompass: true, scrollTarget: $scrollTarget, toggleFilters: $toggleFilters)
-            }
             
             if isViewSelected {
                 
@@ -39,7 +35,14 @@ struct ChallengeMainView: View {
                     tempChallenge.LO_IDs.contains($0.ID)
                 }))
                 
+            } else {
+                ChallengeView(offset: $offset, isViewSelected: $isViewSelected)
+                
+                if(offset > 400) {
+                    Topbar(title: "Challenge", filters: selectedFilters, fromCompass: true, scrollTarget: $scrollTarget, toggleFilters: $toggleFilters)
+                }
             }
+                
         }
     }
 }

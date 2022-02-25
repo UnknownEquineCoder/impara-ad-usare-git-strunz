@@ -70,7 +70,7 @@ struct MyJourneyView: View {
                         }
                         .clipped()
                         
-                    }
+                    }.padding(.top, 10)
                     
                     Filters(
                         viewType: .journey,
@@ -91,7 +91,6 @@ struct MyJourneyView: View {
                             filters = selectedFilters
                             filtered_Learning_Objectives = filterLearningObjective()
                         }
-                    
                     
                     ZStack(alignment: .topLeading) {
                         

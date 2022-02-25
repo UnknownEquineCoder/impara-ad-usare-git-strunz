@@ -39,9 +39,6 @@ struct LearningGoalsView: View {
     var body: some View {
         ZStack{
             
-            Color.backgroundColor
-                .padding(.top, -50)
-            
             ScrollView(showsIndicators: false) {
                 ScrollViewReader { proxy in
                     
@@ -63,7 +60,7 @@ struct LearningGoalsView: View {
                             }
                             
                         }
-                        .padding(.top,25)
+                        .padding(.top,10)
                         
                         Filters(
                             viewType: .map,
