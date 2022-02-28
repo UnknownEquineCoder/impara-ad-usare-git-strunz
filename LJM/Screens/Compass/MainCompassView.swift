@@ -21,7 +21,7 @@ struct MainCompassView: View {
             if currentSubviewLabel != "" {
                 LearningGoalsView(
                     titleView: $currentSubviewLabel,
-                    filter_Path: $filter_Selected, filtered_Learning_Objectives: learningObjectiveStore.learningObjectives.filter({$0.goal_Short.lowercased() == currentSubviewLabel!.lowercased()})
+                    filter_Path: $filter_Selected, challenges: learningObjectiveStore.challenges, filtered_Learning_Objectives: learningObjectiveStore.learningObjectives.filter({$0.goal_Short.lowercased() == currentSubviewLabel!.lowercased()})
                 )
             }
         }
