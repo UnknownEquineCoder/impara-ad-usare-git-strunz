@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct HistoryProgressView: View {
+    @Environment(\.colorScheme) var colorScheme
+
     var maximumRating = 5
     let dateFormatter = DateFormatter()
     @Binding var rating: Int
@@ -40,6 +42,7 @@ struct HistoryProgressView: View {
             }
             
             Text(dateValue)
+                .foregroundColor(Color.white)
             
             let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learning_ID})!
             
@@ -52,12 +55,12 @@ struct HistoryProgressView: View {
                     self.rating = self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.last ?? 0
 
                 }) {
-                    Image(systemName: "xmark.circle.fill").foregroundColor(Color.customBlack)
+                    Image(systemName: "xmark.circle.fill").foregroundColor(Color.white)
                 }.buttonStyle(PlainButtonStyle()).cursor(.pointingHand)
             }
         }.frame(height: 30, alignment: .center)
             .padding(.leading, 10).padding(.trailing, 10)
-            .background(Color.customDarkGrey)
+            .background(Color.customGrey)
             .cornerRadius(30 / 2)
     }
 }

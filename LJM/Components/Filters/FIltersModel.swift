@@ -79,11 +79,7 @@ class FiltersModel: ObservableObject {
                 FiltersModelData(kind: "Challenges",
                                  isSingleSelection: true,
                                  initialSelectedFilter: 0,
-                                 types: ["Any","CN1", "CN2", "CN3", "CN4"]),
-                FiltersModelData(kind: "Sort By",
-                                 isSingleSelection: true,
-                                 initialSelectedFilter: 0,
-                                 types: ["Name", "Date"])
+                                 types: ["Any","CN1", "CN2", "CN3", "CN4"])
             ]
             
         }

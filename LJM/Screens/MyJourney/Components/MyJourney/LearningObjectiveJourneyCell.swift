@@ -89,13 +89,6 @@ struct LearningObjectiveJourneyCell: View {
                         }
                         Spacer().frame(width: 235)
                     }
-                    .onChange(of: rating) { newValue in
-                        let temp = filter_Text
-                        filter_Text = " "
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.0001) {
-                            filter_Text = temp
-                        }
-                    }
                 }
                 
                 Rectangle()

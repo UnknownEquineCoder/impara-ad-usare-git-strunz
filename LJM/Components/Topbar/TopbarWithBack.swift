@@ -41,10 +41,13 @@ struct TopbarWithBack: View {
                         .buttonStyle(PlainButtonStyle())
                         
                         
-                        Spacer()
+                        Spacer().frame(width: 260)
+                        
                         Text(title ?? "")
                             .font(.system(size: 17))
                             .fontWeight(.semibold)
+                            .frame(width: 600, alignment: .center)
+                        
                         Spacer()
                         
                         
@@ -63,6 +66,7 @@ struct TopbarWithBack: View {
                         }
                         .buttonStyle(PlainButtonStyle())
                         .padding(.trailing, 20)
+                        .frame(minWidth: 200, maxWidth: 300, alignment: .trailing)
                         .isHidden(!self.isFilterShown)
                         
                     }
