@@ -42,12 +42,13 @@ struct BarGraphFrame: View {
                             .foregroundColor(color)
                             .font(.largeTitle)
                             .fontWeight(.bold)
+                            .padding(.bottom, 10)
                         Spacer()
                     }
                     .padding(.leading, 49.toScreenSize())
                     HStack {
                         Spacer()
-                        HStack(spacing: (geo.size.width*0.66) / 10){
+                        HStack(spacing: (geo.size.width*1) / 10){
                             
                             ForEach(levels, id: \.self){
                                 level in
@@ -98,10 +99,10 @@ struct BarGraphFrame: View {
                         }
                     }
                 }
-                .padding(.top, 30)
-                .padding(.bottom, 30)
+//                .padding(.top, 30)
+//                .padding(.bottom, 30)
             }
-        }.frame(height: 55 * CGFloat(skills.count))
+        }.frame(height: 50 * CGFloat(skills.count))
             .frame(maxWidth: .infinity, maxHeight: .infinity)
 //            .background(Color.gray.cornerRadius(20)).opacity(0.1)
     }
