@@ -142,31 +142,16 @@ struct LearningObjectiveJourneyCell: View {
                                 
                                 Spacer().frame(width: 30)
                                 
-                                let data = learningObj.Keyword.map { "#\($0)" }
-                                
-                                LazyVGrid(columns: [GridItem(),GridItem(),GridItem()]) {
-                                    ForEach(data, id: \.self) { item in
-                                        Text(item)
+                                let keywords = learningObj.Keyword
+                                let threeColGrid = Array(repeating: GridItem(.flexible(), alignment: .leading), count: 3)
+                                LazyVGrid(columns: threeColGrid) {
+                                    ForEach(keywords, id: \.self) { item in
+                                        Text("#" + item)
+                                            .onTapGesture {
+                                                filter_Text = item
+                                            }
                                     }
-                                }
-                                
-//                                LazyVGrid(columns: columns, spacing: 20) {
-//                                    ForEach(data, id: \.self) { item in
-//                                        Text(item).fixedSize()
-//                                    }
-//                                }
-                                
-//                                GeometryReader { geometry in
-//                                    generateContent(in: geometry)
-//                                }
-////                                .frame(height: learningObj.Keyword.count > 6 ? 105 : 50)
-//                                .frame(height: generateCellHeight(keywords: learningObj.Keyword.count))
-//                                .foregroundColor(Color.customLightBlack)
-//                                .font(.system(size: 16, weight: .medium))
-////                                .padding(.leading, 10)
-//                                .padding(.trailing, 50)
-                                
-                                Spacer()
+                                }.frame(minWidth: 0, maxWidth: .infinity)
                             }
                             //comment for update
                             Divider().background(Color(red: 70/255, green: 70/255, blue: 70/255)).padding(.trailing, 60)
