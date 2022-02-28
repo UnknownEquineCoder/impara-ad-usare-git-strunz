@@ -38,6 +38,7 @@ enum OutlineMenu: Int, CaseIterable, Identifiable {
 struct OutlineRow : View {
     let item: OutlineMenu
     @Binding var selectedMenu: OutlineMenu
+    @Environment(\.colorScheme) var colorScheme
     
     var isSelected: Bool {
         selectedMenu == item
@@ -55,12 +56,12 @@ struct OutlineRow : View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width:16,height: 16)
-                        .foregroundColor( isSelected ? .sidebarTextColor : Color.defaultColor )
+                        .foregroundColor( isSelected ? .white : Color.defaultColor )
                         .scaleEffect(x: item.image == "puzzlepiece.extension" ? 1 : -1, y: 1, anchor: .center)
                 }
                 Text(item.title)
                     .font(.body)
-                    .foregroundColor(.sidebarTextColor)
+                    .foregroundColor( isSelected ? .white : colorScheme == .dark ? .white : .black )
                     .padding(.leading, -1)
 //                    .font(.system(size: 13, weight: .regular ))
                 Spacer()
