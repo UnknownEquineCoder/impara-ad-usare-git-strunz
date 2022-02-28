@@ -13,7 +13,7 @@ struct SpecificChallengeView: View {
     @State private var selectedFilters: Dictionary<String, Array<String>> = [:]
     @State var offset : CGFloat = 0
     
-    let challenge : Challenge
+    @Binding var challenge : Challenge?
     @Binding var isViewSelected : Bool
     
     @AppStorage("fullScreen") var fullScreen: Bool = FullScreenSettings.fullScreen
@@ -38,28 +38,10 @@ struct SpecificChallengeView: View {
     var body: some View {
         ZStack{
             
-//            Color.backgroundColor
-//                .padding(.top, -50)
-            
             ScrollView(showsIndicators: false) {
                 ScrollViewReader { proxy in
                     
                     VStack(alignment: .leading) {
-                        VStack(alignment: .leading) {
-                            
-                            VStack(alignment: .leading) {
-                                DescriptionTitleScreenView(desc: challenge.description)
-                                    .padding(.top,20)
-                            }
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.top, 20)
-                            .onChange(of: isForceScrollUp) { target in
-                                withAnimation {
-                                    proxy.scrollTo(0, anchor: .top)
-                                }
-                            }
-                            
-                        }.frame(maxWidth: .infinity)
                         
                         HStack {
                             
@@ -75,6 +57,11 @@ struct SpecificChallengeView: View {
                                 self.toggleFilters.toggle()
                             }
                         }.padding(.top, 10)
+                            .onChange(of: isForceScrollUp) { target in
+                                withAnimation {
+                                    proxy.scrollTo(0, anchor: .top)
+                                }
+                            }
                         
                         Filters(
                             viewType: .map,
@@ -141,7 +128,7 @@ struct SpecificChallengeView: View {
             
             
             VStack{
-                TopbarWithBack(title: .constant(challenge.name), filters: selectedFilters, scrollTarget: $isForceScrollUp, toggleFilters: $toggleFilters, isFilterShown: $isFilterShown, isViewSelected: $isViewSelected)
+                TopbarWithBack(title: .constant(challenge!.name), filters: selectedFilters, scrollTarget: $isForceScrollUp, toggleFilters: $toggleFilters, isFilterShown: $isFilterShown, isViewSelected: $isViewSelected)
                 
                 Spacer()
             }
@@ -170,7 +157,7 @@ struct SpecificChallengeView: View {
         
         let return_Learning_Objectives = filtered_Learning_Objectives
             .filter({
-                challenge.LO_IDs.contains($0.ID)
+                $0.challengeID.contains(challenge!.ID)
             })
             .filter({
                 filters["Main"]!.contains("Core") ? $0.isCore :
@@ -213,17 +200,17 @@ struct SpecificChallengeView: View {
     
 }
 
-struct SpecificChallengeView_Previews: PreviewProvider {
-    
-    static var previews: some View {
-        
-            SpecificChallengeView(challenge: Challenge(name: "ASD",
-                                    description: "wevnskduvbwkdeh",
-                                    ID: "NS1",
-                                    start_Date: "11/12",
-                                    end_Date: "12/12",
-                                    LO_IDs: ["BUS06"]),
-                                    isViewSelected: .constant(false),
-                                    filtered_Learning_Objectives: [])
-    }
-}
+//struct SpecificChallengeView_Previews: PreviewProvider {
+//
+//    static var previews: some View {
+//
+//            SpecificChallengeView(challenge: Challenge(name: "ASD",
+//                                    description: "wevnskduvbwkdeh",
+//                                    ID: "NS1",
+//                                    start_Date: "11/12",
+//                                    end_Date: "12/12",
+//                                    LO_IDs: ["BUS06"]),
+//                                    isViewSelected: .constant(false),
+//                                    filtered_Learning_Objectives: [])
+//    }
+//}

@@ -142,31 +142,16 @@ struct LearningObjectiveJourneyCell: View {
                                 
                                 Spacer().frame(width: 30)
                                 
-                                let data = learningObj.Keyword.map { "#\($0)" }
-                                
-                                LazyVGrid(columns: [GridItem(),GridItem(),GridItem()]) {
-                                    ForEach(data, id: \.self) { item in
-                                        Text(item)
+                                let keywords = learningObj.Keyword
+                                let threeColGrid = Array(repeating: GridItem(.flexible(), alignment: .leading), count: 3)
+                                LazyVGrid(columns: threeColGrid) {
+                                    ForEach(keywords, id: \.self) { item in
+                                        Text("#" + item)
+                                            .onTapGesture {
+                                                filter_Text = item
+                                            }
                                     }
-                                }
-                                
-//                                LazyVGrid(columns: columns, spacing: 20) {
-//                                    ForEach(data, id: \.self) { item in
-//                                        Text(item).fixedSize()
-//                                    }
-//                                }
-                                
-//                                GeometryReader { geometry in
-//                                    generateContent(in: geometry)
-//                                }
-////                                .frame(height: learningObj.Keyword.count > 6 ? 105 : 50)
-//                                .frame(height: generateCellHeight(keywords: learningObj.Keyword.count))
-//                                .foregroundColor(Color.customLightBlack)
-//                                .font(.system(size: 16, weight: .medium))
-////                                .padding(.leading, 10)
-//                                .padding(.trailing, 50)
-                                
-                                Spacer()
+                                }.frame(minWidth: 0, maxWidth: .infinity)
                             }
                             //comment for update
                             Divider().background(Color(red: 70/255, green: 70/255, blue: 70/255)).padding(.trailing, 60)
@@ -200,11 +185,11 @@ struct LearningObjectiveJourneyCell: View {
                 VStack(alignment: .center, spacing: 5) {
                     Spacer().frame(height: 300)
                     Text(setupTitleProgressRubric(value: learningObj.eval_score.last ?? 0))
-                        .font(.system(size: 16, weight: .medium))
+                        .font(.system(size: 14, weight: .medium))
                         .foregroundColor(setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand))
                         .padding(.leading, 20)
                     Text(setupDescProgressOnRubric(value: learningObj.eval_score.last ?? 0))
-                        .font(.system(size: 14, weight: .regular))
+                        .font(.system(size: 12, weight: .regular))
                         .foregroundColor(Color.customDarkGrey)
                         .multilineTextAlignment(.center)
                         .lineLimit(nil)
@@ -222,12 +207,13 @@ struct LearningObjectiveJourneyCell: View {
                             }) {
                                 Image(systemName: "trash")
                                     .renderingMode(.original)
-                                    .foregroundColor(Color.red)
-                                    .isHidden(!(learningObj.eval_score.count > 0))
+//                                    .foregroundColor(Color.gray)
+                                    
                             }
-                            .buttonStyle(PlainButtonStyle())
+                            .buttonStyle(BorderedButtonStyle())
+                            .isHidden(!(learningObj.eval_score.count > 0))
                             .cursor(.pointingHand)
-                            .alert("Are you sure you want to delete this Learning Objective ?", isPresented: $showingAlert) {
+                            .alert("Are you sure you want to remove this Learning Objective ?", isPresented: $showingAlert) {
                                 Button("No", role: .cancel) {
                                     
                                 }
@@ -247,10 +233,11 @@ struct LearningObjectiveJourneyCell: View {
                             }) {
                                 Image(systemName: "trash")
                                     .renderingMode(.original)
-                                    .foregroundColor(Color.red)
-                                    .isHidden(!(learningObj.eval_score.count > 0))
+//                                    .foregroundColor(Color.gray)
+                                    
                             }
-                            .buttonStyle(PlainButtonStyle())
+                            .buttonStyle(BorderedButtonStyle())
+                            .isHidden(!(learningObj.eval_score.count > 0))
                             .cursor(.pointingHand)
                         }
                     }

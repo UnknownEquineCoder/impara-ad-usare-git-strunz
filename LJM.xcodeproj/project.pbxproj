@@ -17,6 +17,7 @@
 		961DB4CE25E668410020E9F6 /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961DB4CD25E668410020E9F6 /* DatePicker.swift */; };
 		961DB4E225E66F610020E9F6 /* SliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961DB4E125E66F610020E9F6 /* SliderView.swift */; };
 		9622DCE525DE80DA009ECCB4 /* CompassPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9622DCE425DE80DA009ECCB4 /* CompassPopover.swift */; };
+		9624648227CD138C00A83417 /* ChallengeChanger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9624648127CD138C00A83417 /* ChallengeChanger.swift */; };
 		962F090E25E7C4F1001EAE85 /* ParticularCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962F090D25E7C4F1001EAE85 /* ParticularCircle.swift */; };
 		96314B1E27C4E51800293E44 /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96314B1D27C4E51800293E44 /* SegmentedControl.swift */; };
 		9641C4A525778F1D0088A0B6 /* SizesExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9641C4A425778F1D0088A0B6 /* SizesExtension.swift */; };
@@ -61,6 +62,8 @@
 		E052189127BD38EC008CBA14 /* SpecificChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E052189027BD38EC008CBA14 /* SpecificChallengeView.swift */; };
 		E0952800276B4DE5007AC788 /* Server Structures.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09527FF276B4DE5007AC788 /* Server Structures.swift */; };
 		E0952802276B5060007AC788 /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0952801276B5060007AC788 /* Services.swift */; };
+		E0A3759927CCB6E600B46ECE /* Challeges.csv in Resources */ = {isa = PBXBuildFile; fileRef = E0A3759727CCB6E600B46ECE /* Challeges.csv */; };
+		E0A3759B27CCEB1700B46ECE /* LearningObjectives.csv in Resources */ = {isa = PBXBuildFile; fileRef = E0A3759A27CCEB1700B46ECE /* LearningObjectives.csv */; };
 		E0BFADFB27B26DCD008FCAE6 /* MainCompassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BFADFA27B26DCD008FCAE6 /* MainCompassView.swift */; };
 		E0E87CD6272801C900FEF3D6 /* DocDemoDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E87CD5272801C900FEF3D6 /* DocDemoDocument.swift */; };
 		EA139BD42640910900E15E28 /* JWTDecode in Frameworks */ = {isa = PBXBuildFile; productRef = EA139BD32640910900E15E28 /* JWTDecode */; };
@@ -132,6 +135,7 @@
 		961DB4CD25E668410020E9F6 /* DatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
 		961DB4E125E66F610020E9F6 /* SliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderView.swift; sourceTree = "<group>"; };
 		9622DCE425DE80DA009ECCB4 /* CompassPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompassPopover.swift; sourceTree = "<group>"; };
+		9624648127CD138C00A83417 /* ChallengeChanger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeChanger.swift; sourceTree = "<group>"; };
 		962F090D25E7C4F1001EAE85 /* ParticularCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticularCircle.swift; sourceTree = "<group>"; };
 		96314B1D27C4E51800293E44 /* SegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
 		9641C4A425778F1D0088A0B6 /* SizesExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizesExtension.swift; sourceTree = "<group>"; };
@@ -183,6 +187,8 @@
 		E052189027BD38EC008CBA14 /* SpecificChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecificChallengeView.swift; sourceTree = "<group>"; };
 		E09527FF276B4DE5007AC788 /* Server Structures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Server Structures.swift"; sourceTree = "<group>"; };
 		E0952801276B5060007AC788 /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
+		E0A3759727CCB6E600B46ECE /* Challeges.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Challeges.csv; sourceTree = "<group>"; };
+		E0A3759A27CCEB1700B46ECE /* LearningObjectives.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LearningObjectives.csv; sourceTree = "<group>"; };
 		E0BFADFA27B26DCD008FCAE6 /* MainCompassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCompassView.swift; sourceTree = "<group>"; };
 		E0E87CD5272801C900FEF3D6 /* DocDemoDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocDemoDocument.swift; sourceTree = "<group>"; };
 		EA5B445C262E6F23002A97C7 /* MyJourneyMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyJourneyMainView.swift; sourceTree = "<group>"; };
@@ -252,6 +258,7 @@
 				96BBAA84268325F000E9932E /* InfoButton.swift */,
 				968BFD2F27298BF70025108D /* InfoButtonBarGraph.swift */,
 				96314B1D27C4E51800293E44 /* SegmentedControl.swift */,
+				9624648127CD138C00A83417 /* ChallengeChanger.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -426,6 +433,8 @@
 		E032112D2716E6F900262144 /* FakeData */ = {
 			isa = PBXGroup;
 			children = (
+				E0A3759727CCB6E600B46ECE /* Challeges.csv */,
+				E0A3759A27CCEB1700B46ECE /* LearningObjectives.csv */,
 				E02C351A274F8F6E00DD060C /* ALL PATHS-New.csv */,
 			);
 			path = FakeData;
@@ -657,6 +666,8 @@
 			files = (
 				E02C351B274F8F6E00DD060C /* ALL PATHS-New.csv in Resources */,
 				964B6633256E6022006AB20E /* Preview Assets.xcassets in Resources */,
+				E0A3759B27CCEB1700B46ECE /* LearningObjectives.csv in Resources */,
+				E0A3759927CCB6E600B46ECE /* Challeges.csv in Resources */,
 				964B6630256E6022006AB20E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -716,6 +727,7 @@
 				9696F9352726A764009614F4 /* ContextMenuFilters.swift in Sources */,
 				EA686EF9256EE4F300C121DC /* TopBarJourney.swift in Sources */,
 				96CC613F257A38FC00CE7ABD /* DropDownMenuFilters.swift in Sources */,
+				9624648227CD138C00A83417 /* ChallengeChanger.swift in Sources */,
 				9673746B2733EDAD00A0EC5A /* DeleteButton.swift in Sources */,
 				96314B1E27C4E51800293E44 /* SegmentedControl.swift in Sources */,
 				965B5AA3274E45B4003420B2 /* CursorsExtension.swift in Sources */,
@@ -918,7 +930,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"LJM/Preview Content\"";
-				DEVELOPMENT_TEAM = KXZF72639J;
+				DEVELOPMENT_TEAM = QJTRTDLS6U;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = LJM/Info.plist;
@@ -947,7 +959,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"LJM/Preview Content\"";
-				DEVELOPMENT_TEAM = KXZF72639J;
+				DEVELOPMENT_TEAM = QJTRTDLS6U;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = LJM/Info.plist;

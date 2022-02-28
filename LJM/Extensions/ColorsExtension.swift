@@ -17,7 +17,7 @@ extension Color {
     public static let customBlue = Color("customBlue")
     public static let customGreen = Color("customGreen")
     public static let customOrange = Color("customOrange")
-    public static let customYellow = Color("customYellow")
+    public static let customYellow = Color.pink
     public static let customGrey = Color("CustomDarkGrayDarkMode")
     
     public static let darkThemeBackgroundColor = Color(red: 30/255, green: 30/255, blue: 30/255)

@@ -17,6 +17,7 @@ class LearningObjectivesStore: ObservableObject {
     
     // Published elements
     @Published var learningObjectives = [learning_Objective]()
+    @Published var challenges = [Challenge]()
     @Published var name : String = ""
     
     // Decide if the data can be overriden or not
@@ -109,7 +110,7 @@ class LearningObjectivesStore: ObservableObject {
     func load_Test_Data(_ completion: @escaping (() -> Void)) {
         learningObjectives = []
         
-        guard let file = Bundle.main.path(forResource: "ALL PATHS-New", ofType: "csv") else {
+        guard let file = Bundle.main.path(forResource: "LearningObjectives", ofType: "csv") else {
             return
         }
         
@@ -130,14 +131,63 @@ class LearningObjectivesStore: ObservableObject {
         for row_Index in 0..<rows_Learning_Objectives.count {
             
             let learning_Objective_Columned = rows_Learning_Objectives[row_Index].components(separatedBy: ";")
+            
+            // TODO: Delete next update
+            if !UserDefaults.standard.bool(forKey: "ExecuteOnce") {
+                PersistenceController.shared.convertToNewID(oldID: learning_Objective_Columned[0],
+                                                            newID: learning_Objective_Columned[1])
+            }
+            
 
             let learning_Objective_Element = learning_Objective(learning_Objective_Raw: learning_Objective_Columned)
-
+            
             learningObjectives.append(learning_Objective_Element)
+            
+            
         }
-
+        
+        if !UserDefaults.standard.bool(forKey: "ExecuteOnce") {
+            UserDefaults.standard.set(true, forKey: "ExecuteOnce")
+        }
+        
         completion()
                 
+    }
+    
+    func load_Challenges(){
+        
+        challenges = []
+        
+        guard let file = Bundle.main.path(forResource: "Challeges", ofType: "csv") else {
+            return
+        }
+        
+        var data_Challenges = ""
+        
+        do {
+            data_Challenges = try String(contentsOfFile: file)
+        } catch {
+            print(error)
+            return
+        }
+        
+        var rows_Challenges = data_Challenges.components(separatedBy: "\n")
+
+        rows_Challenges.removeFirst()
+        rows_Challenges.removeLast()
+        
+        for row_Index in 0..<rows_Challenges.count {
+            
+            let learning_Challenges = rows_Challenges[row_Index].components(separatedBy: ";")
+
+            let newChallenge = Challenge(name: learning_Challenges[1],
+                                         ID: learning_Challenges[0],
+                                         start_Date: learning_Challenges[2],
+                                         end_Date: learning_Challenges[3])
+
+            challenges.append(newChallenge)
+        }
+        
     }
     
 //    OLD FUNCTION
@@ -190,6 +240,7 @@ class LearningObjectivesStore: ObservableObject {
     
 }
 
+// Load the Paths
 class LearningPathStore: ObservableObject {
     @Published var learningPaths = [learning_Path]()
     
@@ -198,7 +249,7 @@ class LearningPathStore: ObservableObject {
     }
     
     func load_Learning_Path(){
-        guard let filePath = Bundle.main.path(forResource: "ALL PATHS-New", ofType: "csv") else {
+        guard let filePath = Bundle.main.path(forResource: "LearningObjectives", ofType: "csv") else {
             learningPaths = []
             return
         }
@@ -216,41 +267,13 @@ class LearningPathStore: ObservableObject {
             let csvColumns = first_Row.components(separatedBy: ";")
 
             learningPaths.append(learning_Path(title: "None"))
-            for index in 8..<csvColumns.count {
+            for index in 10..<csvColumns.count {
                 learningPaths.append(learning_Path(title: csvColumns[index].replacingOccurrences(of: "\r", with: "")))
             }
         }
 
         
     }
-    
-//    OLD FUNCTION
-    
-//    func load_Learning_Path(){
-//
-//        guard let filePath = Bundle.main.path(forResource: "ALL PATHS", ofType: "csv") else {
-//            learningPaths = []
-//            return
-//        }
-//
-//        var data = ""
-//        do {
-//            data = try String(contentsOfFile: filePath)
-//        } catch {
-//            print(error)
-//            learningPaths = []
-//            return
-//        }
-//
-//        let row = data.components(separatedBy: "\n").first!
-//
-//        let csvColumns = row.components(separatedBy: ";")
-//
-//        learningPaths.append(learning_Path(title: "None"))
-//        for index in 5..<csvColumns.count {
-//            learningPaths.append(learning_Path(title: csvColumns[index].replacingOccurrences(of: "\r", with: "")))
-//        }
-//    }
 }
 
 class StrandsStore: ObservableObject {

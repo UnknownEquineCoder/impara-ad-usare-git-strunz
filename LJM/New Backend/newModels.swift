@@ -25,6 +25,8 @@ struct learning_Objective : Equatable, Codable {
     var isCore : Bool
     /** Array to store the keywords of each learning objectives */
     var Keyword : [String]
+    /** Is the array of challenge ID in witch this lerning objective appear */
+    var challengeID : [String]
     
     /** Store the score history */
     var eval_score : [Int]
@@ -44,23 +46,27 @@ struct learning_Objective : Equatable, Codable {
      */
     init(learning_Objective_Raw : [String]){
         
-        ID = learning_Objective_Raw[0]
-        strand = learning_Objective_Raw[1]
-        goal_Short = learning_Objective_Raw[2]
+        ID = learning_Objective_Raw[1]
+        strand = learning_Objective_Raw[2]
         goal = learning_Objective_Raw[3]
-        description = learning_Objective_Raw[4]
+        goal_Short = learning_Objective_Raw[4]
+        description = learning_Objective_Raw[5]
         
-        if(learning_Objective_Raw[5].isEmpty){
-            Keyword = learning_Objective_Raw[6].components(separatedBy: ",")
-        } else {
-            Keyword = learning_Objective_Raw[5].components(separatedBy: ",")
+        Keyword = learning_Objective_Raw[6].components(separatedBy: ",")
+        
+        let challengesArray = learning_Objective_Raw[7].components(separatedBy: ",")
+        
+        challengeID = []
+        
+        for challengeIndex in challengesArray.indices {
+            challengeID.append(challengesArray[challengeIndex].replacingOccurrences(of: " ", with: ""))
         }
         
-        isCore = learning_Objective_Raw[7].isEmpty ? false : true
+        isCore = learning_Objective_Raw[8].isEmpty ? false : true
         
         core_Rubric_Levels = []
         
-        for rubric_Level_Index in 7..<learning_Objective_Raw.count {
+        for rubric_Level_Index in 9..<learning_Objective_Raw.count {
             let pathEvaluation = learning_Objective_Raw[rubric_Level_Index].replacingOccurrences(of: "\r", with: "")
             let pathEvaluationIndex = rubric_Level_Types.firstIndex(of: pathEvaluation) ?? -1
             core_Rubric_Levels.append(pathEvaluationIndex + 2)
@@ -70,6 +76,7 @@ struct learning_Objective : Equatable, Codable {
         
         eval_score = []
         eval_date = []
+        
     }
     
     init(server_Learning_Objective : Learning_Objective_Server){
@@ -100,6 +107,7 @@ struct learning_Objective : Equatable, Codable {
         
         eval_score = []
         eval_date = []
+        challengeID = []
     }
 }
 
@@ -168,11 +176,9 @@ enum CompassEnum: String {
 
 struct Challenge {
     let name : String
-    let description : String
     let ID : String
     let start_Date : String
     let end_Date : String
-    let LO_IDs : [String] // ?
 }
 
 struct learning_ObjectiveForJSON : Equatable, Codable {
