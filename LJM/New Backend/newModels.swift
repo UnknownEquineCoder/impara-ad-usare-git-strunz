@@ -54,7 +54,13 @@ struct learning_Objective : Equatable, Codable {
         
         Keyword = learning_Objective_Raw[6].components(separatedBy: ",")
         
-        challengeID = learning_Objective_Raw[7].components(separatedBy: ",")
+        let challengesArray = learning_Objective_Raw[7].components(separatedBy: ",")
+        
+        challengeID = []
+        
+        for challengeIndex in challengesArray.indices {
+            challengeID.append(challengesArray[challengeIndex].replacingOccurrences(of: " ", with: ""))
+        }
         
         isCore = learning_Objective_Raw[8].isEmpty ? false : true
         
