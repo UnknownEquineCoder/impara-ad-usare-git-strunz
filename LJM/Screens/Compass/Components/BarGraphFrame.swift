@@ -28,19 +28,20 @@ struct BarGraphFrame: View {
                 //                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                 
                 Rectangle()
-                    .fill(color).opacity(0.1)
-                //                    .border(color)
-                    .frame(height: 75 * CGFloat(skills.count))
+                    .fill(Color.gray).opacity(0.1)
+//                                    .border(color)
+                    .frame(height: 55 * CGFloat(skills.count))
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .addBorder(color, width: 1.5, cornerRadius: 10)
+                    .cornerRadius(10)
+//                    .addBorder(color, width: 1.5, cornerRadius: 10)
                 
                 
                 VStack{
                     HStack{
                         Text(title)
                             .foregroundColor(color)
-                            .font(.system(size: 29.toFontSize()))
-                            .fontWeight(.semibold)
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
                         Spacer()
                     }
                     .padding(.leading, 49.toScreenSize())
@@ -51,11 +52,10 @@ struct BarGraphFrame: View {
                             ForEach(levels, id: \.self){
                                 level in
                                 Text(level)
-                                    .font(.system(size: 16.toFontSize()))
-                                    .fontWeight(.light)
+                                    .font(.system(size: 10))
+                                    .fontWeight(.regular)
                                 
                             }
-                            
                             
                         }
                         .frame(width: geo.size.width * 0.66)
@@ -67,13 +67,12 @@ struct BarGraphFrame: View {
                     }
                     HStack (alignment: .center){
                         
-                        VStack(alignment: .center, spacing: 49.toScreenSize()){
+                        VStack(alignment: .center, spacing: 19){
                             ForEach(0..<skills.count){ index in
                                 HStack(alignment: .center){
                                     Text(skills[index])
                                         .foregroundColor(color)
-                                        .font(.system(size: 20.toFontSize()))
-                                        .fontWeight(.light)
+                                        .font(.title3)
                                         .underline()
                                         .cursor(.pointingHand)
                                         .onTapGesture {
@@ -85,11 +84,11 @@ struct BarGraphFrame: View {
                                     ZStack{
                                         
                                         ProgressBarGraph(progress: (animation_Trigger ? expectation_Progress[index] * 20 : 0 ) + 1, color: color.opacity(0.4))
-                                            .frame(width: geo.size.width * 0.66, height: 16.toScreenSize())
+                                            .frame(width: geo.size.width * 0.66, height: 12)
                                             .padding(.trailing, 116.toScreenSize())
                                         
                                         ProgressBarGraph(progress: (animation_Trigger ? progress[index] * 20 : 0 ) + 1, color: color)
-                                            .frame(width: geo.size.width * 0.66, height: 16.toScreenSize())
+                                            .frame(width: geo.size.width * 0.66, height: 12)
                                             .padding(.trailing, 116.toScreenSize())
                                         
                                     }
@@ -102,8 +101,9 @@ struct BarGraphFrame: View {
                 .padding(.top, 30)
                 .padding(.bottom, 30)
             }
-        }.frame(height: 75 * CGFloat(skills.count))
+        }.frame(height: 55 * CGFloat(skills.count))
             .frame(maxWidth: .infinity, maxHeight: .infinity)
+//            .background(Color.gray.cornerRadius(20)).opacity(0.1)
     }
 }
 
