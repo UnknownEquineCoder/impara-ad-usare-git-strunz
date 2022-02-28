@@ -26,7 +26,7 @@ class DropboxManager {
         
         // constants
         let userDefaultsKey = "checkForUploadUserDataDate"
-        let twoWeeksInSeconds: Double = 1//60 * 60 * 24 * 14
+        let twoWeeksInSeconds: Double = 60 * 60 * 24 * 14
         let now = Date()
         
         // getting saved data from user defaults
