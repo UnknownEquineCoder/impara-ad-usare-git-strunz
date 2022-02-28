@@ -83,6 +83,28 @@ class FiltersModel: ObservableObject {
                                  initialSelectedFilter: 0,
                                  types: newChallenges)
             ]
+            
+        case .challenge:
+            self.allFilters = [
+            
+                FiltersModelData(kind: "Main",
+                                 isSingleSelection: true,
+                                 initialSelectedFilter: 0,
+                                 types: ["Any", "Core", "Elective"]),
+                FiltersModelData(kind: "Status",
+                                 isSingleSelection: true,
+                                 initialSelectedFilter: 0,
+                                 types: ["Any", "Evaluated", "Not Evaluated"]),
+                FiltersModelData(kind: "Strand",
+                                 isSingleSelection: true,
+                                 initialSelectedFilter: 0,
+                                 types: ["Any", "App Business and Marketing", "Design", "Process", "Professional Skills", "Technical"]),
+                FiltersModelData(kind: "Path",
+                                 isSingleSelection: true,
+                                 initialSelectedFilter: 0,
+                                 types: ["Any", "UI/UX", "Frontend", "Backend", "Game Design", "Game Development",
+                                         "Business/Entrepreneuship", "Project/Product Manager"])
+            ]
         }
     }
     

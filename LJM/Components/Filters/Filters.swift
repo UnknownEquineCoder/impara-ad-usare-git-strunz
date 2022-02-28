@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum FiltersView {
-    case journey, map
+    case journey, map, challenge
 }
 
 struct Filters: View {

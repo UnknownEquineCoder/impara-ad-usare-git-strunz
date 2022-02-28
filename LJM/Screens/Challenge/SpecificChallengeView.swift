@@ -64,7 +64,7 @@ struct SpecificChallengeView: View {
                             }
                         
                         Filters(
-                            viewType: .map, challenges: challenges,
+                            viewType: .challenge, challenges: challenges,
                             selectedFilters: $selectedFilters,
                             onFiltersChange: { filter in
                                 filters = filter
