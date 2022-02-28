@@ -26,9 +26,10 @@ class FiltersModel: ObservableObject {
         var types: [String]
     }
     
-    init(viewType: FiltersView){
+    init(viewType: FiltersView, challenges : [String]){
         self.viewType = viewType
-        
+        var newChallenges : [String] = ["Any"]
+        newChallenges.append(contentsOf: challenges)
         switch viewType {
         case .journey:
             self.allFilters = [
@@ -49,11 +50,12 @@ class FiltersModel: ObservableObject {
                 FiltersModelData(kind: "Challenges",
                                  isSingleSelection: true,
                                  initialSelectedFilter: 0,
-                                 types: ["Any","CN1", "CN2", "CN3", "CN4"]),
+                                 types: newChallenges),
                 FiltersModelData(kind: "Sort By",
                                  isSingleSelection: true,
                                  initialSelectedFilter: 0,
                                  types: ["Name", "Date"])
+                
             ]
         
         case .map:
@@ -79,11 +81,9 @@ class FiltersModel: ObservableObject {
                 FiltersModelData(kind: "Challenges",
                                  isSingleSelection: true,
                                  initialSelectedFilter: 0,
-                                 types: ["Any","CN1", "CN2", "CN3", "CN4"])
+                                 types: newChallenges)
             ]
-            
         }
-       
     }
     
     /** Return the FilterModelData.kinds sorted by FilterModelData.order */
@@ -108,7 +108,9 @@ class FiltersModel: ObservableObject {
     /** Return the default filters */
     func defaultFilters() -> Dictionary<String, Array<String>> {
         var data = Dictionary<String, Array<String>>()
+        
         for filter in allFilters{
+            print("######### \(filter) \(filter.initialSelectedFilter)")
             data[filter.kind] = [filter.types[filter.initialSelectedFilter]]
         }
         return data

@@ -21,7 +21,7 @@ struct SpecificChallengeView: View {
     
     @EnvironmentObject var totalNumberLearningObjectivesStore : TotalNumberOfLearningObjectivesStore
     @EnvironmentObject var learningPathStore : LearningPathStore
-    
+    let challenges : [Challenge]
     
     // check if filters was changed
     
@@ -64,7 +64,7 @@ struct SpecificChallengeView: View {
                             }
                         
                         Filters(
-                            viewType: .map,
+                            viewType: .map, challenges: challenges,
                             selectedFilters: $selectedFilters,
                             onFiltersChange: { filter in
                                 filters = filter
@@ -77,7 +77,7 @@ struct SpecificChallengeView: View {
                             .animation(.easeOut)
                             .transition(.slide)
                             .onAppear {
-                                selectedFilters = FiltersModel(viewType: .map).defaultFilters()
+                                selectedFilters = FiltersModel(viewType: .map, challenges: []).defaultFilters()
                                 filtered_Learning_Objectives2 = filtered_Learning_Objectives
                                 self.totalNumberLearningObjectivesStore.total = filtered_Learning_Objectives2.count
                             }
@@ -177,6 +177,13 @@ struct SpecificChallengeView: View {
                     }
                 }
                 return true
+            })
+            .filter({
+                if filters["Challenges"]!.contains("Any") {
+                    return true
+                } else {
+                    return $0.challengeID.contains(filters["Challenges"]!.first!)
+                }
             })
             .filter({
                 filters["Status"]!.contains("Evaluated") ? $0.eval_score.count > 0 :

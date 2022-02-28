@@ -66,3 +66,12 @@ extension List {
     }
   }
 }
+
+
+func challengesArrayInIDs(challenges : [Challenge]) -> [String]{
+    var IDs : [String] = []
+    for challenge in challenges {
+        IDs.append(challenge.ID)
+    }
+    return IDs
+}

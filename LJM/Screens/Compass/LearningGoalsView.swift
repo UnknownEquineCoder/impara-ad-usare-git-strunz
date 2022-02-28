@@ -22,6 +22,7 @@ struct LearningGoalsView: View {
     @EnvironmentObject var learningPathStore : LearningPathStore
     
     @Binding var filter_Path : String?
+    let challenges : [Challenge]
     
     
     // check if filters was changed
@@ -63,7 +64,7 @@ struct LearningGoalsView: View {
                         .padding(.top,10)
                         
                         Filters(
-                            viewType: .map,
+                            viewType: .map, challenges: challenges,
                             selectedFilters: $selectedFilters,
                             onFiltersChange: { filter in
                                 filters = filter
@@ -76,7 +77,9 @@ struct LearningGoalsView: View {
                             .animation(.easeOut)
                             .transition(.slide)
                             .onAppear {
-                                selectedFilters = FiltersModel(viewType: .map).defaultFilters()
+                                selectedFilters = FiltersModel(viewType: .map, challenges: challenges.map({
+                                    $0.ID
+                                })).defaultFilters()
                                 filtered_Learning_Objectives2 = filtered_Learning_Objectives
                                 self.totalNumberLearningObjectivesStore.total = filtered_Learning_Objectives2.count
                             }
@@ -180,6 +183,13 @@ struct LearningGoalsView: View {
                 true
             })
             .filter({
+                if filters["Challenges"]!.contains("Any") {
+                    return true
+                } else {
+                    return $0.challengeID.contains(filters["Challenges"]!.first!)
+                }
+            })
+            .filter({
                 searchText.isEmpty ||
                 $0.goal.lowercased().contains(searchText.lowercased()) ||
                 $0.description.lowercased().contains(searchText.lowercased()) ||
@@ -198,6 +208,6 @@ struct LearningGoalsView: View {
 
 struct LearningGoalsView_Previews: PreviewProvider {
     static var previews: some View {
-        LearningGoalsView(titleView: .constant("ASD"), filter_Path: .constant(""), filtered_Learning_Objectives: [])
+        LearningGoalsView(titleView: .constant("ASD"), filter_Path: .constant(""), challenges: [], filtered_Learning_Objectives: [])
     }
 }
