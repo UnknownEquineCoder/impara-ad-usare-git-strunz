@@ -26,7 +26,7 @@ class DropboxManager {
         
         // constants
         let userDefaultsKey = "checkForUploadUserDataDate"
-        let twoWeeksInSeconds: Double = 60 * 60 * 24 * 14
+        let twoWeeksInSeconds: Double = 1//60 * 60 * 24 * 14
         let now = Date()
         
         // getting saved data from user defaults
@@ -42,12 +42,13 @@ class DropboxManager {
         if diff > twoWeeksInSeconds {
             UserDefaults.standard.set(now, forKey: userDefaultsKey)
             uploadUserData(data)
+            print("Dropbox data updated!")
             return
         }
             
         // Data update not needed
         let remainingTime = Int(twoWeeksInSeconds - diff)
-        print("Updating Dropbox data in \(remainingTime) seconds")
+        print("Will update Dropbox data in \(remainingTime) seconds")
         return
         
     }
@@ -68,7 +69,7 @@ class DropboxManager {
         dateFormatter.dateFormat = "YYYYMMdd_HHmmss"
         let filename = dateFormatter.string(from: date)
         
-        let path = "/\(folder)/\(filename).json"
+        let path = "/StudentsData/\(folder)/\(filename).json"
 
         var request = URLRequest(url: URL(string: "https://content.dropboxapi.com/2/files/upload")!,timeoutInterval: Double.infinity)
         
