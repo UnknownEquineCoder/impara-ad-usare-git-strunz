@@ -61,6 +61,8 @@
 		E052189127BD38EC008CBA14 /* SpecificChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E052189027BD38EC008CBA14 /* SpecificChallengeView.swift */; };
 		E0952800276B4DE5007AC788 /* Server Structures.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09527FF276B4DE5007AC788 /* Server Structures.swift */; };
 		E0952802276B5060007AC788 /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0952801276B5060007AC788 /* Services.swift */; };
+		E0A3759927CCB6E600B46ECE /* Challeges.csv in Resources */ = {isa = PBXBuildFile; fileRef = E0A3759727CCB6E600B46ECE /* Challeges.csv */; };
+		E0A3759B27CCEB1700B46ECE /* LearningObjectives.csv in Resources */ = {isa = PBXBuildFile; fileRef = E0A3759A27CCEB1700B46ECE /* LearningObjectives.csv */; };
 		E0BFADFB27B26DCD008FCAE6 /* MainCompassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BFADFA27B26DCD008FCAE6 /* MainCompassView.swift */; };
 		E0E87CD6272801C900FEF3D6 /* DocDemoDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E87CD5272801C900FEF3D6 /* DocDemoDocument.swift */; };
 		EA139BD42640910900E15E28 /* JWTDecode in Frameworks */ = {isa = PBXBuildFile; productRef = EA139BD32640910900E15E28 /* JWTDecode */; };
@@ -183,6 +185,8 @@
 		E052189027BD38EC008CBA14 /* SpecificChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecificChallengeView.swift; sourceTree = "<group>"; };
 		E09527FF276B4DE5007AC788 /* Server Structures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Server Structures.swift"; sourceTree = "<group>"; };
 		E0952801276B5060007AC788 /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
+		E0A3759727CCB6E600B46ECE /* Challeges.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Challeges.csv; sourceTree = "<group>"; };
+		E0A3759A27CCEB1700B46ECE /* LearningObjectives.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LearningObjectives.csv; sourceTree = "<group>"; };
 		E0BFADFA27B26DCD008FCAE6 /* MainCompassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCompassView.swift; sourceTree = "<group>"; };
 		E0E87CD5272801C900FEF3D6 /* DocDemoDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocDemoDocument.swift; sourceTree = "<group>"; };
 		EA5B445C262E6F23002A97C7 /* MyJourneyMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyJourneyMainView.swift; sourceTree = "<group>"; };
@@ -426,6 +430,8 @@
 		E032112D2716E6F900262144 /* FakeData */ = {
 			isa = PBXGroup;
 			children = (
+				E0A3759727CCB6E600B46ECE /* Challeges.csv */,
+				E0A3759A27CCEB1700B46ECE /* LearningObjectives.csv */,
 				E02C351A274F8F6E00DD060C /* ALL PATHS-New.csv */,
 			);
 			path = FakeData;
@@ -657,6 +663,8 @@
 			files = (
 				E02C351B274F8F6E00DD060C /* ALL PATHS-New.csv in Resources */,
 				964B6633256E6022006AB20E /* Preview Assets.xcassets in Resources */,
+				E0A3759B27CCEB1700B46ECE /* LearningObjectives.csv in Resources */,
+				E0A3759927CCB6E600B46ECE /* Challeges.csv in Resources */,
 				964B6630256E6022006AB20E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -973,7 +981,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = QJTRTDLS6U;
+				DEVELOPMENT_TEAM = KXZF72639J;
 				INFOPLIST_FILE = LJMTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -996,7 +1004,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = QJTRTDLS6U;
+				DEVELOPMENT_TEAM = KXZF72639J;
 				INFOPLIST_FILE = LJMTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1018,7 +1026,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = QJTRTDLS6U;
+				DEVELOPMENT_TEAM = KXZF72639J;
 				INFOPLIST_FILE = LJMUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1040,7 +1048,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = QJTRTDLS6U;
+				DEVELOPMENT_TEAM = KXZF72639J;
 				INFOPLIST_FILE = LJMUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

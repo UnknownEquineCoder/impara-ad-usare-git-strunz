@@ -26,7 +26,7 @@ class DropboxManager {
         
         // constants
         let userDefaultsKey = "checkForUploadUserDataDate"
-        let oneMonthInSeconds: Double = 60 * 60 * 24 * 30
+        let twoWeeksInSeconds: Double = 60 * 60 * 24 * 14
         let now = Date()
         
         // getting saved data from user defaults
@@ -39,15 +39,16 @@ class DropboxManager {
         
         // Checking if is elapsed one month since last data upload
         let diff = date!.distance(to: now)
-        if diff > oneMonthInSeconds {
+        if diff > twoWeeksInSeconds {
             UserDefaults.standard.set(now, forKey: userDefaultsKey)
             uploadUserData(data)
+            print("Dropbox data updated!")
             return
         }
             
         // Data update not needed
-        let remainingTime = Int(oneMonthInSeconds - diff)
-        print("Updating Dropbox data in \(remainingTime) seconds")
+        let remainingTime = Int(twoWeeksInSeconds - diff)
+        print("Will update Dropbox data in \(remainingTime) seconds")
         return
         
     }
@@ -59,12 +60,21 @@ class DropboxManager {
      */
     private func uploadUserData(_ data : Data) {
         
-        let filename = getDataFilename()
+        // Getting user folder name
+        let folder = getUserIdentifier()
+        
+        // Getting filename as 20220225_131020.json
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYYMMdd_HHmmss"
+        let filename = dateFormatter.string(from: date)
+        
+        let path = "/StudentsData/\(folder)/\(filename).json"
 
         var request = URLRequest(url: URL(string: "https://content.dropboxapi.com/2/files/upload")!,timeoutInterval: Double.infinity)
         
         request.addValue("Bearer \(TOKEN)", forHTTPHeaderField: "Authorization")
-        request.addValue("{\"path\": \"/\(filename).json\",\"mode\": \"overwrite\",\"autorename\": false,\"mute\": false,\"strict_conflict\": false}", forHTTPHeaderField: "Dropbox-API-Arg")
+        request.addValue("{\"path\": \"\(path)\",\"mode\": \"overwrite\",\"autorename\": false,\"mute\": false,\"strict_conflict\": false}", forHTTPHeaderField: "Dropbox-API-Arg")
         request.addValue("application/octet-stream", forHTTPHeaderField: "Content-Type")
 
         request.httpMethod = "POST"
@@ -86,7 +96,7 @@ class DropboxManager {
      This function will generate a unique id that is going to be used as filename of the file collecting user information
      The generated filename is going to be saved into the keychain in sync with iCloud
      */
-    private func getDataFilename() -> String{
+    private func getUserIdentifier() -> String{
         
         // Retriving unique id from keychain
         
