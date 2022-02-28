@@ -185,10 +185,10 @@ struct LearningObjectiveJourneyCell: View {
                 VStack(alignment: .center, spacing: 5) {
                     Spacer().frame(height: 300)
                     Text(setupTitleProgressRubric(value: learningObj.eval_score.last ?? 0))
-                        .font(.system(size: 16, weight: .medium))
+                        .font(.system(size: 14, weight: .medium))
                         .foregroundColor(setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand))
                     Text(setupDescProgressOnRubric(value: learningObj.eval_score.last ?? 0))
-                        .font(.system(size: 14, weight: .regular))
+                        .font(.system(size: 12, weight: .regular))
                         .foregroundColor(Color.customDarkGrey)
                         .multilineTextAlignment(.center)
                         .lineLimit(nil)
@@ -206,12 +206,13 @@ struct LearningObjectiveJourneyCell: View {
                             }) {
                                 Image(systemName: "trash")
                                     .renderingMode(.original)
-                                    .foregroundColor(Color.red)
-                                    .isHidden(!(learningObj.eval_score.count > 0))
+//                                    .foregroundColor(Color.gray)
+                                    
                             }
-                            .buttonStyle(PlainButtonStyle())
+                            .buttonStyle(BorderedButtonStyle())
+                            .isHidden(!(learningObj.eval_score.count > 0))
                             .cursor(.pointingHand)
-                            .alert("Are you sure you want to delete this Learning Objective ?", isPresented: $showingAlert) {
+                            .alert("Are you sure you want to remove this Learning Objective ?", isPresented: $showingAlert) {
                                 Button("No", role: .cancel) {
                                     
                                 }
@@ -231,10 +232,11 @@ struct LearningObjectiveJourneyCell: View {
                             }) {
                                 Image(systemName: "trash")
                                     .renderingMode(.original)
-                                    .foregroundColor(Color.red)
-                                    .isHidden(!(learningObj.eval_score.count > 0))
+//                                    .foregroundColor(Color.gray)
+                                    
                             }
-                            .buttonStyle(PlainButtonStyle())
+                            .buttonStyle(BorderedButtonStyle())
+                            .isHidden(!(learningObj.eval_score.count > 0))
                             .cursor(.pointingHand)
                         }
                     }

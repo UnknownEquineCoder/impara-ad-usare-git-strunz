@@ -17,7 +17,8 @@ struct DeleteButton: View {
         }
         .alert(isPresented:$showingAlert) {
             Alert(
-                title: Text("Are you sure you want to remove this Learning Objective?"),
+                title: Text("Are you sure you want to remove this Learning Objective?")
+                    .fontWeight(.light),
                 message: Text("You can't undo this action"),
                 primaryButton: .destructive(Text("Remove")) {
                     print("Removing...")

@@ -93,7 +93,7 @@ struct AddButton: View {
                                         }
                                     }
                                 
-                                    .alert("Are you sure you want to delete this Learning Objective ?", isPresented: $showingAlertImport) {
+                                    .alert("Are you sure you want to remove this Learning Objective ?", isPresented: $showingAlertImport) {
                                         Button("No", role: .cancel) {
                                             
                                         }
@@ -141,7 +141,7 @@ struct AddButton: View {
                                     }
                                     
                                 }
-                                .alert("Are you sure you want to delete this Learning Objective ?", isPresented: $showingAlertImport) {
+                                .alert("Are you sure you want to remove this Learning Objective ?", isPresented: $showingAlertImport) {
                                     Button("No", role: .cancel) {
                                         
                                     }
