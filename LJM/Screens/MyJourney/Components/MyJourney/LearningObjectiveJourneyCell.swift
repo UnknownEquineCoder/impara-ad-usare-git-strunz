@@ -66,7 +66,7 @@ struct LearningObjectiveJourneyCell: View {
                         if self.isLearningGoalAdded != nil {
                             if rating > 0 {
                                 RatingView(strandColor: setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand), learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
-                                    .padding(.trailing, 30)
+                                    .padding(.trailing, 10)
                                     .onAppear(perform: {
                                         self.isRatingView = true
                                     })
@@ -77,7 +77,7 @@ struct LearningObjectiveJourneyCell: View {
                         } else {
                             if !isAddable {
                                 RatingView(strandColor: setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand), learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
-                                    .padding(.trailing, 30)
+                                    .padding(.trailing, 10)
                                     .onAppear(perform: {
                                         self.isRatingView = true
                                     })
@@ -202,6 +202,7 @@ struct LearningObjectiveJourneyCell: View {
                     Text(setupTitleProgressRubric(value: learningObj.eval_score.last ?? 0))
                         .font(.system(size: 16, weight: .medium))
                         .foregroundColor(setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand))
+                        .padding(.leading, 20)
                     Text(setupDescProgressOnRubric(value: learningObj.eval_score.last ?? 0))
                         .font(.system(size: 14, weight: .regular))
                         .foregroundColor(Color.customDarkGrey)
@@ -209,7 +210,7 @@ struct LearningObjectiveJourneyCell: View {
                         .lineLimit(nil)
                         .fixedSize(horizontal: false, vertical: true)
                         .frame(width: 200)
-                    
+                        .padding(.leading, 20)
                     
                     Spacer().frame(height: 50)
                     
@@ -257,7 +258,6 @@ struct LearningObjectiveJourneyCell: View {
                     .isHidden(self.isAddable ? true : false)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
                     .isHidden(self.expand ? false : true)
-                
                 
                 Image(systemName: self.expand ? "chevron.up" : "chevron.down")
                     .font(.system(size: 20, weight: .bold))
