@@ -15,30 +15,34 @@ struct ChallengeView: View {
     
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     
+    let columns = [
+        GridItem(),
+        GridItem()
+    ]
+    
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 15){
-                MainChallenge(challenge: learningObjectiveStore.challenges[0])
-                    .padding(.bottom, 5)
-                    .onTapGesture {
-                        isViewSelected = true
-                        selectedChallenge = learningObjectiveStore.challenges[0]
-                    }
-                
-                HStack(spacing: 20){
-                    OtherChallenges(challenge: learningObjectiveStore.challenges[1])
+                if let lastChallenge = learningObjectiveStore.challenges.last {
+                    MainChallenge(challenge: lastChallenge)
+                        .padding(.bottom, 5)
                         .onTapGesture {
                             isViewSelected = true
-                            selectedChallenge = learningObjectiveStore.challenges[1]
-                        }
-                    OtherChallenges(challenge: learningObjectiveStore.challenges[2])
-                        .onTapGesture {
-                            isViewSelected = true
-                            selectedChallenge = learningObjectiveStore.challenges[2]
+                            selectedChallenge = lastChallenge
                         }
                 }
                 
-                Spacer()
+                
+                LazyVGrid(columns: columns, spacing: 20) {
+                    ForEach(Range(0...learningObjectiveStore.challenges.count - 2), id: \.self) { index in
+                        OtherChallenges(challenge: learningObjectiveStore.challenges[index])
+                            .onTapGesture {
+                                isViewSelected = true
+                                selectedChallenge = learningObjectiveStore.challenges[index]
+                            }
+                    }
+                }
+        
             }
             .background(
                 GeometryReader {
