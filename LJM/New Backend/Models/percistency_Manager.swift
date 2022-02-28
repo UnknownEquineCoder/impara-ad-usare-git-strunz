@@ -31,32 +31,6 @@ extension Student{
 class PersistenceController {
     static var shared = PersistenceController()
     
-    //    var name = "Name"
-    
-    //    static var container: NSPersistentContainer = {
-    //
-    //        let container = NSPersistentContainer(name: "StudentData")
-    //
-    ////        guard let description = container.persistentStoreDescriptions.first else {
-    ////            fatalError("No Description found")
-    ////        }
-    ////        description.setOption(true as NSObject, forKey: NSPersistentStoreRemoteChangeNotificationPostOptionKey)
-    //
-    //        container.loadPersistentStores { description, error in
-    //            if let error = error {
-    //                fatalError("Unable to load persistent stores: \(error)")
-    //            }
-    //        }
-    //
-    ////        container.viewContext.automaticallyMergesChangesFromParent = true
-    ////        container.viewContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
-    //
-    //        return container
-    //    }()
-    //
-    //    var fetched_Learning_Objectives : FetchedResults<EvaluatedObject>? = nil
-    //    var fetched_Profile : FetchedResults<Student>? = nil
-    
     var name = "Name"
     
     let container: NSPersistentCloudKitContainer
@@ -174,7 +148,59 @@ class PersistenceController {
         }
     }
     
-    /// this function will be called for fetch the resoults and will return the array of evaluated objects present on core data
+    func convertToNewID(oldID : String,newID : String){
+        // create the correct context of the core data
+        let context = PersistenceController.shared.container.viewContext
+        
+        // declering the new object that is evaluated
+        
+        var hasChanged = false
+        
+        var evalDates : NSObject?
+        var evalScores : NSObject?
+        
+        do{
+            let fetched_Data = try context.fetch(EvaluatedObject.get_Evaluated_Object_List_Request())
+            
+            for objective in fetched_Data {
+                if objective.id == oldID {
+                    print("@@@@ Something")
+                    // assigning to the new object the values that it will have
+                    evalDates = objective.eval_Dates!
+                    evalScores = objective.eval_Scores!
+                    context.delete(objective)
+                    hasChanged = true
+                }
+            }
+            
+        } catch {
+            fatalError("Unsolver Error during a fetch in evaluated learning objective function")
+        }
+        
+        
+        
+        if hasChanged{
+            
+            let new_Evaluated_Object = EvaluatedObject(context: context)
+            new_Evaluated_Object.id = newID
+            new_Evaluated_Object.eval_Dates = evalDates!
+            new_Evaluated_Object.eval_Scores = evalScores!
+            
+            if context.hasChanges {
+                do {
+                    // save the context with new element added
+                    try context.save()
+                } catch {
+                    // Replace this implementation with code to handle the error appropriately.
+                    // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                    let nsError = error as NSError
+                    fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+                }
+            }
+        }
+    }
+    
+    /// this function will be called for fetch the results and will return the array of evaluated objects present on core data
     ///
     /// it will return a easier format to work with
     
@@ -184,13 +210,15 @@ class PersistenceController {
         
         // for every evaluated object saved it will create a new instance of CD_Evaluated_Object and append to the array
         for objective in objectives {
-            let temp = CD_Evaluated_Object.init(
-                id: objective.id!,
-                eval_Date: objective.eval_Dates as? [Date] ?? [],
-                eval_Score: objective.eval_Scores as? [Int] ?? []
-            )
             
-            temp_Evaluated_Objects.append(temp)
+            if let objectiveID = objective.id {
+                let temp = CD_Evaluated_Object.init(
+                    id: objectiveID,
+                    eval_Date: objective.eval_Dates as? [Date] ?? [],
+                    eval_Score: objective.eval_Scores as? [Int] ?? []
+                )
+                temp_Evaluated_Objects.append(temp)
+            }
         }
         
         //return the array of CD_Evaluated_Object

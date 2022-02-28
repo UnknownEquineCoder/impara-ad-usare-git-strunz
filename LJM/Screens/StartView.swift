@@ -37,7 +37,8 @@ struct StartView: View {
         case .map:
             return AnyView(MapMainView())
         case .challenge:
-            return AnyView(ChallengeMainView())
+            return AnyView(Text("ASD"))
+//            return AnyView(ChallengeMainView())
         }
     }
     
@@ -97,6 +98,7 @@ struct StartView: View {
             isLoading = true
             learningObjectiveStore.load_Test_Data() {
                 DispatchQueue.main.async {
+                    
                     learningObjectiveStore.load_Status(objectives: objectives)
                     learningPathsStore.load_Learning_Path()
                     strandsStore.setupStrandsOnNativeFilter(learningObjectives: learningObjectiveStore.learningObjectives)
