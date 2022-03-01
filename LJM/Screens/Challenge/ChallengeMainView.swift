@@ -25,23 +25,13 @@ struct ChallengeMainView: View {
             
             
             if isViewSelected {
-                SpecificChallengeView(challenge: $selectedChallenge, isViewSelected: $isViewSelected, filtered_Learning_Objectives: learningObjectiveStore.learningObjectives.filter({
+                SpecificChallengeView(challenge: $selectedChallenge, isViewSelected: $isViewSelected, challenges: learningObjectiveStore.challenges, filtered_Learning_Objectives: learningObjectiveStore.learningObjectives.filter({
                     if let challenge = selectedChallenge {
                         return $0.challengeID.contains(challenge.ID)
                     }
                     return false
                 }))
-                    .onAppear {
-                        let peppe = learningObjectiveStore.learningObjectives.filter({
-                            if let challenge = selectedChallenge {
-                                
-                                print("@@@@@Something \($0.challengeID) \(challenge.ID)")
-                                return $0.challengeID.contains(challenge.ID)
-                            }
-                            return false
-                        })
-                        print("@@@@@@@ \(peppe)")
-                    }
+                    
                 
             } else {
                 ChallengeView(offset: $offset, isViewSelected: $isViewSelected, selectedChallenge: $selectedChallenge)

@@ -176,16 +176,24 @@ class LearningObjectivesStore: ObservableObject {
         rows_Challenges.removeFirst()
         rows_Challenges.removeLast()
         
-        for row_Index in 0..<rows_Challenges.count {
-            
+        for row_Index in rows_Challenges.indices {
             let learning_Challenges = rows_Challenges[row_Index].components(separatedBy: ";")
 
             let newChallenge = Challenge(name: learning_Challenges[1],
                                          ID: learning_Challenges[0],
                                          start_Date: learning_Challenges[2],
                                          end_Date: learning_Challenges[3])
+            
+            if let challengeStartDate = getDate(challenge: newChallenge){
+                if challengeStartDate < Date(){
+                    challenges.append(newChallenge)
+                } else {
+                    return
+                }
+                
+            }
 
-            challenges.append(newChallenge)
+            
         }
         
     }
@@ -294,4 +302,12 @@ class TotalNumberOfLearningObjectivesStore: ObservableObject {
     @Published var total: Int = 0
     @Published var changeViewTotal: Int = 0
     @Published var isChanged: Bool = false
+}
+//03/02/22
+func getDate(challenge : Challenge) -> Date? {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "dd/MM/yy"
+    dateFormatter.timeZone = TimeZone.current
+    dateFormatter.locale = Locale.current
+    return dateFormatter.date(from: challenge.start_Date) // replace Date String
 }

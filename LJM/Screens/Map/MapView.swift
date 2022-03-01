@@ -72,7 +72,7 @@ struct MapView: View {
                     }.padding(.top, 10)
                     
                     Filters(
-                        viewType: .map,
+                        viewType: .map, challenges: learningObjectiveStore.challenges,
                         selectedFilters: $selectedFilters,
                         onFiltersChange: { filter in
                             filters = filter
@@ -86,7 +86,9 @@ struct MapView: View {
 //                        .animation(.easeOut)
 //                        .transition(.slide)
                         .onAppear {
-                            selectedFilters = FiltersModel(viewType: .map).defaultFilters()
+                            selectedFilters = FiltersModel(viewType: .map, challenges: learningObjectiveStore.challenges.map({
+                                $0.ID
+                            })).defaultFilters()
                             filters = selectedFilters
                             filtered_Learning_Objectives = filterLearningObjective()
                         }
@@ -174,6 +176,13 @@ struct MapView: View {
                     }
                 }
                 return true
+            })
+            .filter({
+                if filters["Challenges"]!.contains("Any") {
+                    return true
+                } else {
+                    return $0.challengeID.contains(filters["Challenges"]!.first!)
+                }
             })
             .filter({
                 filters["Status"]!.contains("Evaluated") ? $0.eval_score.count > 0 :

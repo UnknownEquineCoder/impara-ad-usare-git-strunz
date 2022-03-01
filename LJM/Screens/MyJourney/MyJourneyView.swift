@@ -73,7 +73,7 @@ struct MyJourneyView: View {
                     }.padding(.top, 10)
                     
                     Filters(
-                        viewType: .journey,
+                        viewType: .journey, challenges: learningObjectiveStore.challenges,
                         selectedFilters: $selectedFilters,
                         onFiltersChange: { filter in
                             filters = filter
@@ -87,7 +87,9 @@ struct MyJourneyView: View {
                         .animation(.easeOut)
                         .transition(.slide)
                         .onAppear {
-                            selectedFilters = FiltersModel(viewType: .journey).defaultFilters()
+                            selectedFilters = FiltersModel(viewType: .journey, challenges: learningObjectiveStore.challenges.map({
+                                $0.ID
+                            })).defaultFilters()
                             filters = selectedFilters
                             filtered_Learning_Objectives = filterLearningObjective()
                         }
@@ -183,6 +185,13 @@ struct MyJourneyView: View {
                 return true
             })
             .filter({
+                if filters["Challenges"]!.contains("Any") {
+                    return true
+                } else {
+                    return $0.challengeID.contains(filters["Challenges"]!.first!)
+                }
+            })
+            .filter({
                 filter_Text.isEmpty ||
                 $0.goal.lowercased().contains(filter_Text.lowercased()) ||
                 $0.description.lowercased().contains(filter_Text.lowercased()) ||
@@ -196,7 +205,7 @@ struct MyJourneyView: View {
             if let filters_Array = filters["Sort By"] {
                 if let lastFilter = filters_Array.last{
                     if lastFilter == "Name" {
-                        return $0.ID > $1.ID
+                        return $0.ID < $1.ID
                     } else {
                         return  $0.eval_date.last! > $1.eval_date.last!
                     }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum FiltersView {
-    case journey, map
+    case journey, map, challenge
 }
 
 struct Filters: View {
@@ -38,11 +38,11 @@ struct Filters: View {
      */
     @Binding private var selectedFilters: Dictionary<String, Array<String>>
     
-    init(viewType: FiltersView, selectedFilters: Binding<Dictionary<String, Array<String>>>, onFiltersChange: @escaping (Dictionary<String, Array<String>>) -> ()) {
+    init(viewType: FiltersView,challenges: [Challenge], selectedFilters: Binding<Dictionary<String, Array<String>>>, onFiltersChange: @escaping (Dictionary<String, Array<String>>) -> ()) {
         self.viewType = viewType
         self._selectedFilters = selectedFilters
         self.onFiltersChange = onFiltersChange
-        self.model = FiltersModel(viewType: viewType)
+        self.model = FiltersModel(viewType: viewType, challenges: challengesArrayInIDs(challenges: challenges))
     }
     
     var body: some View {
