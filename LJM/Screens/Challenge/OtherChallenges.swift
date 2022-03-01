@@ -50,6 +50,7 @@ struct OtherChallenges: View {
 //                    backgroundColor
                     HStack{
                         Color.init(red: 60/255, green: 60/255, blue: 67/255).opacity(0.6).blur(radius: 0).frame(width: (geometry.size.width)/2,alignment:.leading)
+                            .background(Rectangle().fill(Color.clear).blur(radius: 20))
                         Spacer()
                     }
                     
