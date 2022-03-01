@@ -43,18 +43,23 @@ struct MainChallenge: View {
         }
         .background(
             GeometryReader { geometry in
-                ZStack{
+                ZStack(alignment: .leading){
                     Image("Placeholder-Hurricane")
-                                        .resizable()
-                                        .scaledToFill()
-                                        .edgesIgnoringSafeArea(.all)
-                                        .clipped()
-//                    backgroundColor
-                    HStack{
-                        Color.init(red: 60/255, green: 60/255, blue: 67/255).opacity(0.6).blur(radius: 0).frame(width: geometry.size.width/3,alignment:.leading)
-                        Spacer()
-                    }
-                    
+                        .resizable()
+                        .scaledToFill()
+                        .edgesIgnoringSafeArea(.all)
+                        .clipped()
+                        
+                    Image("Placeholder-Hurricane")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: geometry.size.width/3, alignment:.leading)
+                        .clipped()
+                        .blur(radius: 5, opaque: false)
+
+                    Color.init(red: 60/255, green: 60/255, blue: 67/255)
+                        .opacity(0.3)
+                        .frame(width: geometry.size.width/3,alignment:.leading)
                 }
             }).cornerRadius(9)
     }
