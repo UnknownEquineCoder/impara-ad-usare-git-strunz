@@ -187,6 +187,7 @@ struct LearningObjectiveJourneyCell: View {
                     Text(setupTitleProgressRubric(value: learningObj.eval_score.last ?? 0))
                         .font(.system(size: 14, weight: .medium))
                         .foregroundColor(setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand))
+                        .padding(.leading, 20)
                     Text(setupDescProgressOnRubric(value: learningObj.eval_score.last ?? 0))
                         .font(.system(size: 12, weight: .regular))
                         .foregroundColor(Color.customDarkGrey)
@@ -194,57 +195,14 @@ struct LearningObjectiveJourneyCell: View {
                         .lineLimit(nil)
                         .fixedSize(horizontal: false, vertical: true)
                         .frame(width: 200)
-                    
+                        .padding(.leading, 20)
                     
                     Spacer().frame(height: 50)
                     
-                    VStack {
-                        if #available(macOS 12.0, *) {
-                            Button(action: {
-                                showingAlert = true
-                                
-                            }) {
-                                Image(systemName: "trash")
-                                    .renderingMode(.original)
-//                                    .foregroundColor(Color.gray)
-                                    
-                            }
-                            .buttonStyle(BorderedButtonStyle())
-                            .isHidden(!(learningObj.eval_score.count > 0))
-                            .cursor(.pointingHand)
-                            .alert("Are you sure you want to remove this Learning Objective ?", isPresented: $showingAlert) {
-                                Button("No", role: .cancel) {
-                                    
-                                }
-                                
-                                Button("Yes", role: .cancel) {
-                                    let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObj.ID})!
-                                    learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
-                                    rating = 0
-                                }
-                            }
-                        } else {
-                            // Fallback on earlier versions
-                            Button(action: {
-                                let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObj.ID})!
-                                learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
-                                rating = 0
-                            }) {
-                                Image(systemName: "trash")
-                                    .renderingMode(.original)
-//                                    .foregroundColor(Color.gray)
-                                    
-                            }
-                            .buttonStyle(BorderedButtonStyle())
-                            .isHidden(!(learningObj.eval_score.count > 0))
-                            .cursor(.pointingHand)
-                        }
-                    }
                 }.frame(width: 260, height: 100, alignment: .center)
                     .isHidden(self.isAddable ? true : false)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
                     .isHidden(self.expand ? false : true)
-                
                 
                 Image(systemName: self.expand ? "chevron.up" : "chevron.down")
                     .font(.system(size: 20, weight: .bold))
@@ -252,8 +210,56 @@ struct LearningObjectiveJourneyCell: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
                     .padding(.bottom, 10)
                     .cursor(.pointingHand)
+                
+                VStack {
+                    if #available(macOS 12.0, *) {
+                        Button(action: {
+                            showingAlert = true
+                            
+                        }) {
+                            Image(systemName: "trash")
+                                .renderingMode(.original)
+//                                    .foregroundColor(Color.gray)
+                                
+                        }
+                        .buttonStyle(BorderedButtonStyle())
+                        .isHidden(!(learningObj.eval_score.count > 0))
+                        .cursor(.pointingHand)
+                        .alert("Are you sure you want to remove this Learning Objective ?", isPresented: $showingAlert) {
+                            Button("No", role: .cancel) {
+                                
+                            }
+                            
+                            Button("Yes", role: .cancel) {
+                                let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObj.ID})!
+                                learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
+                                rating = 0
+                            }
+                        }
+                    } else {
+                        // Fallback on earlier versions
+                        Button(action: {
+                            let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObj.ID})!
+                            learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
+                            rating = 0
+                        }) {
+                            Image(systemName: "trash")
+                                .renderingMode(.original)
+//                                    .foregroundColor(Color.gray)
+                                
+                        }
+                        .buttonStyle(BorderedButtonStyle())
+                        .isHidden(!(learningObj.eval_score.count > 0))
+                        .cursor(.pointingHand)
+                    }
+                }
+                .isHidden(self.isAddable ? true : false)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
+                .padding(.trailing, 106)
+                .padding(.bottom, 10)
+                .isHidden(self.expand ? false : true)
+
             }
-            
         }
         .background(Color.cellBackgroundColor)
         .cornerRadius(14)
