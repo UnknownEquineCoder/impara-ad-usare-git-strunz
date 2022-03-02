@@ -72,7 +72,7 @@ struct MapView: View {
                     }.padding(.top, 10)
                     
                     Filters(
-                        viewType: .map, challenges: learningObjectiveStore.challenges,
+                        viewType: .map, challenges: learningObjectiveStore.getChallenges(),
                         selectedFilters: $selectedFilters,
                         onFiltersChange: { filter in
                             filters = filter
@@ -86,7 +86,7 @@ struct MapView: View {
 //                        .animation(.easeOut)
 //                        .transition(.slide)
                         .onAppear {
-                            selectedFilters = FiltersModel(viewType: .map, challenges: learningObjectiveStore.challenges.map({
+                            selectedFilters = FiltersModel(viewType: .map, challenges: learningObjectiveStore.getChallenges().map({
                                 $0.ID
                             })).defaultFilters()
                             filters = selectedFilters
@@ -97,8 +97,8 @@ struct MapView: View {
                         NumberTotalLearningObjectivesView(totalLOs: self.totalNumberLearningObjectivesStore.total)
                             .padding(.top, -10)
                         
-                        Text("No learning objectives found ...")
-                            .font(.system(size: 25, weight: .semibold, design: .rounded))
+                        Text("No learning objectives found.")
+                            .font(.system(size: 25, weight: .semibold))
                             .multilineTextAlignment(.center)
                             .foregroundColor(Color.customDarkGrey)
                             .padding(.top, 75)

@@ -98,8 +98,8 @@ struct LearningGoalsView: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.top, -10)
                             
-                            Text("No learning objectives found ...")
-                                .font(.system(size: 25, weight: .semibold, design: .rounded))
+                            Text("No learning objectives found.")
+                                .font(.system(size: 25, weight: .semibold))
                                 .multilineTextAlignment(.center)
                                 .foregroundColor(Color.customDarkGrey)
                                 .padding(.top, 75)
@@ -109,7 +109,7 @@ struct LearningGoalsView: View {
                             
                         }.frame(maxWidth: .infinity)
                     }
-                    .padding(.top,20)
+                    .padding(.top,fullScreen == true ? 20 : 35)
                     .id(0)
                     .frame(maxWidth: .infinity)
                         .background(

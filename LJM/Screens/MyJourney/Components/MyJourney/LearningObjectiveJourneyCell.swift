@@ -163,7 +163,7 @@ struct LearningObjectiveJourneyCell: View {
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     HStack(spacing: 10) {
                                         if learningObj.eval_score.isEmpty {
-                                            Text("This Learning Objective has never been assessed...")
+                                            Text("This Learning Objective has never been assessed.")
                                                 .foregroundColor(Color.customDarkGrey)
                                                 .font(.system(size: 17, weight: .light))
                                         }

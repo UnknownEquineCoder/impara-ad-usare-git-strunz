@@ -28,14 +28,14 @@ struct OtherChallenges: View {
                     .padding(.bottom, 6)
                 Text("\(challenge.start_Date) - \(challenge.end_Date)")
                     .fontWeight(.semibold)
-                    .foregroundColor(Color.descriptionTextColor)
+                    .foregroundColor(Color.white)
                     .font(.subheadline)
                     .padding(.bottom, 10)
             }
             .padding(.top, 19)
             .padding(.bottom, 50)
 //            .frame(width: 400)
-            .padding(.leading, 32)
+            .padding(.leading, 27)
             
             Spacer()
         }
