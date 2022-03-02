@@ -235,8 +235,8 @@ struct ListViewLearningObjectiveMyJourney: View {
     var body: some View {
         ZStack(alignment: .top) {
             
-            Text("No learning objectives found ...")
-                .font(.system(size: 25, weight: .semibold, design: .rounded))
+            Text("No learning objectives found.")
+                .font(.system(size: 25, weight: .semibold))
                 .multilineTextAlignment(.center)
                 .foregroundColor(Color.customDarkGrey)
                 .padding(.top, 20)

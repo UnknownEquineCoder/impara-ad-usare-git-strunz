@@ -97,8 +97,8 @@ struct MapView: View {
                         NumberTotalLearningObjectivesView(totalLOs: self.totalNumberLearningObjectivesStore.total)
                             .padding(.top, -10)
                         
-                        Text("No learning objectives found ...")
-                            .font(.system(size: 25, weight: .semibold, design: .rounded))
+                        Text("No learning objectives found.")
+                            .font(.system(size: 25, weight: .semibold))
                             .multilineTextAlignment(.center)
                             .foregroundColor(Color.customDarkGrey)
                             .padding(.top, 75)
