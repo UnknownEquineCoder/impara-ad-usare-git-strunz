@@ -152,11 +152,11 @@ struct CoreRadarChart: View {
                 CoreRadarChartGrid(categories: data_Front_Array.count, divisions: 3, size: geo.size.width)
                     .stroke(gridColor, lineWidth: 1.toScreenSize())
                 
-                CoreRadarCompositeGrid(size: geo.size.width, data: data_Front_Array, b_color: Color.back_graph, f_color: RadialGradient.backGraph(size: geo.size.width), max: CGFloat(60))
+                CoreRadarCompositeGrid(size: geo.size.width, data: data_Front_Array, b_color: colorScheme == .dark ? Color.back_graph_dark_mode : Color.back_graph_light_mode, f_color: colorScheme == .dark ? RadialGradient.backGraphDarkMode(size: geo.size.width) : RadialGradient.backGraphLightMode(size: geo.size.width), max: CGFloat(60))
                     .scaleEffect(animation_Trigger ? 1 : 0, anchor: .center)
                     .animation(.easeInOut(duration: 0.25))
 
-                CoreRadarCompositeGrid(size: geo.size.width, data: data_Back_Array, b_color: Color.front_graph, f_color: RadialGradient.frontGraph(size: geo.size.width), max: CGFloat(60))
+                CoreRadarCompositeGrid(size: geo.size.width, data: data_Back_Array, b_color: colorScheme == .dark ? Color.front_graph_dark_mode : Color.front_graph_light_mode, f_color: colorScheme == .dark ? RadialGradient.frontGraphDarkMode(size: geo.size.width) : RadialGradient.frontGraphLightMode(size: geo.size.width), max: CGFloat(60))
                     
             }
         }

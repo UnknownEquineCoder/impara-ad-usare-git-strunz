@@ -9,10 +9,11 @@ import Foundation
 import SwiftUI
 
 struct LegendView: View{
+    @Environment(\.colorScheme) var colorScheme
     var body: some View{
         HStack{
             RoundedRectangle(cornerRadius: 10, style: .continuous)
-                .fill(Color(red: 6/255, green: 153/255, blue: 146/255))
+                .fill(colorScheme == .dark ? Color.front_graph_dark_mode : Color.front_graph_light_mode)
                 .frame(width: 18.toScreenSize(), height: 14.toScreenSize())
             Text("My progress")
                 .fontWeight(.light)
@@ -20,7 +21,7 @@ struct LegendView: View{
             Spacer()
             
             RoundedRectangle(cornerRadius: 10, style: .continuous)
-                .fill(Color(red: 120/255, green: 224/255, blue: 144/255))
+                .fill(colorScheme == .dark ? Color.back_graph_dark_mode : Color.back_graph_light_mode)
                 .frame(width: 18.toScreenSize(), height: 14.toScreenSize())
             Text("Expectations")
                 .fontWeight(.light)

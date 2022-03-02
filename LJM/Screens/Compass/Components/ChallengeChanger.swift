@@ -11,6 +11,7 @@ import SwiftUI
 struct ChallengeChanger: View {
     @Binding var selectedIndex : Int
     let challenges : [Challenge]
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         HStack{
@@ -20,7 +21,7 @@ struct ChallengeChanger: View {
                 }
             }) {
                 Image(systemName: "chevron.backward")
-                    .foregroundColor(Color.white)
+                    .foregroundColor(colorScheme == .dark ? .white : .black)
             }
             .disabled(selectedIndex == 0)
             Button(action: {
@@ -31,7 +32,7 @@ struct ChallengeChanger: View {
                 }
             }) {
                 Text("\(challenges[selectedIndex].ID)")
-                    .foregroundColor(Color.white)
+                    .foregroundColor(colorScheme == .dark ? .white : .black)
             }
             .disabled(true)
             Button(action: {
@@ -40,7 +41,7 @@ struct ChallengeChanger: View {
                 }
             }) {
                 Image(systemName: "chevron.right")
-                    .foregroundColor(Color.white)
+                    .foregroundColor(colorScheme == .dark ? .white : .black)
             }
             .disabled(selectedIndex == challenges.count - 1)
         }
@@ -51,4 +52,3 @@ struct ChallengeChanger: View {
             ChallengeChanger(selectedIndex: .constant(0), challenges: [])
         }
     }
-}

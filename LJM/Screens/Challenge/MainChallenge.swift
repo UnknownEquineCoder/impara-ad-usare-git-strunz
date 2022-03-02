@@ -30,7 +30,7 @@ struct MainChallenge: View {
                     .padding(.bottom, 6)
                 Text("\(challenge.start_Date) - \(challenge.end_Date)")
                     .fontWeight(.semibold)
-                    .foregroundColor(Color.descriptionTextColor)
+                    .foregroundColor(Color.white)
                     .font(.subheadline)
                     .padding(.bottom, 10)
             }
@@ -76,50 +76,4 @@ struct MainChallenge_Previews: PreviewProvider {
     }
 }
 
-//struct VisualEffectView: NSViewRepresentable
-//{
-//    let material: NSVisualEffectView.Material
-//    let blendingMode: NSVisualEffectView.BlendingMode
-//
-//    func makeNSView(context: Context) -> NSVisualEffectView
-//    {
-//        let visualEffectView = NSVisualEffectView()
-//        visualEffectView.material = material
-//        visualEffectView.blendingMode = blendingMode
-//        visualEffectView.state = NSVisualEffectView.State.active
-//        return visualEffectView
-//    }
-//
-//    func updateNSView(_ visualEffectView: NSVisualEffectView, context: Context)
-//    {
-//        visualEffectView.material = material
-//        visualEffectView.blendingMode = blendingMode
-//    }
-//}
 
-
-public struct VisualEffectView: NSViewRepresentable {
-    let material: NSVisualEffectView.Material
-    let blendingMode: NSVisualEffectView.BlendingMode
-
-    public init(
-        material: NSVisualEffectView.Material = .contentBackground,
-        blendingMode: NSVisualEffectView.BlendingMode = .withinWindow
-    ) {
-        self.material = material
-        self.blendingMode = blendingMode
-    }
-
-    public func makeNSView(context: Context) -> NSVisualEffectView {
-        let visualEffectView = NSVisualEffectView()
-        visualEffectView.material = material
-        visualEffectView.blendingMode = blendingMode
-        visualEffectView.state = NSVisualEffectView.State.active
-        return visualEffectView
-    }
-
-    public func updateNSView(_ visualEffectView: NSVisualEffectView, context: Context) {
-        visualEffectView.material = material
-        visualEffectView.blendingMode = blendingMode
-    }
-}
