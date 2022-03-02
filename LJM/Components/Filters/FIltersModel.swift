@@ -45,8 +45,7 @@ class FiltersModel: ObservableObject {
                 FiltersModelData(kind: "Path",
                                  isSingleSelection: true,
                                  initialSelectedFilter: 0,
-                                 types: ["Any", "UI/UX", "Frontend", "Backend", "Game Design", "Game Development",
-                                         "Business/Entrepreneuship", "Project/Product Manager"]),
+                                 types: ["Any", "Backend", "Business", "Design", "Frontend", "Game Design", "Game Developer","Project Management"]),
                 FiltersModelData(kind: "Challenges",
                                  isSingleSelection: true,
                                  initialSelectedFilter: 0,
@@ -76,8 +75,7 @@ class FiltersModel: ObservableObject {
                 FiltersModelData(kind: "Path",
                                  isSingleSelection: true,
                                  initialSelectedFilter: 0,
-                                 types: ["Any", "UI/UX", "Frontend", "Backend", "Game Design", "Game Development",
-                                         "Business/Entrepreneuship", "Project/Product Manager"]),
+                                 types: ["Any", "Backend", "Business", "Design", "Frontend", "Game Design", "Game Developer","Project Management"]),
                 FiltersModelData(kind: "Challenges",
                                  isSingleSelection: true,
                                  initialSelectedFilter: 0,
@@ -102,8 +100,7 @@ class FiltersModel: ObservableObject {
                 FiltersModelData(kind: "Path",
                                  isSingleSelection: true,
                                  initialSelectedFilter: 0,
-                                 types: ["Any", "UI/UX", "Frontend", "Backend", "Game Design", "Game Development",
-                                         "Business/Entrepreneuship", "Project/Product Manager"])
+                                 types: ["Any", "Backend", "Business", "Design", "Frontend", "Game Design", "Game Developer","Project Management"])
             ]
         }
     }

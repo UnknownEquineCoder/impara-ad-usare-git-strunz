@@ -409,10 +409,10 @@
 		E0267EFC27BA5DD60094DA17 /* Challenge */ = {
 			isa = PBXGroup;
 			children = (
+				E052188E27BD31C6008CBA14 /* ChallengeMainView.swift */,
 				E0267EFD27BA5DF40094DA17 /* ChallengeView.swift */,
 				E0267EFF27BA5E100094DA17 /* MainChallenge.swift */,
 				E0267F0127BA5E1E0094DA17 /* OtherChallenges.swift */,
-				E052188E27BD31C6008CBA14 /* ChallengeMainView.swift */,
 				E052189027BD38EC008CBA14 /* SpecificChallengeView.swift */,
 			);
 			path = Challenge;
