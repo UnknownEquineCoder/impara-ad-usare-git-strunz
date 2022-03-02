@@ -64,6 +64,8 @@ struct CompassView: View {
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     @EnvironmentObject var strandsStore: StrandsStore
     
+    @State var selectedChallengeIndex : Int = 0
+    
     var body: some View {
             ScrollView(showsIndicators: false) {
                 
@@ -87,15 +89,31 @@ struct CompassView: View {
                         self.offset = element
                     }
                 }
-                ChallengeChanger()
-//                DatePickerView(pickerDate: $selected_Date)
-                    .environment(\.locale, Locale(identifier: "en"))
-                    .padding(.top, 7.toScreenSize())
-                    .onChange(of: selected_Date) { date in
-                        bars_For_Path_Selected()
-                        dark_Path_Datas()
-                        dark_Core_Datas()
-                    }
+                
+                if learningObjectiveStore.getChallenges().count > 0 {
+                    ChallengeChanger(selectedIndex: $selectedChallengeIndex,
+                                     challenges: learningObjectiveStore.getChallenges())
+    //                DatePickerView(pickerDate: $selected_Date)
+                        .environment(\.locale, Locale(identifier: "en"))
+                        .padding(.top, 7.toScreenSize())
+                        .onChange(of: selectedChallengeIndex) { newIndex in
+                            if let newDate = getEndDate(challenge: learningObjectiveStore.getChallenges()[newIndex]) {
+                                selected_Date = newDate
+                            }
+                            
+                            bars_For_Path_Selected()
+                            dark_Path_Datas()
+                            dark_Core_Datas()
+                        }
+                        .onAppear {
+                            if learningObjectiveStore.getChallenges().count - 1 >= 0 {
+                                selectedChallengeIndex = learningObjectiveStore.getChallenges().count - 1
+                            } else {
+                                selectedChallengeIndex = 0
+                            }
+                        }
+                }
+                
                 
                 HStack{
                     InfoButton(title: "Spider Graphs: ", textBody: "The Communal graph shows progress based on the pathway all the students at the Academy have to take, while the Your Journey graph shows progress based on the specific pathway you decide to take, along with the Communal one.\n\nDepending on the Communal Expectation, the “Expectation” overlay shows you the basic progress level the Academy would like you to reach; “Your Progress”, instead, shows you the progress related to the path you decided to take.", heightCell: 241).cursor(.pointingHand)
@@ -246,7 +264,7 @@ struct CompassView: View {
         }
         
         for learning_Objective in learning_Objectives {
-            
+             
             let data_Filtered_Index = closestMatch(values: learning_Objective.eval_date, inputValue: selected_Date)
             
             

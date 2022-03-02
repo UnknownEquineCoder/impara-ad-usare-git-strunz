@@ -73,7 +73,7 @@ struct MyJourneyView: View {
                     }.padding(.top, 10)
                     
                     Filters(
-                        viewType: .journey, challenges: learningObjectiveStore.challenges,
+                        viewType: .journey, challenges: learningObjectiveStore.getChallenges(),
                         selectedFilters: $selectedFilters,
                         onFiltersChange: { filter in
                             filters = filter
@@ -87,7 +87,7 @@ struct MyJourneyView: View {
                         .animation(.easeOut)
                         .transition(.slide)
                         .onAppear {
-                            selectedFilters = FiltersModel(viewType: .journey, challenges: learningObjectiveStore.challenges.map({
+                            selectedFilters = FiltersModel(viewType: .journey, challenges: learningObjectiveStore.getChallenges().map({
                                 $0.ID
                             })).defaultFilters()
                             filters = selectedFilters

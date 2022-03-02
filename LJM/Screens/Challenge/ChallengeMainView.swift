@@ -25,7 +25,7 @@ struct ChallengeMainView: View {
             
             
             if isViewSelected {
-                SpecificChallengeView(challenge: $selectedChallenge, isViewSelected: $isViewSelected, challenges: learningObjectiveStore.challenges, filtered_Learning_Objectives: learningObjectiveStore.learningObjectives.filter({
+                SpecificChallengeView(challenge: $selectedChallenge, isViewSelected: $isViewSelected, challenges: learningObjectiveStore.getChallenges(), filtered_Learning_Objectives: learningObjectiveStore.learningObjectives.filter({
                     if let challenge = selectedChallenge {
                         return $0.challengeID.contains(challenge.ID)
                     }

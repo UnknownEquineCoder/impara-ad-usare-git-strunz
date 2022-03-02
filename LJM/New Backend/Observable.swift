@@ -73,6 +73,24 @@ class LearningObjectivesStore: ObservableObject {
         
     }
     
+    
+    func getChallenges() -> [Challenge] {
+        
+        var returnChallenges : [Challenge] = []
+        
+        for challenge in challenges {
+            if let challengeStartDate = getDate(challenge: challenge){
+                if challengeStartDate < Date(){
+                    returnChallenges.append(challenge)
+                } else {
+                    return returnChallenges
+                }
+            }
+        }
+        
+        return returnChallenges
+    }
+    
     func load_Status(objectives: FetchedResults<EvaluatedObject>){
         
         /// core data implementation
@@ -184,16 +202,7 @@ class LearningObjectivesStore: ObservableObject {
                                          start_Date: learning_Challenges[2],
                                          end_Date: learning_Challenges[3])
             
-            if let challengeStartDate = getDate(challenge: newChallenge){
-                if challengeStartDate < Date(){
-                    challenges.append(newChallenge)
-                } else {
-                    return
-                }
-                
-            }
-
-            
+            challenges.append(newChallenge)
         }
         
     }
@@ -310,4 +319,12 @@ func getDate(challenge : Challenge) -> Date? {
     dateFormatter.timeZone = TimeZone.current
     dateFormatter.locale = Locale.current
     return dateFormatter.date(from: challenge.start_Date) // replace Date String
+}
+
+func getEndDate(challenge : Challenge) -> Date? {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "dd/MM/yy"
+    dateFormatter.timeZone = TimeZone.current
+    dateFormatter.locale = Locale.current
+    return dateFormatter.date(from: challenge.end_Date)
 }

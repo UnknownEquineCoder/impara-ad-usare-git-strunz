@@ -9,33 +9,46 @@ import Foundation
 import SwiftUI
 
 struct ChallengeChanger: View {
-
+    @Binding var selectedIndex : Int
+    let challenges : [Challenge]
+    
     var body: some View {
         HStack{
             Button(action: {
-                            print("do something")
-                        }) {
-                            Image(systemName: "chevron.backward")
-                            .foregroundColor(Color.white)
-                        }
+                if selectedIndex > 0 {
+                    selectedIndex -= 1
+                }
+            }) {
+                Image(systemName: "chevron.backward")
+                    .foregroundColor(Color.white)
+            }
+            .disabled(selectedIndex == 0)
             Button(action: {
-                            print("do something")
-                        }) {
-                            Text("NC1")
-                           .foregroundColor(Color.white)
-                        }
+                if challenges.count > 0 {
+                    selectedIndex = challenges.count - 1
+                } else {
+                    selectedIndex = 0
+                }
+            }) {
+                Text("\(challenges[selectedIndex].ID)")
+                    .foregroundColor(Color.white)
+            }
+            .disabled(true)
             Button(action: {
-                            print("do something")
-                        }) {
-                            Image(systemName: "chevron.right")
-                            .foregroundColor(Color.white)
-                        }
+                if selectedIndex < challenges.count - 1 {
+                    selectedIndex += 1
+                }
+            }) {
+                Image(systemName: "chevron.right")
+                    .foregroundColor(Color.white)
+            }
+            .disabled(selectedIndex == challenges.count - 1)
+        }
     }
-}
-
-struct ChallengeChanger_Previews: PreviewProvider {
-    static var previews: some View {
-        ChallengeChanger()
+    
+    struct ChallengeChanger_Previews: PreviewProvider {
+        static var previews: some View {
+            ChallengeChanger(selectedIndex: .constant(0), challenges: [])
+        }
     }
-}
 }
