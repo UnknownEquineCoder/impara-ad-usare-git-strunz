@@ -28,7 +28,7 @@ struct OtherChallenges: View {
                     .padding(.bottom, 6)
                 Text("\(challenge.start_Date) - \(challenge.end_Date)")
                     .fontWeight(.semibold)
-                    .foregroundColor(Color.descriptionTextColor)
+                    .foregroundColor(Color.white)
                     .font(.subheadline)
                     .padding(.bottom, 10)
             }

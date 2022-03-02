@@ -9,26 +9,27 @@ import Foundation
 import SwiftUI
 
 struct ChallengeChanger: View {
-
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
         HStack{
             Button(action: {
                             print("do something")
                         }) {
                             Image(systemName: "chevron.backward")
-                            .foregroundColor(Color.white)
+                                .foregroundColor(colorScheme == .dark ? .white : .black)
                         }
             Button(action: {
                             print("do something")
                         }) {
                             Text("NC1")
-                           .foregroundColor(Color.white)
-                        }
+                                .foregroundColor(colorScheme == .dark ? .white : .black)
+                        }.disabled(true)
             Button(action: {
                             print("do something")
                         }) {
                             Image(systemName: "chevron.right")
-                            .foregroundColor(Color.white)
+                                .foregroundColor(colorScheme == .dark ? .white : .black)
                         }
     }
 }
