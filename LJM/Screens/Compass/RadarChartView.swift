@@ -117,22 +117,36 @@ struct RadarChartPath: Shape {
 
 
 extension RadialGradient {
-    static func frontGraph(size: CGFloat) -> RadialGradient  {
-        let colors = Gradient(colors: [Color(red: 57/255, green: 172/255, blue: 169/255, opacity: 0.8), Color(red: 6/255, green: 153/255, blue: 146/255, opacity: 1)])
+    static func frontGraphDarkMode(size: CGFloat) -> RadialGradient  {
+        let colors = Gradient(colors: [Color(red: 102/255, green: 212/255, blue: 207/255, opacity: 0.5), Color(red: 102/255, green: 212/255, blue: 207/255, opacity: 1)])
         
         return RadialGradient(gradient: colors, center: .center, startRadius: 50, endRadius: size/2)
     }
     
-    static func backGraph(size: CGFloat) -> RadialGradient  {
-        let colors = Gradient(colors: [Color(red: 183/255, green: 232/255, blue: 148/255, opacity: 0.3), Color(red: 120/255, green: 224/255, blue: 144/255, opacity: 0.6)])
+    static func frontGraphLightMode(size: CGFloat) -> RadialGradient  {
+        let colors = Gradient(colors: [Color(red: 0/255, green: 199/255, blue: 197/255, opacity: 0.5), Color(red: 0/255, green: 199/255, blue: 197/255, opacity: 1)])
+        
+        return RadialGradient(gradient: colors, center: .center, startRadius: 50, endRadius: size/2)
+    }
+    
+    static func backGraphDarkMode(size: CGFloat) -> RadialGradient  {
+        let colors = Gradient(colors: [Color(red: 152/255, green: 152/255, blue: 157/255, opacity: 0.3), Color(red: 152/255, green: 152/255, blue: 157/255, opacity: 1)])
+        
+        return RadialGradient(gradient: colors, center: .center, startRadius: 50, endRadius: size/2)
+    }
+    
+    static func backGraphLightMode(size: CGFloat) -> RadialGradient  {
+        let colors = Gradient(colors: [Color(red: 142/255, green: 142/255, blue: 147/255, opacity: 0.2), Color(red: 142/255, green: 142/255, blue: 147/255, opacity: 0.5)])
         
         return RadialGradient(gradient: colors, center: .center, startRadius: 50, endRadius: size/2)
     }
 }
 
 extension Color {
-    static let back_graph: Color = Color(red: 120/255, green: 224/255, blue: 144/255)
-    static let front_graph: Color = Color(red: 104/255, green: 194/255, blue: 189/255)
+    static let back_graph_dark_mode: Color = Color(red: 152/255, green: 152/255, blue: 157/255)
+    static let front_graph_dark_mode: Color = Color(red: 102/255, green: 212/255, blue: 207/255)
+    static let back_graph_light_mode: Color = Color(red: 142/255, green: 142/255, blue: 147/255)
+    static let front_graph_light_mode: Color = Color(red: 0/255, green: 199/255, blue: 197/255)
 }
 
 struct RadarCompositeGrid: View {
@@ -172,11 +186,11 @@ struct RadarChart: View {
                 RadarChartGrid(categories: data_Front_Array.count, divisions: 5, size: geo.size.width)
                     .stroke(gridColor, lineWidth: 1.toScreenSize())
                 
-                RadarCompositeGrid(size: geo.size.width, data: data_Front_Array, b_color: Color.back_graph, f_color: RadialGradient.backGraph(size: geo.size.width), max: CGFloat(100))
+                RadarCompositeGrid(size: geo.size.width, data: data_Front_Array, b_color: colorScheme == .dark ? Color.back_graph_dark_mode : Color.back_graph_light_mode, f_color: colorScheme == .dark ? RadialGradient.backGraphDarkMode(size: geo.size.width) : RadialGradient.backGraphLightMode(size: geo.size.width), max: CGFloat(100))
                     .scaleEffect(animation_Trigger ? 1 : 0, anchor: .center)
                     .animation(.easeInOut(duration: 0.25))
 
-                RadarCompositeGrid(size: geo.size.width, data: data_Back_Array, b_color: Color.front_graph, f_color: RadialGradient.frontGraph(size: geo.size.width), max: CGFloat(100))
+                RadarCompositeGrid(size: geo.size.width, data: data_Back_Array, b_color: colorScheme == .dark ? Color.front_graph_dark_mode : Color.front_graph_light_mode, f_color: colorScheme == .dark ? RadialGradient.frontGraphDarkMode(size: geo.size.width) : RadialGradient.frontGraphLightMode(size: geo.size.width), max: CGFloat(100))
                     .scaleEffect(animation_Trigger ? 1 : 0, anchor: .center)
                     .animation(.easeInOut(duration: 0.25))
             }
