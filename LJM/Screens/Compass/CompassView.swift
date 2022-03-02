@@ -209,7 +209,7 @@ struct CompassView: View {
                 }
             }
             .padding(.top, fullScreen == true ? 60 : 0)
-            .padding(.leading, 70).padding(.trailing, 50)
+            .padding(.leading, 50).padding(.trailing, 50)
             
             if(toggleFilters ? offset > 475 : offset > 200) {
                 Topbar(title: "Compass", filters: selectedFilters, fromCompass: true, scrollTarget: $scrollTarget, toggleFilters: $toggleFilters)
