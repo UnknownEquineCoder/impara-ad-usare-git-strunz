@@ -69,8 +69,7 @@ struct StartView: View {
                         .padding(.trailing,-15)
                 } 
             }
-//            .padding(.top, fullScreen == true ? 70 : 20)
-            .padding(.top, 20)
+            .padding(.top, fullScreen == true ? 70 : 20)
             .frame(width: 200)
             
             if isLoading {
