@@ -124,8 +124,7 @@ struct SpecificChallengeView: View {
                         }
                 }.padding(.leading, 50).padding(.trailing, 50)
             }
-            .padding(.top, fullScreen == true ? 60 : 0)
-            
+            .padding(.top, fullScreen == true ? 60 : 20)
             
             VStack{
                 TopbarWithBack(title: .constant(challenge!.name), filters: selectedFilters, scrollTarget: $isForceScrollUp, toggleFilters: $toggleFilters, isFilterShown: $isFilterShown, isViewSelected: $isViewSelected)

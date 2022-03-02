@@ -126,7 +126,7 @@ struct LearningGoalsView: View {
                         }
                 }.padding(.leading, 50).padding(.trailing, 50)
             }
-            .padding(.top, fullScreen == true ? 60 : 0)
+            .padding(.top, fullScreen == true ? 60 : 20)
             
             
             VStack{
