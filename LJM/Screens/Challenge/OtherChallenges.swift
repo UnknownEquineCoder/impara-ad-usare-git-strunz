@@ -35,7 +35,7 @@ struct OtherChallenges: View {
             .padding(.top, 19)
             .padding(.bottom, 50)
 //            .frame(width: 400)
-            .padding(.leading, 32)
+            .padding(.leading, 27)
             
             Spacer()
         }

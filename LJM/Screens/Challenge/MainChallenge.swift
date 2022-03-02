@@ -34,7 +34,7 @@ struct MainChallenge: View {
                     .font(.subheadline)
                     .padding(.bottom, 10)
             }
-            .frame(width: 288)
+//            .frame(width: 288)
             .padding(.top, 86)
             .padding(.bottom, 81 + 56)
             .padding(.leading, 27)
