@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RatingView: View {
-
+    
     var strandColor: Color
     var learningObj: learning_Objective
     @Environment(\.colorScheme) var colorScheme
@@ -49,15 +49,15 @@ struct RatingView: View {
                                     self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.remove(at: to_Delete)
                                 }
                                 
-                                    self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.append(number)
-                                    self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.append(new_Date)
-                                    
+                                self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.append(number)
+                                self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.append(new_Date)
+                                
                                 if learningObjectiveStore.isSavable {
                                     PersistenceController.shared.evalutate_Learning_Objective(l_Objective: self.learningObjectiveStore.learningObjectives[learningObjectiveIndex])
                                 }
                             }
-                                
-                                
+                            
+                            
                             
                         }
                         .frame(width: 30, height: 30, alignment: .center)
@@ -98,6 +98,7 @@ struct CircleView: View {
     
     @State var hovered = false
     @State private var showingPopup:Bool = false
+    @State var isHover = false
     
     @State var learningObj: learning_Objective
     
@@ -113,66 +114,73 @@ struct CircleView: View {
                 .popover(isPresented: $hovered) {
                     PopOverViewRating(strandColor: strandColor, status: setupTitleProgressRubric(value: number), desc: setupDescProgressOnRubric(value: number))
                 }
-                
+            
             Circle()
                 .strokeBorder(number > rating ? (hovered ? Color.defaultColor : Color.circleStrokeColor) : Color.clear, lineWidth: 2)
                 .background(Circle().foregroundColor(number > rating ? Color.cellBackgroundColor : strandColor))
                 .frame(width: 30, height: 30)
                 .onHover { hover in
                     if hover {
-                        self.hovered = true
-                        self.showingPopup = true
-                    } else {
-                        self.hovered = false
-                        self.showingPopup = false
+                            isHover = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            if isHover {
+                                self.hovered = true
+                                self.showingPopup = true
+                            
+                        }
                     }
+                } else {
+                    isHover = false
+                    self.hovered = false
+                    self.showingPopup = false
                 }
         }
     }
-    
-    func setupTitleProgressRubric(value: Int) -> String {
-        switch value {
-        case 0:
-            return ""
-        case 1:
-            return "NOT EVALUATED"
-        case 2:
-            return "BEGINNING"
-        case 3:
-            return "PROGRESSING"
-        case 4:
-            return "PROFICIENT"
-        case 5:
-            return "EXEMPLARY"
-            
-        default:
-            return ""
-            
-        }
+}
+
+func setupTitleProgressRubric(value: Int) -> String {
+    switch value {
+    case 0:
+        return ""
+    case 1:
+        return "NOT EVALUATED"
+    case 2:
+        return "BEGINNING"
+    case 3:
+        return "PROGRESSING"
+    case 4:
+        return "PROFICIENT"
+    case 5:
+        return "EXEMPLARY"
+        
+    default:
+        return ""
+        
     }
-    
-    func setupDescProgressOnRubric(value: Int) -> String {
-        switch value {
-        case 0:
-            return ""
-        case 1:
-            return "The LO has been added to your Journey but you have not evaluated yourself."
-        case 2:
-            return "You have been exposed to the content within the learning objective."
-        case 3:
-            return "You can understand and apply concepts with assistance."
-        case 4:
-            return "You understand the concepts, can analyze and evaluate when to use them and can apply them independently."
-        case 5:
-            return "You are a confident and creative learner of the concept and can serve as a guiding resource to others."
-            
-        default:
-            return ""
-            
-        }
+}
+
+func setupDescProgressOnRubric(value: Int) -> String {
+    switch value {
+    case 0:
+        return ""
+    case 1:
+        return "The LO has been added to your Journey but you have not evaluated yourself."
+    case 2:
+        return "You have been exposed to the content within the learning objective."
+    case 3:
+        return "You can understand and apply concepts with assistance."
+    case 4:
+        return "You understand the concepts, can analyze and evaluate when to use them and can apply them independently."
+    case 5:
+        return "You are a confident and creative learner of the concept and can serve as a guiding resource to others."
+        
+    default:
+        return ""
+        
     }
-    
-    
+}
+
+
 }
 
 struct PopOverViewRating: View {
