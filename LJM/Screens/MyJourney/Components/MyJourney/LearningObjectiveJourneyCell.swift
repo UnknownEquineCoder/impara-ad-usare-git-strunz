@@ -183,7 +183,10 @@ struct LearningObjectiveJourneyCell: View {
                 }
                 
                 VStack(alignment: .center, spacing: 5) {
-                    Spacer().frame(height: 300)
+                    
+                    Spacer().frame(height: learningObj.Keyword.count > 13 ? 350 : 250)
+
+                    
                     Text(setupTitleProgressRubric(value: learningObj.eval_score.last ?? 0))
                         .font(.system(size: 14, weight: .medium))
                         .foregroundColor(setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand))

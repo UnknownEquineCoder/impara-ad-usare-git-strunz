@@ -49,7 +49,8 @@ struct SpecificChallengeView: View {
                             
                             Spacer()
                             HStack{
-                                Text("Filter").font(.system(size: 20))
+                                Text("Filters \(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == nil || getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == 0 ? "" : "(\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count != 1 ? ("\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count)") : "\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).first ?? "")"))")")
+                                    .font(.system(size: 20))
                                 Image(systemName: toggleFilters ? "chevron.up" : "chevron.down")
                                     .font(.system(size: 20))
                             }.background(Color.gray.opacity(0.001))
@@ -126,15 +127,24 @@ struct SpecificChallengeView: View {
             }
             .padding(.top, fullScreen == true ? 60 : 20)
             
-            VStack{
-                TopbarWithBack(title: .constant(challenge!.name), filters: selectedFilters, scrollTarget: $isForceScrollUp, toggleFilters: $toggleFilters, isFilterShown: $isFilterShown, isViewSelected: $isViewSelected)
+            VStack {
+                TopbarWithBack(title: .constant("\(challenge!.ID) - " + challenge!.name), filters: selectedFilters, scrollTarget: $isForceScrollUp, toggleFilters: $toggleFilters, isFilterShown: $isFilterShown, isViewSelected: $isViewSelected)
                 
                 Spacer()
             }
         }
+    }
+    
+    func getNumberOfFilters(filters: Dictionary<String, Array<String>>) -> [String] {
         
+        let values = filters.map {$0.value}
+        var arrayValues = [String]()
         
-        
+        for value in values {
+            arrayValues.append(contentsOf: value)
+        }
+                
+        return arrayValues
     }
     
     func filterLearningObjective() -> [learning_Objective]{
