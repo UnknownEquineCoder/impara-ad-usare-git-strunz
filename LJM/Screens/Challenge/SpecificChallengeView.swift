@@ -107,7 +107,7 @@ struct SpecificChallengeView: View {
                             
                         }.frame(maxWidth: .infinity)
                     }
-                    .padding(.top,20)
+                    .padding(.top,fullScreen == true ? 20 : 35)
                     .id(0)
                     .frame(maxWidth: .infinity)
                         .background(
