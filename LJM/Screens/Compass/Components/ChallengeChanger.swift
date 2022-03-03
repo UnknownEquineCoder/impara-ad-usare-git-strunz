@@ -46,6 +46,7 @@ struct ChallengeChanger: View {
             .disabled(selectedIndex == challenges.count - 1)
         }
     }
+}
     
     struct ChallengeChanger_Previews: PreviewProvider {
         static var previews: some View {

@@ -164,7 +164,6 @@ class PersistenceController {
             
             for objective in fetched_Data {
                 if objective.id == oldID {
-                    print("@@@@ Something")
                     // assigning to the new object the values that it will have
                     evalDates = objective.eval_Dates!
                     evalScores = objective.eval_Scores!
