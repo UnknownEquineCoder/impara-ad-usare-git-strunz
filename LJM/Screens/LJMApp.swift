@@ -197,6 +197,7 @@ struct LJMApp: App {
     }
     
     func createExportDate() -> String {
+        
         var data_To_Save = ""
         let evaluated_Learning_Objectives = learningObjectiveStore.learningObjectives.filter({$0.eval_score.count > 0})
         
@@ -220,6 +221,7 @@ struct LJMApp: App {
         exportFile.toggle()
         
         return data_To_Save
+        
     }
     
     func sendToDropbox() -> Data?{
