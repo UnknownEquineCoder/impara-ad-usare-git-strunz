@@ -10,7 +10,7 @@ import SwiftUI
 struct ScrollViewLearningObjectives: View {
     @Environment(\.colorScheme) var colorScheme
     
-    @Binding var learningPathSelected : String?
+    var learningPathSelected : String?
     
     var isAddable = false
     var isLearningGoalAdded: Bool?
@@ -29,7 +29,7 @@ struct ScrollViewLearningObjectives: View {
                         filter_Text: $textFromSearchBar,
                         isAddable: isAddable,
                         isLearningGoalAdded: isLearningGoalAdded == nil ? nil : (isLearningGoalAdded ?? false && item.eval_score.count > 0),
-                        learningPathSelected: self.$learningPathSelected,
+                        learningPathSelected: learningPathSelected,
                         learningObj: item)
                 }
             }
@@ -47,7 +47,7 @@ struct ScrollViewLearningObjectives: View {
                         filter_Text: $textFromSearchBar,
                         isAddable: isAddable,
                         isLearningGoalAdded: isLearningGoalAdded == nil ? nil : (isLearningGoalAdded ?? false && item.eval_score.count > 0),
-                        learningPathSelected: self.$learningPathSelected,
+                        learningPathSelected: learningPathSelected,
                         learningObj: item)
                 }
                 .frame(minHeight: 600, maxHeight: .infinity)

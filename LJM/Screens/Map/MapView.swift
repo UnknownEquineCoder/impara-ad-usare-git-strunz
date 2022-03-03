@@ -105,7 +105,7 @@ struct MapView: View {
                             .padding(.top, 75)
                             .isHidden(self.totalNumberLearningObjectivesStore.total == 0 ? false : true)
                         
-                        ScrollViewLearningObjectives(learningPathSelected: $selectedPath, isAddable: true, isLearningGoalAdded: nil, textFromSearchBar: $searchText, filtered_Learning_Objectives: $filtered_Learning_Objectives)
+                        ScrollViewLearningObjectives(learningPathSelected: selectedFilters["Path"]?.first, isAddable: true, isLearningGoalAdded: nil, textFromSearchBar: $searchText, filtered_Learning_Objectives: $filtered_Learning_Objectives)
                             .onAppear {
                                 filtered_Learning_Objectives = filterLearningObjective()
                             }

@@ -21,7 +21,7 @@ struct LearningGoalsView: View {
     @EnvironmentObject var totalNumberLearningObjectivesStore : TotalNumberOfLearningObjectivesStore
     @EnvironmentObject var learningPathStore : LearningPathStore
     
-    @Binding var filter_Path : String?
+    var filter_Path : String?
     let challenges : [Challenge]
     
     
@@ -67,15 +67,12 @@ struct LearningGoalsView: View {
                             viewType: .map, challenges: challenges,
                             selectedFilters: $selectedFilters,
                             onFiltersChange: { filter in
-                                filters = filter
-                                filtered_Learning_Objectives2 = filterLearningObjective()
+                                filtered_Learning_Objectives2 = filterLearningObjective(LO: filtered_Learning_Objectives)
                             })
                             .opacity(toggleFilters ? 1 : 0)
                             .frame(height: toggleFilters ? .none : 0)
                             .clipped()
                             .padding(.top, toggleFilters ? 5 : 0)
-                            .animation(.easeOut)
-                            .transition(.slide)
                             .onAppear {
                                 selectedFilters = FiltersModel(viewType: .map, challenges: challenges.map({
                                     $0.ID
@@ -84,10 +81,10 @@ struct LearningGoalsView: View {
                                 self.totalNumberLearningObjectivesStore.total = filtered_Learning_Objectives2.count
                             }
                             .onChange(of: filtered_Learning_Objectives) { learning_Objectives in
-                                filtered_Learning_Objectives2 = filterLearningObjective()
+                                filtered_Learning_Objectives2 = filterLearningObjective(LO: learning_Objectives)
                             }
                             .onChange(of: searchText) { _ in
-                                filtered_Learning_Objectives2 = filterLearningObjective()
+                                filtered_Learning_Objectives2 = filterLearningObjective(LO: filtered_Learning_Objectives)
                             }
                         
                         ZStack(alignment: .top) {
@@ -105,7 +102,7 @@ struct LearningGoalsView: View {
                                 .padding(.top, 75)
                                 .isHidden(self.totalNumberLearningObjectivesStore.total == 0 ? false : true)
                             
-                            ScrollViewLearningObjectives(learningPathSelected: $filter_Path, isLearningGoalAdded: false, textFromSearchBar: $searchText, filtered_Learning_Objectives: $filtered_Learning_Objectives2)
+                            ScrollViewLearningObjectives(learningPathSelected: selectedFilters["Path"]?.first, isLearningGoalAdded: false, textFromSearchBar: $searchText, filtered_Learning_Objectives: $filtered_Learning_Objectives2)
                             
                         }.frame(maxWidth: .infinity)
                     }
@@ -149,10 +146,10 @@ struct LearningGoalsView: View {
         return arrayValues
     }
     
-    func filterLearningObjective() -> [learning_Objective]{
+    func filterLearningObjective(LO: [learning_Objective]) -> [learning_Objective]{
         
         if filters.isEmpty {
-            let return_Learning_Objectives = filtered_Learning_Objectives
+            let return_Learning_Objectives = LO
                 .filter({
                     searchText.isEmpty ||
                     $0.goal.lowercased().contains(searchText.lowercased()) ||
@@ -166,7 +163,7 @@ struct LearningGoalsView: View {
             return return_Learning_Objectives
         }
         
-        let return_Learning_Objectives = filtered_Learning_Objectives
+        let return_Learning_Objectives = LO
             .filter({
                 filters["Type"]!.contains("Core") ? $0.isCore :
                 filters["Type"]!.contains("Elective") ? !$0.isCore :
@@ -217,6 +214,6 @@ struct LearningGoalsView: View {
 
 struct LearningGoalsView_Previews: PreviewProvider {
     static var previews: some View {
-        LearningGoalsView(titleView: .constant("ASD"), filter_Path: .constant(""), challenges: [], filtered_Learning_Objectives: [])
+        LearningGoalsView(titleView: .constant("ASD"), filter_Path: "", challenges: [], filtered_Learning_Objectives: [])
     }
 }
