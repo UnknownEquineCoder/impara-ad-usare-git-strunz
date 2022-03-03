@@ -226,7 +226,10 @@ class PersistenceController {
     
     /// this function will take an array of data of learning objective and override the datas saved on cloudkit
     
-    func override_Data(rows : [String]){
+    func override_Data(rows : [String], rows_Learning_Objectives : [String]){
+        
+        let isOldDataFormat = checkIfDataHaveOldIDsFormat(rows: rows, rows_Learning_Objectives: rows_Learning_Objectives)
+                
         // create the correct context of the core data
         let context = PersistenceController.shared.container.viewContext
         
@@ -247,6 +250,9 @@ class PersistenceController {
         
         // taking the row data and transforming in a data that is possible to save
         for row in rows {
+            
+            var id : String = ""
+            
             // declering the new object that is evaluated
             let new_Evaluated_Object = EvaluatedObject(context: context)
             
@@ -263,8 +269,14 @@ class PersistenceController {
                 converted_Eval_Score.append(Int(eval_score_Row[index])!)
             }
             
+            if isOldDataFormat {
+                id = IDConvertionForImport(old: row_Data[0], rows_Learning_Objectives: rows_Learning_Objectives)
+            } else {
+                id = row_Data[0]
+            }
+            
             // assigning to the new object the values that it will have
-            new_Evaluated_Object.id = row_Data[0]
+            new_Evaluated_Object.id = id
             new_Evaluated_Object.eval_Dates = converted_Eval_Date as NSObject
             new_Evaluated_Object.eval_Scores = converted_Eval_Score as NSObject
         }
@@ -282,6 +294,48 @@ class PersistenceController {
             }
         }
         
+    }
+    
+    // MARK: Function that convert the old ID to the new ID
+    
+    func IDConvertionForImport(old : String, rows_Learning_Objectives : [String]) -> String {
+        
+        // cicling the row
+        for row_Index in 0..<rows_Learning_Objectives.count {
+            let learning_Objective_Columned = rows_Learning_Objectives[row_Index].components(separatedBy: ";")
+            
+            if old == learning_Objective_Columned[0] {
+                return learning_Objective_Columned[1]
+            }
+        }
+        
+        return ""
+    }
+    
+    // MARK: Function that check if the file have old IDs present inside it.
+    
+    func checkIfDataHaveOldIDsFormat(rows : [String], rows_Learning_Objectives : [String]) -> Bool {
+        // creating an array of the ID present on the file and populating it
+        var fileIDs : [String] = []
+        for row in rows {
+            let row_Data = row.components(separatedBy: ",")
+            
+            fileIDs.append(row_Data[0])
+        }
+        
+        // cicling the row
+        for row_Index in 0..<rows_Learning_Objectives.count {
+            let learning_Objective_Columned = rows_Learning_Objectives[row_Index].components(separatedBy: ";")
+            
+            let oldID = learning_Objective_Columned[0]
+            
+            // if find some element with the oldID consider it as every element have the old ID
+            if fileIDs.contains(oldID) {
+                return true
+            }
+        }
+        
+        return false
     }
     
     /// it will take a learning objective that have to be deleted from the database and it will delete it

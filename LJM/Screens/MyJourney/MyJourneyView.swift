@@ -178,8 +178,8 @@ struct MyJourneyView: View {
                 !$0.eval_score.isEmpty
             })
             .filter({
-                filters["Main"]!.contains("Core") ? $0.isCore :
-                filters["Main"]!.contains("Elective") ? !$0.isCore :
+                filters["Type"]!.contains("Core") ? $0.isCore :
+                filters["Type"]!.contains("Elective") ? !$0.isCore :
                 true
             })
             .filter ({
@@ -198,10 +198,10 @@ struct MyJourneyView: View {
                 return true
             })
             .filter({
-                if filters["Challenges"]!.contains("Any") {
+                if filters["Challenge"]!.contains("Any") {
                     return true
                 } else {
-                    return $0.challengeID.contains(filters["Challenges"]!.first!)
+                    return $0.challengeID.contains(filters["Challenge"]!.first!)
                 }
             })
             .filter({

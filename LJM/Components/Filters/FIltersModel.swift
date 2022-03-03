@@ -34,7 +34,7 @@ class FiltersModel: ObservableObject {
         case .journey:
             self.allFilters = [
             
-                FiltersModelData(kind: "Main",
+                FiltersModelData(kind: "Type",
                                  isSingleSelection: true,
                                  initialSelectedFilter: 0,
                                  types: ["Any", "Core", "Elective"]),
@@ -46,7 +46,7 @@ class FiltersModel: ObservableObject {
                                  isSingleSelection: true,
                                  initialSelectedFilter: 0,
                                  types: ["Any", "Backend", "Business", "Design", "Frontend", "Game Design", "Game Developer","Project Management"]),
-                FiltersModelData(kind: "Challenges",
+                FiltersModelData(kind: "Challenge",
                                  isSingleSelection: true,
                                  initialSelectedFilter: 0,
                                  types: newChallenges),
@@ -60,7 +60,7 @@ class FiltersModel: ObservableObject {
         case .map:
             self.allFilters = [
             
-                FiltersModelData(kind: "Main",
+                FiltersModelData(kind: "Type",
                                  isSingleSelection: true,
                                  initialSelectedFilter: 0,
                                  types: ["Any", "Core", "Elective"]),
@@ -76,7 +76,7 @@ class FiltersModel: ObservableObject {
                                  isSingleSelection: true,
                                  initialSelectedFilter: 0,
                                  types: ["Any", "Backend", "Business", "Design", "Frontend", "Game Design", "Game Developer","Project Management"]),
-                FiltersModelData(kind: "Challenges",
+                FiltersModelData(kind: "Challenge",
                                  isSingleSelection: true,
                                  initialSelectedFilter: 0,
                                  types: newChallenges)
@@ -85,7 +85,7 @@ class FiltersModel: ObservableObject {
         case .challenge:
             self.allFilters = [
             
-                FiltersModelData(kind: "Main",
+                FiltersModelData(kind: "Type",
                                  isSingleSelection: true,
                                  initialSelectedFilter: 0,
                                  types: ["Any", "Core", "Elective"]),

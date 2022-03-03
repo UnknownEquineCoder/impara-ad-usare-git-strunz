@@ -168,8 +168,8 @@ struct LearningGoalsView: View {
         
         let return_Learning_Objectives = filtered_Learning_Objectives
             .filter({
-                filters["Main"]!.contains("Core") ? $0.isCore :
-                filters["Main"]!.contains("Elective") ? !$0.isCore :
+                filters["Type"]!.contains("Core") ? $0.isCore :
+                filters["Type"]!.contains("Elective") ? !$0.isCore :
                 true
             })
             .filter ({
@@ -192,10 +192,10 @@ struct LearningGoalsView: View {
                 true
             })
             .filter({
-                if filters["Challenges"]!.contains("Any") {
+                if filters["Challenge"]!.contains("Any") {
                     return true
                 } else {
-                    return $0.challengeID.contains(filters["Challenges"]!.first!)
+                    return $0.challengeID.contains(filters["Challenge"]!.first!)
                 }
             })
             .filter({

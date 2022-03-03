@@ -169,8 +169,8 @@ struct SpecificChallengeView: View {
                 $0.challengeID.contains(challenge!.ID)
             })
             .filter({
-                filters["Main"]!.contains("Core") ? $0.isCore :
-                filters["Main"]!.contains("Elective") ? !$0.isCore :
+                filters["Type"]!.contains("Core") ? $0.isCore :
+                filters["Type"]!.contains("Elective") ? !$0.isCore :
                 true
             })
             .filter ({
@@ -188,10 +188,10 @@ struct SpecificChallengeView: View {
                 return true
             })
             .filter({
-                if filters["Challenges"]!.contains("Any") {
+                if filters["Challenge"]!.contains("Any") {
                     return true
                 } else {
-                    return $0.challengeID.contains(filters["Challenges"]!.first!)
+                    return $0.challengeID.contains(filters["Challenge"]!.first!)
                 }
             })
             .filter({
