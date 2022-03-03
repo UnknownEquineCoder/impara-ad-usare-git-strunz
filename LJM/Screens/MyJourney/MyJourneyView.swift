@@ -60,7 +60,8 @@ struct MyJourneyView: View {
                         
                         Spacer()
                         HStack {
-                            Text("Filters").font(.system(size: 20))
+                            Text("Filters \(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == nil || getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == 0 ? "" : "(\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count != 1 ? ("\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count)") : "\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).first ?? "")"))")")
+                                .font(.system(size: 20))
                             Image(systemName: toggleFilters ? "chevron.up" : "chevron.down")
                                 .font(.system(size: 20))
                         }
@@ -140,6 +141,18 @@ struct MyJourneyView: View {
     func checkIfMyJourneyIsEmpty() -> Bool {
         let evaluated_Objectives = self.learningObjectiveStore.learningObjectives.filter({!$0.eval_score.isEmpty})
         return evaluated_Objectives.isEmpty
+    }
+    
+    func getNumberOfFilters(filters: Dictionary<String, Array<String>>) -> [String] {
+        
+        let values = filters.map {$0.value}
+        var arrayValues = [String]()
+        
+        for value in values {
+            arrayValues.append(contentsOf: value)
+        }
+                
+        return arrayValues
     }
     
     func filterLearningObjective() -> [learning_Objective]{
@@ -235,8 +248,8 @@ struct ListViewLearningObjectiveMyJourney: View {
     var body: some View {
         ZStack(alignment: .top) {
             
-            Text("No learning objectives found ...")
-                .font(.system(size: 25, weight: .semibold, design: .rounded))
+            Text("No learning objectives found.")
+                .font(.system(size: 25, weight: .semibold))
                 .multilineTextAlignment(.center)
                 .foregroundColor(Color.customDarkGrey)
                 .padding(.top, 20)

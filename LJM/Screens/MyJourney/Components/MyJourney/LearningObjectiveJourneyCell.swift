@@ -163,7 +163,7 @@ struct LearningObjectiveJourneyCell: View {
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     HStack(spacing: 10) {
                                         if learningObj.eval_score.isEmpty {
-                                            Text("This Learning Objective has never been assessed...")
+                                            Text("This Learning Objective has never been assessed.")
                                                 .foregroundColor(Color.customDarkGrey)
                                                 .font(.system(size: 17, weight: .light))
                                         }
@@ -183,7 +183,10 @@ struct LearningObjectiveJourneyCell: View {
                 }
                 
                 VStack(alignment: .center, spacing: 5) {
-                    Spacer().frame(height: 300)
+                    
+                    Spacer().frame(height: learningObj.Keyword.count > 13 ? 350 : 250)
+
+                    
                     Text(setupTitleProgressRubric(value: learningObj.eval_score.last ?? 0))
                         .font(.system(size: 14, weight: .medium))
                         .foregroundColor(setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand))

@@ -11,6 +11,6 @@ struct PaddingMainSubViews: ViewModifier {
     func body(content: Content) -> some View {
         content
             
-            .padding([.leading, .trailing], 20)
+            .padding([.leading, .trailing], 2)
     }
 }
