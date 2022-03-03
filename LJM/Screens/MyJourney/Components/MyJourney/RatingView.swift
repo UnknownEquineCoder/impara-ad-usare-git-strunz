@@ -29,9 +29,6 @@ struct RatingView: View {
                 .frame(width: 15, height: 15, alignment: .center)
                 .foregroundColor(learningPathSelected == nil || learningPathSelected == "Any" || learningPathSelected == "None" ? .clear : strandColor)
                 .offset(x: setupGoalRating())
-                .onAppear {
-                    print("eoisjfe \(learningPathSelected)")
-                }
             
             HStack(spacing:5) {
                 ForEach(1..<maximumRating + 1, id: \.self) { number in
