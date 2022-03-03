@@ -129,7 +129,6 @@ class FiltersModel: ObservableObject {
         var data = Dictionary<String, Array<String>>()
         
         for filter in allFilters{
-            print("######### \(filter) \(filter.initialSelectedFilter)")
             data[filter.kind] = [filter.types[filter.initialSelectedFilter]]
         }
         return data

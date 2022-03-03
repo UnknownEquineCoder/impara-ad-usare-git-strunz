@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SpecificChallengeView: View {
-    
+        
     @State private var searchText = ""
     @State private var selectedFilters: Dictionary<String, Array<String>> = [:]
     @State var offset : CGFloat = 0
@@ -69,24 +69,22 @@ struct SpecificChallengeView: View {
                             selectedFilters: $selectedFilters,
                             onFiltersChange: { filter in
                                 filters = filter
-                                filtered_Learning_Objectives2 = filterLearningObjective()
+                                filtered_Learning_Objectives2 = filterLearningObjective(LO: filtered_Learning_Objectives)
                             })
                             .opacity(toggleFilters ? 1 : 0)
                             .frame(height: toggleFilters ? .none : 0)
                             .clipped()
                             .padding(.top, toggleFilters ? 5 : 0)
-                            .animation(.easeOut)
-                            .transition(.slide)
                             .onAppear {
                                 selectedFilters = FiltersModel(viewType: .map, challenges: []).defaultFilters()
                                 filtered_Learning_Objectives2 = filtered_Learning_Objectives
                                 self.totalNumberLearningObjectivesStore.total = filtered_Learning_Objectives2.count
                             }
                             .onChange(of: filtered_Learning_Objectives) { learning_Objectives in
-                                filtered_Learning_Objectives2 = filterLearningObjective()
+                                filtered_Learning_Objectives2 = filterLearningObjective(LO: learning_Objectives)
                             }
                             .onChange(of: searchText) { _ in
-                                filtered_Learning_Objectives2 = filterLearningObjective()
+                                filtered_Learning_Objectives2 = filterLearningObjective(LO: filtered_Learning_Objectives)
                             }
                         
                         ZStack(alignment: .top) {
@@ -104,7 +102,7 @@ struct SpecificChallengeView: View {
                                 .padding(.top, 75)
                                 .isHidden(self.totalNumberLearningObjectivesStore.total == 0 ? false : true)
                             
-                            ScrollViewLearningObjectives(learningPathSelected:.constant(nil), isLearningGoalAdded: false, textFromSearchBar: $searchText, filtered_Learning_Objectives: $filtered_Learning_Objectives2)
+                            ScrollViewLearningObjectives(learningPathSelected: selectedFilters["Path"]?.first, isLearningGoalAdded: false, textFromSearchBar: $searchText, filtered_Learning_Objectives: $filtered_Learning_Objectives2)
                             
                         }.frame(maxWidth: .infinity)
                     }
@@ -147,10 +145,10 @@ struct SpecificChallengeView: View {
         return arrayValues
     }
     
-    func filterLearningObjective() -> [learning_Objective]{
+    func filterLearningObjective(LO: [learning_Objective]) -> [learning_Objective]{
         
         if filters.isEmpty {
-            let return_Learning_Objectives = filtered_Learning_Objectives
+            let return_Learning_Objectives = LO
                 .filter({
                     searchText.isEmpty ||
                     $0.goal.lowercased().contains(searchText.lowercased()) ||
@@ -164,7 +162,7 @@ struct SpecificChallengeView: View {
             return return_Learning_Objectives
         }
         
-        let return_Learning_Objectives = filtered_Learning_Objectives
+        let return_Learning_Objectives = LO
             .filter({
                 $0.challengeID.contains(challenge!.ID)
             })

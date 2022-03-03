@@ -10,7 +10,7 @@ struct LearningObjectiveJourneyCell: View {
     
     @State var isAddable = false
     @State var isLearningGoalAdded: Bool?
-    @Binding var learningPathSelected : String?
+    var learningPathSelected : String?
     
     @State private var showingAlert = false
     
@@ -65,7 +65,7 @@ struct LearningObjectiveJourneyCell: View {
                         
                         if self.isLearningGoalAdded != nil {
                             if rating > 0 {
-                                RatingView(strandColor: setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand), learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
+                                RatingView(strandColor: setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand), learningObj: learningObj, rating: $rating, learningPathSelected: learningPathSelected)
                                     .padding(.trailing, 10)
                                     .onAppear(perform: {
                                         self.isRatingView = true
@@ -76,7 +76,7 @@ struct LearningObjectiveJourneyCell: View {
                             }
                         } else {
                             if !isAddable {
-                                RatingView(strandColor: setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand), learningObj: learningObj, rating: $rating, learningPathSelected: self.$learningPathSelected)
+                                RatingView(strandColor: setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand), learningObj: learningObj, rating: $rating, learningPathSelected: learningPathSelected)
                                     .padding(.trailing, 10)
                                     .onAppear(perform: {
                                         self.isRatingView = true
@@ -186,7 +186,6 @@ struct LearningObjectiveJourneyCell: View {
                     
                     Spacer().frame(height: learningObj.Keyword.count > 13 ? 350 : 250)
 
-                    
                     Text(setupTitleProgressRubric(value: learningObj.eval_score.last ?? 0))
                         .font(.system(size: 14, weight: .medium))
                         .foregroundColor(setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand))

@@ -22,8 +22,6 @@ struct ChallengeMainView: View {
     var body: some View {
         ZStack{
             
-            
-            
             if isViewSelected {
                 SpecificChallengeView(challenge: $selectedChallenge, isViewSelected: $isViewSelected, challenges: learningObjectiveStore.getChallenges(), filtered_Learning_Objectives: learningObjectiveStore.learningObjectives.filter({
                     if let challenge = selectedChallenge {
