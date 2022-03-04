@@ -62,7 +62,6 @@ struct MainChallenge: View {
                         .frame(width: geometry.size.width/3,alignment:.leading)
                 }
             }).cornerRadius(9)
-        .padding(.top, 50)
     }
 }
 

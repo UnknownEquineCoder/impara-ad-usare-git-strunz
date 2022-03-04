@@ -110,9 +110,7 @@ struct MapView: View {
                                 filtered_Learning_Objectives = filterLearningObjective()
                             }
                             .onChange(of: scrollTarget) { target in
-                                withAnimation {
                                     proxy.scrollTo(0, anchor: .top)
-                                }
                             }
                             .onChange(of: learningObjectiveStore.learningObjectives) { learning_Objectives in
                                 filtered_Learning_Objectives = filterLearningObjective()
@@ -133,9 +131,9 @@ struct MapView: View {
                     }
                 )
                 .onPreferenceChange(ViewOffsetKey2.self) { element in
-                    withAnimation {
+                    withAnimation(.linear(duration: 0.1), {
                         self.offset = element
-                    }
+                    })
                 }
                 .padding(.leading, 50).padding(.trailing, 50)
             }

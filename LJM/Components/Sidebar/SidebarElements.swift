@@ -47,7 +47,7 @@ struct OutlineRow : View {
     var body: some View {
         ZStack(alignment: .trailing){
             RoundedRectangle(cornerRadius: 5)
-                .foregroundColor( isSelected ? Color.defaultColor.opacity(0.5) : Color.gray.opacity(0.0001))
+                .foregroundColor( isSelected ? Color.defaultColor.opacity(colorScheme == .dark ? 0.5 : 1) : Color.gray.opacity(0.0001))
                 .padding([.leading, .trailing], -10)
             
             HStack(spacing: 8) {

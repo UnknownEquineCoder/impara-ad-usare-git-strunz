@@ -85,7 +85,7 @@ struct CompassView: View {
                     }
                 )
                 .onPreferenceChange(ViewOffsetKey2.self) { element in
-                    withAnimation {
+                    withAnimation(.linear(duration: 0.1)) {
                         self.offset = element
                     }
                 }
@@ -173,7 +173,7 @@ struct CompassView: View {
                             .onChange(of: path) { _ in
                                 
                                 DispatchQueue.main.asyncAfter(deadline: .now()) {
-                                    withAnimation {
+                                    withAnimation(.linear(duration: 0.1)) {
                                         animation_Trigger = false
                                     }
                                 }
@@ -186,7 +186,7 @@ struct CompassView: View {
                                 }
                                 
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                    withAnimation {
+                                    withAnimation(.linear(duration: 0.1)) {
                                         animation_Trigger = true
                                     }
                                 }

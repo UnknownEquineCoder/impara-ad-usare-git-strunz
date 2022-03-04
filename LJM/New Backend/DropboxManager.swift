@@ -100,39 +100,16 @@ class DropboxManager {
         
         // Retriving unique id from keychain
         
-        let service = "Dropbox"
-        let account = ""
-        
-        let query = [
-            kSecAttrService: service,
-            kSecAttrAccount: account,
-            kSecClass: kSecClassGenericPassword,
-            kSecReturnData: true
-        ] as CFDictionary
-        
-        var result: AnyObject?
-        SecItemCopyMatching(query, &result)
-        let resultData = result as? Data
+        let resultData = UserDefaults.standard.string(forKey: "UserID")
         
         if resultData != nil {
-            return String(data: resultData!, encoding: .utf8)!
+            return resultData!
         }
         
         // Creating a unique id and saving it into keychain
         
         let filename = UUID().uuidString
-        let dataToSave = Data(filename.utf8)
-        
-        let saveQuery = [
-            kSecValueData: dataToSave,
-            kSecAttrService: service,
-            kSecAttrAccount: account,
-//            kSecAttrSynchronizable: kCFBooleanTrue!,
-            kSecClass: kSecClassGenericPassword
-        ] as CFDictionary
-
-        // Add data in query to keychain
-        SecItemAdd(saveQuery, nil)
+        UserDefaults.standard.set(filename, forKey: "UserID")
         return filename
         
     }

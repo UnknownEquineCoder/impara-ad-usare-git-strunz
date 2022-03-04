@@ -44,6 +44,7 @@ struct ChallengeView: View {
                 }
         
             }
+            .padding(.bottom, 30)
             .background(
                 GeometryReader {
                     Color.clear.preference(key: ViewOffsetKey2.self,
@@ -51,13 +52,12 @@ struct ChallengeView: View {
                 }
             )
             .onPreferenceChange(ViewOffsetKey2.self) { element in
-                withAnimation {
+                withAnimation(.linear(duration: 0.1), {
                     self.offset = element
-                }
+                })
             }
         }
         .padding(.horizontal, 50)
-        //        .padding(.top, -5)
         
     }
 }

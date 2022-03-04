@@ -116,7 +116,7 @@ struct LearningGoalsView: View {
                             }
                         )
                         .onPreferenceChange(ViewOffsetKey2.self) { element in
-                            withAnimation {
+                            withAnimation(.linear(duration: 0.1)) {
                                 self.offset = element
                                 isFilterShown = element >= 175
                             }
