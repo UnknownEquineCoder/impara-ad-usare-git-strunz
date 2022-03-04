@@ -10,7 +10,7 @@ import SwiftUI
 
 struct TopbarWithBack: View {
     @Binding var title: String?
-
+    
     var filters: Dictionary<String, Array<String>>
     @Binding var scrollTarget: Bool
     @Binding var toggleFilters: Bool
@@ -21,6 +21,7 @@ struct TopbarWithBack: View {
     var body: some View {
         VStack {
             if #available(macOS 12.0, *) {
+                VStack(spacing : 0) {
                     HStack {
                         Button {
                             title = ""
@@ -37,7 +38,7 @@ struct TopbarWithBack: View {
                                 Color.gray.opacity(0.001)
                             }
                             
-                           
+                            
                         }
                         .buttonStyle(PlainButtonStyle())
                         .frame(minWidth: 200, maxWidth: 300, alignment: .leading)
@@ -72,10 +73,13 @@ struct TopbarWithBack: View {
                         .isHidden(!self.isFilterShown)
                         
                     }
-                .padding(.vertical, 20)
-                .padding(.horizontal, -20)
-                .background(.ultraThinMaterial)
-                .ignoresSafeArea()
+                    .padding(.vertical, 20)
+                    .padding(.horizontal, -20)
+                    .background(.ultraThinMaterial)
+                    .ignoresSafeArea()
+                    
+                    Divider().background(Color.topBarLineColor)
+                }
             } else {
                 HStack {
                     Button {
@@ -116,9 +120,9 @@ struct TopbarWithBack: View {
                     
                 }
                 
-            .padding(.vertical, 20)
-            .padding(.horizontal, -20)
-            .ignoresSafeArea()
+                .padding(.vertical, 20)
+                .padding(.horizontal, -20)
+                .ignoresSafeArea()
             }
         }
         .ignoresSafeArea()
@@ -133,8 +137,8 @@ struct TopbarWithBack: View {
         for value in values {
             arrayValues.append(contentsOf: value)
         }
-                
+        
         return arrayValues
     }
-
+    
 }
