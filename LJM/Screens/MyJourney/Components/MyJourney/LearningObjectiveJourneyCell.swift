@@ -29,7 +29,11 @@ struct LearningObjectiveJourneyCell: View {
             ZStack(alignment: .topLeading) {
                 
                 HStack {
+                    
                     Spacer()
+                    
+                    Divider().background(Color.topBarLineColor)
+                        .padding([.top, .bottom], 20)
                     
                     VStack {
                         
@@ -90,7 +94,6 @@ struct LearningObjectiveJourneyCell: View {
                                     .padding(.top, learningObj.description.count > 210 ? 20 : 0)
                                     .padding(.trailing, 10)
                                     .padding(.bottom, 20)
-                                
                             }
                         }
                         Spacer().frame(width: 235)
