@@ -55,9 +55,9 @@ struct Filters: View {
                     
                     // Filter section title
                     Text(kind).foregroundColor(.gray)
-                    Divider()
+//                    Divider()
                     ForEach(model.getTypesByKind(kind: kind), id: \.self) { filter in
-                        
+                       
                         // Single filter row
                         HStack {
                             Text(filter)
@@ -65,6 +65,7 @@ struct Filters: View {
                             if self.selectedFilters[kind]?.contains(filter) ?? false {
                                 Image(systemName: "checkmark")
                             }
+                            
                         }
                         .background(Color.customBlack.opacity(0.0001)) // hot fix to have the entire button clickable
                         .padding([.bottom, .top], 5)
@@ -94,6 +95,10 @@ struct Filters: View {
                             return
                             
                         }
+                        if model.getTypesByKind(kind: kind).last! != filter {
+                            Divider()
+                        }
+                        
                     }
                 }
             }

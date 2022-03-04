@@ -10,7 +10,7 @@ import SwiftUI
 
 struct TopbarWithBack: View {
     @Binding var title: String?
-    
+
     var filters: Dictionary<String, Array<String>>
     @Binding var scrollTarget: Bool
     @Binding var toggleFilters: Bool
@@ -36,6 +36,7 @@ struct TopbarWithBack: View {
                             .background {
                                 Color.gray.opacity(0.001)
                             }
+                            
                            
                         }
                         .buttonStyle(PlainButtonStyle())
@@ -122,6 +123,7 @@ struct TopbarWithBack: View {
         }
         .ignoresSafeArea()
     }
+    
     
     func getNumberOfFilters(filters: Dictionary<String, Array<String>>) -> [String] {
         

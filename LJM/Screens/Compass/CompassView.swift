@@ -147,7 +147,7 @@ struct CompassView: View {
                             .fontWeight(.medium)
                             .multilineTextAlignment(.center)
                             .font(.system(size: 25.toFontSize()))
-                            .foregroundColor(colorScheme == .dark ? Color(red: 221/255, green: 221/255, blue: 221/255) : Color(red: 129/255, green: 129/255, blue: 129/255))
+                            .foregroundColor(colorScheme == .dark ? Color(red: 221/255, green: 221/255, blue: 221/255) : Color.black)
                             .offset(y: -50)
                     }
                     
@@ -167,7 +167,7 @@ struct CompassView: View {
                             .fontWeight(.medium)
                             .multilineTextAlignment(.center)
                             .font(.system(size: 25.toFontSize()))
-                            .foregroundColor(colorScheme == .dark ? Color(red: 221/255, green: 221/255, blue: 221/255) : Color(red: 129/255, green: 129/255, blue: 129/255))
+                            .foregroundColor(colorScheme == .dark ? Color(red: 221/255, green: 221/255, blue: 221/255) : Color.black)
                         
                         DropDownMenuCompass(selectedPath: $path)
                             .onChange(of: path) { _ in
