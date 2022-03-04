@@ -19,44 +19,48 @@ struct Topbar: View {
     var body: some View {
         VStack {
             if #available(macOS 12.0, *) {
-                
-                ZStack {
-                    HStack {
-                        Spacer()
-                        Text(title)
-                            .font(.system(size: 17))
-                            .fontWeight(.semibold)
-                        Spacer()
-                    }
-                    
-                    HStack {
-                        Spacer()
-                        
-                        Button {
-                            // scroll view index to 1
-                            scrollTarget.toggle()
-                            toggleFilters = true
-                            
-                        } label: {
-                            HStack {
-                                Text("Filters \(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == nil || getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == 0 ? "" : "(\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count != 1 ? ("\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count)") : "\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).first ?? "")"))")")
-                                
-                                Image(systemName: "chevron.up")
-                                    .font(.system(size: 10))
-                            }.padding(.trailing, 20)
-                                .background {
-                                    Color.gray.opacity(0.0001)
-                                }
+                VStack(spacing: 0) {
+                    ZStack {
+                        HStack {
+                            Spacer()
+                            Text(title)
+                                .font(.system(size: 17))
+                                .fontWeight(.semibold)
+                            Spacer()
                         }
-                        .buttonStyle(PlainButtonStyle())
-                        .padding(.trailing, 20)
-                        .isHidden(fromCompass ?? false, remove: fromCompass ?? false)
+                        
+                        HStack {
+                            Spacer()
+                            
+                            Button {
+                                // scroll view index to 1
+                                scrollTarget.toggle()
+                                toggleFilters = true
+                                
+                            } label: {
+                                HStack {
+                                    Text("Filters \(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == nil || getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == 0 ? "" : "(\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count != 1 ? ("\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count)") : "\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).first ?? "")"))")")
+                                    
+                                    Image(systemName: "chevron.up")
+                                        .font(.system(size: 10))
+                                }.padding(.trailing, 20)
+                                    .background {
+                                        Color.gray.opacity(0.0001)
+                                    }
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            .padding(.trailing, 20)
+                            .isHidden(fromCompass ?? false, remove: fromCompass ?? false)
+                        }
                     }
+                    .padding(.vertical, 20)
+                    .padding(.horizontal, -20)
+                    .background(.ultraThinMaterial)
+                    .ignoresSafeArea()
+                    
+                    Divider().background(Color.topBarLineColor)
+                    
                 }
-                .padding(.vertical, 20)
-                .padding(.horizontal, -20)
-                .background(.ultraThinMaterial)
-                .ignoresSafeArea()
             } else {
                 // Fallback on earlier versions
                 
@@ -100,7 +104,7 @@ struct Topbar: View {
         }
         .ignoresSafeArea()
     }
-
+    
     func getNumberOfFilters(filters: Dictionary<String, Array<String>>) -> [String] {
         
         let values = filters.map {$0.value}
@@ -109,7 +113,7 @@ struct Topbar: View {
         for value in values {
             arrayValues.append(contentsOf: value)
         }
-                
+        
         return arrayValues
     }
 }

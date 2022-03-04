@@ -35,5 +35,6 @@ extension Color {
     public static let customTeal = Color("customTeal")
     public static let customPink = Color("customPink")
     public static let sidebarTextColor = Color("sidebarTextColor")
+    public static let topBarLineColor = Color("colorTopBarLine")
 }
 

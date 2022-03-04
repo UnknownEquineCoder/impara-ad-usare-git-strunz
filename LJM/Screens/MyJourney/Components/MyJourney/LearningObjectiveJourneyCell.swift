@@ -29,7 +29,11 @@ struct LearningObjectiveJourneyCell: View {
             ZStack(alignment: .topLeading) {
                 
                 HStack {
+                    
                     Spacer()
+                    
+                    Divider().background(Color.topBarLineColor)
+                        .padding([.top, .bottom], 20)
                     
                     VStack {
                         
@@ -66,25 +70,30 @@ struct LearningObjectiveJourneyCell: View {
                         if self.isLearningGoalAdded != nil {
                             if rating > 0 {
                                 RatingView(strandColor: setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand), learningObj: learningObj, rating: $rating, learningPathSelected: learningPathSelected)
+                                    .padding(.top, learningObj.description.count > 210 ? 20 : 0)
                                     .padding(.trailing, 10)
                                     .onAppear(perform: {
                                         self.isRatingView = true
                                     })
                             } else {
-                                AddButton(strandColor: setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand), learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27).padding(.trailing, 10)
+                                AddButton(strandColor: setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand), learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27)
+                                    .padding(.top, learningObj.description.count > 210 ? 20 : 0)
+                                    .padding(.trailing, 10)
                                     .padding(.bottom, 20)
                             }
                         } else {
                             if !isAddable {
                                 RatingView(strandColor: setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand), learningObj: learningObj, rating: $rating, learningPathSelected: learningPathSelected)
+                                    .padding(.top, learningObj.description.count > 210 ? 20 : 0)
                                     .padding(.trailing, 10)
                                     .onAppear(perform: {
                                         self.isRatingView = true
                                     })
                             } else {
-                                AddButton(strandColor: setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand), learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27).padding(.trailing, 10)
+                                AddButton(strandColor: setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand), learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27)
+                                    .padding(.top, learningObj.description.count > 210 ? 20 : 0)
+                                    .padding(.trailing, 10)
                                     .padding(.bottom, 20)
-                                
                             }
                         }
                         Spacer().frame(width: 235)
