@@ -47,6 +47,7 @@ struct ChallengeChanger: View {
         }
     }
 }
+    
     struct ChallengeChanger_Previews: PreviewProvider {
         static var previews: some View {
             ChallengeChanger(selectedIndex: .constant(0), challenges: [])

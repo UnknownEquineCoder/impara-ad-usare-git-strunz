@@ -128,6 +128,10 @@ class LearningObjectivesStore: ObservableObject {
     func load_Test_Data(_ completion: @escaping (() -> Void)) {
         learningObjectives = []
         
+        let context = PersistenceController.shared.container.viewContext
+        
+        var hasChanged = false
+        
         guard let file = Bundle.main.path(forResource: "LearningObjectives", ofType: "csv") else {
             return
         }
@@ -150,22 +154,40 @@ class LearningObjectivesStore: ObservableObject {
             
             let learning_Objective_Columned = rows_Learning_Objectives[row_Index].components(separatedBy: ";")
             
+            let oldID = learning_Objective_Columned[0]
+            
+            do{
+                let fetched_Data = try context.fetch(EvaluatedObject.get_Evaluated_Object_List_Request())
+                
+                for objective in fetched_Data {
+                    if objective.id == oldID && !hasChanged {
+                        hasChanged = true
+                    }
+                }
+                
+            } catch {
+                fatalError("Unsolver Error during a fetch in evaluated learning objective function")
+            }
+            
+        }
+        
+        for row_Index in 0..<rows_Learning_Objectives.count {
+            
+            let learning_Objective_Columned = rows_Learning_Objectives[row_Index].components(separatedBy: ";")
+            
             // TODO: Delete next update
-            if !UserDefaults.standard.bool(forKey: "ExecuteOnce") {
+            if hasChanged {
                 PersistenceController.shared.convertToNewID(oldID: learning_Objective_Columned[0],
                                                             newID: learning_Objective_Columned[1])
             }
-            
 
             let learning_Objective_Element = learning_Objective(learning_Objective_Raw: learning_Objective_Columned)
             
             learningObjectives.append(learning_Objective_Element)
-            
-            
         }
         
-        if !UserDefaults.standard.bool(forKey: "ExecuteOnce") {
-            UserDefaults.standard.set(true, forKey: "ExecuteOnce")
+        if !UserDefaults.standard.bool(forKey: "dataConversion03/03") {
+            UserDefaults.standard.set(true, forKey: "dataConversion03/03")
         }
         
         completion()

@@ -15,6 +15,7 @@ struct Filters: View {
     
     /** Reference to filters model that stores the data */
     private let model: FiltersModel
+    
     var viewType: FiltersView
     /** Return the filters selected by the user
         Return example:

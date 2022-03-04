@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SpecificChallengeView: View {
-    
+        
     @State private var searchText = ""
     @State private var selectedFilters: Dictionary<String, Array<String>> = [:]
     @State var offset : CGFloat = 0
@@ -49,7 +49,8 @@ struct SpecificChallengeView: View {
                             
                             Spacer()
                             HStack{
-                                Text("Filter").font(.system(size: 20))
+                                Text("Filters \(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == nil || getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == 0 ? "" : "(\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count != 1 ? ("\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count)") : "\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).first ?? "")"))")")
+                                    .font(.system(size: 20))
                                 Image(systemName: toggleFilters ? "chevron.up" : "chevron.down")
                                     .font(.system(size: 20))
                             }.background(Color.gray.opacity(0.001))
@@ -68,24 +69,22 @@ struct SpecificChallengeView: View {
                             selectedFilters: $selectedFilters,
                             onFiltersChange: { filter in
                                 filters = filter
-                                filtered_Learning_Objectives2 = filterLearningObjective()
+                                filtered_Learning_Objectives2 = filterLearningObjective(LO: filtered_Learning_Objectives)
                             })
                             .opacity(toggleFilters ? 1 : 0)
                             .frame(height: toggleFilters ? .none : 0)
                             .clipped()
                             .padding(.top, toggleFilters ? 5 : 0)
-                            .animation(.easeOut)
-                            .transition(.slide)
                             .onAppear {
                                 selectedFilters = FiltersModel(viewType: .map, challenges: []).defaultFilters()
                                 filtered_Learning_Objectives2 = filtered_Learning_Objectives
                                 self.totalNumberLearningObjectivesStore.total = filtered_Learning_Objectives2.count
                             }
                             .onChange(of: filtered_Learning_Objectives) { learning_Objectives in
-                                filtered_Learning_Objectives2 = filterLearningObjective()
+                                filtered_Learning_Objectives2 = filterLearningObjective(LO: learning_Objectives)
                             }
                             .onChange(of: searchText) { _ in
-                                filtered_Learning_Objectives2 = filterLearningObjective()
+                                filtered_Learning_Objectives2 = filterLearningObjective(LO: filtered_Learning_Objectives)
                             }
                         
                         ZStack(alignment: .top) {
@@ -103,7 +102,7 @@ struct SpecificChallengeView: View {
                                 .padding(.top, 75)
                                 .isHidden(self.totalNumberLearningObjectivesStore.total == 0 ? false : true)
                             
-                            ScrollViewLearningObjectives(learningPathSelected:.constant(nil), isLearningGoalAdded: false, textFromSearchBar: $searchText, filtered_Learning_Objectives: $filtered_Learning_Objectives2)
+                            ScrollViewLearningObjectives(learningPathSelected: selectedFilters["Path"]?.first, isLearningGoalAdded: false, textFromSearchBar: $searchText, filtered_Learning_Objectives: $filtered_Learning_Objectives2)
                             
                         }.frame(maxWidth: .infinity)
                     }
@@ -126,21 +125,30 @@ struct SpecificChallengeView: View {
             }
             .padding(.top, fullScreen == true ? 60 : 20)
             
-            VStack{
-                TopbarWithBack(title: .constant(challenge!.name), filters: selectedFilters, scrollTarget: $isForceScrollUp, toggleFilters: $toggleFilters, isFilterShown: $isFilterShown, isViewSelected: $isViewSelected)
+            VStack {
+                TopbarWithBack(title: .constant("\(challenge!.ID) - " + challenge!.name), filters: selectedFilters, scrollTarget: $isForceScrollUp, toggleFilters: $toggleFilters, isFilterShown: $isFilterShown, isViewSelected: $isViewSelected)
                 
                 Spacer()
             }
         }
-        
-        
-        
     }
     
-    func filterLearningObjective() -> [learning_Objective]{
+    func getNumberOfFilters(filters: Dictionary<String, Array<String>>) -> [String] {
+        
+        let values = filters.map {$0.value}
+        var arrayValues = [String]()
+        
+        for value in values {
+            arrayValues.append(contentsOf: value)
+        }
+                
+        return arrayValues
+    }
+    
+    func filterLearningObjective(LO: [learning_Objective]) -> [learning_Objective]{
         
         if filters.isEmpty {
-            let return_Learning_Objectives = filtered_Learning_Objectives
+            let return_Learning_Objectives = LO
                 .filter({
                     searchText.isEmpty ||
                     $0.goal.lowercased().contains(searchText.lowercased()) ||
@@ -154,13 +162,13 @@ struct SpecificChallengeView: View {
             return return_Learning_Objectives
         }
         
-        let return_Learning_Objectives = filtered_Learning_Objectives
+        let return_Learning_Objectives = LO
             .filter({
                 $0.challengeID.contains(challenge!.ID)
             })
             .filter({
-                filters["Main"]!.contains("Core") ? $0.isCore :
-                filters["Main"]!.contains("Elective") ? !$0.isCore :
+                filters["Type"]!.contains("Core") ? $0.isCore :
+                filters["Type"]!.contains("Elective") ? !$0.isCore :
                 true
             })
             .filter ({
@@ -178,10 +186,10 @@ struct SpecificChallengeView: View {
                 return true
             })
             .filter({
-                if filters["Challenges"]!.contains("Any") {
+                if filters["Challenge"]!.contains("Any") {
                     return true
                 } else {
-                    return $0.challengeID.contains(filters["Challenges"]!.first!)
+                    return $0.challengeID.contains(filters["Challenge"]!.first!)
                 }
             })
             .filter({

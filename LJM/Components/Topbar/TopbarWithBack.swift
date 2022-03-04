@@ -40,8 +40,10 @@ struct TopbarWithBack: View {
                            
                         }
                         .buttonStyle(PlainButtonStyle())
+                        .frame(minWidth: 200, maxWidth: 300, alignment: .leading)
                         
-                        Spacer().frame(width: 260)
+                        
+                        Spacer()
                         
                         Text(title ?? "")
                             .font(.system(size: 17))

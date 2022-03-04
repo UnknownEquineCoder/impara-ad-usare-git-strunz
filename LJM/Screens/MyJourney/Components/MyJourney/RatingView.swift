@@ -16,7 +16,7 @@ struct RatingView: View {
     @Binding var rating: Int
     @State private var hover = false
     var maximumRating = 5
-    @Binding var learningPathSelected : String?
+    var learningPathSelected : String?
     
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     @EnvironmentObject var learningPathStore: LearningPathStore
@@ -27,7 +27,7 @@ struct RatingView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 15, height: 15, alignment: .center)
-                .foregroundColor(learningPathSelected != nil ? strandColor : .clear)
+                .foregroundColor(learningPathSelected == nil || learningPathSelected == "Any" || learningPathSelected == "None" ? .clear : strandColor)
                 .offset(x: setupGoalRating())
             
             HStack(spacing:5) {
@@ -55,10 +55,7 @@ struct RatingView: View {
                                 if learningObjectiveStore.isSavable {
                                     PersistenceController.shared.evalutate_Learning_Objective(l_Objective: self.learningObjectiveStore.learningObjectives[learningObjectiveIndex])
                                 }
-                            }
-                            
-                            
-                            
+                            } 
                         }
                         .frame(width: 30, height: 30, alignment: .center)
                 }
@@ -88,7 +85,7 @@ struct RatingView: View {
             return -88
         }
         
-        return CGFloat((35 * (core_Rubric_Level)) - 105 - (core_Rubric_Level == 5 ? 3 : 0))
+        return CGFloat((35 * (core_Rubric_Level)) - 105)
     }
 }
 

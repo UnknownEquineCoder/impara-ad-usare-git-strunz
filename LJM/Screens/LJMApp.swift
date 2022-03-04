@@ -116,9 +116,32 @@ struct LJMApp: App {
                                 
                                 learningObjectiveStore.reset_Evaluated {
                                     
+                                    // Open the file of Learning objectives for check the old IDs
+                                    guard let file = Bundle.main.path(forResource: "LearningObjectives", ofType: "csv") else {
+                                        return
+                                    }
+                                    
+                                    // assign values to data_LearningObjectives from the file
+                                    var data_Learning_Objectives = ""
+                                    
+                                    // assuring that the file have some data present on it
+                                    do {
+                                        data_Learning_Objectives = try String(contentsOfFile: file)
+                                    } catch {
+                                        print(error)
+                                        return
+                                    }
+
+                                    // dividing the file in rows
+                                    var rows_Learning_Objectives = data_Learning_Objectives.components(separatedBy: "\n")
+                                    
+                                    // deleting the empty row
+                                    rows_Learning_Objectives.removeFirst()
+                                    rows_Learning_Objectives.removeLast()
+                                    
                                     if isSavable {
                                         // this part of the code will be lounched for override on cloudkit
-                                        persistenceController.override_Data(rows: rows)
+                                        persistenceController.override_Data(rows: rows, rows_Learning_Objectives: rows_Learning_Objectives)
                                     }
                                     
                                     // this part of the code will put the datas visible in that moment
@@ -137,7 +160,17 @@ struct LJMApp: App {
                                             converted_Eval_Score.append(Int(eval_score_Row[index])!)
                                         }
                                         
-                                        let index = learning_Objectives.firstIndex(where: {$0.ID == row_Data[0]}) ?? 0
+                                        let isNew = persistenceController.checkIfDataHaveOldIDsFormat(rows: [row_Data[0]], rows_Learning_Objectives: rows_Learning_Objectives)
+                                        var id = ""
+                                        
+                                        
+                                        if isNew {
+                                            id = persistenceController.IDConvertionForImport(old: row_Data[0], rows_Learning_Objectives: rows_Learning_Objectives)
+                                        } else {
+                                            id = row_Data[0]
+                                        }
+                                        
+                                        let index = learning_Objectives.firstIndex(where: {$0.ID == id}) ?? 0
                                         
                                         learningObjectiveStore.evaluate_Object(index: index, evaluations: converted_Eval_Score, dates: converted_Eval_Date)
                                     }
@@ -197,6 +230,7 @@ struct LJMApp: App {
     }
     
     func createExportDate() -> String {
+        
         var data_To_Save = ""
         let evaluated_Learning_Objectives = learningObjectiveStore.learningObjectives.filter({$0.eval_score.count > 0})
         
@@ -220,6 +254,7 @@ struct LJMApp: App {
         exportFile.toggle()
         
         return data_To_Save
+        
     }
     
     func sendToDropbox() -> Data?{
