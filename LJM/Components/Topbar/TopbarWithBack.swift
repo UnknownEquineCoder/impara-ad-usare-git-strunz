@@ -124,6 +124,8 @@ struct TopbarWithBack: View {
         .ignoresSafeArea()
     }
     
+     
+    
     
     func getNumberOfFilters(filters: Dictionary<String, Array<String>>) -> [String] {
         
