@@ -78,11 +78,16 @@ struct RatingView: View {
         }) ?? 0
         
         //        Design,Front,Back,Game,Business
-        
-        let core_Rubric_Level  =  learningObj.core_Rubric_Levels[learningPathIndex]
-        
-        if (core_Rubric_Level == 0) {
-            return -88
+        var core_Rubric_Level = 0
+        if learningObj.core_Rubric_Levels[0] > 0 {
+            if learningObj.core_Rubric_Levels[0] < learningObj.core_Rubric_Levels[learningPathIndex] {
+                core_Rubric_Level = learningObj.core_Rubric_Levels[learningPathIndex]
+            } else {
+                core_Rubric_Level = learningObj.core_Rubric_Levels[0]
+            }
+            
+        } else {
+            core_Rubric_Level = learningObj.core_Rubric_Levels[learningPathIndex]
         }
         
         return CGFloat((35 * (core_Rubric_Level)) - 105)
