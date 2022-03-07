@@ -80,7 +80,7 @@ struct SpecificChallengeView: View {
                             .padding(.top, toggleFilters ? 5 : 0)
                             .onAppear {
                                 selectedFilters = FiltersModel(viewType: .map, challenges: []).defaultFilters()
-                                filtered_Learning_Objectives2 = filtered_Learning_Objectives
+                                filtered_Learning_Objectives2 = filterLearningObjective(LO: filtered_Learning_Objectives)
                                 self.totalNumberLearningObjectivesStore.total = filtered_Learning_Objectives2.count
                             }
                             .onChange(of: filtered_Learning_Objectives) { learning_Objectives in
