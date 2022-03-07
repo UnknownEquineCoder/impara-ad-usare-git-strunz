@@ -60,12 +60,11 @@ struct Filters: View {
                        
                         // Single filter row
                         HStack {
-                            Text(filter)
+                            Text(filter).lineLimit(1)
                             Spacer()
                             if self.selectedFilters[kind]?.contains(filter) ?? false {
                                 Image(systemName: "checkmark")
                             }
-                            
                         }
                         .background(Color.customBlack.opacity(0.0001)) // hot fix to have the entire button clickable
                         .padding([.bottom, .top], 5)
