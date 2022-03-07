@@ -78,7 +78,7 @@ struct TopbarWithBack: View {
                     .background(.ultraThinMaterial)
                     .ignoresSafeArea()
                     
-                    Divider().background(Color.topBarLineColor)
+//                    Divider().background(Color.topBarLineColor)
                 }
             } else {
                 HStack {
