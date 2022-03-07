@@ -161,6 +161,9 @@ struct SpecificChallengeView: View {
                     $0.goal_Short.lowercased().contains(searchText.lowercased()) ||
                     $0.ID.lowercased().contains(searchText.lowercased())
                 })
+                .sorted {
+                    $0.ID < $1.ID
+                }
             self.totalNumberLearningObjectivesStore.total = return_Learning_Objectives.count
             return return_Learning_Objectives
         }
@@ -209,6 +212,9 @@ struct SpecificChallengeView: View {
                 $0.goal_Short.lowercased().contains(searchText.lowercased()) ||
                 $0.ID.lowercased().contains(searchText.lowercased())
             })
+            .sorted {
+                $0.ID < $1.ID
+            }
         
         self.totalNumberLearningObjectivesStore.total = return_Learning_Objectives.count
         
