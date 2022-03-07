@@ -163,6 +163,10 @@ struct MapView: View {
                 $0.goal_Short.lowercased().contains(filter_Text.lowercased()) ||
                 $0.ID.lowercased().contains(filter_Text.lowercased())
             })
+                .sorted {
+                    $0.ID < $1.ID
+                }
+            
             self.totalNumberLearningObjectivesStore.total = return_Learning_Objectives.count
             return return_Learning_Objectives
             
@@ -209,6 +213,9 @@ struct MapView: View {
                 $0.goal_Short.lowercased().contains(filter_Text.lowercased()) ||
                 $0.ID.lowercased().contains(filter_Text.lowercased())
             })
+            .sorted {
+                $0.ID < $1.ID
+            }
         
         self.totalNumberLearningObjectivesStore.total = return_Learning_Objectives.count
         
