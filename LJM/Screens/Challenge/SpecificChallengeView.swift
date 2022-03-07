@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SpecificChallengeView: View {
-        
+    
     @State private var searchText = ""
     @State private var selectedFilters: Dictionary<String, Array<String>> = [:]
     @State var offset : CGFloat = 0
@@ -35,6 +35,8 @@ struct SpecificChallengeView: View {
     @State var isFilterShown : Bool = true
     @State var isForceScrollUp : Bool = false
     
+    
+    
     var body: some View {
         ZStack{
             
@@ -55,8 +57,8 @@ struct SpecificChallengeView: View {
                                     .font(.system(size: 20))
                             }.background(Color.gray.opacity(0.001))
                                 .onTapGesture {
-                                self.toggleFilters.toggle()
-                            }
+                                    self.toggleFilters.toggle()
+                                }
                         }.padding(.top, 10)
                             .onChange(of: isForceScrollUp) { target in
                                 withAnimation {
@@ -109,18 +111,18 @@ struct SpecificChallengeView: View {
                     .padding(.top,fullScreen == true ? 20 : 35)
                     .id(0)
                     .frame(maxWidth: .infinity)
-                        .background(
-                            GeometryReader {
-                                Color.clear.preference(key: ViewOffsetKey2.self,
-                                                       value: -$0.frame(in: .named("scroll")).origin.y)
-                            }
-                        )
-                        .onPreferenceChange(ViewOffsetKey2.self) { element in
-                            withAnimation {
-                                self.offset = element
-                                isFilterShown = element >= 175
-                            }
+                    .background(
+                        GeometryReader {
+                            Color.clear.preference(key: ViewOffsetKey2.self,
+                                                   value: -$0.frame(in: .named("scroll")).origin.y)
                         }
+                    )
+                    .onPreferenceChange(ViewOffsetKey2.self) { element in
+                        withAnimation {
+                            self.offset = element
+                            isFilterShown = element >= 175
+                        }
+                    }
                 }.padding(.leading, 50).padding(.trailing, 50)
             }
             .padding(.top, fullScreen == true ? 60 : 20)
@@ -141,7 +143,7 @@ struct SpecificChallengeView: View {
         for value in values {
             arrayValues.append(contentsOf: value)
         }
-                
+        
         return arrayValues
     }
     

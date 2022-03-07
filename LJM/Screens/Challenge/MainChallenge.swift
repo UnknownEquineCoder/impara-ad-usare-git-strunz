@@ -13,6 +13,13 @@ struct MainChallenge: View {
     
     let challenge : Challenge
     
+    private static var formatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MMM/yyyy"
+        return formatter
+    }()
+    
+    
     var body: some View {
         
         HStack(alignment:.top){
@@ -28,7 +35,7 @@ struct MainChallenge: View {
                     .foregroundColor(Color.white)
                     .font(.largeTitle)
                     .padding(.bottom, 6)
-                Text("\(challenge.start_Date) - \(challenge.end_Date)")
+                Text("\(getDate(challenge:challenge)!, formatter: MainChallenge.formatter) - \(getEndDate(challenge:challenge)!,formatter: MainChallenge.formatter)")
                     .fontWeight(.semibold)
                     .foregroundColor(Color.white)
                     .font(.subheadline)
