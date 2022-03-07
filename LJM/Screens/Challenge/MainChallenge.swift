@@ -51,18 +51,20 @@ struct MainChallenge: View {
         .background(
             GeometryReader { geometry in
                 ZStack(alignment: .leading){
-                    Image("Placeholder-Hurricane")
+                    Image(challenge.ID)
                         .resizable()
                         .scaledToFill()
                         .edgesIgnoringSafeArea(.all)
                         .clipped()
+                        .offset(y: -80)
                         
-                    Image("Placeholder-Hurricane")
+                    Image(challenge.ID)
                         .resizable()
                         .scaledToFill()
                         .frame(width: geometry.size.width/3, alignment:.leading)
                         .clipped()
                         .blur(radius: 5, opaque: false)
+                        .offset(y: -80)
 
                     Color.init(red: 60/255, green: 60/255, blue: 67/255)
                         .opacity(0.3)

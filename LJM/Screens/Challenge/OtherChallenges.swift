@@ -48,17 +48,19 @@ struct OtherChallenges: View {
         .background(
             GeometryReader { geometry in
                 ZStack(alignment: .leading){
-                    Image("Placeholder-Daiquiri")
+                    Image(challenge.ID)
                         .resizable()
                         .scaledToFill()
                         .edgesIgnoringSafeArea(.all)
                         .clipped()
+                        .offset(y: -50)
                    
-                    Image("Placeholder-Daiquiri")
+                    Image(challenge.ID)
                         .resizable()
                         .scaledToFill()
                         .frame(width: geometry.size.width/2.5, alignment:.leading)
                         .clipped()
+                        .offset(y: -50)
                         .blur(radius: 5, opaque: false)
 
                     Color.init(red: 60/255, green: 60/255, blue: 67/255)
