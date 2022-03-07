@@ -15,7 +15,7 @@ struct HistoryProgressView: View {
     @Binding var rating: Int
     
     var dateValue: String {
-        dateFormatter.dateStyle = .short
+        dateFormatter.dateStyle = .medium
         return dateFormatter.string(from: learning_Date)
     }
     
