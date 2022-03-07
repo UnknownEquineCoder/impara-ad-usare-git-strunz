@@ -71,6 +71,7 @@ struct SpecificChallengeView: View {
                             selectedFilters: $selectedFilters,
                             onFiltersChange: { filter in
                                 filters = filter
+                                selectedFilters = filter
                                 filtered_Learning_Objectives2 = filterLearningObjective(LO: filtered_Learning_Objectives)
                             })
                             .opacity(toggleFilters ? 1 : 0)
