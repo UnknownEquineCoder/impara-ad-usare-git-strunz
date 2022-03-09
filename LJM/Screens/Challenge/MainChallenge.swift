@@ -15,7 +15,7 @@ struct MainChallenge: View {
     
     private static var formatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MMM/yyyy"
+        formatter.dateFormat = "dd MMM yyyy"
         return formatter
     }()
     
