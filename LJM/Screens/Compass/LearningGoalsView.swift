@@ -79,7 +79,7 @@ struct LearningGoalsView: View {
                                 selectedFilters = FiltersModel(viewType: .map, challenges: challenges.map({
                                     $0.ID
                                 })).defaultFilters()
-                                filtered_Learning_Objectives2 = filtered_Learning_Objectives
+                                filtered_Learning_Objectives2 = filterLearningObjective(LO: filtered_Learning_Objectives)
                                 self.totalNumberLearningObjectivesStore.total = filtered_Learning_Objectives2.count
                             }
                             .onChange(of: filtered_Learning_Objectives) { learning_Objectives in
