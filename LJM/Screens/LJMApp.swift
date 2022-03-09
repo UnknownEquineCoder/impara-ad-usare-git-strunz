@@ -37,13 +37,6 @@ struct LJMApp: App {
         WindowGroup {
 //            ChallengeView()
             StartView(isLoading: $isLoading)
-                .onAppear(perform: {
-                    DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 1) {
-                        if let peppe = sendToDropbox() {
-                            DropboxManager.instance.checkForUploadUserData(peppe)
-                        }
-                    }
-                })
                 .alert(isPresented: $showingAlertImport) {
                     Alert(
                         title: isSavable ? Text("Importing this file will overwrite your old data. \n\n Do you want to proceed?") : Text("Importing this file will only display the new data. \n\n Any changes will not be saved."),
@@ -249,24 +242,6 @@ struct LJMApp: App {
         
     }
     
-    func sendToDropbox() -> Data?{
-        var evaluated_Learning_Objectives : [learning_ObjectiveForJSON] = []
-        for LO in learningObjectiveStore.learningObjectives.filter({$0.eval_score.count > 0}) {
-            let temp = learning_ObjectiveForJSON(learningObjective: LO)
-            evaluated_Learning_Objectives.append(temp)
-        }
-        
-        var resp : Data?
-        do {
-            resp =  try JSONEncoder().encode(evaluated_Learning_Objectives)
-            
-            return resp
-        } catch {
-            print("The file could not be loaded")
-        }
-        
-        return nil
-    }
 }
 
 struct Doc : FileDocument {

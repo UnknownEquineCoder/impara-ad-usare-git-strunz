@@ -18,6 +18,13 @@ struct MainCompassView: View {
         ZStack{
             CompassView(path: $filter_Path, currentSubviewLabel: $currentSubviewLabel)
                 .opacity(currentSubviewLabel == "" ? 1 : 0.00001)
+                .onAppear(perform: {
+                    DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 1) {
+                        if let peppe = sendToDropbox() {
+                            DropboxManager.instance.checkForUploadUserData(peppe)
+                        }
+                    }
+                })
             if currentSubviewLabel != "" {
                 LearningGoalsView(
                     titleView: $currentSubviewLabel,
@@ -32,6 +39,26 @@ struct MainCompassView: View {
         }
         
     }
+    
+    func sendToDropbox() -> Data?{
+        var evaluated_Learning_Objectives : [learning_ObjectiveForJSON] = []
+        for LO in learningObjectiveStore.learningObjectives.filter({$0.eval_score.count > 0}) {
+            let temp = learning_ObjectiveForJSON(learningObjective: LO)
+            evaluated_Learning_Objectives.append(temp)
+        }
+        
+        var resp : Data?
+        do {
+            resp =  try JSONEncoder().encode(evaluated_Learning_Objectives)
+            
+            return resp
+        } catch {
+            print("The file could not be loaded")
+        }
+        
+        return nil
+    }
+    
 }
 
 struct MainCompassView_Previews: PreviewProvider {
