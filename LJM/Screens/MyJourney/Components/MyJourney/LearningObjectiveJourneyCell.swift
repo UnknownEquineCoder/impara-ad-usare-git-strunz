@@ -228,10 +228,12 @@ struct LearningObjectiveJourneyCell: View {
                             showingAlert = true
                             
                         }) {
+                            HStack{
                             Image(systemName: "trash")
                                 .renderingMode(.original)
 //                                    .foregroundColor(Color.gray)
-                                
+                                Text("Remove")
+                            }
                         }
                         .buttonStyle(BorderedButtonStyle())
                         .isHidden(!(learningObj.eval_score.count > 0))
@@ -254,9 +256,12 @@ struct LearningObjectiveJourneyCell: View {
                             learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
                             rating = 0
                         }) {
+                            HStack{
                             Image(systemName: "trash")
                                 .renderingMode(.original)
 //                                    .foregroundColor(Color.gray)
+                                Text("Remove")
+                            }
                                 
                         }
                         .buttonStyle(BorderedButtonStyle())
@@ -266,8 +271,8 @@ struct LearningObjectiveJourneyCell: View {
                 }
                 .isHidden(self.isAddable ? true : false)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
-                .padding(.trailing, 106)
-                .padding(.bottom, 10)
+                .padding(.trailing, 79)
+                .padding(.bottom, 15)
                 .isHidden(self.expand ? false : true)
 
             }
