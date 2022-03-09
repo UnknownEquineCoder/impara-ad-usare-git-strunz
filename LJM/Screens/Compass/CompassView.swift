@@ -71,6 +71,7 @@ struct CompassView: View {
                 
                 VStack {
                     TitleScreenView(title: "Compass")
+                        .padding(.top, fullScreen == true ? 60 : 0)
                     
                     VStack(alignment: .leading) {
                         DescriptionTitleScreenView(desc: "The Compass helps you to gauge your progress in meeting the Communal Learning Objectives and allows you to explore a variety of paths. Using this tool, you can plan your Learning Journey.")
@@ -226,7 +227,7 @@ struct CompassView: View {
                         .padding(.bottom, 100)
                 }
             }
-            .padding(.top, fullScreen == true ? 60 : 0)
+            
             .padding(.leading, 50).padding(.trailing, 50)
             
             if(toggleFilters ? offset > 475 : offset > 200) {

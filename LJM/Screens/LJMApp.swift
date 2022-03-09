@@ -66,11 +66,7 @@ struct LJMApp: App {
                     contentType: srtType,
                     defaultFilename: "LJM export - \(dateFormatter.string(from: Date()))"
                 ) { result in
-                    if case .success = result {
-                        // Handle success.
-                    } else {
-                        // Handle failure.
-                    }
+                    if case .success = result {} else {}
                 }
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .fileExporter(
@@ -79,11 +75,7 @@ struct LJMApp: App {
                     contentType: srtType,
                     defaultFilename: "LJM export - \(dateFormatter.string(from: Date()))"
                 ) { result in
-                    if case .success = result {
-                        // Handle success.
-                    } else {
-                        // Handle failure.
-                    }
+                    if case .success = result {} else {}
                 }
                 .fileImporter(
                     isPresented: $importFile,
@@ -219,8 +211,8 @@ struct LJMApp: App {
                         
                         document.message = createExportDate()
                         
-                        exportFile.toggle()
-                        
+                        exportFile = true
+                        print("@@@@@@@@@@@@@ \(exportFile)")
                         
                     }) {
                         Text("Export File")
