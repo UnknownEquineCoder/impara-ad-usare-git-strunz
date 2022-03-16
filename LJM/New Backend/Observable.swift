@@ -73,7 +73,7 @@ class LearningObjectivesStore: ObservableObject {
         
     }
     
-    
+    // MARK: this function will return the challenges that have already started
     func getChallenges() -> [Challenge] {
         
         var returnChallenges : [Challenge] = []

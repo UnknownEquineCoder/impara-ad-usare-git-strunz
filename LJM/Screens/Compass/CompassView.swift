@@ -98,7 +98,20 @@ struct CompassView: View {
                         .environment(\.locale, Locale(identifier: "en"))
                         .padding(.top, 7.toScreenSize())
                         .onChange(of: selectedChallengeIndex) { newIndex in
+                            
+                            // take the last date of the challenge
                             if let newDate = getEndDate(challenge: learningObjectiveStore.getChallenges()[newIndex]) {
+                                // check if i have selected the last challenge aviable
+                                if newIndex == learningObjectiveStore.getChallenges().count - 1 {
+                                    // check if we're in a date that is already passed from the end of the date ( basically if we're in the interlude )
+                                    if newDate < Date() {
+                                        // if we're inside the interlude extend the date of filtering for avoid to not show the changes done during the interlude
+                                        selected_Date = Date()
+                                        // force exit
+                                        return
+                                    }
+                                }
+                                // in case we're inside a challenge and not into an interlude
                                 selected_Date = newDate
                             }
                             

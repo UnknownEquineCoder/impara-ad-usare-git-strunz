@@ -24,31 +24,11 @@ class DropboxManager {
      */
     func checkForUploadUserData(_ data : Data){
         
-        // constants
         let userDefaultsKey = "checkForUploadUserDataDate"
-        let twoWeeksInSeconds: Double = 60 * 60 * 24 * 14
-        let now = Date()
-        
-        // getting saved data from user defaults
-        var date = UserDefaults.standard.object(forKey: userDefaultsKey) as? Date
-        if date == nil {
-            // First time user open the app => creating date
-            date = now
-            UserDefaults.standard.set(date, forKey: userDefaultsKey)
-        }
-        
-        // Checking if is elapsed one month since last data upload
-        let diff = date!.distance(to: now)
-        if diff > twoWeeksInSeconds {
-            UserDefaults.standard.set(now, forKey: userDefaultsKey)
-            uploadUserData(data)
-            print("Dropbox data updated!")
-            return
-        }
             
-        // Data update not needed
-        let remainingTime = Int(twoWeeksInSeconds - diff)
-        print("Will update Dropbox data in \(remainingTime) seconds")
+        UserDefaults.standard.set( Date(), forKey: userDefaultsKey)
+        uploadUserData(data)
+        print("Dropbox data updated!")
         return
         
     }
