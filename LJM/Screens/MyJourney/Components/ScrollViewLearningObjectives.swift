@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ScrollViewLearningObjectives: View {
-    @Environment(\.colorScheme) var colorScheme
     
     var learningPathSelected : String?
     
@@ -25,10 +24,8 @@ struct ScrollViewLearningObjectives: View {
                 ForEach(filtered_Learning_Objectives, id: \.ID) { item in
                     LearningObjectiveJourneyCell(
                         rating: item.eval_score.last ?? 0,
-                        isRatingView: item.eval_score.count > 0,
                         filter_Text: $textFromSearchBar,
                         isAddable: isAddable,
-                        isLearningGoalAdded: isLearningGoalAdded == nil ? nil : (isLearningGoalAdded ?? false && item.eval_score.count > 0),
                         learningPathSelected: learningPathSelected,
                         learningObj: item)
                 }
@@ -43,10 +40,8 @@ struct ScrollViewLearningObjectives: View {
                     item in
                     LearningObjectiveJourneyCell(
                         rating: item.eval_score.last ?? 0,
-                        isRatingView: item.eval_score.count > 0,
                         filter_Text: $textFromSearchBar,
                         isAddable: isAddable,
-                        isLearningGoalAdded: isLearningGoalAdded == nil ? nil : (isLearningGoalAdded ?? false && item.eval_score.count > 0),
                         learningPathSelected: learningPathSelected,
                         learningObj: item)
                 }

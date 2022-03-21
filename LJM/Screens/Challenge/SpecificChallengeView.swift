@@ -24,8 +24,6 @@ struct SpecificChallengeView: View {
     let challenges : [Challenge]
     
     // check if filters was changed
-    
-    @State var isUpdated : Bool = false
     var filtered_Learning_Objectives : [learning_Objective]
     @State var filtered_Learning_Objectives2 : [learning_Objective] = []
     @State var toggleFilters : Bool = false
@@ -47,7 +45,7 @@ struct SpecificChallengeView: View {
                         
                         HStack {
                             
-                            SearchBarExpandableJourney(txtSearchBar: $searchText, isUpdated: $isUpdated)
+                            SearchBarExpandableJourney(txtSearchBar: $searchText)
                             
                             Spacer()
                             HStack{

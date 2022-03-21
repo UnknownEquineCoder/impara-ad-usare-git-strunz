@@ -32,9 +32,6 @@ struct MapView: View {
     @EnvironmentObject var totalNumberLearningObjectivesStore : TotalNumberOfLearningObjectivesStore
     
     @Binding var toggleFilters: Bool
-    // check if the filters was updated
-    
-    @State var isUpdated : Bool = false
     
     // filtered learning objectives
     
@@ -57,7 +54,7 @@ struct MapView: View {
                     
                     HStack {
                         
-                        SearchBarExpandableJourney(txtSearchBar: $searchText, isUpdated: $isUpdated)
+                        SearchBarExpandableJourney(txtSearchBar: $searchText)
                         
                         Spacer()
                         HStack{

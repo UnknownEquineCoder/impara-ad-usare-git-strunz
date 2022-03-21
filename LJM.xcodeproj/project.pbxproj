@@ -61,6 +61,7 @@
 		E052188F27BD31C6008CBA14 /* ChallengeMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E052188E27BD31C6008CBA14 /* ChallengeMainView.swift */; };
 		E052189127BD38EC008CBA14 /* SpecificChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E052189027BD38EC008CBA14 /* SpecificChallengeView.swift */; };
 		E08BAE4227D619A100477314 /* LearningObjectives.csv in Resources */ = {isa = PBXBuildFile; fileRef = E08BAE4127D619A100477314 /* LearningObjectives.csv */; };
+		E08BAE4527E35FA600477314 /* customAllert.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08BAE4427E35FA600477314 /* customAllert.swift */; };
 		E0952800276B4DE5007AC788 /* Server Structures.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09527FF276B4DE5007AC788 /* Server Structures.swift */; };
 		E0952802276B5060007AC788 /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0952801276B5060007AC788 /* Services.swift */; };
 		E0A3759927CCB6E600B46ECE /* Challeges.csv in Resources */ = {isa = PBXBuildFile; fileRef = E0A3759727CCB6E600B46ECE /* Challeges.csv */; };
@@ -186,6 +187,7 @@
 		E052188E27BD31C6008CBA14 /* ChallengeMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeMainView.swift; sourceTree = "<group>"; };
 		E052189027BD38EC008CBA14 /* SpecificChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecificChallengeView.swift; sourceTree = "<group>"; };
 		E08BAE4127D619A100477314 /* LearningObjectives.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LearningObjectives.csv; sourceTree = "<group>"; };
+		E08BAE4427E35FA600477314 /* customAllert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customAllert.swift; sourceTree = "<group>"; };
 		E09527FF276B4DE5007AC788 /* Server Structures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Server Structures.swift"; sourceTree = "<group>"; };
 		E0952801276B5060007AC788 /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
 		E0A3759727CCB6E600B46ECE /* Challeges.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Challeges.csv; sourceTree = "<group>"; };
@@ -347,6 +349,7 @@
 		964B665A256E6253006AB20E /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				E08BAE4327E35F9400477314 /* CustomAllert */,
 				EAE297AA2770A3CC005BD594 /* Topbar */,
 				A0682D28275A1CDB0068BA60 /* Filters */,
 				967EE8CF256E784C008065C9 /* Sidebar */,
@@ -447,6 +450,14 @@
 				E04251AB27295F34000A1D69 /* StudentData.xcdatamodeld */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		E08BAE4327E35F9400477314 /* CustomAllert */ = {
+			isa = PBXGroup;
+			children = (
+				E08BAE4427E35FA600477314 /* customAllert.swift */,
+			);
+			path = CustomAllert;
 			sourceTree = "<group>";
 		};
 		E09527FE276B4DC0007AC788 /* Server Side */ = {
@@ -741,6 +752,7 @@
 				EACD022F25D37B15008D12FE /* TitleScreenView.swift in Sources */,
 				E04251B72733EACD000A1D69 /* CoreRadarChartView.swift in Sources */,
 				E02DFE8A270AEC3F004FF8B7 /* newModels.swift in Sources */,
+				E08BAE4527E35FA600477314 /* customAllert.swift in Sources */,
 				962F090E25E7C4F1001EAE85 /* ParticularCircle.swift in Sources */,
 				E0267F0227BA5E1E0094DA17 /* OtherChallenges.swift in Sources */,
 				E0267F0027BA5E100094DA17 /* MainChallenge.swift in Sources */,

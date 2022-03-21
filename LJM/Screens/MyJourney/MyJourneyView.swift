@@ -56,11 +56,11 @@ struct MyJourneyView: View {
                     
                     HStack {
                         
-                        SearchBarExpandableJourney(txtSearchBar: $searchText, isUpdated: $isUpdated)
+                        SearchBarExpandableJourney(txtSearchBar: $searchText)
                         
                         Spacer()
                         HStack {
-                            Text("Filters \(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == nil || getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == 0 ? "" : "(\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count != 1 ? ("\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count)") : "\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).first ?? "")"))")")
+                            Text("Filters \(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == 0 || getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == 0 ? "" : "(\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count != 1 ? ("\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count)") : "\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).first ?? "")"))")")
                                 .font(.system(size: 20))
                             Image(systemName: toggleFilters ? "chevron.up" : "chevron.down")
                                 .font(.system(size: 20))
@@ -103,10 +103,10 @@ struct MyJourneyView: View {
                             .onAppear {
                                 filtered_Learning_Objectives = filterLearningObjective()
                             }
-                            .onChange(of: scrollTarget) { target in
+                            .onChange(of: scrollTarget) { _ in
                                     proxy.scrollTo(0, anchor: .top)
                             }
-                            .onChange(of: learningObjectiveStore.learningObjectives) { learning_Objectives in
+                            .onChange(of: learningObjectiveStore.learningObjectives) { _ in
                                 filtered_Learning_Objectives = filterLearningObjective()
                             }
                             .onChange(of: searchText, perform: { newValue in

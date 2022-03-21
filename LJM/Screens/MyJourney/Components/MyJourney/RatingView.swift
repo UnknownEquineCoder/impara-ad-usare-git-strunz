@@ -74,7 +74,6 @@ struct RatingView: View {
         
         let learningPathIndex = learningPathStore.learningPaths.firstIndex(where: {
             return $0.title.lowercased() == learningPathSelected?.lowercased()
-            
         }) ?? 0
         
         //        Design,Front,Back,Game,Business

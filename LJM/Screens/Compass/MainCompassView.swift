@@ -68,6 +68,7 @@ struct MainCompassView: View {
         var resp : Data?
         do {
             resp =  try JSONEncoder().encode(evaluated_Learning_Objectives)
+
             return resp
         } catch {
             print("The file could not be loaded")

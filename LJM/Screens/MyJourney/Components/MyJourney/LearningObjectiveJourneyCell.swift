@@ -3,28 +3,19 @@ import SwiftUI
 struct LearningObjectiveJourneyCell: View {
     @State var rating = 0
     @State var expand: Bool = false
-    @State var isRatingView: Bool
-    var value : Int = 0
-    @Environment(\.colorScheme) var colorScheme
     @Binding var filter_Text : String
     
     @State var isAddable = false
-    @State var isLearningGoalAdded: Bool?
     var learningPathSelected : String?
-    
+
     @State private var showingAlert = false
-    
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     
     var learningObj: learning_Objective
-    
-//    let data = (1...30).map { "Item \($0)" }
-
-    let columns = [
-        GridItem(.adaptive(minimum: 140))
-    ]
+    let threeColGrid = Array(repeating: GridItem(.flexible(), alignment: .leading), count: 3)
     
     var body: some View {
+        let keywords = learningObj.Keyword
         VStack {
             ZStack(alignment: .topLeading) {
                 
@@ -37,77 +28,39 @@ struct LearningObjectiveJourneyCell: View {
                     
                     VStack {
                         
-                        // it checks what's the dimension of the spaces should be
-                        
-                        // BUGED code making a shift on right component inside the LO cell
-                        
-//                        if expand && !isAddable {
-//                            Spacer().frame(height: 20)
-//                        } else if self.isLearningGoalAdded == nil{
-//                            Spacer()
-//                        } else {
-//                            if isAddable {
-//                                Spacer().frame(height: 20)
-//                            } else {
-//                                Spacer()
-//                            }
-//                        }
-                        
                         if expand {
-                            if isAddable {
-                                Spacer().frame(height: 100)
+                            if rating > 0 {
+                                Spacer()
                             } else {
-                                if isRatingView {
-                                    Spacer()
-                                } else {
-                                    Spacer().frame(height: 100)
-                                }
+                                Spacer().frame(height: 100)
                             }
                         } else {
                             Spacer()
                         }
                         
-                        if self.isLearningGoalAdded != nil {
-                            if rating > 0 {
-                                RatingView(strandColor: setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand), learningObj: learningObj, rating: $rating, learningPathSelected: learningPathSelected)
+                            if rating > 0 && !isAddable {
+                                RatingView(strandColor: setupColor( strand: learningObj.strand), learningObj: learningObj, rating: $rating, learningPathSelected: learningPathSelected)
                                     .padding(.top, learningObj.description.count > 210 ? 20 : 0)
                                     .padding(.trailing, 10)
-                                    .onAppear(perform: {
-                                        self.isRatingView = true
-                                    })
                             } else {
-                                AddButton(strandColor: setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand), learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27)
+                                AddButton(strandColor: setupColor( strand: learningObj.strand), learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27)
                                     .padding(.top, learningObj.description.count > 210 ? 20 : 0)
                                     .padding(.trailing, 10)
                                     .padding(.bottom, 20)
                             }
-                        } else {
-                            if !isAddable {
-                                RatingView(strandColor: setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand), learningObj: learningObj, rating: $rating, learningPathSelected: learningPathSelected)
-                                    .padding(.top, learningObj.description.count > 210 ? 20 : 0)
-                                    .padding(.trailing, 10)
-                                    .onAppear(perform: {
-                                        self.isRatingView = true
-                                    })
-                            } else {
-                                AddButton(strandColor: setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand), learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27)
-                                    .padding(.top, learningObj.description.count > 210 ? 20 : 0)
-                                    .padding(.trailing, 10)
-                                    .padding(.bottom, 20)
-                            }
-                        }
+                        
                         Spacer().frame(width: 235)
                     }
                 }
                 
                 Rectangle()
                     .frame(width: 20, alignment: .leading)
-                    .foregroundColor(setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand))
+                    .foregroundColor(setupColor( strand: learningObj.strand))
                 VStack {
                     HStack(alignment: .top) {
                         VStack(alignment: .leading, spacing: 8) {
                             Text(learningObj.strand.uppercased())
-                                .foregroundColor(setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand))
+                                .foregroundColor(setupColor( strand: learningObj.strand))
                                 .font(.system(size: 17, weight: .bold))
                                 .lineLimit(2)
                             Text(learningObj.goal_Short.uppercased())
@@ -145,14 +98,13 @@ struct LearningObjectiveJourneyCell: View {
                             Divider().background(Color(red: 70/255, green: 70/255, blue: 70/255)).padding(.trailing, 60)
                             
                             HStack {
-                                Text("KEYWORDS").foregroundColor(Color.customDarkGrey)
+                                Text("KEYWORDS")
+                                    .foregroundColor(Color.customDarkGrey)
                                     .font(.system(size: 17, weight: .light))
                                     .frame(width: 170, alignment: .leading)
                                 
                                 Spacer().frame(width: 30)
                                 
-                                let keywords = learningObj.Keyword
-                                let threeColGrid = Array(repeating: GridItem(.flexible(), alignment: .leading), count: 3)
                                 LazyVGrid(columns: threeColGrid) {
                                     ForEach(keywords, id: \.self) { item in
                                         Text("#" + item)
@@ -163,14 +115,20 @@ struct LearningObjectiveJourneyCell: View {
                                 }.frame(minWidth: 0, maxWidth: .infinity)
                             }
                             //comment for update
-                            Divider().background(Color(red: 70/255, green: 70/255, blue: 70/255)).padding(.trailing, 60)
+                            Divider()
+                                .background(Color(red: 70/255, green: 70/255, blue: 70/255))
+                                .padding(.trailing, 60)
                             
                             HStack {
-                                Text("LAST ASSESSMENTS").foregroundColor(Color.customDarkGrey).font(.system(size: 17, weight: .light)).frame(width: 170, alignment: .leading)
+                                Text("LAST ASSESSMENTS").foregroundColor(Color.customDarkGrey)
+                                    .font(.system(size: 17, weight: .light))
+                                    .frame(width: 170, alignment: .leading)
+                                    .padding(.vertical, 5)
+                                
                                 Spacer().frame(width: 30)
                                 
                                 ScrollView(.horizontal, showsIndicators: false) {
-                                    HStack(spacing: 10) {
+                                    LazyHStack(spacing: 10) {
                                         if learningObj.eval_score.isEmpty {
                                             Text("This Learning Objective has never been assessed.")
                                                 .foregroundColor(Color.customDarkGrey)
@@ -178,6 +136,7 @@ struct LearningObjectiveJourneyCell: View {
                                         }
                                         ForEach(learningObj.eval_score.indices, id: \.self) { index in
                                             HistoryProgressView(rating: $rating, learning_Score: learningObj.eval_score[index], learning_Date: learningObj.eval_date[index], learning_ID: learningObj.ID, index: index)
+//
                                         }
                                     }
                                 }
@@ -197,7 +156,7 @@ struct LearningObjectiveJourneyCell: View {
 
                     Text(setupTitleProgressRubric(value: learningObj.eval_score.last ?? 0))
                         .font(.system(size: 14, weight: .medium))
-                        .foregroundColor(setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand))
+                        .foregroundColor(setupColor( strand: learningObj.strand))
                         .padding(.leading, 20)
                     Text(setupDescProgressOnRubric(value: learningObj.eval_score.last ?? 0))
                         .font(.system(size: 12, weight: .regular))
@@ -208,16 +167,18 @@ struct LearningObjectiveJourneyCell: View {
                         .frame(width: 200)
                         .padding(.leading, 20)
                     
-                    Spacer().frame(height: 50)
-                    
-                }.frame(width: 260, height: 100, alignment: .center)
+                    Spacer()
+                        .frame(height: 50)
+                }
+                
+                    .frame(width: 260, height: 100, alignment: .center)
                     .isHidden(self.isAddable ? true : false)
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
                     .isHidden(self.expand ? false : true)
                 
                 Image(systemName: self.expand ? "chevron.up" : "chevron.down")
                     .font(.system(size: 20, weight: .bold))
-                    .foregroundColor(setupColor(darkMode: colorScheme == .dark, strand: learningObj.strand))
+                    .foregroundColor(setupColor( strand: learningObj.strand))
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
                     .padding(.bottom, 10)
                     .cursor(.pointingHand)
@@ -226,12 +187,11 @@ struct LearningObjectiveJourneyCell: View {
                     if #available(macOS 12.0, *) {
                         Button(action: {
                             showingAlert = true
-                            
                         }) {
                             HStack{
-                            Image(systemName: "trash")
-                                .renderingMode(.original)
-//                                    .foregroundColor(Color.gray)
+                                Image(systemName: "trash")
+                                    .renderingMode(.original)
+                                
                                 Text("Remove")
                             }
                         }
@@ -257,12 +217,10 @@ struct LearningObjectiveJourneyCell: View {
                             rating = 0
                         }) {
                             HStack{
-                            Image(systemName: "trash")
-                                .renderingMode(.original)
-//                                    .foregroundColor(Color.gray)
+                                Image(systemName: "trash")
+                                    .renderingMode(.original)
                                 Text("Remove")
                             }
-                                
                         }
                         .buttonStyle(BorderedButtonStyle())
                         .isHidden(!(learningObj.eval_score.count > 0))
@@ -274,7 +232,6 @@ struct LearningObjectiveJourneyCell: View {
                 .padding(.trailing, 79)
                 .padding(.bottom, 15)
                 .isHidden(self.expand ? false : true)
-
             }
         }
         .background(Color.cellBackgroundColor)
@@ -292,9 +249,6 @@ struct LearningObjectiveJourneyCell: View {
                     Text("Remove")
                 }
             }
-                
-                
-            
         }
     }
     
@@ -387,7 +341,6 @@ struct LearningObjectiveJourneyCell: View {
             
         default:
             return ""
-            
         }
     }
     
@@ -405,14 +358,13 @@ struct LearningObjectiveJourneyCell: View {
             return "You understand the concepts, can analyze and evaluate when to use them and can apply them independently."
         case 5:
             return "You are a confident and creative learner of the concept and can serve as a guiding resource to others."
-            
         default:
             return ""
             
         }
     }
     
-    func setupColor(darkMode: Bool, strand: String) -> Color {
+    func setupColor(strand: String) -> Color {
         
         switch strand {
         case "Design":
@@ -425,7 +377,6 @@ struct LearningObjectiveJourneyCell: View {
             return .customYellow
         case "Technical":
             return .customBlue
-            
         default:
             return Color.defaultColor
             

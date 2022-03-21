@@ -27,7 +27,6 @@ struct LearningGoalsView: View {
     
     // check if filters was changed
     
-    @State var isUpdated : Bool = false
     var filtered_Learning_Objectives : [learning_Objective]
     @State var filtered_Learning_Objectives2 : [learning_Objective] = []
     @State var toggleFilters : Bool = false
@@ -47,11 +46,11 @@ struct LearningGoalsView: View {
                         
                         HStack {
                             
-                            SearchBarExpandableJourney(txtSearchBar: $searchText, isUpdated: $isUpdated)
+                            SearchBarExpandableJourney(txtSearchBar: $searchText)
                             
                             Spacer()
                             HStack{
-                                Text("Filters \(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == nil || getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == 0 ? "" : "(\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count != 1 ? ("\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count)") : "\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).first ?? "")"))")").font(.system(size: 20))
+                                Text("Filters \(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == 0 || getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == 0 ? "" : "(\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count != 1 ? ("\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count)") : "\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).first ?? "")"))")").font(.system(size: 20))
                                 Image(systemName: toggleFilters ? "chevron.up" : "chevron.down")
                                     .font(.system(size: 20))
                             }
