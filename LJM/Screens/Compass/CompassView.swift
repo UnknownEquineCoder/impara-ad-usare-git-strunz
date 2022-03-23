@@ -35,7 +35,6 @@ struct CompassView: View {
     @State var show_Graphs : Bool = false
     
     @State private var selectedFilters: Dictionary<String, Array<String>> = [:]
-    @State private var showingAlert = false
     
     let graph_Minimum_Dimension : CGFloat = 2
     
@@ -183,9 +182,6 @@ struct CompassView: View {
                             .multilineTextAlignment(.center)
                             .font(.system(size: 25.toFontSize()))
                             .foregroundColor(colorScheme == .dark ? Color(red: 221/255, green: 221/255, blue: 221/255) : Color.black)
-                        Button("ASD"){
-                            showingAlert = true
-                        }
                         
                             DropDownMenuCompass(selectedPath: $path)
                                 .onChange(of: path) { _ in
@@ -244,17 +240,6 @@ struct CompassView: View {
                         .padding(.bottom, 100)
                 }
             }
-            .alert(isPresented: $showingAlert) {
-                Alert(
-                    title: Text("LJM would like to collect usage data."),
-                    message: Text("The data will be collected for analytics purposes, it will be completely anonymized, aggregated and it will not contain any personal information."),
-                    primaryButton: .default( Text("Always allow"), action: {
-                    }),
-                    secondaryButton: .default( Text("Not this time"), action: {
-                    })
-                )
-            }
-            
             .padding(.leading, 50).padding(.trailing, 50)
             
             if(toggleFilters ? offset > 475 : offset > 200) {

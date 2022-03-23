@@ -14,6 +14,8 @@ struct MainCompassView: View {
     
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     
+    @State private var showingAlert = false
+    
     var body: some View {
         ZStack{
             CompassView(path: $filter_Path, currentSubviewLabel: $currentSubviewLabel)
@@ -21,7 +23,14 @@ struct MainCompassView: View {
                 .onAppear(perform: {
                     DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 1) {
                         if let peppe = sendToDropbox() {
-                            DropboxManager.instance.checkForUploadUserData(peppe)
+                            let allowDataCollection = UserDefaults.standard.bool(forKey: "allowDataCollection")
+                            if allowDataCollection {
+                                DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 1) {
+                                    DropboxManager.instance.checkForUploadUserData(peppe)
+                                }
+                            } else {
+                                showingAlert = true
+                            }
                         }
                     }
                 })
@@ -37,13 +46,29 @@ struct MainCompassView: View {
         }.onChange(of: filter_Path) { newValue in
             filter_Selected = filter_Path
         }
-        
+        .alert(isPresented: $showingAlert) {
+            Alert(
+                title: Text("LJM would like to collect usage data."),
+                message: Text("The data will be collected for analytics purposes, it will be completely anonymized, aggregated and it will not contain any personal information."),
+                primaryButton: .default( Text("Always allow"), action: {
+                    UserDefaults.standard.set(true, forKey: "allowDataCollection")
+                    DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 1) {
+                        if let peppe = sendToDropbox() {
+                            DropboxManager.instance.checkForUploadUserData(peppe)
+                        }
+                    }
+                }),
+                secondaryButton: .default( Text("Not this time"), action: {
+                    return
+                })
+            )
+        }
     }
     
     func sendToDropbox() -> Data?{
         // constants
         let userDefaultsKey = "checkForUploadUserDataDate"
-        let twoWeeksInSeconds: Double = 60 * 60 * 24 * 14
+        let twoWeeksInSeconds: Double = 2
         let now = Date()
         
         // getting saved data from user defaults

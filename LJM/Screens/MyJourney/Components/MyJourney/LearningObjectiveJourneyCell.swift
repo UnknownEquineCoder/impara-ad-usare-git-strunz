@@ -23,7 +23,8 @@ struct LearningObjectiveJourneyCell: View {
                     
                     Spacer()
                     
-                    Divider().background(Color.topBarLineColor)
+                    Divider()
+                        .background(Color.topBarLineColor)
                         .padding([.top, .bottom], 20)
                     
                     VStack {

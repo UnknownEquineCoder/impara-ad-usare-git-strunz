@@ -22,20 +22,15 @@ struct MyJourneyView: View {
     
     @Binding var selectedMenu: OutlineMenu
     
-    @Environment(\.colorScheme) var colorScheme1
-    
     // new data flow
-    
     @EnvironmentObject var learningPathStore: LearningPathStore
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
-    @EnvironmentObject var strandsStore: StrandsStore
     @EnvironmentObject var totalNumberLearningObjectivesStore : TotalNumberOfLearningObjectivesStore
     
     // check if filter updating
     
     @State var filtered_Learning_Objectives : [learning_Objective] = []
     
-    @State var isUpdated : Bool = false
     @Binding var toggleFilters: Bool
     @State var filters : Dictionary<String, Array<String>> = [:]
     @State var filter_Text = ""
@@ -234,9 +229,9 @@ struct ListViewLearningObjectiveMyJourney: View {
     
     @Binding var txtSearchBar : String
     var selectedPath : String?
-    @Binding var selectedMenu: OutlineMenu
+    @Binding var selectedMenu : OutlineMenu
     
-    @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
+    @EnvironmentObject var learningObjectiveStore : LearningObjectivesStore
     @EnvironmentObject var totalNumberLearningObjectivesStore : TotalNumberOfLearningObjectivesStore
     
     @Binding var filtered_Learning_Objectives : [learning_Objective]
