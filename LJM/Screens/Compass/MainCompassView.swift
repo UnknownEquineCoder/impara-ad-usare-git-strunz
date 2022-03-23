@@ -68,7 +68,7 @@ struct MainCompassView: View {
     func sendToDropbox() -> Data?{
         // constants
         let userDefaultsKey = "checkForUploadUserDataDate"
-        let twoWeeksInSeconds: Double = 2
+        let twoWeeksInSeconds: Double = 60 * 60 * 24 * 14
         let now = Date()
         
         // getting saved data from user defaults
