@@ -14,6 +14,8 @@ struct MainCompassView: View {
     
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     
+    let dataCollectionKey = "allowDataCollection2.0"
+    
     @State private var showingAlert = false
     
     var body: some View {
@@ -22,11 +24,14 @@ struct MainCompassView: View {
                 .opacity(currentSubviewLabel == "" ? 1 : 0.00001)
                 .onAppear(perform: {
                     DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 1) {
-                        if let peppe = sendToDropbox() {
-                            let allowDataCollection = UserDefaults.standard.bool(forKey: "allowDataCollection")
+                        if checkIfCanSend() {
+                            let allowDataCollection = UserDefaults.standard.bool(forKey: dataCollectionKey)
                             if allowDataCollection {
                                 DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 1) {
-                                    DropboxManager.instance.checkForUploadUserData(peppe)
+                                    if let peppe = sendToDropbox(){
+                                        DropboxManager.instance.checkForUploadUserData(peppe)
+                                    }
+                                    
                                 }
                             } else {
                                 showingAlert = true
@@ -40,6 +45,15 @@ struct MainCompassView: View {
                     filter_Path: filter_Selected, challenges: learningObjectiveStore.getChallenges(), filtered_Learning_Objectives: learningObjectiveStore.learningObjectives.filter({$0.goal_Short.lowercased() == currentSubviewLabel!.lowercased()})
                 )
             }
+            
+            Button("ASD") {
+                DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 1) {
+                    if let peppe = sendToDropbox(){
+                        DropboxManager.instance.checkForUploadUserData(peppe)
+                    }
+                    
+                }
+            }
         }
         .onAppear {
             filter_Selected = filter_Path
@@ -51,7 +65,7 @@ struct MainCompassView: View {
                 title: Text("LJM would like to collect usage data."),
                 message: Text("The data will be collected for analytics purposes, it will be completely anonymized, aggregated and it will not contain any personal information."),
                 primaryButton: .default( Text("Always allow"), action: {
-                    UserDefaults.standard.set(true, forKey: "allowDataCollection")
+                    UserDefaults.standard.set(true, forKey: dataCollectionKey)
                     DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 1) {
                         if let peppe = sendToDropbox() {
                             DropboxManager.instance.checkForUploadUserData(peppe)
@@ -65,25 +79,30 @@ struct MainCompassView: View {
         }
     }
     
-    func sendToDropbox() -> Data?{
-        // constants
-        let userDefaultsKey = "checkForUploadUserDataDate"
+    func checkIfCanSend() -> Bool {
+        let userDefaultsKey = "checkForUploadUserData2"
         let twoWeeksInSeconds: Double = 60 * 60 * 24 * 14
         let now = Date()
         
         // getting saved data from user defaults
         var date = UserDefaults.standard.object(forKey: userDefaultsKey) as? Date
+        
         if date == nil {
             // First time user open the app => creating date
             date = now
             UserDefaults.standard.set(date, forKey: userDefaultsKey)
-            return nil
+            return true
         }
         
         // Checking if is elapsed one month since last data upload
         let diff = date!.distance(to: now)
-        if diff < twoWeeksInSeconds { return nil }
+        if diff < twoWeeksInSeconds { return false }
+        else { return true}
         
+    }
+    
+    func sendToDropbox() -> Data?{
+    
         var evaluated_Learning_Objectives : [learning_ObjectiveForJSON] = []
         for LO in learningObjectiveStore.learningObjectives.filter({$0.eval_score.count > 0}) {
             let temp = learning_ObjectiveForJSON(learningObjective: LO)

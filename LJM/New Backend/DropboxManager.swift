@@ -13,7 +13,7 @@ import FoundationNetworking
 class DropboxManager {
     
     // API Access token
-    private let TOKEN = "AgGZQ4QvkHsAAAAAAAAAAUElilkJdjDb_Q71yuGcIQX5IJNh76YIxtgEh8uObZ6e"
+    private let TOKEN = "sl.BEaMK2i3xy65393sIvqsg8TeP0ICXHqHi7Zhy6DVuRdCY2DRYbWBG86nPsuGyHM_PW8l-Qn39xkU4lP_S9FTT4khpXH6Bo2dE9LNm5RSf-p0rnCdyBK9mVTYg2c6vXx3pwE9OXL4"
     
     // Singleton pattern
     static let instance = DropboxManager()
