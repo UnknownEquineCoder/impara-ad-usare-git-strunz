@@ -10,15 +10,30 @@ import Foundation
 import FoundationNetworking
 #endif
 
+class AirTableManager {
+    private let TOKEN = "keyvSDG29X6BEJH0B"
+    private let sendHere = "https://api.airtable.com/v0/appMpsQ2dMvlknrmM/Table%201"
+    
+    func sendData(){
+        let url = URL(string: sendHere)!
+        var request = URLRequest(url: url)
+        request.setValue("application/json", forHTTPHeaderField: "application/json")
+        request.httpMethod = "POST"
+    }
+    
+    
+}
+
 class DropboxManager {
     
     // API Access token
-    private let TOKEN = "sl.BEaMK2i3xy65393sIvqsg8TeP0ICXHqHi7Zhy6DVuRdCY2DRYbWBG86nPsuGyHM_PW8l-Qn39xkU4lP_S9FTT4khpXH6Bo2dE9LNm5RSf-p0rnCdyBK9mVTYg2c6vXx3pwE9OXL4"
+//    private let TOKEN = "sl.BEaMK2i3xy65393sIvqsg8TeP0ICXHqHi7Zhy6DVuRdCY2DRYbWBG86nPsuGyHM_PW8l-Qn39xkU4lP_S9FTT4khpXH6Bo2dE9LNm5RSf-p0rnCdyBK9mVTYg2c6vXx3pwE9OXL4"
     
     // Singleton pattern
     static let instance = DropboxManager()
     private init() {}
-    
+    private let TOKEN = "keyvSDG29X6BEJH0B"
+    private let sendHere = "https://api.airtable.com/v0/appMpsQ2dMvlknrmM/Table%201"
     /*
      Function to upload data on Dropbox once in a month
      */
@@ -28,6 +43,7 @@ class DropboxManager {
             
         UserDefaults.standard.set( Date(), forKey: userDefaultsKey)
         uploadUserData(data)
+        
         print("Dropbox data updated!")
         return
         
@@ -40,36 +56,37 @@ class DropboxManager {
      */
     private func uploadUserData(_ data : Data) {
         
-        // Getting user folder name
-        let folder = getUserIdentifier()
-        
-        // Getting filename as 20220225_131020.json
-        let date = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "YYYYMMdd_HHmmss"
-        let filename = dateFormatter.string(from: date)
-        
-        let path = "/StudentsData/\(folder)/\(filename).json"
-
-        var request = URLRequest(url: URL(string: "https://content.dropboxapi.com/2/files/upload")!,timeoutInterval: Double.infinity)
-        
-        request.addValue("Bearer \(TOKEN)", forHTTPHeaderField: "Authorization")
-        request.addValue("{\"path\": \"\(path)\",\"mode\": \"overwrite\",\"autorename\": false,\"mute\": false,\"strict_conflict\": false}", forHTTPHeaderField: "Dropbox-API-Arg")
-        request.addValue("application/octet-stream", forHTTPHeaderField: "Content-Type")
-
-        request.httpMethod = "POST"
-        request.httpBody = data
-
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-          guard let data = data else {
-            print(String(describing: error))
-            return
-          }
-          print(String(data: data, encoding: .utf8)!)
+        do{
+            var request = URLRequest(url: URL(string: sendHere)!,timeoutInterval: Double.infinity)
+            
+            request.addValue("Bearer \(TOKEN)", forHTTPHeaderField: "Authorization")
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            
+            request.httpMethod = "POST"
+            let newStruct = Welcome(records: [Record(fields: Fields(id: getUserIdentifier(), data: String(bytes: data, encoding: .utf8)!))])
+            let encoder = JSONEncoder()
+            let result = try encoder.encode(newStruct)
+            request.httpBody = result
+            
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+              guard let data = data else {
+                print(String(describing: error))
+                return
+              }
+                if let httpResponse = response as? HTTPURLResponse {
+                    if httpResponse.statusCode == 200{
+                        DispatchQueue.main.asyncAfter(deadline: .now()+40) {
+                            self.uploadUserData(data)
+                        }
+                        
+                    }
+                    print("error \(httpResponse.statusCode)")
+                }
+            }
+            task.resume()
+        } catch {
+            print("oh no")
         }
-
-        task.resume()
-
     }
     
     /*
@@ -96,4 +113,22 @@ class DropboxManager {
     
 }
 
+// MARK: - Welcome
+struct Welcome: Codable {
+    let records: [Record]
+}
 
+// MARK: - Record
+struct Record: Codable {
+    let fields: Fields
+}
+
+// MARK: - Fields
+struct Fields: Codable {
+    let id, data: String
+
+    enum CodingKeys: String, CodingKey {
+        case id = "ID"
+        case data
+    }
+}
