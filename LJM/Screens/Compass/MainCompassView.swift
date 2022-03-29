@@ -11,6 +11,7 @@ struct MainCompassView: View {
     @State var currentSubviewLabel : String? = ""
     @Binding var filter_Path : String
     @State var filter_Selected : String?
+    let userDefaultsKey = "checkForUploadUserData2"
     
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     
@@ -64,14 +65,14 @@ struct MainCompassView: View {
                     }
                 }),
                 secondaryButton: .default( Text("Not this time"), action: {
-                    return
+                    UserDefaults.standard.set(Date(), forKey: userDefaultsKey)
                 })
             )
         }
     }
     
     func checkIfCanSend() -> Bool {
-        let userDefaultsKey = "checkForUploadUserData2"
+        
         let twoWeeksInSeconds: Double = 60 * 60 * 24 * 14
         let now = Date()
         
