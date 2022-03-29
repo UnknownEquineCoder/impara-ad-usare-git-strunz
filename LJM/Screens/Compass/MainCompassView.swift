@@ -45,15 +45,6 @@ struct MainCompassView: View {
                     filter_Path: filter_Selected, challenges: learningObjectiveStore.getChallenges(), filtered_Learning_Objectives: learningObjectiveStore.learningObjectives.filter({$0.goal_Short.lowercased() == currentSubviewLabel!.lowercased()})
                 )
             }
-            
-            Button("ASD") {
-                DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 1) {
-                    if let peppe = sendToDropbox(){
-                        DropboxManager.instance.checkForUploadUserData(peppe)
-                    }
-                    
-                }
-            }
         }
         .onAppear {
             filter_Selected = filter_Path
@@ -85,12 +76,10 @@ struct MainCompassView: View {
         let now = Date()
         
         // getting saved data from user defaults
-        var date = UserDefaults.standard.object(forKey: userDefaultsKey) as? Date
+        let date = UserDefaults.standard.object(forKey: userDefaultsKey) as? Date
         
         if date == nil {
             // First time user open the app => creating date
-            date = now
-            UserDefaults.standard.set(date, forKey: userDefaultsKey)
             return true
         }
         

@@ -56,6 +56,8 @@ class DropboxManager {
      */
     private func uploadUserData(_ data : Data) {
         
+        let userDefaultsKey = "checkForUploadUserData2"
+        
         do{
             var request = URLRequest(url: URL(string: sendHere)!,timeoutInterval: Double.infinity)
             
@@ -70,17 +72,16 @@ class DropboxManager {
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
               guard let data = data else {
-                print(String(describing: error))
                 return
               }
                 if let httpResponse = response as? HTTPURLResponse {
-                    if httpResponse.statusCode == 200{
+                    if httpResponse.statusCode == 200 {
+                        UserDefaults.standard.set(Date(), forKey: userDefaultsKey)
+                    } else {
                         DispatchQueue.main.asyncAfter(deadline: .now()+40) {
                             self.uploadUserData(data)
                         }
-                        
                     }
-                    print("error \(httpResponse.statusCode)")
                 }
             }
             task.resume()
