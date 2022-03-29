@@ -178,7 +178,6 @@ struct LJMApp: App {
                     }
                     .environmentObject(learningObjectiveStore)
             }
-//            ChallengeView()
             
         }
         .windowStyle(.hiddenTitleBar)

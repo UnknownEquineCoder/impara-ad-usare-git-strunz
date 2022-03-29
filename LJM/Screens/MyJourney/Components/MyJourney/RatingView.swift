@@ -11,7 +11,6 @@ struct RatingView: View {
     
     var strandColor: Color
     var learningObj: learning_Objective
-    @Environment(\.colorScheme) var colorScheme
     
     @Binding var rating: Int
     @State private var hover = false
@@ -27,14 +26,14 @@ struct RatingView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 15, height: 15, alignment: .center)
-                .foregroundColor(learningPathSelected == nil || learningPathSelected == "Any" || learningPathSelected == "None" ? .clear : strandColor)
+                .foregroundColor(learningPathSelected == nil || learningPathSelected == "Any" || learningPathSelected == "None" ? .clear : strandColor)
                 .offset(x: setupGoalRating())
             
             HStack(spacing:5) {
                 ForEach(1..<maximumRating + 1, id: \.self) { number in
                     CircleView(strandColor: strandColor, learningObj: learningObj, number: number, rating: rating)
                         .onTapGesture {
-                            withAnimation {
+//                            withAnimation {
                                 self.rating = number
                                 
                                 // Add assessment
@@ -55,7 +54,7 @@ struct RatingView: View {
                                 if learningObjectiveStore.isSavable {
                                     PersistenceController.shared.evalutate_Learning_Objective(l_Objective: self.learningObjectiveStore.learningObjectives[learningObjectiveIndex])
                                 }
-                            } 
+//                            }
                         }
                         .frame(width: 30, height: 30, alignment: .center)
                 }
@@ -103,8 +102,6 @@ struct CircleView: View {
     
     @State var learningObj: learning_Objective
     
-    @Environment(\.colorScheme) var colorScheme
-    
     var number = 1
     var rating = 1
     
@@ -112,29 +109,29 @@ struct CircleView: View {
         ZStack {
             Text("")
                 .padding(.bottom, 30)
-                .popover(isPresented: $hovered) {
-                    PopOverViewRating(strandColor: strandColor, status: setupTitleProgressRubric(value: number), desc: setupDescProgressOnRubric(value: number))
-                }
+//                .popover(isPresented: $hovered) {
+//                    PopOverViewRating(strandColor: strandColor, status: setupTitleProgressRubric(value: number), desc: setupDescProgressOnRubric(value: number))
+//                }
             
             Circle()
                 .strokeBorder(number > rating ? (hovered ? Color.defaultColor : Color.circleStrokeColor) : Color.clear, lineWidth: 2)
                 .background(Circle().foregroundColor(number > rating ? Color.cellBackgroundColor : strandColor))
                 .frame(width: 30, height: 30)
                 .onHover { hover in
-                    if hover {
-                            isHover = true
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            if isHover {
-                                self.hovered = true
-                                self.showingPopup = true
-                            
-                        }
-                    }
-                } else {
-                    isHover = false
-                    self.hovered = false
-                    self.showingPopup = false
-                }
+                    self.hovered = hover
+//                    if hover {
+//                            isHover = true
+//                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//                            if isHover {
+//                                self.hovered = true
+//                                self.showingPopup = true
+//                        }
+//                    }
+//                } else {
+//                    isHover = false
+//                    self.hovered = false
+//                    self.showingPopup = false
+//                }
         }
     }
 }

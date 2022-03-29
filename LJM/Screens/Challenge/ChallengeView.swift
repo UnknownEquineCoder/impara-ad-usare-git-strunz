@@ -28,22 +28,13 @@ struct ChallengeView: View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 15){
                 if let lastChallenge = learningObjectiveStore.getChallenges().last {
-                    MainChallenge(challenge: lastChallenge)
+                    MainChallenge(challenge: lastChallenge, isViewSelected: $isViewSelected, selectedChallenge: $selectedChallenge)
                         .padding(.bottom, 5)
-                        .onTapGesture {
-                            isViewSelected = true
-                            selectedChallenge = lastChallenge
-                        }
                 }
-                
                 
                 LazyVGrid(columns: columns, spacing: 20) {
                     ForEach(Range(0...learningObjectiveStore.getChallenges().count - 2), id: \.self) { index in
-                        OtherChallenges(challenge: learningObjectiveStore.getChallenges()[index])
-                            .onTapGesture {
-                                isViewSelected = true
-                                selectedChallenge = learningObjectiveStore.getChallenges()[index]
-                            }
+                        OtherChallenges(challenge: learningObjectiveStore.getChallenges()[index], isViewSelected: $isViewSelected, selectedChallenge: $selectedChallenge)
                     }
                 }
         

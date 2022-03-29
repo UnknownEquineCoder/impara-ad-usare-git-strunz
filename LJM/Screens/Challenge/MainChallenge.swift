@@ -9,9 +9,9 @@ import SwiftUI
 
 struct MainChallenge: View {
     
-    let backgroundColor : Color = .red
-    
     let challenge : Challenge
+    @Binding var isViewSelected : Bool
+    @Binding var selectedChallenge : Challenge?
     
     private static var formatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -21,67 +21,80 @@ struct MainChallenge: View {
     
     
     var body: some View {
-        
-        HStack(alignment:.top){
-            VStack(alignment:.leading,spacing: 0){
-                Text(challenge.ID)
-                    .fontWeight(.heavy)
-                    .foregroundColor(Color.white)
-                    .font(.headline)
-                    .padding(.bottom, 20)
-                    
-                Text(challenge.name)
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.white)
-                    .font(.largeTitle)
-                    .padding(.bottom, 6)
-                Text("\(getDate(challenge:challenge)!, formatter: MainChallenge.formatter) - \(getEndDate(challenge:challenge)!,formatter: MainChallenge.formatter)")
-                    .fontWeight(.semibold)
-                    .foregroundColor(Color.white)
-                    .font(.subheadline)
-                    .padding(.bottom, 10)
-            }
-//            .frame(width: 288)
-            .padding(.top, 86)
-            .padding(.bottom, 81 + 56)
-            .padding(.leading, 27)
-            
-            Spacer()
-        }
-        .background(
-            GeometryReader { geometry in
-                ZStack(alignment: .leading){
-                    Image(challenge.ID)
-                        .resizable()
-                        .scaledToFill()
-                        .edgesIgnoringSafeArea(.all)
-                        .clipped()
-                        .offset(y: -80)
+        ZStack{
+            HStack(alignment:.top){
+                VStack(alignment:.leading,spacing: 0){
+                    Text(challenge.ID)
+                        .fontWeight(.heavy)
+                        .foregroundColor(Color.white)
+                        .font(.headline)
+                        .padding(.bottom, 20)
                         
-                    Image(challenge.ID)
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: geometry.size.width/3, alignment:.leading)
-                        .clipped()
-                        .blur(radius: 5, opaque: false)
-                        .offset(y: -80)
-
-                    Color.init(red: 60/255, green: 60/255, blue: 67/255)
-                        .opacity(0.3)
-                        .frame(width: geometry.size.width/3,alignment:.leading)
+                    Text(challenge.name)
+                        .fontWeight(.bold)
+                        .foregroundColor(Color.white)
+                        .font(.largeTitle)
+                        .padding(.bottom, 6)
+                    Text("\(getDate(challenge:challenge)!, formatter: MainChallenge.formatter) - \(getEndDate(challenge:challenge)!,formatter: MainChallenge.formatter)")
+                        .fontWeight(.semibold)
+                        .foregroundColor(Color.white)
+                        .font(.subheadline)
+                        .padding(.bottom, 10)
                 }
-            }).cornerRadius(9)
+    //            .frame(width: 288)
+                .padding(.top, 86)
+                .padding(.bottom, 81 + 56)
+                .padding(.leading, 27)
+                
+                Spacer()
+            }
+            .background(
+                GeometryReader { geometry in
+                    ZStack(alignment: .leading){
+                        Image(challenge.ID)
+                            .resizable()
+                            .scaledToFill()
+                            .edgesIgnoringSafeArea(.all)
+                            .clipped()
+                            .offset(y: -80)
+    //                        .frame(width: geometry.size.width,height:geometry.size.height, alignment:.leading)
+                            
+                        Image(challenge.ID)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: geometry.size.width/3, alignment:.leading)
+                            .clipped()
+                            .blur(radius: 5, opaque: false)
+                            .offset(y: -80)
+
+                        Color.init(red: 60/255, green: 60/255, blue: 67/255)
+                            .opacity(0.3)
+                            .frame(width: geometry.size.width/3,alignment:.leading)
+                        
+                        
+                    }
+                })
+            Color.white.opacity(0.0001)
+                .onTapGesture {
+                    isViewSelected = true
+                    selectedChallenge = challenge
+                }
+        }
+        
+        
+        .cornerRadius(9)
+            
     }
 }
 
-struct MainChallenge_Previews: PreviewProvider {
-    static var previews: some View {
-        let tempChallenge = Challenge(name: "ASD",
-                                      ID: "NS1",
-                                      start_Date: "11/12",
-                                      end_Date: "12/12")
-        MainChallenge(challenge: tempChallenge)
-    }
-}
+//struct MainChallenge_Previews: PreviewProvider {
+//    static var previews: some View {
+//        let tempChallenge = Challenge(name: "ASD",
+//                                      ID: "NS1",
+//                                      start_Date: "11/12",
+//                                      end_Date: "12/12")
+//        MainChallenge(challenge: tempChallenge)
+//    }
+//}
 
 

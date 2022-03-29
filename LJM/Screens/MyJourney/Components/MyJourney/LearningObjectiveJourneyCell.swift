@@ -23,7 +23,8 @@ struct LearningObjectiveJourneyCell: View {
                     
                     Spacer()
                     
-                    Divider().background(Color.topBarLineColor)
+                    Divider()
+                        .background(Color.topBarLineColor)
                         .padding([.top, .bottom], 20)
                     
                     VStack {
@@ -42,6 +43,7 @@ struct LearningObjectiveJourneyCell: View {
                                 RatingView(strandColor: setupColor( strand: learningObj.strand), learningObj: learningObj, rating: $rating, learningPathSelected: learningPathSelected)
                                     .padding(.top, learningObj.description.count > 210 ? 20 : 0)
                                     .padding(.trailing, 10)
+                                    
                             } else {
                                 AddButton(strandColor: setupColor( strand: learningObj.strand), learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27)
                                     .padding(.top, learningObj.description.count > 210 ? 20 : 0)
