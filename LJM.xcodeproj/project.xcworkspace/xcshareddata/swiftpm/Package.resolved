@@ -1,79 +1,77 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "CwlCatchException",
-        "repositoryURL": "https://github.com/mattgallagher/CwlCatchException.git",
-        "state": {
-          "branch": null,
-          "revision": "f809deb30dc5c9d9b78c872e553261a61177721a",
-          "version": "2.0.0"
-        }
-      },
-      {
-        "package": "CwlPreconditionTesting",
-        "repositoryURL": "https://github.com/mattgallagher/CwlPreconditionTesting.git",
-        "state": {
-          "branch": null,
-          "revision": "02b7a39a99c4da27abe03cab2053a9034379639f",
-          "version": "2.0.0"
-        }
-      },
-      {
-        "package": "JWTDecode",
-        "repositoryURL": "https://github.com/auth0/JWTDecode.swift.git",
-        "state": {
-          "branch": null,
-          "revision": "3985f68dec94c7d7148d9821abb65cf0c508e9f2",
-          "version": "2.6.0"
-        }
-      },
-      {
-        "package": "Nimble",
-        "repositoryURL": "https://github.com/Quick/Nimble.git",
-        "state": {
-          "branch": null,
-          "revision": "7a54aaf19a8ef16f67787c260fda81ead7ba4d67",
-          "version": "9.0.1"
-        }
-      },
-      {
-        "package": "Quick",
-        "repositoryURL": "https://github.com/Quick/Quick.git",
-        "state": {
-          "branch": null,
-          "revision": "8cce6acd38f965f5baa3167b939f86500314022b",
-          "version": "3.1.2"
-        }
-      },
-      {
-        "package": "SwiftKeychainWrapper",
-        "repositoryURL": "https://github.com/jrendel/SwiftKeychainWrapper",
-        "state": {
-          "branch": null,
-          "revision": "185a3165346a03767101c4f62e9a545a0fe0530f",
-          "version": "4.0.1"
-        }
-      },
-      {
-        "package": "Introspect",
-        "repositoryURL": "https://github.com/siteline/SwiftUI-Introspect.git",
-        "state": {
-          "branch": null,
-          "revision": "2e09be8af614401bc9f87d40093ec19ce56ccaf2",
-          "version": "0.1.3"
-        }
-      },
-      {
-        "package": "Shapes",
-        "repositoryURL": "https://github.com/spacenation/swiftui-shapes",
-        "state": {
-          "branch": null,
-          "revision": "c58b15c37eae9bd20525c6daa93a06a689ca75cb",
-          "version": "1.1.0"
-        }
+  "pins" : [
+    {
+      "identity" : "cwlcatchexception",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mattgallagher/CwlCatchException.git",
+      "state" : {
+        "revision" : "f809deb30dc5c9d9b78c872e553261a61177721a",
+        "version" : "2.0.0"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "cwlpreconditiontesting",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mattgallagher/CwlPreconditionTesting.git",
+      "state" : {
+        "revision" : "02b7a39a99c4da27abe03cab2053a9034379639f",
+        "version" : "2.0.0"
+      }
+    },
+    {
+      "identity" : "jwtdecode.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/auth0/JWTDecode.swift.git",
+      "state" : {
+        "revision" : "3985f68dec94c7d7148d9821abb65cf0c508e9f2",
+        "version" : "2.6.0"
+      }
+    },
+    {
+      "identity" : "nimble",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Quick/Nimble.git",
+      "state" : {
+        "revision" : "7a54aaf19a8ef16f67787c260fda81ead7ba4d67",
+        "version" : "9.0.1"
+      }
+    },
+    {
+      "identity" : "quick",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Quick/Quick.git",
+      "state" : {
+        "revision" : "8cce6acd38f965f5baa3167b939f86500314022b",
+        "version" : "3.1.2"
+      }
+    },
+    {
+      "identity" : "swiftkeychainwrapper",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jrendel/SwiftKeychainWrapper",
+      "state" : {
+        "revision" : "185a3165346a03767101c4f62e9a545a0fe0530f",
+        "version" : "4.0.1"
+      }
+    },
+    {
+      "identity" : "swiftui-introspect",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/siteline/SwiftUI-Introspect.git",
+      "state" : {
+        "revision" : "2e09be8af614401bc9f87d40093ec19ce56ccaf2",
+        "version" : "0.1.3"
+      }
+    },
+    {
+      "identity" : "swiftui-shapes",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/spacenation/swiftui-shapes",
+      "state" : {
+        "revision" : "c58b15c37eae9bd20525c6daa93a06a689ca75cb",
+        "version" : "1.1.0"
+      }
+    }
+  ],
+  "version" : 2
 }

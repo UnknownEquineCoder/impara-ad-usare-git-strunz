@@ -41,46 +41,49 @@ struct MyJourneyView: View {
     @State var filter_Text = ""
     
     var body: some View {
-        
-        ScrollView(showsIndicators: false) {
-            
-            ScrollViewReader { proxy in
+        ZStack{
+            Color.bgColor
+                .padding(.top, -40)
+                .padding(.leading, -10)
+            ScrollView(showsIndicators: false) {
                 
-                VStack {
-                    TitleScreenView(title: "Journey")
+                ScrollViewReader { proxy in
                     
-                    VStack(alignment: .leading) {
-                        DescriptionTitleScreenView(desc: "During your Journey, you will encounter a series of Learning Objectives (LOs). The Communal LOs will be added to your Journey as they are addressed in the Challenges. Elective Objectives will appear here when you select them from the Map. You can compare your Journey to specific career paths to help with personal planning. The arrows indicate your current progress towards reaching the LO.")
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                    HStack {
+                    VStack {
+                        TitleScreenView(title: "Journey")
                         
-                        SearchBarExpandableJourney(txtSearchBar: $searchText)
+                        VStack(alignment: .leading) {
+                            DescriptionTitleScreenView(desc: "During your Journey, you will encounter a series of Learning Objectives (LOs). The Communal LOs will be added to your Journey as they are addressed in the Challenges. Elective Objectives will appear here when you select them from the Map. You can compare your Journey to specific career paths to help with personal planning. The arrows indicate your current progress towards reaching the LO.")
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         
-                        Spacer()
                         HStack {
-                            Text("Filters \(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == 0 || getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == 0 ? "" : "(\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count != 1 ? ("\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count)") : "\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).first ?? "")"))")")
-                                .font(.system(size: 20))
-                            Image(systemName: toggleFilters ? "chevron.up" : "chevron.down")
-                                .font(.system(size: 20))
-                        }
-                        .background(Color.gray.opacity(0.001))
-                        .onTapGesture {
-                            self.toggleFilters.toggle()
-                        }
-                        .clipped()
+                            
+                            SearchBarExpandableJourney(txtSearchBar: $searchText)
+                            
+                            Spacer()
+                            HStack {
+                                Text("Filters \(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == 0 || getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == 0 ? "" : "(\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count != 1 ? ("\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count)") : "\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).first ?? "")"))")")
+                                    .font(.system(size: 20))
+                                Image(systemName: toggleFilters ? "chevron.up" : "chevron.down")
+                                    .font(.system(size: 20))
+                            }
+                            .background(Color.gray.opacity(0.001))
+                            .onTapGesture {
+                                self.toggleFilters.toggle()
+                            }
+                            .clipped()
+                            
+                        }.padding(.top, 10)
                         
-                    }.padding(.top, 10)
-                    
-                    Filters(
-                        viewType: .journey, challenges: learningObjectiveStore.getChallenges(),
-                        selectedFilters: $selectedFilters,
-                        onFiltersChange: { filter in
-                            filters = filter
-                            selectedFilters = filter
-                            filtered_Learning_Objectives = filterLearningObjective()
-                        })
+                        Filters(
+                            viewType: .journey, challenges: learningObjectiveStore.getChallenges(),
+                            selectedFilters: $selectedFilters,
+                            onFiltersChange: { filter in
+                                filters = filter
+                                selectedFilters = filter
+                                filtered_Learning_Objectives = filterLearningObjective()
+                            })
                         .opacity(toggleFilters ? 1 : 0)
                         .frame(height: toggleFilters ? .none : 0)
                         .clipped()
@@ -92,44 +95,45 @@ struct MyJourneyView: View {
                             filters = selectedFilters
                             filtered_Learning_Objectives = filterLearningObjective()
                         }
-                    
-                    ZStack(alignment: .topLeading) {
                         
-                        NumberTotalLearningObjectivesView(totalLOs: self.totalNumberLearningObjectivesStore.total)
-                            .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
-                            .padding(.top, -10)
-                        
-                        ListViewLearningObjectiveMyJourney(txtSearchBar: $searchText, selectedPath: selectedFilters["Path"]?.first, selectedMenu: $selectedMenu, filtered_Learning_Objectives: $filtered_Learning_Objectives)
-                            .onAppear {
-                                filtered_Learning_Objectives = filterLearningObjective()
-                            }
-                            .onChange(of: scrollTarget) { _ in
+                        ZStack(alignment: .topLeading) {
+                            
+                            NumberTotalLearningObjectivesView(totalLOs: self.totalNumberLearningObjectivesStore.total)
+                                .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
+                                .padding(.top, -10)
+                            
+                            ListViewLearningObjectiveMyJourney(txtSearchBar: $searchText, selectedPath: selectedFilters["Path"]?.first, selectedMenu: $selectedMenu, filtered_Learning_Objectives: $filtered_Learning_Objectives)
+                                .onAppear {
+                                    filtered_Learning_Objectives = filterLearningObjective()
+                                }
+                                .onChange(of: scrollTarget) { _ in
                                     proxy.scrollTo(0, anchor: .top)
-                            }
-                            .onChange(of: learningObjectiveStore.learningObjectives) { _ in
-                                filtered_Learning_Objectives = filterLearningObjective()
-                            }
-                            .onChange(of: searchText, perform: { newValue in
-                                filter_Text = newValue
-                                filtered_Learning_Objectives = filterLearningObjective()
-                            })
-                        
-                    }.frame(maxWidth: .infinity)
-                }
-                .padding(.top, fullScreen == true ? 60 : 0)
-                .id(0)
-                .background(
-                    GeometryReader {
-                        Color.clear.preference(key: ViewOffsetKey2.self,
-                                               value: -$0.frame(in: .named("scroll")).origin.y)
+                                }
+                                .onChange(of: learningObjectiveStore.learningObjectives) { _ in
+                                    filtered_Learning_Objectives = filterLearningObjective()
+                                }
+                                .onChange(of: searchText, perform: { newValue in
+                                    filter_Text = newValue
+                                    filtered_Learning_Objectives = filterLearningObjective()
+                                })
+                            
+                        }.frame(maxWidth: .infinity)
                     }
-                )
-                .onPreferenceChange(ViewOffsetKey2.self) { element in
-                    withAnimation(.linear(duration: 0.1)){
-                        offset = element
+                    .padding(.top, fullScreen == true ? 60 : 0)
+                    .id(0)
+                    .background(
+                        GeometryReader {
+                            Color.clear.preference(key: ViewOffsetKey2.self,
+                                                   value: -$0.frame(in: .named("scroll")).origin.y)
+                        }
+                    )
+                    .onPreferenceChange(ViewOffsetKey2.self) { element in
+                        withAnimation(.linear(duration: 0.1)){
+                            offset = element
+                        }
                     }
+                    .padding(.leading, 50).padding(.trailing, 50)
                 }
-                .padding(.leading, 50).padding(.trailing, 50)
             }
         }
     }
@@ -147,7 +151,7 @@ struct MyJourneyView: View {
         for value in values {
             arrayValues.append(contentsOf: value)
         }
-                
+        
         return arrayValues
     }
     

@@ -68,6 +68,10 @@ struct CompassView: View {
     @State var selectedChallengeIndex : Int = 0
     
     var body: some View {
+        ZStack{
+            Color.bgColor
+                .padding(.top, -40)
+                .padding(.leading, -10)
             ScrollView(showsIndicators: false) {
                 
                 VStack {
@@ -260,7 +264,7 @@ struct CompassView: View {
             if(toggleFilters ? offset > 475 : offset > 200) {
                 Topbar(title: "Compass", filters: selectedFilters, fromCompass: true, scrollTarget: $scrollTarget, toggleFilters: $toggleFilters)
             }
-            
+        }
     }
     
     func bars_For_Path_Selected(){
