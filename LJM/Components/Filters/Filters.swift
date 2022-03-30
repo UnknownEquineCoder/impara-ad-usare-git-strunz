@@ -51,7 +51,7 @@ struct Filters: View {
             
             ForEach(model.kinds, id: \.self) { kind in
                 
-                VStack(alignment: .leading){
+                VStack(alignment: .leading,spacing: 0){
                     
                     // Filter section title
                     Text(kind).foregroundColor(.gray)
@@ -66,8 +66,8 @@ struct Filters: View {
                                 Image(systemName: "checkmark")
                             }
                         }
+                        .padding([.bottom, .top], 10)
                         .background(Color.customBlack.opacity(0.0001)) // hot fix to have the entire button clickable
-                        .padding([.bottom, .top], 5)
                         .onTapGesture {
 
                             // Remove if already selected and there are others selected
@@ -96,6 +96,7 @@ struct Filters: View {
                         }
                         if model.getTypesByKind(kind: kind).last! != filter {
                             Divider()
+                                
                         }
                         
                     }

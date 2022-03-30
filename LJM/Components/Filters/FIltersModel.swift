@@ -59,7 +59,6 @@ class FiltersModel: ObservableObject {
         
         case .map:
             self.allFilters = [
-            
                 FiltersModelData(kind: "Type",
                                  isSingleSelection: true,
                                  initialSelectedFilter: 0,
