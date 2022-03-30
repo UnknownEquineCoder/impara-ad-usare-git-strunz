@@ -22,6 +22,7 @@ struct RatingView: View {
     
     var body: some View {
         VStack {
+            
             Image(systemName: "arrowtriangle.down.fill")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
@@ -33,38 +34,59 @@ struct RatingView: View {
                 ForEach(1..<maximumRating + 1, id: \.self) { number in
                     CircleView(strandColor: strandColor, learningObj: learningObj, number: number, rating: rating)
                         .onTapGesture {
-//                            withAnimation {
-                                self.rating = number
-                                
-                                // Add assessment
-                                let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObj.ID})!
-                                
-                                let new_Date = Calendar.current.date(bySettingHour: 0, minute: 1, second: 0, of: Date())!
-                                
-                                let index_To_Delete = self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.firstIndex(where: {$0 == new_Date})
-                                
-                                if let to_Delete = index_To_Delete {
-                                    self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.remove(at: to_Delete)
-                                    self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.remove(at: to_Delete)
-                                }
-                                
-                                self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.append(number)
-                                self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.append(new_Date)
-                                
-                                if learningObjectiveStore.isSavable {
-                                    PersistenceController.shared.evalutate_Learning_Objective(l_Objective: self.learningObjectiveStore.learningObjectives[learningObjectiveIndex])
-                                }
-//                            }
+                            //                            withAnimation {
+                            self.rating = number
+                            
+                            // Add assessment
+                            let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObj.ID})!
+                            
+                            let new_Date = Calendar.current.date(bySettingHour: 0, minute: 1, second: 0, of: Date())!
+                            
+                            let index_To_Delete = self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.firstIndex(where: {$0 == new_Date})
+                            
+                            if let to_Delete = index_To_Delete {
+                                self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.remove(at: to_Delete)
+                                self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.remove(at: to_Delete)
+                            }
+                            
+                            self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_score.append(number)
+                            self.learningObjectiveStore.learningObjectives[learningObjectiveIndex].eval_date.append(new_Date)
+                            
+                            if learningObjectiveStore.isSavable {
+                                PersistenceController.shared.evalutate_Learning_Objective(l_Objective: self.learningObjectiveStore.learningObjectives[learningObjectiveIndex])
+                            }
+                            //                            }
                         }
+                        .help(setupTitleProgressRubric(value: number))
                         .frame(width: 30, height: 30, alignment: .center)
                 }
-            }
+            }.zIndex(1)
             
             Image(systemName: "arrowtriangle.up")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 15, height: 15, alignment: .center)
                 .foregroundColor(learningObj.isCore ? Color.customDarkGrey : Color.clear)
+        }
+    }
+    
+    func setupTitleProgressRubric(value: Int) -> String {
+        switch value {
+        case 0:
+            return ""
+        case 1:
+            return "NOT EVALUATED"
+        case 2:
+            return "BEGINNING"
+        case 3:
+            return "PROGRESSING"
+        case 4:
+            return "PROFICIENT"
+        case 5:
+            return "EXEMPLARY"
+            
+        default:
+            return ""
             
         }
     }
@@ -110,8 +132,11 @@ struct CircleView: View {
             Text("")
                 .padding(.bottom, 30)
 //                .popover(isPresented: $hovered) {
+            
+//                .makePopover(show: $showingPopup) {
 //                    PopOverViewRating(strandColor: strandColor, status: setupTitleProgressRubric(value: number), desc: setupDescProgressOnRubric(value: number))
 //                }
+//                .zIndex(1)
             
             Circle()
                 .strokeBorder(number > rating ? (hovered ? Color.defaultColor : Color.circleStrokeColor) : Color.clear, lineWidth: 2)
@@ -119,66 +144,43 @@ struct CircleView: View {
                 .frame(width: 30, height: 30)
                 .onHover { hover in
                     self.hovered = hover
-//                    if hover {
-//                            isHover = true
-//                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-//                            if isHover {
-//                                self.hovered = true
-//                                self.showingPopup = true
-//                        }
-//                    }
-//                } else {
-//                    isHover = false
-//                    self.hovered = false
-//                    self.showingPopup = false
-//                }
+                    if hover {
+                        isHover = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            if isHover {
+                                self.hovered = true
+                                self.showingPopup = true
+                            }
+                        }
+                    } else {
+                        isHover = false
+                        self.hovered = false
+                        self.showingPopup = false
+                    }
+                }
         }
     }
-}
-
-func setupTitleProgressRubric(value: Int) -> String {
-    switch value {
-    case 0:
-        return ""
-    case 1:
-        return "NOT EVALUATED"
-    case 2:
-        return "BEGINNING"
-    case 3:
-        return "PROGRESSING"
-    case 4:
-        return "PROFICIENT"
-    case 5:
-        return "EXEMPLARY"
-        
-    default:
-        return ""
-        
+    
+    func setupDescProgressOnRubric(value: Int) -> String {
+        switch value {
+        case 0:
+            return ""
+        case 1:
+            return "The LO has been added to your Journey but you have not evaluated yourself."
+        case 2:
+            return "You have been exposed to the content within the learning objective."
+        case 3:
+            return "You can understand and apply concepts with assistance."
+        case 4:
+            return "You understand the concepts, can analyze and evaluate when to use them and can apply them independently."
+        case 5:
+            return "You are a confident and creative learner of the concept and can serve as a guiding resource to others."
+            
+        default:
+            return ""
+            
+        }
     }
-}
-
-func setupDescProgressOnRubric(value: Int) -> String {
-    switch value {
-    case 0:
-        return ""
-    case 1:
-        return "The LO has been added to your Journey but you have not evaluated yourself."
-    case 2:
-        return "You have been exposed to the content within the learning objective."
-    case 3:
-        return "You can understand and apply concepts with assistance."
-    case 4:
-        return "You understand the concepts, can analyze and evaluate when to use them and can apply them independently."
-    case 5:
-        return "You are a confident and creative learner of the concept and can serve as a guiding resource to others."
-        
-    default:
-        return ""
-        
-    }
-}
-
-
 }
 
 struct PopOverViewRating: View {
@@ -187,15 +189,48 @@ struct PopOverViewRating: View {
     var desc = "You can understand and apply concepts with assistance."
     
     var body: some View {
-        VStack(alignment: .center, spacing: 5) {
+        VStack(spacing: -5) {
+            Rectangle()
+                .frame(width: 10, height: 10, alignment: .center)
+                .background(Color.white)
+                .rotationEffect(.degrees(-45))
+                .padding(.top, 8)
+            
             Text(status.uppercased())
-                .font(.system(size: 13, weight: .medium))
+                .font(.system(size: 9, weight: .medium))
                 .foregroundColor(strandColor)
-            Text(desc)
-                .font(.system(size: 11, weight: .regular))
-                .foregroundColor(Color.customDarkGrey)
-                .multilineTextAlignment(.leading)
+                .frame(width: 95, alignment: .center)
+                .padding(5)
+                .background(
+                    Color.white
+                        .cornerRadius(10)
+                )
+//            Text(desc)
+//                .font(.system(size: 11, weight: .regular))
+//                .foregroundColor(Color.customDarkGrey)
+//                .multilineTextAlignment(.leading)
         }
-        .frame(width: 160, height: 80, alignment: .center).padding()
+//        .frame(width: 100, alignment: .center)
+    }
+}
+
+struct TooltipText: View {
+    @State private var isActive = false
+    
+    let text: String
+    let helpText: String
+    var body: some View {
+        Text(isActive ? helpText : text)
+            .padding( isActive ? 6 : 0)
+            .background(Color.white)
+            .overlay(
+                RoundedRectangle(cornerRadius: 3)
+                    .stroke(Color.blue, lineWidth: isActive  ? 1 : 0)
+            )
+            .animation(.easeOut(duration: 0.2) )
+            .gesture(DragGesture(minimumDistance: 0)
+                        .onChanged( { _ in isActive = true } )
+                        .onEnded( { _ in isActive = false } )
+            )
     }
 }

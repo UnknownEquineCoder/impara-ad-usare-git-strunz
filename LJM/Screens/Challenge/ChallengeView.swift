@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ChallengeView: View {
     
+    @AppStorage("fullScreen") var fullScreen: Bool = FullScreenSettings.fullScreen
+    
     @Binding var offset : CGFloat
     @Binding var isViewSelected : Bool
     @Binding var selectedChallenge : Challenge?
@@ -22,7 +24,7 @@ struct ChallengeView: View {
     
     var body: some View {
         ScrollView(showsIndicators: false) {
-            VStack(spacing: 15){
+            VStack(spacing: 15) {
                 if let lastChallenge = learningObjectiveStore.getChallenges().last {
                     MainChallenge(challenge: lastChallenge, isViewSelected: $isViewSelected, selectedChallenge: $selectedChallenge)
                         .padding(.bottom, 5)
@@ -35,6 +37,7 @@ struct ChallengeView: View {
                 }
         
             }
+            .padding(.top, fullScreen == true ? 60 : 0)
             .padding(.bottom, 30)
             .background(
                 GeometryReader {
@@ -49,7 +52,6 @@ struct ChallengeView: View {
             }
         }
         .padding(.horizontal, 50)
-        
     }
 }
 
