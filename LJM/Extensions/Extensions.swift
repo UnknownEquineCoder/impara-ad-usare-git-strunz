@@ -67,6 +67,23 @@ extension List {
   }
 }
 
+extension View {
+    
+    func makePopover<Content: View>(show: Binding<Bool>, @ViewBuilder content: @escaping () -> Content) -> some View {
+        
+        self
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .overlay(
+            ZStack {
+                if show.wrappedValue {
+                    content()
+                        .offset(x: 0, y: 30)
+                }
+            },
+            alignment: .center
+        )
+    }
+}
 
 func challengesArrayInIDs(challenges : [Challenge]) -> [String]{
     var IDs : [String] = []
