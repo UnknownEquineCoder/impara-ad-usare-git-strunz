@@ -21,6 +21,10 @@ struct ChallengeView: View {
     ]
     
     var body: some View {
+        ZStack{
+            Color.bgColor
+                .padding(.top, -40)
+                .padding(.leading, -10)
         ScrollView(showsIndicators: false) {
             VStack(spacing: 15){
                 if let lastChallenge = learningObjectiveStore.getChallenges().last {
@@ -36,6 +40,7 @@ struct ChallengeView: View {
         
             }
             .padding(.bottom, 30)
+            .id(0)
             .background(
                 GeometryReader {
                     Color.clear.preference(key: ViewOffsetKey2.self,
@@ -49,7 +54,7 @@ struct ChallengeView: View {
             }
         }
         .padding(.horizontal, 50)
-        
+        }
     }
 }
 

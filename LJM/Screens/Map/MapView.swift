@@ -40,101 +40,107 @@ struct MapView: View {
     @State var filter_Text = ""
     
     var body: some View {
-        
-        ScrollView(showsIndicators: false) {
+        ZStack{
+            Color.bgColor
+                .padding(.top, -40)
+                .padding(.leading, -10)
             
-            ScrollViewReader { proxy in
+            ScrollView(showsIndicators: false) {
                 
-                VStack(alignment: .leading) {
+                ScrollViewReader { proxy in
                     
-                    TitleScreenView(title: "Map")
-                    
-                    DescriptionTitleScreenView(desc: "The Map provides access to all the current Learning Objectives in the Academy Curriculum. The Communal Learning Objectives will be adressed during the Challenges and added to your Journey. You can also explore and add Elective Learning Objectives based on your interests and the profile of specific career paths.")
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                    HStack {
+                    VStack(alignment: .leading) {
                         
-                        SearchBarExpandableJourney(txtSearchBar: $searchText)
+                        TitleScreenView(title: "Map")
                         
-                        Spacer()
-                        HStack{
-                            Text("Filters \(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == nil || getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == 0 ? "" : "(\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count != 1 ? ("\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count)") : "\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).first ?? "")"))")")
-                                .font(.system(size: 20))
-                            Image(systemName: toggleFilters ? "chevron.up" : "chevron.down")
-                                .font(.system(size: 20))
-                        }
-                        .background(Color.gray.opacity(0.001))
-                        .onTapGesture {
-                            self.toggleFilters.toggle()
-                        }
-                    }.padding(.top, 10)
-                    
-                    Filters(
-                        viewType: .map, challenges: learningObjectiveStore.getChallenges(),
-                        selectedFilters: $selectedFilters,
-                        onFiltersChange: { filter in
-                            filters = filter
-                            selectedFilters = filter
-                            filtered_Learning_Objectives = filterLearningObjective()
-                        })
-                        .opacity(toggleFilters ? 1 : 0)
-                        .frame(height: toggleFilters ? .none : 0)
-                        .clipped()
-                        .padding(.top, toggleFilters ? 5 : 0)
-//                        .animation(.easeOut)
-//                        .transition(.slide)
-                        .onAppear {
-                            selectedFilters = FiltersModel(viewType: .map, challenges: learningObjectiveStore.getChallenges().map({
-                                $0.ID
-                            })).defaultFilters()
-                            filters = selectedFilters
-                            filtered_Learning_Objectives = filterLearningObjective()
-                        }
-                    
-                    ZStack(alignment: .top) {
-                        NumberTotalLearningObjectivesView(totalLOs: self.totalNumberLearningObjectivesStore.total)
-                            .padding(.top, -10)
+                        DescriptionTitleScreenView(desc: "The Map provides access to all the current Learning Objectives in the Academy Curriculum. The Communal Learning Objectives will be adressed during the Challenges and added to your Journey. You can also explore and add Elective Learning Objectives based on your interests and the profile of specific career paths.")
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         
-                        Text("No learning objectives found.")
-                            .font(.system(size: 25, weight: .semibold))
-                            .multilineTextAlignment(.center)
-                            .foregroundColor(Color.customDarkGrey)
-                            .padding(.top, 75)
-                            .isHidden(self.totalNumberLearningObjectivesStore.total == 0 ? false : true)
+                        HStack {
+                            
+                            SearchBarExpandableJourney(txtSearchBar: $searchText)
+                            
+                            Spacer()
+                            HStack{
+                                Text("Filters \(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == nil || getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == 0 ? "" : "(\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count != 1 ? ("\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count)") : "\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).first ?? "")"))")")
+                                    .font(.system(size: 20))
+                                Image(systemName: toggleFilters ? "chevron.up" : "chevron.down")
+                                    .font(.system(size: 20))
+                            }
+                            .background(Color.gray.opacity(0.001))
+                            .onTapGesture {
+                                self.toggleFilters.toggle()
+                            }
+                        }.padding(.top, 10)
                         
-                        ScrollViewLearningObjectives(learningPathSelected: selectedFilters["Path"]?.first, isAddable: true, isLearningGoalAdded: nil, textFromSearchBar: $searchText, filtered_Learning_Objectives: $filtered_Learning_Objectives)
+                        Filters(
+                            viewType: .map, challenges: learningObjectiveStore.getChallenges(),
+                            selectedFilters: $selectedFilters,
+                            onFiltersChange: { filter in
+                                filters = filter
+                                selectedFilters = filter
+                                filtered_Learning_Objectives = filterLearningObjective()
+                            })
+                            .opacity(toggleFilters ? 1 : 0)
+                            .frame(height: toggleFilters ? .none : 0)
+                            .clipped()
+                            .padding(.top, toggleFilters ? 5 : 0)
+    //                        .animation(.easeOut)
+    //                        .transition(.slide)
                             .onAppear {
-                                filtered_Learning_Objectives = filterLearningObjective()
-                            }
-                            .onChange(of: scrollTarget) { target in
-                                    proxy.scrollTo(0, anchor: .top)
-                            }
-                            .onChange(of: learningObjectiveStore.learningObjectives) { learning_Objectives in
-                                filtered_Learning_Objectives = filterLearningObjective()
-                            }
-                            .onChange(of: searchText) { newValue in
-                                filter_Text = newValue
+                                selectedFilters = FiltersModel(viewType: .map, challenges: learningObjectiveStore.getChallenges().map({
+                                    $0.ID
+                                })).defaultFilters()
+                                filters = selectedFilters
                                 filtered_Learning_Objectives = filterLearningObjective()
                             }
                         
+                        ZStack(alignment: .top) {
+                            NumberTotalLearningObjectivesView(totalLOs: self.totalNumberLearningObjectivesStore.total)
+                                .padding(.top, -10)
+                            
+                            Text("No learning objectives found.")
+                                .font(.system(size: 25, weight: .semibold))
+                                .multilineTextAlignment(.center)
+                                .foregroundColor(Color.customDarkGrey)
+                                .padding(.top, 75)
+                                .isHidden(self.totalNumberLearningObjectivesStore.total == 0 ? false : true)
+                            
+                            ScrollViewLearningObjectives(learningPathSelected: selectedFilters["Path"]?.first, isAddable: true, isLearningGoalAdded: nil, textFromSearchBar: $searchText, filtered_Learning_Objectives: $filtered_Learning_Objectives)
+                                .onAppear {
+                                    filtered_Learning_Objectives = filterLearningObjective()
+                                }
+                                .onChange(of: scrollTarget) { target in
+                                        proxy.scrollTo(0, anchor: .top)
+                                }
+                                .onChange(of: learningObjectiveStore.learningObjectives) { learning_Objectives in
+                                    filtered_Learning_Objectives = filterLearningObjective()
+                                }
+                                .onChange(of: searchText) { newValue in
+                                    filter_Text = newValue
+                                    filtered_Learning_Objectives = filterLearningObjective()
+                                }
+                            
+                        }
                     }
-                }
-                .padding(.top, fullScreen == true ? 60 : 0)
-                .id(0)
-                .background(
-                    GeometryReader {
-                        Color.clear.preference(key: ViewOffsetKey2.self,
-                                               value: -$0.frame(in: .named("scroll")).origin.y)
+                    .padding(.top, fullScreen == true ? 60 : 0)
+                    .id(0)
+                    .background(
+                        GeometryReader {
+                            Color.clear.preference(key: ViewOffsetKey2.self,
+                                                   value: -$0.frame(in: .named("scroll")).origin.y)
+                        }
+                    )
+                    .onPreferenceChange(ViewOffsetKey2.self) { element in
+                        withAnimation(.linear(duration: 0.1), {
+                            self.offset = element
+                        })
                     }
-                )
-                .onPreferenceChange(ViewOffsetKey2.self) { element in
-                    withAnimation(.linear(duration: 0.1), {
-                        self.offset = element
-                    })
+                    .padding(.leading, 50).padding(.trailing, 50)
                 }
-                .padding(.leading, 50).padding(.trailing, 50)
             }
         }
+        
     }
     
     func getNumberOfFilters(filters: Dictionary<String, Array<String>>) -> [String] {
