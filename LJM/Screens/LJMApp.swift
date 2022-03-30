@@ -177,6 +177,12 @@ struct LJMApp: App {
                         }
                     }
                     .environmentObject(learningObjectiveStore)
+            }.onAppear {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    if let window = NSApplication.shared.windows.last {
+                        window.toggleFullScreen(nil)
+                    }
+                }
             }
             
         }

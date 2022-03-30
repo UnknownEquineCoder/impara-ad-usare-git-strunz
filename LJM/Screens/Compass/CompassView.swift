@@ -78,6 +78,17 @@ struct CompassView: View {
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                 }
+                .onChange(of: currentSubviewLabel, perform: { _ in
+                    dark_Core_Datas()
+                    dark_Path_Datas()
+                    green_Light_Date()
+                    animation_Trigger = true
+                    animation_Trigger_Communal = true
+                    bars_For_Path_Selected()
+                    bars_For_expectation()
+                    
+                    show_Graphs = true
+                })
                 
                 .background(
                     GeometryReader {
