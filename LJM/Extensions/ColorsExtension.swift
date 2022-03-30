@@ -24,6 +24,7 @@ extension Color {
     public static let lightThemeBackgroundColor = Color(red: 245/255, green: 245/255, blue: 245/255)
     
     public static let backgroundColor = Color("backgroundColor")
+    public static let bgColor = Color("bgColor")
     public static let cellBackgroundColor = Color("cellBackgroundColor")
     public static let circleStrokeColor = Color("circleStrokeColor")
     public static let descriptionTextColor = Color("descriptionTextColor")

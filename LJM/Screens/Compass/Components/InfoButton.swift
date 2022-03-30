@@ -30,10 +30,10 @@ struct InfoButton: View {
                 VStack{
                     Text(textBody)
                         .fontWeight(.light)
-                        .font(.system(size: 20.toFontSize()))
+                        .font(.body)
                         .foregroundColor(colorScheme == .dark ? Color(red: 221/255, green: 221/255, blue: 221/255) : Color(red: 165/255, green: 165/255, blue: 165/255))
                 }
-                .frame(width: 400, height: 250)
+                .frame(width: 400, height: 150)
                 .padding()
             })
     }
