@@ -118,3 +118,4 @@ struct MainCompassView_Previews: PreviewProvider {
         MainCompassView( filter_Path: .constant("None") )
     }
 }
+
