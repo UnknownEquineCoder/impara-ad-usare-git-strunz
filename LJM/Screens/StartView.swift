@@ -67,7 +67,11 @@ struct StartView: View {
                     Spacer()
                     StudentPictureView()
                         .padding(.trailing,-15)
-                } 
+                }
+                
+               
+
+                
             }
             .padding(.top, fullScreen == true ? 70 : 20)
             .frame(width: 200)

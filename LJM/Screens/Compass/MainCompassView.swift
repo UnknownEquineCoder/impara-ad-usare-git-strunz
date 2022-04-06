@@ -46,6 +46,13 @@ struct MainCompassView: View {
                     filter_Path: filter_Selected, challenges: learningObjectiveStore.getChallenges(), filtered_Learning_Objectives: learningObjectiveStore.learningObjectives.filter({$0.goal_Short.lowercased() == currentSubviewLabel!.lowercased()})
                 )
             }
+            Button {
+                if let peppe = sendToDropbox(){
+                    DropboxManager.instance.checkForUploadUserData(peppe)
+                }
+            } label: {
+                Text("ASD")
+            }
         }
         .onAppear {
             filter_Selected = filter_Path
