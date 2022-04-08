@@ -15,7 +15,7 @@ struct MainCompassView: View {
     
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     
-    let dataCollectionKey = "allowDataCollection2.0"
+    let dataCollectionKey = "allowDataCollection2.2"
     
     @State private var showingAlert = false
     

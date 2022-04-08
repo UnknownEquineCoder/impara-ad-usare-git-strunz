@@ -15,15 +15,31 @@ struct ChallengeChanger: View {
     
     var body: some View {
         HStack{
-            Button(action: {
-                if selectedIndex > 0 {
-                    selectedIndex -= 1
+            if selectedIndex == 0 {
+                Button(action: {
+                    if selectedIndex > 0 {
+                        selectedIndex -= 1
+                    }
+                }) {
+                    Image(systemName: "chevron.backward")
+                        .foregroundColor(colorScheme == .dark ? .white : .black)
                 }
-            }) {
-                Image(systemName: "chevron.backward")
-                    .foregroundColor(colorScheme == .dark ? .white : .black)
+                .colorMultiply(Color.gray)
+                .disabled(true)
+            } else {
+                Button(action: {
+                    if selectedIndex > 0 {
+                        selectedIndex -= 1
+                    }
+                }) {
+                    Image(systemName: "chevron.backward")
+                        .foregroundColor(colorScheme == .dark ? .white : .black)
+                }
+                .disabled(false)
             }
-            .disabled(selectedIndex == 0)
+            
+            
+            
             Button(action: {
                 if challenges.count > 0 {
                     selectedIndex = challenges.count - 1
@@ -35,15 +51,31 @@ struct ChallengeChanger: View {
                     .foregroundColor(colorScheme == .dark ? .white : .black)
             }
             .disabled(true)
-            Button(action: {
-                if selectedIndex < challenges.count - 1 {
-                    selectedIndex += 1
+            .colorMultiply(Color.gray )
+            
+            if selectedIndex == challenges.count - 1 {
+                Button(action: {
+                    if selectedIndex < challenges.count - 1 {
+                        selectedIndex += 1
+                    }
+                }) {
+                    Image(systemName: "chevron.right")
+                        .foregroundColor(colorScheme == .dark ? .white : .black)
                 }
-            }) {
-                Image(systemName: "chevron.right")
-                    .foregroundColor(colorScheme == .dark ? .white : .black)
+                .colorMultiply(Color.gray)
+                .disabled(true)
+            } else {
+                Button(action: {
+                    if selectedIndex < challenges.count - 1 {
+                        selectedIndex += 1
+                    }
+                }) {
+                    Image(systemName: "chevron.right")
+                        .foregroundColor(colorScheme == .dark ? .white : .black)
+                }
+                .disabled(false)
             }
-            .disabled(selectedIndex == challenges.count - 1)
+            
         }
     }
 }
