@@ -123,18 +123,6 @@ struct CD_Evaluated_Object : Equatable {
     var eval_Score : [Int]
 }
 
-struct learning_Path: Hashable {
-    var title : String
-   
-    init(raw : [String]){
-        title = raw[0]
-    }
-    
-    init(title : String){
-        self.title = title
-    }
-}
-
 enum CoreEnum: String {
     case core = "Core"
     case elective = "Elective"
@@ -161,16 +149,16 @@ enum MapEnum: String {
     case communal = "CORE"
 }
 
-enum ChallengeEnum: String {
-    case MC1 = "MC1"
-}
-
-enum CompassEnum: String {
-    case all = "All"
-    case core = "Core"
-    case elective = "Elective"
-    case added = "Added"
-    case notAdded = "Not Added"
+struct learning_Path: Hashable {
+    var title : String
+   
+    init(raw : [String]){
+        title = raw[0]
+    }
+    
+    init(title : String){
+        self.title = title
+    }
 }
 
 
@@ -189,8 +177,6 @@ struct learning_ObjectiveForJSON : Equatable, Codable {
     var strand : String
     /** SubCategory */
     var goal_Short : String
-    /** SubCategory description */
-    var goal : String
     /** Boolean to distinguish from core and elective learning objectives */
     var isCore : Bool
     
@@ -203,7 +189,6 @@ struct learning_ObjectiveForJSON : Equatable, Codable {
         ID = learningObjective.ID
         strand = learningObjective.strand
         goal_Short = learningObjective.goal_Short
-        goal = learningObjective.goal
         isCore = learningObjective.isCore
         eval_score = learningObjective.eval_score
         var temp : [Int] = []
@@ -213,33 +198,4 @@ struct learning_ObjectiveForJSON : Equatable, Codable {
         eval_date = temp
         
     }
-}
-
-struct learningObjectiveToSend : Equatable, Codable {
-    
-    /** Primary Key */
-    var ID : String
-    /** Category */
-    var strand : String
-    /** SubCategory */
-    var goal_Short : String
-    /** SubCategory description */
-    var goal : String
-    /** Boolean to distinguish from core and elective learning objectives */
-    var isCore : Bool
-    /** Store the score history */
-    var eval_score : [Int]
-    /** Date of each score history */
-    var eval_date : [Date]
-    
-    init(learningObjective : learning_Objective){
-        ID = learningObjective.ID
-        strand = learningObjective.strand
-        goal_Short = learningObjective.goal_Short
-        goal = learningObjective.goal
-        isCore = learningObjective.isCore
-        eval_score = learningObjective.eval_score
-        eval_date = learningObjective.eval_date
-    }
-    
 }

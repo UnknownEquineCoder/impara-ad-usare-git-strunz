@@ -29,8 +29,8 @@ struct MainCompassView: View {
                             let allowDataCollection = UserDefaults.standard.bool(forKey: dataCollectionKey)
                             if allowDataCollection {
                                 DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 1) {
-                                    if let peppe = sendToDropbox(){
-                                        DropboxManager.instance.checkForUploadUserData(peppe)
+                                    if let peppe = sendToAirtable(){
+                                        AirtableManager.instance.checkForUploadUserData(peppe)
                                     }
                                     
                                 }
@@ -46,13 +46,6 @@ struct MainCompassView: View {
                     filter_Path: filter_Selected, challenges: learningObjectiveStore.getChallenges(), filtered_Learning_Objectives: learningObjectiveStore.learningObjectives.filter({$0.goal_Short.lowercased() == currentSubviewLabel!.lowercased()})
                 )
             }
-            Button {
-                if let peppe = sendToDropbox(){
-                    DropboxManager.instance.checkForUploadUserData(peppe)
-                }
-            } label: {
-                Text("ASD")
-            }
         }
         .onAppear {
             filter_Selected = filter_Path
@@ -66,8 +59,8 @@ struct MainCompassView: View {
                 primaryButton: .default( Text("Always allow"), action: {
                     UserDefaults.standard.set(true, forKey: dataCollectionKey)
                     DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 1) {
-                        if let peppe = sendToDropbox() {
-                            DropboxManager.instance.checkForUploadUserData(peppe)
+                        if let peppe = sendToAirtable() {
+                            AirtableManager.instance.checkForUploadUserData(peppe)
                         }
                     }
                 }),
@@ -98,7 +91,7 @@ struct MainCompassView: View {
         
     }
     
-    func sendToDropbox() -> Data?{
+    func sendToAirtable() -> Data?{
     
         var evaluated_Learning_Objectives : [learning_ObjectiveForJSON] = []
         for LO in learningObjectiveStore.learningObjectives.filter({$0.eval_score.count > 0}) {

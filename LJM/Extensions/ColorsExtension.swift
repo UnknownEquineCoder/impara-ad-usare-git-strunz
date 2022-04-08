@@ -22,6 +22,7 @@ extension Color {
     
     public static let darkThemeBackgroundColor = Color(red: 30/255, green: 30/255, blue: 30/255)
     public static let lightThemeBackgroundColor = Color(red: 245/255, green: 245/255, blue: 245/255)
+    public static let gray155 = Color(red: 155/255, green: 155/255, blue: 155/255)
     
     public static let backgroundColor = Color("backgroundColor")
     public static let bgColor = Color("bgColor")
@@ -37,5 +38,6 @@ extension Color {
     public static let customPink = Color("customPink")
     public static let sidebarTextColor = Color("sidebarTextColor")
     public static let topBarLineColor = Color("colorTopBarLine")
+    public static let gray160 = Color("Gray160")
 }
 

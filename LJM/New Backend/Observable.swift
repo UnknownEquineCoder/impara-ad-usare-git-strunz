@@ -283,9 +283,6 @@ class LearningObjectivesStore: ObservableObject {
 class LearningPathStore: ObservableObject {
     @Published var learningPaths = [learning_Path]()
     
-    func addItem(_ item: learning_Path) {
-        learningPaths.append(item)
-    }
     
     func load_Learning_Path(){
         guard let filePath = Bundle.main.path(forResource: "LearningObjectives", ofType: "csv") else {

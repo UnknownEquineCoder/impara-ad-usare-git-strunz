@@ -10,7 +10,6 @@ import SwiftUI
 struct SearchBarExpandableJourney: View {
     
     @Binding var txtSearchBar : String
-    @Environment(\.colorScheme) var colorScheme
         
     var body: some View {
         
@@ -27,7 +26,7 @@ struct SearchBarExpandableJourney: View {
             }, label: {
                 Image(systemName: "xmark.circle.fill")
                     .cursor(.pointingHand)
-                    .foregroundColor(colorScheme == .dark ? Color(red: 160/255, green: 159/255, blue: 159/255) : Color(red: 87/255, green: 87/255, blue: 87/255))
+                    .foregroundColor(Color.gray160)
             }).buttonStyle(PlainButtonStyle())
                 .zIndex(1)
         }

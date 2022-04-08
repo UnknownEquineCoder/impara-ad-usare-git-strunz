@@ -21,8 +21,6 @@ struct ContextMenuFilters: View {
     @Binding var selectedStrands : [String]
     @Binding var selectedEvaluatedOrNotFilter: EvaluatedOrNotEnum?
     
-    @Environment(\.colorScheme) var colorScheme
-    
     @EnvironmentObject var strandsStore: StrandsStore
     @EnvironmentObject var learningPathsStore: LearningPathStore
     
@@ -139,10 +137,10 @@ struct ContextMenuFilters: View {
         } label: {
             HStack(spacing: 13) {
                 Image(systemName: "line.3.horizontal.decrease.circle")
-                    .foregroundColor(colorScheme == .dark ? Color(red: 160/255, green: 159/255, blue: 159/255) : Color(red: 87/255, green: 87/255, blue: 87/255))
+                    .foregroundColor(Color.gray160)
                 
                 Text("Filters")
-                    .foregroundColor(colorScheme == .dark ? Color(red: 160/255, green: 159/255, blue: 159/255) : Color(red: 87/255, green: 87/255, blue: 87/255))
+                    .foregroundColor(Color.gray160)
             }
             
         }

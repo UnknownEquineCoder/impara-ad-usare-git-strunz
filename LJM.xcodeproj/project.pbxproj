@@ -15,7 +15,6 @@
 		96114BC125EFA92900FA119C /* ProgressBarGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96114BC025EFA92900FA119C /* ProgressBarGraph.swift */; };
 		961962462726C49900ECA524 /* AddLOButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961962452726C49900ECA524 /* AddLOButton.swift */; };
 		961DB4CE25E668410020E9F6 /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961DB4CD25E668410020E9F6 /* DatePicker.swift */; };
-		961DB4E225E66F610020E9F6 /* SliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961DB4E125E66F610020E9F6 /* SliderView.swift */; };
 		9622DCE525DE80DA009ECCB4 /* CompassPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9622DCE425DE80DA009ECCB4 /* CompassPopover.swift */; };
 		9624648227CD138C00A83417 /* ChallengeChanger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9624648127CD138C00A83417 /* ChallengeChanger.swift */; };
 		962F090E25E7C4F1001EAE85 /* ParticularCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962F090D25E7C4F1001EAE85 /* ParticularCircle.swift */; };
@@ -48,7 +47,7 @@
 		A018956F275789D60054B1E6 /* Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A018956E275789D60054B1E6 /* Filters.swift */; };
 		A032CC6A27B1325B00D7E25B /* TopbarWithBack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A032CC6927B1325B00D7E25B /* TopbarWithBack.swift */; };
 		A0682D2C275A1D180068BA60 /* FIltersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0682D2B275A1D180068BA60 /* FIltersModel.swift */; };
-		A08AA80627A14C9400F5FA63 /* DropboxManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08AA80527A14C9400F5FA63 /* DropboxManager.swift */; };
+		A08AA80627A14C9400F5FA63 /* AirtableManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08AA80527A14C9400F5FA63 /* AirtableManager.swift */; };
 		E0267EFE27BA5DF40094DA17 /* ChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0267EFD27BA5DF40094DA17 /* ChallengeView.swift */; };
 		E0267F0027BA5E100094DA17 /* MainChallenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0267EFF27BA5E100094DA17 /* MainChallenge.swift */; };
 		E0267F0227BA5E1E0094DA17 /* OtherChallenges.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0267F0127BA5E1E0094DA17 /* OtherChallenges.swift */; };
@@ -134,7 +133,6 @@
 		96114BC025EFA92900FA119C /* ProgressBarGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarGraph.swift; sourceTree = "<group>"; };
 		961962452726C49900ECA524 /* AddLOButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLOButton.swift; sourceTree = "<group>"; };
 		961DB4CD25E668410020E9F6 /* DatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
-		961DB4E125E66F610020E9F6 /* SliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderView.swift; sourceTree = "<group>"; };
 		9622DCE425DE80DA009ECCB4 /* CompassPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompassPopover.swift; sourceTree = "<group>"; };
 		9624648127CD138C00A83417 /* ChallengeChanger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeChanger.swift; sourceTree = "<group>"; };
 		962F090D25E7C4F1001EAE85 /* ParticularCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticularCircle.swift; sourceTree = "<group>"; };
@@ -173,7 +171,7 @@
 		A018956E275789D60054B1E6 /* Filters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filters.swift; sourceTree = "<group>"; };
 		A032CC6927B1325B00D7E25B /* TopbarWithBack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopbarWithBack.swift; sourceTree = "<group>"; };
 		A0682D2B275A1D180068BA60 /* FIltersModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FIltersModel.swift; sourceTree = "<group>"; };
-		A08AA80527A14C9400F5FA63 /* DropboxManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropboxManager.swift; sourceTree = "<group>"; };
+		A08AA80527A14C9400F5FA63 /* AirtableManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirtableManager.swift; sourceTree = "<group>"; };
 		E000216D274BF0CB0059A1C9 /* LJM.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = LJM.entitlements; sourceTree = "<group>"; };
 		E0267EFD27BA5DF40094DA17 /* ChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeView.swift; sourceTree = "<group>"; };
 		E0267EFF27BA5E100094DA17 /* MainChallenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainChallenge.swift; sourceTree = "<group>"; };
@@ -254,7 +252,6 @@
 				964C75A825EE5983002D8634 /* LegendView.swift */,
 				96114BBB25EFA28C00FA119C /* DropDownMenuCompass.swift */,
 				961DB4CD25E668410020E9F6 /* DatePicker.swift */,
-				961DB4E125E66F610020E9F6 /* SliderView.swift */,
 				96114BC025EFA92900FA119C /* ProgressBarGraph.swift */,
 				960451E625F0F46000F34D9A /* BarGraphFrame.swift */,
 				96BBAA84268325F000E9932E /* InfoButton.swift */,
@@ -427,7 +424,7 @@
 				E04251AA27295E00000A1D69 /* Models */,
 				E02DFE89270AEC3F004FF8B7 /* newModels.swift */,
 				E02DFE8B270C41E5004FF8B7 /* Observable.swift */,
-				A08AA80527A14C9400F5FA63 /* DropboxManager.swift */,
+				A08AA80527A14C9400F5FA63 /* AirtableManager.swift */,
 				E0E87CD5272801C900FEF3D6 /* DocDemoDocument.swift */,
 			);
 			path = "New Backend";
@@ -715,7 +712,7 @@
 				EA686F10256EF67B00C121DC /* MyJourneyView.swift in Sources */,
 				9670A96E256EAA330043F227 /* SidebarElements.swift in Sources */,
 				E0952800276B4DE5007AC788 /* Server Structures.swift in Sources */,
-				A08AA80627A14C9400F5FA63 /* DropboxManager.swift in Sources */,
+				A08AA80627A14C9400F5FA63 /* AirtableManager.swift in Sources */,
 				969DEAE625DFDEBD00599D63 /* CompassView.swift in Sources */,
 				96114BC125EFA92900FA119C /* ProgressBarGraph.swift in Sources */,
 				EA7028902572FDD300E1B6EB /* RatingView.swift in Sources */,
@@ -760,7 +757,6 @@
 				E04251AD27295F34000A1D69 /* StudentData.xcdatamodeld in Sources */,
 				964B662C256E6020006AB20E /* LJMApp.swift in Sources */,
 				EAF3703E257A2AC400C72707 /* ScrollViewLearningObjectives.swift in Sources */,
-				961DB4E225E66F610020E9F6 /* SliderView.swift in Sources */,
 				EACD026C25DE8781008D12FE /* CustomDropDownMenuSelectPath.swift in Sources */,
 				EAD2C81A257085CA008CDDA1 /* LearningObjectiveJourneyCell.swift in Sources */,
 				EACD023425D37CCB008D12FE /* DescriptionTitleScreenView.swift in Sources */,

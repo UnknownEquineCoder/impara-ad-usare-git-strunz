@@ -24,16 +24,16 @@ class AirTableManager {
     
 }
 
-class DropboxManager {
+class AirtableManager {
     
     // API Access token
 //    private let TOKEN = "sl.BEaMK2i3xy65393sIvqsg8TeP0ICXHqHi7Zhy6DVuRdCY2DRYbWBG86nPsuGyHM_PW8l-Qn39xkU4lP_S9FTT4khpXH6Bo2dE9LNm5RSf-p0rnCdyBK9mVTYg2c6vXx3pwE9OXL4"
     
     // Singleton pattern
-    static let instance = DropboxManager()
+    static let instance = AirtableManager()
     private init() {}
-    private let TOKEN = "keyvSDG29X6BEJH0B"
-    private let sendHere = "https://api.airtable.com/v0/appMpsQ2dMvlknrmM/Table%201"
+    private let TOKEN = "keyatGjTlu9gc4VpK"
+    private let sendHere = "https://api.airtable.com/v0/app26CHrOG4n8za36/LJM"
     /*
      Function to upload data on Dropbox once in a month
      */
@@ -44,7 +44,7 @@ class DropboxManager {
         UserDefaults.standard.set( Date(), forKey: userDefaultsKey)
         uploadUserData(data)
         
-        print("Dropbox data updated!")
+        print("Airtable data updated!")
         return
         
     }

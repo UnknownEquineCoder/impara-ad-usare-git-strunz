@@ -127,7 +127,6 @@ struct StudentPictureView: View {
             
             if let result = result {
                 let path: String = result.path
-                print(path)
                 self.imageName = path
                 
                 let image = NSImage(byReferencingFile: path)!

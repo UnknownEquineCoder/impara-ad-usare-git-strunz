@@ -11,7 +11,6 @@ import SwiftUI
 struct ProgressBarGraph: View{
     
     @Percentage var progress: Double
-    @Environment(\.colorScheme) var colorScheme
     
     var color: Color = .white
     
@@ -19,7 +18,7 @@ struct ProgressBarGraph: View{
         GeometryReader { geo in
             ZStack(alignment: .leading) {
                 Capsule()
-                    .fill(colorScheme == .dark ? Color(red: 155/255, green: 155/255, blue: 155/255, opacity: 0.4) : Color(red: 155/255, green: 155/255, blue: 155/255, opacity: 0.4))
+                    .fill(Color.gray155)
                     
                 Capsule()
                     .fill(color)
