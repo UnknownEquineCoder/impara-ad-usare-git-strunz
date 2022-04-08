@@ -31,7 +31,7 @@ struct InfoButton: View {
                     Text(textBody)
                         .fontWeight(.light)
                         .font(.body)
-                        .foregroundColor(colorScheme == .dark ? Color(red: 221/255, green: 221/255, blue: 221/255) : Color(red: 165/255, green: 165/255, blue: 165/255))
+                        .foregroundColor(colorScheme == .dark ? Color(red: 221/255, green: 221/255, blue: 221/255) : Color(red: 90/255, green: 90/255, blue: 90/255))
                 }
                 .frame(width: 400, height: 150)
                 .padding()
