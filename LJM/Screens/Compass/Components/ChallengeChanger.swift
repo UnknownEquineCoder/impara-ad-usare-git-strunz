@@ -24,7 +24,7 @@ struct ChallengeChanger: View {
                     Image(systemName: "chevron.backward")
                         .foregroundColor(colorScheme == .dark ? .white : .black)
                 }
-                .colorMultiply(Color.gray)
+                .colorMultiply(Color(red: 200/255, green: 200/255, blue: 200/255))
                 .disabled(true)
             } else {
                 Button(action: {
@@ -51,7 +51,7 @@ struct ChallengeChanger: View {
                     .foregroundColor(colorScheme == .dark ? .white : .black)
             }
             .disabled(true)
-            .colorMultiply(Color.gray )
+            .colorMultiply(Color(red: 200/255, green: 200/255, blue: 200/255))
             
             if selectedIndex == challenges.count - 1 {
                 Button(action: {
@@ -62,7 +62,7 @@ struct ChallengeChanger: View {
                     Image(systemName: "chevron.right")
                         .foregroundColor(colorScheme == .dark ? .white : .black)
                 }
-                .colorMultiply(Color.gray)
+                .colorMultiply(Color(red: 200/255, green: 200/255, blue: 200/255))
                 .disabled(true)
             } else {
                 Button(action: {
