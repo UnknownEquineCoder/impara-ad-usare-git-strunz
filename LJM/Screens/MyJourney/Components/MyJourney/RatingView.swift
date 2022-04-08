@@ -57,7 +57,7 @@ struct RatingView: View {
                             }
                             //                            }
                         }
-                        .help(setupTitleProgressRubric(value: number))
+//                        .help(setupTitleProgressRubric(value: number))
                         .frame(width: 30, height: 30, alignment: .center)
                 }
             }.zIndex(1)
@@ -131,6 +131,9 @@ struct CircleView: View {
         ZStack {
             Text("")
                 .padding(.bottom, 30)
+                .popover(isPresented: $hovered) {
+                                    PopOverViewRating(strandColor: strandColor, status: setupTitleProgressRubric(value: number), desc: setupDescProgressOnRubric(value: number))
+                                }
 //                .popover(isPresented: $hovered) {
             
 //                .makePopover(show: $showingPopup) {
@@ -143,7 +146,7 @@ struct CircleView: View {
                 .background(Circle().foregroundColor(number > rating ? Color.cellBackgroundColor : strandColor))
                 .frame(width: 30, height: 30)
                 .onHover { hover in
-                    self.hovered = hover
+//                    self.hovered = hover
                     if hover {
                         isHover = true
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -181,6 +184,26 @@ struct CircleView: View {
             
         }
     }
+    
+    func setupTitleProgressRubric(value: Int) -> String {
+        switch value {
+        case 0:
+            return ""
+        case 1:
+            return "NOT EVALUATED"
+        case 2:
+            return "BEGINNING"
+        case 3:
+            return "PROGRESSING"
+        case 4:
+            return "PROFICIENT"
+        case 5:
+            return "EXEMPLARY"
+            
+        default:
+            return ""
+        }
+    }
 }
 
 struct PopOverViewRating: View {
@@ -189,28 +212,16 @@ struct PopOverViewRating: View {
     var desc = "You can understand and apply concepts with assistance."
     
     var body: some View {
-        VStack(spacing: -5) {
-            Rectangle()
-                .frame(width: 10, height: 10, alignment: .center)
-                .background(Color.white)
-                .rotationEffect(.degrees(-45))
-                .padding(.top, 8)
-            
+        VStack(alignment: .center, spacing: 5) {
             Text(status.uppercased())
-                .font(.system(size: 9, weight: .medium))
+                .font(.system(size: 13, weight: .medium))
                 .foregroundColor(strandColor)
-                .frame(width: 95, alignment: .center)
-                .padding(5)
-                .background(
-                    Color.white
-                        .cornerRadius(10)
-                )
-//            Text(desc)
-//                .font(.system(size: 11, weight: .regular))
-//                .foregroundColor(Color.customDarkGrey)
-//                .multilineTextAlignment(.leading)
+            Text(desc)
+                .font(.system(size: 11, weight: .regular))
+                .foregroundColor(Color.customDarkGrey)
+                .multilineTextAlignment(.leading)
         }
-//        .frame(width: 100, alignment: .center)
+        .frame(width: 160, height: 80, alignment: .center).padding()
     }
 }
 
