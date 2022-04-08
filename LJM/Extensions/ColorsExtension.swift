@@ -39,5 +39,6 @@ extension Color {
     public static let sidebarTextColor = Color("sidebarTextColor")
     public static let topBarLineColor = Color("colorTopBarLine")
     public static let gray160 = Color("Gray160")
+    public static let gray46 = Color("gray46")
 }
 

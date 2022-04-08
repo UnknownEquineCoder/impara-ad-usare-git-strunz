@@ -33,7 +33,7 @@ struct CoreRadarChartView: View {
         Text(text)
             .fontWeight(.light)
             .font(.system(size: 10))
-            .foregroundColor(colorScheme == .dark ? Color(red: 224/255, green: 224/255, blue: 224/255) : Color(red: 46/255, green: 50/255, blue: 53/255, opacity: 0.5))
+            .foregroundColor(Color.gray46)
             .multilineTextAlignment(.leading)
             .padding(.leading, 80)
     }

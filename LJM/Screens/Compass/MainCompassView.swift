@@ -11,11 +11,11 @@ struct MainCompassView: View {
     @State var currentSubviewLabel : String? = ""
     @Binding var filter_Path : String
     @State var filter_Selected : String?
-    let userDefaultsKey = "checkForUploadUserData2"
+    let userDefaultsKey = "checkForUploadUserData3"
     
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     
-    let dataCollectionKey = "allowDataCollection2.0"
+    let dataCollectionKey = "allowDataCollection2.2"
     
     @State private var showingAlert = false
     
