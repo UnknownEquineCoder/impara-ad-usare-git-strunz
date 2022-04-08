@@ -32,8 +32,8 @@ class AirtableManager {
     // Singleton pattern
     static let instance = AirtableManager()
     private init() {}
-    private let TOKEN = "keyatGjTlu9gc4VpK"
-    private let sendHere = "https://api.airtable.com/v0/app26CHrOG4n8za36/LJM"
+    private let TOKEN = "keyN55muBclzvZXAb"
+    private let sendHere = "https://api.airtable.com/v0/appFrwosc5cs9Y6Jx/LJM"
     /*
      Function to upload data on Dropbox once in a month
      */

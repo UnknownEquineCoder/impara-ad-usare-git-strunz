@@ -37,7 +37,9 @@ struct SpecificChallengeView: View {
     
     var body: some View {
         ZStack{
-            
+            Color.bgColor
+                .padding(.top, -40)
+                .padding(.leading, -10)
             ScrollView(showsIndicators: false) {
                 ScrollViewReader { proxy in
                     
