@@ -194,38 +194,50 @@ class LearningObjectivesStore: ObservableObject {
                 
     }
     
-    func load_Challenges(){
+    func load_Challenges() {
         
-        challenges = []
+        // Hardcoded instead of CSV to avoid challenges infos appearing on package content public files
         
-        guard let file = Bundle.main.path(forResource: "Challeges", ofType: "csv") else {
-            return
-        }
+        challenges = [
+            Challenge(name: "Spritz", ID: "NC1", start_Date: "4/10/21", end_Date: "22/10/21"),
+            Challenge(name: "Negroni", ID: "MC1", start_Date: "25/10/21", end_Date: "03/12/21"),
+            Challenge(name: "Vin Brulè", ID: "NC2", start_Date: "06/12/21", end_Date: "22/12/21"),
+            Challenge(name: "Bloody Mary", ID: "MC2", start_Date: "10/01/22", end_Date: "02/02/22"),
+            Challenge(name: "Gin Tonic", ID: "MC3", start_Date: "03/02/22", end_Date: "16/03/22"),
+            Challenge(name: "Daiquiri", ID: "NCX", start_Date: "17/03/22", end_Date: "12/04/22"),
+            Challenge(name: "Hurricane", ID: "MACRO", start_Date: "13/04/2", end_Date: "12/06/22")
+        ]
         
-        var data_Challenges = ""
+        // CSV process
         
-        do {
-            data_Challenges = try String(contentsOfFile: file)
-        } catch {
-            print(error)
-            return
-        }
-        
-        var rows_Challenges = data_Challenges.components(separatedBy: "\n")
-
-        rows_Challenges.removeFirst()
-        rows_Challenges.removeLast()
-        
-        for row_Index in rows_Challenges.indices {
-            let learning_Challenges = rows_Challenges[row_Index].components(separatedBy: ";")
-
-            let newChallenge = Challenge(name: learning_Challenges[1],
-                                         ID: learning_Challenges[0],
-                                         start_Date: learning_Challenges[2],
-                                         end_Date: learning_Challenges[3])
-            
-            challenges.append(newChallenge)
-        }
+//        guard let file = Bundle.main.path(forResource: "Challeges", ofType: "csv") else {
+//            return
+//        }
+//
+//        var data_Challenges = ""
+//
+//        do {
+//            data_Challenges = try String(contentsOfFile: file)
+//        } catch {
+//            print(error)
+//            return
+//        }
+//
+//        var rows_Challenges = data_Challenges.components(separatedBy: "\n")
+//
+//        rows_Challenges.removeFirst()
+//        rows_Challenges.removeLast()
+//
+//        for row_Index in rows_Challenges.indices {
+//            let learning_Challenges = rows_Challenges[row_Index].components(separatedBy: ";")
+//
+//            let newChallenge = Challenge(name: learning_Challenges[1],
+//                                         ID: learning_Challenges[0],
+//                                         start_Date: learning_Challenges[2],
+//                                         end_Date: learning_Challenges[3])
+//
+//            challenges.append(newChallenge)
+//        }
         
     }
     
