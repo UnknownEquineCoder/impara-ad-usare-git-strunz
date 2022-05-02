@@ -205,7 +205,7 @@ class LearningObjectivesStore: ObservableObject {
             Challenge(name: "Bloody Mary", ID: "MC2", start_Date: "10/01/22", end_Date: "02/02/22"),
             Challenge(name: "Gin Tonic", ID: "MC3", start_Date: "03/02/22", end_Date: "16/03/22"),
             Challenge(name: "Daiquiri", ID: "NCX", start_Date: "17/03/22", end_Date: "12/04/22"),
-            Challenge(name: "Hurricane", ID: "MACRO", start_Date: "13/04/2", end_Date: "12/06/22")
+            Challenge(name: "Hurricane", ID: "MACRO", start_Date: "13/04/22", end_Date: "12/06/22")
         ]
         
         // CSV process

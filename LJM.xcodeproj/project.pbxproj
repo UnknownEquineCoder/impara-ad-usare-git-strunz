@@ -63,7 +63,6 @@
 		E08BAE4527E35FA600477314 /* customAllert.swift in Sources */ = {isa = PBXBuildFile; fileRef = E08BAE4427E35FA600477314 /* customAllert.swift */; };
 		E0952800276B4DE5007AC788 /* Server Structures.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09527FF276B4DE5007AC788 /* Server Structures.swift */; };
 		E0952802276B5060007AC788 /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0952801276B5060007AC788 /* Services.swift */; };
-		E0A3759927CCB6E600B46ECE /* Challeges.csv in Resources */ = {isa = PBXBuildFile; fileRef = E0A3759727CCB6E600B46ECE /* Challeges.csv */; };
 		E0BFADFB27B26DCD008FCAE6 /* MainCompassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BFADFA27B26DCD008FCAE6 /* MainCompassView.swift */; };
 		E0E87CD6272801C900FEF3D6 /* DocDemoDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E87CD5272801C900FEF3D6 /* DocDemoDocument.swift */; };
 		EA139BD42640910900E15E28 /* JWTDecode in Frameworks */ = {isa = PBXBuildFile; productRef = EA139BD32640910900E15E28 /* JWTDecode */; };
@@ -188,7 +187,6 @@
 		E08BAE4427E35FA600477314 /* customAllert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customAllert.swift; sourceTree = "<group>"; };
 		E09527FF276B4DE5007AC788 /* Server Structures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Server Structures.swift"; sourceTree = "<group>"; };
 		E0952801276B5060007AC788 /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
-		E0A3759727CCB6E600B46ECE /* Challeges.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Challeges.csv; sourceTree = "<group>"; };
 		E0BFADFA27B26DCD008FCAE6 /* MainCompassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCompassView.swift; sourceTree = "<group>"; };
 		E0E87CD5272801C900FEF3D6 /* DocDemoDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocDemoDocument.swift; sourceTree = "<group>"; };
 		EA5B445C262E6F23002A97C7 /* MyJourneyMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyJourneyMainView.swift; sourceTree = "<group>"; };
@@ -433,7 +431,6 @@
 		E032112D2716E6F900262144 /* FakeData */ = {
 			isa = PBXGroup;
 			children = (
-				E0A3759727CCB6E600B46ECE /* Challeges.csv */,
 				E08BAE4127D619A100477314 /* LearningObjectives.csv */,
 				E02C351A274F8F6E00DD060C /* ALL PATHS-New.csv */,
 			);
@@ -675,7 +672,6 @@
 				E02C351B274F8F6E00DD060C /* ALL PATHS-New.csv in Resources */,
 				E08BAE4227D619A100477314 /* LearningObjectives.csv in Resources */,
 				964B6633256E6022006AB20E /* Preview Assets.xcassets in Resources */,
-				E0A3759927CCB6E600B46ECE /* Challeges.csv in Resources */,
 				964B6630256E6022006AB20E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -938,7 +934,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"LJM/Preview Content\"";
-				DEVELOPMENT_TEAM = QJTRTDLS6U;
+				DEVELOPMENT_TEAM = KXZF72639J;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = LJM/Info.plist;
@@ -967,7 +963,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"LJM/Preview Content\"";
-				DEVELOPMENT_TEAM = QJTRTDLS6U;
+				DEVELOPMENT_TEAM = KXZF72639J;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = LJM/Info.plist;

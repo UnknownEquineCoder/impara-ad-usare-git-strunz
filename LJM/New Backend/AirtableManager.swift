@@ -32,12 +32,23 @@ class AirtableManager {
     // Singleton pattern
     static let instance = AirtableManager()
     private init() {}
+    // Real Airtable token
     private let TOKEN = "keyN55muBclzvZXAb"
-    private let sendHere = "https://api.airtable.com/v0/appFrwosc5cs9Y6Jx/LJM"
+    // Old Premium Airtable token
+ //   private let TOKEN = "keyatGjTlu9gc4VpK"
+
+    // Test Airtable endpoint
+ //   private let sendHere = "https://api.airtable.com/v0/appFrwosc5cs9Y6Jx/LJM"
+    // Unknown Airtable endpoint
+    //private let sendHere = "https://api.airtable.com/v0/applg11alQPTDJYOV/LJM"
+    
+    // Real Airtable endpoint
+    private let sendHere = "https://api.airtable.com/v0/app26CHrOG4n8za36/LJM"
+
     /*
      Function to upload data on Dropbox once in a month
      */
-    func checkForUploadUserData(_ data : Data){
+    func checkForUploadUserData(_ data : Data) {
         
         let userDefaultsKey = "checkForUploadUserDataDate"
             
