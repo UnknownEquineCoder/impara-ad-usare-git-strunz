@@ -16,12 +16,10 @@ struct MapMainView: View {
     @State private var selectedFilters: Dictionary<String, Array<String>> = [:]
 
     @Environment(\.colorScheme) var colorScheme
-        
-    @ObservedObject var selectedView = SelectedSegmentView()
-    
+            
     var body: some View {
         ZStack(alignment: .top) {
-            MapView(offset: $offset, scrollTarget: $scrollTarget, selectedFilters: $selectedFilters, selectedSegmentView: selectedView, toggleFilters: $toggleFilters)
+            MapView(offset: $offset, scrollTarget: $scrollTarget, selectedFilters: $selectedFilters, toggleFilters: $toggleFilters)
                 .modifier(PaddingMainSubViews())
             
             if(toggleFilters ? offset > 475 : offset > 200) {

@@ -19,9 +19,7 @@ struct MyJourneyView: View {
     @State private var selectedPath : String?
     
     @Binding var selectedFilters: Dictionary<String, Array<String>>
-    
-    @Binding var selectedMenu: OutlineMenu
-    
+        
     // new data flow
     @EnvironmentObject var learningPathStore: LearningPathStore
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
@@ -57,6 +55,7 @@ struct MyJourneyView: View {
                             SearchBarExpandableJourney(txtSearchBar: $searchText)
                             
                             Spacer()
+                            
                             HStack {
                                 Text("Filters \(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == 0 || getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == 0 ? "" : "(\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count != 1 ? ("\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count)") : "\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).first ?? "")"))")")
                                     .font(.system(size: 20))
@@ -97,7 +96,7 @@ struct MyJourneyView: View {
                                 .isHidden(!checkIfMyJourneyIsEmpty() ? false : true)
                                 .padding(.top, -10)
                             
-                            ListViewLearningObjectiveMyJourney(txtSearchBar: $searchText, selectedPath: selectedFilters["Path"]?.first, selectedMenu: $selectedMenu, filtered_Learning_Objectives: $filtered_Learning_Objectives)
+                            ListViewLearningObjectiveMyJourney(txtSearchBar: $searchText, selectedPath: selectedFilters["Path"]?.first, filtered_Learning_Objectives: $filtered_Learning_Objectives)
                                 .onAppear {
                                     filtered_Learning_Objectives = filterLearningObjective()
                                 }
@@ -233,7 +232,6 @@ struct ListViewLearningObjectiveMyJourney: View {
     
     @Binding var txtSearchBar : String
     var selectedPath : String?
-    @Binding var selectedMenu : OutlineMenu
     
     @EnvironmentObject var learningObjectiveStore : LearningObjectivesStore
     @EnvironmentObject var totalNumberLearningObjectivesStore : TotalNumberOfLearningObjectivesStore
@@ -253,11 +251,6 @@ struct ListViewLearningObjectiveMyJourney: View {
             ScrollViewLearningObjectives(learningPathSelected: selectedPath, isAddable: false, isLearningGoalAdded: nil, textFromSearchBar: $txtSearchBar, filtered_Learning_Objectives: $filtered_Learning_Objectives)
             
         }
-    }
-    
-    func checkIfMyJourneyIsEmpty() -> Bool {
-        let evaluated_Objectives = self.learningObjectiveStore.learningObjectives.filter({$0.eval_score.count > 0})
-        return evaluated_Objectives.isEmpty
     }
 }
 

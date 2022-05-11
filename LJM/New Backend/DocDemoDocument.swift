@@ -7,15 +7,6 @@
 
 import SwiftUI
 import UniformTypeIdentifiers
-//p
-extension UTType {
-    static var exampleText: UTType {
-        UTType(importedAs: "com.exemple.LearningJourneyManager")
-    }
-}
-
-import SwiftUI
-import UniformTypeIdentifiers
 
 struct MessageDocument: FileDocument {
     

@@ -33,8 +33,6 @@ struct SpecificChallengeView: View {
     @State var isFilterShown : Bool = true
     @State var isForceScrollUp : Bool = false
     
-    
-    
     var body: some View {
         ZStack{
             Color.bgColor
@@ -50,6 +48,7 @@ struct SpecificChallengeView: View {
                             SearchBarExpandableJourney(txtSearchBar: $searchText)
                             
                             Spacer()
+                            
                             HStack{
                                 Text("Filters \(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == nil || getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == 0 ? "" : "(\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count != 1 ? ("\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count)") : "\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).first ?? "")"))")")
                                     .font(.system(size: 20))
@@ -74,21 +73,21 @@ struct SpecificChallengeView: View {
                                 selectedFilters = filter
                                 filtered_Learning_Objectives2 = filterLearningObjective(LO: filtered_Learning_Objectives)
                             })
-                            .opacity(toggleFilters ? 1 : 0)
-                            .frame(height: toggleFilters ? .none : 0)
-                            .clipped()
-                            .padding(.top, toggleFilters ? 5 : 0)
-                            .onAppear {
-                                selectedFilters = FiltersModel(viewType: .map, challenges: []).defaultFilters()
-                                filtered_Learning_Objectives2 = filterLearningObjective(LO: filtered_Learning_Objectives)
-                                self.totalNumberLearningObjectivesStore.total = filtered_Learning_Objectives2.count
-                            }
-                            .onChange(of: filtered_Learning_Objectives) { learning_Objectives in
-                                filtered_Learning_Objectives2 = filterLearningObjective(LO: learning_Objectives)
-                            }
-                            .onChange(of: searchText) { _ in
-                                filtered_Learning_Objectives2 = filterLearningObjective(LO: filtered_Learning_Objectives)
-                            }
+                        .opacity(toggleFilters ? 1 : 0)
+                        .frame(height: toggleFilters ? .none : 0)
+                        .clipped()
+                        .padding(.top, toggleFilters ? 5 : 0)
+                        .onAppear {
+                            selectedFilters = FiltersModel(viewType: .map, challenges: []).defaultFilters()
+                            filtered_Learning_Objectives2 = filterLearningObjective(LO: filtered_Learning_Objectives)
+                            self.totalNumberLearningObjectivesStore.total = filtered_Learning_Objectives2.count
+                        }
+                        .onChange(of: filtered_Learning_Objectives) { learning_Objectives in
+                            filtered_Learning_Objectives2 = filterLearningObjective(LO: learning_Objectives)
+                        }
+                        .onChange(of: searchText) { _ in
+                            filtered_Learning_Objectives2 = filterLearningObjective(LO: filtered_Learning_Objectives)
+                        }
                         
                         ZStack(alignment: .top) {
                             
@@ -222,18 +221,3 @@ struct SpecificChallengeView: View {
     }
     
 }
-
-//struct SpecificChallengeView_Previews: PreviewProvider {
-//
-//    static var previews: some View {
-//
-//            SpecificChallengeView(challenge: Challenge(name: "ASD",
-//                                    description: "wevnskduvbwkdeh",
-//                                    ID: "NS1",
-//                                    start_Date: "11/12",
-//                                    end_Date: "12/12",
-//                                    LO_IDs: ["BUS06"]),
-//                                    isViewSelected: .constant(false),
-//                                    filtered_Learning_Objectives: [])
-//    }
-//}

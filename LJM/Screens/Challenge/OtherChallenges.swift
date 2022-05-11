@@ -43,7 +43,6 @@ struct OtherChallenges: View {
                 }
                 .padding(.top, 19)
                 .padding(.bottom, 50)
-    //            .frame(width: 400)
                 .padding(.leading, 27)
                 
                 Spacer()
@@ -57,7 +56,6 @@ struct OtherChallenges: View {
                                 .scaledToFill()
                                 .edgesIgnoringSafeArea(.all)
                                 .clipped()
-//                                .frame(width: geometry.size.width,height:geometry.size.height, alignment:.leading)
                                 .offset(y: -50)
                             
                             Image(challenge.ID)
@@ -67,18 +65,15 @@ struct OtherChallenges: View {
                                 .clipped()
                                 .offset(y: -50)
                                 .blur(radius: 5, opaque: false)
-//        //
+                            
                             Color.init(red: 60/255, green: 60/255, blue: 67/255)
                                 .opacity(0.3)
                                 .frame(width: geometry.size.width/2.5,alignment:.leading)
                             
                         }
                     }
-                    
                 }
-                
             )
-            
             
             Color.red.opacity(0.00001)
                 .onTapGesture {
@@ -86,28 +81,7 @@ struct OtherChallenges: View {
                     selectedChallenge = challenge
                 }
         }
-        
-
-        
-//        .background(Color.red)
-        
         .cornerRadius(9)
         
     }
 }
-
-//struct OtherChallenges_Previews: PreviewProvider {
-//
-//    static var previews: some View {
-//        let tempChallenge = Challenge(name: "ASD",
-//                                      ID: "NS1",
-//                                      start_Date: "11/12",
-//                                      end_Date: "12/12")
-//        HStack(spacing: 20){
-////            OtherChallenges(challenge: tempChallenge)
-////            OtherChallenges(challenge: tempChallenge)
-//        }
-//        .padding(.horizontal, 50)
-//
-//    }
-//}

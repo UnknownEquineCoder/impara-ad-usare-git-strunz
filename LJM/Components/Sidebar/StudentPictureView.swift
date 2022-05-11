@@ -56,7 +56,6 @@ struct StudentPictureView: View {
     @State var imageName: String = "UserPlaceholder"
     @State var imageData : Data?
     @State var username : String = "Name"
-    let shared = singleton_Shared.shared
     
     var profileImage: Image {
         get {
@@ -141,7 +140,7 @@ struct StudentPictureView: View {
                 }
                 
             }
-    }
+        }
     }
 }
 

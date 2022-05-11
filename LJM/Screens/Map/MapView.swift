@@ -12,32 +12,25 @@ struct MapView: View {
     @AppStorage("fullScreen") var fullScreen: Bool = FullScreenSettings.fullScreen
     
     @Binding var offset : CGFloat
-    
     @Binding var scrollTarget: Bool
+    @Binding var selectedFilters: Dictionary<String, Array<String>>
+    @Binding var toggleFilters: Bool
     
     @State private var searchText = ""
     @State private var selectedPath : String?
-    
-    @Binding var selectedFilters: Dictionary<String, Array<String>>
-    
-    @Environment(\.colorScheme) var colorScheme
-    
-    @ObservedObject var selectedSegmentView : SelectedSegmentView
-    
-    // new data flow
-    
-    @EnvironmentObject var learningPathStore: LearningPathStore
-    @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
-    @EnvironmentObject var strandsStore: StrandsStore
-    @EnvironmentObject var totalNumberLearningObjectivesStore : TotalNumberOfLearningObjectivesStore
-    
-    @Binding var toggleFilters: Bool
     
     // filtered learning objectives
     
     @State var filtered_Learning_Objectives : [learning_Objective] = []
     @State var filters : Dictionary<String, Array<String>> = [:]
     @State var filter_Text = ""
+    
+    @Environment(\.colorScheme) var colorScheme
+            
+    @EnvironmentObject var learningPathStore: LearningPathStore
+    @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
+    @EnvironmentObject var strandsStore: StrandsStore
+    @EnvironmentObject var totalNumberLearningObjectivesStore : TotalNumberOfLearningObjectivesStore
     
     var body: some View {
         ZStack{
@@ -61,6 +54,7 @@ struct MapView: View {
                             SearchBarExpandableJourney(txtSearchBar: $searchText)
                             
                             Spacer()
+                            
                             HStack{
                                 Text("Filters \(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == nil || getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count == 0 ? "" : "(\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count != 1 ? ("\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).count)") : "\(getNumberOfFilters(filters: filters.filter{$0.value != ["Any"] && $0.value != ["Name"]}).first ?? "")"))")")
                                     .font(.system(size: 20))
@@ -85,8 +79,6 @@ struct MapView: View {
                             .frame(height: toggleFilters ? .none : 0)
                             .clipped()
                             .padding(.top, toggleFilters ? 5 : 0)
-    //                        .animation(.easeOut)
-    //                        .transition(.slide)
                             .onAppear {
                                 selectedFilters = FiltersModel(viewType: .map, challenges: learningObjectiveStore.getChallenges().map({
                                     $0.ID
@@ -223,57 +215,5 @@ struct MapView: View {
         self.totalNumberLearningObjectivesStore.total = return_Learning_Objectives.count
         
         return return_Learning_Objectives
-    }
-    
-    //    func randomizeNewData(){
-    //
-    //        learningObjectiveStore.reset_Evaluated {
-    //            print("done")
-    //        }
-    //        let tempdate1 = Date.parse("2021-01-01")
-    //        let tempdate2 = Date.parse("2022-01-01")
-    //        let date1 = Calendar.current.date(bySettingHour: 0, minute: 1, second: 0, of: tempdate1)!
-    //        let date2 = Calendar.current.date(bySettingHour: 0, minute: 1, second: 0, of: tempdate2)!
-    //        for _ in Range(0...30) {
-    //            for LO_Index in learningObjectiveStore.learningObjectives.indices {
-    //                learningObjectiveStore.evaluate_Object(index: LO_Index, evaluation: Int.random(in: Range(1...5)), date: Date.randomBetween(start: date1, end: date2))
-    //            }
-    //        }
-    //    }
-}
-
-extension Date {
-    
-    static func randomBetween(start: String, end: String, format: String = "yyyy-MM-dd") -> String {
-        let date1 = Date.parse(start, format: format)
-        let date2 = Date.parse(end, format: format)
-        return Date.randomBetween(start: date1, end: date2).dateString(format)
-    }
-    
-    static func randomBetween(start: Date, end: Date) -> Date {
-        var date1 = start
-        var date2 = end
-        if date2 < date1 {
-            let temp = date1
-            date1 = date2
-            date2 = temp
-        }
-        let span = TimeInterval.random(in: date1.timeIntervalSinceNow...date2.timeIntervalSinceNow)
-        return Date(timeIntervalSinceNow: span)
-    }
-    
-    func dateString(_ format: String = "yyyy-MM-dd") -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = format
-        return dateFormatter.string(from: self)
-    }
-    
-    static func parse(_ string: String, format: String = "yyyy-MM-dd") -> Date {
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeZone = NSTimeZone.default
-        dateFormatter.dateFormat = format
-        
-        let date = dateFormatter.date(from: string)!
-        return date
     }
 }

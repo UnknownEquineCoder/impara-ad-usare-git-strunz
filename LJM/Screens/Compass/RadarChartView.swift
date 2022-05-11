@@ -6,8 +6,6 @@ struct GraphWithOverlay: View {
     @Binding var data_Back_Array : [CGFloat]
     @Binding var animation_Trigger : Bool
     
-    let shared : singleton_Shared = singleton_Shared()
-
     var body: some View {
         GeometryReader { geo in
             ZStack {
@@ -26,7 +24,6 @@ struct GraphWithOverlay: View {
                 .padding(.leading, 10)
             }
         }
-        //.frame(width: aSize * 1.2, height: aSize * 1.2)
     }
     
     func label(_ text: String) -> some View {
@@ -82,9 +79,6 @@ struct RadarChartPath: Shape {
         var path = Path()
         
         for (index, entry) in data.enumerated() {
-//            if(entry > 0){
-//                
-//            }
             switch index {
             case 0:
                 withAnimation {
@@ -206,22 +200,3 @@ extension Array where Element: Identifiable {
         }
     }
 }
-
-//extension Array where Element: LJMCodableData {
-//    mutating func updateAndRefresh(with value: Element, code: ()->()) {
-//        update(with: value)
-//        code()
-//    }
-//}
-
-//extension Array where Element == LearningObjective {
-//    mutating func updateAssessments(with assessment: Assessment, on objective: LearningObjective) {
-//
-//        var newObjective = objective
-//        newObjective.assessments?.append(assessment)
-//
-//        updateAndRefresh(with: objective) {
-//            #warning("Implement update")
-//        }
-//    }
-//}

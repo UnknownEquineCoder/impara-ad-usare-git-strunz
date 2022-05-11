@@ -18,7 +18,7 @@ extension EvaluatedObject{
     }
 }
 
-extension Student{
+extension Student {
     static func get_Student_Request() -> NSFetchRequest<Student>{
         let request : NSFetchRequest<Student> = Student.fetchRequest()
         

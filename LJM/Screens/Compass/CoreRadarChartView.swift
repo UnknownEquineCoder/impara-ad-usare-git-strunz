@@ -7,8 +7,6 @@ struct CoreRadarChartView: View {
     @Binding var data_Back_Array : [CGFloat]
     @Binding var animation_Trigger : Bool
     
-    let shared : singleton_Shared = singleton_Shared()
-
     var body: some View {
         GeometryReader { geo in
             ZStack {
@@ -26,7 +24,6 @@ struct CoreRadarChartView: View {
                 .padding(.leading, 10)
             }
         }
-        //.frame(width: aSize * 1.2, height: aSize * 1.2)
     }
     
     func label(_ text: String) -> some View {
@@ -82,9 +79,6 @@ struct CoreRadarChartPath: Shape {
         var path = Path()
         
         for (index, entry) in data.enumerated() {
-//            if(entry > 0){
-//
-//            }
             switch index {
             case 0:
                 withAnimation {

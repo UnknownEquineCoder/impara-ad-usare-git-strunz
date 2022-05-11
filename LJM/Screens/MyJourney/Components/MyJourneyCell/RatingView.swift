@@ -34,7 +34,6 @@ struct RatingView: View {
                 ForEach(1..<maximumRating + 1, id: \.self) { number in
                     CircleView(strandColor: strandColor, learningObj: learningObj, number: number, rating: rating)
                         .onTapGesture {
-                            //                            withAnimation {
                             self.rating = number
                             
                             // Add assessment
@@ -55,9 +54,7 @@ struct RatingView: View {
                             if learningObjectiveStore.isSavable {
                                 PersistenceController.shared.evalutate_Learning_Objective(l_Objective: self.learningObjectiveStore.learningObjectives[learningObjectiveIndex])
                             }
-                            //                            }
                         }
-//                        .help(setupTitleProgressRubric(value: number))
                         .frame(width: 30, height: 30, alignment: .center)
                 }
             }.zIndex(1)
@@ -132,21 +129,14 @@ struct CircleView: View {
             Text("")
                 .padding(.bottom, 30)
                 .popover(isPresented: $hovered) {
-                                    PopOverViewRating(strandColor: strandColor, status: setupTitleProgressRubric(value: number), desc: setupDescProgressOnRubric(value: number))
-                                }
-//                .popover(isPresented: $hovered) {
-            
-//                .makePopover(show: $showingPopup) {
-//                    PopOverViewRating(strandColor: strandColor, status: setupTitleProgressRubric(value: number), desc: setupDescProgressOnRubric(value: number))
-//                }
-//                .zIndex(1)
+                    PopOverViewRating(strandColor: strandColor, status: setupTitleProgressRubric(value: number), desc: setupDescProgressOnRubric(value: number))
+                }
             
             Circle()
                 .strokeBorder(number > rating ? (hovered ? Color.defaultColor : Color.circleStrokeColor) : Color.clear, lineWidth: 2)
                 .background(Circle().foregroundColor(number > rating ? Color.cellBackgroundColor : strandColor))
                 .frame(width: 30, height: 30)
                 .onHover { hover in
-//                    self.hovered = hover
                     if hover {
                         isHover = true
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -222,26 +212,5 @@ struct PopOverViewRating: View {
                 .multilineTextAlignment(.leading)
         }
         .frame(width: 160, height: 80, alignment: .center).padding()
-    }
-}
-
-struct TooltipText: View {
-    @State private var isActive = false
-    
-    let text: String
-    let helpText: String
-    var body: some View {
-        Text(isActive ? helpText : text)
-            .padding( isActive ? 6 : 0)
-            .background(Color.white)
-            .overlay(
-                RoundedRectangle(cornerRadius: 3)
-                    .stroke(Color.blue, lineWidth: isActive  ? 1 : 0)
-            )
-            .animation(.easeOut(duration: 0.2) )
-            .gesture(DragGesture(minimumDistance: 0)
-                        .onChanged( { _ in isActive = true } )
-                        .onEnded( { _ in isActive = false } )
-            )
     }
 }

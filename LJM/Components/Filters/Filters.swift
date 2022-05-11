@@ -55,7 +55,7 @@ struct Filters: View {
                     
                     // Filter section title
                     Text(kind).foregroundColor(.gray)
-//                    Divider()
+
                     ForEach(model.getTypesByKind(kind: kind), id: \.self) { filter in
                        
                         // Single filter row

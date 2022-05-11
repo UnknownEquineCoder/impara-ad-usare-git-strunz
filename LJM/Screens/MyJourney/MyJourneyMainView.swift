@@ -15,13 +15,11 @@ struct MyJourneyMainView: View {
     @State private var selectedFilters: Dictionary<String, Array<String>> = [:]
     
     @Environment(\.colorScheme) var colorScheme
-        
-    @Binding var selectedMenu: OutlineMenu
-    
+            
     var body: some View {
         
         ZStack(alignment: .top) {
-            MyJourneyView(offset: $offset, scrollTarget: $scrollTarget, selectedFilters: $selectedFilters, selectedMenu: $selectedMenu, toggleFilters: $toggleFilters)
+            MyJourneyView(offset: $offset, scrollTarget: $scrollTarget, selectedFilters: $selectedFilters, toggleFilters: $toggleFilters)
                 .modifier(PaddingMainSubViews())
             
             if(toggleFilters ? offset > 475 : offset > 200) {

@@ -16,8 +16,8 @@ struct DescriptionTitleScreenView: View {
             .font(.body)
             .foregroundColor(Color.customDarkGrey)
             .padding(.trailing, 90)
+        
         Divider()
-//        Rectangle().frame(height: 1).foregroundColor(Color.customLightGrey)
     }
 }
 

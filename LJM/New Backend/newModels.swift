@@ -8,7 +8,6 @@
 import Foundation
 import SwiftUI
 
-
 struct learning_Objective : Equatable, Codable {
     
     /** Primary Key */
@@ -123,32 +122,6 @@ struct CD_Evaluated_Object : Equatable {
     var eval_Score : [Int]
 }
 
-enum CoreEnum: String {
-    case core = "Core"
-    case elective = "Elective"
-    case evaluated = "Evaluated"
-    case all = "All"
-    case nothing = "nil"
-}
-
-enum EvaluatedOrNotEnum {
-    case evaluated
-    case notEvaluated
-    case all
-}
-
-enum SortEnum: String {
-    case first_Assest = "First assested"
-    case last_Assest = "Last assested"
-    case mostEvalFirst = "Most Evaluated First"
-    case leastEvalFirst = "Least Evaluated First"
-}
-
-enum MapEnum: String {
-    case full = "ALL"
-    case communal = "CORE"
-}
-
 struct learning_Path: Hashable {
     var title : String
    
@@ -160,7 +133,6 @@ struct learning_Path: Hashable {
         self.title = title
     }
 }
-
 
 struct Challenge {
     let name : String

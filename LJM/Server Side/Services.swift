@@ -7,8 +7,8 @@
 
 import Foundation
 
-class Services{
-    let Endpoint = "http://www.FuckingTony.com"
+class Services {
+    let Endpoint = ""
     
     func learning_Objectives_To_Server(learning_Objectives : [learning_Objective]) -> [Learning_Objective_Server] {
         var result : [Learning_Objective_Server] = []

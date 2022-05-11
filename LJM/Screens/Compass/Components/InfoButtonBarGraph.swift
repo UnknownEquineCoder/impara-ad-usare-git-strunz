@@ -10,7 +10,7 @@ import SwiftUI
 struct InfoButtonBarGraph: View {
     @State private var showPopover = false
     @State private var hoveredInfoButton = false
-
+    
     var title: String = "Titolo"
     var textBody: String = "Body"
     var heightCell: CGFloat

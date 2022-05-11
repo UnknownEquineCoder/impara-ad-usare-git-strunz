@@ -127,7 +127,7 @@ struct LearningGoalsView: View {
             .padding(.top, fullScreen == true ? 60 : 20)
             
             
-            VStack{
+            VStack {
                 TopbarWithBack(title: $titleView, filters: selectedFilters, scrollTarget: $isForceScrollUp, toggleFilters: $toggleFilters, isFilterShown: $isFilterShown, isViewSelected: .constant(false))
                 
                 Spacer()

@@ -20,8 +20,6 @@ class AirTableManager {
         request.setValue("application/json", forHTTPHeaderField: "application/json")
         request.httpMethod = "POST"
     }
-    
-    
 }
 
 class AirtableManager {

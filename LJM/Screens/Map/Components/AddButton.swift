@@ -12,7 +12,6 @@ import Combine
 struct AddButton: View {
     
     var strandColor: Color
-
     var learningObjectiveSelected: learning_Objective
     
     @State var hovered = false
@@ -24,7 +23,6 @@ struct AddButton: View {
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     
     var buttonSize: CGFloat
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State private var didTap: Bool = false
     @State private var counter: Int = 5 {
         didSet {
@@ -37,12 +35,12 @@ struct AddButton: View {
     var body: some View {
         VStack {
             
-            CountDownWrapper<AddLabelView>()
+            AddLabelView(isShown: $didTap)
                 .opacity(didTap ? 1 : 0)
             
             Button(action: {
                 self.didTap.toggle()
-            }){
+            }) {
                 ZStack {
                     Text("")
                         .padding(.bottom, 30)
@@ -70,7 +68,7 @@ struct AddButton: View {
                                     learningObjectiveStore.evaluate_Object(index: learningObjectiveIndex, evaluation: 1, date: new_Date)
                                     
                                     self.rating = 1
-
+                                    
                                     self.didTap.toggle()
                                 }
                         } else {
@@ -92,7 +90,6 @@ struct AddButton: View {
                                             
                                         }
                                     }
-                                
                                     .alert("Are you sure you want to remove this Learning Objective ?", isPresented: $showingAlertImport) {
                                         Button("No", role: .cancel) {
                                             
@@ -112,13 +109,13 @@ struct AddButton: View {
                                     .foregroundColor(strandColor)
                                     .onTapGesture {
                                         // remove item from the learning objective list
-
+                                        
                                         learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
                                         
                                         didTap = false
                                     }
-                                
-                            }                        }
+                            }
+                        }
                     } else {
                         let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObjectiveSelected.ID})!
                         
@@ -161,7 +158,6 @@ struct AddButton: View {
                                 .foregroundColor(strandColor)
                                 .onTapGesture {
                                     // remove item from the learning objective list
-
                                     learningObjectiveStore.remove_Evaluation(index: learningObjectiveIndex)
                                     
                                     didTap = false
@@ -176,31 +172,25 @@ struct AddButton: View {
     }
 }
 
-struct AddLabelView: Vanishable {
-    @ObservedObject var counter: Counter
+struct AddLabelView : View{
+    
+    @State var value: Int = 5
+    @Binding var isShown : Bool
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     var body: some View{
         Text("Added to Journey!")
             .foregroundColor(Color.accentColor)
-    }
-}
-
-struct UndoView: Vanishable {
-    @ObservedObject var counter: Counter
-    
-    var body: some View {
-        HStack {
-            Text("\(counter.value)")
-                .foregroundColor(Color.accentColor)
-                .frame(width: 16, height: 16)
-                .overlay(Circle().stroke().foregroundColor(Color.gray))
-            Button {
+            .onReceive(timer) { _ in
+                if isShown {
+                    if (value > 0) {
+                        value -= 1
+                    } else {
+                        isShown = false
+                        value = 5
+                    }
+                }
                 
-            } label: {
-                Text("Undo")
-                    .foregroundColor(.red)
-            }.buttonStyle(PlainButtonStyle())
-        }
+            }
     }
 }
-

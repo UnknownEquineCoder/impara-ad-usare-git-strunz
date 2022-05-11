@@ -27,7 +27,7 @@ struct InfoButton: View {
                 hoveredInfoButton = hovered
             }
             .popover(isPresented: $showPopover, arrowEdge: .trailing, content: {
-                VStack{
+                VStack {
                     Text(textBody)
                         .fontWeight(.light)
                         .font(.body)
@@ -37,39 +37,4 @@ struct InfoButton: View {
                 .padding()
             })
     }
-}
-
-struct CustomButtonStyle: ButtonStyle {
-    
-    private struct CustomButtonStyleView<V: View>: View {
-        @State private var isOverButton = false
-        
-        let content: () -> V
-        
-        var body: some View {
-            content()
-                .onHover { over in
-                    self.isOverButton = over
-                }
-                .overlay(VStack {
-                    if self.isOverButton {
-                        Image(systemName: "info.circle.fill").resizable().frame(width: 17.toScreenSize(), height: 17.toScreenSize())
-                            .foregroundColor(Color(red: 165/255, green: 165/255, blue: 165/255))
-                    } else {
-                        EmptyView()
-                    }
-                })
-        }
-    }
-    
-    func makeBody(configuration: Self.Configuration) -> some View {
-        CustomButtonStyleView { configuration.label }
-    }
-    
-    struct InfoButton_Previews: PreviewProvider {
-        static var previews: some View {
-            InfoButton(heightCell: 300)
-        }
-    }
-    
 }

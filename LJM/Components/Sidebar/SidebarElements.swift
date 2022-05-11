@@ -63,7 +63,6 @@ struct OutlineRow : View {
                     .font(.body)
                     .foregroundColor( isSelected ? .white : colorScheme == .dark ? .white : .black )
                     .padding(.leading, -1)
-//                    .font(.system(size: 13, weight: .regular ))
                 Spacer()
             }
         }

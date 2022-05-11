@@ -38,7 +38,6 @@ struct CompassView: View {
     
     let graph_Minimum_Dimension : CGFloat = 2
     
-    
     // This will be arrays for bars graphs
     let fake_Strands = ["App Business and Marketing","Process","Professional Skills","Technical","Design"]
     
@@ -93,7 +92,6 @@ struct CompassView: View {
                     
                     show_Graphs = true
                 })
-                
                 .background(
                     GeometryReader {
                         Color.clear.preference(key: ViewOffsetKey2.self,
@@ -109,51 +107,51 @@ struct CompassView: View {
                 if learningObjectiveStore.getChallenges().count > 0 {
                     ChallengeChanger(selectedIndex: $selectedChallengeIndex,
                                      challenges: learningObjectiveStore.getChallenges())
-    //                DatePickerView(pickerDate: $selected_Date)
-                        .environment(\.locale, Locale(identifier: "en"))
-                        .padding(.top, 7.toScreenSize())
-                        .onChange(of: selectedChallengeIndex) { newIndex in
-                            
-                            // take the last date of the challenge
-                            if let newDate = getEndDate(challenge: learningObjectiveStore.getChallenges()[newIndex]) {
-                                // check if i have selected the last challenge aviable
-                                if newIndex == learningObjectiveStore.getChallenges().count - 1 {
-                                    // check if we're in a date that is already passed from the end of the date ( basically if we're in the interlude )
-                                    if newDate < Date() {
-                                        // if we're inside the interlude extend the date of filtering for avoid to not show the changes done during the interlude
-                                        selected_Date = Date()
-                                        // force exit
-                                        return
-                                    }
+                    .environment(\.locale, Locale(identifier: "en"))
+                    .padding(.top, 7.toScreenSize())
+                    .onChange(of: selectedChallengeIndex) { newIndex in
+                        
+                        // take the last date of the challenge
+                        if let newDate = getEndDate(challenge: learningObjectiveStore.getChallenges()[newIndex]) {
+                            // check if i have selected the last challenge aviable
+                            if newIndex == learningObjectiveStore.getChallenges().count - 1 {
+                                // check if we're in a date that is already passed from the end of the date ( basically if we're in the interlude )
+                                if newDate < Date() {
+                                    // if we're inside the interlude extend the date of filtering for avoid to not show the changes done during the interlude
+                                    selected_Date = Date()
+                                    // force exit
+                                    return
                                 }
-                                // in case we're inside a challenge and not into an interlude
-                                selected_Date = newDate
                             }
-                            
-                            bars_For_Path_Selected()
-                            dark_Path_Datas()
-                            dark_Core_Datas()
+                            // in case we're inside a challenge and not into an interlude
+                            selected_Date = newDate
                         }
-                        .onAppear {
-                            if learningObjectiveStore.getChallenges().count - 1 >= 0 {
-                                selectedChallengeIndex = learningObjectiveStore.getChallenges().count - 1
-                            } else {
-                                selectedChallengeIndex = 0
-                            }
+                        
+                        bars_For_Path_Selected()
+                        dark_Path_Datas()
+                        dark_Core_Datas()
+                    }
+                    .onAppear {
+                        if learningObjectiveStore.getChallenges().count - 1 >= 0 {
+                            selectedChallengeIndex = learningObjectiveStore.getChallenges().count - 1
+                        } else {
+                            selectedChallengeIndex = 0
                         }
+                    }
                 }
                 
-                
-                HStack{
+                HStack {
                     InfoButton(title: "Spider Graphs: ", textBody: "The Communal graph shows progress based on the pathway all the students at the Academy have to take, while the Your Journey graph shows progress based on the specific pathway you decide to take, along with the Communal one.\n\nDepending on the Communal Expectation, the “Expectation” overlay shows you the basic progress level the Academy would like you to reach; “Your Progress”, instead, shows you the progress related to the path you decided to take.", heightCell: 241).cursor(.pointingHand)
                     
                     Spacer()
-                    //                            SliderView()
+                    
                     Spacer()
                 }
                 
                 HStack {
+                    
                     Spacer()
+                    
                     VStack{
                         CoreRadarChartView(data_Front_Array: $data_Front_Array, data_Back_Array: $data_Back_Array, animation_Trigger: $animation_Trigger_Communal)
                             .frame(width: (NSScreen.screenWidth ?? 1200) / 3.8, height: (NSScreen.screenWidth ?? 1200) / 3.8)
@@ -181,9 +179,10 @@ struct CompassView: View {
                     }
                     
                     Spacer()
+                    
                     Spacer()
                     
-                    VStack{
+                    VStack {
                         GraphWithOverlay(data_Front_Array: $data_Path_Front_Array, data_Back_Array: $data_Path_Back_Array, animation_Trigger: $animation_Trigger)
                             .frame(width: (NSScreen.screenWidth ?? 1200) / 3.8, height: (NSScreen.screenWidth ?? 1200) / 3.8)
                             .padding(.top, 25)
@@ -198,30 +197,28 @@ struct CompassView: View {
                             .font(.system(size: 25.toFontSize()))
                             .foregroundColor(colorScheme == .dark ? Color(red: 221/255, green: 221/255, blue: 221/255) : Color.black)
                         
-                            DropDownMenuCompass(selectedPath: $path)
-                                .onChange(of: path) { _ in
-                                    
-                                    DispatchQueue.main.asyncAfter(deadline: .now()) {
-                                        withAnimation(.linear(duration: 0.1)) {
-                                            animation_Trigger = false
-                                        }
-                                    }
-                                    
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                        green_Light_Path_Graph_Data()
-                                        dark_Path_Datas()
-                                        bars_For_Path_Selected()
-                                        bars_For_expectation()
-                                    }
-                                    
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                        withAnimation(.linear(duration: 0.1)) {
-                                            animation_Trigger = true
-                                        }
+                        DropDownMenuCompass(selectedPath: $path)
+                            .onChange(of: path) { _ in
+                                
+                                DispatchQueue.main.asyncAfter(deadline: .now()) {
+                                    withAnimation(.linear(duration: 0.1)) {
+                                        animation_Trigger = false
                                     }
                                 }
-                        
-                        
+                                
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                    green_Light_Path_Graph_Data()
+                                    dark_Path_Datas()
+                                    bars_For_Path_Selected()
+                                    bars_For_expectation()
+                                }
+                                
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                    withAnimation(.linear(duration: 0.1)) {
+                                        animation_Trigger = true
+                                    }
+                                }
+                            }
                     }
                     Spacer()
                 }
@@ -236,6 +233,7 @@ struct CompassView: View {
                     
                     Spacer()
                 }
+                
                 Spacer()
                 
                 Group{
@@ -292,7 +290,7 @@ struct CompassView: View {
         }
         
         for learning_Objective in learning_Objectives {
-             
+            
             let data_Filtered_Index = closestMatch(values: learning_Objective.eval_date, inputValue: selected_Date)
             
             
@@ -374,7 +372,7 @@ struct CompassView: View {
         
     }
     
-    func bars_For_expectation(){
+    func bars_For_expectation() {
         
         expectation_Process_Progress = [5,5,5,5,5,5,5,5,5,5,5,5]
         expectation_Design_Progress = [5,5,5,5,5,5,5,5,5,5,5,5]
@@ -523,30 +521,6 @@ struct CompassView: View {
     
     func green_Light_Date() {
         data_Front_Array = [60,60,60,60,60]
-        
-        //        var data_Quantity = [0,0,0,0,0]
-        //
-        //        let filtered_Learning_Objective = learningObjectiveStore.learningObjectives.filter({$0.isCore})
-        //
-        //        for learning_Objective in filtered_Learning_Objective {
-        //
-        //            let temp_Strand_Index = fake_Strands.firstIndex(of: learning_Objective.strand) ?? 0
-        //
-        //            data_Front_Array[temp_Strand_Index] += CGFloat(learning_Objective.core_Rubric_Levels.first!)
-        //            data_Quantity[temp_Strand_Index] += 1
-        //
-        //        }
-        //
-        //        for index in 0...data_Quantity.count-1 {
-        //            if(data_Front_Array[index] > 0){
-        //                data_Front_Array[index] = (data_Front_Array[index] / CGFloat(data_Quantity[index])) * 20
-        //            }
-        //
-        //            if data_Front_Array[index] <= graph_Minimum_Dimension {
-        //                data_Front_Array[index] = graph_Minimum_Dimension
-        //            }
-        //        }
-        
     }
     
     func dark_Core_Datas() {

@@ -25,15 +25,13 @@ struct StartView: View {
     @State var filter_Path = "None"
     
     @State private var showingAlertTest = false
-    
-    @State var testDataServer : User?
-    
+        
     func selectedView() -> AnyView {
         switch selectedMenu {
         case .compass:
             return AnyView(MainCompassView( filter_Path: $filter_Path))
         case .journey:
-            return AnyView(MyJourneyMainView(selectedMenu: $selectedMenu))
+            return AnyView(MyJourneyMainView())
         case .map:
             return AnyView(MapMainView())
         case .challenge:
@@ -43,23 +41,18 @@ struct StartView: View {
     
     @ViewBuilder
     var body: some View {
-        
         HSplitView {
-            ZStack{
+            ZStack {
                 Color.clear
                     .ignoresSafeArea()
                     .visualEffect(material: .sidebar)
                     .padding(.top, -70)
-                    
+                
                 VStack(alignment: .leading, spacing: 0) {
                     ForEach(OutlineMenu.allCases) { menu in
-//                        ZStack(alignment: .leading) {
-                            
-                            OutlineRow(item: menu, selectedMenu: self.$selectedMenu)
-                                .frame(height: 28)
-                                .padding([.leading, .trailing], 4)
-//
-//                        }
+                        OutlineRow(item: menu, selectedMenu: self.$selectedMenu)
+                            .frame(height: 28)
+                            .padding([.leading, .trailing], 4)
                     }
                     
                     Spacer()
@@ -68,10 +61,6 @@ struct StartView: View {
                     StudentPictureView()
                         .padding(.trailing,-15)
                 }
-                
-               
-
-                
             }
             .padding(.top, fullScreen == true ? 70 : 20)
             .frame(width: 200)
@@ -79,11 +68,13 @@ struct StartView: View {
             if isLoading {
                 HStack{
                     Spacer()
-                    VStack{
+                    
+                    VStack {
                         Spacer()
                         Text("Loading...")
                         Spacer()
                     }
+                    
                     Spacer()
                 }
             } else {
@@ -97,7 +88,6 @@ struct StartView: View {
             NSApp.keyWindow?.makeFirstResponder(nil)
         }
         .onAppear(perform: {
-            
             isLoading = true
             learningObjectiveStore.load_Test_Data() {
                 DispatchQueue.main.async {
@@ -110,12 +100,6 @@ struct StartView: View {
             }
         })
     }
-}
-
-struct User : Codable {
-    let _id: String
-    let email: String
-    let username: String
 }
 
 extension View {
@@ -143,10 +127,10 @@ struct VisualEffectBackground: NSViewRepresentable {
         material: NSVisualEffectView.Material,
         blendingMode: NSVisualEffectView.BlendingMode,
         emphasized: Bool) {
-        self.material = material
-        self.blendingMode = blendingMode
-        self.isEmphasized = emphasized
-    }
+            self.material = material
+            self.blendingMode = blendingMode
+            self.isEmphasized = emphasized
+        }
     
     func makeNSView(context: Context) -> NSVisualEffectView {
         let view = NSVisualEffectView()

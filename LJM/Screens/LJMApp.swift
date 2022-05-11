@@ -28,9 +28,7 @@ struct LJMApp: App {
         return dateFormatter
     }()
     
-    //    let srtType = UTType(exportedAs: "com.company.srt-document", conformingTo: .commaSeparatedText)
     let srtType = UTType("com.exemple.LearningJourneyManager")!
-    let semaphore = DispatchSemaphore(value: 1)
     let dispatchGroup = DispatchGroup()
     
     var body: some Scene {
@@ -117,7 +115,7 @@ struct LJMApp: App {
                                             print(error)
                                             return
                                         }
-
+                                        
                                         // dividing the file in rows
                                         var rows_Learning_Objectives = data_Learning_Objectives.components(separatedBy: "\n")
                                         
@@ -184,42 +182,40 @@ struct LJMApp: App {
                     }
                 }
             }
-            
         }
         .windowStyle(.hiddenTitleBar)
         .windowStyle(HiddenTitleBarWindowStyle())
         .handlesExternalEvents(matching: Set(arrayLiteral: "*"))
-            .commands(content: {
-                CommandGroup(after: .importExport, addition: {
+        .commands(content: {
+            CommandGroup(after: .importExport, addition: {
+                
+                // to import files
+                Button(action: {
+                    isSavable = true
+                    importFile.toggle()
+                }) {
+                    Text("Import File")
+                }
+                
+                Button {
+                    isSavable = false
+                    importFile.toggle()
+                } label: {
+                    Text("Import File (Read Only)")
+                }
+                
+                // to export files
+                Button(action: {
                     
-                    // to import files
-                    Button(action: {
-                        isSavable = true
-                        importFile.toggle()
-                    }) {
-                        Text("Import File")
-                    }
+                    document.message = createExportDate()
                     
-                    Button {
-                        isSavable = false
-                        importFile.toggle()
-                    } label: {
-                        Text("Import File (Read Only)")
-                    }
+                    exportFile = true
                     
-                    
-                    // to export files
-                    Button(action: {
-                        
-                        document.message = createExportDate()
-                        
-                        exportFile = true
-                        
-                    }) {
-                        Text("Export File")
-                    }
-                })
+                }) {
+                    Text("Export File")
+                }
             })
+        })
     }
     
     func createExportDate() -> String {
@@ -249,40 +245,19 @@ struct LJMApp: App {
         return data_To_Save
         
     }
-    
-}
-
-struct Doc : FileDocument {
-    var url : String
-    
-    static var readableContentTypes: [UTType]{[.plainText]}
-    
-    init(url : String) {
-        self.url = url
-    }
-    
-    init(configuration: ReadConfiguration) throws {
-        url = ""
-    }
-    
-    func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
-        let file = try FileWrapper(url: URL(fileURLWithPath: url), options: .immediate)
-        
-        return file
-    }
 }
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     
     @AppStorage("fullScreen") var fullScreen: Bool = FullScreenSettings.fullScreen
-        
+    
     func applicationDidFinishLaunching(_ notification: Notification) {
         let _ = NSApplication.shared.windows.map { $0.tabbingMode = .disallowed }
         
         NotificationCenter.default.addObserver(forName: NSWindow.willEnterFullScreenNotification, object: nil, queue: OperationQueue.main, using: { note in
             self.fullScreen = true
         })
-
+        
         NotificationCenter.default.addObserver(forName: NSWindow.willExitFullScreenNotification, object: nil, queue: OperationQueue.main, using: { note in
             self.fullScreen = false
         })

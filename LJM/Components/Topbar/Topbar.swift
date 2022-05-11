@@ -58,8 +58,6 @@ struct Topbar: View {
                     .background(.ultraThinMaterial)
                     .ignoresSafeArea()
                     
-                  //  Divider().background(Color.topBarLineColor)
-                    
                 }
             } else {
                 // Fallback on earlier versions

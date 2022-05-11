@@ -20,8 +20,7 @@ struct ChallengeMainView: View {
     @State var selectedChallenge : Challenge? = nil
     
     var body: some View {
-        ZStack{
-            
+        ZStack {
             if isViewSelected {
                 SpecificChallengeView(challenge: $selectedChallenge, isViewSelected: $isViewSelected, challenges: learningObjectiveStore.getChallenges(), filtered_Learning_Objectives: learningObjectiveStore.learningObjectives.filter({
                     if let challenge = selectedChallenge {
@@ -29,26 +28,15 @@ struct ChallengeMainView: View {
                     }
                     return false
                 }))
-                    
-                
             } else {
                 ChallengeView(offset: $offset, isViewSelected: $isViewSelected, selectedChallenge: $selectedChallenge)
                 if(offset > 400) {
                     Topbar(title: "Challenge", filters: selectedFilters, fromCompass: true, scrollTarget: $scrollTarget, toggleFilters: $toggleFilters)
                 }
             }
-                
         }
         .onChange(of: isViewSelected) { newValue in
-            if newValue {
-                
-            }
+            
         }
     }
 }
-
-//struct ChallengeMainView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ChallengeMainView()
-//    }
-//}

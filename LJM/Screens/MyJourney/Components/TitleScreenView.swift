@@ -13,9 +13,6 @@ struct TitleScreenView: View {
     var body: some View {
         Text(title)
             .font(.largeTitle)
-        
-//            .font(.system(size: 26, weight: .bold))
-//            .fontWeight(.semibold)
             .fontWeight(.bold)
             .foregroundColor(Color.customBlack)
             .frame(maxWidth: .infinity, alignment: .leading)

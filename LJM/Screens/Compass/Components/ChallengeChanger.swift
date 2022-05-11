@@ -38,8 +38,6 @@ struct ChallengeChanger: View {
                 .disabled(false)
             }
             
-            
-            
             Button(action: {
                 if challenges.count > 0 {
                     selectedIndex = challenges.count - 1
@@ -75,13 +73,12 @@ struct ChallengeChanger: View {
                 }
                 .disabled(false)
             }
-            
         }
     }
 }
-    
-    struct ChallengeChanger_Previews: PreviewProvider {
-        static var previews: some View {
-            ChallengeChanger(selectedIndex: .constant(0), challenges: [])
-        }
+
+struct ChallengeChanger_Previews: PreviewProvider {
+    static var previews: some View {
+        ChallengeChanger(selectedIndex: .constant(0), challenges: [])
     }
+}
