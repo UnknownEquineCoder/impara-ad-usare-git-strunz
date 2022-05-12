@@ -49,6 +49,7 @@ struct AddButton: View {
                         let learningObjectiveIndex = learningObjectiveStore.learningObjectives.firstIndex(where: {$0.ID == learningObjectiveSelected.ID})!
                         
                         if didTap == false {
+                            
                             Image(systemName: "plus.circle")
                                 .resizable()
                                 .frame(width: 35, height: 35)

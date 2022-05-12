@@ -7,7 +7,7 @@ struct LearningObjectiveJourneyCell: View {
     
     @State var isAddable = false
     var learningPathSelected : String?
-
+    
     @State private var showingAlert = false
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
     
@@ -28,28 +28,25 @@ struct LearningObjectiveJourneyCell: View {
                         .padding([.top, .bottom], 20)
                     
                     VStack {
-                        
-                        if expand {
-                            if rating > 0 {
-                                Spacer()
-                            } else {
-                                Spacer().frame(height: 100)
-                            }
-                        } else {
+                        if rating > 0 && !isAddable {
                             Spacer()
-                        }
-                        
-                            if rating > 0 && !isAddable {
-                                RatingView(strandColor: setupColor( strand: learningObj.strand), learningObj: learningObj, rating: $rating, learningPathSelected: learningPathSelected)
-                                    .padding(.top, learningObj.description.count > 210 ? 20 : 0)
-                                    .padding(.trailing, 10)
-                                    
+                            
+                            RatingView(strandColor: setupColor( strand: learningObj.strand), learningObj: learningObj, rating: $rating, learningPathSelected: learningPathSelected)
+                                .padding(.top, learningObj.description.count > 210 ? 20 : 0)
+                                .padding(.trailing, 10)
+                            
+                        } else {
+                            if expand {
+                                Spacer().frame(height: 100)
                             } else {
-                                AddButton(strandColor: setupColor( strand: learningObj.strand), learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27)
-                                    .padding(.top, learningObj.description.count > 210 ? 20 : 0)
-                                    .padding(.trailing, 10)
-                                    .padding(.bottom, 20)
+                                Spacer()
                             }
+                            
+                            AddButton(strandColor: setupColor( strand: learningObj.strand), learningObjectiveSelected: learningObj, rating: $rating, buttonSize: 27)
+                                .padding(.top, learningObj.description.count > 210 ? 20 : 0)
+                                .padding(.trailing, 10)
+                                .padding(.bottom, 20)
+                        }
                         
                         Spacer().frame(width: 235)
                     }
@@ -138,7 +135,7 @@ struct LearningObjectiveJourneyCell: View {
                                         }
                                         ForEach(learningObj.eval_score.indices, id: \.self) { index in
                                             HistoryProgressView(rating: $rating, learning_Score: learningObj.eval_score[index], learning_Date: learningObj.eval_date[index], learning_ID: learningObj.ID, index: index)
-//
+                                            //
                                         }
                                     }
                                 }
@@ -155,7 +152,7 @@ struct LearningObjectiveJourneyCell: View {
                 VStack(alignment: .center, spacing: 5) {
                     
                     Spacer().frame(height: learningObj.Keyword.count > 13 ? 350 : 250)
-
+                    
                     Text(setupTitleProgressRubric(value: learningObj.eval_score.last ?? 0))
                         .font(.system(size: 14, weight: .medium))
                         .foregroundColor(setupColor( strand: learningObj.strand))
@@ -173,10 +170,10 @@ struct LearningObjectiveJourneyCell: View {
                         .frame(height: 50)
                 }
                 
-                    .frame(width: 260, height: 100, alignment: .center)
-                    .isHidden(self.isAddable ? true : false)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
-                    .isHidden(self.expand ? false : true)
+                .frame(width: 260, height: 100, alignment: .center)
+                .isHidden(self.isAddable ? true : false)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+                .isHidden(self.expand ? false : true)
                 
                 Image(systemName: self.expand ? "chevron.up" : "chevron.down")
                     .font(.system(size: 20, weight: .bold))
