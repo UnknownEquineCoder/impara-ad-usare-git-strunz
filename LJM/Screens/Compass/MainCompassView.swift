@@ -19,6 +19,8 @@ struct MainCompassView: View {
     
     @State private var showingAlert = false
     
+    let arr = [1,2,3,4,5]
+    
     var body: some View {
         ZStack{
             CompassView(path: $filter_Path, currentSubviewLabel: $currentSubviewLabel)
@@ -81,7 +83,8 @@ struct MainCompassView: View {
         
         if date == nil {
             // First time user open the app => creating date
-            return true
+            UserDefaults.standard.set(Date(), forKey: userDefaultsKey)
+            return false
         }
         
         // Checking if is elapsed one month since last data upload
