@@ -11,7 +11,7 @@ struct MainCompassView: View {
     @State var currentSubviewLabel : String? = ""
     @Binding var filter_Path : String
     @State var filter_Selected : String?
-    let userDefaultsKey = "checkForUploadUserData5"
+    let userDefaultsKey = "checkForUploadUserData7"
     let dictionary = ["key1":"value1"]
     
     @EnvironmentObject var learningObjectiveStore: LearningObjectivesStore
@@ -28,20 +28,17 @@ struct MainCompassView: View {
                 .opacity(currentSubviewLabel == "" ? 1 : 0.00001)
                 .onAppear(perform: {
                     DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 1) {
-                        if checkIfCanSend() {
+//                        if checkIfCanSend() {
 //                            let allowDataCollection = UserDefaults.standard.bool(forKey: dataCollectionKey)
 //                            if allowDataCollection {
-                                DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 1) {
-                                    if let peppe = sendToAirtable(){
-                                        AirtableManager.instance.checkForUploadUserData(peppe)
-                                    }
-                                    
+                                if let peppe = sendToAirtable(){
+                                    AirtableManager.instance.checkForUploadUserData(peppe)
                                 }
 //                            }
 //                            else {
 //                                showingAlert = true
 //                            }
-                        }
+//                        }
                     }
                 })
             if currentSubviewLabel != "" {

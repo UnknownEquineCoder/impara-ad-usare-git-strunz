@@ -11,8 +11,8 @@ import FoundationNetworking
 #endif
 
 class AirTableManager {
-    private let TOKEN = "keyvSDG29X6BEJH0B"
-    private let sendHere = "https://api.airtable.com/v0/appMpsQ2dMvlknrmM/Table%201"
+    private let TOKEN = "keyN55muBclzvZXAb"
+    private let sendHere = "https://api.airtable.com/v0/app26CHrOG4n8za36/LJM"
     
     func sendData(){
         let url = URL(string: sendHere)!
@@ -36,7 +36,7 @@ class AirtableManager {
     private let TOKEN = "keyatGjTlu9gc4VpK"
 
     // Test Airtable endpoint
-    private let sendHere = "https://api.airtable.com/v0/appFrwosc5cs9Y6Jx/LJM"
+    private let sendHere = "https://api.airtable.com/v0/app26CHrOG4n8za36/LJM"
     // Unknown Airtable endpoint
     //private let sendHere = "https://api.airtable.com/v0/applg11alQPTDJYOV/LJM"
     
@@ -65,7 +65,7 @@ class AirtableManager {
      */
     private func uploadUserData(_ data : Data) {
         
-        let userDefaultsKey = "checkForUploadUserData5"
+        let userDefaultsKey = "checkForUploadUserData7"
         
         do{
             var request = URLRequest(url: URL(string: sendHere)!,timeoutInterval: Double.infinity)
@@ -78,8 +78,8 @@ class AirtableManager {
             let encoder = JSONEncoder()
             let result = try encoder.encode(newStruct)
             request.httpBody = result
-            
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                
               guard let data = data else {
                 return
               }
@@ -94,6 +94,7 @@ class AirtableManager {
                 }
             }
             task.resume()
+            
         } catch {
             print("oh no")
         }
