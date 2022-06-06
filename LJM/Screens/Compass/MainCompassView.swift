@@ -80,7 +80,7 @@ struct MainCompassView: View {
             return false
         }
         
-        let twoWeeksInSeconds: Double = 1
+        let twoWeeksInSeconds: Double = 14 * 24 * 60 * 60
         let now = Date()
         
         // getting saved data from user defaults
