@@ -65,7 +65,7 @@ class AirtableManager {
      */
     private func uploadUserData(_ data : Data) {
         
-        let userDefaultsKey = "checkForUploadUserData4"
+        let userDefaultsKey = "checkForUploadUserData5"
         
         do{
             var request = URLRequest(url: URL(string: sendHere)!,timeoutInterval: Double.infinity)
