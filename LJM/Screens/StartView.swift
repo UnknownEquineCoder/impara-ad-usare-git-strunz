@@ -23,13 +23,14 @@ struct StartView: View {
     let blank = false
     @State var selectedMenu: OutlineMenu = .compass
     @State var filter_Path = "None"
+    @State var firstTimeOpen = false
     
     @State private var showingAlertTest = false
         
     func selectedView() -> AnyView {
         switch selectedMenu {
         case .compass:
-            return AnyView(MainCompassView( filter_Path: $filter_Path))
+            return AnyView(MainCompassView( filter_Path: $filter_Path, firstTimeOpen: $firstTimeOpen))
         case .journey:
             return AnyView(MyJourneyMainView())
         case .map:

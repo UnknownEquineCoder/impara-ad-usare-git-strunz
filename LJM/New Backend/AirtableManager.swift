@@ -88,6 +88,7 @@ class AirtableManager {
                         UserDefaults.standard.set(Date(), forKey: userDefaultsKey)
                     } else {
                         DispatchQueue.main.asyncAfter(deadline: .now()+40) {
+                            print("PROBLEMO")
                             self.uploadUserData(data)
                         }
                     }
