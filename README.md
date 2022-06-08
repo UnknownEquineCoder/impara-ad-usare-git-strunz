@@ -1,4 +1,4 @@
-- Learning journey manager
+- Learning Journey Manager
 - This is the Frontend and Backend repository for the Learning Journey Manager
 - Frontend & Backend
 - There are no relation of other parts of the project, the data agregation part is not directly correlated 
