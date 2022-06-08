@@ -1,0 +1,5 @@
+- Learning journey manager
+- This is the Front End repository for the learning journey manager
+- frontend
+- There are no relation of other parts of the project, the data agregation part is not directly correlated 
+- https://www.notion.so/appledeveloperacademyunina/Frontend-Documentation-a77e77b8b96141249fcf3ecc94705584
