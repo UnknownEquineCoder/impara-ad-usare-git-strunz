@@ -1,0 +1,20 @@
+# this is an aproximate version of a .gitignore file for the LJM Repository
+# In the absence of a former “ignore” file, some files with discussable relevance were pushed 
+# on the remote repository, such as the .xcodeproj folder with xcuserdata and xcshareddata 
+# that usually are avoided and put inside the gitignore. 
+#
+# On the same behaviour, a file named .DS_Store was present in multiple copies throughout the repositories.
+# This file is a potential risk for future Version Control Operations as, if not handled carefull, 
+# it would corrupt the local repository and is well know risk for security as through it, it's possible to 
+# retrieve the file system of the machines involved.
+#
+# To avoid this kind of problems, a preventive .gitignore file to ignore other occurences of .DS_Store
+# has been created. 
+
+## User Settings
+.DS_Store
+
+# Regarding other files that would fit inside this .gitignore file, I'm waiting for a meeting with the 
+# previous team, to analyze if these folders are necessary or not.
+# After that, this file will be updated with the usual template. 
+#
